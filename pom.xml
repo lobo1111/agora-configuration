@@ -28,26 +28,11 @@
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>
             <scope>provided</scope>
-        </dependency>
-        
+        </dependency>       
         <dependency>
             <groupId>com.kenai.crontab-parser</groupId>
             <artifactId>crontab-parser</artifactId>
             <version>1.0.1</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.example.mvnearplg</groupId>
-            <artifactId>ejb</artifactId>
-            <version>1.0</version>
-            <type>ejb</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.example.mvnearplg</groupId>
-            <artifactId>web</artifactId>
-            <version>1.0</version>
-            <type>war</type>
         </dependency>
     </dependencies>
 
@@ -98,27 +83,6 @@
                     </execution>
                 </executions>
             </plugin>
-               
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ear-plugin</artifactId>
-                <version>2.3.2</version>
-                <!-- configuring the ear plugin -->
-                <configuration>
-                    <modules>
-                        <webModule>
-                            <groupId>org.example.mvnearplg</groupId>
-                            <artifactId>web</artifactId>
-                        </webModule>
-                        <ejbModule>
-                            <groupId>org.example.mvnearplg</groupId>
-                            <artifactId>ejb</artifactId>
-                        </ejbModule>
-                    </modules>
-                </configuration>
-            </plugin>
-            
         </plugins>
     </build>
-
 </project>
