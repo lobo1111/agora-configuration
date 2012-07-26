@@ -97,6 +97,8 @@
                         <type>runtime</type>
                         <properties>
                             <cargo.hostname>localhost</cargo.hostname>
+                            <cargo.remote.username>admin</cargo.remote.username>
+                            <cargo.remote.password>toor.12</cargo.remote.password>
                         </properties>
                     </configuration> 
                 </configuration>
