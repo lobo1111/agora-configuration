@@ -5,7 +5,7 @@
     <groupId>pl.reaper</groupId>
     <artifactId>Container</artifactId>
     <version>0.1</version>
-    <packaging>ear</packaging>
+    <packaging>ejb</packaging>
 
     <name>Container</name>
 
