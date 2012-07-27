@@ -1,6 +1,6 @@
 package pl.reaper.container.beans;
 
-import javax.annotation.security.DenyAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 import javax.jws.WebService;
 
@@ -8,6 +8,6 @@ import javax.jws.WebService;
 @Local
 public interface TestBeanLocal {
 
-    @DenyAll
+    @RolesAllowed("administrators") 
     public String ping();
 }

@@ -1,6 +1,6 @@
 package pl.reaper.container.beans;
 
-import javax.annotation.security.DenyAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
@@ -8,7 +8,7 @@ import javax.jws.WebService;
 @Stateless
 public class TestBean implements TestBeanLocal {
 
-    @DenyAll
+    @RolesAllowed("administrators") 
     @Override
     public String ping() {
         return "pong";
