@@ -8,7 +8,10 @@
     <packaging>ejb</packaging>
 
     <name>Container</name>
-
+    <ciManagement>
+        <system>hudson</system>
+        <url>http://localhost:8585/job/Container/</url>
+    </ciManagement>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +37,17 @@
             <artifactId>crontab-parser</artifactId>
             <version>1.0.1</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython-standalone</artifactId>
+            <version>2.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

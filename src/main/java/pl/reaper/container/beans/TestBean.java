@@ -8,9 +8,15 @@ import javax.jws.WebService;
 @Stateless
 public class TestBean implements TestBeanLocal {
 
-    @RolesAllowed("administrators") 
+    @RolesAllowed("management")
     @Override
-    public String ping() {
+    public String openPing() {
+        return "pong";
+    }
+    
+    @RolesAllowed("management")
+    @Override
+    public String closePing() {
         return "pong";
     }
 }

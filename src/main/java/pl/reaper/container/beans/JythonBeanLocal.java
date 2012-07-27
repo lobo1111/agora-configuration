@@ -5,9 +5,8 @@ import javax.jws.WebService;
 
 @WebService
 @Local
-public interface TestBeanLocal {
+public interface JythonBeanLocal {
 
-    public String openPing();
+    public String executeScript(String script);
     
-    public String closePing();
 }
