@@ -30,11 +30,11 @@ public class JythonExecutorTest {
 
     @Test
     public void testExecuteScript() throws Exception {
-        System.out.println("executeScript");
-        String script = "output = 'test'";
-        JythonExecutor instance = new JythonExecutor();
+        System.out.println("simple jython test");
+        ScriptLoader scriptLoader = new ScriptLoaderSimpleImpl();
+        ScriptExecutor executor = new ScriptExecutor(scriptLoader);
         String expResult = "test";
-        String result = instance.executeScript(script);
+        String result = executor.prepareAndExecuteScript("simple");
         assertEquals(expResult, result);
     }
 }
