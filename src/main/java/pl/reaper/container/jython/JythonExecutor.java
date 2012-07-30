@@ -7,13 +7,15 @@ public class JythonExecutor {
 
     private ScriptEngine engine;
 
-    public JythonExecutor() {
+    public JythonExecutor() throws Exception {
         engine = new ScriptEngineManager().getEngineByName("python");
+        if(engine == null) {
+            throw new Exception("Python scripting engine not found !");
+        }
     }
 
     public String executeScript(String script) throws Exception {
-        engine.put("output", -1);
         engine.eval(script);
-        return (String) engine.get("output");
+        return String.valueOf(engine.get("output"));
     }
 }
