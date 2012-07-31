@@ -35,7 +35,7 @@ public class ScriptExecutor {
             }
             engine.eval(finalScript);
             return extractResult(engine);
-        } catch (ScriptEngineNotFound ex) {
+        } catch (ScriptEngineNotFoundException ex) {
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             return ex.getMessage();
         }
@@ -53,10 +53,10 @@ public class ScriptExecutor {
         }
     }
 
-    private ScriptEngine getEngine() throws ScriptEngineNotFound {
+    private ScriptEngine getEngine() throws ScriptEngineNotFoundException {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("python");
         if(engine == null) {
-            throw new ScriptEngineNotFound("Python engine not found");
+            throw new ScriptEngineNotFoundException("Python engine not found");
         }
         prepareEngine(engine);
         return engine;
