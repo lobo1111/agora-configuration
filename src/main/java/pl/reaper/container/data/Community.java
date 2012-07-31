@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
@@ -22,10 +18,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "community")
 @XmlRootElement
@@ -45,8 +37,8 @@ public class Community implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "communityId")
-    private Collection<Possession> possessionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
+    private Collection<Possession> possessions;
 
     public Community() {
     }
@@ -77,12 +69,12 @@ public class Community implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Possession> getPossessionCollection() {
-        return possessionCollection;
+    public Collection<Possession> getPossessions() {
+        return possessions;
     }
 
-    public void setPossessionCollection(Collection<Possession> possessionCollection) {
-        this.possessionCollection = possessionCollection;
+    public void setPossessions(Collection<Possession> possessions) {
+        this.possessions = possessions;
     }
 
     @Override

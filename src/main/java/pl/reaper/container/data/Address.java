@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
@@ -21,10 +17,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "address")
 @XmlRootElement
@@ -58,12 +50,12 @@ public class Address implements Serializable {
     @Size(max = 150)
     @Column(name = "city")
     private String city;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
-    private Collection<Person> personCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
-    private Collection<Possession> possessionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
-    private Collection<Company> companyCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
+    private Collection<Person> persons;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
+    private Collection<Possession> possessions;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "address")
+    private Collection<Company> companies;
 
     public Address() {
     }
@@ -121,30 +113,30 @@ public class Address implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Person> getPersonCollection() {
-        return personCollection;
+    public Collection<Person> getPersons() {
+        return persons;
     }
 
-    public void setPersonCollection(Collection<Person> personCollection) {
-        this.personCollection = personCollection;
-    }
-
-    @XmlTransient
-    public Collection<Possession> getPossessionCollection() {
-        return possessionCollection;
-    }
-
-    public void setPossessionCollection(Collection<Possession> possessionCollection) {
-        this.possessionCollection = possessionCollection;
+    public void setPersons(Collection<Person> persons) {
+        this.persons = persons;
     }
 
     @XmlTransient
-    public Collection<Company> getCompanyCollection() {
-        return companyCollection;
+    public Collection<Possession> getPossessions() {
+        return possessions;
     }
 
-    public void setCompanyCollection(Collection<Company> companyCollection) {
-        this.companyCollection = companyCollection;
+    public void setPossessions(Collection<Possession> possessions) {
+        this.possessions = possessions;
+    }
+
+    @XmlTransient
+    public Collection<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(Collection<Company> companies) {
+        this.companies = companies;
     }
 
     @Override

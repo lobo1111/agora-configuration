@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
@@ -20,10 +16,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "group")
 @XmlRootElement

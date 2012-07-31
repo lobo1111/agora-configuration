@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
@@ -25,10 +21,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "person")
 @XmlRootElement
@@ -79,11 +71,11 @@ public class Person implements Serializable {
     private String email;
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Address addressId;
-    @OneToMany(mappedBy = "personId")
-    private Collection<Owner> ownerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personId")
-    private Collection<User> userCollection;
+    private Address address;
+    @OneToMany(mappedBy = "person")
+    private Collection<Owner> owners;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+    private Collection<User> users;
 
     public Person() {
     }
@@ -163,30 +155,30 @@ public class Person implements Serializable {
         this.email = email;
     }
 
-    public Address getAddressId() {
-        return addressId;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressId(Address addressId) {
-        this.addressId = addressId;
-    }
-
-    @XmlTransient
-    public Collection<Owner> getOwnerCollection() {
-        return ownerCollection;
-    }
-
-    public void setOwnerCollection(Collection<Owner> ownerCollection) {
-        this.ownerCollection = ownerCollection;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
+    public Collection<Owner> getOwners() {
+        return owners;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setOwnerCollection(Collection<Owner> owners) {
+        this.owners = owners;
+    }
+
+    @XmlTransient
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 
     @Override

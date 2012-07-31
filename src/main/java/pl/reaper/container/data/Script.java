@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
@@ -25,10 +21,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "script")
 @XmlRootElement
@@ -59,10 +51,10 @@ public class Script implements Serializable {
     private String onInit;
     @Column(name = "base")
     private Boolean base;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idScript")
-    private Collection<ScriptScheduler> scriptSchedulerCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "script")
+    private Collection<ScriptScheduler> scriptSchedulers;
     @OneToMany(mappedBy = "parent")
-    private Collection<Script> scriptCollection;
+    private Collection<Script> dependentScripts;
     @JoinColumn(name = "parent", referencedColumnName = "id")
     @ManyToOne
     private Script parent;
@@ -120,21 +112,21 @@ public class Script implements Serializable {
     }
 
     @XmlTransient
-    public Collection<ScriptScheduler> getScriptSchedulerCollection() {
-        return scriptSchedulerCollection;
+    public Collection<ScriptScheduler> getScriptSchedulers() {
+        return scriptSchedulers;
     }
 
-    public void setScriptSchedulerCollection(Collection<ScriptScheduler> scriptSchedulerCollection) {
-        this.scriptSchedulerCollection = scriptSchedulerCollection;
+    public void setScriptSchedulers(Collection<ScriptScheduler> scriptSchedulers) {
+        this.scriptSchedulers = scriptSchedulers;
     }
 
     @XmlTransient
-    public Collection<Script> getScriptCollection() {
-        return scriptCollection;
+    public Collection<Script> getDependantScripts() {
+        return dependentScripts;
     }
 
-    public void setScriptCollection(Collection<Script> scriptCollection) {
-        this.scriptCollection = scriptCollection;
+    public void setDependantScripts(Collection<Script> dependentScripts) {
+        this.dependentScripts = dependentScripts;
     }
 
     public Script getParent() {

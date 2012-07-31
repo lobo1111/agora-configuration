@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,16 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "owner")
 @XmlRootElement
@@ -29,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Owner.findAll", query = "SELECT o FROM Owner o"),
     @NamedQuery(name = "Owner.findById", query = "SELECT o FROM Owner o WHERE o.id = :id")})
 public class Owner implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +33,13 @@ public class Owner implements Serializable {
     private Integer id;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne
-    private Company companyId;
+    private Company company;
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     @ManyToOne
-    private Person personId;
+    private Person person;
+    @ManyToMany
+    @JoinTable(name = "possession")
+    private Collection<Possession> possessions;
 
     public Owner() {
     }
@@ -57,20 +56,28 @@ public class Owner implements Serializable {
         this.id = id;
     }
 
-    public Company getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(Company companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
-    public Person getPersonId() {
-        return personId;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersonId(Person personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Collection<Possession> getPossessions() {
+        return possessions;
+    }
+
+    public void setPossessions(Collection<Possession> possessions) {
+        this.possessions = possessions;
     }
 
     @Override
@@ -97,5 +104,4 @@ public class Owner implements Serializable {
     public String toString() {
         return "pl.reaper.container.data.Owner[ id=" + id + " ]";
     }
-    
 }

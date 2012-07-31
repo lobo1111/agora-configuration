@@ -82,9 +82,9 @@ public class Company implements Serializable {
     private String name;
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Address addressId;
-    @OneToMany(mappedBy = "companyId")
-    private Collection<Owner> ownerCollection;
+    private Address address;
+    @OneToMany(mappedBy = "company")
+    private Collection<Owner> owners;
 
     public Company() {
     }
@@ -172,21 +172,21 @@ public class Company implements Serializable {
         this.name = name;
     }
 
-    public Address getAddressId() {
-        return addressId;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressId(Address addressId) {
-        this.addressId = addressId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @XmlTransient
-    public Collection<Owner> getOwnerCollection() {
-        return ownerCollection;
+    public Collection<Owner> getOwners() {
+        return owners;
     }
 
-    public void setOwnerCollection(Collection<Owner> ownerCollection) {
-        this.ownerCollection = ownerCollection;
+    public void setOwners(Collection<Owner> owners) {
+        this.owners = owners;
     }
 
     @Override

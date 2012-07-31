@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
@@ -13,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,10 +21,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "account")
 @XmlRootElement
@@ -36,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByName", query = "SELECT a FROM Account a WHERE a.name = :name"),
     @NamedQuery(name = "Account.findByNumber", query = "SELECT a FROM Account a WHERE a.number = :number")})
 public class Account implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,11 +47,14 @@ public class Account implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "number")
     private String number;
-    @OneToMany(mappedBy = "parrentAccountId")
-    private Collection<Account> accountCollection;
+    @OneToMany(mappedBy = "parrentAccount")
+    private Collection<Account> childAccounts;
     @JoinColumn(name = "parrent_account_id", referencedColumnName = "id")
     @ManyToOne
-    private Account parrentAccountId;
+    private Account parrentAccount;
+    @ManyToMany
+    @JoinTable(name = "possession")
+    private Collection<Possession> possessions;
 
     public Account() {
     }
@@ -96,20 +94,28 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Account> getAccountCollection() {
-        return accountCollection;
+    public Collection<Account> getChildAccounts() {
+        return childAccounts;
     }
 
-    public void setAccountCollection(Collection<Account> accountCollection) {
-        this.accountCollection = accountCollection;
+    public void setChildAccounts(Collection<Account> childAccounts) {
+        this.childAccounts = childAccounts;
     }
 
-    public Account getParrentAccountId() {
-        return parrentAccountId;
+    public Account getParrentAccount() {
+        return parrentAccount;
     }
 
-    public void setParrentAccountId(Account parrentAccountId) {
-        this.parrentAccountId = parrentAccountId;
+    public void setParrentAccount(Account parrentAccount) {
+        this.parrentAccount = parrentAccount;
+    }
+
+    public Collection<Possession> getPossessions() {
+        return possessions;
+    }
+
+    public void setPossessions(Collection<Possession> possessions) {
+        this.possessions = possessions;
     }
 
     @Override
@@ -136,5 +142,4 @@ public class Account implements Serializable {
     public String toString() {
         return "pl.reaper.container.data.Account[ id=" + id + " ]";
     }
-    
 }

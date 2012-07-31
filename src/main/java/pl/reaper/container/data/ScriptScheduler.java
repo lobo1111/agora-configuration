@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
@@ -21,10 +17,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "script_scheduler")
 @XmlRootElement
@@ -61,7 +53,7 @@ public class ScriptScheduler implements Serializable {
     private String schedule;
     @JoinColumn(name = "id_script", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Script idScript;
+    private Script script;
 
     public ScriptScheduler() {
     }
@@ -117,12 +109,12 @@ public class ScriptScheduler implements Serializable {
         this.schedule = schedule;
     }
 
-    public Script getIdScript() {
-        return idScript;
+    public Script getScript() {
+        return script;
     }
 
-    public void setIdScript(Script idScript) {
-        this.idScript = idScript;
+    public void setScript(Script script) {
+        this.script = script;
     }
 
     @Override

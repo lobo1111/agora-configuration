@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
@@ -24,10 +20,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "user")
 @XmlRootElement
@@ -54,10 +46,10 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<UserGroup> userGroupCollection;
+    private Collection<UserGroup> userGroups;
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Person personId;
+    private Person person;
 
     public User() {
     }
@@ -97,20 +89,20 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<UserGroup> getUserGroupCollection() {
-        return userGroupCollection;
+    public Collection<UserGroup> getUserGroups() {
+        return userGroups;
     }
 
-    public void setUserGroupCollection(Collection<UserGroup> userGroupCollection) {
-        this.userGroupCollection = userGroupCollection;
+    public void setUserGroups(Collection<UserGroup> userGroups) {
+        this.userGroups = userGroups;
     }
 
     public Person getPersonId() {
-        return personId;
+        return person;
     }
 
-    public void setPersonId(Person personId) {
-        this.personId = personId;
+    public void setPersonId(Person person) {
+        this.person = person;
     }
 
     @Override
