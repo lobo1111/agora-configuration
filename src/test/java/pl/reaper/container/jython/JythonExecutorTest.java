@@ -32,7 +32,7 @@ public class JythonExecutorTest {
     public void testExecuteScript() throws Exception {
         System.out.println("simple jython test");
         ScriptLoader scriptLoader = new ScriptLoaderSimpleImpl();
-        ScriptExecutor executor = new ScriptExecutor(scriptLoader);
+        ScriptExecutor executor = new ScriptExecutor(scriptLoader, null);
         String expResult = "test";
         String result = executor.prepareAndExecuteScript("simple");
         assertEquals(expResult, result);

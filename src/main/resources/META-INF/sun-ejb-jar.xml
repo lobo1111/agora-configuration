@@ -5,36 +5,26 @@
 <sun-ejb-jar>
     <enterprise-beans>
         <ejb>
-            <ejb-name>TestBean</ejb-name>
-            <webservice-endpoint>
-                <port-component-name>TestBean</port-component-name>
-                <login-config>
-                    <auth-method>BASIC</auth-method>
-                    <realm>default</realm>
-                </login-config>
-            </webservice-endpoint>               
-        </ejb>
-        <ejb>
             <ejb-name>JythonBean</ejb-name>
             <webservice-endpoint>
                 <port-component-name>JythonBean</port-component-name>
                 <login-config>
                     <auth-method>BASIC</auth-method>
-                    <realm>default</realm>
+                    <realm>agora</realm>
                 </login-config>
             </webservice-endpoint>               
         </ejb>
     </enterprise-beans>
     
     <sun-application>
-            <security-role-mapping>
+        <security-role-mapping>
             <role-name>management</role-name>
             <group-name>administrators</group-name>
         </security-role-mapping>
     </sun-application>
     
     <sun-application>
-            <security-role-mapping>
+        <security-role-mapping>
             <role-name>administrators</role-name>
             <group-name>administrators</group-name>
         </security-role-mapping>

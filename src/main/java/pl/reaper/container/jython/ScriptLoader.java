@@ -1,8 +1,9 @@
 package pl.reaper.container.jython;
 
 import java.util.List;
+import pl.reaper.container.data.Script;
 
 public interface ScriptLoader {
 
-    public void loadScriptChain(String name, List<Script> chain);
+    public List<Script> loadScriptChain(String name);
 }

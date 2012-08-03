@@ -151,7 +151,7 @@ public class Script implements Serializable {
             return false;
         }
         Script other = (Script) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (!this.name.equals(other.name)) {
             return false;
         }
         return true;
