@@ -38,10 +38,6 @@ public class ScriptScheduler implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "command")
-    private String command;
     @Basic(optional = false)
     @NotNull
     @Column(name = "enabled")
@@ -83,14 +79,6 @@ public class ScriptScheduler implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
     }
 
     public boolean getEnabled() {
