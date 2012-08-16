@@ -168,7 +168,7 @@ public class Person implements Serializable {
         return owners;
     }
 
-    public void setOwnerCollection(Collection<Owner> owners) {
+    public void setOwners(Collection<Owner> owners) {
         this.owners = owners;
     }
 

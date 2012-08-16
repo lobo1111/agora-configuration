@@ -11,4 +11,8 @@ public class Output {
     public void setResult(String result) {
         this.result = result;
     }
+    
+    public void appendResult(String result) {
+        this.result += result;
+    }
 }

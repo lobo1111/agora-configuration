@@ -36,10 +36,13 @@ public class ScriptExecutor {
         try {
             ScriptEngine engine = getEngine();
             for (Script script : scripts) {
+                Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Initializing script {0}...", script.getName());
                 finalScript += "\n" + script.getScript();
-                initScript(finalScript, script, engine);
+                engine.eval(finalScript);
+                Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script {0} initialized.", script.getName());
             }
-            engine.eval(finalScript);
+            Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Executing final script...");
+            engine.eval(finalScript + "\n" + scripts.get(scripts.size() - 1).getOnInit());
             return extractResult(engine);
         } catch (ScriptEngineNotFoundException | ScriptException ex) {
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.SEVERE, "Script content:\n[[" + finalScript + "]]", ex);
@@ -81,10 +84,5 @@ public class ScriptExecutor {
         } else {
             return "<no output>";
         }
-    }
-
-    private void initScript(String finalScript, Script script, ScriptEngine engine) throws ScriptException {
-        engine.eval(finalScript + "\n" + script.getOnInit());
-        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script {0} initialized.", script.getName());
     }
 }
