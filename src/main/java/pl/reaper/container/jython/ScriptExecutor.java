@@ -95,7 +95,7 @@ public class ScriptExecutor {
             String key = (String) varsIterator.next();
             String value = (String) variables.get(key);
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables set: {0}={1}", new Object[]{key, value});
-            engine.put(key, value);
+            engine.put("pre_" + key, value);
         }
     }
 }

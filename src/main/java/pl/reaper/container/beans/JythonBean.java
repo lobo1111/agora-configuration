@@ -21,14 +21,6 @@ public class JythonBean implements JythonBeanLocal {
     @PersistenceContext
     EntityManager entityManager;
 
-    @PermitAll
-    @Override
-    public String executeScript(String scriptName) {
-        return executeScript(scriptName, new HashMap<String ,String>());
-    }
-    
-    
-
     private ScriptLoader getLoader() {
         return new DBScriptLoader(entityManager);
     }

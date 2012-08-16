@@ -29,7 +29,7 @@ public class ScriptLoaderSimpleImpl implements ScriptLoader {
     private Script getVarsScript(String name) {
         Script simple = new Script();
         simple.setName(name);
-        simple.setScript("output.setResult(customVar)");
+        simple.setScript("output.setResult(pre_customVar)");
         simple.setOnInit("");
         return simple;
     }
