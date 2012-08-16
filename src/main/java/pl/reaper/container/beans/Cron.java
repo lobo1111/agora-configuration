@@ -3,6 +3,7 @@ package pl.reaper.container.beans;
 import com.kenai.crontabparser.CronTabExpression;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Schedule;
@@ -55,6 +56,6 @@ public class Cron implements CronLocal {
 
     private void executeScript(ScriptScheduler scriptScheduler) {
         ScriptExecutor executor = new ScriptExecutor(new DBScriptLoader(entityManager), entityManager);
-        executor.prepareAndExecuteScript(scriptScheduler.getScript().getName());
+        executor.prepareAndExecuteScript(scriptScheduler.getScript().getName(), new HashMap<String, String>());
     }
 }

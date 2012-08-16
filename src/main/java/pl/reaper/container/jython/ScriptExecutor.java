@@ -2,7 +2,9 @@ package pl.reaper.container.jython;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -31,10 +33,10 @@ public class ScriptExecutor {
         return initChain;
     }
 
-    private Object executeScripts(List<Script> scripts) {
+    private Object executeScripts(List<Script> scripts, Map variables) {
         String finalScript = "";
         try {
-            ScriptEngine engine = getEngine();
+            ScriptEngine engine = getEngine(variables);
             for (Script script : scripts) {
                 Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Initializing script {0}...", script.getName());
                 finalScript += "\n" + script.getScript();
@@ -50,10 +52,10 @@ public class ScriptExecutor {
         }
     }
 
-    public String prepareAndExecuteScript(String name) {
+    public String prepareAndExecuteScript(String name, Map variables) {
         try {
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Executing script: {0}", name);
-            String result = String.valueOf(executeScripts(loadScriptChain(name)));
+            String result = String.valueOf(executeScripts(loadScriptChain(name), variables));
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script executed, result: {0}", result);
             return result;
         } catch (ScriptEngineNotFoundException ex) {
@@ -62,19 +64,20 @@ public class ScriptExecutor {
         }
     }
 
-    private ScriptEngine getEngine() throws ScriptEngineNotFoundException {
+    private ScriptEngine getEngine(Map variables) throws ScriptEngineNotFoundException {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("python");
         if (engine == null) {
             throw new ScriptEngineNotFoundException("Python engine not found");
         }
-        prepareEngine(engine);
+        prepareEngine(engine, variables);
         return engine;
     }
 
-    private void prepareEngine(ScriptEngine engine) {
+    private void prepareEngine(ScriptEngine engine, Map variables) {
         engine.getContext().setWriter(new PrintWriter(System.out));
         engine.put("output", new Output());
         engine.put("entityManager", entityManager);
+        addVariables(variables, engine);
     }
 
     private Object extractResult(ScriptEngine engine) {
@@ -83,6 +86,16 @@ public class ScriptExecutor {
             return output.getResult();
         } else {
             return "<no output>";
+        }
+    }
+
+    private void addVariables(Map variables, ScriptEngine engine) {
+        Iterator varsIterator = variables.keySet().iterator();
+        while(varsIterator.hasNext()) {
+            String key = (String) varsIterator.next();
+            String value = (String) variables.get(key);
+            Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables set: {0}={1}", new Object[]{key, value});
+            engine.put(key, value);
         }
     }
 }

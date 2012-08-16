@@ -1,5 +1,7 @@
 package pl.reaper.container.jython;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -29,12 +31,22 @@ public class JythonExecutorTest {
     }
 
     @Test
-    public void testExecuteScript() throws Exception {
-        System.out.println("simple jython test");
+    public void jythonSimpleScript() throws Exception {
         ScriptLoader scriptLoader = new ScriptLoaderSimpleImpl();
         ScriptExecutor executor = new ScriptExecutor(scriptLoader, null);
         String expResult = "test";
-        String result = executor.prepareAndExecuteScript("simple");
+        String result = executor.prepareAndExecuteScript("simple", new HashMap<String, String>());
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void jythonVariables() throws Exception {
+        ScriptLoader scriptLoader = new ScriptLoaderSimpleImpl();
+        ScriptExecutor executor = new ScriptExecutor(scriptLoader, null);
+        String expResult = "customVarValue";
+        Map<String, String> customVars = new HashMap<>();
+        customVars.put("customVar", expResult);
+        String result = executor.prepareAndExecuteScript("vars", customVars);
         assertEquals(expResult, result);
     }
 }

@@ -10,8 +10,10 @@ public class ScriptLoaderSimpleImpl implements ScriptLoader {
     public List<Script> loadScriptChain(String name) {
         List<Script> chain = new ArrayList<>();
         if ("init".equals(name)) {
-        } else {
+        } else if("simple".equals(name)) {
             chain.add(getSimpleScript(name));
+        } else if("vars".equals(name)) {
+            chain.add(getVarsScript(name));
         }
         return chain;
     }
@@ -20,6 +22,14 @@ public class ScriptLoaderSimpleImpl implements ScriptLoader {
         Script simple = new Script();
         simple.setName(name);
         simple.setScript("output.setResult('test')");
+        simple.setOnInit("");
+        return simple;
+    }
+
+    private Script getVarsScript(String name) {
+        Script simple = new Script();
+        simple.setName(name);
+        simple.setScript("output.setResult(customVar)");
         simple.setOnInit("");
         return simple;
     }

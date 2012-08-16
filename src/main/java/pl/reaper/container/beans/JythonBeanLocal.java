@@ -1,5 +1,6 @@
 package pl.reaper.container.beans;
 
+import java.util.Map;
 import javax.ejb.Local;
 import javax.jws.WebService;
 
@@ -8,5 +9,7 @@ import javax.jws.WebService;
 public interface JythonBeanLocal {
 
     public String executeScript(String script);
+
+    public String executeScript(String scriptName, Map variables);
     
 }

@@ -1,5 +1,7 @@
 package pl.reaper.container.beans;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -22,12 +24,20 @@ public class JythonBean implements JythonBeanLocal {
     @PermitAll
     @Override
     public String executeScript(String scriptName) {
-        ScriptLoader loader = getLoader();
-        ScriptExecutor executor = new ScriptExecutor(loader, entityManager);
-        return executor.prepareAndExecuteScript(scriptName);
+        return executeScript(scriptName, new HashMap<String ,String>());
     }
+    
+    
 
     private ScriptLoader getLoader() {
         return new DBScriptLoader(entityManager);
+    }
+
+    @PermitAll
+    @Override
+    public String executeScript(String scriptName, Map variables) {
+        ScriptLoader loader = getLoader();
+        ScriptExecutor executor = new ScriptExecutor(loader, entityManager);
+        return executor.prepareAndExecuteScript(scriptName, variables);
     }
 }
