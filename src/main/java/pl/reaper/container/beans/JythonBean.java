@@ -30,7 +30,6 @@ public class JythonBean implements JythonBeanLocal {
         ScriptLoader loader = getLoader(entityManager);
         ScriptExecutor executor = new ScriptExecutor(loader, entityManager);
         String result = executor.prepareAndExecuteScript(scriptName, variables);
-        entityManager.close();
         return result;
     }
 }
