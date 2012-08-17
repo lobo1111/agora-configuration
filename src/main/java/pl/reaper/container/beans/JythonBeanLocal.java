@@ -2,7 +2,6 @@ package pl.reaper.container.beans;
 
 import java.util.Map;
 import javax.ejb.Local;
-import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 @WebService

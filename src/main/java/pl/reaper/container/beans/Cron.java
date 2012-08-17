@@ -19,12 +19,12 @@ import pl.reaper.container.data.ScriptScheduler;
 public class Cron implements CronLocal {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    EntityManager entityManager;
     @EJB
     JythonBeanLocal jythonBean;
 
     @Schedule(minute = "*", second = "0", dayOfMonth = "*", month = "*", year = "*", hour = "*", dayOfWeek = "*")
-    public void myTimer() {
+    public void cronTimer() {
         Logger.getLogger(Cron.class.getName()).log(Level.INFO, "Timer fired, checking script scheduler...");
         ScrollableCursor cursor = loadScripts();
         while (cursor.hasMoreElements()) {
@@ -33,6 +33,7 @@ public class Cron implements CronLocal {
                 executeScript(scriptScheduler);
             }
         }
+        cursor.close();
         Logger.getLogger(Cron.class.getName()).log(Level.INFO, "Timer fired, all scripts checked.");
     }
 
@@ -56,6 +57,6 @@ public class Cron implements CronLocal {
     }
 
     private void executeScript(ScriptScheduler scriptScheduler) {
-       jythonBean.executeScript(scriptScheduler.getScript().getName(), new HashMap<String, String>());
+        jythonBean.executeScript(scriptScheduler.getScript().getName(), new HashMap<String, String>());
     }
 }

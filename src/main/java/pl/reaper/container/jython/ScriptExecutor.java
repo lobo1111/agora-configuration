@@ -35,8 +35,10 @@ public class ScriptExecutor {
 
     private Object executeScripts(List<Script> scripts, Map variables) {
         String finalScript = "";
+        ScriptEngine engine = null;
+        Object result = null;
         try {
-            ScriptEngine engine = getEngine(variables);
+            engine = getEngine(variables);
             for (Script script : scripts) {
                 Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Initializing script {0}...", script.getName());
                 finalScript += "\n" + script.getScript();
@@ -45,11 +47,12 @@ public class ScriptExecutor {
             }
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Executing final script...");
             engine.eval(finalScript + "\n" + scripts.get(scripts.size() - 1).getOnInit());
-            return extractResult(engine);
+            result = extractResult(engine);
         } catch (ScriptEngineNotFoundException | ScriptException ex) {
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.SEVERE, "Script content:\n[[" + finalScript + "]]", ex);
-            return ex.getMessage();
+            result = ex.getMessage();
         }
+        return result;
     }
 
     public String prepareAndExecuteScript(String name, Map variables) {
@@ -91,11 +94,12 @@ public class ScriptExecutor {
 
     private void addVariables(Map variables, ScriptEngine engine) {
         Iterator varsIterator = variables.keySet().iterator();
-        while(varsIterator.hasNext()) {
+        while (varsIterator.hasNext()) {
             String key = (String) varsIterator.next();
             String value = (String) variables.get(key);
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables set: {0}={1}", new Object[]{key, value});
             engine.put("pre_" + key, value);
         }
     }
+
 }
