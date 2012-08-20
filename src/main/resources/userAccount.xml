@@ -27,6 +27,9 @@
             ALTER TABLE `user`
               ADD CONSTRAINT `user_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
             
+            ALTER TABLE `group`
+              ADD CONSTRAINT `group_user_fkey` FOREIGN KEY (`user`) REFERENCES `user` (`login`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
             INSERT INTO `address` (`id`, `street`, `house_number`, `flat_number`, `postal_code`, `city`) VALUES
                     (1, 'Krynicka', '43', '10', '50555', 'Wrocław');
             

@@ -102,9 +102,6 @@
             ALTER TABLE `company`
               ADD CONSTRAINT `company_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-            ALTER TABLE `group`
-              ADD CONSTRAINT `group_user_fkey` FOREIGN KEY (`user`) REFERENCES `user` (`login`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
             ALTER TABLE `owner`
               ADD CONSTRAINT `owner_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
               ADD CONSTRAINT `owner_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
