@@ -46,4 +46,21 @@ public class DBScriptLoader implements ScriptLoader {
         query.where(predicate);
         return entityManager.createQuery(query).getSingleResult();
     }
+
+    @Override
+    public List<Script> loadBaseScripts() {
+        List<Script> allBaseScripts = new ArrayList<>();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Script> query = criteriaBuilder.createQuery(Script.class);
+        Root<Script> root = query.from(Script.class);
+        Predicate baseScriptPredicate = criteriaBuilder.equal(root.get(Script_.base), true);
+        Predicate hasNoParentPredicate = criteriaBuilder.equal(root.get(Script_.parent), null);
+        query.where(baseScriptPredicate);
+        query.where(hasNoParentPredicate);
+        List<Script> baseScriptsWithoutParents = entityManager.createQuery(query).getResultList();
+        for(Script base: baseScriptsWithoutParents) {
+            allBaseScripts.addAll(loadScriptChain(base.getName()));
+        }
+        return allBaseScripts;
+    }
 }

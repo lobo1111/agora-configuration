@@ -8,5 +8,6 @@
     <include file="/opt/builder/src/src/main/resources/base.xml"/> 
     <include file="/opt/builder/src/src/main/resources/userAccount.xml"/> 
     <include file="/opt/builder/src/src/main/resources/scripts.xml"/> 
+    <include file="/opt/builder/src/src/main/resources/logger.xml"/> 
 
 </databaseChangeLog> 
