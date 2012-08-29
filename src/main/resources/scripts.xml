@@ -48,7 +48,7 @@
     <changeSet author='tkopacki' id='DBLoggerScript'>
         <sql>
             INSERT INTO `script` (`id`, `name`, `script`, `on_init`, `base`, `parent`) VALUES
-            (6, 'DBLogger', 'from pl.reaper.container.data import Log\r\n\r\nclass Logger:\r\n  def appendLog(self, level, message):\r\n    log = Log()\r\n    log.setScriptId(vars.get(''_scriptId''))\r\n    log.setLevel(level)\r\n    log.setMessage(message)\r\n    entityManager.persist(log)\r\n\r\n  def info(self, message):\r\n    self.appendLog(''INFO'', message)\r\n\r\n  def warn(self, message):\r\n    self.appendLog(''WARNING'', message)\r\n\r\n  def error(self, message):\r\n    self.appendLog(''ERROR'', message)', 'logger = Logger()', 1, NULL),
+            (6, 'DBLogger', 'from pl.reaper.container.data import Log\r\n\r\nclass Logger:\r\n  def appendLog(self, level, message):\r\n    log = Log()\r\n    log.setScriptId(vars.get(''_scriptId''))\r\n    log.setLevel(level)\r\n    log.setMessage(message)\r\n    entityManager.persist(log)\r\n\r\n  def info(self, message):\r\n    self.appendLog(''INFO'', message)\r\n\r\n  def warn(self, message):\r\n    self.appendLog(''WARNING'', message)\r\n\r\n  def error(self, message):\r\n    self.appendLog(''ERROR'', message)', 'logger = Logger()', 1, NULL);
         </sql>
     </changeSet>
 </databaseChangeLog>
