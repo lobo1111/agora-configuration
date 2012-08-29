@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,11 +22,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "script")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Script.findAll", query = "SELECT s FROM Script s"),
-    @NamedQuery(name = "Script.findById", query = "SELECT s FROM Script s WHERE s.id = :id"),
-    @NamedQuery(name = "Script.findByName", query = "SELECT s FROM Script s WHERE s.name = :name"),
-    @NamedQuery(name = "Script.findByBase", query = "SELECT s FROM Script s WHERE s.base = :base")})
 public class Script implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

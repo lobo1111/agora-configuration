@@ -2,7 +2,6 @@ package pl.reaper.container.jython;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -12,7 +11,6 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import pl.reaper.container.data.Script;
-import pl.reaper.container.jython.scripts.OutputInterface;
 
 public class ScriptExecutor {
 
@@ -40,10 +38,11 @@ public class ScriptExecutor {
         try {
             engine = getEngine(variables);
             for (Script script : scripts) {
+                variables.put("_scriptId", script.getId());
                 Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Initializing script {0}...", script.getName());
                 engine.eval(script.getScript());
                 wholeScript += script.getScript() + "\n";
-                if(script.getBase() != null && script.getBase() == true) {
+                if (script.getBase() != null && script.getBase() == true) {
                     engine.eval(script.getOnInit());
                     wholeScript += script.getOnInit() + "\n";
                 }
@@ -88,12 +87,14 @@ public class ScriptExecutor {
     }
 
     private Object extractResult(ScriptEngine engine) {
-        OutputInterface output = (OutputInterface) engine.get("output");
-        if (output != null && output.getResult() != null && !"".equals(output.getResult())) {
-            return output.getResult();
-        } else {
-            return "<no output>";
+        try {
+            String result = (String) engine.eval("output.getResult()");
+            if (result != null && !"".equals(result)) {
+                return result;
+            }
+        } catch (ScriptException ex) {
+            Logger.getLogger(ScriptExecutor.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return "<no output>";
     }
-
 }

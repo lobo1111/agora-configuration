@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -21,10 +19,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "community")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Community.findAll", query = "SELECT c FROM Community c"),
-    @NamedQuery(name = "Community.findById", query = "SELECT c FROM Community c WHERE c.id = :id"),
-    @NamedQuery(name = "Community.findByName", query = "SELECT c FROM Community c WHERE c.name = :name")})
 public class Community implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

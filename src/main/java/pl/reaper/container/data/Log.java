@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,25 +18,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "log")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Log.findAll", query = "SELECT l FROM Log l"),
-    @NamedQuery(name = "Log.findById", query = "SELECT l FROM Log l WHERE l.id = :id"),
-    @NamedQuery(name = "Log.findBySource", query = "SELECT l FROM Log l WHERE l.source = :source"),
-    @NamedQuery(name = "Log.findByLevel", query = "SELECT l FROM Log l WHERE l.level = :level"),
-    @NamedQuery(name = "Log.findByMessage", query = "SELECT l FROM Log l WHERE l.message = :message"),
-    @NamedQuery(name = "Log.findByTimestamp", query = "SELECT l FROM Log l WHERE l.timestamp = :timestamp")})
 public class Log implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "source")
-    private String source;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
@@ -54,6 +41,8 @@ public class Log implements Serializable {
     @Column(name = "timestamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp = new Date();
+    @Column(name = "script_id")
+    private int scriptId;
 
     public Log() {
     }
@@ -62,9 +51,9 @@ public class Log implements Serializable {
         this.id = id;
     }
 
-    public Log(Integer id, String source, String level, String message, Date timestamp) {
+    public Log(Integer id, int scriptId, String level, String message, Date timestamp) {
         this.id = id;
-        this.source = source;
+        this.scriptId = scriptId;
         this.level = level;
         this.message = message;
         this.timestamp = timestamp;
@@ -78,12 +67,12 @@ public class Log implements Serializable {
         this.id = id;
     }
 
-    public String getSource() {
-        return source;
+    public int getScriptId() {
+        return scriptId;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setScriptId(int scriptId) {
+        this.scriptId = scriptId;
     }
 
     public String getLevel() {
@@ -134,5 +123,4 @@ public class Log implements Serializable {
     public String toString() {
         return "pl.reaper.container.data.Log[ id=" + id + " ]";
     }
-    
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.reaper.container.data;
 
 import java.io.Serializable;
@@ -14,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,24 +18,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author tomek
- */
 @Entity
 @Table(name = "company")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c"),
-    @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :id"),
-    @NamedQuery(name = "Company.findByNip", query = "SELECT c FROM Company c WHERE c.nip = :nip"),
-    @NamedQuery(name = "Company.findByRegon", query = "SELECT c FROM Company c WHERE c.regon = :regon"),
-    @NamedQuery(name = "Company.findByWww", query = "SELECT c FROM Company c WHERE c.www = :www"),
-    @NamedQuery(name = "Company.findByEmail", query = "SELECT c FROM Company c WHERE c.email = :email"),
-    @NamedQuery(name = "Company.findByPhoneNumber1", query = "SELECT c FROM Company c WHERE c.phoneNumber1 = :phoneNumber1"),
-    @NamedQuery(name = "Company.findByPhoneNumber2", query = "SELECT c FROM Company c WHERE c.phoneNumber2 = :phoneNumber2"),
-    @NamedQuery(name = "Company.findByPhoneNumber3", query = "SELECT c FROM Company c WHERE c.phoneNumber3 = :phoneNumber3"),
-    @NamedQuery(name = "Company.findByName", query = "SELECT c FROM Company c WHERE c.name = :name")})
 public class Company implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

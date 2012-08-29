@@ -57,6 +57,6 @@ public class Cron implements CronLocal {
     }
 
     private void executeScript(ScriptScheduler scriptScheduler) {
-        jythonBean.executeScript(scriptScheduler.getScript().getName(), new HashMap<String, String>());
+        jythonBean.executeScript(scriptScheduler.getScript().getName(), new HashMap<String, Object>());
     }
 }

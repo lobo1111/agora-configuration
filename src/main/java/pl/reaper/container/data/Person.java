@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,16 +22,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "person")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
-    @NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.id = :id"),
-    @NamedQuery(name = "Person.findByFirstName", query = "SELECT p FROM Person p WHERE p.firstName = :firstName"),
-    @NamedQuery(name = "Person.findByLastName", query = "SELECT p FROM Person p WHERE p.lastName = :lastName"),
-    @NamedQuery(name = "Person.findByPesel", query = "SELECT p FROM Person p WHERE p.pesel = :pesel"),
-    @NamedQuery(name = "Person.findByPhoneNumber1", query = "SELECT p FROM Person p WHERE p.phoneNumber1 = :phoneNumber1"),
-    @NamedQuery(name = "Person.findByPhoneNumber2", query = "SELECT p FROM Person p WHERE p.phoneNumber2 = :phoneNumber2"),
-    @NamedQuery(name = "Person.findByPhoneNumber3", query = "SELECT p FROM Person p WHERE p.phoneNumber3 = :phoneNumber3"),
-    @NamedQuery(name = "Person.findByEmail", query = "SELECT p FROM Person p WHERE p.email = :email")})
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

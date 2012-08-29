@@ -8,10 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,12 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "script_scheduler")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ScriptScheduler.findAll", query = "SELECT s FROM ScriptScheduler s"),
-    @NamedQuery(name = "ScriptScheduler.findById", query = "SELECT s FROM ScriptScheduler s WHERE s.id = :id"),
-    @NamedQuery(name = "ScriptScheduler.findByName", query = "SELECT s FROM ScriptScheduler s WHERE s.name = :name"),
-    @NamedQuery(name = "ScriptScheduler.findByEnabled", query = "SELECT s FROM ScriptScheduler s WHERE s.enabled = :enabled"),
-    @NamedQuery(name = "ScriptScheduler.findBySchedule", query = "SELECT s FROM ScriptScheduler s WHERE s.schedule = :schedule")})
 public class ScriptScheduler implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

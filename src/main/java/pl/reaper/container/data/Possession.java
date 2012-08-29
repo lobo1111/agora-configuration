@@ -12,17 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "possession")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Possession.findAll", query = "SELECT p FROM Possession p"),
-    @NamedQuery(name = "Possession.findById", query = "SELECT p FROM Possession p WHERE p.id = :id")})
 public class Possession implements Serializable {
 
     private static final long serialVersionUID = 1L;

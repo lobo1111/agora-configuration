@@ -32,7 +32,7 @@ public class DBScriptLoader implements ScriptLoader {
                 script = script.getParent();
             }
         } catch (NoResultException ex) {
-            Logger.getLogger(DBScriptLoader.class.getName()).log(Level.WARNING, null, ex);
+            Logger.getLogger(DBScriptLoader.class.getName()).log(Level.WARNING, "Can't find script " + name, ex);
         }
         Collections.reverse(chain);
         return chain;
@@ -54,9 +54,8 @@ public class DBScriptLoader implements ScriptLoader {
         CriteriaQuery<Script> query = criteriaBuilder.createQuery(Script.class);
         Root<Script> root = query.from(Script.class);
         Predicate baseScriptPredicate = criteriaBuilder.equal(root.get(Script_.base), true);
-        Predicate hasNoParentPredicate = criteriaBuilder.equal(root.get(Script_.parent), null);
-        query.where(baseScriptPredicate);
-        query.where(hasNoParentPredicate);
+        Predicate hasNoParentPredicate = criteriaBuilder.isNull(root.get(Script_.parent));
+        query.where(baseScriptPredicate, hasNoParentPredicate);
         List<Script> baseScriptsWithoutParents = entityManager.createQuery(query).getResultList();
         for(Script base: baseScriptsWithoutParents) {
             allBaseScripts.addAll(loadScriptChain(base.getName()));

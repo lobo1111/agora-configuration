@@ -6,8 +6,8 @@ import pl.reaper.container.data.Script;
 
 public class ScriptLoaderSimpleImpl implements ScriptLoader {
     
-    private static final String OUTPUT = "from pl.reaper.container.jython.scripts import OutputInterface"
-            + "\nclass Output(OutputInterface):"
+    private static final String OUTPUT = ""
+            + "\nclass Output:"
             + "\n\t_result = ''"
             + "\n\tdef getResult(self):"
             + "\n\t\treturn self._result"
