@@ -18,9 +18,6 @@
             KEY `script_parent_fkey` (`parent`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=6 ;
 
-            INSERT INTO `script` (`id`, `name`, `script`, `on_init`, `base`, `parent`) VALUES
-            (2, 'init', '', '', 1, NULL);
-
             CREATE TABLE IF NOT EXISTS `script_scheduler` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
