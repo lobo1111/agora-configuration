@@ -38,7 +38,7 @@ public class Cron implements CronLocal {
     }
 
     private ScrollableCursor loadScripts() {
-        Query query = entityManager.createQuery("SELECT s FROM ScriptScheduler s WHERE s.enabled = true");
+        Query query = entityManager.createQuery("SELECT s FROM ScriptScheduler s WHERE s.enabled = 1");
         query.setHint("eclipselink.cursor.scrollable", true);
         return (ScrollableCursor) query.getSingleResult();
     }

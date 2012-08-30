@@ -47,6 +47,8 @@ public class Log implements Serializable {
     private long threadId;
     @Column(name = "thread_name")
     private String threadName;
+    @Column(name = "uuid")
+    private String uuid;
 
     public Log() {
     }
@@ -117,6 +119,14 @@ public class Log implements Serializable {
 
     public void setThreadName(String threadName) {
         this.threadName = threadName;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     @Override

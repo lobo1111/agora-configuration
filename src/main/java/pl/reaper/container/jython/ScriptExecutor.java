@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -37,6 +38,7 @@ public class ScriptExecutor {
         Object result = null;
         variables.put("_threadId", Thread.currentThread().getId());
         variables.put("_threadName", Thread.currentThread().getName());
+        variables.put("_uuid", UUID.randomUUID().toString());
         try {
             engine = getEngine(variables);
             for (Script script : scripts) {

@@ -40,39 +40,47 @@
     
     <changeSet author='tkopacki' id='outputScript'>
         <sql>
-            INSERT INTO `script` (`id`, `name`, `script`, `on_init`, `base`, `parent`) VALUES
-            (7, 'Output', 'class Output:\r\n  _result = ''''\r\n\r\n  def getResult(self):\r\n    return self._result\r\n\r\n  def setResult(self, result):\r\n    self._result = result\r\n\r\n  def appendResult(self, result):\r\n    self._result += result', 'output = Output()', 1, NULL);
+            INSERT INTO `script` (`name`, `script`, `on_init`, `base`, `parent`) VALUES
+            ('Output', 'class Output:\r\n  _result = ''''\r\n\r\n  def getResult(self):\r\n    return self._result\r\n\r\n  def setResult(self, result):\r\n    self._result = result\r\n\r\n  def appendResult(self, result):\r\n    self._result += result', 'output = Output()', 1, NULL);
         </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='DBLoggerScript'>
         <sql>
-            INSERT INTO `script` (`id`, `name`, `script`, `on_init`, `base`, `parent`) VALUES
-            (6, 'DBLogger', 'from pl.reaper.container.data import Log\r\n\r\nclass Logger:\r\n  def appendLog(self, level, message):\r\n    log = Log()\r\n    log.setScriptId(vars.get(''_scriptId''))\r\n    log.setLevel(level)\r\n    log.setMessage(message)\r\n    entityManager.persist(log)\r\n\r\n  def info(self, message):\r\n    self.appendLog(''INFO'', message)\r\n\r\n  def warn(self, message):\r\n    self.appendLog(''WARNING'', message)\r\n\r\n  def error(self, message):\r\n    self.appendLog(''ERROR'', message)', 'logger = Logger()', 1, NULL);
+            INSERT INTO `script` (`name`, `script`, `on_init`, `base`, `parent`) VALUES
+            ('DBLogger', 'from pl.reaper.container.data import Log\r\n\r\nclass Logger:\r\n  def appendLog(self, level, message):\r\n    log = Log()\r\n    log.setScriptId(vars.get(''_scriptId''))\r\n    log.setLevel(level)\r\n    log.setMessage(message)\r\n    entityManager.persist(log)\r\n\r\n  def info(self, message):\r\n    self.appendLog(''INFO'', message)\r\n\r\n  def warn(self, message):\r\n    self.appendLog(''WARNING'', message)\r\n\r\n  def error(self, message):\r\n    self.appendLog(''ERROR'', message)', 'logger = Logger()', 1, NULL);
         </sql>
     </changeSet>
         
     <changeSet author='tkopacki' id='DBLoggerScript-added-thread-columns-support'>
         <sql>
             UPDATE `script` SET  `script` =  'from pl.reaper.container.data import Log
-class Logger:
-  def appendLog(self, level, message):
-    log = Log()
-    log.setScriptId(vars.get(''_scriptId''))
-    log.setThreadId(vars.get(''_threadId''))
-    log.setThreadName(vars.get(''_threadName''))
-    log.setLevel(level)
-    log.setMessage(message)
-    entityManager.persist(log)
+            class Logger:
+            def appendLog(self, level, message):
+            log = Log()
+            log.setScriptId(vars.get(''_scriptId''))
+            log.setThreadId(vars.get(''_threadId''))
+            log.setThreadName(vars.get(''_threadName''))
+            log.setLevel(level)
+            log.setMessage(message)
+            entityManager.persist(log)
 
-  def info(self, message):
-    self.appendLog(''INFO'', message)
+            def info(self, message):
+            self.appendLog(''INFO'', message)
 
-  def warn(self, message):
-    self.appendLog(''WARNING'', message)
+            def warn(self, message):
+            self.appendLog(''WARNING'', message)
 
-  def error(self, message):
-    self.appendLog(''ERROR'', message)' WHERE  `script`.`name` = 'DBLogger';
+            def error(self, message):
+            self.appendLog(''ERROR'', message)' WHERE  `script`.`name` = 'DBLogger';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='email-checker'>
+        <sql>
+            INSERT INTO `script` (`name`, `script`, `on_init`, `base`, `parent`) VALUES
+            ('check-email', 'import email\r\nimport getpass\r\nimport imaplib\r\nimport os\r\nimport uuid\r\n\r\nclass MailProcessor:\r\n\r\n    def checkMailbox(self):\r\n        if self.initConnection():\r\n            for mail in self.getNewMails():\r\n                self.processMail(mail)\r\n                logger.info(''Mail processed'')\r\n            self.closeConnection()\r\n        logger.info(''All emails checked'')\r\n\r\n    def closeConnection(self):\r\n        self.__connection.close()\r\n        self.__connection.logout()\r\n\r\n    def initConnection(self):\r\n        host = ''imap.gmail.com''\r\n        user = ''agora.wspolnoty@gmail.com''\r\n        password = ''tomasz.12''\r\n        self.__connection = imaplib.IMAP4_SSL(host)\r\n        response, message = self.__connection.login(user, password)\r\n        if response == ''OK'':\r\n            logger.info(''Connection to GMail established'')\r\n            return True\r\n        else:\r\n            logger.error(''Can\\''t connect to GMail: '' + response + '':'' + message)\r\n            return False\r\n\r\n    def getNewMails(self):\r\n        newMailDir = ''invoice/new''\r\n        response, message = self.__connection.select(newMailDir)\r\n        if response == ''OK'':\r\n            response, mails = self.__connection.search(None, ''*'')\r\n            if response == ''OK'':\r\n                if mails != None and len(mails) >= 1 and mails[0] != '''':\r\n                    logger.info(''Got new messages: '' + mails[0])\r\n                    return mails[0].split()\r\n            else:\r\n                logger.warning(''Can\\''t download mails: '' + response + '':'' + message)\r\n        else:\r\n            logger.warning(''Can\\''t download mails: '' + response + '':'' + message)\r\n        return []\r\n\r\n    def processMail(self, mailid):\r\n        response, data = self.__connection.fetch(mailid, ''(RFC822)'')\r\n        if response == ''OK'':\r\n            email_body = data[0][1]\r\n            message = email.message_from_string(email_body)\r\n            logger.info(''Processing email - From['' + message["From"] + ''] - Subject:'' + message[''Subject''])\r\n            self.downloadAttachments(message)\r\n            self.moveEmailToProcessed(mailid)\r\n        else:\r\n           logger.warning(''Can\\''t fetch mail: '' + response + '':'' + message)\r\n\r\n    def moveEmailToProcessed(self, mailid):\r\n        processedDir = ''invoice/processed''\r\n        response, message = self.__connection.copy(mailid, processedDir)\r\n        if response == ''OK'':\r\n            response, message = self.__connection.store(mailid, ''+FLAGS.SILENT'', ''(\\\\Deleted)'')\r\n            if response != ''OK'':\r\n                logger.warning(''Can\\''t delete mail: '' + response + '':'' + message)\r\n        else:\r\n            logger.warning(''Can\\''t archive mail: '' + response + '':'' + message)\r\n\r\n    def downloadAttachments(self, email):\r\n        for part in email.walk():\r\n            if self.isAttachment(part):\r\n                self.saveFile(part.get_filename(), part.get_payload(decode=True))\r\n\r\n    def isAttachment(self, part):\r\n        if part.get_content_maintype() == ''multipart'' or part.get(''Content-Disposition'') is None:\r\n            return False\r\n        else:\r\n            return True\r\n\r\n    def saveFile(self, filename, data):\r\n        uniqueFilename = ''['' + str(uuid.uuid4()) + '']'' + filename\r\n        dir = ''/home/agora/attachments''\r\n        destination = os.path.join(dir, uniqueFilename)\r\n        if not os.path.isfile(destination):\r\n            file = open(destination, ''wb'')\r\n            file.write(data)\r\n            file.close()\r\n            logger.info(''Attachment saved: '' + filename)\r\n        else:\r\n            logger.warning(''File already exists'')', 'MailProcessor().checkMailbox()', 0, NULL);
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
