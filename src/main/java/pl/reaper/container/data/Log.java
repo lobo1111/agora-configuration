@@ -43,6 +43,10 @@ public class Log implements Serializable {
     private Date timestamp = new Date();
     @Column(name = "script_id")
     private int scriptId;
+    @Column(name = "thread_id")
+    private long threadId;
+    @Column(name = "thread_name")
+    private String threadName;
 
     public Log() {
     }
@@ -97,6 +101,22 @@ public class Log implements Serializable {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public long getThreadId() {
+        return threadId;
+    }
+
+    public void setThreadId(long threadId) {
+        this.threadId = threadId;
+    }
+
+    public String getThreadName() {
+        return threadName;
+    }
+
+    public void setThreadName(String threadName) {
+        this.threadName = threadName;
     }
 
     @Override

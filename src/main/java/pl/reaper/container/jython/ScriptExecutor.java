@@ -35,6 +35,8 @@ public class ScriptExecutor {
         String wholeScript = "";
         ScriptEngine engine = null;
         Object result = null;
+        variables.put("_threadId", Thread.currentThread().getId());
+        variables.put("_threadName", Thread.currentThread().getName());
         try {
             engine = getEngine(variables);
             for (Script script : scripts) {

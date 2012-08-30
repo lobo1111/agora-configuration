@@ -16,4 +16,11 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='logger-add-thread-columns'>
+        <sql>
+            ALTER TABLE `log` ADD `thread_id` int(11);
+            ALTER TABLE `log` ADD `thread_name` varchar(255);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
