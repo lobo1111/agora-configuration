@@ -47,35 +47,11 @@
     
     <changeSet author='tkopacki' id='DBLoggerScript'>
         <sql>
-            INSERT INTO `script` (`name`, `script`, `on_init`, `base`, `parent`) VALUES
-            ('DBLogger', 'from pl.reaper.container.data import Log\r\n\r\nclass Logger:\r\n  def appendLog(self, level, message):\r\n    log = Log()\r\n    log.setScriptId(vars.get(''_scriptId''))\r\n    log.setLevel(level)\r\n    log.setMessage(message)\r\n    entityManager.persist(log)\r\n\r\n  def info(self, message):\r\n    self.appendLog(''INFO'', message)\r\n\r\n  def warn(self, message):\r\n    self.appendLog(''WARNING'', message)\r\n\r\n  def error(self, message):\r\n    self.appendLog(''ERROR'', message)', 'logger = Logger()', 1, NULL);
+            INSERT INTO `script` (`id`, `name`, `script`, `on_init`, `base`, `parent`) VALUES
+            (7, 'DBLogger', 'from pl.reaper.container.data import Log\n            class Logger:\n            def appendLog(self, level, message):\n            log = Log()\n            log.setScriptId(vars.get(''_scriptId''))\n            log.setThreadId(vars.get(''_threadId''))\n            log.setThreadName(vars.get(''_threadName''))\n            log.setLevel(level)\n            log.setMessage(message)\n            entityManager.persist(log)\n\n            def info(self, message):\n            self.appendLog(''INFO'', message)\n\n            def warn(self, message):\n            self.appendLog(''WARNING'', message)\n\n            def error(self, message):\n            self.appendLog(''ERROR'', message)', 'logger = Logger()', 1, NULL);
         </sql>
     </changeSet>
         
-    <changeSet author='tkopacki' id='DBLoggerScript-added-thread-columns-support'>
-        <sql>
-            UPDATE `script` SET  `script` =  'from pl.reaper.container.data import Log
-            class Logger:
-            def appendLog(self, level, message):
-            log = Log()
-            log.setScriptId(vars.get(''_scriptId''))
-            log.setThreadId(vars.get(''_threadId''))
-            log.setThreadName(vars.get(''_threadName''))
-            log.setLevel(level)
-            log.setMessage(message)
-            entityManager.persist(log)
-
-            def info(self, message):
-            self.appendLog(''INFO'', message)
-
-            def warn(self, message):
-            self.appendLog(''WARNING'', message)
-
-            def error(self, message):
-            self.appendLog(''ERROR'', message)' WHERE  `script`.`name` = 'DBLogger';
-        </sql>
-    </changeSet>
-    
     <changeSet author='tkopacki' id='email-checker'>
         <sql>
             INSERT INTO `script` (`name`, `script`, `on_init`, `base`, `parent`) VALUES
