@@ -41,7 +41,15 @@
     <changeSet author='tkopacki' id='outputScript'>
         <sql>
             INSERT INTO `script` (`name`, `script`, `on_init`, `base`, `parent`) VALUES
-            ('Output', 'class Output:\r\n  _result = ''''\r\n\r\n  def getResult(self):\r\n    return self._result\r\n\r\n  def setResult(self, result):\r\n    self._result = result\r\n\r\n  def appendResult(self, result):\r\n    self._result += result', 'output = Output()', 1, NULL);
+            ('Output', 
+            'class Output:
+                _result = ''''
+                def getResult(self):
+                    return self._result
+                def setResult(self, result):
+                    self._result = result
+                def appendResult(self, result):
+                    self._result += result', 'output = Output()', 1, NULL);
         </sql>
     </changeSet>
     
