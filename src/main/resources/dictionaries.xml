@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<databaseChangeLog 
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
+    <changeSet author='tkopacki' id='dictionary-table'>
+        <sql>       
+            CREATE TABLE `dictionary` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `type_id` int(11) NOT NULL,
+            `dictionaryKey` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+            `value` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `type_id` (`type_id`,`dictionaryKey`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=7 ;
+
+            CREATE TABLE `dictionary_type` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `type` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `type` (`type`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=2 ;
+
+            ALTER TABLE `dictionary`
+            ADD CONSTRAINT `dicitonary_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+            
+            
+    <changeSet author='tkopacki' id='dictionary-property'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('PROPERTIES');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='email-properties'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            SELECT id, 'emailHost', 'imap.gmail.com' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            SELECT id, 'emailUser', 'agora.wspolnoty@gmail.com' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            SELECT id, 'emailPassword', 'tomasz.12' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            SELECT id, 'emailAttachmentsDir', '/home/agora/attachments' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            SELECT id, 'emailNew', 'invoice/new' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            SELECT id, 'emailProcessed', 'invoice/processed' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+        </sql>
+    </changeSet>
+</databaseChangeLog>
+
+

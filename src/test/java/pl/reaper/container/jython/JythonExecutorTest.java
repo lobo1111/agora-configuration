@@ -33,7 +33,7 @@ public class JythonExecutorTest {
     @Test
     public void jythonSimpleScript() throws Exception {
         ScriptLoader scriptLoader = new ScriptLoaderSimpleImpl();
-        ScriptExecutor executor = new ScriptExecutor(scriptLoader, null);
+        ScriptExecutor executor = new ScriptExecutor(scriptLoader);
         String expResult = "test";
         String result = executor.prepareAndExecuteScript("simple", new HashMap<String, String>());
         assertEquals(expResult, result);
@@ -42,7 +42,7 @@ public class JythonExecutorTest {
     @Test
     public void jythonVariables() throws Exception {
         ScriptLoader scriptLoader = new ScriptLoaderSimpleImpl();
-        ScriptExecutor executor = new ScriptExecutor(scriptLoader, null);
+        ScriptExecutor executor = new ScriptExecutor(scriptLoader);
         String expResult = "customVarValue";
         Map<String, String> customVars = new HashMap<>();
         customVars.put("customVar", expResult);

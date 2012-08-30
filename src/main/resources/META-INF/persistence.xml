@@ -3,6 +3,8 @@
   <persistence-unit name="pl.reaper_Container_ejb_0.1PU" transaction-type="JTA">
     <jta-data-source>jdbc/agora-erp</jta-data-source>
     <class>pl.reaper.container.data.Log</class>
+    <class>pl.reaper.container.data.Dictionary</class>
+    <class>pl.reaper.container.data.DictionaryType</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.sharedCache.mode" value="NONE"/>

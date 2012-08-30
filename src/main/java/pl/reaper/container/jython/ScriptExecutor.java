@@ -11,18 +11,27 @@ import javax.persistence.EntityManager;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import pl.reaper.container.beans.PropertyBeanLocal;
 import pl.reaper.container.data.Script;
 
 public class ScriptExecutor {
 
     private ScriptLoader loader;
     private EntityManager entityManager;
+    private PropertyBeanLocal propertyBean;
 
-    public ScriptExecutor(ScriptLoader loader, EntityManager entityManager) {
+    public ScriptExecutor(ScriptLoader loader) {
         this.loader = loader;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
+    public void setPropertyBean(PropertyBeanLocal propertyBean) {
+        this.propertyBean = propertyBean;
+    }
+    
     private List<Script> loadScriptChain(String name) throws ScriptEngineNotFoundException {
         List<Script> initChain = loader.loadBaseScripts();
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Base scripts loaded({0})", Arrays.deepToString(initChain.toArray(new Script[initChain.size()])));
@@ -36,9 +45,7 @@ public class ScriptExecutor {
         String wholeScript = "";
         ScriptEngine engine = null;
         Object result = null;
-        variables.put("_threadId", Thread.currentThread().getId());
-        variables.put("_threadName", Thread.currentThread().getName());
-        variables.put("_uuid", UUID.randomUUID().toString());
+        putMetaVars(variables);
         try {
             engine = getEngine(variables);
             for (Script script : scripts) {
@@ -88,6 +95,7 @@ public class ScriptExecutor {
         engine.getContext().setWriter(new PrintWriter(System.out));
         engine.put("entityManager", entityManager);
         engine.put("vars", variables);
+        engine.put("properties", propertyBean);
     }
 
     private Object extractResult(ScriptEngine engine) {
@@ -100,5 +108,11 @@ public class ScriptExecutor {
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "<no output>";
+    }
+
+    private void putMetaVars(Map variables) {
+        variables.put("_threadId", Thread.currentThread().getId());
+        variables.put("_threadName", Thread.currentThread().getName());
+        variables.put("_uuid", UUID.randomUUID().toString());
     }
 }
