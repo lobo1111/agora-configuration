@@ -51,4 +51,10 @@
             (6, 'DBLogger', 'from pl.reaper.container.data import Log\r\n\r\nclass Logger:\r\n  def appendLog(self, level, message):\r\n    log = Log()\r\n    log.setScriptId(vars.get(''_scriptId''))\r\n    log.setLevel(level)\r\n    log.setMessage(message)\r\n    entityManager.persist(log)\r\n\r\n  def info(self, message):\r\n    self.appendLog(''INFO'', message)\r\n\r\n  def warn(self, message):\r\n    self.appendLog(''WARNING'', message)\r\n\r\n  def error(self, message):\r\n    self.appendLog(''ERROR'', message)', 'logger = Logger()', 1, NULL);
         </sql>
     </changeSet>
+        
+    <changeSet author='tkopacki' id='DBLoggerScript-added-thread-columns-support'>
+        <sql>
+            UPDATE `script` SET `script` = 'from pl.reaper.container.data import Log\r\n\r\nclass Logger:\r\n  def appendLog(self, level, message):\r\n    log = Log()\r\n    \r\nlog.setScriptId(vars.get(''_scriptId''))\r\n    \r\nlog.setThreadId(vars.get(''_threadId''))\r\n    log.setThreadName(vars.get(''_threadName''))\r\n    log.setLevel(level)\r\n    log.setMessage(message)\r\n    entityManager.persist(log)\r\n\r\n  def info(self, message):\r\n    self.appendLog(''INFO'', message)\r\n\r\n  def warn(self, message):\r\n    self.appendLog(''WARNING'', message)\r\n\r\n  def error(self, message):\r\n    self.appendLog(''ERROR'', message)', 'logger = Logger()' WHERE `script`.`name` = 'DBLogger';
+        </sql>
+    </changeSet>
 </databaseChangeLog>
