@@ -37,22 +37,22 @@
     
     <changeSet author='tkopacki' id='email-properties'>
         <sql>
-            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'emailHost', 'imap.gmail.com' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
             
-            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'emailUser', 'agora.wspolnoty@gmail.com' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
             
-            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'emailPassword', 'tomasz.12' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
             
-            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'emailAttachmentsDir', '/home/agora/attachments' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
             
-            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'emailNew', 'invoice/new' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
             
-            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) VALUES
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'emailProcessed', 'invoice/processed' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
         </sql>
     </changeSet>
