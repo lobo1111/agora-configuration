@@ -1,6 +1,7 @@
 package pl.reaper.container.jython;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,8 +59,26 @@ public class DBScriptLoader implements ScriptLoader {
         query.where(baseScriptPredicate, hasNoParentPredicate);
         List<Script> baseScriptsWithoutParents = entityManager.createQuery(query).getResultList();
         for(Script base: baseScriptsWithoutParents) {
-            allBaseScripts.addAll(loadScriptChain(base.getName()));
+            allBaseScripts.add(base);
+            allBaseScripts.addAll(loadChildren(base));
         }
         return allBaseScripts;
+    }
+
+    private Collection<? extends Script> loadChildren(Script parent) {
+        List<Script> children = getChildren(parent);
+        for(Script child: children) {
+            children.addAll(loadChildren(child));
+        }
+        return children;
+    }
+
+    private List<Script> getChildren(Script parent) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Script> query = criteriaBuilder.createQuery(Script.class);
+        Root<Script> root = query.from(Script.class);
+        Predicate predicate = criteriaBuilder.equal(root.get(Script_.parent), parent);
+        query.where(predicate);
+        return entityManager.createQuery(query).getResultList();
     }
 }

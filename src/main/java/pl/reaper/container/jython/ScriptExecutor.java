@@ -51,17 +51,20 @@ public class ScriptExecutor {
             for (Script script : scripts) {
                 variables.put("_scriptId", script.getId());
                 Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Initializing script {0}...", script.getName());
-                engine.eval(script.getScript());
-                wholeScript += script.getScript() + "\n";
+                String evaluatedScript = evalVariables(script.getScript(), variables);
+                wholeScript += evaluatedScript + "\n";
+                engine.eval(evaluatedScript);
                 if (script.getBase() != null && script.getBase() == true) {
-                    engine.eval(script.getOnInit());
-                    wholeScript += script.getOnInit() + "\n";
+                    evaluatedScript = evalVariables(script.getOnInit(), variables);
+                    wholeScript += evaluatedScript + "\n";
+                    engine.eval(evaluatedScript);
                 }
                 Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script {0} initialized.", script.getName());
             }
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Executing final script...");
-            engine.eval(scripts.get(scripts.size() - 1).getOnInit());
-            wholeScript += scripts.get(scripts.size() - 1).getOnInit() + "\n";
+            String evaluatedScript = evalVariables(scripts.get(scripts.size() - 1).getOnInit(), variables);
+            wholeScript += evaluatedScript + "\n";
+            engine.eval(evaluatedScript);
             result = extractResult(engine);
         } catch (ScriptEngineNotFoundException | ScriptException ex) {
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.SEVERE, "Script execution exception[[" + wholeScript + "]]", ex);
@@ -114,5 +117,10 @@ public class ScriptExecutor {
         variables.put("_threadId", Thread.currentThread().getId());
         variables.put("_threadName", Thread.currentThread().getName());
         variables.put("_uuid", UUID.randomUUID().toString());
+    }
+
+    private String evalVariables(String script, Map variables) {
+        VariableParser parser = new VariableParser(script, variables);
+        return parser.parse();
     }
 }
