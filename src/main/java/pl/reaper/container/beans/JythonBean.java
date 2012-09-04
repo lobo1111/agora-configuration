@@ -14,9 +14,11 @@ import pl.reaper.container.jython.ScriptLoader;
 public class JythonBean implements JythonBeanLocal {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
     @EJB
-    PropertyBeanLocal propertyBean;
+    private PropertyBeanLocal propertyBean;
+    @EJB
+    private DocumentStatusBean documentStatusBean;
 
     private ScriptLoader getLoader(EntityManager entityManager) {
         return new DBScriptLoader(entityManager);
@@ -28,6 +30,7 @@ public class JythonBean implements JythonBeanLocal {
         ScriptExecutor executor = new ScriptExecutor(loader);
         executor.setEntityManager(entityManager);
         executor.setPropertyBean(propertyBean);
+        executor.setDocumentStatusBean(documentStatusBean);
         String result = executor.prepareAndExecuteScript(scriptName, variables);
         return result;
     }

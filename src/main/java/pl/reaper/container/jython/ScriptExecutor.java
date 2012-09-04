@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
 import pl.reaper.container.data.Script;
 
@@ -19,6 +20,7 @@ public class ScriptExecutor {
     private ScriptLoader loader;
     private EntityManager entityManager;
     private PropertyBeanLocal propertyBean;
+    private DocumentStatusBeanLocal documentStatusBean;
 
     public ScriptExecutor(ScriptLoader loader) {
         this.loader = loader;
@@ -99,6 +101,7 @@ public class ScriptExecutor {
         engine.put("entityManager", entityManager);
         engine.put("vars", variables);
         engine.put("properties", propertyBean);
+        engine.put("documentStatusLoader", documentStatusBean);
     }
 
     private Object extractResult(ScriptEngine engine) {
@@ -122,5 +125,9 @@ public class ScriptExecutor {
     private String evalVariables(String script, Map variables) {
         VariableParser parser = new VariableParser(script, variables);
         return parser.parse();
+    }
+
+    public void setDocumentStatusBean(DocumentStatusBeanLocal documentStatusBean) {
+        this.documentStatusBean = documentStatusBean;
     }
 }

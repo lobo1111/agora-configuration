@@ -11,5 +11,6 @@
     <include file="/opt/builder/src/src/main/resources/scripts.xml"/> 
     <include file="/opt/builder/src/src/main/resources/logger.xml"/> 
     <include file="/opt/builder/src/src/main/resources/dictionaries.xml"/> 
+    <include file="/opt/builder/src/src/main/resources/bpDocuments.xml"/> 
 
 </databaseChangeLog> 

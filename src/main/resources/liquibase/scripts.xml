@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<databaseChangeLog 
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
+    <changeSet author='tkopacki' id='scripts'>
+        <sql>   
+            CREATE TABLE IF NOT EXISTS `script` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
+            `script` text COLLATE utf8_polish_ci,
+            `on_init` text COLLATE utf8_polish_ci,
+            `base` tinyint(1) DEFAULT '0',
+            `parent` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `name_UNIQUE` (`name`),
+            KEY `script_parent_fkey` (`parent`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=6 ;
+
+            CREATE TABLE IF NOT EXISTS `script_scheduler` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
+            `id_script` int(11) NOT NULL,
+            `enabled` tinyint(1) NOT NULL,
+            `schedule` varchar(45) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `name_UNIQUE` (`name`),
+            KEY `scheduler_script_fkey` (`id_script`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
+            
+            
+            ALTER TABLE `script`
+            ADD CONSTRAINT `script_parent_fkey` FOREIGN KEY (`parent`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+            ALTER TABLE `script_scheduler`
+            ADD CONSTRAINT `scheduler_script_fkey` FOREIGN KEY (`id_script`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+</databaseChangeLog>
