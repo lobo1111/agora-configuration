@@ -8,15 +8,15 @@ class ScriptLoader:
         self._xml = ET.parse(self._xmlPath).getroot()
         
     def loadScripts(self):
-        for script in self._xml.findall('scripts/script'):
+        for script in self._xml.findall('script'):
             name = script.find('name')
             source = script.find('source')
             onInit = script.find('onInit')
             schedulerName = script.find('scheduler/name')
             schedulerEnabled = script.find('scheduler/enabled')
             schedulerFireAt = script.find('scheduler/fireAt')
-            id = saveScript(name, source, onInit, schedulerName, schedulerEnabled, schedulerFireAt)
-            saveDependencies(id, script.findall('dependencies'))
+            id = self.saveScript(name, source, onInit, schedulerName, schedulerEnabled, schedulerFireAt)
+            self.saveDependencies(id, script.findall('dependencies'))
             
     def saveScript(self, name, source, onInit, schedulerName, schedulerEnabled, schedulerFireAt):
         print name
