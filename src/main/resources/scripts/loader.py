@@ -56,7 +56,7 @@ class DBManager:
     def deleteScriptScheduler(self, scriptId):
         sql = self._config.get('queries' ,'deleteScriptScheduler')
         cursor = self._connection.cursor()
-        cursor.execute(sql, (int(scriptId)))
+        cursor.execute(sql % int(scriptId))
         cursor.connection.commit()
         cursor.close()
     
