@@ -18,13 +18,33 @@ class DBManager:
         self._config = config
         
     def isScriptAvailable(self, scriptName):
-        pass
+        sql = self._config.get('queries' ,'selectScript')
+        cursor = self._connection
+        cursor.execute(sql, (scriptName))
+        results = cursor.fetchall()
+        cursor.close()
+        if len(results) > 0:
+            return True
+        return False
     
     def getScriptId(self, scriptName):
-        pass
+        sql = self._config.get('queries' ,'selectScript')
+        cursor = self._connection
+        cursor.execute(sql, (scriptName))
+        results = cursor.fetchall()
+        cursor.close()
+        if len(results) > 0: 
+            first = results[0]
+            print first
+            return frist.id
+        return -1
     
     def updateScript(self, scriptName, source, onInit):
-        pass
+        sql = self._config.get('queries' ,'updateScript')
+        cursor = self._connection.cursor()
+        cursor.execute(sql, (scriptName, source, onInit))
+        cursor.connection.commit()
+        cursor.close()
     
     def insertScript(self, scriptName, source, onInit):
         sql = self._config.get('queries' ,'insertScript')
