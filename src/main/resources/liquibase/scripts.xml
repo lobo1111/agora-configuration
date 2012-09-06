@@ -12,8 +12,7 @@
             `script` text COLLATE utf8_polish_ci,
             `on_init` text COLLATE utf8_polish_ci,
             PRIMARY KEY (`id`),
-            UNIQUE KEY `name_UNIQUE` (`name`),
-            KEY `script_parent_fkey` (`parent`)
+            UNIQUE KEY `name_UNIQUE` (`name`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=6 ;
 
             CREATE TABLE IF NOT EXISTS `script_scheduler` (
