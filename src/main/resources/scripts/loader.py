@@ -70,7 +70,7 @@ class DBManager:
     def insertScriptScheduler(self, scriptId, schedulerName, enabled, fireAt):
         sql = self._config.get('queries' ,'insetScheduler')
         cursor = self._connection.cursor()
-        cursor.execute(sql % (schedulerName, enabled, fireAt, int(scriptId)))
+        cursor.execute(sql, (schedulerName, enabled, fireAt, int(scriptId)))
         cursor.connection.commit()
         cursor.close()
         
