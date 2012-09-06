@@ -8,7 +8,7 @@ class ConfigManager:
     def __init__(self):
         self._config = ConfigParser.ConfigParser().read(self._path)
         
-    def getProperty(self, section, option):
+    def get(self, section, option):
         return self._config.get(section, option)
 
 class DBManager:
