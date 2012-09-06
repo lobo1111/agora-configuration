@@ -1,5 +1,7 @@
 #!/bin/bash
 
-SCRIPT_LOADER=/opt/builder/src/src/main/resources/scripts/loader.py
+SRC=/opt/builder/src/src/main/resources/scripts
+SCRIPT_LOADER=$SRC/loader.py
 
-python $SCRIPT_LOADER%  
+cd $SRC
+python $SCRIPT_LOADER
