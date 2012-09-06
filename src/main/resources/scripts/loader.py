@@ -120,7 +120,8 @@ class ScriptLoader:
                 
     def saveScheduler(self, id, schedulerName, schedulerEnabled, schedulerFireAt):
         self._dbManager.deleteScriptScheduler(id)
-        if schedulerName != None and schedulerName != "" and schedulerEnabled != None and schedulerEnabled != "" and schedulerFireAt != None and schedulerFireAt != "":
+        print "\tSetting scheduler - [name:%s][enabled:%s][fireAt:%s]" % (schedulerName, schedulerEnabled, schedulerFireAt) 
+        if schedulerName != "" and schedulerEnabled != "" and schedulerFireAt != "":
             print "\tSetting scheduler - [name:%s][enabled:%s][fireAt:%s]" % (schedulerName, schedulerEnabled, schedulerFireAt) 
             self._dbManager.insertScriptScheduler(id, schedulerName, int(schedulerEnabled), schedulerFireAt)
         
