@@ -113,6 +113,7 @@ class ScriptLoader:
     def saveDependencies(self, id, dependencies):
         self._dbManager.deleteScriptDependencies(id)
         for dependency in dependencies:
+            dependencyName = self.getText(dependency)
             dependencyId = self._dbManager.getScriptId(dependencyName)
             print "\tAdding dependency - [id:%d][name:%s]" % (dependencyId, dependencyName)
             self._dbManager.insertScriptDependency(id, dependencyId)
