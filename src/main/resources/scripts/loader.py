@@ -117,7 +117,8 @@ class ScriptLoader:
                 
     def saveScheduler(self, id, schedulerName, schedulerEnabled, schedulerFireAt):
         self._dbManager.deleteScriptScheduler(id)
-        self._dbManager.insertScriptScheduler(id, schedulerName, schedulerEnabled, schedulerFireAt)
+        if schedulerName != None and schedulerName != "" and schedulerEnabled != None and schedulerEnabled != "" and schedulerFireAt != None and schedulerFireAt != "":
+            self._dbManager.insertScriptScheduler(id, schedulerName, int(schedulerEnabled), schedulerFireAt)
         
     def getText(self, node):
         if node == None or node.text == None:
