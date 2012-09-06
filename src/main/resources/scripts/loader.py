@@ -24,7 +24,7 @@ class ScriptLoader:
             self.saveDependencies(id, script.findall('dependencies'))
             
     def saveScript(self, name, source, onInit):
-        sql = """INSERT INTO script (name, script, onInit) VALUES (%s, %s, %s)"""
+        sql = """INSERT INTO script (name, script, on_init) VALUES (%s, %s, %s)"""
         cursor = self._connection.cursor()
         cursor.execute(sql, (name, source, onInit))
         cursor.connection.commit()
