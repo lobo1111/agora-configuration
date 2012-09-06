@@ -16,7 +16,7 @@ class DBManager:
     def __init__(self, config):
         self._connection = pymysql.connect(host=config.get('db', 'host'), port=3306, user=config.get('db', 'user'), passwd=config.get('db', 'password'), db=config.get('db', 'db'))
         self._config = config
-        
+           
     def isScriptAvailable(self, scriptName):
         sql = self._config.get('queries' ,'selectScript')
         cursor = self._connection.cursor()
@@ -54,16 +54,32 @@ class DBManager:
         return user_id
     
     def deleteScriptScheduler(self, scriptId):
-        pass
+        sql = self._config.get('queries' ,'deleteScriptScheduler')
+        cursor = self._connection.cursor()
+        cursor.execute(sql, (scriptId))
+        cursor.connection.commit()
+        cursor.close()
     
     def deleteScriptDependencies(self, scriptId):
-        pass
+        sql = self._config.get('queries' ,'deleteScriptDependencies')
+        cursor = self._connection.cursor()
+        cursor.execute(sql, (scriptId))
+        cursor.connection.commit()
+        cursor.close()
     
     def insertScriptScheduler(self, scriptId, schedulerName, enabled, fireAt):
-        pass
+        sql = self._config.get('queries' ,'insetScheduler')
+        cursor = self._connection.cursor()
+        cursor.execute(sql, (schedulerName, enabled, fireAt, scriptId))
+        cursor.connection.commit()
+        cursor.close()
         
     def insertScriptDependency(self, scriptId, dependencyName):
-        pass
+        sql = self._config.get('queries' ,'insertDependency')
+        cursor = self._connection.cursor()
+        cursor.execute(sql, (scriptId, dependencyName))
+        cursor.connection.commit()
+        cursor.close()
 
 class ScriptLoader:
     
