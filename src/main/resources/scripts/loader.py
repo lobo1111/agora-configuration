@@ -6,7 +6,8 @@ class ConfigManager:
     _path = 'loader.config'
     
     def __init__(self):
-        self._config = ConfigParser.ConfigParser().read(self._path)
+        self._config = ConfigParser.ConfigParser()
+        self._config.read('loader')
         
     def get(self, section, option):
         return self._config.get(section, option)
