@@ -63,21 +63,21 @@ class DBManager:
     def deleteScriptDependencies(self, scriptId):
         sql = self._config.get('queries' ,'deleteScriptDependencies')
         cursor = self._connection.cursor()
-        cursor.execute(sql, (int(scriptId)))
+        cursor.execute(sql % int(scriptId))
         cursor.connection.commit()
         cursor.close()
     
     def insertScriptScheduler(self, scriptId, schedulerName, enabled, fireAt):
         sql = self._config.get('queries' ,'insetScheduler')
         cursor = self._connection.cursor()
-        cursor.execute(sql, (schedulerName, enabled, fireAt, int(scriptId)))
+        cursor.execute(sql % (schedulerName, enabled, fireAt, int(scriptId)))
         cursor.connection.commit()
         cursor.close()
         
     def insertScriptDependency(self, scriptId, dependencyName):
         sql = self._config.get('queries' ,'insertDependency')
         cursor = self._connection.cursor()
-        cursor.execute(sql, (int(scriptId), self.getScriptId(dependencyName)))
+        cursor.execute(sql % (int(scriptId), self.getScriptId(dependencyName)))
         cursor.connection.commit()
         cursor.close()
 
