@@ -88,7 +88,7 @@ class ScriptLoader:
         print "Saving script: " + name
         if self._dbManager.isScriptAvailable(name):
             print "\tScript available, updating..."
-            self._dbManager.updateScript(name, source, onInit)
+            self._dbManager.updateScript(name, self.readFile(self._config.get('paths', 'scripts') + source), onInit)
             return self._dbManager.getScriptId(name)
         else:
             print "\tScript unavailable, inserting..."
