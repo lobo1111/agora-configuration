@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import pymysql
 
+
 class ScriptLoader:
     _xmlPath = '/opt/builder/src/src/main/resources/scripts/main.xml'
     _Scriptspath = '/opt/builder/src/src/main/resources/scripts/sources'
@@ -24,7 +25,8 @@ class ScriptLoader:
             
     def saveScript(self, name, source, onInit):
         sql = """INSERT INTO script (name, script, onInit) VALUES (%s, %s, %s)"""
-        data = cursor.execute(sql, (name, source, onInit))
+        cursor = self._connection.cursor()
+        cursor.execute(sql, (name, source, onInit))
         cursor.connection.commit()
         user_id = cursor.connection.insert_id()
         cursor.close()
