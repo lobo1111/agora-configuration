@@ -1,11 +1,11 @@
-import xml.etree.ElementTree
+import xml.etree.ElementTree as ET
 
 class ScriptLoader:
     _xmlPath = '/opt/builder/src/src/main/resources/scripts/main.xml'
     _Scriptspath = '/opt/builder/src/src/main/resources/scripts/sources'
     
     def __init__(self):
-        self._xml = ElementTree.parse(self._xmlPath).getroot()
+        self._xml = ET.parse(self._xmlPath).getroot()
         
     def loadScripts(self):
         for script in self._xml.findall('/scripts/script'):
@@ -28,4 +28,7 @@ class ScriptLoader:
         
     def saveDependencies(self, dependencies):
         print dependencies
+        
+loader = ScriptLoader()
+loader.loadScripts()
             
