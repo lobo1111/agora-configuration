@@ -7,7 +7,7 @@ class ConfigManager:
     
     def __init__(self):
         self._config = ConfigParser.ConfigParser()
-        self._config.read('loader')
+        self._config.read('loader.config')
         
     def get(self, section, option):
         return self._config.get(section, option)
@@ -62,7 +62,7 @@ class ScriptLoader:
             schedulerName = script.find('scheduler/name')
             schedulerEnabled = script.find('scheduler/enabled')
             schedulerFireAt = script.find('scheduler/fireAt')
-            id = self.saveScript(self.getText(name), self.readFile(self.__scriptsPath + self.getText(source)), self.getText(onInit))
+            id = self.saveScript(self.getText(name), self.getText(source), self.getText(onInit))
             self.saveScheduler(id, self.getText(schedulerName), self.getText(schedulerEnabled), self.getText(schedulerFireAt))
             self.saveDependencies(id, script.findall('dependencies'))
             
