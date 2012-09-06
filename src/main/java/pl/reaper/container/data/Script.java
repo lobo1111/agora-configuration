@@ -10,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -46,7 +48,8 @@ public class Script implements Serializable {
     private Boolean base;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "script")
     private Collection<ScriptScheduler> scriptSchedulers;
-    @OneToMany(mappedBy = "parent")
+    @ManyToMany
+    @JoinTable(name = "script_dependency")
     private Collection<Script> dependencies;
 
     public Script() {
