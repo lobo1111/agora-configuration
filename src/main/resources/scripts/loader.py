@@ -74,10 +74,10 @@ class DBManager:
         cursor.connection.commit()
         cursor.close()
         
-    def insertScriptDependency(self, scriptId, dependencyName):
+    def insertScriptDependency(self, scriptId, dependencyId):
         sql = self._config.get('queries' ,'insertDependency')
         cursor = self._connection.cursor()
-        cursor.execute(sql % (int(scriptId), self.getScriptId(dependencyName)))
+        cursor.execute(sql % (int(scriptId), int(dependencyId)))
         cursor.connection.commit()
         cursor.close()
 
@@ -113,11 +113,14 @@ class ScriptLoader:
     def saveDependencies(self, id, dependencies):
         self._dbManager.deleteScriptDependencies(id)
         for dependency in dependencies:
-            self._dbManager.insertScriptDependency(id, self.getText(dependency))
+            dependencyId = self.getScriptId(dependencyName)
+            print "\tAdding dependency - [id:%d][name:%s]" % (dependencyId, dependencyName)
+            self._dbManager.insertScriptDependency(id, dependencyId)
                 
     def saveScheduler(self, id, schedulerName, schedulerEnabled, schedulerFireAt):
         self._dbManager.deleteScriptScheduler(id)
         if schedulerName != None and schedulerName != "" and schedulerEnabled != None and schedulerEnabled != "" and schedulerFireAt != None and schedulerFireAt != "":
+            print "\tSetting scheduler - [name:%s][enabled:%s][fireAt:%s]" % (schedulerName, schedulerEnabled, schedulerFireAt) 
             self._dbManager.insertScriptScheduler(id, schedulerName, int(schedulerEnabled), schedulerFireAt)
         
     def getText(self, node):
