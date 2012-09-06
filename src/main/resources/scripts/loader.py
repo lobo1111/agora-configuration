@@ -85,10 +85,13 @@ class ScriptLoader:
             self.saveDependencies(id, script.findall('dependencies'))
             
     def saveScript(self, name, source, onInit):
+        print "Saving script: " + name
         if self._dbManager.isScriptAvailable(name):
+            print "\tScript available, updating..."
             self._dbManager.updateScript(name, source, onInit)
             return self._dbManager.getScriptId(name)
         else:
+            print "\tScript unavailable, inserting..."
             return self._dbManager.insertScript(name, self.readFile(self._config.get('paths', 'scripts') + source), onInit)
         
     def saveDependencies(self, id, dependencies):
