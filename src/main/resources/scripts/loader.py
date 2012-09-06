@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+import pymysql
 
 class ScriptLoader:
     _xmlPath = '/opt/builder/src/src/main/resources/scripts/main.xml'
