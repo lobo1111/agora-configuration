@@ -8,7 +8,7 @@ class ScriptLoader:
         self._xml = ET.parse(self._xmlPath).getroot()
         
     def loadScripts(self):
-        for script in self._xml.findall('/cripts/script'):
+        for script in self._xml.findall('scripts/script'):
             name = script.find('name')
             source = script.find('source')
             onInit = script.find('onInit')
