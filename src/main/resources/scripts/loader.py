@@ -19,7 +19,7 @@ class DBManager:
         
     def isScriptAvailable(self, scriptName):
         sql = self._config.get('queries' ,'selectScript')
-        cursor = self._connection
+        cursor = self._connection.cursor()
         cursor.execute(sql, (scriptName))
         results = cursor.fetchall()
         cursor.close()
@@ -29,7 +29,7 @@ class DBManager:
     
     def getScriptId(self, scriptName):
         sql = self._config.get('queries' ,'selectScript')
-        cursor = self._connection
+        cursor = self._connection.cursor()
         cursor.execute(sql, (scriptName))
         results = cursor.fetchall()
         cursor.close()
