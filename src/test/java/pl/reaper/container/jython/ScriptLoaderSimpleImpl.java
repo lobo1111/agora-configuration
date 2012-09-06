@@ -15,6 +15,9 @@ public class ScriptLoaderSimpleImpl implements ScriptLoader {
             + "\n\t\tself._result = result"
             + "\n\tdef appendResult(self, result):"
             + "\n\t\tself._result += result";
+    
+    private static final String OUTPUT_INIT = ""
+            + "\noutput = Output()";
 
     @Override
     public List<Script> loadScriptChain(String name) {
@@ -30,29 +33,17 @@ public class ScriptLoaderSimpleImpl implements ScriptLoader {
     private Script getSimpleScript(String name) {
         Script simple = new Script();
         simple.setName(name);
-        simple.setScript("output.setResult('test')");
-        simple.setOnInit("");
+        simple.setScript(OUTPUT + OUTPUT_INIT);
+        simple.setOnInit("output.setResult('test')");
         return simple;
     }
 
     private Script getVarsScript(String name) {
         Script simple = new Script();
         simple.setName(name);
-        simple.setScript("output.setResult(vars.get('customVar'))");
-        simple.setOnInit("");
+        simple.setScript(OUTPUT + OUTPUT_INIT);
+        simple.setOnInit("print vars\noutput.setResult(vars.get('customVar'))");
         return simple;
     }
 
-    @Override
-    public List<Script> loadBaseScripts() {
-        Script s = new Script();
-        s.setBase(true);
-        s.setName("output");
-        s.setOnInit("output = Output()");
-        s.setParent(null);
-        s.setScript(OUTPUT);
-        List<Script> l = new ArrayList<>();
-        l.add(s);
-        return l;
-    }
 }

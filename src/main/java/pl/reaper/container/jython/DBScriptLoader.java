@@ -1,8 +1,7 @@
 package pl.reaper.container.jython;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,15 +26,17 @@ public class DBScriptLoader implements ScriptLoader {
     public List<Script> loadScriptChain(String name) {
         List<Script> chain = new ArrayList<>();
         try {
-            Script script = loadScript(name);
-            while (!chain.contains(script) && script != null) {
-                chain.add(script);
-                script = script.getParent();
-            }
+            chain = loadScriptChain(loadScript(name));
         } catch (NoResultException ex) {
             Logger.getLogger(DBScriptLoader.class.getName()).log(Level.WARNING, "Can't find script " + name, ex);
         }
-        Collections.reverse(chain);
+        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script chain loaded({0})", Arrays.deepToString(chain.toArray(new Script[chain.size()])));
+        return chain;
+    }
+
+    public List<Script> loadScriptChain(Script script) {
+        List<Script> chain = new ArrayList<>();
+        getDependencies(chain, script);
         return chain;
     }
 
@@ -48,37 +49,12 @@ public class DBScriptLoader implements ScriptLoader {
         return entityManager.createQuery(query).getSingleResult();
     }
 
-    @Override
-    public List<Script> loadBaseScripts() {
-        List<Script> allBaseScripts = new ArrayList<>();
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Script> query = criteriaBuilder.createQuery(Script.class);
-        Root<Script> root = query.from(Script.class);
-        Predicate baseScriptPredicate = criteriaBuilder.equal(root.get(Script_.base), true);
-        Predicate hasNoParentPredicate = criteriaBuilder.isNull(root.get(Script_.parent));
-        query.where(baseScriptPredicate, hasNoParentPredicate);
-        List<Script> baseScriptsWithoutParents = entityManager.createQuery(query).getResultList();
-        for(Script base: baseScriptsWithoutParents) {
-            allBaseScripts.add(base);
-            allBaseScripts.addAll(loadChildren(base));
+    private void getDependencies(List<Script> chain, Script script) {
+        for (Script dependency : script.getDependencies()) {
+            getDependencies(chain, dependency);
+            if(!chain.contains(script)) {
+                chain.add(script);
+            }
         }
-        return allBaseScripts;
-    }
-
-    private Collection<? extends Script> loadChildren(Script parent) {
-        List<Script> children = getChildren(parent);
-        for(Script child: children) {
-            children.addAll(loadChildren(child));
-        }
-        return children;
-    }
-
-    private List<Script> getChildren(Script parent) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Script> query = criteriaBuilder.createQuery(Script.class);
-        Root<Script> root = query.from(Script.class);
-        Predicate predicate = criteriaBuilder.equal(root.get(Script_.parent), parent);
-        query.where(predicate);
-        return entityManager.createQuery(query).getResultList();
     }
 }

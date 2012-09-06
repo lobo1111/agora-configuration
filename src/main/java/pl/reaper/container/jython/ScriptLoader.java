@@ -6,6 +6,4 @@ import pl.reaper.container.data.Script;
 public interface ScriptLoader {
 
     public List<Script> loadScriptChain(String name);
-    
-    public List<Script> loadBaseScripts();
 }

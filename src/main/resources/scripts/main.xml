@@ -3,7 +3,6 @@
     <script>
         <name>output</name>
         <source>output.py</source>
-        <base>true</base>
         <onInit>output = Output()</onInit>
         <scheduler/>
         <dependencies/>
@@ -12,7 +11,6 @@
     <script>
         <name>db-logger</name>
         <source>db-logger.py</source>
-        <base>true</base>
         <onInit/>
         <scheduler/>
         <dependencies/>
@@ -21,7 +19,6 @@
     <script>
         <name>container</name>
         <source>container.py</source>
-        <base>true</base>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -32,29 +29,30 @@
     <script>
         <name>check-email</name>
         <source>check-email.py</source>
-        <base>false</base>
         <onInit>MailProcessor().checkMailbox()</onInit>
         <scheduler>
             <name>check-email</name>
             <enabled>true</enabled>
             <fireaAt>* * * * *</fireaAt>
         </scheduler>
-        <dependencies/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+        </dependencies>
     </script>
     
     <script>
         <name>xml-loader</name>
         <source>xml-loader.py</source>
-        <base>false</base>
         <onInit/>
         <scheduler/>
-        <dependencies/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+        </dependencies>
     </script>
     
     <script>
         <name>file-watchdog</name>
         <source>file-watchdog.py</source>
-        <base>false</base>
         <onInit>FileWatchdog().processFiles()</onInit>
         <scheduler>
             <name>check-email</name>
@@ -63,6 +61,7 @@
         </scheduler>
         <dependencies>
             <scriptName>xml-loader</scriptName>
+            <scriptName>db-logger</scriptName>
         </dependencies>
     </script>
 </scripts>

@@ -11,8 +11,6 @@
             `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
             `script` text COLLATE utf8_polish_ci,
             `on_init` text COLLATE utf8_polish_ci,
-            `base` tinyint(1) DEFAULT '0',
-            `parent` int(11) DEFAULT NULL,
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`name`),
             KEY `script_parent_fkey` (`parent`)
@@ -29,9 +27,18 @@
             KEY `scheduler_script_fkey` (`id_script`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
             
+            CREATE TABLE IF NOT EXISTS `script_dependency` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `script_id` int(11) NOT NULL,
+            `dependency` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
             
-            ALTER TABLE `script`
-            ADD CONSTRAINT `script_parent_fkey` FOREIGN KEY (`parent`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ALTER TABLE `script_dependency`
+            ADD CONSTRAINT `script_dependency_script_fkey` FOREIGN KEY (`script_id`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+            ALTER TABLE `script_dependency`
+            ADD CONSTRAINT `script_dependency_dependency_fkey` FOREIGN KEY (`dependency`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `script_scheduler`
             ADD CONSTRAINT `scheduler_script_fkey` FOREIGN KEY (`id_script`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

@@ -47,10 +47,7 @@ public class Script implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "script")
     private Collection<ScriptScheduler> scriptSchedulers;
     @OneToMany(mappedBy = "parent")
-    private Collection<Script> dependentScripts;
-    @JoinColumn(name = "parent", referencedColumnName = "id")
-    @ManyToOne
-    private Script parent;
+    private Collection<Script> dependencies;
 
     public Script() {
     }
@@ -114,20 +111,12 @@ public class Script implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Script> getDependantScripts() {
-        return dependentScripts;
+    public Collection<Script> getDependencies() {
+        return dependencies;
     }
 
-    public void setDependantScripts(Collection<Script> dependentScripts) {
-        this.dependentScripts = dependentScripts;
-    }
-
-    public Script getParent() {
-        return parent;
-    }
-
-    public void setParent(Script parent) {
-        this.parent = parent;
+    public void setDependencies(Collection<Script> dependencies) {
+        this.dependencies = dependencies;
     }
 
     @Override

@@ -8,6 +8,7 @@
     <class>pl.reaper.container.data.IncomingPaymentDocumentPosition</class>
     <class>pl.reaper.container.data.IncomingPaymentDocument</class>
     <class>pl.reaper.container.data.DocumentStatus</class>
+    <class>pl.reaper.container.data.ScriptDependency</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.sharedCache.mode" value="NONE"/>
