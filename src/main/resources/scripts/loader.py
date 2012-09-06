@@ -98,7 +98,7 @@ class ScriptLoader:
             schedulerFireAt = script.find('scheduler/fireAt')
             id = self.saveScript(self.getText(name), self.getText(source), self.getText(onInit))
             self.saveScheduler(id, self.getText(schedulerName), self.getText(schedulerEnabled), self.getText(schedulerFireAt))
-            self.saveDependencies(id, script.findall('dependencies'))
+            self.saveDependencies(id, script.findall('dependencies/scriptName'))
             
     def saveScript(self, name, source, onInit):
         print "Saving script: " + name
