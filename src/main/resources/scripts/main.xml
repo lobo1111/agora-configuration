@@ -55,7 +55,7 @@
         <source>file-watchdog.py</source>
         <onInit>FileWatchdog().processFiles()</onInit>
         <scheduler>
-            <name>check-email</name>
+            <name>file-watchdog</name>
             <enabled>true</enabled>
             <fireAt>* * * * *</fireAt>
         </scheduler>
