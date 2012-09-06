@@ -18,15 +18,15 @@ class ScriptLoader:
             schedulerName = script.find('scheduler/name')
             schedulerEnabled = script.find('scheduler/enabled')
             schedulerFireAt = script.find('scheduler/fireAt')
-            id = self.saveScript(name, source, onInit)
+            id = self.saveScript(self.getText(name), self.getText(source), self.getText(onInit))
             print id
-            self.saveScheduler(id, schedulerName, schedulerEnabled, schedulerFireAt)
+            self.saveScheduler(id, self.getText(schedulerName), self.getText(schedulerEnabled), self.getText(schedulerFireAt))
             self.saveDependencies(id, script.findall('dependencies'))
             
     def saveScript(self, name, source, onInit):
-        sql = "INSERT INTO script (name, script, onInit) VALUES (" + name + ", " + source + ", " + onInit + ")"
+        sql = """INSERT INTO script (name, script, onInit) VALUES (%s, %s, %s)"""
         cursor = self._connection.cursor()
-        cursor.execute(sql)
+        cursor.execute(sql, (name, source, onInit))
         cursor.connection.commit()
         user_id = cursor.connection.insert_id()
         cursor.close()
@@ -37,6 +37,12 @@ class ScriptLoader:
                 
     def saveScheduler(self, id, schedulerName, schedulerEnabled, schedulerFireAt):
         print schedulerName
+        
+    def getText(self, node):
+        if node == None or node.text == None:
+            return ""
+        else:
+            return node.text
         
 loader = ScriptLoader()
 loader.loadScripts()
