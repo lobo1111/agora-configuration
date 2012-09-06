@@ -34,9 +34,7 @@ class DBManager:
         results = cursor.fetchall()
         cursor.close()
         if len(results) > 0: 
-            first = results[0]
-            print first
-            return frist.id
+            return results[0][0]
         return -1
     
     def updateScript(self, scriptName, source, onInit):
