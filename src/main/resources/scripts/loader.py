@@ -120,16 +120,20 @@ class ScriptLoader:
                 
     def saveScheduler(self, id, schedulerName, schedulerEnabled, schedulerFireAt):
         self._dbManager.deleteScriptScheduler(id)
-        print "\tSetting scheduler - [name:%s][enabled:%s][fireAt:%s]" % (schedulerName, schedulerEnabled, schedulerFireAt) 
         if schedulerName != "" and schedulerEnabled != "" and schedulerFireAt != "":
             print "\tSetting scheduler - [name:%s][enabled:%s][fireAt:%s]" % (schedulerName, schedulerEnabled, schedulerFireAt) 
-            self._dbManager.insertScriptScheduler(id, schedulerName, int(schedulerEnabled), schedulerFireAt)
+            self._dbManager.insertScriptScheduler(id, schedulerName, self.parseBoolean(schedulerEnabled), schedulerFireAt)
         
     def getText(self, node):
         if node == None or node.text == None:
             return ""
         else:
             return node.text
+        
+    def parseBoolean(self, value):
+        if value != None and value == 'true':
+            return 1
+        return 0;
         
     def readFile(self, fullPath):
         return ''.join(open(fullPath, 'r').readlines())

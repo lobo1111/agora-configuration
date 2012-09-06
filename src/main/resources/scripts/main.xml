@@ -33,7 +33,7 @@
         <scheduler>
             <name>check-email</name>
             <enabled>true</enabled>
-            <fireaAt>* * * * *</fireaAt>
+            <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>db-logger</scriptName>
@@ -57,7 +57,7 @@
         <scheduler>
             <name>check-email</name>
             <enabled>true</enabled>
-            <fireaAt>* * * * *</fireaAt>
+            <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>xml-loader</scriptName>
