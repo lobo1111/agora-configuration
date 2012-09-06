@@ -40,7 +40,7 @@ class DBManager:
     def updateScript(self, scriptName, source, onInit):
         sql = self._config.get('queries' ,'updateScript')
         cursor = self._connection.cursor()
-        cursor.execute(sql, (scriptName, source, onInit))
+        cursor.execute(sql, (source, onInit, scriptName))
         cursor.connection.commit()
         cursor.close()
     
