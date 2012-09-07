@@ -17,8 +17,10 @@ import pl.reaper.container.jython.ScriptLoader;
 @Stateless
 public class JythonBean implements JythonBeanLocal {
 
-    @PersistenceContext
+    @PersistenceContext(name = "agora_erp")
     private EntityManager entityManager;
+    @PersistenceContext(name = "agora_old_erp")
+    private EntityManager oldEntityManager;
     @EJB
     private PropertyBeanLocal propertyBean;
     @EJB
@@ -46,6 +48,7 @@ public class JythonBean implements JythonBeanLocal {
         ScriptEngineWrapper engineBuilder = new ScriptEngineWrapper()
                 .setDocumentStatusBean(documentStatusBean)
                 .setEntityManager(entityManager)
+                .setOldEntityManager(oldEntityManager)
                 .setPropertyBean(propertyBean)
                 .init();
         return engineBuilder;

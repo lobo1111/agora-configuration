@@ -32,7 +32,7 @@
         <onInit>MailProcessor().checkMailbox()</onInit>
         <scheduler>
             <name>check-email</name>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
             <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
@@ -58,11 +58,26 @@
         <onInit>FileWatchdog().processFiles()</onInit>
         <scheduler>
             <name>file-watchdog</name>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
             <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>xml-loader</scriptName>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+    </script>
+    
+    <script>
+        <name>read-ms-access-db</name>
+        <source>read-ms-access-db.py</source>
+        <onInit>MSAccessReader()</onInit>
+        <scheduler>
+            <name>read-ms-access-db</name>
+            <enabled>true</enabled>
+            <fireAt>* * * * *</fireAt>
+        </scheduler>
+        <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
         </dependencies>

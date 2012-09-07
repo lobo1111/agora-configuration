@@ -14,7 +14,7 @@ import pl.reaper.container.data.DictionaryType_;
 @Stateless
 public class PropertyBean implements PropertyBeanLocal {
     
-    @PersistenceContext
+    @PersistenceContext(name = "agora_erp")
     EntityManager entityManager;
     @EJB
     DictionaryBeanLocal dictionary;

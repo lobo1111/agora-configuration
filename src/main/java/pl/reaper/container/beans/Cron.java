@@ -18,7 +18,7 @@ import pl.reaper.container.data.ScriptScheduler;
 @Stateless
 public class Cron implements CronLocal {
 
-    @PersistenceContext
+    @PersistenceContext(name = "agora_erp")
     EntityManager entityManager;
     @EJB
     JythonBeanLocal jythonBean;

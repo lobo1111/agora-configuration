@@ -157,4 +157,11 @@
             SELECT id, 'UNKNOWN', 'Nieznany stan dokumentu' FROM `dictionary_type` WHERE `type` = 'DOCUMENT_STATUS';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='ms-access-db-path'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'msAccessDBPath', '/home/agora/backups/ms_access/Bazy.mdb' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';        
+        </sql>
+    </changeSet>
 </databaseChangeLog>

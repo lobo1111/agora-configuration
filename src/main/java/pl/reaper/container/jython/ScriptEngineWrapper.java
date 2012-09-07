@@ -16,6 +16,7 @@ import pl.reaper.container.beans.PropertyBeanLocal;
 public class ScriptEngineWrapper {
 
     private EntityManager entityManager;
+    private EntityManager oldEntityManager;
     private PropertyBeanLocal propertyBean;
     private DocumentStatusBeanLocal documentStatusBean;
     private Map<String, Object> variables;
@@ -34,6 +35,7 @@ public class ScriptEngineWrapper {
     public ScriptEngineWrapper init() {
         engine.getContext().setWriter(new PrintWriter(System.out));
         engine.put("entityManager", entityManager);
+        engine.put("oldEntityManager", oldEntityManager);
         engine.put("vars", variables);
         engine.put("properties", propertyBean);
         engine.put("documentStatusLoader", documentStatusBean);
@@ -96,5 +98,10 @@ public class ScriptEngineWrapper {
 
     public String getLastExecuted() {
         return lastExecuted;
+    }
+
+    public ScriptEngineWrapper setOldEntityManager(EntityManager oldEntityManager) {
+        this.oldEntityManager = oldEntityManager;
+        return this;
     }
 }

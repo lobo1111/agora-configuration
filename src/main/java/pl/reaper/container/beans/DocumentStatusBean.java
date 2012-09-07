@@ -15,7 +15,7 @@ import pl.reaper.container.data.DictionaryType_;
 @Stateless
 public class DocumentStatusBean implements DocumentStatusBeanLocal {
 
-    @PersistenceContext
+    @PersistenceContext(name = "agora_erp")
     private EntityManager entityManager;
     private static final String UNKNOWN = "UNKNOWN";
     @EJB
