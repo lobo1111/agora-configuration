@@ -52,9 +52,9 @@ public class DBScriptLoader implements ScriptLoader {
     private void getDependencies(List<Script> chain, Script script) {
         for (Script dependency : script.getDependencies()) {
             getDependencies(chain, dependency);
-            if(!chain.contains(script)) {
-                chain.add(script);
-            }
+        }
+        if (!chain.contains(script)) {
+            chain.add(script);
         }
     }
 }

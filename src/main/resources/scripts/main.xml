@@ -3,7 +3,7 @@
     <script>
         <name>output</name>
         <source>output.py</source>
-        <onInit>output = Output()</onInit>
+        <onInit/>
         <scheduler/>
         <dependencies/>
     </script>
@@ -37,6 +37,7 @@
         </scheduler>
         <dependencies>
             <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
         </dependencies>
     </script>
     
@@ -47,6 +48,7 @@
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
         </dependencies>
     </script>
     
@@ -62,6 +64,7 @@
         <dependencies>
             <scriptName>xml-loader</scriptName>
             <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
         </dependencies>
     </script>
 </scripts>

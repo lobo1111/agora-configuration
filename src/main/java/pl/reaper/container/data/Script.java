@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,6 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "script")
 @XmlRootElement
 public class Script implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,12 +44,15 @@ public class Script implements Serializable {
     @Size(max = 65535)
     @Column(name = "on_init")
     private String onInit;
-    @Column(name = "base")
-    private Boolean base;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "script")
     private Collection<ScriptScheduler> scriptSchedulers;
     @ManyToMany
-    @JoinTable(name = "script_dependency")
+    @JoinTable(
+        name = "script_dependency",
+        joinColumns =
+            @JoinColumn(name = "script_id", referencedColumnName = "id"),
+        inverseJoinColumns =
+            @JoinColumn(name = "dependency", referencedColumnName = "id"))
     private Collection<Script> dependencies;
 
     public Script() {
@@ -96,14 +99,6 @@ public class Script implements Serializable {
         this.onInit = onInit;
     }
 
-    public Boolean getBase() {
-        return base;
-    }
-
-    public void setBase(Boolean base) {
-        this.base = base;
-    }
-
     @XmlTransient
     public Collection<ScriptScheduler> getScriptSchedulers() {
         return scriptSchedulers;
@@ -146,5 +141,4 @@ public class Script implements Serializable {
     public String toString() {
         return "pl.reaper.container.data.Script[ id=" + id + " ]";
     }
-    
 }

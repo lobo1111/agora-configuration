@@ -33,7 +33,7 @@ public class DictionaryBean implements DictionaryBeanLocal {
             Dictionary result = entityManager.createQuery(query).getSingleResult();
             return result.getValue();
         } catch(NoResultException | NonUniqueResultException e) {
-            Logger.getLogger(DictionaryBean.class.getName()).log(Level.WARNING, null, e);
+            Logger.getLogger(DictionaryBean.class.getName()).log(Level.WARNING, "Key[" + key + "] not found in dictionary: " + dictionaryType.getType(), e);
             return null;
         }
     }

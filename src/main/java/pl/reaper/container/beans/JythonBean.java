@@ -22,7 +22,7 @@ public class JythonBean implements JythonBeanLocal {
     @EJB
     private PropertyBeanLocal propertyBean;
     @EJB
-    private DocumentStatusBean documentStatusBean;
+    private DocumentStatusBeanLocal documentStatusBean;
 
     @Override
     public String executeScript(String scriptName, Map variables) {
@@ -43,7 +43,7 @@ public class JythonBean implements JythonBeanLocal {
     }
 
     private ScriptEngineWrapper getScriptEngine() throws ScriptEngineNotFoundException {
-        ScriptEngineWrapper engineBuilder = ScriptEngineWrapper.getInstance()
+        ScriptEngineWrapper engineBuilder = new ScriptEngineWrapper()
                 .setDocumentStatusBean(documentStatusBean)
                 .setEntityManager(entityManager)
                 .setPropertyBean(propertyBean)

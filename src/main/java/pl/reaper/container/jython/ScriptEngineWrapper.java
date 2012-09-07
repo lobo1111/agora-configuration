@@ -21,22 +21,14 @@ public class ScriptEngineWrapper {
     private Map<String, Object> variables;
     private ScriptEngine engine;
     private String lastExecuted;
-    private static ScriptEngineWrapper instance;
 
-    private ScriptEngineWrapper() throws ScriptEngineNotFoundException {
+    public ScriptEngineWrapper() throws ScriptEngineNotFoundException {
         engine = new ScriptEngineManager().getEngineByName("python");
         if (engine == null) {
             throw new ScriptEngineNotFoundException("Python engine not found");
         }
         lastExecuted = "";
         putMetaVars();
-    }
-
-    public static ScriptEngineWrapper getInstance() throws ScriptEngineNotFoundException {
-        if (instance == null) {
-            instance = new ScriptEngineWrapper();
-        }
-        return instance;
     }
 
     public ScriptEngineWrapper init() {
@@ -62,7 +54,7 @@ public class ScriptEngineWrapper {
                 return result;
             }
         } catch (ScriptException ex) {
-            Logger.getLogger(ScriptExecutor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Output not found");
         }
         return "<no output>";
     }

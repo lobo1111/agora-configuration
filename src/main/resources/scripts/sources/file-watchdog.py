@@ -3,7 +3,7 @@ import shutil
 import xml.sax
 
 class FileWatchdog(Container):
-  _newFiles = properties.getProperty("emailAttachmentsDir")
+  _newXMLs = properties.getProperty("xmlNewXMLs")
   _processedXMLs = properties.getProperty("xmlProcessedXMLs")
   _nonXMLDir = properties.getProperty("xmlNonXML")
   _errorXMLs = properties.getProperty("xmlErrorXMLs")
@@ -14,7 +14,8 @@ class FileWatchdog(Container):
     shutil.move(source, destination)
 
   def getFiles(self):
-    return os.listdir(self._newFiles)
+    self._logger.info('processing files in ' + self._newXMLs)
+    return os.listdir(self._newXMLs)
 
   def isXML(self, file):
     try:
@@ -36,16 +37,16 @@ class FileWatchdog(Container):
 
   def processFiles(self):
     files = self.getFiles()
-    self._logger.info('processing new files - ' + str(len(files)))
+    self._logger.info('found - ' + ','.join(files))
     for file in files:
-      fullPath = self._newFiles + os.sep + file
       self._logger.info('processing ' + file)
+      fullPath = self._newXMLs + os.sep + file
       if self.isXML(fullPath):
         if self.processXML(self.readFile(fullPath)):
           self._logger.info('file ' + file + ' processed')
           self.moveFile(fullPath, self._processedXMLs + os.sep + file)
         else:
-          self._logger.warning('There is something wrong with ' + file)
+          self._logger.warn('There is something wrong with ' + file)
           self.moveFile(fullPath, self._errorXMLs + os.sep + file)
       else:
         self.moveFile(fullPath, self._nonXMLDir + os.sep + file)

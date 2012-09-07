@@ -47,9 +47,6 @@
             SELECT id, 'emailPassword', 'tomasz.12' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
             
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
-            SELECT id, 'emailAttachmentsDir', '/home/agora/attachments' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
-            
-            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'emailNew', 'invoice/new' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
             
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
@@ -120,6 +117,20 @@
             SELECT id, 'bpNewDocumentStatus', 'NEW' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='xml-paths'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'xmlNewXMLs', '/home/agora/attachments/new' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'xmlProcessedXMLs', '/home/agora/attachments/processed' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'xmlNonXML', '/home/agora/attachments/nonXML' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'xmlErrorXMLs', '/home/agora/attachments/error' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+        </sql>
+    </changeSet>
 </databaseChangeLog>
-
-
