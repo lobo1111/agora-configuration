@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class IncomingPaymentDocument implements Serializable {
     @Basic(optional = false)
     @Column(name = "status")
-    private Dictionary status;
+    private String status;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -170,11 +170,11 @@ public class IncomingPaymentDocument implements Serializable {
         return "pl.reaper.container.data.IncomingPaymentDocument[ id=" + id + " ]";
     }
 
-    public Dictionary getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Dictionary status) {
+    public void setStatus(String status) {
         this.status = status;
     }
     

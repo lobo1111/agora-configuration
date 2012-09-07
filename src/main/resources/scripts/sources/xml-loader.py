@@ -37,7 +37,7 @@ class XMLLoader(Container):
     document.setIncome(BigDecimal(self.getText(xml, properties.getProperty('bpPathIncome'))))
     document.setSpending(BigDecimal(self.getText(xml, properties.getProperty('bpPathSpending'))))
     document.setPositionCounter(int(self.getText(xml, properties.getProperty('bpPathPositionCounter'))))
-    document.setStatus(documentStatusLoader.getStatus(properties.getProperty('bpNewDocumentStatus')))
+    document.setStatus(self.getStatus())
     self.saveDocument(document)
 
   def setPositions(self, xml, document):
@@ -56,6 +56,11 @@ class XMLLoader(Container):
       position.setDocument(document)
       self.saveDocument(position)
       
+  def getStatus(self):
+    status = documentStatusLoader.getStatus(properties.getProperty('bpNewDocumentStatus'))
+    self._logger.info('status=[id:%d][key:%s]' % (status.getId(), status.getKey()))
+    return status.getKey()
+
   def parseDate(self, dateAsString):
     return SimpleDateFormat(properties.getProperty('dateFormat')).parse(dateAsString)
 

@@ -39,7 +39,7 @@ class FileWatchdog(Container):
 
   def processFiles(self):
     files = self.getFiles()
-    self._logger.info('found - ' + ','.join(files))
+    self._logger.info('found[%d][%s]' % (len(files), ','.join(files)))
     for file in files:
       self._logger.info('processing ' + file)
       fullPath = self._newXMLs + os.sep + file
