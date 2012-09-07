@@ -21,7 +21,7 @@ public class DocumentStatusBean implements DocumentStatusBeanLocal {
     DictionaryBeanLocal dictionary;
 
     @Override
-    public String getStatus(String status) {
+    public int getStatus(String status) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<DictionaryType> query = criteriaBuilder.createQuery(DictionaryType.class);
@@ -29,19 +29,19 @@ public class DocumentStatusBean implements DocumentStatusBeanLocal {
             Predicate predicate = criteriaBuilder.equal(root.get(DictionaryType_.type), "DOCUMENT_STATUS");
             query.where(predicate);
             DictionaryType type = entityManager.createQuery(query).getSingleResult();
-            return dictionary.getDictionaryValue(type, status);
+            return dictionary.getDictionary(type, status).getId();
         } catch (Exception e) {
             return loadUnknownStatus();
         }
     }
 
-    private String loadUnknownStatus() {
+    private int loadUnknownStatus() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<DictionaryType> query = criteriaBuilder.createQuery(DictionaryType.class);
             Root<DictionaryType> root = query.from(DictionaryType.class);
             Predicate predicate = criteriaBuilder.equal(root.get(DictionaryType_.type), "DOCUMENT_STATUS");
             query.where(predicate);
             DictionaryType type = entityManager.createQuery(query).getSingleResult();
-            return dictionary.getDictionaryValue(type, UNKNOWN);
+            return dictionary.getDictionary(type, UNKNOWN).getId();
     }
 }

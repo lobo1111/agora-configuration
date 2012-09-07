@@ -5,6 +5,6 @@ import javax.ejb.Local;
 @Local
 public interface DocumentStatusBeanLocal {
 
-    public String getStatus(String status);
+    public int getStatus(String status);
 
 }

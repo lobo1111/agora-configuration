@@ -17,7 +17,7 @@
             `income` decimal(10,2) DEFAULT NULL,
             `spending` decimal(10,2) DEFAULT NULL,
             `positionCounter` int(11) DEFAULT NULL,
-            `status` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+            `status_id` int(11) NOT NULL,
             `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
             KEY `incoming_payment_document_status` (`status`)
@@ -40,7 +40,7 @@
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
 
             ALTER TABLE `incoming_payment_document`
-            ADD CONSTRAINT `incoming_payment_document_status` FOREIGN KEY (`status`) REFERENCES `dictionary` (`dictionaryKey`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `incoming_payment_document_status` FOREIGN KEY (`status_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `incoming_payment_document_position`
             ADD CONSTRAINT `incoming_payment_document_position_fkey` FOREIGN KEY (`document_id`) REFERENCES `incoming_payment_document` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
