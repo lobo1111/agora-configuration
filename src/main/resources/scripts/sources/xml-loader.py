@@ -59,7 +59,7 @@ class XMLLoader(Container):
   def getStatus(self):
     status = documentStatusLoader.getStatus(properties.getProperty('bpNewDocumentStatus'))
     self._logger.info('status=[id:%d][key:%s]' % (status.getId(), status.getKey()))
-    return status
+    return status.getKey()
 
   def parseDate(self, dateAsString):
     return SimpleDateFormat(properties.getProperty('dateFormat')).parse(dateAsString)
