@@ -40,7 +40,7 @@
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
 
             ALTER TABLE `incoming_payment_document`
-            ADD CONSTRAINT `incoming_payment_document_status` FOREIGN KEY (`status`) REFERENCES `dictionary` (`key`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `incoming_payment_document_status` FOREIGN KEY (`status`) REFERENCES `dictionary` (`dictionaryKey`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `incoming_payment_document_position`
             ADD CONSTRAINT `incoming_payment_document_position_fkey` FOREIGN KEY (`document_id`) REFERENCES `incoming_payment_document` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
