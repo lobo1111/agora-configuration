@@ -1,10 +1,11 @@
 package pl.reaper.container.beans;
 
 import javax.ejb.Local;
+import pl.reaper.container.data.Dictionary;
 
 @Local
 public interface DocumentStatusBeanLocal {
 
-    public int getStatus(String status);
+    public Dictionary getStatus(String status);
 
 }

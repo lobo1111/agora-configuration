@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import pl.reaper.container.data.Dictionary;
 import pl.reaper.container.data.DictionaryType;
 import pl.reaper.container.data.DictionaryType_;
 
@@ -21,7 +22,7 @@ public class DocumentStatusBean implements DocumentStatusBeanLocal {
     DictionaryBeanLocal dictionary;
 
     @Override
-    public int getStatus(String status) {
+    public Dictionary getStatus(String status) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<DictionaryType> query = criteriaBuilder.createQuery(DictionaryType.class);
@@ -29,19 +30,19 @@ public class DocumentStatusBean implements DocumentStatusBeanLocal {
             Predicate predicate = criteriaBuilder.equal(root.get(DictionaryType_.type), "DOCUMENT_STATUS");
             query.where(predicate);
             DictionaryType type = entityManager.createQuery(query).getSingleResult();
-            return dictionary.getDictionary(type, status).getId();
+            return dictionary.getDictionary(type, status);
         } catch (Exception e) {
             return loadUnknownStatus();
         }
     }
 
-    private int loadUnknownStatus() {
+    private Dictionary loadUnknownStatus() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<DictionaryType> query = criteriaBuilder.createQuery(DictionaryType.class);
             Root<DictionaryType> root = query.from(DictionaryType.class);
             Predicate predicate = criteriaBuilder.equal(root.get(DictionaryType_.type), "DOCUMENT_STATUS");
             query.where(predicate);
             DictionaryType type = entityManager.createQuery(query).getSingleResult();
-            return dictionary.getDictionary(type, UNKNOWN).getId();
+            return dictionary.getDictionary(type, UNKNOWN);
     }
 }
