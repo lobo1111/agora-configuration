@@ -17,7 +17,7 @@
             `income` decimal(10,2) DEFAULT NULL,
             `spending` decimal(10,2) DEFAULT NULL,
             `positionCounter` int(11) DEFAULT NULL,
-            `status` varchar(255) COLLATE utf8_polish_c NOT NULL,
+            `status` varchar(255) COLLATE utf8_polish_ci NOT NULL,
             `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
             KEY `incoming_payment_document_status` (`status_id`)
