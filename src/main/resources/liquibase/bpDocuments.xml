@@ -20,7 +20,7 @@
             `status_id` int(11) NOT NULL,
             `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
-            KEY `incoming_payment_document_status` (`status`)
+            KEY `incoming_payment_document_status` (`status_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=14 ;
 
             CREATE TABLE IF NOT EXISTS `incoming_payment_document_position` (
