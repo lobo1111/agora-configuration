@@ -5,22 +5,6 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
 
-    <changeSet author='tkopacki' id='document-status'>
-        <sql>  
-            CREATE TABLE IF NOT EXISTS `document_status` (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `status` varchar(255) COLLATE utf8_polish_ci NOT NULL,
-            `description` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `status` (`status`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
-
-            INSERT INTO `document_status` (`status`, `description`) VALUES
-            ('NEW', 'Nowy dokument, jeszcze nie procesowany'),
-            ('UNKNOWN', NULL);
-        </sql>
-    </changeSet>
-    
     <changeSet author='tkopacki' id='bp-documents-tables'>
         <sql>  
             CREATE TABLE IF NOT EXISTS `incoming_payment_document` (
@@ -33,7 +17,7 @@
             `income` decimal(10,2) DEFAULT NULL,
             `spending` decimal(10,2) DEFAULT NULL,
             `positionCounter` int(11) DEFAULT NULL,
-            `status_id` int(11) NOT NULL,
+            `status` varchar(255) COLLATE utf8_polish_c NOT NULL,
             `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
             KEY `incoming_payment_document_status` (`status_id`)
@@ -56,7 +40,7 @@
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
 
             ALTER TABLE `incoming_payment_document`
-            ADD CONSTRAINT `incoming_payment_document_status` FOREIGN KEY (`status_id`) REFERENCES `document_status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `incoming_payment_document_status` FOREIGN KEY (`status`) REFERENCES `dictionary` (`key`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `incoming_payment_document_position`
             ADD CONSTRAINT `incoming_payment_document_position_fkey` FOREIGN KEY (`document_id`) REFERENCES `incoming_payment_document` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

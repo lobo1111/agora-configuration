@@ -1,4 +1,5 @@
 import os
+import traceback
 import shutil
 import xml.sax
 
@@ -34,6 +35,7 @@ class FileWatchdog(Container):
       return XMLLoader().process(content)
     except:
       self._logger.error('Error in processing xml file: ' + content)
+      self._logger.error(traceback.format_exc())
 
   def processFiles(self):
     files = self.getFiles()

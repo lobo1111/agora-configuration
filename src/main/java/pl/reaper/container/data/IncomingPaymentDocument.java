@@ -33,7 +33,7 @@ public class IncomingPaymentDocument implements Serializable {
     private Date timestamp;
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private DocumentStatus status;
+    private String status;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -186,11 +186,11 @@ public class IncomingPaymentDocument implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public DocumentStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(DocumentStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
     

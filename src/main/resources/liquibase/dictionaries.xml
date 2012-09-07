@@ -133,4 +133,21 @@
             SELECT id, 'xmlErrorXMLs', '/home/agora/attachments/error' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='dicitonary-document-status'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('DOCUMENT_STATUS');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-statuses'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'NEW', 'Nowy dokument, jeszcze nie procesowany' FROM `dictionary_type` WHERE `type` = 'DOCUMENT_STATUS';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'UNKNOWN', 'Nieznany stan dokumentu' FROM `dictionary_type` WHERE `type` = 'DOCUMENT_STATUS';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

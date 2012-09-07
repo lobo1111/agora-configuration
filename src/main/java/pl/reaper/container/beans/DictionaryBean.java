@@ -22,7 +22,7 @@ public class DictionaryBean implements DictionaryBeanLocal {
     EntityManager entityManager;
 
     @Override
-    public String getDictionaryValue(DictionaryType dictionaryType, String key) {
+    public Dictionary getDictionary(DictionaryType dictionaryType, String key) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Dictionary> query = criteriaBuilder.createQuery(Dictionary.class);
@@ -30,11 +30,15 @@ public class DictionaryBean implements DictionaryBeanLocal {
             Predicate dictionaryKeyPredicate = criteriaBuilder.equal(root.get(Dictionary_.key), key);
             Predicate dictionaryTypePredicate = criteriaBuilder.equal(root.get(Dictionary_.type), dictionaryType);
             query.where(dictionaryKeyPredicate, dictionaryTypePredicate);
-            Dictionary result = entityManager.createQuery(query).getSingleResult();
-            return result.getValue();
-        } catch(NoResultException | NonUniqueResultException e) {
+            return entityManager.createQuery(query).getSingleResult();
+        } catch (NoResultException | NonUniqueResultException e) {
             Logger.getLogger(DictionaryBean.class.getName()).log(Level.WARNING, "Key[" + key + "] not found in dictionary: " + dictionaryType.getType(), e);
             return null;
         }
+    }
+
+    @Override
+    public String getDictionaryValue(DictionaryType dictionaryType, String key) {
+        return getDictionary(dictionaryType, key).getValue();
     }
 }
