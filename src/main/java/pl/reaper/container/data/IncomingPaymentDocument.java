@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -25,13 +24,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class IncomingPaymentDocument implements Serializable {
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "timestamp")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
-    @Basic(optional = false)
-    @Column(name = "status_id")
-    private int status;
+    @Column(name = "status")
+    private Dictionary status;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -176,19 +170,11 @@ public class IncomingPaymentDocument implements Serializable {
         return "pl.reaper.container.data.IncomingPaymentDocument[ id=" + id + " ]";
     }
 
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public int getStatus() {
+    public Dictionary getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Dictionary status) {
         this.status = status;
     }
     
