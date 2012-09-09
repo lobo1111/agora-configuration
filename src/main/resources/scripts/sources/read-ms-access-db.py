@@ -34,8 +34,8 @@ class MSAccessReader(Container):
             self.addColumn(column.getName())
 
     def createTable(self, name):
-        print "CREATING TABLE " + name
-        #print self._sqlCreateTable % name
+        #print "CREATING TABLE " + name
+        print self._sqlCreateTable % (name)
 
     def addColumn(self, name):
         print "ADDING COLUMN " + name
