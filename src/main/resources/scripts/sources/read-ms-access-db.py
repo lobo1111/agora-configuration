@@ -9,7 +9,7 @@ class MSAccessReader(Container):
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         """
     _sqlAddColumn = """
-        ALTER TABLE `%s` ADD COLUMN `%s` VARCHAR(1024);
+        ALTER TABLE `%s` ADD COLUMN `%s` VARCHAR(512);
     """
     _sqlInsert = """
         INSERT INTO `%s`(`%s`) VALUES("%s");
@@ -32,9 +32,14 @@ class MSAccessReader(Container):
         columns = table.getColumns()
         for column in columns:
             self.addColumn(table.getName(), column.getName())
+            self.insertData(table, column.getName())
 
     def createTable(self, name):
         oldEntityManager.createNativeQuery((self._sqlCreateTable % (name))).executeUpdate()
 
     def addColumn(self, tableName, columnName):
         oldEntityManager.createNativeQuery((self._sqlAddColumn % (tableName, columnName))).executeUpdate()
+
+    def insertData(self, table, columnName):
+        for row in table:
+            oldEntityManager.createNativeQuery((self._sqlInsert % (table.getName, columnName, row.get(columnName))).executeUpdate()
