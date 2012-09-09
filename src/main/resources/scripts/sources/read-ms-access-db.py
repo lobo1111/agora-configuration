@@ -5,7 +5,7 @@ class MSAccessReader(Container):
     _sqlCreateTable = """
         CREATE TABLE `%s` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
-            PRIMARY KEY (`id`),
+            PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         """
     _sqlAddColumn = """
@@ -31,13 +31,10 @@ class MSAccessReader(Container):
         self.createTable(table.getName())
         columns = table.getColumns()
         for column in columns:
-            self.addColumn(column.getName())
+            self.addColumn(table.getName(), column.getName())
 
     def createTable(self, name):
-        #print "CREATING TABLE " + name
         oldEntityManager.createNativeQuery((self._sqlCreateTable % (name))).executeUpdate()
 
-    def addColumn(self, name):
-        pass
-        #print "ADDING COLUMN " + name
-        #print self._sqlAddColumn % name
+    def addColumn(self, tableName, columnName):
+        oldEntityManager.createNativeQuery((self._sqlAddColumn % (tableName, columnName))).executeUpdate()
