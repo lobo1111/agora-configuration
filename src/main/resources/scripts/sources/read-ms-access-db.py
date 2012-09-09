@@ -3,16 +3,16 @@ from java.io import File
 
 class MSAccessReader(Container):
     _sqlCreateTable = """
-        CREATE TABLE `{0}` (
+        CREATE TABLE `%s` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             PRIMARY KEY (`id`),
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         """
     _sqlAddColumn = """
-        ALTER TABLE `{0}` ADD COLUMN `{1}` VARCHAR(1024);
+        ALTER TABLE `%s` ADD COLUMN `%s` VARCHAR(1024);
     """
     _sqlInsert = """
-        INSERT INTO `{0}`(`{1}`) VALUES("{2}");
+        INSERT INTO `%s`(`%s`) VALUES("%s");
     """
 
     def __init__(self):
