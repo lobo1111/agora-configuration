@@ -23,7 +23,6 @@ class MSAccessReader(Container):
 
     def processTable(self, table):
         self.processTableStructure(table)
-        self.processTableData(table)
 
     def clearDatabase(self):
         pass
