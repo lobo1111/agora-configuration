@@ -18,7 +18,7 @@ import pl.reaper.container.data.Dictionary_;
 @Stateless
 public class DictionaryBean implements DictionaryBeanLocal {
 
-    @PersistenceContext(name = "agora_erp")
+    @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
     EntityManager entityManager;
 
     @Override

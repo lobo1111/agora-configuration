@@ -7,19 +7,15 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pl.reaper.container.jython.DBScriptLoader;
-import pl.reaper.container.jython.ScriptEngineNotFoundException;
-import pl.reaper.container.jython.ScriptEngineWrapper;
-import pl.reaper.container.jython.ScriptExecutor;
-import pl.reaper.container.jython.ScriptLoader;
+import pl.reaper.container.jython.*;
 
 
 @Stateless
 public class JythonBean implements JythonBeanLocal {
 
-    @PersistenceContext(name = "agora_erp")
+    @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
     private EntityManager entityManager;
-    @PersistenceContext(name = "agora_old_erp")
+    @PersistenceContext(name = "agora_old_erp", unitName = "agora_old_erp")
     private EntityManager oldEntityManager;
     @EJB
     private PropertyBeanLocal propertyBean;
