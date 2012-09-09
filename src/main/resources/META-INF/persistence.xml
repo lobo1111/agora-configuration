@@ -17,7 +17,7 @@
     
     <persistence-unit name="agora_old_erp" transaction-type="JTA">
         <jta-data-source>jdbc/agora-old-erp</jta-data-source>
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.sharedCache.mode" value="NONE"/>
         </properties>
