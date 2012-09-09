@@ -9,7 +9,7 @@ class MSAccessReader(Container):
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         """
     _sqlAddColumn = """
-        ALTER TABLE `%s` ADD COLUMN `%s` VARCHAR(512);
+        ALTER TABLE `%s` ADD COLUMN `%s` VARCHAR(256);
     """
     _sqlInsert = """
         INSERT INTO `%s`(`%s`) VALUES("%s");
