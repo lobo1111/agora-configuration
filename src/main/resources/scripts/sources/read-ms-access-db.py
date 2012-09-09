@@ -32,7 +32,7 @@ class MSAccessReader(Container):
         columns = table.getColumns()
         for column in columns:
             self.addColumn(table.getName(), column.getName())
-            self.insertData(table, column.getName())
+            self.insertData(table)
 
     def createTable(self, name):
         sql = (self._sqlCreateTable % (name))
@@ -42,7 +42,5 @@ class MSAccessReader(Container):
         sql = (self._sqlAddColumn % (tableName, columnName))
         oldEntityManager.createNativeQuery(sql).executeUpdate()
 
-    def insertData(self, table, columnName):
-        for row in table:
-            sql = (self._sqlInsert % (table.getName(), columnName, row.get(columnName)))
-            oldEntityManager.createNativeQuery(sql).executeUpdate()
+    def insertData(self, table):
+        pass
