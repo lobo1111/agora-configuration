@@ -4,7 +4,7 @@ from java.io import File
 class MSAccessReader(Container):
     _logger = Logger([:_scriptId])
     _sqlCreateTable = """
-        CREATE TABLE `%s` (
+        CREATE TABLE IF NOT EXISTS `%s` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
@@ -36,20 +36,18 @@ class MSAccessReader(Container):
             for column in columns:
                 self.addColumn(table.getName(), column.getName())
         except:
-            self._logger.info('table already exists')
+            self._logger.info('can\'t create table')
 
     def createTable(self, name):
-            self._logger.info('creating table: %s' % name)
+            self._logger.info('creating table if not exists: %s' % name)
             sql = (self._sqlCreateTable % (name))
             oldEntityManager.createNativeQuery(sql).executeUpdate()
-            self._logger.info('table created')
 
     def addColumn(self, tableName, columnName):
         try:
             self._logger.info('adding column: %s' % name)
             sql = (self._sqlAddColumn % (tableName, columnName))
             oldEntityManager.createNativeQuery(sql).executeUpdate()
-            self._logger.info('column added')
         except:
             self._logger.info('column already exists')
 
