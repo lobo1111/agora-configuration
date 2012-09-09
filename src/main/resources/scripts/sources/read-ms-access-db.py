@@ -44,5 +44,5 @@ class MSAccessReader(Container):
 
     def insertData(self, table, columnName):
         for row in table:
-            sql = (self._sqlInsert % (table.getName, columnName, row.get(columnName)))
+            sql = (self._sqlInsert % (table.getName(), columnName, row.get(columnName)))
             oldEntityManager.createNativeQuery(sql).executeUpdate()
