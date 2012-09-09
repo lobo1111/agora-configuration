@@ -2,6 +2,7 @@ from com.healthmarketscience.jackcess import Database;
 from java.io import File
 
 class MSAccessReader(Container):
+    _logger = Logger([:_scriptId])
     _sqlCreateTable = """
         CREATE TABLE `%s` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -16,13 +17,16 @@ class MSAccessReader(Container):
     """
 
     def __init__(self):
-        self.clearDatabase()
+        self._logger.info('loading external data')
         db = Database.open(File(properties.getProperty('msAccessDBPath')))
         for name in db.getTableNames():
             self.processTable(db.getTable(name))
+        self._logger.info('external data loaded')
 
     def processTable(self, table):
+        self._logger.info('processing table: %s' % table.getName)
         self.processTableStructure(table)
+        self._logger.info('table processed')
 
     def clearDatabase(self):
         pass
@@ -35,12 +39,22 @@ class MSAccessReader(Container):
             self.insertData(table)
 
     def createTable(self, name):
-        sql = (self._sqlCreateTable % (name))
-        oldEntityManager.createNativeQuery(sql).executeUpdate()
+        try:
+            self._logger.info('creating table: %s' % name)
+            sql = (self._sqlCreateTable % (name))
+            oldEntityManager.createNativeQuery(sql).executeUpdate()
+            self._logger.info('table created')
+        except:
+            self._logger.info('table already exists')
 
     def addColumn(self, tableName, columnName):
-        sql = (self._sqlAddColumn % (tableName, columnName))
-        oldEntityManager.createNativeQuery(sql).executeUpdate()
+        try:
+            self._logger.info('adding column: %s' % name)
+            sql = (self._sqlAddColumn % (tableName, columnName))
+            oldEntityManager.createNativeQuery(sql).executeUpdate()
+            self._logger.info('column added')
+        except:
+            self._logger.info('column already exists')
 
     def insertData(self, table):
         pass
