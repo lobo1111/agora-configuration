@@ -24,28 +24,25 @@ class MSAccessReader(Container):
         self._logger.info('external data loaded')
 
     def processTable(self, table):
-        self._logger.info('processing table: %s' % table.getName)
+        self._logger.info('processing table: %s' % table.getName())
         self.processTableStructure(table)
+        self.insertData(table)
         self._logger.info('table processed')
 
-    def clearDatabase(self):
-        pass
-
     def processTableStructure(self, table):
-        self.createTable(table.getName())
-        columns = table.getColumns()
-        for column in columns:
-            self.addColumn(table.getName(), column.getName())
-            self.insertData(table)
+        try:
+            self.createTable(table.getName())
+            columns = table.getColumns()
+            for column in columns:
+                self.addColumn(table.getName(), column.getName())
+        except:
+            self._logger.info('table already exists')
 
     def createTable(self, name):
-        try:
             self._logger.info('creating table: %s' % name)
             sql = (self._sqlCreateTable % (name))
             oldEntityManager.createNativeQuery(sql).executeUpdate()
             self._logger.info('table created')
-        except:
-            self._logger.info('table already exists')
 
     def addColumn(self, tableName, columnName):
         try:
