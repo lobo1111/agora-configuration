@@ -35,7 +35,7 @@ class MSAccessReader(Container):
             self.addColumn(column.getName())
 
     def createTable(self, name):
-        oldEntityManager.createNativeQuery(self._sqlCreateTable % name).executeUpdate()
+        pass#oldEntityManager.createNativeQuery(self._sqlCreateTable % name).executeUpdate()
 
     def addColumn(self, name):
         pass
