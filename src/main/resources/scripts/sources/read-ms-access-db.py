@@ -14,12 +14,12 @@ class MSAccessReader(Container):
     _sqlInsert = """
         INSERT INTO `{0}`(`{1}`) VALUES("{2}");
     """
-    
+
     def __init__(self):
         self.clearDatabase()
-        tables = Database.open(File(properties.getProperty('msAccessDBPath'))).getTableNames() 
-        for table in tables:
-            self.processTable(table)
+        db = Database.open(File(properties.getProperty('msAccessDBPath')))
+        for name in db.getTableNames():
+            self.processTable(db.getTable(name))
 
     def processTable(self, table):
         self.processTableStructure(table)
