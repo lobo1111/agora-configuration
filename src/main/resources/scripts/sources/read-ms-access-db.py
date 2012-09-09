@@ -35,11 +35,14 @@ class MSAccessReader(Container):
             self.insertData(table, column.getName())
 
     def createTable(self, name):
-        oldEntityManager.createNativeQuery((self._sqlCreateTable % (name))).executeUpdate()
+        sql = (self._sqlCreateTable % (name))
+        oldEntityManager.createNativeQuery(sql).executeUpdate()
 
     def addColumn(self, tableName, columnName):
-        oldEntityManager.createNativeQuery((self._sqlAddColumn % (tableName, columnName))).executeUpdate()
+        sql = (self._sqlAddColumn % (tableName, columnName))
+        oldEntityManager.createNativeQuery(sql).executeUpdate()
 
     def insertData(self, table, columnName):
         for row in table:
-            oldEntityManager.createNativeQuery((self._sqlInsert % (table.getName, columnName, row.get(columnName))).executeUpdate()
+            sql = (self._sqlInsert % (table.getName, columnName, row.get(columnName)))
+            oldEntityManager.createNativeQuery(sql).executeUpdate()
