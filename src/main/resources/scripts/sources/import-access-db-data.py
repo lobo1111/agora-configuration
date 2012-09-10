@@ -63,5 +63,5 @@ class MSAccessDataReader(Container):
     def getValuesString(self, row, columns):
         result = '"';
         for columns in columns:
-            result += row.get(columns.getName()) + '","'
+            result += str(row.get(columns.getName())) + '","'
         return result + '","' + str(self.calculateMd5(row, columns)) + '"'
