@@ -37,7 +37,7 @@ class MSAccessDataReader(Container):
         rawData = ''
         m = md5.new()
         for column in columns:
-            m.update(row.get(column.getName()))
+            m.update(str(row.get(column.getName())))
         return m.digest()
     
     def rowIsPresent(self, tableName, md5):
@@ -64,4 +64,4 @@ class MSAccessDataReader(Container):
         result = '"';
         for columns in columns:
             result += row.get(columns.getName()) + '","'
-        return result + '","' + self.calculateMd5(row, columns) + '"'
+        return result + '","' + str(self.calculateMd5(row, columns)) + '"'
