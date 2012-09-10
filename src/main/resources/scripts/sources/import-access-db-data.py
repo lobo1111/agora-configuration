@@ -48,7 +48,7 @@ class MSAccessDataReader(Container):
     
     def removeNonAscii(data): 
         try:
-            return "".join(i for i in data if ord(i)<128)
+            return "".join(i for i in data if ord(i) < 128)
         except:
             return str(data)
 
