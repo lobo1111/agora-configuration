@@ -46,7 +46,7 @@ class MSAccessDataReader(Container):
             rawData += self.removeNonAscii(row.get(column.getName()))
         return hashlib.md5(rawData).hexdigest()
     
-    def removeNonAscii(data): 
+    def removeNonAscii(self, data): 
         try:
             return "".join(i for i in data if ord(i) < 128)
         except:
