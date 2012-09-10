@@ -43,8 +43,15 @@ class MSAccessDataReader(Container):
     def calculateMd5(self, row, columns):
         rawData = ''
         for column in columns:
-            rawData += str((row.get(column.getName())).decode('cp1250'))
+            rawData += self.asString(row.get(column.getName()))
         return hashlib.md5(rawData).hexdigest()
+    
+    def asString(self, data):
+        try:
+            return data.decode('cp1250')
+        except:
+            return str(data)
+        
     
     def rowIsPresent(self, tableName, md5):
         try:
