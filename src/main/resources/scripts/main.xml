@@ -69,11 +69,22 @@
     </script>
     
     <script>
-        <name>read-ms-access-db</name>
-        <source>read-ms-access-db.py</source>
-        <onInit>MSAccessReader()</onInit>
+        <name>import-access-db-structure</name>
+        <source>import-access-db-structure</source>
+        <onInit>MSAccessStructureReader()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+    </script>
+    
+    <script>
+        <name>import-access-db-data</name>
+        <source>import-access-db-data</source>
+        <onInit>MSAccessDataReader()</onInit>
         <scheduler>
-            <name>read-ms-access-db</name>
+            <name>import-access-db-data</name>
             <enabled>true</enabled>
             <fireAt>* * * * *</fireAt>
         </scheduler>

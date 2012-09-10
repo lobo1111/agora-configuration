@@ -1,7 +1,7 @@
-from com.healthmarketscience.jackcess import Database;
+from com.healthmarketscience.jackcess import Database
 from java.io import File
 
-class MSAccessReader(Container):
+class MSAccessStructureReader(Container):
     _logger = Logger([:_scriptId])
     _sqlCreateTable = """
         CREATE TABLE `%s` (
@@ -11,12 +11,6 @@ class MSAccessReader(Container):
         """
     _sqlAddColumn = """
         ALTER TABLE `%s` ADD COLUMN `%s` VARCHAR(256);
-    """
-    _sqlInsert = """
-        INSERT INTO `%s`(`%s`) VALUES("%s");
-    """
-    _sqlSelectFromTable = """
-        SELECT * FROM `%s`
     """
 
     def __init__(self):
@@ -29,30 +23,19 @@ class MSAccessReader(Container):
     def processTable(self, table):
         self._logger.info('processing table: %s' % table.getName())
         self.processTableStructure(table)
-        self.insertData(table)
         self._logger.info('table processed')
 
     def processTableStructure(self, table):
-        self.createTableIfNotExists(table.getName())
+        self.createTable(table.getName())
         columns = table.getColumns()
         for column in columns:
             self.addColumn(table.getName(), column.getName())
 
-    def createTableIfNotExists(self, name):
-        if not self.tableExists(name):
-            self._logger.info('creating table %s' % name)
-            sql = (self._sqlCreateTable % (name))
-            oldEntityManager.createNativeQuery(sql).executeUpdate()
-        else:
-            self._logger.info('table already exists')
+    def createTable(self, name):
+        self._logger.info('creating table %s' % name)
+        sql = (self._sqlCreateTable % (name))
+        oldEntityManager.createNativeQuery(sql).executeUpdate()
             
-    def tableExists(self, name):
-        try:
-            oldEntityManager.createNativeQuery(sql).getResultList()
-            return True
-        except:
-            return False
-
     def addColumn(self, tableName, columnName):
         try:
             self._logger.info('adding column: %s' % name)
@@ -61,5 +44,3 @@ class MSAccessReader(Container):
         except:
             self._logger.info('column already exists')
 
-    def insertData(self, table):
-        pass
