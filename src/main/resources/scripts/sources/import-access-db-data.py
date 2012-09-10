@@ -48,7 +48,7 @@ class MSAccessDataReader(Container):
     
     def asString(self, data):
         try:
-            return data.decode('cp1250')
+            return data.decode('utf8')
         except:
             try:
                 return str(data)
