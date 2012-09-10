@@ -70,7 +70,7 @@
     
     <script>
         <name>import-access-db-structure</name>
-        <source>import-access-db-structure</source>
+        <source>import-access-db-structure.py</source>
         <onInit>MSAccessStructureReader()</onInit>
         <scheduler/>
         <dependencies>
@@ -81,7 +81,7 @@
     
     <script>
         <name>import-access-db-data</name>
-        <source>import-access-db-data</source>
+        <source>import-access-db-data.py</source>
         <onInit>MSAccessDataReader()</onInit>
         <scheduler>
             <name>import-access-db-data</name>
