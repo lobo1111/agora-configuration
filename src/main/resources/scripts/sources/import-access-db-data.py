@@ -47,7 +47,10 @@ class MSAccessDataReader(Container):
         return hashlib.md5(rawData).hexdigest()
     
     def asString(self, data):
-        return ''.join(i for i in str(data) if i not in 'ąśćźżółęńĄŚŻŹĆÓŁŃ')
+        try:
+            return ''.join(i for i in data if i not in 'ąśćźżółęńĄŚŻŹĆÓŁŃ')
+        except:
+            return str(data)
 
         
     
