@@ -4,7 +4,7 @@ from java.io import File
 class MSAccessReader(Container):
     _logger = Logger([:_scriptId])
     _sqlCreateTable = """
-        CREATE TABLE IF NOT EXISTS `%s` (
+        CREATE TABLE `%s` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
@@ -14,6 +14,9 @@ class MSAccessReader(Container):
     """
     _sqlInsert = """
         INSERT INTO `%s`(`%s`) VALUES("%s");
+    """
+    _sqlSelectFromTable = """
+        SELECT * FROM `%s`
     """
 
     def __init__(self):
@@ -30,18 +33,25 @@ class MSAccessReader(Container):
         self._logger.info('table processed')
 
     def processTableStructure(self, table):
-        try:
-            self.createTable(table.getName())
-            columns = table.getColumns()
-            for column in columns:
-                self.addColumn(table.getName(), column.getName())
-        except:
-            self._logger.info('can\'t create table')
+        self.createTableIfNotExists(table.getName())
+        columns = table.getColumns()
+        for column in columns:
+            self.addColumn(table.getName(), column.getName())
 
-    def createTable(self, name):
-            self._logger.info('creating table if not exists: %s' % name)
+    def createTableIfNotExists(self, name):
+        if not self.tableExists(name):
+            self._logger.info('creating table %s' % name)
             sql = (self._sqlCreateTable % (name))
             oldEntityManager.createNativeQuery(sql).executeUpdate()
+        else:
+            self._logger.info('table already exists')
+            
+    def tableExists(self, name):
+        try:
+            oldEntityManager.createNativeQuery(sql).getResultList()
+            return True
+        except:
+            return False
 
     def addColumn(self, tableName, columnName):
         try:
