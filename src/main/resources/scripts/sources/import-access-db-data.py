@@ -38,7 +38,7 @@ class MSAccessDataReader(Container):
         m = md5.new()
         for column in columns:
             m.update(str(row.get(column.getName())))
-        return m.digest()
+        return m.hexdigest()
     
     def rowIsPresent(self, tableName, md5):
         try:
