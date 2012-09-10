@@ -73,7 +73,7 @@ class MSAccessDataReader(Container):
         return result + "md5`"
     
     def getValuesString(self, row, columns):
-        result = '"';
+        result = "'";
         for column in columns:
-            result += unicode(row.get(column.getName()), errors = 'replace') + '","'
-        return result + str(self.calculateMd5(row, columns)) + '"'
+            result += unicode(row.get(column.getName()), errors = 'replace') + "','"
+        return result + str(self.calculateMd5(row, columns)) + "'"
