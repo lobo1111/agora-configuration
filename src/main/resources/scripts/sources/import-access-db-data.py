@@ -10,6 +10,9 @@ class MSAccessDataReader(Container):
     _sqlFindMd5 = """
         SELECT md5 FROM `%s` WHERE `md5` = '%s'
     """
+    _processed = 0
+    _inserted = 0
+    _omitted = 0
 
     def __init__(self):
         self._logger.info('loading external data')
@@ -21,7 +24,7 @@ class MSAccessDataReader(Container):
     def processTable(self, table):
         self._logger.info('processing table: %s' % table.getName())
         self.processTableData(table)
-        self._logger.info('table processed')
+        self._logger.info(('table processed[processed:%d][inserted:%d][omitted:%d]' % (self._processed, self._inserted, self._omitted)))
 
     def processTableData(self, table):
         columns = table.getColumns()
@@ -29,15 +32,19 @@ class MSAccessDataReader(Container):
             self.processRow(table.getName(), row, columns)
             
     def processRow(self, tableName, row, columns):
+        self._processed += 1
         md5 = self.calculateMd5(row, columns)
         if not self.rowIsPresent(tableName, md5):
+            self._inserted += 1
             self.insertRow(tableName, row, columns)
+        else:
+            self._omitted += 1
             
     def calculateMd5(self, row, columns):
         rawData = ''
         m = md5.new()
         for column in columns:
-            m.update(str(row.get(column.getName())))
+            m.update(str(row.get(column.getName())).decode('cp1250'))
         return m.hexdigest()
     
     def rowIsPresent(self, tableName, md5):
