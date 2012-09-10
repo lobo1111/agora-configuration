@@ -23,10 +23,7 @@ class MSAccessDataReader(Container):
 
     def processTable(self, table):
         self._logger.info('processing table: %s' % table.getName())
-        transaction = oldEntityManager.getTransaction()
-        transaction.begin()
         self.processTableData(table)
-        transaction.commit()
         self._logger.info(('table processed[processed:%d][inserted:%d][omitted:%d]' % (self._processed, self._inserted, self._omitted)))
 
     def processTableData(self, table):
