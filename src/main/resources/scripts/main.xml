@@ -32,8 +32,8 @@
         <onInit>MailProcessor().checkMailbox()</onInit>
         <scheduler>
             <name>check-email</name>
-            <enabled>false</enabled>
-            <fireAt>* * * * *</fireAt>
+            <enabled>true</enabled>
+            <fireAt>*/15 * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>db-logger</scriptName>
@@ -58,8 +58,8 @@
         <onInit>FileWatchdog().processFiles()</onInit>
         <scheduler>
             <name>file-watchdog</name>
-            <enabled>false</enabled>
-            <fireAt>* * * * *</fireAt>
+            <enabled>true</enabled>
+            <fireAt>*/15 * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>xml-loader</scriptName>
@@ -86,7 +86,7 @@
         <scheduler>
             <name>import-access-db-data</name>
             <enabled>true</enabled>
-            <fireAt>* * * * *</fireAt>
+            <fireAt>0 4 * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>db-logger</scriptName>
