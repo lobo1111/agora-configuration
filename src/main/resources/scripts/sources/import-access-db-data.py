@@ -50,7 +50,10 @@ class MSAccessDataReader(Container):
         try:
             return data.decode('cp1250')
         except:
-            return str(data)
+            try:
+                return str(data)
+            except:
+                return data
         
     
     def rowIsPresent(self, tableName, md5):
