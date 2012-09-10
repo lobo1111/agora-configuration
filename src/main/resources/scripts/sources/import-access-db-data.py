@@ -76,4 +76,4 @@ class MSAccessDataReader(Container):
         result = "'";
         for column in columns:
             result += unicode(row.get(column.getName()), errors = 'replace') + "','"
-        return (result + str(self.calculateMd5(row, columns)) + "'").replace("'", "\'")
+        return (result + str(self.calculateMd5(row, columns)) + "'").replace("'", "")
