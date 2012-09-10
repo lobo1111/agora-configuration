@@ -47,13 +47,10 @@ class MSAccessDataReader(Container):
         return hashlib.md5(rawData).hexdigest()
     
     def asString(self, data):
-        try:
-            return data.decode('utf8')
-        except:
-            try:
-                return str(data)
-            except:
-                return data
+        print "!!!!"
+        print data
+        print "!!!!"
+        return str(data)
         
     
     def rowIsPresent(self, tableName, md5):
