@@ -1,6 +1,6 @@
 from com.healthmarketscience.jackcess import Database
 from java.io import File
-import md5
+import hashlib
 
 class MSAccessDataReader(Container):
     _logger = Logger([:_scriptId])
@@ -42,10 +42,9 @@ class MSAccessDataReader(Container):
             
     def calculateMd5(self, row, columns):
         rawData = ''
-        m = md5.new()
         for column in columns:
-            m.update(str(row.get(column.getName())).decode('cp1250'))
-        return m.hexdigest()
+            rawData += str(row.get(column.getName()))
+        return hashlib.md5(rawData).hexdigest()
     
     def rowIsPresent(self, tableName, md5):
         try:
