@@ -33,7 +33,7 @@ class MSAccessDataReader(Container):
         if not self.rowIsPresent(tableName, md5):
             self.insertRow(tableName, row, columns)
             
-    def caluclateMd5(self, row, columns):
+    def calculateMd5(self, row, columns):
         rawData = ''
         m = md5.new()
         for column in columns:
