@@ -26,12 +26,12 @@ class MSAccessDataReader(Container):
     def processTableData(self, table):
         columns = table.getColumns()
         for row in table:
-            processRow(table.getName(), row, columns)
+            self.processRow(table.getName(), row, columns)
             
     def processRow(self, tableName, row, columns):
-        md5 = calculateMd5(row, columns)
+        md5 = self.calculateMd5(row, columns)
         if not self.rowIsPresent(tableName, md5):
-            insertRow(tableName, row, columns)
+            self.insertRow(tableName, row, columns)
             
     def caluclateMd5(self, row, columns):
         rawData = ''
