@@ -123,7 +123,7 @@
         </sql>
     </changeSet>
     
-        <changeSet author='tkopacki' id='base-structure'>
+    <changeSet author='tkopacki' id='base-structure'>
         <sql> 
             ALTER TABLE `community` ADD COLUMN area DECIMAL(10,2);
             ALTER TABLE `community` ADD COLUMN in_date date;
@@ -136,4 +136,5 @@
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
+    </changeSet>
 </databaseChangeLog> 
