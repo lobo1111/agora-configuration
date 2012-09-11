@@ -88,6 +88,9 @@ class SyncCommunities:
     
     def findStreet(self, oldId):
         sql = 'SELECT u FROM Ulice u WHERE u.kul = %s' % oldId
+        print "!!!!"
+        print sql
+        print "!!!!"
         return (oldEntityManager.createQuery(sql).getSingleResult()).getNul()
     
     def syncDataExists(self, tableName, idColumnName, id):
