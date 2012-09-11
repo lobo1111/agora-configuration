@@ -77,7 +77,7 @@ class SyncCommunities:
         entityManager.persist(company)
         return company
     
-    def getAddressCompany(self, oldCommunity):
+    def getCommunityAddress(self, oldCommunity):
         address = Address()
         address.setStreet(self.findStreet(oldCommunity.getUlica()))
         address.setHouseNumber(oldCommunity.getNrbr())
