@@ -43,12 +43,7 @@ class SyncAccessToDb(Container):
     
     def findBaseId(self, tableName, baseIdColumnName, oldIdColumnName, oldId):
         sql = 'SELECT %s FROM %s WHERE %s = %d' % (baseIdColumnName, tableName, oldIdColumnName, oldId)
-        baseId = entityManager.createNativeQuery(sql).getSingleResult()
-        print "!!!!"
-        print baseId
-        print baseId[0]
-        print "!!!!"
-        return baseId[0]
+        return entityManager.createNativeQuery(sql).getSingleResult()
     
     def communityInsert(self, oldCommunity):
         community = Community()
