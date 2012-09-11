@@ -12,7 +12,7 @@ class Logger:
     log.setThreadId(vars.get('_threadId'))
     log.setThreadName(vars.get('_threadName'))
     log.setLevel(level)
-    log.setMessage(str(message)[0:1023])
+    log.setMessage(unicode(message, errors = 'replace')[0:1023])
     log.setUuid(vars.get('_uuid'))
     print '[JYTHON][%s][%s][%s]' % (vars.get('_uuid'), level, message)
     entityManager.persist(log)
