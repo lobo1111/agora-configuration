@@ -93,4 +93,19 @@
             <scriptName>container</scriptName>
         </dependencies>
     </script>
+    
+    <script>
+        <name>sync-access-to-db</name>
+        <source>sync-access-to-db.py</source>
+        <onInit>SyncAccessToDb()</onInit>
+        <scheduler>
+            <name>sync-access-to-db</name>
+            <enabled>true</enabled>
+            <fireAt>* * * * *</fireAt>
+        </scheduler>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+    </script>
 </scripts>

@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,6 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "community")
 @XmlRootElement
 public class Community implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +34,14 @@ public class Community implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "name")
     private String name;
+    @Column(name = "area")
+    private float area;
+    @Column(name = "in_date")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date inDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    @Column(name = "out_date")
+    private Date outDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
     private Collection<Possession> possessions;
 
@@ -60,6 +71,30 @@ public class Community implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public float getArea() {
+        return area;
+    }
+
+    public void setArea(float area) {
+        this.area = area;
+    }
+
+    public Date getInDate() {
+        return inDate;
+    }
+
+    public void setInDate(Date inDate) {
+        this.inDate = inDate;
+    }
+
+    public Date getOutDate() {
+        return outDate;
+    }
+
+    public void setOutDate(Date outDate) {
+        this.outDate = outDate;
     }
 
     @XmlTransient
@@ -95,5 +130,4 @@ public class Community implements Serializable {
     public String toString() {
         return "pl.reaper.container.data.Community[ id=" + id + " ]";
     }
-    
 }
