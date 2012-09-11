@@ -112,7 +112,7 @@
     
     <script>
         <name>sync-communities</name>
-        <name>sync-communities.py</source>
+        <source>sync-communities.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
