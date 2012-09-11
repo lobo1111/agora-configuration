@@ -47,8 +47,8 @@ class SyncAccessToDb(Container):
     def communityInsert(self, oldCommunity):
         community = Community()
         community = self.setDataAndPersistCommunity(oldCommunity, community)
-        self._logger.info('new community bound: ' + str(oldCommunity.getId()) + '<->' + str(community.getId()))
-        entityManager.createNativeQuery('INSERT INTO sync_community(`erp_community_id`, `access_community_id`) VALUES(' + int(community.getId()) + ', ' + int(oldCommunity.getId()) + ')').executeUpdate()
+        self._logger.info('new community bound: %d <-> %d' % (oldCommunity.getId(), community.getId()))
+        entityManager.createNativeQuery('INSERT INTO sync_community(`erp_community_id`, `access_community_id`) VALUES(%d, %d)' % (community.getId(), oldCommunity.getId())).executeUpdate()
         
     def setDataAndPersistCommunity(self, oldCommunity, community):
         community.setName(oldCommunity.getNazwa())
@@ -59,6 +59,7 @@ class SyncAccessToDb(Container):
         if oldCommunity.getDatawyl() != 'None':
             community.setOutDate(self.parseDate(oldCommunity.getDatawyl()))
         entityManager.persist(community)
+        entityManager.flush()
         return community
     
     def syncDataExists(self, tableName, idColumnName, id):
