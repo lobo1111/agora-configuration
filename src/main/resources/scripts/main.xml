@@ -106,6 +106,17 @@
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
+            <scriptName>sync-communities</scriptName>
+        </dependencies>
+    </script>
+    
+    <script>
+        <name>sync-communities</name>
+        <name>sync-communities.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
         </dependencies>
     </script>
 </scripts>
