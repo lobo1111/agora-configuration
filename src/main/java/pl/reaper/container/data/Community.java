@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -10,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +25,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "community")
 @XmlRootElement
 public class Community implements Serializable {
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "area")
+    private BigDecimal area;
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Company company;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,8 +43,6 @@ public class Community implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "name")
     private String name;
-    @Column(name = "area")
-    private float area;
     @Column(name = "in_date")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date inDate;
@@ -71,14 +78,6 @@ public class Community implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public float getArea() {
-        return area;
-    }
-
-    public void setArea(float area) {
-        this.area = area;
     }
 
     public Date getInDate() {
@@ -129,5 +128,21 @@ public class Community implements Serializable {
     @Override
     public String toString() {
         return "pl.reaper.container.data.Community[ id=" + id + " ]";
+    }
+
+    public BigDecimal getArea() {
+        return area;
+    }
+
+    public void setArea(BigDecimal area) {
+        this.area = area;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

@@ -3,6 +3,7 @@ package pl.reaper.container.data;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,6 +23,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "company")
 @XmlRootElement
 public class Company implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    private Collection<Community> communities;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -191,6 +194,15 @@ public class Company implements Serializable {
     @Override
     public String toString() {
         return "pl.reaper.container.data.Company[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Community> getCommunityCollection() {
+        return communities;
+    }
+
+    public void setCommunityCollection(Collection<Community> communityCollection) {
+        this.communities = communityCollection;
     }
     
 }
