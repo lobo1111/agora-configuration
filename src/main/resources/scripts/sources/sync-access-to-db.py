@@ -8,6 +8,6 @@ class SyncAccessToDb(Container):
     
     
     def syncCommunities(self):
-        communities = self.loadData('SELECT * FROM wspolne')
+        communities = self.loadData('SELECT w FROM wspolne w')
         for community in communities:
             print community
