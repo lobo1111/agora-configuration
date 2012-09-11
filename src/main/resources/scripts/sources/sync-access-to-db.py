@@ -1,6 +1,6 @@
 class SyncAccessToDb(Container):
     def __init__(self):
-        pass
+        self.syncCommunities()
     
     def loadData(self, query):
         query = oldEntityManager.createQuery(query)

@@ -7,119 +7,136 @@
     <changeSet author='tkopacki' id='base-structure'>
         <sql>       
             CREATE TABLE IF NOT EXISTS `account` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-              `number` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-              `parrent_account_id` int(11) DEFAULT NULL,
-              PRIMARY KEY (`id`),
-              KEY `account_parent_account_fkey` (`parrent_account_id`)
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `number` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `parrent_account_id` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `account_parent_account_fkey` (`parrent_account_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE IF NOT EXISTS `address` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `street` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `house_number` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `flat_number` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `postal_code` varchar(5) COLLATE utf8_polish_ci DEFAULT NULL,
-              `city` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              PRIMARY KEY (`id`)
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `street` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `house_number` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `flat_number` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `postal_code` varchar(5) COLLATE utf8_polish_ci DEFAULT NULL,
+            `city` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            PRIMARY KEY (`id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=2 ;
 
             CREATE TABLE IF NOT EXISTS `community` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-              PRIMARY KEY (`id`)
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE IF NOT EXISTS `company` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `nip` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-              `regon` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-              `www` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `email` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `phone_number_1` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `phone_number_2` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `phone_number_3` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `address_id` int(11) NOT NULL,
-              `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-              PRIMARY KEY (`id`),
-              KEY `company_address_fkey` (`address_id`)
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `nip` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `regon` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `www` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `email` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `phone_number_1` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `phone_number_2` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `phone_number_3` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `address_id` int(11) NOT NULL,
+            `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `company_address_fkey` (`address_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE IF NOT EXISTS `owner` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `person_id` int(11) DEFAULT NULL,
-              `company_id` int(11) DEFAULT NULL,
-              PRIMARY KEY (`id`),
-              KEY `owner_company_fkey` (`company_id`),
-              KEY `owner_person_fkey` (`person_id`)
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `person_id` int(11) DEFAULT NULL,
+            `company_id` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `owner_company_fkey` (`company_id`),
+            KEY `owner_person_fkey` (`person_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE IF NOT EXISTS `person` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `first_name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-              `last_name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-              `pesel` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-              `phone_number_1` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `phone_number_2` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `phone_number_3` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `email` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
-              `address_id` int(11) NOT NULL,
-              PRIMARY KEY (`id`),
-              KEY `person_address_fkey` (`address_id`)
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `first_name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `last_name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `pesel` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `phone_number_1` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `phone_number_2` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `phone_number_3` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `email` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
+            `address_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `person_address_fkey` (`address_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=2 ;
 
             CREATE TABLE IF NOT EXISTS `possession` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `address_id` int(11) NOT NULL,
-              `community_id` int(11) NOT NULL,
-              PRIMARY KEY (`id`),
-              KEY `possession_address_fkey` (`address_id`),
-              KEY `possession_community_fkey` (`community_id`)
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `address_id` int(11) NOT NULL,
+            `community_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `possession_address_fkey` (`address_id`),
+            KEY `possession_community_fkey` (`community_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE IF NOT EXISTS `possession_account` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `possession_id` int(11) NOT NULL,
-              `account_id` int(11) NOT NULL,
-              PRIMARY KEY (`id`),
-              KEY `possession_account_possession_fkey` (`possession_id`),
-              KEY `possession_account_account_fkey` (`account_id`)
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `possession_id` int(11) NOT NULL,
+            `account_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `possession_account_possession_fkey` (`possession_id`),
+            KEY `possession_account_account_fkey` (`account_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE IF NOT EXISTS `possession_owner` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
-              `possession_id` int(11) NOT NULL,
-              `owner_id` int(11) NOT NULL,
-              PRIMARY KEY (`id`),
-              KEY `possession_owner_possession_fkey` (`possession_id`),
-              KEY `possession_owner_owner_fkey` (`owner_id`)
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `possession_id` int(11) NOT NULL,
+            `owner_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `possession_owner_possession_fkey` (`possession_id`),
+            KEY `possession_owner_owner_fkey` (`owner_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             ALTER TABLE `account`
-              ADD CONSTRAINT `account_parent_account_fkey` FOREIGN KEY (`parrent_account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `account_parent_account_fkey` FOREIGN KEY (`parrent_account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `company`
-              ADD CONSTRAINT `company_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `company_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `owner`
-              ADD CONSTRAINT `owner_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-              ADD CONSTRAINT `owner_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `owner_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `owner_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `person`
-              ADD CONSTRAINT `person_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `person_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `possession`
-              ADD CONSTRAINT `possession_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-              ADD CONSTRAINT `possession_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `possession_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `possession_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `possession_account`
-              ADD CONSTRAINT `possession_account_account_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-              ADD CONSTRAINT `possession_account_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `possession_account_account_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `possession_account_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `possession_owner`
-              ADD CONSTRAINT `possession_owner_owner_fkey` FOREIGN KEY (`owner_id`) REFERENCES `owner` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-              ADD CONSTRAINT `possession_owner_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `possession_owner_owner_fkey` FOREIGN KEY (`owner_id`) REFERENCES `owner` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `possession_owner_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='community-new-columns'>
+        <sql> 
+            ALTER TABLE `community` ADD COLUMN area DECIMAL(10,2);
+            ALTER TABLE `community` ADD COLUMN in_date date;
+            ALTER TABLE `community` ADD COLUMN out_date date;
+            
+            CREATE TABLE IF NOT EXISTS `sync_community` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `erp_community_id` int(11) NOT NULL,
+            `access_community_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+
+
         </sql>
     </changeSet>
 </databaseChangeLog> 
