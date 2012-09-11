@@ -5,6 +5,7 @@
         <class>pl.reaper.container.data.Account</class>
         <class>pl.reaper.container.data.Address</class>
         <class>pl.reaper.container.data.Community</class>
+        <class>pl.reaper.container.data.Company</class>
         <class>pl.reaper.container.data.Dictionary</class>
         <class>pl.reaper.container.data.DictionaryType</class>
         <class>pl.reaper.container.data.IncomingPaymentDocument</class>
