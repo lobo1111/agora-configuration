@@ -5,7 +5,7 @@ class SyncAccessToDb(Container):
         self.syncCommunities()
     
     def loadData(self, query):
-        query = oldEntityManager.createNativeQuery(query)
+        query = oldEntityManager.createQuery(query)
         return query.getResultList()
     
     
