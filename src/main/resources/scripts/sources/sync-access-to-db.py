@@ -8,7 +8,6 @@ class SyncAccessToDb(Container):
         query = oldEntityManager.createQuery(query)
         return query.getResultList()
     
-    
     def syncCommunities(self):
         communities = self.loadData('SELECT w FROM Wspolne w')
         for community in communities:
@@ -39,8 +38,9 @@ class SyncAccessToDb(Container):
     def setDataAndPersistCommunity(self, oldCommunity, community):
         community.setName(oldCommunity.getNazwa())
         community.setArea(float(oldCommunity.getPow()))
-        community.setInDate(oldCommunity.getDataprz())
-        community.setOutDate(oldCommunity.getDatawyl())
+        community.setInDate(self.parseDate(oldCommunity.getDataprz()))
+        if oldCommunity.getDatawyl() != 'None':
+            community.setOutDate(self.parseDate(oldCommunity.getDatawyl()))
         entityManager.persist(community)
     
     def syncDataExists(self, tableName, idColumnName, id):
@@ -49,3 +49,6 @@ class SyncAccessToDb(Container):
             return True
         except:
             return False
+        
+    def parseDate(self, dateToParse): #Wed Sep 01 00:00:00 GMT 2010
+        return SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy').parse(dateToParse)
