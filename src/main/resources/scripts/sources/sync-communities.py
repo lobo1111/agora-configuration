@@ -52,10 +52,8 @@ class SyncCommunities:
         entityManager.createNativeQuery('INSERT INTO sync_community(`erp_community_id`, `access_community_id`) VALUES(%d, %d)' % (community.getId(), oldCommunity.getId())).executeUpdate()
         
     def setDataAndPersistCommunity(self, oldCommunity, community):
-        address = self.getCommunityAddress(oldCommunity)
-        company = self.getCommunityCompany(oldCommunity, address)
+        company = self.getCommunityCompany(community, oldCommunity)
         community = self.getCommunity(oldCommunity, community)
-        community.setCompany(company)
         entityManager.persist(community)
         entityManager.flush()
         
@@ -70,17 +68,25 @@ class SyncCommunities:
             community.setOutDate(self.parseDate(oldCommunity.getDatawyl()))
         return community
     
-    def getCommunityCompany(self, oldCommunity, address):
-        company = Company()
+    def getCommunityCompany(self, community, oldCommunity):
+        company = None
+        if community.getCompany() == None:
+            company = Company()
+        else:
+            company = community.getCompany()
         company.setNip(oldCommunity.getNip())
         company.setRegon(oldCommunity.getRegon())
         company.setName(oldCommunity.getNazwa())
-        company.setAddress(address)
+        company.setAddress(self.getCommunityAddress(company, oldCommunity))
         entityManager.persist(company)
         return company
     
-    def getCommunityAddress(self, oldCommunity):
-        address = Address()
+    def getCommunityAddress(self, company, oldCommunity):
+        address = None
+        if company.getAddress() == None:
+            address = Address()
+        else:
+            address = company.getAddress()
         address.setStreet(self.findStreet(oldCommunity.getUlica()))
         address.setHouseNumber(oldCommunity.getNrbr())
         address.setPostalCode(oldCommunity.getKod())
