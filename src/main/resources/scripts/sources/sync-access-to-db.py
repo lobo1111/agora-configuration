@@ -15,17 +15,17 @@ class SyncAccessToDb(Container):
         return query.getResultList()
     
     def syncCommunities(self):
-        self._logger('synchronizing communities')
+        self._logger.info('synchronizing communities')
         communities = self.loadData('SELECT w FROM Wspolne w')
         for community in communities:
             self._processed += 1
-            self._logger('processing community %d' % community.getNazwa())
+            self._logger.info('processing community %d' % community.getNazwa())
             if self.communityExists(community):
-                self._logger('community exists, updating')
+                self._logger.info('community exists, updating')
                 self.communityUpdate(community)
                 self._updated += 1
             else:
-                self._logger('community does\'nt exists, inserting')
+                self._logger.info('community does\'nt exists, inserting')
                 self.communityInsert(community)
                 self._inserted += 1
         self._logger('communities synchronized[processed:%d][inserted:%d][updated:%d]' % (self._processed, self._inserted, self._updated))
@@ -47,7 +47,7 @@ class SyncAccessToDb(Container):
     def communityInsert(self, oldCommunity):
         community = Community()
         self.setDataAndPersistCommunity(oldCommunity, community)
-        self._logger('new community bound: ' + str(oldCommunity.getId()) + '<->' + str(community.getId()))
+        self._logger.info('new community bound: ' + str(oldCommunity.getId()) + '<->' + str(community.getId()))
         entityManager.createNativeQuery('INSERT INTO sync_community(`erp_community_id`, `access_community_id`) VALUES(' + community.getId() + ', ' + oldCommunity.getId() + ')').executeUpdate()
         
     def setDataAndPersistCommunity(self, oldCommunity, community):
