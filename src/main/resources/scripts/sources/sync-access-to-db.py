@@ -34,7 +34,7 @@ class SyncAccessToDb(Container):
     def communityInsert(self, oldCommunity):
         community = Community()
         self.setDataAndPersistCommunity(oldCommunity, community)
-        entityManager.createNativeQuery(('INSERT INTO sync_community(`erp_community_id`, `access_community_id`) VALUES(%d, %d)' % (community.getId(), oldCommunity.getId()))).executeUpdate()
+        entityManager.createNativeQuery(('INSERT INTO sync_community(`erp_community_id`, `access_community_id`) VALUES(%d, %d)' % (int(community.getId()), int(oldCommunity.getId())))).executeUpdate()
         
     def setDataAndPersistCommunity(self, oldCommunity, community):
         community.setName(oldCommunity.getNazwa())
