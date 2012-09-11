@@ -84,7 +84,7 @@ class SyncCommunities:
         address.setStreet(self.findStreet(oldCommunity.getUlica()))
         address.setHouseNumber(oldCommunity.getNrbr())
         address.setPostalCode(oldCommunity.getKod())
-        address.setCity('Świdnica')
+        address.setCity('Swidnica')
         entityManager.persist(address)
         return address
     
