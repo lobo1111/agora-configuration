@@ -95,6 +95,16 @@
     </script>
     
     <script>
+        <name>sync-communities</name>
+        <source>sync-communities.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+        </dependencies>
+    </script>
+    
+    <script>
         <name>sync-access-to-db</name>
         <source>sync-access-to-db.py</source>
         <onInit>SyncAccessToDb()</onInit>
@@ -110,13 +120,4 @@
         </dependencies>
     </script>
     
-    <script>
-        <name>sync-communities</name>
-        <source>sync-communities.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-        </dependencies>
-    </script>
 </scripts>
