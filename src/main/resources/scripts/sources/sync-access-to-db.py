@@ -19,7 +19,7 @@ class SyncAccessToDb(Container):
         communities = self.loadData('SELECT w FROM Wspolne w')
         for community in communities:
             self._processed += 1
-            self._logger.info('processing community %d' % community.getNazwa())
+            self._logger.info('processing community %s' % community.getNazwa())
             if self.communityExists(community):
                 self._logger.info('community exists, updating')
                 self.communityUpdate(community)
