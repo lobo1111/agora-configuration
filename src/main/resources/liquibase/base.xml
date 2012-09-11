@@ -137,4 +137,12 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='community-add-column-company-id'>
+        <sql> 
+            ALTER TABLE `community`   
+                ADD COLUMN company_id INT(11) NOT NULL,
+                ADD CONSTRAINT `community_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>    
 </databaseChangeLog> 

@@ -1,4 +1,7 @@
 from java.text import SimpleDateFormat
+from pl.reaper.container.data import Community
+from pl.reaper.container.data import Address
+from pl.reaper.container.data import Company
 
 class SyncCommunities:
     _logger = Logger([:_scriptId])
@@ -43,11 +46,19 @@ class SyncCommunities:
     
     def communityInsert(self, oldCommunity):
         community = Community()
-        community = self.setDataAndPersistCommunity(oldCommunity, community)
+        self.setDataAndPersistCommunity(oldCommunity, community)
         self._logger.info('new community bound: %d <-> %d' % (oldCommunity.getId(), community.getId()))
         entityManager.createNativeQuery('INSERT INTO sync_community(`erp_community_id`, `access_community_id`) VALUES(%d, %d)' % (community.getId(), oldCommunity.getId())).executeUpdate()
         
     def setDataAndPersistCommunity(self, oldCommunity, community):
+        address = self.getCommunityAddress(oldCommunity)
+        company = self.getCommunityCompany(oldCommunity, address)
+        community = self.getCommunity(oldCommunity, community)
+        community.setCompany(company)
+        entityManager.persist(community)
+        
+        
+    def getCommunity(self, oldCommunity, community):
         community.setName(oldCommunity.getNazwa())
         if oldCommunity.getPow() == 'None':
             oldCommunity.setPow('0.0')
@@ -55,9 +66,29 @@ class SyncCommunities:
         community.setInDate(self.parseDate(oldCommunity.getDataprz()))
         if oldCommunity.getDatawyl() != 'None':
             community.setOutDate(self.parseDate(oldCommunity.getDatawyl()))
-        entityManager.persist(community)
-        entityManager.flush()
         return community
+    
+    def getCommunityCompany(self, oldCommunity, address):
+        company = Company()
+        company.setNip(oldCommunity.getNip())
+        company.setRegon(oldCommunity.getRegon())
+        company.setName(oldCommunity.getNazwa())
+        company.setAddress(address)
+        entityManager.persist(company)
+        return company
+    
+    def getAddressCompany(self, oldCommunity):
+        address = Address()
+        address.setStreet(self.findStreet(oldCommunity.getUlica()))
+        address.setHouseNumber(oldCommunity.getNrbr())
+        address.setPostalCode(oldCommunity.getKod())
+        address.setCity('Świdnica')
+        entityManager.persist(address)
+        return address
+    
+    def findStreet(self, oldId):
+        sql = 'SELECT u FROM ulice u WHERE kul = %d' % int(oldId)
+        return (oldEntityManager.createQuery(sql).getSingleResult()).getNul()
     
     def syncDataExists(self, tableName, idColumnName, id):
         try:

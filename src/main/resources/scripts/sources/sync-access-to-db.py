@@ -1,6 +1,3 @@
-from pl.reaper.container.data import Community
-
-
 class SyncAccessToDb(Container):
     _logger = Logger([:_scriptId])
         
