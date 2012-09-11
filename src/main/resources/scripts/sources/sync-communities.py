@@ -57,6 +57,7 @@ class SyncCommunities:
         community = self.getCommunity(oldCommunity, community)
         community.setCompany(company)
         entityManager.persist(community)
+        entityManager.flush()
         
         
     def getCommunity(self, oldCommunity, community):
