@@ -39,7 +39,7 @@ class SyncAccessToDb(Container):
         
     def setDataAndPersistCommunity(self, oldCommunity, community):
         community.setName(oldCommunity.getNazwa())
-        community.setArea(BigDecimal(float(oldCommunity.getPow())))
+        community.setArea(BigDecimal(oldCommunity.getPow()))
         community.setInDate(self.parseDate(oldCommunity.getDataprz()))
         if oldCommunity.getDatawyl() != 'None':
             community.setOutDate(self.parseDate(oldCommunity.getDatawyl()))
