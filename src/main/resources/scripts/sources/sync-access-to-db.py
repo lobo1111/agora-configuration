@@ -31,7 +31,7 @@ class SyncAccessToDb(Container):
         self._logger('communities synchronized[processed:%d][inserted:%d][updated:%d]' % (self._processed, self._inserted, self._updated))
                 
     def communityExists(self, community):
-        return self.syncDataExists('sync_community', 'erp_community_id', community.getId())
+        return self.syncDataExists('sync_community', 'access_community_id', community.getId())
     
     def communityUpdate(self, oldCommunity):
         id = self.findBaseId('sync_community', 'erp_community_id', 'access_community_id', oldCommunity.getId())
