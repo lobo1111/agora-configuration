@@ -1,4 +1,6 @@
 from pl.reaper.container.data import Community
+from java.text import SimpleDateFormat
+from java.math import BigDecimal
 
 class SyncAccessToDb(Container):
     def __init__(self):
@@ -37,7 +39,7 @@ class SyncAccessToDb(Container):
         
     def setDataAndPersistCommunity(self, oldCommunity, community):
         community.setName(oldCommunity.getNazwa())
-        community.setArea(float(oldCommunity.getPow()))
+        community.setArea(BigDecimal(float(oldCommunity.getPow())))
         community.setInDate(self.parseDate(oldCommunity.getDataprz()))
         if oldCommunity.getDatawyl() != 'None':
             community.setOutDate(self.parseDate(oldCommunity.getDatawyl()))
