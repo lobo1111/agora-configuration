@@ -2,6 +2,7 @@ from java.text import SimpleDateFormat
 from pl.reaper.container.data import Community
 from pl.reaper.container.data import Address
 from pl.reaper.container.data import Company
+from java.math import BigDecimal
 
 class SyncCommunities:
     _logger = Logger([:_scriptId])
@@ -62,7 +63,7 @@ class SyncCommunities:
         community.setName(oldCommunity.getNazwa())
         if oldCommunity.getPow() == 'None':
             oldCommunity.setPow('0.0')
-        community.setArea(float(oldCommunity.getPow()))
+        community.setArea(BigDecimal(oldCommunity.getPow()))
         community.setInDate(self.parseDate(oldCommunity.getDataprz()))
         if oldCommunity.getDatawyl() != 'None':
             community.setOutDate(self.parseDate(oldCommunity.getDatawyl()))
