@@ -87,7 +87,7 @@ class SyncCommunities:
         return address
     
     def findStreet(self, oldId):
-        sql = 'SELECT u FROM ulice u WHERE kul = %d' % int(oldId)
+        sql = 'SELECT u FROM Ulice u WHERE kul = %d' % int(oldId)
         return (oldEntityManager.createQuery(sql).getSingleResult()).getNul()
     
     def syncDataExists(self, tableName, idColumnName, id):
