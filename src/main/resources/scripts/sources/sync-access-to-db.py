@@ -43,9 +43,6 @@ class SyncAccessToDb(Container):
     
     def findBaseId(self, tableName, baseIdColumnName, oldIdColumnName, oldId):
         sql = 'SELECT %s FROM %s WHERE %s = %d' % (baseIdColumnName, tableName, oldIdColumnName, oldId)
-        print "!!!!"
-        print sql
-        print "!!!!"
         return (entityManager.createNativeQuery(sql).getSingleResult())[0]
     
     def communityInsert(self, oldCommunity):
@@ -57,7 +54,7 @@ class SyncAccessToDb(Container):
     def setDataAndPersistCommunity(self, oldCommunity, community):
         community.setName(oldCommunity.getNazwa())
         if oldCommunity.getPow() == 'None':
-            oldCommunity.setPow(0.0)
+            oldCommunity.setPow(float('0'))
         community.setArea(float(oldCommunity.getPow()))
         community.setInDate(self.parseDate(oldCommunity.getDataprz()))
         if oldCommunity.getDatawyl() != 'None':
