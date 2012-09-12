@@ -10,15 +10,15 @@ import javax.persistence.EntityManager;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import pl.reaper.container.beans.DocumentStatusBeanLocal;
-import pl.reaper.container.beans.PropertyBeanLocal;
+import pl.reaper.agora.jpa.beans.DocumentStatusBeanRemote;
+import pl.reaper.agora.jpa.beans.PropertyBeanRemote;
 
 public class ScriptEngineWrapper {
 
     private EntityManager entityManager;
     private EntityManager oldEntityManager;
-    private PropertyBeanLocal propertyBean;
-    private DocumentStatusBeanLocal documentStatusBean;
+    private PropertyBeanRemote propertyBean;
+    private DocumentStatusBeanRemote documentStatusBean;
     private Map<String, Object> variables;
     private ScriptEngine engine;
     private String lastExecuted;
@@ -72,12 +72,12 @@ public class ScriptEngineWrapper {
         return this;
     }
 
-    public ScriptEngineWrapper setPropertyBean(PropertyBeanLocal propertyBean) {
+    public ScriptEngineWrapper setPropertyBean(PropertyBeanRemote propertyBean) {
         this.propertyBean = propertyBean;
         return this;
     }
 
-    public ScriptEngineWrapper setDocumentStatusBean(DocumentStatusBeanLocal documentStatusBean) {
+    public ScriptEngineWrapper setDocumentStatusBean(DocumentStatusBeanRemote documentStatusBean) {
         this.documentStatusBean = documentStatusBean;
         return this;
     }

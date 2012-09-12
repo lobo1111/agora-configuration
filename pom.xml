@@ -57,6 +57,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>pl.reaper</groupId>
+            <artifactId>AgoraJPA</artifactId>
+            <version>0.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>

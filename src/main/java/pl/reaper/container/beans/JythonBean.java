@@ -7,6 +7,8 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import pl.reaper.agora.jpa.beans.DocumentStatusBeanRemote;
+import pl.reaper.agora.jpa.beans.PropertyBeanRemote;
 import pl.reaper.container.jython.*;
 
 
@@ -18,9 +20,9 @@ public class JythonBean implements JythonBeanLocal {
     @PersistenceContext(name = "agora_old_erp", unitName = "agora_old_erp")
     private EntityManager oldEntityManager;
     @EJB
-    private PropertyBeanLocal propertyBean;
+    private PropertyBeanRemote propertyBean;
     @EJB
-    private DocumentStatusBeanLocal documentStatusBean;
+    private DocumentStatusBeanRemote documentStatusBean;
 
     @Override
     public String executeScript(String scriptName, Map variables) {
