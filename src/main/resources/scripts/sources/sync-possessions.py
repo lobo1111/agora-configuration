@@ -70,6 +70,10 @@ class SyncPossessions(Sync):
         possession.setAddres(address)
         
     def setCommunity(self, oldPossession, possession):
+        print "!!!!"
+        print oldPossession.getNrwsp()
+        print int(oldPossession.getNrwsp())
+        print "!!!!"
         communityId = self.findBaseId('sync_community', 'erp_community_id', 'access_community_id', int(oldPossession.getNrwsp()))
         community = self.findCommunity(communityId)
         possession.setCommunity(community)
