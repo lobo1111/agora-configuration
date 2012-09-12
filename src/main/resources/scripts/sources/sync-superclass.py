@@ -1,3 +1,5 @@
+from java.text import SimpleDateFormat
+
 class Sync:
     def loadData(self, query):
         query = oldEntityManager.createQuery(query)
