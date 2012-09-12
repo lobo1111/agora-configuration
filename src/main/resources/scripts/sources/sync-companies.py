@@ -1,7 +1,7 @@
 from pl.reaper.container.data import Address
 from pl.reaper.container.data import Company
 
-class SyncComapny(Sync):
+class SyncCompanies(Sync):
     _logger = Logger([:_scriptId])
     _processed = 0
     _inserted = 0
