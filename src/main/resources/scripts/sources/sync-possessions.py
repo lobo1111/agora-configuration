@@ -52,7 +52,11 @@ class SyncPossessions(Sync):
         pass
         
     def setPossession(self, oldPossession, possession):
+        if oldPossession.getPow() == 'None':
+            oldPossession.setPow('0.0')
         possession.setArea(BigDecimal(oldPossession.getPow()))
+        if oldPossession.getUdzial() == 'None':
+            oldPossession.setUdzial('0.0')
         possession.setShare(BigDecimal(oldPossession.getUdzial()))
         entityManager.persist(possession)
         
