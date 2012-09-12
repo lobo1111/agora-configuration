@@ -2,11 +2,33 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="agora_erp" transaction-type="JTA">
         <jta-data-source>jdbc/agora-erp</jta-data-source>
+        <class>pl.reaper.agora.jpa.Account</class>
+        <class>pl.reaper.agora.jpa.DictionaryType</class>
+        <class>pl.reaper.agora.jpa.Owner</class>
+        <class>pl.reaper.agora.jpa.Company</class>
+        <class>pl.reaper.agora.jpa.Person</class>
+        <class>pl.reaper.agora.jpa.IncomingPaymentDocument</class>
+        <class>pl.reaper.agora.jpa.Dictionary</class>
+        <class>pl.reaper.agora.jpa.Community</class>
+        <class>pl.reaper.agora.jpa.IncomingPaymentDocumentPosition</class>
+        <class>pl.reaper.agora.jpa.Possession</class>
+        <class>pl.reaper.agora.jpa.Address</class>
         <class>pl.reaper.container.data.Script</class>
         <class>pl.reaper.container.data.ScriptScheduler</class>
         <class>pl.reaper.container.data.User</class>
         <class>pl.reaper.container.data.UserGroup</class>
         <class>pl.reaper.container.data.Log</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.sharedCache.mode" value="NONE"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="agora_old_erp" transaction-type="JTA">
+        <jta-data-source>jdbc/agora-old-erp</jta-data-source>
+        <class>pl.reaper.agora.jpa.old.Wspolne</class>
+        <class>pl.reaper.agora.jpa.old.Platnicy</class>
+        <class>pl.reaper.agora.jpa.old.Ulice</class>
+        <class>pl.reaper.agora.jpa.old.Mieszkania</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.sharedCache.mode" value="NONE"/>
