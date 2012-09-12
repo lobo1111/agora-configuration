@@ -16,8 +16,11 @@ class Sync:
         return SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy').parse(dateToParse)
     
     def findStreet(self, oldId):
-        result = self.findOldErp('Ulice', 'kul', oldId)
-        return result.getNul()
+        if oldId == 'None':
+            return None
+        else:
+            result = self.findOldErp('Ulice', 'kul', oldId)
+            return result.getNul()
     
     def findOldErp(self, tableName, field, value):
         sql = "SELECT q FROM %s q WHERE q.%s = '%s'" % (tableName, field, value)

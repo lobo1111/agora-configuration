@@ -33,15 +33,15 @@ class SyncPossessions(Sync):
     def possessionUpdate(self, oldPossession):
         id = self.findBaseId('sync_possession', 'erp_possession_id', 'access_possession_id', oldPossession.getId())
         possession = self.findPossession(id)
-        self.setDataAndPersistCommunity(oldPossession, possession)
+        self.setDataAndPersistPossession(oldPossession, possession)
     
     def possessionInsert(self, oldPossession):
         possession = Possession()
-        self.setDataAndPersistCommunity(oldPossession, possession)
+        self.setDataAndPersistPossession(oldPossession, possession)
         self._logger.info('new possession bound: %d <-> %d' % (oldPossession.getId(), possession.getId()))
         entityManager.createNativeQuery('INSERT INTO sync_possession(`erp_possession_id`, `access_possession_id`) VALUES(%d, %d)' % (possession.getId(), oldPossession.getId())).executeUpdate()
         
-    def setDataAndPersistCommunity(self, oldPossession, possession):
+    def setDataAndPersistPossession(self, oldPossession, possession):
         self.setCommunity(oldPossession, possession)
         self.setAddress(oldPossession, possession)
         self.setOwner(oldPossession, possession)
