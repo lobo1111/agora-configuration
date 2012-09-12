@@ -45,7 +45,6 @@ public class Person implements Serializable {
     @Column(name = "last_name")
     private String lastName;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 150)
     @Column(name = "pesel")
     private String pesel;
