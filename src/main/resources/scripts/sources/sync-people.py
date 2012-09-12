@@ -1,6 +1,5 @@
 from pl.reaper.container.data import Address
 from pl.reaper.container.data import Person
-from java.math import BigDecimal
 
 class SyncPeople(Sync):
     _logger = Logger([:_scriptId])
@@ -22,7 +21,7 @@ class SyncPeople(Sync):
                 self._logger.info('person doesn\'t exists, inserting')
                 self.personInsert(person)
                 self._inserted += 1
-        self._logger.info('person synchronized[processed:%d][inserted:%d][updated:%d]' % (self._processed, self._inserted, self._updated))
+        self._logger.info('people synchronized[processed:%d][inserted:%d][updated:%d]' % (self._processed, self._inserted, self._updated))
 
     def personExists(self, person):
         return self.syncDataExists('sync_person', 'access_person_id', person.getId())
@@ -30,7 +29,7 @@ class SyncPeople(Sync):
     def personUpdate(self, oldPerson):
         id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', oldPerson.getId())
         person = self.find('Person', id)
-        self.setDataAndPersistPerson(oldPerson, pserson)
+        self.setDataAndPersistPerson(oldPerson, person)
     
     def personInsert(self, oldPerson):
         person = Person()

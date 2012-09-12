@@ -138,6 +138,17 @@
     </script>
     
     <script>
+        <name>sync-companies</name>
+        <source>sync-companies.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>sync-superclass</scriptName>
+        </dependencies>
+    </script>
+    
+    <script>
         <name>sync-access-to-db</name>
         <source>sync-access-to-db.py</source>
         <onInit>SyncAccessToDb()</onInit>
@@ -152,6 +163,7 @@
             <scriptName>sync-communities</scriptName>
             <scriptName>sync-possessions</scriptName>
             <scriptName>sync-people</scriptName>
+            <scriptName>sync-companies</scriptName>
         </dependencies>
     </script>
     
