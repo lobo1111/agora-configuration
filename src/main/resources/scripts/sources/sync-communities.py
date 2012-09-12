@@ -30,7 +30,7 @@ class SyncCommunities(Sync):
     
     def communityUpdate(self, oldCommunity):
         id = self.findBaseId('sync_community', 'erp_community_id', 'access_community_id', oldCommunity.getId())
-        community = self.findCommunity(id)
+        community = self.find('Community', id)
         self.setDataAndPersistCommunity(oldCommunity, community)
         
     def communityInsert(self, oldCommunity):

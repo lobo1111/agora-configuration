@@ -32,7 +32,7 @@ class SyncPossessions(Sync):
     
     def possessionUpdate(self, oldPossession):
         id = self.findBaseId('sync_possession', 'erp_possession_id', 'access_possession_id', oldPossession.getId())
-        possession = self.findPossession(id)
+        possession = self.find('Possession', id)
         self.setDataAndPersistPossession(oldPossession, possession)
     
     def possessionInsert(self, oldPossession):
@@ -76,6 +76,6 @@ class SyncPossessions(Sync):
     def setCommunity(self, oldPossession, possession):
         oldCommunityId = (self.findOldErp('Wspolne', 'nrwsp', oldPossession.getNrwsp())).getId()
         communityId = self.findBaseId('sync_community', 'erp_community_id', 'access_community_id', oldCommunityId)
-        community = self.findCommunity(communityId)
+        community = self.find('Community', id)
         possession.setCommunity(community)
         

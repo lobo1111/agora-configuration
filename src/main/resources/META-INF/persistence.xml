@@ -27,6 +27,7 @@
     <persistence-unit name="agora_old_erp" transaction-type="JTA">
         <jta-data-source>jdbc/agora-old-erp</jta-data-source>
         <class>pl.reaper.container.data.old.Mieszkania</class>
+        <class>pl.reaper.container.data.old.Platnicy</class>
         <class>pl.reaper.container.data.old.Ulice</class>
         <class>pl.reaper.container.data.old.Wspolne</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
