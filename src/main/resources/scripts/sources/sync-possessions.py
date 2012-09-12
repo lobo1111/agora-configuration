@@ -46,6 +46,7 @@ class SyncPossessions(Sync):
         self.setAddress(oldPossession, possession)
         self.setOwner(oldPossession, possession)
         self.setPossession(oldPossession, possession)
+        entityManager.flush()
         
     def setOwner(self, oldPossession, possession):
         pass
