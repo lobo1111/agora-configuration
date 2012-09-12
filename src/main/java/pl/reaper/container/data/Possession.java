@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,6 +20,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "possession")
 @XmlRootElement
 public class Possession implements Serializable {
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "area")
+    private BigDecimal area;
+    @Column(name = "share")
+    private BigDecimal share;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -109,5 +115,21 @@ public class Possession implements Serializable {
     @Override
     public String toString() {
         return "pl.reaper.container.data.Possession[ id=" + id + " ]";
+    }
+
+    public BigDecimal getArea() {
+        return area;
+    }
+
+    public void setArea(BigDecimal area) {
+        this.area = area;
+    }
+
+    public BigDecimal getShare() {
+        return share;
+    }
+
+    public void setShare(BigDecimal share) {
+        this.share = share;
     }
 }

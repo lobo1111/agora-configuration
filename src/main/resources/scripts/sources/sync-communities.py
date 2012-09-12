@@ -4,15 +4,11 @@ from pl.reaper.container.data import Address
 from pl.reaper.container.data import Company
 from java.math import BigDecimal
 
-class SyncCommunities:
+class SyncCommunities(Sync):
     _logger = Logger([:_scriptId])
     _processed = 0
     _inserted = 0
     _updated = 0
-    
-    def loadData(self, query):
-        query = oldEntityManager.createQuery(query)
-        return query.getResultList()
     
     def sync(self):
         self._logger.info('synchronizing communities')
@@ -41,10 +37,6 @@ class SyncCommunities:
     def findCommunity(self, id):
         return entityManager.createQuery(('SELECT c FROM Community c WHERE c.id = %d' % id)).getSingleResult()
     
-    def findBaseId(self, tableName, baseIdColumnName, oldIdColumnName, oldId):
-        sql = 'SELECT %s FROM %s WHERE %s = %d' % (baseIdColumnName, tableName, oldIdColumnName, oldId)
-        return entityManager.createNativeQuery(sql).getSingleResult()
-    
     def communityInsert(self, oldCommunity):
         community = Community()
         self.setDataAndPersistCommunity(oldCommunity, community)
@@ -57,7 +49,6 @@ class SyncCommunities:
         community.setCompany(company)
         entityManager.persist(community)
         entityManager.flush()
-        
         
     def getCommunity(self, oldCommunity, community):
         community.setName(oldCommunity.getNazwa())
@@ -95,16 +86,3 @@ class SyncCommunities:
         entityManager.persist(address)
         return address
     
-    def findStreet(self, oldId):
-        sql = "SELECT u FROM Ulice u WHERE u.kul = '%s'" % oldId
-        return (oldEntityManager.createQuery(sql).getSingleResult()).getNul()
-    
-    def syncDataExists(self, tableName, idColumnName, id):
-        try:
-            entityManager.createNativeQuery(('SELECT * FROM %s WHERE %s = %s' % (tableName, idColumnName, id))).getSingleResult()
-            return True
-        except:
-            return False
-        
-    def parseDate(self, dateToParse): #Wed Sep 01 00:00:00 GMT 2010
-        return SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy').parse(dateToParse)

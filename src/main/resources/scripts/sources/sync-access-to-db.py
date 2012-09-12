@@ -4,4 +4,5 @@ class SyncAccessToDb(Container):
     def __init__(self):
         self._logger.info('synchronizing databses...')
         SyncCommunities().sync()
+        SyncPossessions().sync()
         self._logger.info('synchronization complete')

@@ -93,7 +93,17 @@
             <scriptName>container</scriptName>
         </dependencies>
     </script>
-    
+
+    <script>
+        <name>sync-superclass</name>
+        <source>sync-superclass.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+        </dependencies>
+    </script>
+            
     <script>
         <name>sync-communities</name>
         <source>sync-communities.py</source>
@@ -101,6 +111,18 @@
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
+            <scriptName>sync-superclass</scriptName>
+        </dependencies>
+    </script>
+    
+    <script>
+        <name>sync-possessions</name>
+        <source>sync-possessions.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>sync-superclass</scriptName>
         </dependencies>
     </script>
     
@@ -117,6 +139,7 @@
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
             <scriptName>sync-communities</scriptName>
+            <scriptName>sync-possessions</scriptName>
         </dependencies>
     </script>
     
