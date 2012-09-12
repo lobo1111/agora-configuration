@@ -24,3 +24,9 @@ class Sync:
     def findBaseId(self, tableName, baseIdColumnName, oldIdColumnName, oldId):
         sql = 'SELECT %s FROM %s WHERE %s = %d' % (baseIdColumnName, tableName, oldIdColumnName, oldId)
         return entityManager.createNativeQuery(sql).getSingleResult()
+    
+    def findCommunity(self, id):
+        return entityManager.createQuery(('SELECT c FROM Community c WHERE c.id = %d' % id)).getSingleResult()
+    
+    def findPossession(self, id):
+        return entityManager.createQuery(('SELECT c FROM Possession c WHERE c.id = %d' % id)).getSingleResult()

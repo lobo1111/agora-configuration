@@ -31,8 +31,46 @@ class SyncPossessions(Sync):
     def possessionExists(self, possession):
         return self.syncDataExists('sync_possession', 'access_possession_id', possession.getId())
     
-    def possessionUpdate(self, possession):
-        pass
+    def possessionUpdate(self, oldPossession):
+        id = self.findBaseId('sync_possession', 'erp_possession_id', 'access_possession_id', oldPossession.getId())
+        possession = self.findPossession(id)
+        self.setDataAndPersistCommunity(oldPossession, possession)
     
-    def possessionInsert(self, possession):
+    def possessionInsert(self, oldPossession):
+        possession = Possession()
+        self.setDataAndPersistCommunity(oldPossession, possession)
+        self._logger.info('new possession bound: %d <-> %d' % (oldPossession.getId(), possession.getId()))
+        entityManager.createNativeQuery('INSERT INTO sync_possession(`erp_possession_id`, `access_possession_id`) VALUES(%d, %d)' % (possession.getId(), oldPossession.getId())).executeUpdate()
+        
+    def setDataAndPersistCommunity(self, oldPossession, possession):
+        self.setCommunity(oldPossession, possession)
+        self.setAddress(oldPossession, possession)
+        self.setOwner(oldPossession, possession)
+        self.setPossession(oldPossession, possession)
+        
+    def setOwner(oldPossession, possession):
         pass
+        
+    def setPossession(self, oldPossession, possession):
+        possession.setArea(oldPossession.getPow())
+        possession.setShare(oldPossession.getUdzial())
+        entityManager.persist(possession)
+        
+    def setAddress(self, oldPossession, possession):
+        address = None
+        if possession.getAddress() != None:
+            address = possession.getAddress()
+        else:
+            address = Address()
+        address.setStreet(self.findStreet(oldPossession.getKul()))
+        address.setHouseNumber(oldPossession.getNrbr())
+        address.setFlatNumber(oldPossession.getNrmie())
+        address.setCity('Swidnica')
+        entityManager.persist(address)
+        possession.setAddres(address)
+        
+    def setCommunity(self, oldPossession, possession):
+        communityId = self.findBaseId('sync_community', 'erp_community_id', 'access_community_id', oldPossession.getNrwsp())
+        community = self.findCommunity(communityId)
+        possession.setCommunity(community)
+        

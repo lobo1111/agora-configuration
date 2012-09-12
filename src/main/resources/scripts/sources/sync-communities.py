@@ -34,9 +34,6 @@ class SyncCommunities(Sync):
         community = self.findCommunity(id)
         self.setDataAndPersistCommunity(oldCommunity, community)
         
-    def findCommunity(self, id):
-        return entityManager.createQuery(('SELECT c FROM Community c WHERE c.id = %d' % id)).getSingleResult()
-    
     def communityInsert(self, oldCommunity):
         community = Community()
         self.setDataAndPersistCommunity(oldCommunity, community)
