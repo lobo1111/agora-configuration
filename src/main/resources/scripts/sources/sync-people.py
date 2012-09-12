@@ -39,5 +39,28 @@ class SyncPeople(Sync):
         entityManager.createNativeQuery('INSERT INTO sync_person(`erp_person_id`, `access_person_id`) VALUES(%d, %d)' % (person.getId(), oldPerson.getId())).executeUpdate()
         
     def setDataAndPersistPerson(self, oldPerson, person):
+        self.setAddress(oldPerson, person)
+        self.setPerson(oldPerson, person)
         entityManager.flush()
+        
+    def setAddres(self, oldPerson, person):
+        address = none
+        if person.getAddress() != None:
+            address = person.getAddress()
+        else:
+            address = Address()
+        address.setStreet(self.findStreet(oldPerson.getKul()))
+        address.setHouseNumber(oldPerson.getNrbr())
+        address.setFlatNumber(oldPerson.getNrmie())
+        address.setPostalCode(oldPerson.getKod())
+        address.setCity('Swidnica')
+        entityManager.persist(address)
+        person.setAddress(address)
+    
+    def setPerson(self, oldPerson, person):
+        person.setLastName(oldPerson.getNazwisko())
+        person.setFirstName(oldPerson.getImie())
+        person.setPhoneNumber1(oldPerson.getTel())
+        person.setNip(oldPerson.getNip())
+        entityManager.persist(person)
      
