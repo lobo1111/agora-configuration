@@ -43,7 +43,7 @@ class SyncPeople(Sync):
         self.setPerson(oldPerson, person)
         entityManager.flush()
         
-    def setAddres(self, oldPerson, person):
+    def setAddress(self, oldPerson, person):
         address = none
         if person.getAddress() != None:
             address = person.getAddress()
