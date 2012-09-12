@@ -23,6 +23,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "person")
 @XmlRootElement
 public class Person implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "nip")
+    private String nip;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -192,6 +197,14 @@ public class Person implements Serializable {
     @Override
     public String toString() {
         return "pl.reaper.container.data.Person[ id=" + id + " ]";
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
     }
     
 }
