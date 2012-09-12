@@ -19,12 +19,8 @@
               `login` varchar(45) COLLATE utf8_polish_ci NOT NULL,
               `password` varchar(150) COLLATE utf8_polish_ci NOT NULL,
               PRIMARY KEY (`id`),
-              UNIQUE KEY `login_UNIQUE` (`login`),
-              KEY `user_person_fkey` (`person_id`)
+              UNIQUE KEY `login_UNIQUE` (`login`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-            
-            ALTER TABLE `user`
-              ADD CONSTRAINT `user_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
             
             ALTER TABLE `group`
               ADD CONSTRAINT `group_user_fkey` FOREIGN KEY (`user`) REFERENCES `user` (`login`) ON DELETE NO ACTION ON UPDATE NO ACTION;
