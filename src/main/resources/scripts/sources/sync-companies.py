@@ -12,7 +12,7 @@ class SyncCompanies(Sync):
         companies = self.loadData('SELECT w FROM Platnicy w WHERE w.nazwa != "None"')
         for company in companies:
             self._processed += 1
-            self._logger.info('processing company %s' % person.getPlatnik())
+            self._logger.info('processing company %s' % company.getNazwa())
             if self.companyExists(comapny):
                 self._logger.info('company exists, updating')
                 self.companyUpdate(comapny)
