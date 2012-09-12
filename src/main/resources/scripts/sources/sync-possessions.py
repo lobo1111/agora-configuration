@@ -67,7 +67,7 @@ class SyncPossessions(Sync):
         address.setFlatNumber(oldPossession.getNrmie())
         address.setCity('Swidnica')
         entityManager.persist(address)
-        possession.setAddres(address)
+        possession.setAddress(address)
         
     def setCommunity(self, oldPossession, possession):
         oldCommunityId = (self.findOldErp('Wspolne', 'nrwsp', oldPossession.getNrwsp())).getId()
