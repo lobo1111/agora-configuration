@@ -48,7 +48,7 @@ class SyncPossessions(Sync):
         self.setOwner(oldPossession, possession)
         self.setPossession(oldPossession, possession)
         
-    def setOwner(oldPossession, possession):
+    def setOwner(self, oldPossession, possession):
         pass
         
     def setPossession(self, oldPossession, possession):
