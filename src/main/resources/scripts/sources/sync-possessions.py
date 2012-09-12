@@ -76,6 +76,6 @@ class SyncPossessions(Sync):
     def setCommunity(self, oldPossession, possession):
         oldCommunityId = (self.findOldErp('Wspolne', 'nrwsp', oldPossession.getNrwsp())).getId()
         communityId = self.findBaseId('sync_community', 'erp_community_id', 'access_community_id', oldCommunityId)
-        community = self.find('Community', id)
+        community = self.find('Community', communityId)
         possession.setCommunity(community)
         
