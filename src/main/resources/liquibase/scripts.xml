@@ -13,7 +13,7 @@
             `on_init` text COLLATE utf8_polish_ci,
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`name`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=6 ;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE IF NOT EXISTS `script_scheduler` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -24,7 +24,7 @@
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`name`),
             KEY `scheduler_script_fkey` (`id_script`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
             
             CREATE TABLE IF NOT EXISTS `script_dependency` (
             `id` int(11) NOT NULL AUTO_INCREMENT,

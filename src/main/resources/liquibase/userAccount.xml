@@ -12,7 +12,7 @@
               `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
               PRIMARY KEY (`id`),
               KEY `group_user_fkey` (`user`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=2 ;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
             
             CREATE TABLE IF NOT EXISTS `user` (
               `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,7 +22,7 @@
               PRIMARY KEY (`id`),
               UNIQUE KEY `login_UNIQUE` (`login`),
               KEY `user_person_fkey` (`person_id`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=2 ;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
             
             ALTER TABLE `user`
               ADD CONSTRAINT `user_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

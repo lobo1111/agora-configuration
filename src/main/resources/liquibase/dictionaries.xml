@@ -13,14 +13,14 @@
             `value` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
             PRIMARY KEY (`id`),
             UNIQUE KEY `type_id` (`type_id`,`dictionaryKey`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=7 ;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE `dictionary_type` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `type` varchar(255) COLLATE utf8_polish_ci NOT NULL,
             PRIMARY KEY (`id`),
             UNIQUE KEY `type` (`type`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=2 ;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             ALTER TABLE  `dictionary` ADD INDEX (  `dictionaryKey` );
             

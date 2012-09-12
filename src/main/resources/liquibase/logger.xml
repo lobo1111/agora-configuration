@@ -17,7 +17,7 @@
             `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
             KEY `log_script_fkey` (`script_id`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1221 ;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             ALTER TABLE `log`
             ADD CONSTRAINT `log_script_fkey` FOREIGN KEY (`script_id`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

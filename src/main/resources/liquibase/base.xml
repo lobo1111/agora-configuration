@@ -23,7 +23,7 @@
             `postal_code` varchar(5) COLLATE utf8_polish_ci DEFAULT NULL,
             `city` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
             PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=2 ;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE IF NOT EXISTS `community` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -67,7 +67,7 @@
             `address_id` int(11) NOT NULL,
             PRIMARY KEY (`id`),
             KEY `person_address_fkey` (`address_id`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=2 ;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             CREATE TABLE IF NOT EXISTS `possession` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
