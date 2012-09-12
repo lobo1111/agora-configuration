@@ -33,8 +33,8 @@
 
             CREATE TABLE IF NOT EXISTS `company` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
-            `nip` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-            `regon` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `nip` varchar(150) COLLATE utf8_polish_ci,
+            `regon` varchar(150) COLLATE utf8_polish_ci,
             `www` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
             `email` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
             `phone_number_1` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
@@ -59,7 +59,7 @@
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `first_name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             `last_name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
-            `pesel` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `pesel` varchar(150) COLLATE utf8_polish_ci,
             `phone_number_1` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
             `phone_number_2` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
             `phone_number_3` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
