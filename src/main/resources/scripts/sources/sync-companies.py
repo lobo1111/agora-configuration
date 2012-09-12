@@ -37,7 +37,7 @@ class SyncCompanies(Sync):
         self._logger.info('new company bound: %d <-> %d' % (oldCompany.getId(), company.getId()))
         entityManager.createNativeQuery('INSERT INTO sync_company(`erp_company_id`, `access_company_id`) VALUES(%d, %d)' % (company.getId(), oldCompany.getId())).executeUpdate()
         
-    def setDataAndPersistcompany(self, oldCompany, company):
+    def setDataAndPersistCompany(self, oldCompany, company):
         self.setAddress(oldCompany, company)
         self.setCompany(oldCompany, company)
         entityManager.flush()
