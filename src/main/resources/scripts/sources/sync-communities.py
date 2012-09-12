@@ -1,4 +1,3 @@
-from java.text import SimpleDateFormat
 from pl.reaper.container.data import Community
 from pl.reaper.container.data import Address
 from pl.reaper.container.data import Company

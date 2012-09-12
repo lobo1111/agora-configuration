@@ -1,4 +1,3 @@
-from java.text import SimpleDateFormat
 from pl.reaper.container.data import Address
 from pl.reaper.container.data import Company
 from pl.reaper.container.data import Person
@@ -52,8 +51,8 @@ class SyncPossessions(Sync):
         pass
         
     def setPossession(self, oldPossession, possession):
-        possession.setArea(oldPossession.getPow())
-        possession.setShare(oldPossession.getUdzial())
+        possession.setArea(BigDecimal(oldPossession.getPow()))
+        possession.setShare(BigDecimal(oldPossession.getUdzial()))
         entityManager.persist(possession)
         
     def setAddress(self, oldPossession, possession):
