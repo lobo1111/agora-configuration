@@ -13,13 +13,13 @@ class SyncCompanies(Sync):
         for company in companies:
             self._processed += 1
             self._logger.info('processing company %s' % company.getNazwa())
-            if self.companyExists(comapny):
+            if self.companyExists(company):
                 self._logger.info('company exists, updating')
-                self.companyUpdate(comapny)
+                self.companyUpdate(company)
                 self._updated += 1
             else:
                 self._logger.info('company doesn\'t exists, inserting')
-                self.companyInsert(comapny)
+                self.companyInsert(company)
                 self._inserted += 1
         self._logger.info('companies synchronized[processed:%d][inserted:%d][updated:%d]' % (self._processed, self._inserted, self._updated))
 
