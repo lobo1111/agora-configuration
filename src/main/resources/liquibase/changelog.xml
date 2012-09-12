@@ -5,9 +5,9 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
     
-    <include file="/opt/builder/src/src/main/resources/liquibase/ejbTimer.xml"/> 
-    <include file="/opt/builder/src/src/main/resources/liquibase/userAccount.xml"/> 
-    <include file="/opt/builder/src/src/main/resources/liquibase/scripts.xml"/> 
-    <include file="/opt/builder/src/src/main/resources/liquibase/logger.xml"/> 
+    <include file="/opt/builder/container/src/main/resources/liquibase/ejbTimer.xml"/> 
+    <include file="/opt/builder/container/src/main/resources/liquibase/userAccount.xml"/> 
+    <include file="/opt/builder/container/src/main/resources/liquibase/scripts.xml"/> 
+    <include file="/opt/builder/container/src/main/resources/liquibase/logger.xml"/> 
 
 </databaseChangeLog> 
