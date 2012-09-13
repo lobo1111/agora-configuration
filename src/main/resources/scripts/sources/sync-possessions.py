@@ -57,7 +57,7 @@ class SyncPossessions(Sync):
             owner.getPossessions().add(possession)
             entityManager.persist(owner)
         else:
-            logger.warn('Possession without owner[%s]' % oldPossession.getId())
+            self._logger.warn('Possession without owner[%s]' % oldPossession.getId())
         
     def findOwner(self, platnikId):
         if platnikId != 'None':
