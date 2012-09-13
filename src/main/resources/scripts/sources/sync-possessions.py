@@ -4,6 +4,7 @@ from pl.reaper.container.data import Person
 from pl.reaper.container.data import Possession
 from pl.reaper.container.data import Owner
 from java.math import BigDecimal
+from java.util import ArrayList
 
 class SyncPossessions(Sync):
     _logger = Logger([:_scriptId])
@@ -53,10 +54,19 @@ class SyncPossessions(Sync):
         platnik = self.findOldErp('Platnicy', 'platnik', platnikId)
         id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', platnik.getId())
         person = self.find('Person', id)
+        self.clearOwners(possession)
+        self.clearOwners(person)
+        self.addOwner(person, possession)
+        
+    def clearOwners(self, asset):
+        asset.setOwners(ArrayList())
+        
+    def addOwner(self, person, possession):
         owner = Owner()
-        owner.getPossessions().add(possession)
-        owner.setPerson(person)
-        entityManager.persist(owner)
+        person.getOwners().add(owner)
+        possession.getOwners().add(owner)
+        entityManager.persist(person)
+        entityManager.persist(possession)
         
     def setPossession(self, oldPossession, possession):
         if oldPossession.getPow() == 'None':
