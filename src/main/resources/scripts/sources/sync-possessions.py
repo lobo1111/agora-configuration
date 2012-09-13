@@ -13,7 +13,7 @@ class SyncPossessions(Sync):
     _updated = 0
     
     def sync(self):
-        self._logger.info('synchronizing possessiona')
+        self._logger.info('synchronizing possessions')
         possessions = self.loadData('SELECT w FROM Mieszkania w')
         for possession in possessions:
             self._processed += 1
@@ -65,7 +65,7 @@ class SyncPossessions(Sync):
         owner = Owner()
         owner.setPerson(person)
         owner.setPossessions(ArrayList())
-        owner.getPossessions().add(posssession)
+        owner.getPossessions().add(possession)
         entityManager.persist(owner)
         #person.getOwners().add(owner)
         #possession.getOwners().add(owner)
