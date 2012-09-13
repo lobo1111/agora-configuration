@@ -46,15 +46,6 @@
             KEY `company_address_fkey` (`address_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
-            CREATE TABLE IF NOT EXISTS `owner` (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `person_id` int(11) DEFAULT NULL,
-            `company_id` int(11) DEFAULT NULL,
-            PRIMARY KEY (`id`),
-            KEY `owner_company_fkey` (`company_id`),
-            KEY `owner_person_fkey` (`person_id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
             CREATE TABLE IF NOT EXISTS `person` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `first_name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
@@ -87,13 +78,22 @@
             KEY `possession_account_account_fkey` (`account_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
-            CREATE TABLE IF NOT EXISTS `possession_owner` (
+            CREATE TABLE IF NOT EXISTS `possession_person` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `possession_id` int(11) NOT NULL,
-            `owner_id` int(11) NOT NULL,
+            `person_id` int(11) NOT NULL,
             PRIMARY KEY (`id`),
             KEY `possession_owner_possession_fkey` (`possession_id`),
-            KEY `possession_owner_owner_fkey` (`owner_id`)
+            KEY `possession_owner_person_fkey` (`person_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+            
+            CREATE TABLE IF NOT EXISTS `possession_company` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `possession_id` int(11) NOT NULL,
+            `company_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `possession_owner_possession_fkey` (`possession_id`),
+            KEY `possession_owner_person_fkey` (`company_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             ALTER TABLE `account`
@@ -102,9 +102,13 @@
             ALTER TABLE `company`
             ADD CONSTRAINT `company_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-            ALTER TABLE `owner`
-            ADD CONSTRAINT `owner_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            ADD CONSTRAINT `owner_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ALTER TABLE `possession_person`
+            ADD CONSTRAINT `possession_person_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `possession_person_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+            ALTER TABLE `possession_company`
+            ADD CONSTRAINT `possession_company_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `possession_company_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `person`
             ADD CONSTRAINT `person_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
