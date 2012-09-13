@@ -67,7 +67,7 @@ public class Person implements Serializable {
     @ManyToOne(optional = false)
     private Address address;
     @ManyToMany
-    @JoinTable(name = "possession")
+    @JoinTable(name = "possession_person")
     private Collection<Possession> possessions;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<User> users;

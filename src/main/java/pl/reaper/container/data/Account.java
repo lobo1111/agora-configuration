@@ -46,7 +46,7 @@ public class Account implements Serializable {
     @ManyToOne
     private Account parrentAccount;
     @ManyToMany
-    @JoinTable(name = "possession")
+    @JoinTable(name = "possession_account")
     private Collection<Possession> possessions;
 
     public Account() {

@@ -39,13 +39,13 @@ public class Possession implements Serializable {
     @ManyToOne(optional = false)
     private Address address;
     @ManyToMany
-    @JoinTable(name = "person")
+    @JoinTable(name = "possession_person")
     private Collection<Person> people;
     @ManyToMany
-    @JoinTable(name = "company")
+    @JoinTable(name = "possession_company")
     private Collection<Company> companies;
     @ManyToMany
-    @JoinTable(name = "account")
+    @JoinTable(name = "possession_account")
     private Collection<Account> accounts;
 
     public Possession() {

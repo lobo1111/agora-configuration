@@ -66,7 +66,7 @@ public class Company implements Serializable {
     @ManyToOne(optional = false)
     private Address address;
     @ManyToMany
-    @JoinTable(name = "possession")
+    @JoinTable(name = "possession_company")
     private Collection<Possession> possessions;
 
     public Company() {
