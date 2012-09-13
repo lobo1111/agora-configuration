@@ -57,7 +57,6 @@ class SyncPossessions(Sync):
         entityManager.persis(owner)
         
     def findOwner(self, platnikId):
-        platnikId = oldPossession.getPlatnik()
         platnik = self.findOldErp('Platnicy', 'platnik', platnikId)
         id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', platnik.getId())
         try:
