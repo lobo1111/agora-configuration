@@ -61,7 +61,7 @@ class SyncPossessions(Sync):
         except:
             return self.find('Company', id)
         
-    def setOwner(possession, owner):
+    def setOwner(self, possession, owner):
         if owner.getPossessions() == None:
             owner.setPossessions(ArrayList())
         owner.getPossessions().clear()
