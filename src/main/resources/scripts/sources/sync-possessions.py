@@ -63,6 +63,7 @@ class SyncPossessions(Sync):
         
     def addOwner(self, person, possession):
         owner = Owner()
+        entityManager.persist(owner)
         person.getOwners().add(owner)
         possession.getOwners().add(owner)
         entityManager.persist(person)
