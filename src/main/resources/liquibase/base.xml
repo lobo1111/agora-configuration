@@ -83,8 +83,8 @@
             `possession_id` int(11) NOT NULL,
             `person_id` int(11) NOT NULL,
             PRIMARY KEY (`id`),
-            KEY `possession_owner_possession_fkey` (`possession_id`),
-            KEY `possession_owner_person_fkey` (`person_id`)
+            KEY `possession_person_possession_fkey` (`possession_id`),
+            KEY `possession_person_person_fkey` (`person_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
             
             CREATE TABLE IF NOT EXISTS `possession_company` (
@@ -92,8 +92,8 @@
             `possession_id` int(11) NOT NULL,
             `company_id` int(11) NOT NULL,
             PRIMARY KEY (`id`),
-            KEY `possession_owner_possession_fkey` (`possession_id`),
-            KEY `possession_owner_person_fkey` (`company_id`)
+            KEY `possession_company_possession_fkey` (`possession_id`),
+            KEY `possession_company_company_fkey` (`company_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
             ALTER TABLE `account`
@@ -120,10 +120,6 @@
             ALTER TABLE `possession_account`
             ADD CONSTRAINT `possession_account_account_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `possession_account_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-            ALTER TABLE `possession_owner`
-            ADD CONSTRAINT `possession_owner_owner_fkey` FOREIGN KEY (`owner_id`) REFERENCES `owner` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            ADD CONSTRAINT `possession_owner_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     
