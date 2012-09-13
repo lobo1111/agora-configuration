@@ -60,7 +60,7 @@ class SyncPossessions(Sync):
             logger.warn('Possession without owner[%s]' % oldPossession.getId())
         
     def findOwner(self, platnikId):
-        if platnik != 'None':
+        if platnikId != 'None':
             platnik = self.findOldErp('Platnicy', 'platnik', platnikId)
             try:
                 id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', platnik.getId())
