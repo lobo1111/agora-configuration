@@ -58,10 +58,11 @@ class SyncPossessions(Sync):
         
     def findOwner(self, platnikId):
         platnik = self.findOldErp('Platnicy', 'platnik', platnikId)
-        id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', platnik.getId())
         try:
+            id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', platnik.getId())
             return self.find('Person', id)
         except:
+            id = self.findBaseId('sync_company', 'erp_company_id', 'access_company_id', platnik.getId())
             return self.find('Company', id)
         
     def setPossession(self, oldPossession, possession):
