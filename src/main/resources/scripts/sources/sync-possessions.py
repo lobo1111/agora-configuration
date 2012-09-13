@@ -50,20 +50,26 @@ class SyncPossessions(Sync):
         
     def setOwner(self, oldPossession, possession):
         owner = self.findOwner(oldPossession.getPlatnik())
-        if owner.getPossessions() == None:
-            owner.setPossessions(ArrayList())
-        owner.getPossessions().clear()
-        owner.getPossessions().add(possession)
-        entityManager.persist(owner)
+        if owner != None:
+            if owner.getPossessions() == None:
+                owner.setPossessions(ArrayList())
+            owner.getPossessions().clear()
+            owner.getPossessions().add(possession)
+            entityManager.persist(owner)
+        else:
+            logger.warn('Possession without owner[%s]' % oldPossession.getId())
         
     def findOwner(self, platnikId):
-        platnik = self.findOldErp('Platnicy', 'platnik', platnikId)
-        try:
-            id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', platnik.getId())
-            return self.find('Person', id)
-        except:
-            id = self.findBaseId('sync_company', 'erp_company_id', 'access_company_id', platnik.getId())
-            return self.find('Company', id)
+        if platnik != 'None':
+            platnik = self.findOldErp('Platnicy', 'platnik', platnikId)
+            try:
+                id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', platnik.getId())
+                return self.find('Person', id)
+            except:
+                id = self.findBaseId('sync_company', 'erp_company_id', 'access_company_id', platnik.getId())
+                return self.find('Company', id)
+        else:
+            return None
         
     def setPossession(self, oldPossession, possession):
         if oldPossession.getPow() == 'None':
