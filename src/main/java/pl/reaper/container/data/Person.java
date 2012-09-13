@@ -64,8 +64,8 @@ public class Person implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
-    @OneToMany(mappedBy = "person")
-    private Collection<Owner> owners;
+    @OneToMany(mappedBy = "possession")
+    private Collection<Possession> possessions;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<User> users;
 
@@ -156,12 +156,12 @@ public class Person implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Owner> getOwners() {
-        return owners;
+    public Collection<Possession> getPossessions() {
+        return possessions;
     }
 
-    public void setOwners(Collection<Owner> owners) {
-        this.owners = owners;
+    public void setPossessions(Collection<Possession> possessions) {
+        this.possessions = possessions;
     }
 
     @XmlTransient

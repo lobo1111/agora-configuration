@@ -63,8 +63,8 @@ public class Company implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
-    @OneToMany(mappedBy = "company")
-    private Collection<Owner> owners;
+    @OneToMany(mappedBy = "possession")
+    private Collection<Possession> possessions;
 
     public Company() {
     }
@@ -161,12 +161,12 @@ public class Company implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Owner> getOwners() {
-        return owners;
+    public Collection<Possession> getPossessions() {
+        return possessions;
     }
 
-    public void setOwners(Collection<Owner> owners) {
-        this.owners = owners;
+    public void setPossessions(Collection<Possession> possessions) {
+        this.possessions = possessions;
     }
 
     @Override

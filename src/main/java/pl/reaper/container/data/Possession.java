@@ -21,11 +21,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Possession implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Column(name = "area")
     private BigDecimal area;
     @Column(name = "share")
     private BigDecimal share;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +39,11 @@ public class Possession implements Serializable {
     @ManyToOne(optional = false)
     private Address address;
     @ManyToMany
-    @JoinTable(name = "owner")
-    private Collection<Owner> owners;
+    @JoinTable(name = "person")
+    private Collection<Person> people;
+    @ManyToMany
+    @JoinTable(name = "company")
+    private Collection<Company> companies;
     @ManyToMany
     @JoinTable(name = "account")
     private Collection<Account> accounts;
@@ -76,12 +79,20 @@ public class Possession implements Serializable {
         this.address = address;
     }
 
-    public Collection<Owner> getOwners() {
-        return owners;
+    public Collection<Person> getPeople() {
+        return people;
     }
 
-    public void setOwners(Collection<Owner> owners) {
-        this.owners = owners;
+    public void setPeople(Collection<Person> people) {
+        this.people = people;
+    }
+
+    public Collection<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(Collection<Company> companies) {
+        this.companies = companies;
     }
 
     public Collection<Account> getAccounts() {
