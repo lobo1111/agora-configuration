@@ -2,7 +2,6 @@ from pl.reaper.container.data import Address
 from pl.reaper.container.data import Company
 from pl.reaper.container.data import Person
 from pl.reaper.container.data import Possession
-from pl.reaper.container.data import Owner
 from java.math import BigDecimal
 from java.util import ArrayList
 
@@ -53,24 +52,21 @@ class SyncPossessions(Sync):
         platnikId = oldPossession.getPlatnik()
         platnik = self.findOldErp('Platnicy', 'platnik', platnikId)
         id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', platnik.getId())
-        person = self.find('Person', id)
-        self.clearOwners(possession)
-        self.clearOwners(person)
-        self.addOwner(person, possession)
+        owner = self.findOwner(id)
+        self.setOwner(possession, owner)
         
-    def clearOwners(self, asset):
-        asset.setOwners(ArrayList())
+    def findOwner(self, id):
+        try:
+            return self.find('Person', id)
+        except:
+            return self.find('Company', id)
         
-    def addOwner(self, person, possession):
-        owner = Owner()
-        owner.setPerson(person)
-        owner.setPossessions(ArrayList())
+    def setOwner(possession, owner):
+        if owner.getPossessions() == None:
+            owner.setPossessions(ArrayList())
+        owner.getPossessions().clear()
         owner.getPossessions().add(possession)
-        entityManager.persist(owner)
-        #person.getOwners().add(owner)
-        #possession.getOwners().add(owner)
-        entityManager.persist(person)
-        entityManager.persist(possession)
+        entityManager.persis(owner)
         
     def setPossession(self, oldPossession, possession):
         if oldPossession.getPow() == 'None':
