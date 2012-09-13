@@ -67,7 +67,11 @@ public class Person implements Serializable {
     @ManyToOne(optional = false)
     private Address address;
     @ManyToMany
-    @JoinTable(name = "possession_person")
+    @JoinTable(
+        name = "possession_person", joinColumns =
+            @JoinColumn(name = "person_id", referencedColumnName = "id"),
+        inverseJoinColumns =
+            @JoinColumn(name = "possession_id", referencedColumnName = "id"))
     private Collection<Possession> possessions;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<User> users;

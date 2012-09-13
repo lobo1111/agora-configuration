@@ -39,10 +39,18 @@ public class Possession implements Serializable {
     @ManyToOne(optional = false)
     private Address address;
     @ManyToMany
-    @JoinTable(name = "possession_person")
+    @JoinTable(
+        name = "possession_person", joinColumns =
+            @JoinColumn(name = "possession_id", referencedColumnName = "id"),
+        inverseJoinColumns =
+            @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Collection<Person> people;
     @ManyToMany
-    @JoinTable(name = "possession_company")
+    @JoinTable(
+        name = "possession_company", joinColumns =
+            @JoinColumn(name = "possession_id", referencedColumnName = "id"),
+        inverseJoinColumns =
+            @JoinColumn(name = "company_id", referencedColumnName = "id"))
     private Collection<Company> companies;
     @ManyToMany
     @JoinTable(name = "possession_account")
