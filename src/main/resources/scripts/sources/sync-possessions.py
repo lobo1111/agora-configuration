@@ -49,7 +49,14 @@ class SyncPossessions(Sync):
         entityManager.flush()
         
     def setOwner(self, oldPossession, possession):
-        pass
+        platnikId = oldPossession.getPlatnik()
+        platnik = self.findOldErp('Platnicy', 'platnik', platnikId)
+        id = self.findBaseId('sync_person', 'erp_person_id', 'access_person_id', platnik.getId())
+        person = self.find('Person', id)
+        owner = Owner()
+        owner.getPossessions().add(possession)
+        owner.setPerson(person)
+        entityManager.persist(owner)
         
     def setPossession(self, oldPossession, possession):
         if oldPossession.getPow() == 'None':

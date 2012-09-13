@@ -6,5 +6,5 @@ class SyncAccessToDb(Container):
         SyncCommunities().sync()
         SyncPeople().sync()
         SyncCompanies().sync()
-        #SyncPossessions().sync()
+        SyncPossessions().sync()
         self._logger.info('synchronization complete')
