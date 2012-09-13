@@ -12,13 +12,13 @@ class SyncPeople(Sync):
         people = self.loadData('SELECT w FROM Platnicy w WHERE w.nazwa = "None"')
         for person in people:
             self._processed += 1
-            self._logger.info('processing person %s' % person.getPlatnik())
+#            self._logger.info('processing person %s' % person.getPlatnik())
             if self.personExists(person):
-                self._logger.info('person exists, updating')
+#                self._logger.info('person exists, updating')
                 self.personUpdate(person)
                 self._updated += 1
             else:
-                self._logger.info('person doesn\'t exists, inserting')
+#                self._logger.info('person doesn\'t exists, inserting')
                 self.personInsert(person)
                 self._inserted += 1
         self._logger.info('people synchronized[processed:%d][inserted:%d][updated:%d]' % (self._processed, self._inserted, self._updated))

@@ -14,13 +14,13 @@ class SyncCommunities(Sync):
         communities = self.loadData('SELECT w FROM Wspolne w')
         for community in communities:
             self._processed += 1
-            self._logger.info('processing community %s' % community.getNazwa())
+#            self._logger.info('processing community %s' % community.getNazwa())
             if self.communityExists(community):
-                self._logger.info('community exists, updating')
+#                self._logger.info('community exists, updating')
                 self.communityUpdate(community)
                 self._updated += 1
             else:
-                self._logger.info('community doesn\'t exists, inserting')
+#                self._logger.info('community doesn\'t exists, inserting')
                 self.communityInsert(community)
                 self._inserted += 1
         self._logger.info('communities synchronized[processed:%d][inserted:%d][updated:%d]' % (self._processed, self._inserted, self._updated))
