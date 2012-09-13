@@ -103,11 +103,11 @@
             ADD CONSTRAINT `company_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `possession_person`
-            ADD CONSTRAINT `possession_person_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `possession_person_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `possession_person_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `possession_company`
-            ADD CONSTRAINT `possession_company_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `possession_company_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `possession_company_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
             ALTER TABLE `person`
