@@ -54,7 +54,7 @@ class SyncPossessions(Sync):
             owner.setPossessions(ArrayList())
         owner.getPossessions().clear()
         owner.getPossessions().add(possession)
-        entityManager.persis(owner)
+        entityManager.persist(owner)
         
     def findOwner(self, platnikId):
         platnik = self.findOldErp('Platnicy', 'platnik', platnikId)
