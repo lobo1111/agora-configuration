@@ -45,8 +45,8 @@ class SyncPossessions(Sync):
         self.setCommunity(oldPossession, possession)
         self.setAddress(oldPossession, possession)
         self.setPossession(oldPossession, possession)
-        self.setOwner(oldPossession, possession)
         entityManager.flush()
+        self.setOwner(oldPossession, possession)
         
     def setOwner(self, oldPossession, possession):
         owner = self.findOwner(oldPossession.getPlatnik())
