@@ -44,4 +44,21 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='script-security'>
+        <sql> 
+            CREATE TABLE IF NOT EXISTS `script_security` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `script_id` int(11) NOT NULL,
+            `group_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+            
+            ALTER TABLE `script_security`
+            ADD CONSTRAINT `script_security_script_fkey` FOREIGN KEY (`script_id`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+            ALTER TABLE `script_security`
+            ADD CONSTRAINT `script_security_group_fkey` FOREIGN KEY `group_id` REFERENCES `group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
