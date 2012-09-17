@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
-    <changeSet author='tkopacki' id='base-structure'>
+    <changeSet author='tkopacki' id='account-table'>
         <sql>       
             CREATE TABLE IF NOT EXISTS `account` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -14,7 +14,10 @@
             PRIMARY KEY (`id`),
             KEY `account_parent_account_fkey` (`parrent_account_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='address-table'>
+        <sql>       
             CREATE TABLE IF NOT EXISTS `address` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `street` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
@@ -24,13 +27,19 @@
             `city` varchar(150) COLLATE utf8_polish_ci DEFAULT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='community-table'>
+        <sql>       
             CREATE TABLE IF NOT EXISTS `community` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='company-table'>
+        <sql>       
             CREATE TABLE IF NOT EXISTS `company` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `nip` varchar(150) COLLATE utf8_polish_ci,
@@ -45,7 +54,10 @@
             PRIMARY KEY (`id`),
             KEY `company_address_fkey` (`address_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='person-table'>
+        <sql>       
             CREATE TABLE IF NOT EXISTS `person` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `first_name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
@@ -59,7 +71,10 @@
             PRIMARY KEY (`id`),
             KEY `person_address_fkey` (`address_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='possession-table'>
+        <sql>       
             CREATE TABLE IF NOT EXISTS `possession` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `address_id` int(11) NOT NULL,
@@ -68,7 +83,10 @@
             KEY `possession_address_fkey` (`address_id`),
             KEY `possession_community_fkey` (`community_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='possession-account-table'>
+        <sql>       
             CREATE TABLE IF NOT EXISTS `possession_account` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `possession_id` int(11) NOT NULL,
@@ -77,7 +95,10 @@
             KEY `possession_account_possession_fkey` (`possession_id`),
             KEY `possession_account_account_fkey` (`account_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='possession-person-table'>
+        <sql>       
             CREATE TABLE IF NOT EXISTS `possession_person` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `possession_id` int(11) NOT NULL,
@@ -86,7 +107,10 @@
             KEY `possession_person_possession_fkey` (`possession_id`),
             KEY `possession_person_person_fkey` (`person_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-            
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='possession-company-table'>
+        <sql>           
             CREATE TABLE IF NOT EXISTS `possession_company` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `possession_id` int(11) NOT NULL,
@@ -95,28 +119,49 @@
             KEY `possession_company_possession_fkey` (`possession_id`),
             KEY `possession_company_company_fkey` (`company_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='account-parent-fkey'>
+        <sql>  
             ALTER TABLE `account`
             ADD CONSTRAINT `account_parent_account_fkey` FOREIGN KEY (`parrent_account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='company-address-fkey'>
+        <sql> 
             ALTER TABLE `company`
             ADD CONSTRAINT `company_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='possession-person-fkey'>
+        <sql> 
             ALTER TABLE `possession_person`
             ADD CONSTRAINT `possession_person_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `possession_person_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='possession-company-fkey'>
+        <sql> 
             ALTER TABLE `possession_company`
             ADD CONSTRAINT `possession_company_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `possession_company_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='person-address-fkey'>
+        <sql> 
             ALTER TABLE `person`
             ADD CONSTRAINT `person_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='possession-address-fkey'>
+        <sql> 
             ALTER TABLE `possession`
             ADD CONSTRAINT `possession_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `possession_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='possession-account-fkey'>
+        <sql> 
             ALTER TABLE `possession_account`
             ADD CONSTRAINT `possession_account_account_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `possession_account_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -128,7 +173,10 @@
             ALTER TABLE `community` ADD COLUMN area DECIMAL(10,2);
             ALTER TABLE `community` ADD COLUMN in_date date;
             ALTER TABLE `community` ADD COLUMN out_date date;
-            
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='sync-community-table'>
+        <sql>       
             CREATE TABLE IF NOT EXISTS `sync_community` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `erp_community_id` int(11) NOT NULL,
@@ -146,7 +194,7 @@
         </sql>
     </changeSet>    
     
-    <changeSet author='tkopacki' id='possession-add-columns-area-share'>
+    <changeSet author='tkopacki' id='sync-possession-table'>
         <sql> 
             CREATE TABLE IF NOT EXISTS `sync_possession` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -154,14 +202,18 @@
             `access_possession_id` int(11) NOT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-            
+        </sql>
+    </changeSet>    
+    
+    <changeSet author='tkopacki' id='area-share-column-possession-table'>
+        <sql>   
             ALTER TABLE `possession` 
             ADD `area` DECIMAL(10, 2) NULL DEFAULT NULL,
             ADD `share` DECIMAL(10, 2) NULL DEFAULT NULL
         </sql>
     </changeSet>  
     
-    <changeSet author='tkopacki' id='sync-people-add-nip-column'>
+    <changeSet author='tkopacki' id='sync-person-table'>
         <sql> 
             CREATE TABLE IF NOT EXISTS `sync_person` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -169,13 +221,17 @@
             `access_person_id` int(11) NOT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-            
+        </sql>
+    </changeSet>  
+    
+    <changeSet author='tkopacki' id='nip-column-person-table'>
+        <sql>  
             ALTER TABLE `person` 
             ADD `nip` VARCHAR(255) NULL DEFAULT NULL
         </sql>
     </changeSet>  
     
-        <changeSet author='tkopacki' id='sync-companies'>
+    <changeSet author='tkopacki' id='sync-companies'>
         <sql> 
             CREATE TABLE IF NOT EXISTS `sync_company` (
             `id` int(11) NOT NULL AUTO_INCREMENT,

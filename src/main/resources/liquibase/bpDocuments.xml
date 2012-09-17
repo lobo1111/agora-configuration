@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
 
-    <changeSet author='tkopacki' id='bp-documents-tables'>
+    <changeSet author='tkopacki' id='incoming-payment-document-table'>
         <sql>  
             CREATE TABLE IF NOT EXISTS `incoming_payment_document` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,7 +22,10 @@
             PRIMARY KEY (`id`),
             KEY `incoming_payment_document_status` (`status`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='incoming-payment-document-position-table'>
+        <sql>  
             CREATE TABLE IF NOT EXISTS `incoming_payment_document_position` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `positionNo` int(11) DEFAULT NULL,
@@ -38,10 +41,16 @@
             PRIMARY KEY (`id`),
             KEY `incoming_payment_document_position_fkey` (`document_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='incoming-payment-document-fkey'>
+        <sql>  
             ALTER TABLE `incoming_payment_document`
             ADD CONSTRAINT `incoming_payment_document_status` FOREIGN KEY (`status`) REFERENCES `dictionary` (`dictionaryKey`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='incoming-payment-document-position-fkey'>
+        <sql>  
             ALTER TABLE `incoming_payment_document_position`
             ADD CONSTRAINT `incoming_payment_document_position_fkey` FOREIGN KEY (`document_id`) REFERENCES `incoming_payment_document` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
