@@ -49,11 +49,19 @@ public class Script implements Serializable {
     @ManyToMany
     @JoinTable(
         name = "script_dependency",
-        joinColumns =
-            @JoinColumn(name = "script_id", referencedColumnName = "id"),
-        inverseJoinColumns =
-            @JoinColumn(name = "dependency", referencedColumnName = "id"))
+    joinColumns =
+    @JoinColumn(name = "script_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "dependency", referencedColumnName = "id"))
     private Collection<Script> dependencies;
+    @ManyToMany
+    @JoinTable(
+        name = "script_security",
+    joinColumns =
+    @JoinColumn(name = "script_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "group_id", referencedColumnName = "id"))
+    private Collection<UserGroup> allowedGroups;
 
     public Script() {
     }
@@ -115,6 +123,14 @@ public class Script implements Serializable {
 
     public void setDependencies(Collection<Script> dependencies) {
         this.dependencies = dependencies;
+    }
+
+    public Collection<UserGroup> getAllowedGroups() {
+        return allowedGroups;
+    }
+
+    public void setAllowedGroups(Collection<UserGroup> allowedGroups) {
+        this.allowedGroups = allowedGroups;
     }
 
     @Override

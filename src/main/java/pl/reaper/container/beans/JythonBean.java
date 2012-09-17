@@ -3,12 +3,13 @@ package pl.reaper.container.beans;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pl.reaper.container.jython.*;
-
 
 @Stateless
 public class JythonBean implements JythonBeanLocal {
@@ -21,6 +22,8 @@ public class JythonBean implements JythonBeanLocal {
     private PropertyBeanLocal propertyBean;
     @EJB
     private DocumentStatusBeanLocal documentStatusBean;
+    @Resource
+    SessionContext ctx;
 
     @Override
     public String executeScript(String scriptName, Map variables) {
@@ -36,7 +39,7 @@ public class JythonBean implements JythonBeanLocal {
     }
 
     private ScriptLoader getScriptLoader() {
-        ScriptLoader scriptLoader = new DBScriptLoader(entityManager);
+        ScriptLoader scriptLoader = new DBScriptLoader(entityManager, ctx);
         return scriptLoader;
     }
 
