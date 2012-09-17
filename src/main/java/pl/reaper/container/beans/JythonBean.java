@@ -24,6 +24,7 @@ public class JythonBean implements JythonBeanLocal {
     private DocumentStatusBeanLocal documentStatusBean;
     @Resource
     private SessionContext ctx;
+    private boolean preservePrivilages = true;
 
     @Override
     public String executeScript(String scriptName, Map variables) {
@@ -58,6 +59,12 @@ public class JythonBean implements JythonBeanLocal {
         executor.setLoader(scriptLoader);
         executor.setEngineBuilder(engineBuilder);
         executor.setSessionContext(ctx);
+        executor.setPreservePrivilages(preservePrivilages);
         return executor;
+    }
+
+    @Override
+    public void setPreservePrivilages(boolean preservePrivilages) {
+        this.preservePrivilages = preservePrivilages;
     }
 }

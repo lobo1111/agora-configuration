@@ -55,8 +55,6 @@ public class Script implements Serializable {
     private Collection<Script> dependencies;
     @OneToMany
     @JoinTable(name = "script_security",
-    joinColumns =
-    @JoinColumn(name = "script_id", referencedColumnName = "id"),
     inverseJoinColumns =
     @JoinColumn(name = "script_id", referencedColumnName = "id"))
     private Collection<Dictionary> allowedGroups;

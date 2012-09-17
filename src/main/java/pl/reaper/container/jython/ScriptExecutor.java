@@ -8,13 +8,13 @@ import javax.ejb.SessionContext;
 import javax.script.ScriptException;
 import pl.reaper.container.data.Dictionary;
 import pl.reaper.container.data.Script;
-import pl.reaper.container.data.UserGroup;
 
 public class ScriptExecutor {
 
     private ScriptLoader loader;
     private ScriptEngineWrapper engineBuilder;
     private SessionContext sessionContext;
+    private boolean preservePrivilages = true;
 
     private Object executeScripts(List<Script> scripts, Map variables) {
         try {
@@ -42,7 +42,7 @@ public class ScriptExecutor {
     }
 
     private void checkSecurity(Script script) throws ScriptException {
-        if (sessionContext == null) {
+        if (sessionContext == null || preservePrivilages) {
             return;
         } else {
             for (Dictionary group : script.getAllowedGroups()) {
@@ -64,5 +64,9 @@ public class ScriptExecutor {
 
     public void setSessionContext(SessionContext sessionContext) {
         this.sessionContext = sessionContext;
+    }
+
+    public void setPreservePrivilages(boolean preservePrivilages) {
+        this.preservePrivilages = preservePrivilages;
     }
 }

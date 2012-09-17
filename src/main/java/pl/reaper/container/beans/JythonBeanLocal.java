@@ -8,4 +8,6 @@ public interface JythonBeanLocal {
 
     public String executeScript(String scriptName, Map variables);
     
+    public void setPreservePrivilages(boolean preservePrivilages);
+    
 }
