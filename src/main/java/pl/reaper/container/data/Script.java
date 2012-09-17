@@ -60,7 +60,7 @@ public class Script implements Serializable {
     joinColumns =
     @JoinColumn(name = "script_id", referencedColumnName = "id"),
     inverseJoinColumns =
-    @JoinColumn(name = "group_id", referencedColumnName = "id"))
+    @JoinColumn(name = "dictionary_id", referencedColumnName = "id"))
     private Collection<Dictionary> allowedGroups;
 
     public Script() {
