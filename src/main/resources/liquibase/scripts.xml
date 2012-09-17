@@ -57,7 +57,7 @@
             ADD CONSTRAINT `script_security_script_fkey` FOREIGN KEY (`script_id`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
             
             ALTER TABLE `script_security`
-            ADD CONSTRAINT `script_security_group_fkey` FOREIGN KEY `group_id` REFERENCES `group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `script_security_group_fkey` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     
