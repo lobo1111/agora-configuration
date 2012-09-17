@@ -54,7 +54,7 @@ public class Script implements Serializable {
     inverseJoinColumns =
     @JoinColumn(name = "dependency", referencedColumnName = "id"))
     private Collection<Script> dependencies;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dictionary")
+    @OneToMany
     private Collection<Dictionary> allowedGroups;
 
     public Script() {
