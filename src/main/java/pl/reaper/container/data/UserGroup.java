@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "group")
+@Table(name = "user_group")
 @XmlRootElement
 public class UserGroup implements Serializable {
     private static final long serialVersionUID = 1L;

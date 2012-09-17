@@ -6,7 +6,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
     <changeSet author='tkopacki' id='admin-user-insert'>
         <sql>
-            CREATE TABLE IF NOT EXISTS `group` (
+            CREATE TABLE IF NOT EXISTS `user_group` (
               `id` int(11) NOT NULL AUTO_INCREMENT,
               `user` varchar(45) COLLATE utf8_polish_ci NOT NULL,
               `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
