@@ -8,9 +8,9 @@
     <include file="/opt/builder/container/src/main/resources/liquibase/ejbTimer.xml"/> 
     <include file="/opt/builder/container/src/main/resources/liquibase/base.xml"/> 
     <include file="/opt/builder/container/src/main/resources/liquibase/userAccount.xml"/> 
+    <include file="/opt/builder/container/src/main/resources/liquibase/dictionaries.xml"/> 
     <include file="/opt/builder/container/src/main/resources/liquibase/scripts.xml"/> 
     <include file="/opt/builder/container/src/main/resources/liquibase/logger.xml"/> 
-    <include file="/opt/builder/container/src/main/resources/liquibase/dictionaries.xml"/> 
     <include file="/opt/builder/container/src/main/resources/liquibase/bpDocuments.xml"/> 
 
 </databaseChangeLog> 
