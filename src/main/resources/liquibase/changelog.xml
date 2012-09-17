@@ -12,5 +12,4 @@
     <include file="/opt/builder/container/src/main/resources/liquibase/scripts.xml"/> 
     <include file="/opt/builder/container/src/main/resources/liquibase/logger.xml"/> 
     <include file="/opt/builder/container/src/main/resources/liquibase/bpDocuments.xml"/> 
-
 </databaseChangeLog> 
