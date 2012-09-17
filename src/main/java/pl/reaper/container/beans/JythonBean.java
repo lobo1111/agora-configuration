@@ -39,7 +39,7 @@ public class JythonBean implements JythonBeanLocal {
     }
 
     private ScriptLoader getScriptLoader() {
-        ScriptLoader scriptLoader = new DBScriptLoader(entityManager, ctx);
+        ScriptLoader scriptLoader = new DBScriptLoader(entityManager);
         return scriptLoader;
     }
 
@@ -57,6 +57,7 @@ public class JythonBean implements JythonBeanLocal {
         ScriptExecutor executor = new ScriptExecutor();
         executor.setLoader(scriptLoader);
         executor.setEngineBuilder(engineBuilder);
+        executor.setSessionContext(ctx);
         return executor;
     }
 }

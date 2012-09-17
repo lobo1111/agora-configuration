@@ -5,30 +5,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.script.ScriptException;
 import pl.reaper.container.data.Script;
 import pl.reaper.container.data.Script_;
-import pl.reaper.container.data.UserGroup;
 
 public class DBScriptLoader implements ScriptLoader {
 
     private final EntityManager entityManager;
-    private final SessionContext context;
 
-    public DBScriptLoader(EntityManager entityManager, SessionContext context) {
+    public DBScriptLoader(EntityManager entityManager) {
         this.entityManager = entityManager;
-        this.context = context;
     }
 
     @Override
-    public List<Script> loadScriptChain(String name) throws ScriptException {
+    public List<Script> loadScriptChain(String name) {
         List<Script> chain = new ArrayList<>();
         try {
             chain = loadScriptChain(loadScript(name));
@@ -39,7 +34,7 @@ public class DBScriptLoader implements ScriptLoader {
         return chain;
     }
 
-    public List<Script> loadScriptChain(Script script) throws ScriptException {
+    public List<Script> loadScriptChain(Script script) {
         List<Script> chain = new ArrayList<>();
         getDependencies(chain, script);
         return chain;
@@ -54,22 +49,12 @@ public class DBScriptLoader implements ScriptLoader {
         return entityManager.createQuery(query).getSingleResult();
     }
 
-    private void getDependencies(List<Script> chain, Script script) throws ScriptException {
-        checkSecurity(script);
+    private void getDependencies(List<Script> chain, Script script) {
         for (Script dependency : script.getDependencies()) {
             getDependencies(chain, dependency);
         }
         if (!chain.contains(script)) {
             chain.add(script);
         }
-    }
-
-    private void checkSecurity(Script script) throws ScriptException {
-        for (UserGroup group : script.getAllowedGroups()) {
-            if (context.isCallerInRole(group.getName())) {
-                return;
-            }
-        }
-        throw new ScriptException("You are not authorized to execute this script[id:" + script.getId() + "][name:" + script.getName() + "]");
     }
 }

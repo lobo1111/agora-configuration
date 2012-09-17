@@ -6,5 +6,5 @@ import pl.reaper.container.data.Script;
 
 public interface ScriptLoader {
 
-    public List<Script> loadScriptChain(String name) throws ScriptException;
+    public List<Script> loadScriptChain(String name);
 }
