@@ -42,7 +42,7 @@ public class ScriptExecutor {
     }
 
     private void checkSecurity(Script script) throws ScriptException {
-        if (sessionContext == null || preservePrivilages) {
+        if (sessionContext == null || !preservePrivilages) {
             return;
         } else {
             for (Dictionary group : script.getAllowedGroups()) {
