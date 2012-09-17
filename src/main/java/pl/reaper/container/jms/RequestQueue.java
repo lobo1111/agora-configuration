@@ -18,17 +18,17 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import pl.reaper.container.beans.JythonBeanLocal;
 
-@MessageDriven(mappedName = "jms/agoraQueue", activationConfig = {
-    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
-    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
-})
+//@MessageDriven(mappedName = "jms/agoraQueue", activationConfig = {
+//    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
+//    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
+//})
 public class RequestQueue implements MessageListener {
 
     private static final String SCRIPT_NAME = "SCRIPT_NAME";
     private static final String VARIABLES = "VARIABLES";
     @EJB
     private JythonBeanLocal jythonExecutor;
-    @Resource(mappedName = "jms/ConnectionFactory")
+//    @Resource(mappedName = "jms/ConnectionFactory")
     QueueConnectionFactory connFactory;
 
     public RequestQueue() {

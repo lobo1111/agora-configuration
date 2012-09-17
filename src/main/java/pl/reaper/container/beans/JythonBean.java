@@ -22,7 +22,7 @@ public class JythonBean implements JythonBeanLocal {
     private PropertyBeanLocal propertyBean;
     @EJB
     private DocumentStatusBeanLocal documentStatusBean;
-    //@Resource
+    @Resource
     private SessionContext ctx;
 
     @Override
