@@ -37,6 +37,16 @@ class DBManager:
             return results[0][0]
         return -1
     
+    def getGroupId(self, groupName):
+        sql = self._config.get('queries' ,'selectGroup')
+        cursor = self._connection.cursor()
+        cursor.execute(sql, (groupName))
+        results = cursor.fetchall()
+        cursor.close()
+        if len(results) > 0: 
+            return results[0][0]
+        return -1
+    
     def updateScript(self, scriptName, source, onInit):
         sql = self._config.get('queries' ,'updateScript')
         cursor = self._connection.cursor()
@@ -67,6 +77,13 @@ class DBManager:
         cursor.connection.commit()
         cursor.close()
     
+    def deleteSecurityGroups(self, scriptId):
+        sql = self._config.get('queries' ,'deleteSecurityGroups')
+        cursor = self._connection.cursor()
+        cursor.execute(sql % int(scriptId))
+        cursor.connection.commit()
+        cursor.close()
+    
     def insertScriptScheduler(self, scriptId, schedulerName, enabled, fireAt):
         sql = self._config.get('queries' ,'insetScheduler')
         cursor = self._connection.cursor()
@@ -78,6 +95,13 @@ class DBManager:
         sql = self._config.get('queries' ,'insertDependency')
         cursor = self._connection.cursor()
         cursor.execute(sql % (int(scriptId), int(dependencyId)))
+        cursor.connection.commit()
+        cursor.close()
+        
+    def insertSecurityGroup(self, scriptId, groupId):
+        sql = self._config.get('queries' ,'insertSecurityGroup')
+        cursor = self._connection.cursor()
+        cursor.execute(sql % (int(scriptId), int(groupId)))
         cursor.connection.commit()
         cursor.close()
 
@@ -99,6 +123,7 @@ class ScriptLoader:
             id = self.saveScript(self.getText(name), self.getText(source), self.getText(onInit))
             self.saveScheduler(id, self.getText(schedulerName), self.getText(schedulerEnabled), self.getText(schedulerFireAt))
             self.saveDependencies(id, script.findall('dependencies/scriptName'))
+            self.saveSecurityGroups(id, script.findall('security/group'))
             
     def saveScript(self, name, source, onInit):
         print "Saving script: " + name
@@ -109,6 +134,14 @@ class ScriptLoader:
         else:
             print "\tScript unavailable, inserting..."
             return self._dbManager.insertScript(name, self.readFile(self._config.get('paths', 'scripts') + source), onInit)
+        
+    def saveSecurityGroups(self, id, groups):
+        self._dbManager.deleteScriptGroups(id)
+        for group in groups:
+            groupName = self.getText(group)
+            groupId = self._dbManager.getGroupId(groupName)
+            print "\tAdding security group - [id:%d][name:%s]" % (groupId, groupName)
+            self._dbManager.insertSecurityGroup(id, groupId)
         
     def saveDependencies(self, id, dependencies):
         self._dbManager.deleteScriptDependencies(id)
