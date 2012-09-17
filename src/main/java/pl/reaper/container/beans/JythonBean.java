@@ -22,8 +22,8 @@ public class JythonBean implements JythonBeanLocal {
     private PropertyBeanLocal propertyBean;
     @EJB
     private DocumentStatusBeanLocal documentStatusBean;
-    @Resource
-    SessionContext ctx;
+    //@Resource
+    private SessionContext ctx;
 
     @Override
     public String executeScript(String scriptName, Map variables) {
