@@ -136,7 +136,7 @@ class ScriptLoader:
             return self._dbManager.insertScript(name, self.readFile(self._config.get('paths', 'scripts') + source), onInit)
         
     def saveSecurityGroups(self, id, groups):
-        self._dbManager.deleteScriptGroups(id)
+        self._dbManager.deleteSecurityGroups(id)
         for group in groups:
             groupName = self.getText(group)
             groupId = self._dbManager.getGroupId(groupName)
