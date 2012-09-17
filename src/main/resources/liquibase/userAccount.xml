@@ -27,7 +27,7 @@
             ALTER TABLE `user`
               ADD CONSTRAINT `user_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
             
-            ALTER TABLE `group`
+            ALTER TABLE `user_group`
               ADD CONSTRAINT `group_user_fkey` FOREIGN KEY (`user`) REFERENCES `user` (`login`) ON DELETE NO ACTION ON UPDATE NO ACTION;
             
             INSERT INTO `address` (`id`, `street`, `house_number`, `flat_number`, `postal_code`, `city`) VALUES
@@ -39,7 +39,7 @@
             INSERT INTO `user` (`id`, `login`, `password`, `person_id`) VALUES
                     (1, 'lobo', '3e30da3972953c020ac40149f6ef4d25d1c28c8b9ea58e68bdd236716cdc932e', 1);
             
-            INSERT INTO `group` (`id`, `user`, `name`) VALUES
+            INSERT INTO `user_group` (`id`, `user`, `name`) VALUES
                     (1, 'lobo', 'administrators');
         </sql>
     </changeSet>
