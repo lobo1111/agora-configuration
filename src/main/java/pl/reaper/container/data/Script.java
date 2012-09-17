@@ -47,14 +47,16 @@ public class Script implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "script")
     private Collection<ScriptScheduler> scriptSchedulers;
     @ManyToMany
-    @JoinTable(
-        name = "script_dependency",
+    @JoinTable(name = "script_dependency",
     joinColumns =
     @JoinColumn(name = "script_id", referencedColumnName = "id"),
     inverseJoinColumns =
     @JoinColumn(name = "dependency", referencedColumnName = "id"))
     private Collection<Script> dependencies;
     @OneToMany
+    @JoinTable(name = "dictionary",
+    joinColumns =
+    @JoinColumn(name = "dictionary_id", referencedColumnName = "id"))
     private Collection<Dictionary> allowedGroups;
 
     public Script() {
