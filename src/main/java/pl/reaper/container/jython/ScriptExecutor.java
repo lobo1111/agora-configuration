@@ -41,9 +41,13 @@ public class ScriptExecutor {
     }
 
     private void checkSecurity(Script script) throws ScriptException {
-        for (UserGroup group : script.getAllowedGroups()) {
-            if (sessionContext != null && sessionContext.isCallerInRole(group.getName())) {
-                return;
+        if (sessionContext == null) {
+            return;
+        } else {
+            for (UserGroup group : script.getAllowedGroups()) {
+                if (sessionContext.isCallerInRole(group.getName())) {
+                    return;
+                }
             }
         }
         throw new ScriptException("You are not authorized to execute this script[id:" + script.getId() + "][name:" + script.getName() + "]");
