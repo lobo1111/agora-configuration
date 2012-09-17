@@ -61,7 +61,7 @@ public class Script implements Serializable {
     @JoinColumn(name = "script_id", referencedColumnName = "id"),
     inverseJoinColumns =
     @JoinColumn(name = "group_id", referencedColumnName = "id"))
-    private Collection<UserGroup> allowedGroups;
+    private Collection<Dictionary> allowedGroups;
 
     public Script() {
     }
@@ -125,11 +125,11 @@ public class Script implements Serializable {
         this.dependencies = dependencies;
     }
 
-    public Collection<UserGroup> getAllowedGroups() {
+    public Collection<Dictionary> getAllowedGroups() {
         return allowedGroups;
     }
 
-    public void setAllowedGroups(Collection<UserGroup> allowedGroups) {
+    public void setAllowedGroups(Collection<Dictionary> allowedGroups) {
         this.allowedGroups = allowedGroups;
     }
 

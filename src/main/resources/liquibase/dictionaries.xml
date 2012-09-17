@@ -164,4 +164,29 @@
             SELECT id, 'msAccessDBPath', '/home/agora/backups/ms_access/Bazy.mdb' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';        
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='dictionary-user-groups'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('USER_GROUPS');
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='user-groups-1'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'all', 'do tej grupy należa wszyscy użytkownicy' FROM `dictionary_type` WHERE `type` = 'USER_GROUPS';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'incoming-documents-bp', 'zarządzanie nadchodzącymi dokumentami z BP' FROM `dictionary_type` WHERE `type` = 'USER_GROUPS';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'access-structure-manager', 'administratorzy struktury starej bazy' FROM `dictionary_type` WHERE `type` = 'USER_GROUPS';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'access-data-manager', 'administratorzy danych starej bazy' FROM `dictionary_type` WHERE `type` = 'USER_GROUPS';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'access-sync', 'uprawnienia do synchronizowania baz danych' FROM `dictionary_type` WHERE `type` = 'USER_GROUPS';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

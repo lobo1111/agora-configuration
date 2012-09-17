@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.SessionContext;
 import javax.script.ScriptException;
+import pl.reaper.container.data.Dictionary;
 import pl.reaper.container.data.Script;
 import pl.reaper.container.data.UserGroup;
 
@@ -44,8 +45,8 @@ public class ScriptExecutor {
         if (sessionContext == null) {
             return;
         } else {
-            for (UserGroup group : script.getAllowedGroups()) {
-                if (sessionContext.isCallerInRole(group.getName())) {
+            for (Dictionary group : script.getAllowedGroups()) {
+                if (sessionContext.isCallerInRole(group.getKey())) {
                     return;
                 }
             }

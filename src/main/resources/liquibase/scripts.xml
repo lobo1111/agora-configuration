@@ -69,7 +69,7 @@
             CREATE TABLE IF NOT EXISTS `script_security` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `script_id` int(11) NOT NULL,
-            `group_id` int(11) NOT NULL,
+            `dictionary_id` int(11) NOT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
@@ -85,7 +85,7 @@
     <changeSet author='tkopacki' id='script-security-fkey-2'>
         <sql>     
             ALTER TABLE `script_security`
-            ADD CONSTRAINT `script_security_group_fkey` FOREIGN KEY (`group_id`) REFERENCES `user_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `script_security_group_fkey` FOREIGN KEY (`dictionary_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     
