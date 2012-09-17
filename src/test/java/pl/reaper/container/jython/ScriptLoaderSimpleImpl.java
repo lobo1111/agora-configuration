@@ -1,9 +1,10 @@
 package pl.reaper.container.jython;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Dictionary;
 import java.util.List;
 import pl.reaper.container.data.Script;
-import pl.reaper.container.data.UserGroup;
 
 public class ScriptLoaderSimpleImpl implements ScriptLoader {
     
@@ -36,7 +37,7 @@ public class ScriptLoaderSimpleImpl implements ScriptLoader {
         simple.setName(name);
         simple.setScript(OUTPUT + OUTPUT_INIT);
         simple.setOnInit("output.setResult('test')");
-        simple.setAllowedGroups(new ArrayList<UserGroup>());
+        simple.setAllowedGroups((Collection)new ArrayList<Dictionary>());
         return simple;
     }
 
@@ -45,7 +46,7 @@ public class ScriptLoaderSimpleImpl implements ScriptLoader {
         simple.setName(name);
         simple.setScript(OUTPUT + OUTPUT_INIT);
         simple.setOnInit("print vars\noutput.setResult(vars.get('customVar'))");
-        simple.setAllowedGroups(new ArrayList<UserGroup>());
+        simple.setAllowedGroups((Collection)new ArrayList<Dictionary>());
         return simple;
     }
 
