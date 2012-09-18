@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.SessionContext;
 import javax.script.ScriptException;
-import pl.reaper.container.beans.JythonAuthenticator;
 import pl.reaper.container.beans.JythonAuthenticatorLocal;
 import pl.reaper.container.data.Dictionary;
 import pl.reaper.container.data.Script;
