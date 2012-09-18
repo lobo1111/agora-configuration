@@ -13,7 +13,7 @@ public class JythonAuthenticator implements JythonAuthenticatorLocal {
 
     @Override
     public boolean isUserInRole(String userName, String groupName) {
-        Query query = entityManager.createQuery(String.format("SELECT count(s) FROM UserGroup s WHERE s.user.login = '%s' and s.name = %s", userName, groupName));
+        Query query = entityManager.createQuery(String.format("SELECT count(s) FROM UserGroup s WHERE s.user.login = '%s' and s.name = '%s'", userName, groupName));
         return query.getSingleResult() == 1;
     }
 }
