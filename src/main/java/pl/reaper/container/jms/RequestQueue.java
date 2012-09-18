@@ -39,7 +39,7 @@ public class RequestQueue implements MessageListener {
         try {
             String scriptName = message.getStringProperty(SCRIPT_NAME);
             Map variables = (Map) message.getObjectProperty(VARIABLES);
-            String result = jythonExecutor.executeScript(scriptName, variables);
+            String result = jythonExecutor.executeScript(scriptName, variables, true);
             sendResponse(message.getJMSMessageID(), message.getJMSReplyTo(), result);
         } catch (JMSException ex) {
             Logger.getLogger(RequestQueue.class.getName()).log(Level.SEVERE, null, ex);

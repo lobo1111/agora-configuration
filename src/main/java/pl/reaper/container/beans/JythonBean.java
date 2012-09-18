@@ -24,14 +24,13 @@ public class JythonBean implements JythonBeanLocal {
     private DocumentStatusBeanLocal documentStatusBean;
     @Resource
     private SessionContext ctx;
-    private boolean preservePrivilages = true;
 
     @Override
-    public String executeScript(String scriptName, Map variables) {
+    public String executeScript(String scriptName, Map variables, boolean preservePrivilages) {
         try {
             ScriptLoader scriptLoader = getScriptLoader();
             ScriptEngineWrapper engineBuilder = getScriptEngine();
-            ScriptExecutor executor = getScriptExecutor(scriptLoader, engineBuilder);
+            ScriptExecutor executor = getScriptExecutor(scriptLoader, engineBuilder, preservePrivilages);
             return executor.fire(scriptName, variables);
         } catch (ScriptEngineNotFoundException ex) {
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +53,7 @@ public class JythonBean implements JythonBeanLocal {
         return engineBuilder;
     }
 
-    private ScriptExecutor getScriptExecutor(ScriptLoader scriptLoader, ScriptEngineWrapper engineBuilder) {
+    private ScriptExecutor getScriptExecutor(ScriptLoader scriptLoader, ScriptEngineWrapper engineBuilder, boolean preservePrivilages) {
         ScriptExecutor executor = new ScriptExecutor();
         executor.setLoader(scriptLoader);
         executor.setEngineBuilder(engineBuilder);
@@ -63,8 +62,4 @@ public class JythonBean implements JythonBeanLocal {
         return executor;
     }
 
-    @Override
-    public void setPreservePrivilages(boolean preservePrivilages) {
-        this.preservePrivilages = preservePrivilages;
-    }
 }
