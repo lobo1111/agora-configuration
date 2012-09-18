@@ -19,7 +19,9 @@ public class JythonAuthenticator implements JythonAuthenticatorLocal {
                 .setParameter("userName", userName)
                 .setParameter("groupName", groupName);
         Object result = query.getSingleResult();
-        System.out.println(result);
+        System.out.println("!!!!!!!!!" + result);
+        System.out.println("!!!!!!!!!" + result.getClass());
+        System.out.println("!!!!!!!!!" + (Long)result);
         return result == 1;
     }
 }
