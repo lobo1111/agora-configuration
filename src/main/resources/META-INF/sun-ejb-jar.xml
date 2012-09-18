@@ -3,9 +3,9 @@
 <sun-ejb-jar>
     <enterprise-beans>
         <ejb>
-            <ejb-name>JythonWebService</ejb-name>
+            <ejb-name>JythonRemoteAccessBean</ejb-name>
             <webservice-endpoint>
-                <port-component-name>JythonWebService</port-component-name>
+                <port-component-name>JythonRemoteAccessBean</port-component-name>
                 <login-config>
                     <auth-method>BASIC</auth-method>
                     <realm>agora</realm>
