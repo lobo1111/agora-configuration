@@ -13,16 +13,4 @@
             </webservice-endpoint>
         </ejb>
     </enterprise-beans>
-    <sun-application>
-        <security-role-mapping>
-            <role-name>management</role-name>
-            <group-name>administrators</group-name>
-        </security-role-mapping>
-    </sun-application>
-    <sun-application>
-        <security-role-mapping>
-            <role-name>administrators</role-name>
-            <group-name>administrators</group-name>
-        </security-role-mapping>
-    </sun-application>
 </sun-ejb-jar>

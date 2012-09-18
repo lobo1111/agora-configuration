@@ -30,6 +30,8 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     private PropertyBeanLocal propertyBean;
     @EJB
     private DocumentStatusBeanLocal documentStatusBean;
+    @EJB
+    private JythonAuthenticatorLocal authenticator;
     @Resource
     private SessionContext ctx;
 
@@ -79,6 +81,7 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
         executor.setEngineBuilder(engineBuilder);
         executor.setSessionContext(ctx);
         executor.setPreservePrivilages(preservePrivilages);
+        executor.setAuthenticator(authenticator);
         return executor;
     }
 }

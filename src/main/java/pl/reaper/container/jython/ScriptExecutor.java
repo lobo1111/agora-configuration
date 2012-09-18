@@ -6,6 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.SessionContext;
 import javax.script.ScriptException;
+import pl.reaper.container.beans.JythonAuthenticator;
+import pl.reaper.container.beans.JythonAuthenticatorLocal;
 import pl.reaper.container.data.Dictionary;
 import pl.reaper.container.data.Script;
 
@@ -15,6 +17,7 @@ public class ScriptExecutor {
     private ScriptEngineWrapper engineBuilder;
     private SessionContext sessionContext;
     private boolean preservePrivilages = true;
+    private JythonAuthenticatorLocal authenticator;
 
     private Object executeScripts(List<Script> scripts, Map variables) {
         try {
@@ -45,9 +48,8 @@ public class ScriptExecutor {
         if (sessionContext == null || !preservePrivilages) {
             return;
         } else {
-            System.out.println("!!!!!!" + sessionContext.getCallerPrincipal().getName());
             for (Dictionary group : script.getAllowedGroups()) {
-                if (sessionContext.isCallerInRole(group.getKey())) {
+                if (authenticator.isUserInRole(sessionContext.getCallerPrincipal().getName(), group.getKey())) {
                     return;
                 }
             }
@@ -70,4 +72,9 @@ public class ScriptExecutor {
     public void setPreservePrivilages(boolean preservePrivilages) {
         this.preservePrivilages = preservePrivilages;
     }
+    
+    public void setAuthenticator(JythonAuthenticatorLocal authenticator) {
+        this.authenticator = authenticator;
+    }
+
 }
