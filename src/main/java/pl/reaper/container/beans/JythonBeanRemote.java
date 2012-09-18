@@ -9,4 +9,6 @@ import javax.jws.WebService;
 public interface JythonBeanRemote {
 
     public String secureScriptExecution(String scriptName, Map variables);
+    
+    public String simpleSecureScriptExecution(String scriptName);
 }

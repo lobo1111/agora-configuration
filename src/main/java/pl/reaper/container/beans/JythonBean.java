@@ -1,5 +1,6 @@
 package pl.reaper.container.beans;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,13 +32,19 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     private DocumentStatusBeanLocal documentStatusBean;
     @Resource
     private SessionContext ctx;
-    
-    @PermitAll
+
+//    @PermitAll
     @Override
     public String secureScriptExecution(String scriptName, Map variables) {
         return executeScript(scriptName, variables, true);
     }
-    
+
+//    @PermitAll
+    @Override
+    public String simpleSecureScriptExecution(String scriptName) {
+        return executeScript(scriptName, new HashMap<String, String>(), true);
+    }
+
     @Override
     public String executeScript(String scriptName, Map variables, boolean preservePrivilages) {
         try {
@@ -74,5 +81,4 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
         executor.setPreservePrivilages(preservePrivilages);
         return executor;
     }
-
 }
