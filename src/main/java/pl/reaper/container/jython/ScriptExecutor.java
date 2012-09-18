@@ -42,6 +42,7 @@ public class ScriptExecutor {
     }
 
     private void checkSecurity(Script script) throws ScriptException {
+        System.out.println("!!!!!!" + sessionContext.getCallerPrincipal().getName());
         if (sessionContext == null || !preservePrivilages) {
             return;
         } else {
