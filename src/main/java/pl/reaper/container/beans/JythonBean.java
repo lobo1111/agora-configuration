@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -31,7 +32,7 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     @Resource
     private SessionContext ctx;
     
-    
+    @PermitAll
     @Override
     public String secureScriptExecution(String scriptName, Map variables) {
         return executeScript(scriptName, variables, true);
