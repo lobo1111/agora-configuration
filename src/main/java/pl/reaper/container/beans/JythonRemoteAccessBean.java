@@ -3,12 +3,10 @@ package pl.reaper.container.beans;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 @WebService(endpointInterface = "pl.reaper.container.beans.JythonRemoteAccessBeanLocal")
-@Local(JythonRemoteAccessBeanLocal.class)
 @Stateless
 public class JythonRemoteAccessBean implements JythonRemoteAccessBeanLocal {
 
