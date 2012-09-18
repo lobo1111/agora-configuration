@@ -42,10 +42,10 @@ public class ScriptExecutor {
     }
 
     private void checkSecurity(Script script) throws ScriptException {
-        System.out.println("!!!!!!" + sessionContext.getCallerPrincipal().getName());
         if (sessionContext == null || !preservePrivilages) {
             return;
         } else {
+            System.out.println("!!!!!!" + sessionContext.getCallerPrincipal().getName());
             for (Dictionary group : script.getAllowedGroups()) {
                 if (sessionContext.isCallerInRole(group.getKey())) {
                     return;
