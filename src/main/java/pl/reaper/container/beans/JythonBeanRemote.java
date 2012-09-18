@@ -5,5 +5,6 @@ import javax.ejb.Remote;
 
 @Remote
 public interface JythonBeanRemote {
+
     public String secureScriptExecution(String scriptName, Map variables);
 }

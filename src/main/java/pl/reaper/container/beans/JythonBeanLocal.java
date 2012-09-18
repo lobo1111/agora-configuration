@@ -9,7 +9,5 @@ import javax.jws.WebService;
 public interface JythonBeanLocal {
 
     public String executeScript(String scriptName, Map variables, boolean preservePrivilages);
-
-    String secureScriptExecution(String scriptName, Map variables);
     
 }

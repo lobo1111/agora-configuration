@@ -10,7 +10,11 @@ import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pl.reaper.container.jython.*;
+import pl.reaper.container.jython.DBScriptLoader;
+import pl.reaper.container.jython.ScriptEngineNotFoundException;
+import pl.reaper.container.jython.ScriptEngineWrapper;
+import pl.reaper.container.jython.ScriptExecutor;
+import pl.reaper.container.jython.ScriptLoader;
 
 @WebService(endpointInterface = "pl.reaper.container.beans.JythonBeanRemote")
 @Stateless
