@@ -7,12 +7,14 @@ import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pl.reaper.container.jython.*;
 
+@WebService(endpointInterface = "pl.reaper.container.beans.JythonBeanRemote")
 @Stateless
-public class JythonBean implements JythonBeanLocal {
+public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
     @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
     private EntityManager entityManager;
@@ -24,7 +26,13 @@ public class JythonBean implements JythonBeanLocal {
     private DocumentStatusBeanLocal documentStatusBean;
     @Resource
     private SessionContext ctx;
-
+    
+    
+    @Override
+    public String secureScriptExecution(String scriptName, Map variables) {
+        return executeScript(scriptName, variables, true);
+    }
+    
     @Override
     public String executeScript(String scriptName, Map variables, boolean preservePrivilages) {
         try {
