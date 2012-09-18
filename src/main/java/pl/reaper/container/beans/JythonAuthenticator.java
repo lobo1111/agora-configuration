@@ -18,10 +18,7 @@ public class JythonAuthenticator implements JythonAuthenticatorLocal {
         Query query = entityManager.createQuery("SELECT count(s) FROM UserGroup s WHERE s.user.login = :userName and s.name = :groupName")
                 .setParameter("userName", userName)
                 .setParameter("groupName", groupName);
-        Object result = query.getSingleResult();
-        System.out.println("!!!!!!!!!" + result);
-        System.out.println("!!!!!!!!!" + result.getClass());
-        System.out.println("!!!!!!!!!" + (Long)result);
+        Long result = (Long) query.getSingleResult();
         return result == 1;
     }
 }
