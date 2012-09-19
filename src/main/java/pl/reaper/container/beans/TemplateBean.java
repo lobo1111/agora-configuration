@@ -66,7 +66,7 @@ public class TemplateBean implements TemplateBeanLocal {
        ve.evaluate(context, writer, template.getName(), template.getSource());
        String evaluatedTemplate = writer.toString();
        Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Template evaluated [{0}...]", evaluatedTemplate.substring(0, 100));
-       return evaluatedTemplate;
+       return evaluatedTemplate.replaceAll("\\s","");
     }
 
     private List loadData(String data) {
