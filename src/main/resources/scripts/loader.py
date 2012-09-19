@@ -108,9 +108,9 @@ class DBManager:
 
 class ScriptLoader:
     
-    def __init__(self):
+    def __init__(self, db):
         self._config = ConfigManager()
-        self._dbManager = DBManager(self._config)
+        self._dbManager = DBManager(self._config, db)
         self._xml = ET.parse(self._config.get('paths', 'config')).getroot()
         
     def loadScripts(self):
