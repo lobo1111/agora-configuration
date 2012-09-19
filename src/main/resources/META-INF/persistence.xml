@@ -4,6 +4,8 @@
         <jta-data-source>jdbc/agora-erp</jta-data-source>
         <class>pl.reaper.container.data.Account</class>
         <class>pl.reaper.container.data.Address</class>
+        <class>pl.reaper.container.data.Category</class>
+        <class>pl.reaper.container.data.CategoryItem</class>
         <class>pl.reaper.container.data.Community</class>
         <class>pl.reaper.container.data.Company</class>
         <class>pl.reaper.container.data.Dictionary</class>
@@ -15,6 +17,8 @@
         <class>pl.reaper.container.data.Possession</class>
         <class>pl.reaper.container.data.Script</class>
         <class>pl.reaper.container.data.ScriptScheduler</class>
+        <class>pl.reaper.container.data.Template</class>
+        <class>pl.reaper.container.data.TemplateVariable</class>
         <class>pl.reaper.container.data.User</class>
         <class>pl.reaper.container.data.UserGroup</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>

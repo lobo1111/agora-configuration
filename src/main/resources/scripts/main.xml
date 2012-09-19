@@ -209,4 +209,18 @@
         </security>
     </script>
     
+    <script>
+        <name>template-parser</name>
+        <source>template-parser.py</source>
+        <onInit>TemplateParser().parseTemplate(vars.get('templateName'))</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
 </scripts>
