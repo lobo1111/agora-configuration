@@ -1,8 +1,9 @@
 class TemplateParser(Container):
     
-    def __init__(self, templateName):
-        self_templateName = templateName
+    def __init__(self):
+        self._templateName = vars.get('templateName')
     
-    def parseTemplate(self):
-        output.setResult(templateBean.getTemplate(self._templateName))
+    def parse(self):
+        result = templateBean.getTemplate(self._templateName)
+        output.setResult(result)
         

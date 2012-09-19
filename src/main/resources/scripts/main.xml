@@ -212,7 +212,7 @@
     <script>
         <name>template-parser</name>
         <source>template-parser.py</source>
-        <onInit>TemplateParser().parseTemplate</onInit>
+        <onInit>TemplateParser().parse()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
