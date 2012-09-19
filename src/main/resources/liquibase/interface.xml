@@ -10,7 +10,7 @@
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `category_key` varchar(45) COLLATE utf8_polish_ci NOT NULL,
             `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
-            `order` int(11) NOT NULL DEFAULT(100),
+            `order` int(11) NOT NULL DEFAULT '100',
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`category_key`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
@@ -23,7 +23,7 @@
             `category_id` int(11) NOT NULL,
             `item_key` varchar(45) COLLATE utf8_polish_ci NOT NULL,
             `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
-            `order` int(11) NOT NULL DEFAULT(100),
+            `order` int(11) NOT NULL DEFAULT '100',
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`item_key`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
