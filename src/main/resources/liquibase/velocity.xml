@@ -30,7 +30,7 @@
     <changeSet author='tkopacki' id='velocity-template-variable-fkey'>
         <sql> 
             ALTER TABLE `template_variable`
-            ADD CONSTRAINT `template_variables_fkey` FOREIGN KEY (`template_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `template_variables_fkey` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
 </databaseChangeLog>
