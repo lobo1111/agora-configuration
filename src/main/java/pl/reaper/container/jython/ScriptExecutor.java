@@ -39,7 +39,7 @@ public class ScriptExecutor {
     public String fire(String name, Map variables) {
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Executing script: {0}", name);
         String result = String.valueOf(executeScripts(loader.loadScriptChain(name), variables));
-        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script executed, result: {0}", result);
+        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script executed, result: {0}...", result.substring(0, 100));
         return result;
     }
 

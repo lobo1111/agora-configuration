@@ -1,10 +1,10 @@
 <menu>
 #foreach($category in $categories)
     <category>
-        <name>$category.getName()</name>
+        <name key="$category.getCategoryKey()">$category.getName()</name>
         <items>
         #foreach($item in $category.getCategoryItemCollection())
-            <item>$item.getName()</item>
+            <item key="$item.getItemKey()">$item.getName()</item>
         #end
         </items>
     </category>

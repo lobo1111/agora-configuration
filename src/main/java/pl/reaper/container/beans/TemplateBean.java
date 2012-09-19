@@ -28,7 +28,7 @@ public class TemplateBean implements TemplateBeanLocal {
     @Override
     public String getTemplate(String templateName) {
         try {
-            Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Looking for template {0}", templateName);
+            Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Looking for template: {0}", templateName);
             Template template = findTemplate(templateName);   
             Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Template found");
             return parseTemplate(template);
@@ -58,7 +58,7 @@ public class TemplateBean implements TemplateBeanLocal {
        VelocityContext context = new VelocityContext();
        Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Template context initialized");
        for(TemplateVariable var: template.getTemplateVariableCollection()) {
-           Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Adding context variable {0}", var.getName());
+           Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Adding context variable: {0}", var.getName());
            context.put(var.getName(), loadData(var.getData()));
        }
        StringWriter writer = new StringWriter();
