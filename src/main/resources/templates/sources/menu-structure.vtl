@@ -1,0 +1,12 @@
+<menu>
+#foreach($category in $categories)
+    <category>
+        <name>$category.getName()</name>
+        <items>
+        #foreach($item in $category.getItems())
+            <item>$item.getName()</item>
+        #end
+        </items>
+    </category>
+#end
+</menu>

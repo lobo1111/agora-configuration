@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<databaseChangeLog 
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
+    <changeSet author='tkopacki' id='interface-category-table'>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `category` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `name_UNIQUE` (`name`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='interface-category-item-table'>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `category_item` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `category_id` int(11) NOT NULL,
+            `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `name_UNIQUE` (`name`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='interface-category-item-fkey'>
+        <sql> 
+            ALTER TABLE `category_item`
+            ADD CONSTRAINT `category_item_fkey` FOREIGN KEY (`category_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

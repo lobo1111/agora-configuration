@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import ConfigParser
 import pymysql
+import sys
 
 class ConfigManager:
     _path = 'loader.config'
@@ -13,8 +14,8 @@ class ConfigManager:
         return self._config.get(section, option)
 
 class DBManager:
-    def __init__(self, config):
-        self._connection = pymysql.connect(host=config.get('db', 'host'), port=3306, user=config.get('db', 'user'), passwd=config.get('db', 'password'), db=config.get('db', 'db'))
+    def __init__(self, config, db):
+        self._connection = pymysql.connect(host=config.get(db, 'host'), port=3306, user=config.get('db', 'user'), passwd=config.get('db', 'password'), db=config.get('db', 'db'))
         self._config = config
            
     def isScriptAvailable(self, scriptName):
@@ -171,6 +172,6 @@ class ScriptLoader:
     def readFile(self, fullPath):
         return ''.join(open(fullPath, 'r').readlines())
     
-loader = ScriptLoader()
+loader = ScriptLoader(sys.argv[1])
 loader.loadScripts()
             

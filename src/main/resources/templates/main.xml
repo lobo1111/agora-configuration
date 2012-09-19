@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <template>
+        <name>menu-structure</name>
+        <content>menu-structure.vtl</content>
+        <variables>
+            <var>
+                <name>categories</name>
+                <data>SELECT c FROM Category c</data>
+            </var>
+        </variables>
+    </template>
+</templates>
