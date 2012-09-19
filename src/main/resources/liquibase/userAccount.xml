@@ -56,10 +56,10 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='admin-user-insert'>
+    <changeSet author='tkopacki' id='admin-user-added-to-group-all'>
         <sql>   
-            INSERT INTO `user_group` (`id`, `user`, `name`) VALUES
-            (1, 'lobo', 'all');
+            INSERT INTO `user_group` (`user`, `name`) VALUES
+            ('lobo', 'all');
         </sql>
     </changeSet>
 </databaseChangeLog> 
