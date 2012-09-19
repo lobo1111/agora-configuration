@@ -28,10 +28,12 @@ public class TemplateBean implements TemplateBeanLocal {
     @Override
     public String getTemplate(String templateName) {
         try {
+            Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Looking for template {0}", templateName);
             Template template = findTemplate(templateName);   
+            Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Template found");
             return parseTemplate(template);
         } catch (Exception ex) {
-            Logger.getLogger(TemplateBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TemplateBean.class.getName()).log(Level.SEVERE, "Template not found", ex);
             return "";
         }
     }
@@ -54,12 +56,17 @@ public class TemplateBean implements TemplateBeanLocal {
        VelocityEngine ve = new VelocityEngine();
        ve.init();
        VelocityContext context = new VelocityContext();
+       Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Template context initialized");
        for(TemplateVariable var: template.getTemplateVariableCollection()) {
+           Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Adding context variable {0}", var.getName());
            context.put(var.getName(), loadData(var.getData()));
        }
        StringWriter writer = new StringWriter();
+       Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Evaluating context...");
        ve.evaluate(context, writer, template.getName(), template.getSource());
-       return writer.toString();
+       String evaluatedTemplate = writer.toString();
+       Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Template evaluated [{0}...]", evaluatedTemplate.substring(0, 100));
+       return evaluatedTemplate;
     }
 
     private List loadData(String data) {
