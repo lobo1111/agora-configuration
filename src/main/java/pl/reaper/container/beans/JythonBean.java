@@ -38,13 +38,13 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     @Resource
     private SessionContext ctx;
 
-    @PermitAll
+//    @PermitAll
     @Override
     public String secureScriptExecution(String scriptName, MapWrapper variables) {
         return executeScript(scriptName, variables.map, true);
     }
 
-    @PermitAll
+//    @PermitAll
     @Override
     public String simpleSecureScriptExecution(String scriptName) {
         return executeScript(scriptName, new HashMap<String, String>(), true);

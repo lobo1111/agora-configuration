@@ -5,6 +5,6 @@ import javax.ejb.Local;
 @Local
 public interface TemplateBeanLocal {
 
-    String getTemplate(String templateName);
+    public String getTemplate(String templateName);
     
 }
