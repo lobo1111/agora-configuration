@@ -1,4 +1,4 @@
 class TemplateParser(Container):
     
     def parseTemplate(self, templateName):
-        return templateBean.getTemplate(templateName)
+        output.setResult(templateBean.getTemplate(templateName))

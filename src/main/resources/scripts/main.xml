@@ -216,6 +216,7 @@
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
+            <scriptName>output</scriptName>
             <scriptName>container</scriptName>
         </dependencies>
         <security>
