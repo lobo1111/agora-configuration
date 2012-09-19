@@ -2,7 +2,7 @@
 <templates>
     <template>
         <name>menu-structure</name>
-        <content>menu-structure.vtl</content>
+        <source>menu-structure.vtl</source>
         <variables>
             <var>
                 <name>categories</name>

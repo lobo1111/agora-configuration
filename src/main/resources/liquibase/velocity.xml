@@ -9,7 +9,7 @@
             CREATE TABLE IF NOT EXISTS `template` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
-            `content` text COLLATE utf8_polish_ci,
+            `source` text COLLATE utf8_polish_ci,
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`name`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;

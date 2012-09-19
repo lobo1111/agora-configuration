@@ -41,7 +41,7 @@
         <onInit>MailProcessor().checkMailbox()</onInit>
         <scheduler>
             <name>check-email</name>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
             <fireAt>*/15 * * * *</fireAt>
         </scheduler>
         <dependencies>
@@ -73,7 +73,7 @@
         <onInit>FileWatchdog().processFiles()</onInit>
         <scheduler>
             <name>file-watchdog</name>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
             <fireAt>*/15 * * * *</fireAt>
         </scheduler>
         <dependencies>
@@ -106,7 +106,7 @@
         <onInit>MSAccessDataReader()</onInit>
         <scheduler>
             <name>import-access-db-data</name>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
             <fireAt>0 4 * * *</fireAt>
         </scheduler>
         <dependencies>
@@ -193,7 +193,7 @@
         <onInit>SyncAccessToDb()</onInit>
         <scheduler>
             <name>sync-access-to-db</name>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
             <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
