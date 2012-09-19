@@ -3,7 +3,7 @@
     <category>
         <name>$category.getName()</name>
         <items>
-        #foreach($item in $category.getItems())
+        #foreach($item in $category.getCategoryItemCollection())
             <item>$item.getName()</item>
         #end
         </items>
