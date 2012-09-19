@@ -17,6 +17,7 @@ import pl.reaper.container.jython.ScriptEngineNotFoundException;
 import pl.reaper.container.jython.ScriptEngineWrapper;
 import pl.reaper.container.jython.ScriptExecutor;
 import pl.reaper.container.jython.ScriptLoader;
+import pl.reaper.container.ws.wrappers.MapWrapper;
 
 @WebService(endpointInterface = "pl.reaper.container.beans.JythonBeanRemote")
 @Stateless
@@ -35,13 +36,13 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     @Resource
     private SessionContext ctx;
 
-//    @PermitAll
+    @PermitAll
     @Override
-    public String secureScriptExecution(String scriptName, Map variables) {
-        return executeScript(scriptName, variables, true);
+    public String secureScriptExecution(String scriptName, MapWrapper variables) {
+        return executeScript(scriptName, variables.map, true);
     }
 
-//    @PermitAll
+    @PermitAll
     @Override
     public String simpleSecureScriptExecution(String scriptName) {
         return executeScript(scriptName, new HashMap<String, String>(), true);
