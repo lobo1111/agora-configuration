@@ -76,11 +76,11 @@ class TemplateLoader:
         self._xml = ET.parse(self._config.get('paths', 'config')).getroot()
         
     def loadTemplates(self):
-        for script in self._xml.findall('template'):
-            name = script.find('name')
-            source = script.find('source')
+        for template in self._xml.findall('template'):
+            name = template.find('name')
+            source = template.find('source')
             id = self.saveTemplate(self.getText(name), self.getText(source))
-            self.saveVariables(id, script.findall('variables/var'))
+            self.saveVariables(id, template.findall('variables/var'))
             
     def saveTemplate(self, name, source):
         print "Saving template: " + name
