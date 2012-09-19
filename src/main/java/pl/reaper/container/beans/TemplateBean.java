@@ -65,7 +65,7 @@ public class TemplateBean implements TemplateBeanLocal {
        Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Evaluating context...");
        ve.evaluate(context, writer, template.getName(), template.getSource());
        String evaluatedTemplate = writer.toString();
-       Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Template evaluated [{0}...]", evaluatedTemplate.substring(0, 100));
+       Logger.getLogger(TemplateBean.class.getName()).log(Level.INFO, "Template evaluated [{0}...]", evaluatedTemplate.substring(0, Math.min(evaluatedTemplate.length(), 100)));
        return evaluatedTemplate.replaceAll("\\s","");
     }
 
