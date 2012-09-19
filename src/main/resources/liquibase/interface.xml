@@ -52,14 +52,14 @@
     <changeSet author='tkopacki' id='interface-category-items-incoming-documents'>
         <sql>
             INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
-            SELECT id, 'BP', 'Bank Pocztowy' FROM `category` WHERE `category_key` = 'INCOMING_DOCUMENTS'; 
+            SELECT id, 'BP', 'Bank Pocztowy', 100 FROM `category` WHERE `category_key` = 'INCOMING_DOCUMENTS'; 
         </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='interface-category-items-communities-possessions'>
         <sql>
             INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
-            SELECT id, 'COMMUNITES', 'Wspólnoty' FROM `category` WHERE `category_key` = 'COMMUNITES_AND_POSSESSIONS'; 
+            SELECT id, 'COMMUNITES', 'Wspólnoty', 100 FROM `category` WHERE `category_key` = 'COMMUNITES_AND_POSSESSIONS'; 
             INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
             SELECT id, 'POSSESSIONS', 'Mieszkania', 100 FROM `category` WHERE `category_key` = 'COMMUNITES_AND_POSSESSIONS';
         </sql>
