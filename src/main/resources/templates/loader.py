@@ -45,7 +45,7 @@ class DBManager:
         cursor.connection.commit()
         cursor.close()
     
-    def insertScript(self, templateName, content):
+    def insertTemplate(self, templateName, content):
         sql = self._config.get('queries' ,'insertTemplate')
         cursor = self._connection.cursor()
         cursor.execute(sql, (templateName, content))

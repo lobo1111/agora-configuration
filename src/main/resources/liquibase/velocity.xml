@@ -17,7 +17,7 @@
     </changeSet>
     <changeSet author='tkopacki' id='velocity-template-variables-table'>
         <sql>    
-            CREATE TABLE IF NOT EXISTS `template_variables` (
+            CREATE TABLE IF NOT EXISTS `template_variable` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `template_id` int(11) NOT NULL,
             `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
@@ -29,7 +29,7 @@
     </changeSet>
     <changeSet author='tkopacki' id='velocity-template-variable-fkey'>
         <sql> 
-            ALTER TABLE `template_variables`
+            ALTER TABLE `template_variable`
             ADD CONSTRAINT `template_variables_fkey` FOREIGN KEY (`template_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
