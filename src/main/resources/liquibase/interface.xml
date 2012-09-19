@@ -8,9 +8,11 @@
         <sql>
             CREATE TABLE IF NOT EXISTS `category` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
+            `category_key` varchar(45) COLLATE utf8_polish_ci NOT NULL,
             `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
+            `order` int(11) NOT NULL DEFAULT(100),
             PRIMARY KEY (`id`),
-            UNIQUE KEY `name_UNIQUE` (`name`)
+            UNIQUE KEY `name_UNIQUE` (`category_key`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
     </changeSet>
@@ -19,16 +21,91 @@
             CREATE TABLE IF NOT EXISTS `category_item` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `category_id` int(11) NOT NULL,
+            `item_key` varchar(45) COLLATE utf8_polish_ci NOT NULL,
             `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
+            `order` int(11) NOT NULL DEFAULT(100),
             PRIMARY KEY (`id`),
-            UNIQUE KEY `name_UNIQUE` (`name`)
+            UNIQUE KEY `name_UNIQUE` (`item_key`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
     </changeSet>
     <changeSet author='tkopacki' id='interface-category-item-fkey'>
         <sql> 
             ALTER TABLE `category_item`
-            ADD CONSTRAINT `category_item_fkey` FOREIGN KEY (`category_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `category_item_fkey` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='interface-categories-insert-1'>
+        <sql> 
+            INSERT INTO `category`(category_key, name) VALUES('INCOMING_DOCUMENTS', 'Przelewy przychodzące');
+            INSERT INTO `category`(category_key, name) VALUES('COMMUNITES_AND_POSSESSIONS', 'Wspólnoty i mieszkania');
+            INSERT INTO `category`(category_key, name) VALUES('OWNERS', 'Właściciele prywatni i firmy');
+            INSERT INTO `category`(category_key, name) VALUES('CRON', 'Zadania cykliczne');
+            INSERT INTO `category`(category_key, name) VALUES('SYNC', 'Synchronizacja');
+            INSERT INTO `category`(category_key, name) VALUES('SCRIPTS', 'Skrypty');
+            INSERT INTO `category`(category_key, name) VALUES('TEMPLATES', 'Szablony');
+            INSERT INTO `category`(category_key, name) VALUES('INTERFACE', 'Interfejs użytkownika');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='interface-category-items-incoming-documents'>
+        <sql>
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'BP', 'Bank Pocztowy' FROM `category` WHERE `category_key` = 'INCOMING_DOCUMENTS'; 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='interface-category-items-communities-possessions'>
+        <sql>
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'COMMUNITES', 'Wspólnoty' FROM `category` WHERE `category_key` = 'COMMUNITES_AND_POSSESSIONS'; 
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'POSSESSIONS', 'Mieszkania' FROM `category` WHERE `category_key` = 'COMMUNITES_AND_POSSESSIONS';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='interface-category-items-owners'>
+        <sql>
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'PEOPLE', 'Osoby fizyczne' FROM `category` WHERE `category_key` = 'OWNERS'; 
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'COMPANIES', 'Firmy' FROM `category` WHERE `category_key` = 'OWNERS'; 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='interface-category-items-crons'>
+        <sql>
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'CRONS', 'Lista zadań' FROM `category` WHERE `category_key` = 'CRON'; 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='interface-category-items-sync'>
+        <sql>
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'SYNC_ALL', 'Synchronizuj ze starą bazą' FROM `category` WHERE `category_key` = 'SYNC'; 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='interface-category-items-scripts'>
+        <sql>
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'SCRIPTS', 'Lista skryptów' FROM `category` WHERE `category_key` = 'SCRIPTS'; 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='interface-category-items-templates'>
+        <sql>
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'TEMPLATES', 'Szablony' FROM `category` WHERE `category_key` = 'TEMPLATES'; 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='interface-category-items-interface'>
+        <sql>
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`)
+            SELECT id, 'INTERFACE_CATEGORIES', 'Kategorie' FROM `category` WHERE `category_key` = 'INTERFACE'; 
         </sql>
     </changeSet>
 </databaseChangeLog>
