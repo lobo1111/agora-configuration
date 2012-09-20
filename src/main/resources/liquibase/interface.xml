@@ -41,11 +41,8 @@
             INSERT INTO `category`(category_key, name, `category_order`) VALUES('INCOMING_DOCUMENTS', 'Przelewy przychodzące', 100);
             INSERT INTO `category`(category_key, name, `category_order`) VALUES('COMMUNITES_AND_POSSESSIONS', 'Wspólnoty i mieszkania', 200);
             INSERT INTO `category`(category_key, name, `category_order`) VALUES('OWNERS', 'Właściciele prywatni i firmy', 300);
-            INSERT INTO `category`(category_key, name, `category_order`) VALUES('CRON', 'Zadania cykliczne', 400);
-            INSERT INTO `category`(category_key, name, `category_order`) VALUES('SYNC', 'Synchronizacja', 500);
-            INSERT INTO `category`(category_key, name, `category_order`) VALUES('SCRIPTS', 'Skrypty', 600);
-            INSERT INTO `category`(category_key, name, `category_order`) VALUES('TEMPLATES', 'Szablony', 700);
-            INSERT INTO `category`(category_key, name, `category_order`) VALUES('INTERFACE', 'Interfejs użytkownika', 800);
+            INSERT INTO `category`(category_key, name, `category_order`) VALUES('SYNC', 'Synchronizacja', 400);
+            INSERT INTO `category`(category_key, name, `category_order`) VALUES('SETTINGS', 'Ustawienia', 500);
         </sql>
     </changeSet>
     
@@ -74,13 +71,6 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='interface-category-items-crons'>
-        <sql>
-            INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
-            SELECT id, 'CRONS', 'Lista zadań', 100 FROM `category` WHERE `category_key` = 'CRON'; 
-        </sql>
-    </changeSet>
-    
     <changeSet author='tkopacki' id='interface-category-items-sync'>
         <sql>
             INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
@@ -88,24 +78,17 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='interface-category-items-scripts'>
+    <changeSet author='tkopacki' id='interface-category-items-settings'>
         <sql>
             INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
-            SELECT id, 'SCRIPTS', 'Lista skryptów', 100 FROM `category` WHERE `category_key` = 'SCRIPTS'; 
+            SELECT id, 'CRON', 'Zadania cykliczne', 100 FROM `category` WHERE `category_key` = 'SETTINGS'; 
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
+            SELECT id, 'SCRIPTS', 'Skrypty', 100 FROM `category` WHERE `category_key` = 'SETTINGS'; 
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
+            SELECT id, 'TEMPLATES', 'Szablony', 100 FROM `category` WHERE `category_key` = 'SETTINGS'; 
+            INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
+            SELECT id, 'CATEGORIES', 'Kategorie', 100 FROM `category` WHERE `category_key` = 'SETTINGS'; 
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='interface-category-items-templates'>
-        <sql>
-            INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
-            SELECT id, 'TEMPLATES', 'Szablony', 100 FROM `category` WHERE `category_key` = 'TEMPLATES'; 
-        </sql>
-    </changeSet>
-    
-    <changeSet author='tkopacki' id='interface-category-items-interface'>
-        <sql>
-            INSERT INTO `category_item` (`category_id`, `item_key`, `name`, `item_order`)
-            SELECT id, 'INTERFACE_CATEGORIES', 'Kategorie', 100 FROM `category` WHERE `category_key` = 'INTERFACE'; 
-        </sql>
-    </changeSet>
 </databaseChangeLog>
