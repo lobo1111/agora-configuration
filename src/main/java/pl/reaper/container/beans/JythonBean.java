@@ -88,4 +88,9 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
         executor.setAuthenticator(authenticator);
         return executor;
     }
+
+    @Override
+    public boolean ping() {
+        return true;
+    }
 }

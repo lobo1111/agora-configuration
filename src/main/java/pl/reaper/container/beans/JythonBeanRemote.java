@@ -12,4 +12,6 @@ public interface JythonBeanRemote {
     public String secureScriptExecution(String scriptName, MapWrapper variables);
     
     public String simpleSecureScriptExecution(String scriptName);
+    
+    public boolean ping();
 }
