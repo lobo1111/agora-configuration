@@ -8,7 +8,7 @@ class TemplateParser(Container):
         query = 'SELECT t FROM Template t WHERE t.name = :name'
         query = entityManager.createQuery(query)
         query.setParameter('name', name)
-        return entityManager.createQuery(query).getSingleResult()
+        return query.getSingleResult()
 
     def evalute(self, template):
         ve = VelocityEngine()
