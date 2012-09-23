@@ -10,7 +10,7 @@ class TemplateParser(Container):
         query.setParameter('name', name)
         return query.getSingleResult()
 
-    def evalute(self, template):
+    def evaluate(self, template):
         ve = VelocityEngine()
         ve.init()
         context = VelocityContext()
