@@ -22,6 +22,7 @@ class TemplateParser(Container):
         return evaluatedTemplate
 
     def loadData(self, data):
+        
         return entityManager.createQuery(data).getResultList()
 
     def __init__(self):
