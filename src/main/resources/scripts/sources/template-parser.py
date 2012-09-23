@@ -16,10 +16,10 @@ class TemplateParser(Container):
         context = VelocityContext()
         for var in template.getTemplateVariableCollection():
             context.put(var.getName(), self.loadData(var.getData()))
-       writer = StringWriter()
-       ve.evaluate(context, writer, template.getName(), template.getSource())
-       evaluatedTemplate = writer.toString()
-       return evaluatedTemplate
+        writer = StringWriter()
+        ve.evaluate(context, writer, template.getName(), template.getSource())
+        evaluatedTemplate = writer.toString()
+        return evaluatedTemplate
 
     def loadData(self, data):
         return entityManager.createQuery(data).getResultList()
