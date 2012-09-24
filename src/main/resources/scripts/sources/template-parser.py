@@ -22,9 +22,9 @@ class TemplateParser(Container):
         return evaluatedTemplate
 
     def loadData(self, data):
-        data = self.insertVariables(self, data)
+        data = self.insertVariables(data)
         query = entityManager.createQuery(data)
-        query = self.insertLimit(self, query)
+        query = self.insertLimit(query)
         return query.getResultList()
     
     def insertLimit(self, query):
