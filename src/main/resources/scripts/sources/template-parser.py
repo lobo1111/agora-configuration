@@ -24,7 +24,7 @@ class TemplateParser(Container):
 
     def loadData(self, data):
         data = self.insertVariables(data)
-        self._logger().info('Executing query [%s]' % data)
+        self._logger.info('Executing query [%s]' % data)
         query = entityManager.createQuery(data)
         query = self.insertLimit(query)
         return query.getResultList()
