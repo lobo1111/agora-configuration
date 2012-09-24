@@ -26,8 +26,8 @@
                 <name>countRows</name>
                 <data>
                     {:single}
-                    SELECT count(c.name, c.area, pa.street, pa.houseNumber, pa.flatNumber, p.area) 
-                    FROM FROM Community c JOIN c.possessions p JOIN p.address pa
+                    SELECT count(c.name, c.area, pa.street, pa.houseNumber, pa.flatNumber, p.area)
+                    FROM Community c JOIN c.possessions p JOIN p.address pa
                 </data>
             </var>
         </variables>
