@@ -22,7 +22,12 @@ class TemplateParser(Container):
         return evaluatedTemplate
 
     def loadData(self, data):
-        
+        r = l = -1
+        while data.find("[:") != -1:
+            l = data.find("[:")
+            r = data.find("]")
+            var = data[l : r + 1]
+            data = data.replace(var, vars.get(var[2:-1]))
         return entityManager.createQuery(data).getResultList()
 
     def __init__(self):
