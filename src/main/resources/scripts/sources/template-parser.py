@@ -62,7 +62,7 @@ class TemplateParser(Container):
     def handleSpecialVariable(self, data, variable):
         if variable == 'limit':
             self._insertLimit = True
-            data = data.replace('[:%s]' % variable, '')
+            data = data.replace('{:%s}' % variable, '')
             return data
 
     def __init__(self):

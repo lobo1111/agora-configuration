@@ -17,7 +17,7 @@
             <var>
                 <name>communities</name>
                 <data>SELECT c.name, c.area, pa.street, pa.houseNumber, pa.flatNumber, p.area 
-                    FROM Community c JOIN c.possessions p JOIN p.address pa [:limit]
+                    FROM Community c JOIN c.possessions p JOIN p.address pa {:limit}
                 </data>
             </var>
             <var>
