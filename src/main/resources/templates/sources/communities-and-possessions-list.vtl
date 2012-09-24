@@ -2,12 +2,12 @@
 <list>
     #foreach($row in $communities)
         <item>
-            <communityName>$row.get(0)</communityName>
-            <communityArea>$row.get(1)</communityArea>
-            <possessionStreet>$row.get(2)</possessionStreet>
-            <possessionHouseNumber>$row.get(3)</possessionHouseNumber>
-            <possessionFlatNumber>$row.get(4)</possessionFlatNumber>
-            <possessionArea>$row.get(5)</possessionArea>
+            <communityName>$array.get($row, 1)</communityName>
+            <communityArea>$array.get($row, 2)</communityArea>
+            <possessionStreet>$array.get($row, 3)</possessionStreet>
+            <possessionHouseNumber>$array.get($row, 4)</possessionHouseNumber>
+            <possessionFlatNumber>$array.get($row, 5)</possessionFlatNumber>
+            <possessionArea>$array.get($row, 6)</possessionArea>
         </item>
     #end
 </list>
