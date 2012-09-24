@@ -26,7 +26,9 @@ class TemplateParser(Container):
         data = self.insertVariables(data)
         self._logger.info('Executing query [%s]' % data)
         query = entityManager.createQuery(data)
-        query = self.insertLimit(query)
+        if self._insertLimit:
+            query = self.insertLimit(query)
+            self._insertLimit = False
         return query.getResultList()
     
     def insertLimit(self, query):
@@ -44,9 +46,22 @@ class TemplateParser(Container):
             l = data.find("{:")
             r = data.find("}")
             var = data[l : r + 1]
-            self._logger.info('Inserting variable %s=%s' % (var, vars.get(var[2:-1])))
-            data = data.replace(var, vars.get(var[2:-1]))
+            if self.isSpecialVariable(var[2:-1]):
+                data = self.handleSpecialVariable(var[2:-1])
+            else:
+                self._logger.info('Inserting variable %s=%s' % (var, vars.get(var[2:-1])))
+                data = data.replace(var, vars.get(var[2:-1]))
         return data
+    
+    def isSpecialVariable(self, variable):
+        if variable == 'limit':
+            return True
+        else:
+            return False
+        
+    def getSpecialVariable(self, variable):
+        if variable == 'limit':
+            self._insertLimit = True
 
     def __init__(self):
         self._templateName = vars.get('templateName')

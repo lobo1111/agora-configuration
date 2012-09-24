@@ -12,7 +12,6 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
-import pl.reaper.container.beans.TemplateBeanLocal;
 
 public class ScriptEngineWrapper {
 
@@ -20,7 +19,6 @@ public class ScriptEngineWrapper {
     private EntityManager oldEntityManager;
     private PropertyBeanLocal propertyBean;
     private DocumentStatusBeanLocal documentStatusBean;
-    private TemplateBeanLocal templateBean;
     private Map<String, Object> variables;
     private ScriptEngine engine;
     private String lastExecuted;
@@ -40,7 +38,6 @@ public class ScriptEngineWrapper {
         engine.put("oldEntityManager", oldEntityManager);
         engine.put("vars", variables);
         engine.put("properties", propertyBean);
-        engine.put("templateBean", templateBean);
         engine.put("documentStatusLoader", documentStatusBean);
         return this;
     }
@@ -82,11 +79,6 @@ public class ScriptEngineWrapper {
 
     public ScriptEngineWrapper setDocumentStatusBean(DocumentStatusBeanLocal documentStatusBean) {
         this.documentStatusBean = documentStatusBean;
-        return this;
-    }
-
-    public ScriptEngineWrapper setTemplateBean(TemplateBeanLocal templateBean) {
-        this.templateBean = templateBean;
         return this;
     }
 

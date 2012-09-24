@@ -33,18 +33,16 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     private DocumentStatusBeanLocal documentStatusBean;
     @EJB
     private JythonAuthenticatorLocal authenticator;
-    @EJB
-    private TemplateBeanLocal templates;
     @Resource
     private SessionContext ctx;
 
-//    @PermitAll
+    @PermitAll
     @Override
     public String secureScriptExecution(String scriptName, MapWrapper variables) {
         return executeScript(scriptName, variables.map, true);
     }
 
-//    @PermitAll
+    @PermitAll
     @Override
     public String simpleSecureScriptExecution(String scriptName) {
         return executeScript(scriptName, new HashMap<String, String>(), true);
@@ -74,7 +72,6 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
                 .setEntityManager(entityManager)
                 .setOldEntityManager(oldEntityManager)
                 .setPropertyBean(propertyBean)
-                .setTemplateBean(templates)
                 .init();
         return engineBuilder;
     }

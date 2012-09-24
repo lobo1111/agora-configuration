@@ -16,10 +16,13 @@
         <variables>
             <var>
                 <name>communities</name>
-                <!--<data>SELECT c FROM Community c WHERE [:where] LIMIT [:limit] OFFSET [:offset]</data>-->
                 <data>SELECT c.name, c.area, pa.street, pa.houseNumber, pa.flatNumber, p.area 
-                      FROM Community c JOIN c.possessions p JOIN p.address pa
+                    FROM Community c JOIN c.possessions p JOIN p.address pa [:limit]
                 </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>SELECT count(p) FROM FROM Community c JOIN c.possessions p JOIN p.address pa</data>
             </var>
         </variables>
     </template>
