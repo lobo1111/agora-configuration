@@ -3,6 +3,7 @@ from org.apache.velocity import VelocityContext
 from org.apache.velocity.app import VelocityEngine
 
 class TemplateParser(Container):
+    _logger = Logger([:_scriptId])
 
     def find(self, name):
         query = 'SELECT t FROM Template t WHERE t.name = :name'
@@ -23,14 +24,17 @@ class TemplateParser(Container):
 
     def loadData(self, data):
         data = self.insertVariables(data)
+        self._logger().info('Executing query [%s]' % data)
         query = entityManager.createQuery(data)
         query = self.insertLimit(query)
         return query.getResultList()
     
     def insertLimit(self, query):
         if vars.get('limit') != None:
+            self._logger.info('Inserting limit %s' % vars.get('limit'))
             query.setMaxResults(int(vars.get('limit')))
         if vars.get('offset') != None:
+            self._logger.info('Inserting offset %s' % vars.get('offset'))
             query.setFirstResult(int(vars.get('offset')))
         return query
     
@@ -40,6 +44,7 @@ class TemplateParser(Container):
             l = data.find("[:")
             r = data.find("]")
             var = data[l : r + 1]
+            self._logger.info('Inserting variable %s=%s' % (var, vars.get(var[2:-1])))
             data = data.replace(var, vars.get(var[2:-1]))
         return data
 
