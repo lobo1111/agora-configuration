@@ -22,7 +22,7 @@
             </var>
             <var>
                 <name>countRows</name>
-                <data>SELECT count(p) FROM FROM Community c JOIN c.possessions p JOIN p.address pa</data>
+                <data>SELECT count(*) FROM FROM Community c JOIN c.possessions p JOIN p.address pa</data>
             </var>
         </variables>
     </template>
