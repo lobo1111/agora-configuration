@@ -1,15 +1,13 @@
 <?xml version="1.0"?>
 <list>
     #foreach($row in $communities)
-        #foreach($cell in $row)
-            <item>
-                <communityName>$cell[0]</communityName>
-                <communityArea>$cell[1]</communityArea>
-                <possessionStreet>$cell[2]</possessionStreet>
-                <possessionHouseNumber>$cell[3]</possessionHouseNumber>
-                <possessionFlatNumber>$cell[4]</possessionFlatNumber>
-                <possessionArea>$cell[5]</possessionArea>
-            </item>
-        #end
+        <item>
+            <communityName>$row[0]</communityName>
+            <communityArea>$row[1]</communityArea>
+            <possessionStreet>$row[2]</possessionStreet>
+            <possessionHouseNumber>$row[3]</possessionHouseNumber>
+            <possessionFlatNumber>$row[4]</possessionFlatNumber>
+            <possessionArea>$row[5]</possessionArea>
+        </item>
     #end
 </list>
