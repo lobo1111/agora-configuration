@@ -4,6 +4,7 @@ from org.apache.velocity.app import VelocityEngine
 
 class TemplateParser(Container):
     _logger = Logger([:_scriptId])
+    _single = False
 
     def find(self, name):
         query = 'SELECT t FROM Template t WHERE t.name = :name'
@@ -29,7 +30,10 @@ class TemplateParser(Container):
         if self._insertLimit:
             query = self.insertLimit(query)
             self._insertLimit = False
-        return query.getResultList()
+        if self._single:
+            return query.getSingleResult()
+        else:
+            return query.getResultList()
     
     def insertLimit(self, query):
         if vars.get('limit') != None:
@@ -54,7 +58,7 @@ class TemplateParser(Container):
         return data
     
     def isSpecialVariable(self, variable):
-        if variable == 'limit':
+        if variable in ['limit', 'single']:
             return True
         else:
             return False
@@ -62,8 +66,10 @@ class TemplateParser(Container):
     def handleSpecialVariable(self, data, variable):
         if variable == 'limit':
             self._insertLimit = True
-            data = data.replace('{:%s}' % variable, '')
-            return data
+        elif varaible == 'single':
+            self._single = True
+        data = data.replace('{:%s}' % variable, '')
+        return data
 
     def __init__(self):
         self._templateName = vars.get('templateName')

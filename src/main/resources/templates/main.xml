@@ -16,13 +16,18 @@
         <variables>
             <var>
                 <name>communities</name>
-                <data>SELECT c.name, c.area, pa.street, pa.houseNumber, pa.flatNumber, p.area 
-                    FROM Community c JOIN c.possessions p JOIN p.address pa {:limit}
+                <data>
+                    {:limit}
+                    SELECT c.name, c.area, pa.street, pa.houseNumber, pa.flatNumber, p.area 
+                    FROM Community c JOIN c.possessions p JOIN p.address pa
                 </data>
             </var>
             <var>
                 <name>countRows</name>
-                <data>SELECT count(*) FROM FROM Community c JOIN c.possessions p JOIN p.address pa</data>
+                <data>
+                    {:single}
+                    SELECT count(*) FROM FROM Community c JOIN c.possessions p JOIN p.address pa
+                </data>
             </var>
         </variables>
     </template>
