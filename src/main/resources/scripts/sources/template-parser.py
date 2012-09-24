@@ -40,9 +40,9 @@ class TemplateParser(Container):
     
     def insertVariables(self, data):
         r = l = -1
-        while data.find("[:") != -1:
-            l = data.find("[:")
-            r = data.find("]")
+        while data.find("{:") != -1:
+            l = data.find("{:")
+            r = data.find("}")
             var = data[l : r + 1]
             self._logger.info('Inserting variable %s=%s' % (var, vars.get(var[2:-1])))
             data = data.replace(var, vars.get(var[2:-1]))
