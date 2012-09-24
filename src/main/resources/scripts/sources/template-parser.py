@@ -47,7 +47,7 @@ class TemplateParser(Container):
             r = data.find("}")
             var = data[l : r + 1]
             if self.isSpecialVariable(var[2:-1]):
-                data = self.handleSpecialVariable(var[2:-1])
+                data = self.handleSpecialVariable(data, var[2:-1])
             else:
                 self._logger.info('Inserting variable %s=%s' % (var, vars.get(var[2:-1])))
                 data = data.replace(var, vars.get(var[2:-1]))
@@ -59,9 +59,11 @@ class TemplateParser(Container):
         else:
             return False
         
-    def getSpecialVariable(self, variable):
+    def handleSpecialVariable(self, data, variable):
         if variable == 'limit':
             self._insertLimit = True
+            data = data.replace('[:%s]' % variable, '')
+            return data
 
     def __init__(self):
         self._templateName = vars.get('templateName')
