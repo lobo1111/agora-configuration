@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <list>
-    #foreach($community in $communities)
-        #foreach($possession in $community.getPossessions())
+    #foreach($row in $communities)
+        #foreach($cell in $row)
             <item>
-                <communityName>$community.getName()</communityName>
-                <communityArea>$community.getArea()</communityArea>
-                <possessionStreet>$possession.getAddress().getStreet()</possessionStreet>
-                <possessionHouseNumber>$possession.getAddress().getHouseNumber()</possessionHouseNumber>
-                <possessionFlatNumber>$possession.getAddress().getFlatNumber()</possessionFlatNumber>
-                <possessionArea>$possession.getArea()</possessionArea>
+                <communityName>$cell[0]</communityName>
+                <communityArea>$cell[1]</communityArea>
+                <possessionStreet>$cell[2]</possessionStreet>
+                <possessionHouseNumber>$cell[3]</possessionHouseNumber>
+                <possessionFlatNumber>$cell[4]</possessionFlatNumber>
+                <possessionArea>$cell[5]</possessionArea>
             </item>
         #end
     #end
