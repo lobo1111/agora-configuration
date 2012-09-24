@@ -17,7 +17,7 @@
             <var>
                 <name>communities</name>
                 <!--<data>SELECT c FROM Community c WHERE [:where] LIMIT [:limit] OFFSET [:offset]</data>-->
-                <data>SELECT c FROM Community c LIMIT [:limit] OFFSET [:offset]</data>
+                <data>SELECT c FROM Community c</data>
             </var>
         </variables>
     </template>

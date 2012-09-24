@@ -22,13 +22,26 @@ class TemplateParser(Container):
         return evaluatedTemplate
 
     def loadData(self, data):
+        data = self.insertVariables(self, data)
+        query = entityManager.createQuery(data)
+        query = self.insertLimit(self, query)
+        return query.getResultList()
+    
+    def insertLimit(self, query):
+        if vars.get('limit') != None:
+            query.setMaxResults(int(vars.get('limit')))
+        if vars.get('offset') != None:
+            query.setFirstResult(int(vars.get('offset')))
+        return query
+    
+    def insertVariables(self, data):
         r = l = -1
         while data.find("[:") != -1:
             l = data.find("[:")
             r = data.find("]")
             var = data[l : r + 1]
             data = data.replace(var, vars.get(var[2:-1]))
-        return entityManager.createQuery(data).getResultList()
+        return data
 
     def __init__(self):
         self._templateName = vars.get('templateName')
