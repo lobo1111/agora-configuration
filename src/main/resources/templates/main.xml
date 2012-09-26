@@ -18,8 +18,19 @@
                 <name>communities</name>
                 <data>
                     {:limit}
-                    SELECT c.name, c.area, pa.street, pa.houseNumber, pa.flatNumber, p.area 
-                    FROM Community c JOIN c.possessions p JOIN p.address pa
+                    SELECT 
+                        community.name, community.area, 
+                        possessionAddress.street, possessionAddress.houseNumber, possessionAddress.flatNumber, 
+                        p.area 
+                    FROM 
+                        Community community 
+                        JOIN community.possessions possession 
+                        JOIN possession.address possessionAddress
+                        JOIN possession.people possessionOwnerPerson
+                        JOIN possession.companies possessionOwnerCompany
+                        JOIN possessionOwnerPerson.address personAddress
+                        JOIN possessionOwnerCompany.address companyAddress
+                    WHERE 1=1 [:where]
                 </data>
             </var>
             <var>
