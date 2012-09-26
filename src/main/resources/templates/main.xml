@@ -26,10 +26,10 @@
                         Community community 
                         JOIN community.possessions possession 
                         JOIN possession.address possessionAddress
-                        JOIN possession.people possessionOwnerPerson
-                        JOIN possession.companies possessionOwnerCompany
-                        JOIN possessionOwnerPerson.address personAddress
-                        JOIN possessionOwnerCompany.address companyAddress
+                        LEFT OUTER JOIN possession.people possessionOwnerPerson
+                        LEFT OUTER JOIN possession.companies possessionOwnerCompany
+                        LEFT OUTER JOIN possessionOwnerPerson.address personAddress
+                        LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
                     WHERE 1=1 {:where}
                 </data>
             </var>
