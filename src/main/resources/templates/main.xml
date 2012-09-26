@@ -37,8 +37,17 @@
                 <name>countRows</name>
                 <data>
                     {:single}
-                    SELECT count(c.name)
-                    FROM Community c JOIN c.possessions p JOIN p.address pa
+                    SELECT 
+                        count(c.name)
+                    FROM 
+                        Community community 
+                        JOIN community.possessions possession 
+                        JOIN possession.address possessionAddress
+                        LEFT OUTER JOIN possession.people possessionOwnerPerson
+                        LEFT OUTER JOIN possession.companies possessionOwnerCompany
+                        LEFT OUTER JOIN possessionOwnerPerson.address personAddress
+                        LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
+                    WHERE 1=1 {:where}
                 </data>
             </var>
         </variables>
