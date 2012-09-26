@@ -5,6 +5,7 @@ from org.apache.velocity.app import VelocityEngine
 class TemplateParser(Container):
     _logger = Logger([:_scriptId])
     _single = False
+    _insertLimit = False
 
     def find(self, name):
         query = 'SELECT t FROM Template t WHERE t.name = :name'
