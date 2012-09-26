@@ -30,7 +30,7 @@
                         JOIN possession.companies possessionOwnerCompany
                         JOIN possessionOwnerPerson.address personAddress
                         JOIN possessionOwnerCompany.address companyAddress
-                    WHERE 1=1 [:where]
+                    WHERE 1=1 {:where}
                 </data>
             </var>
             <var>
