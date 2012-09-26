@@ -9,6 +9,16 @@
                 <data>SELECT c FROM Category c</data>
             </var>
         </variables>
+    </template>    
+    <template>
+        <name>communities-names</name>
+        <source>communities-names.vtl</source>
+        <variables>
+            <var>
+                <name>communities</name>
+                <data>SELECT c FROM Community c ORDER BY c.name ASC</data>
+            </var>
+        </variables>
     </template>
     <template>
         <name>communities-and-possessions-list</name>
@@ -19,17 +29,17 @@
                 <data>
                     {:limit}
                     SELECT 
-                        community.name, community.area, 
-                        possessionAddress.street, possessionAddress.houseNumber, possessionAddress.flatNumber, 
-                        possession.area 
+                    community.name, community.area, 
+                    possessionAddress.street, possessionAddress.houseNumber, possessionAddress.flatNumber, 
+                    possession.area 
                     FROM 
-                        Community community 
-                        JOIN community.possessions possession 
-                        JOIN possession.address possessionAddress
-                        LEFT OUTER JOIN possession.people possessionOwnerPerson
-                        LEFT OUTER JOIN possession.companies possessionOwnerCompany
-                        LEFT OUTER JOIN possessionOwnerPerson.address personAddress
-                        LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
+                    Community community 
+                    JOIN community.possessions possession 
+                    JOIN possession.address possessionAddress
+                    LEFT OUTER JOIN possession.people possessionOwnerPerson
+                    LEFT OUTER JOIN possession.companies possessionOwnerCompany
+                    LEFT OUTER JOIN possessionOwnerPerson.address personAddress
+                    LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
                     WHERE 1=1 {:where}
                 </data>
             </var>
@@ -38,15 +48,15 @@
                 <data>
                     {:single}
                     SELECT 
-                        count(c.name)
+                    count(c.name)
                     FROM 
-                        Community community 
-                        JOIN community.possessions possession 
-                        JOIN possession.address possessionAddress
-                        LEFT OUTER JOIN possession.people possessionOwnerPerson
-                        LEFT OUTER JOIN possession.companies possessionOwnerCompany
-                        LEFT OUTER JOIN possessionOwnerPerson.address personAddress
-                        LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
+                    Community community 
+                    JOIN community.possessions possession 
+                    JOIN possession.address possessionAddress
+                    LEFT OUTER JOIN possession.people possessionOwnerPerson
+                    LEFT OUTER JOIN possession.companies possessionOwnerCompany
+                    LEFT OUTER JOIN possessionOwnerPerson.address personAddress
+                    LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
                     WHERE 1=1 {:where}
                 </data>
             </var>

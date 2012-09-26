@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<list>
+    #foreach($community in $communities)
+        <item>
+            <communityId>$community.getId()</communityId>
+            <communityName>$community.getName()</communityName>
+        </item>
+    #end
+</list>
