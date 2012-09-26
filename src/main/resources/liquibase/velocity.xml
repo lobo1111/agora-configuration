@@ -39,4 +39,10 @@
             ALTER TABLE `template_variable` CHANGE `data` `data` TEXT CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL
         </sql>
     </changeSet> 
+    <changeSet author='tkopacki' id='velocity-template-variable-unique-name'>
+        <sql> 
+            ALTER TABLE `template_variable` DROP UNIQUE (`name`);
+            ALTER TABLE `template_variable` ADD UNIQUE (`template_id`, `name`);
+        </sql>
+    </changeSet> 
 </databaseChangeLog>
