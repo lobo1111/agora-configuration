@@ -31,7 +31,7 @@
                     SELECT 
                     community.name, community.area, 
                     possessionAddress.street, possessionAddress.houseNumber, possessionAddress.flatNumber, 
-                    possession.area 
+                    possession.area, possession.id
                     FROM 
                     Community community 
                     JOIN community.possessions possession 
