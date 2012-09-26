@@ -33,4 +33,10 @@
             ADD CONSTRAINT `template_variables_fkey` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='velocity-template-variable-data-to-text'>
+        <sql> 
+            ALTER TABLE `template_variable` CHANGE `data` `data` TEXT CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL
+        </sql>
+    </changeSet> 
 </databaseChangeLog>
