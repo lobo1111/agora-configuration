@@ -48,7 +48,7 @@
                 <data>
                     {:single}
                     SELECT 
-                    count(c.name)
+                    count(community.name)
                     FROM 
                     Community community 
                     JOIN community.possessions possession 
