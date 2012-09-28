@@ -6,6 +6,8 @@ class TemplateParser(Container):
     _logger = Logger([:_scriptId])
     _single = False
     _insertLimit = False
+    _update = False
+    _native = False
 
     def find(self, name):
         query = 'SELECT t FROM Template t WHERE t.name = :name'
@@ -27,14 +29,21 @@ class TemplateParser(Container):
     def loadData(self, data):
         data = self.insertVariables(data)
         self._logger.info('Executing query [%s]' % data)
-        query = entityManager.createQuery(data)
+        query = None
+        if self._native:
+            query = entityManager.createNativeQuery(data)
+        else:
+            query = entityManager.createQuery(data)
         if self._insertLimit:
             query = self.insertLimit(query)
             self._insertLimit = False
-        if self._single:
-            return query.getSingleResult()
+        if self._update:
+            return query.executeQuery()
         else:
-            return query.getResultList()
+            if self._single:
+                return query.getSingleResult()
+            else:
+                return query.getResultList()
     
     def insertLimit(self, query):
         if vars.get('limit') != None:
@@ -59,7 +68,7 @@ class TemplateParser(Container):
         return data
     
     def isSpecialVariable(self, variable):
-        if variable in ['limit', 'single']:
+        if variable in ['limit', 'single', 'update', 'native']:
             return True
         else:
             return False
@@ -69,6 +78,10 @@ class TemplateParser(Container):
             self._insertLimit = True
         elif variable == 'single':
             self._single = True
+        elif variable == 'native':
+            self._native = True
+        elif variable == 'update':
+            self._update = True
         data = data.replace('{:%s}' % variable, '')
         return data
 

@@ -9,7 +9,50 @@
                 <data>SELECT c FROM Category c</data>
             </var>
         </variables>
-    </template>    
+    </template>   
+    <template>
+        <name>update-community</name>
+        <source>update-community.vtl</source>
+        <variables>
+            <var>
+                <name>comunity</name>
+                <data>
+                    {:update}
+                    {:native}
+                    UPDATE
+                        Community AS community,
+                        Company AS company,
+                        Address AS companyAddress
+                    SET 
+                        community.name = {:communityName}
+                        company.name = {:companyName}
+                        company.nip = {:companyNip}
+                        company.regon = {:companyRegon}
+                        company.www = {:companyWww}
+                        company.email = {:companyEmail}
+                        companyAddress.street = {:addressStreet}
+                        companyAddress.house_number = {:addressHouseNumber}
+                        companyAddress.flat_number = {:addressFlatNumber}
+                        companyAddress.postal_code = {:addressPostalCode}
+                        companyAddress.city = {:city}
+                    WHERE 
+                        c.id = {:id} AND
+                        community.company_id = company.id AND
+                        company.address_id = companyAddress.id
+                </data>
+            </var>
+        </variables>
+    </template> 
+    <template>
+        <name>select-community</name>
+        <source>community.vtl</source>
+        <variables>
+            <var>
+                <name>comunity</name>
+                <data>SELECT c FROM Community c WHERE c.id = {:id}</data>
+            </var>
+        </variables>
+    </template>
     <template>
         <name>communities-names</name>
         <source>communities-names.vtl</source>
