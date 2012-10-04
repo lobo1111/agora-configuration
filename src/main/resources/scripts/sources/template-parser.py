@@ -38,7 +38,7 @@ class TemplateParser(Container):
             query = self.insertLimit(query)
             self._insertLimit = False
         if self._update:
-            return query.executeQuery()
+            return query.executeUpdate()
         else:
             if self._single:
                 return query.getSingleResult()
