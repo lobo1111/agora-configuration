@@ -83,7 +83,7 @@
                     LEFT OUTER JOIN possession.companies possessionOwnerCompany
                     LEFT OUTER JOIN possessionOwnerPerson.address personAddress
                     LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
-                    WHERE 1=1 AND {:where}
+                    WHERE {:where}
                 </data>
             </var>
             <var>
@@ -100,7 +100,7 @@
                     LEFT OUTER JOIN possession.companies possessionOwnerCompany
                     LEFT OUTER JOIN possessionOwnerPerson.address personAddress
                     LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
-                    WHERE 1=1 AND {:where}
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
