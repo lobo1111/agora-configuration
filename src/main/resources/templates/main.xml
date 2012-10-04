@@ -39,7 +39,10 @@
         <variables>
             <var>
                 <name>possession</name>
-                <data>SELECT c FROM Possession c WHERE c.id = {:id}</data>
+                <data>
+                    {:single}
+                    SELECT c FROM Possession c WHERE c.id = {:id}
+                </data>
             </var>
         </variables>
     </template>
