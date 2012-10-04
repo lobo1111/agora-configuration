@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<item>
+    #set($community = $possession.getCommunity())
+    <community>
+        <id>$community.getId()</id>
+        <name>$community.getName()</name>
+        <name>$community.getArea()</name>
+        <company>
+            <name>$community.getCompany().getName();</name>
+            <nip>$community.getCompany().getNip()</nip>
+            <regon>$community.getCompany().getRegon()</regon>
+            <www>$community.getCompany().getWWW()</www>
+            <email>$community.getCompany().getEmail()</email>
+            <phone_1>$community.getCompany().getPhoneNumber1()</phone_1>
+            <phone_2>$community.getCompany().getPhoneNumber2()</phone_2>
+            <phone_3>$community.getCompany().getPhoneNumber3()</phone_3>
+            <address>
+                <street>$community.getCompany().getAddress().getStreet()</street>
+                <houseNumber>$community.getCompany().getAddress().getHouseNumber()</houseNumber>
+                <flatNumber>$community.getCompany().getAddress().getFlatNumber()</flatNumber>
+                <postalCode>$community.getCompany().getAddress().getPostalCode()</postalCode>
+                <city>$community.getCompany().getAddress().getCity()</city>
+            </address>
+        </company>
+    </community>
+</item>
