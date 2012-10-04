@@ -34,14 +34,14 @@
         </variables>
     </template> 
     <template>
-        <name>select-possession</name>
-        <source>possession.vtl</source>
+        <name>select-community</name>
+        <source>community.vtl</source>
         <variables>
             <var>
-                <name>possession</name>
+                <name>community</name>
                 <data>
                     {:single}
-                    SELECT c FROM Possession c WHERE c.id = {:id}
+                    SELECT c FROM Community c WHERE c.id = {:id}
                 </data>
             </var>
         </variables>
@@ -67,7 +67,7 @@
                     SELECT 
                     community.name, community.area, 
                     possessionAddress.street, possessionAddress.houseNumber, possessionAddress.flatNumber, 
-                    possession.area, possession.id
+                    possession.area, possession.id, community.id
                     FROM 
                     Community community 
                     JOIN community.possessions possession 
@@ -84,7 +84,7 @@
                 <data>
                     {:single}
                     SELECT 
-                    count(community.name)
+                    count(community.id)
                     FROM 
                     Community community 
                     JOIN community.possessions possession 
