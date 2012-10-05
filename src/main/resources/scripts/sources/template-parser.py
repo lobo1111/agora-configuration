@@ -22,7 +22,7 @@ class TemplateParser(Container):
         for var in template.getTemplateVariableCollection():
             context.put(var.getName(), self.loadData(var.getData()))
         writer = StringWriter()
-        ve.evaluate(context, writer, template.getName(), template.getSource())
+        ve.evaluate(context, writer, template.getName(), unicode(template.getSource()))
         evaluatedTemplate = writer.toString()
         return evaluatedTemplate
 

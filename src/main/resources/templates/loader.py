@@ -112,7 +112,7 @@ class TemplateLoader:
         return 0;
         
     def readFile(self, fullPath):
-        return ''.join(open(fullPath, 'r').readlines())
+        return unicode(''.join(open(fullPath, 'r').readlines()))
     
 loader = TemplateLoader(sys.argv[1])
 loader.loadTemplates()
