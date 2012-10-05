@@ -28,10 +28,6 @@ class TemplateParser(Container):
 
     def loadData(self, data):
         data = self.insertVariables(data)
-        print type(data)
-        print "!!!!"
-        print data
-        print "!!!!"
         self._logger.info('Executing query [%s]' % data)
         query = None
         if self._native:
