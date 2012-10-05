@@ -28,6 +28,10 @@ class TemplateParser(Container):
 
     def loadData(self, data):
         data = self.insertVariables(data)
+        print type(data)
+        print "!!!!"
+        print data
+        print "!!!!"
         self._logger.info('Executing query [%s]' % data)
         query = None
         if self._native:
@@ -64,7 +68,7 @@ class TemplateParser(Container):
                 data = self.handleSpecialVariable(data, var[2:-1])
             else:
                 self._logger.info('Inserting variable %s=%s' % (var, vars.get(var[2:-1])))
-                data = data.replace(var, (vars.get(var[2:-1])).encode('latin-1'))
+                data = data.replace(var, (vars.get(var[2:-1])))
         return data
     
     def isSpecialVariable(self, variable):
