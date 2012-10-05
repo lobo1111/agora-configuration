@@ -189,4 +189,12 @@
             SELECT id, 'access-sync', 'uprawnienia do synchronizowania baz danych' FROM `dictionary_type` WHERE `type` = 'USER_GROUPS';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='ms-access-db-path'>
+        <sql>
+            UPDATE `dictionary` 
+            SET `value` = '/home/agora/backups/last/Bazy.mdb'
+            WHERE `dictionaryKey` = 'msAccessDBPath';
+        </sql>
+    </changeSet>
 </databaseChangeLog>
