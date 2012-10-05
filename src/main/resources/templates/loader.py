@@ -64,7 +64,7 @@ class DBManager:
     def insertTemplateVariable(self, templateId, variableName, data):
         sql = self._config.get('queries' ,'insetTemplateVariable')
         cursor = self._connection.cursor()
-        cursor.execute(sql % (int(templateId), variableName, unicode(data)))
+        cursor.execute(sql % (int(templateId), variableName, data.decode('latin1')))
         cursor.connection.commit()
         cursor.close()
         
