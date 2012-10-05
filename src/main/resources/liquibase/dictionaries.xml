@@ -190,7 +190,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='ms-access-db-path'>
+    <changeSet author='tkopacki' id='ms-access-db-path-update'>
         <sql>
             UPDATE `dictionary` 
             SET `value` = '/home/agora/backups/last/Bazy.mdb'
