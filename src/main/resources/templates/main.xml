@@ -14,16 +14,16 @@
                         Company AS company,
                         Address AS companyAddress
                     SET 
-                        community.name = \'{:communityName}\'
-                        company.name = \'{:companyName}\'
-                        company.nip = \'{:companyNip}\'
-                        company.regon = \'{:companyRegon}\'
-                        company.www = \'{:companyWww}\'
-                        company.email = \'{:companyEmail}\'
-                        companyAddress.street = \'{:addressStreet}\'
-                        companyAddress.house_number = \'{:addressHouseNumber}\'
-                        companyAddress.flat_number = \'{:addressFlatNumber}\'
-                        companyAddress.postal_code = \'{:addressPostalCode}\'
+                        community.name = \'{:communityName}\',
+                        company.name = \'{:companyName}\',
+                        company.nip = \'{:companyNip}\',
+                        company.regon = \'{:companyRegon}\',
+                        company.www = \'{:companyWww}\',
+                        company.email = \'{:companyEmail}\',
+                        companyAddress.street = \'{:addressStreet}\',
+                        companyAddress.house_number = \'{:addressHouseNumber}\',
+                        companyAddress.flat_number = \'{:addressFlatNumber}\',
+                        companyAddress.postal_code = \'{:addressPostalCode}\',
                         companyAddress.city = \'{:city}\'
                     WHERE 
                         c.id = {:id} AND
