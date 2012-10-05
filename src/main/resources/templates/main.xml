@@ -10,9 +10,9 @@
                     {:update}
                     {:native}
                     UPDATE
-                        Community AS community,
-                        Company AS company,
-                        Address AS companyAddress
+                        community,
+                        company,
+                        address AS companyAddress
                     SET 
                         community.name = \'{:communityName}\',
                         company.name = \'{:companyName}\',
