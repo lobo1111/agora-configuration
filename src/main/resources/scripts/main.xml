@@ -193,8 +193,8 @@
         <onInit>SyncAccessToDb()</onInit>
         <scheduler>
             <name>sync-access-to-db</name>
-            <enabled>true</enabled>
-            <fireAt>* * * * *</fireAt>
+            <enabled>false</enabled>
+            <fireAt>0 5 * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>db-logger</scriptName>
