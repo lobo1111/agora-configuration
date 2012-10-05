@@ -63,14 +63,6 @@ class TemplateParser(Container):
             if self.isSpecialVariable(var[2:-1]):
                 data = self.handleSpecialVariable(data, var[2:-1])
             else:
-                m = "!!!ółąśżźćń!!!"
-                print m
-                print m.decode('latin1')
-                print m.encode('latin1')
-                print m.decode('utf8')
-                print m.encode('utf8')
-                print m.decode('cp1250')
-                print m.encode('cp1250')
                 self._logger.info('Inserting variable %s=%s' % (var, vars.get(var[2:-1])))
                 data = data.replace(var, vars.get(var[2:-1]))
         return data

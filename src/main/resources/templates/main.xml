@@ -14,7 +14,7 @@
                         company,
                         address AS companyAddress
                     SET 
-                        community.name = \'{:communityName}\',
+                        community.name = \'!!ółąśżźćńł!!{:communityName}\',
                         company.name = \'{:companyName}\',
                         company.nip = \'{:companyNip}\',
                         company.regon = \'{:companyRegon}\',
