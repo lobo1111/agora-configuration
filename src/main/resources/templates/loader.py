@@ -64,7 +64,7 @@ class DBManager:
     def insertTemplateVariable(self, templateId, variableName, data):
         sql = self._config.get('queries' ,'insetTemplateVariable')
         cursor = self._connection.cursor()
-        cursor.execute(sql % (int(templateId), variableName, data.decode('latin1')))
+        cursor.execute(sql % (int(templateId), variableName, data))
         cursor.connection.commit()
         cursor.close()
         
@@ -112,7 +112,7 @@ class TemplateLoader:
         return 0;
         
     def readFile(self, fullPath):
-        return unicode(''.join(open(fullPath, 'r').readlines()))
+        return ''.join(open(fullPath, 'r').readlines())
     
 loader = TemplateLoader(sys.argv[1])
 loader.loadTemplates()
