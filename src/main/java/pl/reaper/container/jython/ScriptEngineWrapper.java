@@ -28,6 +28,7 @@ public class ScriptEngineWrapper {
         if (engine == null) {
             throw new ScriptEngineNotFoundException("Python engine not found");
         }
+        preInit();
         lastExecuted = "";
         putMetaVars();
     }
@@ -103,5 +104,13 @@ public class ScriptEngineWrapper {
     public ScriptEngineWrapper setOldEntityManager(EntityManager oldEntityManager) {
         this.oldEntityManager = oldEntityManager;
         return this;
+    }
+
+    private void preInit() {
+        try {
+            eval("# -*- coding: utf8 -*-");
+        } catch (ScriptException e) {
+            Logger.getLogger(ScriptExecutor.class.getName()).log(Level.SEVERE, "Preinit failed !", e);
+        }
     }
 }
