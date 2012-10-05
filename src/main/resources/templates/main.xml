@@ -26,7 +26,7 @@
                         companyAddress.postal_code = \'{:addressPostalCode}\',
                         companyAddress.city = \'{:city}\'
                     WHERE 
-                        c.id = {:id} AND
+                        community.id = {:id} AND
                         community.company_id = company.id AND
                         company.address_id = companyAddress.id
                 </data>
