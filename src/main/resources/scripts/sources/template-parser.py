@@ -64,7 +64,7 @@ class TemplateParser(Container):
                 data = self.handleSpecialVariable(data, var[2:-1])
             else:
                 self._logger.info('Inserting variable %s=%s' % (var, vars.get(var[2:-1])))
-                data = data.replace(var, vars.get(var[2:-1]))
+                data = data.replace(var, '!ółąśżźć!' + vars.get(var[2:-1]))
         return data
     
     def isSpecialVariable(self, variable):
