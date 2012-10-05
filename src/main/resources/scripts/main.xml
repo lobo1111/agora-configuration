@@ -106,9 +106,8 @@
         <onInit>MSAccessDataReader()</onInit>
         <scheduler>
             <name>import-access-db-data</name>
-            <enabled>true</enabled>
-            <!--<fireAt>0 4 * * *</fireAt>-->
-            <fireAt>* * * * *</fireAt>
+            <enabled>false</enabled>
+            <fireAt>0 4 * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>db-logger</scriptName>
@@ -194,7 +193,7 @@
         <onInit>SyncAccessToDb()</onInit>
         <scheduler>
             <name>sync-access-to-db</name>
-            <enabled>false</enabled>
+            <enabled>true</enabled>
             <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
