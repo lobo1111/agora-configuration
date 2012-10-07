@@ -2,7 +2,7 @@
 <templates>
     <template>
         <name>update-community</name>
-        <source>update-community.vtl</source>
+        <source>update.vtl</source>
         <variables>
             <var>
                 <name>comunity</name>
@@ -59,6 +59,33 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>update-possession</name>
+        <source>update.vtl</source>
+        <variables>
+            <var>
+                <name>possession</name>
+                <data>
+                    {:update}
+                    {:native}
+                    UPDATE
+                    possession,
+                    address
+                    SET 
+                    possession.share = {:possessionShare},
+                    possession.area = {:possessionArea},
+                    address.street = \'{:addressStreet}\',
+                    address.house_number = \'{:addressHouseNumber}\',
+                    address.flat_number = \'{:addressFlatNumber}\',
+                    address.postal_code = \'{:addressPostalCode}\',
+                    address.city = \'{:city}\'
+                    WHERE 
+                    possession.id = {:id} AND
+                    possession.address_id = address.id
+                </data>
+            </var>
+        </variables>
+    </template> 
     <template>
         <name>communities-names</name>
         <source>communities-names.vtl</source>
