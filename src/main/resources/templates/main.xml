@@ -178,4 +178,22 @@
             </var>
         </variables>
     </template>
+        <template>
+        <name>select-company</name>
+        <source>company.vtl</source>
+        <variables>
+            <var>
+                <name>company</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    p
+                    FROM 
+                    Company p
+                    WHERE
+                    p.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>
