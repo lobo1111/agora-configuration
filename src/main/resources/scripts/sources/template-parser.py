@@ -10,10 +10,14 @@ class TemplateParser(Container):
     _native = False
 
     def find(self, name):
-        query = 'SELECT t FROM Template t WHERE t.name = :name'
-        query = entityManager.createQuery(query)
-        query.setParameter('name', name)
-        return query.getSingleResult()
+        try:
+            query = 'SELECT t FROM Template t WHERE t.name = :name'
+            query = entityManager.createQuery(query)
+            query.setParameter('name', name)
+            return query.getSingleResult()
+        except:
+            self._logger.info('Template %s not found !' % name)
+            return None
 
     def evaluate(self, template):
         ve = VelocityEngine()
