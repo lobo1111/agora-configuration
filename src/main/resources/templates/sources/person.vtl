@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<person>
+    <id>$!person.getId()<id>
+    <firstName>$!person.getFirstName()</firstName>
+    <lastName>$!person.getLastName()</lastName>
+    <pesel>$!person.getPesel()</pesel>
+    <nip>$!person.getNip()</nip>
+    <email>$!person.getEmail()</email>
+    <phone1>$!person.getPhoneNumber1()</phone1>
+    <phone2>$!person.getPhoneNumber2()</phone2>
+    <phone3>$!person.getPhoneNumber3()</phone3>
+    <address>
+        <street>$!person.getAddress().getStreet()</street>
+        <houseNumber>$!person.getAddress().getHouseNumber()</houseNumber>
+        <flatNumber>$!person.getAddress().getFlatNumber()</flatNumber>
+        <postalCode>$!person.getAddress().getPostalCode()</postalCode>
+        <city>$!person.getAddress().getCity()</city>
+    </address>
+</person>
