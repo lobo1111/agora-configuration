@@ -169,7 +169,7 @@
                 <data>
                     {:single}
                     SELECT 
-                    *
+                    p
                     FROM 
                     person p
                     WHERE
