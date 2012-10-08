@@ -153,7 +153,7 @@
                     FROM 
                     Possession possession
                     LEFT OUTER JOIN possession.people personOwner
-                    LEFT OUTER JOIN possession.comapnies companyOwner
+                    LEFT OUTER JOIN possession.companies companyOwner
                     WHERE
                     possession.id = {:id}
                 </data>
