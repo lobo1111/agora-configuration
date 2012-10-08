@@ -10,25 +10,25 @@
                     {:update}
                     {:native}
                     UPDATE
-                        community,
-                        company,
-                        address AS companyAddress
+                    community,
+                    company,
+                    address AS companyAddress
                     SET 
-                        community.name = \'{:communityName}\',
-                        company.name = \'{:companyName}\',
-                        company.nip = \'{:companyNip}\',
-                        company.regon = \'{:companyRegon}\',
-                        company.www = \'{:companyWww}\',
-                        company.email = \'{:companyEmail}\',
-                        companyAddress.street = \'{:addressStreet}\',
-                        companyAddress.house_number = \'{:addressHouseNumber}\',
-                        companyAddress.flat_number = \'{:addressFlatNumber}\',
-                        companyAddress.postal_code = \'{:addressPostalCode}\',
-                        companyAddress.city = \'{:city}\'
+                    community.name = \'{:communityName}\',
+                    company.name = \'{:companyName}\',
+                    company.nip = \'{:companyNip}\',
+                    company.regon = \'{:companyRegon}\',
+                    company.www = \'{:companyWww}\',
+                    company.email = \'{:companyEmail}\',
+                    companyAddress.street = \'{:addressStreet}\',
+                    companyAddress.house_number = \'{:addressHouseNumber}\',
+                    companyAddress.flat_number = \'{:addressFlatNumber}\',
+                    companyAddress.postal_code = \'{:addressPostalCode}\',
+                    companyAddress.city = \'{:city}\'
                     WHERE 
-                        community.id = {:id} AND
-                        community.company_id = company.id AND
-                        company.address_id = companyAddress.id
+                    community.id = {:id} AND
+                    community.company_id = company.id AND
+                    company.address_id = companyAddress.id
                 </data>
             </var>
         </variables>
@@ -94,6 +94,28 @@
                     LEFT OUTER JOIN possessionOwnerPerson.address personAddress
                     LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
                     WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>possession-owners</name>
+        <source>possession-owners.vtl</source>
+        <variables>
+            <var>
+                <name>owners</name>
+                <data>
+                    SELECT 
+                    personOwner.id AS personId,
+                    CONCAT(personOwner.firstName, " ", personOwner.lastName) AS personName,
+                    companyOwner.id AS companyId,
+                    companyOwner.name AS companyName
+                    FROM 
+                    Possession possession
+                    LEFT OUTER JOIN possession.people personOwner
+                    LEFT OUTER JOIN possession.comapnies companyOwner
+                    WHERE
+                    possession.id = {:id}
                 </data>
             </var>
         </variables>

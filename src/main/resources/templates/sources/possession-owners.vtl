@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<list>
+    #foreach($row in $owners)
+        <item>
+            <personId>$row[0]</personId>
+            <personName>$row[1]</personName>
+            <companyId>$row[2]</companyId>
+            <companyName>$row[3]</companyName>
+        </item>
+    #end
+</list>
