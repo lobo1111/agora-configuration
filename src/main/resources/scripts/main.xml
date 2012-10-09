@@ -42,7 +42,7 @@
         <scheduler>
             <name>check-email</name>
             <enabled>true</enabled>
-            <fireAt>*/15 * * * *</fireAt>
+            <fireAt>*/5 * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>db-logger</scriptName>
@@ -74,7 +74,7 @@
         <scheduler>
             <name>file-watchdog</name>
             <enabled>true</enabled>
-            <fireAt>*/15 * * * *</fireAt>
+            <fireAt>*/5 * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>xml-loader</scriptName>
