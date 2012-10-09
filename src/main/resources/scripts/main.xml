@@ -41,7 +41,7 @@
         <onInit>MailProcessor().checkMailbox()</onInit>
         <scheduler>
             <name>check-email</name>
-            <enabled>false</enabled>
+            <enabled>true</enabled>
             <fireAt>*/15 * * * *</fireAt>
         </scheduler>
         <dependencies>
@@ -73,7 +73,7 @@
         <onInit>FileWatchdog().processFiles()</onInit>
         <scheduler>
             <name>file-watchdog</name>
-            <enabled>false</enabled>
+            <enabled>true</enabled>
             <fireAt>*/15 * * * *</fireAt>
         </scheduler>
         <dependencies>
