@@ -4,6 +4,7 @@
         <jta-data-source>jdbc/agora-erp</jta-data-source>
         <class>pl.reaper.container.data.Account</class>
         <class>pl.reaper.container.data.Address</class>
+        <class>pl.reaper.container.data.Bank</class>
         <class>pl.reaper.container.data.Category</class>
         <class>pl.reaper.container.data.CategoryItem</class>
         <class>pl.reaper.container.data.Community</class>
