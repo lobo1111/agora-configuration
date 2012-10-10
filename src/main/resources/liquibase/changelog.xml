@@ -13,5 +13,5 @@
     <include file="/opt/builder/container/src/main/resources/liquibase/logger.xml"/> 
     <include file="/opt/builder/container/src/main/resources/liquibase/bpDocuments.xml"/> 
     <include file="/opt/builder/container/src/main/resources/liquibase/velocity.xml"/> 
-    <include file="/opt/builder/container/src/main/resources/liquibase/interface.xml"/> 
+    <include file="/opt/builder/container/src/main/resources/liquibase/accounts.xml"/> 
 </databaseChangeLog> 
