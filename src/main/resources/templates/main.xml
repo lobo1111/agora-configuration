@@ -181,7 +181,7 @@
             </var>
         </variables>
     </template>
-        <template>
+    <template>
         <name>select-company</name>
         <source>company.vtl</source>
         <variables>
@@ -195,6 +195,33 @@
                     Company p
                     WHERE
                     p.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>select-accounts</name>
+        <source>accounts.vtl</source>
+        <variables>
+            <var>
+                <name>accounts</name>
+                <data>
+                    SELECT 
+                    account
+                    FROM 
+                    Account account
+                    WHERE {:where}
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(account.id)
+                    FROM 
+                    Account account
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
