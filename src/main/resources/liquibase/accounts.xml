@@ -43,8 +43,8 @@
     
     <changeSet author='tkopacki' id='bank-pocztowy-account-insert'>
         <sql> 
-            INSERT INTO `account` (`bank_id`, `name`, `number`, `parent_account_id)
-            SELECT id, 'Bank Pocztowy - konto główne', '321421343214324', NULL FROM `bank` WHERE `key` = 'BANK_POCZTOWY'
+            INSERT INTO `account` (`bank_id`, `name`, `number`)
+            SELECT id, 'Bank Pocztowy - konto główne', '321421343214324' FROM `bank` WHERE `key` = 'BANK_POCZTOWY'
         </sql>
     </changeSet>
 </databaseChangeLog>
