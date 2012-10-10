@@ -6,7 +6,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
     <changeSet author='tkopacki' id='bank-table'>
         <sql> 
-            CREATE TABLE IF NOT EXISTS `account` (
+            CREATE TABLE IF NOT EXISTS `bank` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             PRIMARY KEY (`id`)
@@ -14,18 +14,17 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='account-add-bank-and-type-columns'>
+    <changeSet author='tkopacki' id='account-add-bank-column'>
         <sql>  
             ALTER TABLE `account` 
-            ADD `bank_id` int(11) NOT NULL,
-            ADD `category_id` int(11) NOT NULL,
+            ADD `bank_id` int(11) NOT NULL
         </sql>
     </changeSet>  
     
     <changeSet author='tkopacki' id='account-bank-fkey'>
         <sql> 
             ALTER TABLE `account`
-            ADD CONSTRAINT `bank_id_fkey` FOREIGN KEY (`bank_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-        </sql>  !!...!!
+            ADD CONSTRAINT `bank_id_fkey` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
     </changeSet>
 </databaseChangeLog>
