@@ -42,16 +42,18 @@ public class Account implements Serializable {
     private String number;
     @OneToMany(mappedBy = "parrentAccount")
     private Collection<Account> childAccounts;
+    @JoinColumn(name = "bank_id", referencedColumnName = "id")
+    @ManyToOne
+    private Bank bank;
     @JoinColumn(name = "parrent_account_id", referencedColumnName = "id")
     @ManyToOne
     private Account parrentAccount;
     @ManyToMany
     @JoinTable(
         name = "possession_account", joinColumns =
-            @JoinColumn(name = "account_id", referencedColumnName = "id"),
-        inverseJoinColumns =
-            @JoinColumn(name = "possession_id", referencedColumnName = "id")
-    )
+    @JoinColumn(name = "account_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "possession_id", referencedColumnName = "id"))
     private Collection<Possession> possessions;
 
     public Account() {
@@ -114,6 +116,14 @@ public class Account implements Serializable {
 
     public void setPossessions(Collection<Possession> possessions) {
         this.possessions = possessions;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     @Override
