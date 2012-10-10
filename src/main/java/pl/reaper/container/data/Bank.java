@@ -31,7 +31,7 @@ public class Bank implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bank")
     private Collection<Account> accounts;
 
     public Integer getId() {
