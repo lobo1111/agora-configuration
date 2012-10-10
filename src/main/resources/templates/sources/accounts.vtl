@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<possessions>
+<accounts>
     #foreach($row in $accounts)
         <item>
             <bankId>$!row.getBank().getId()</bankId>
@@ -15,4 +15,4 @@
         <settings>
             <maxResults>$countRows</maxResults>
         </settings>
-</possessions>
+</accounts>
