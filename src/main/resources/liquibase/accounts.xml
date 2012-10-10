@@ -31,13 +31,13 @@
     <changeSet author='tkopacki' id='bank-add-key-column'>
         <sql>  
             ALTER TABLE `bank` 
-            ADD `key` varchar(150) NOT NULL
+            ADD `bankKey` varchar(150) NOT NULL
         </sql>
     </changeSet> 
     
     <changeSet author='tkopacki' id='bank-pocztowy-insert'>
         <sql> 
-            INSERT INTO `bank` (`name`, `key`) VALUES ('Bank Pocztowy', 'BANK_POCZTOWY');
+            INSERT INTO `bank` (`name`, `bankKey`) VALUES ('Bank Pocztowy', 'BANK_POCZTOWY');
         </sql>
     </changeSet>
     

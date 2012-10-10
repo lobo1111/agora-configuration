@@ -31,6 +31,11 @@ public class Bank implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 150)
+    @Column(name = "bankKey")
+    private String key;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bank")
     private Collection<Account> accounts;
 
@@ -48,6 +53,14 @@ public class Bank implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Collection<Account> getAccounts() {
