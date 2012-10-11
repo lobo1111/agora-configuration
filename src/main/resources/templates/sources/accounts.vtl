@@ -11,7 +11,8 @@
         <accountName>$!row.getName()</accountName>
         <accountNumber>$!row.getNumber()</accountNumber>
         <accountType>$!row.getType().getValue()</accountType>
-        #foreach($possession in $account.getPossessions())
+        <boundedPossessions>$!row.getPossessions().size()</boundedPossessions>
+        #foreach($possession in $row.getPossessions())
         <possession>
             <id>$!possession.getId()</id>
         </possession>
