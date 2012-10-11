@@ -63,6 +63,19 @@
         </variables>
     </template>
     <template>
+        <name>select-account</name>
+        <source>account.vtl</source>
+        <variables>
+            <var>
+                <name>account</name>
+                <data>
+                    {:single}
+                    SELECT c FROM Account c WHERE c.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>update-possession</name>
         <source>update.vtl</source>
         <variables>
