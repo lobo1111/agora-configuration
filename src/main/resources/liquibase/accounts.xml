@@ -71,7 +71,7 @@
     <changeSet author='tkopacki' id='account-add-type-column'>
         <sql>  
             ALTER TABLE `account` 
-            `type` varchar(255) COLLATE utf8_polish_ci NOT NULL;
+            ADD `type` varchar(255) COLLATE utf8_polish_ci NOT NULL;
         </sql>
     </changeSet>  
     
