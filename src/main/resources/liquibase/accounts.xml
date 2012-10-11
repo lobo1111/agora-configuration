@@ -71,20 +71,20 @@
     <changeSet author='tkopacki' id='account-add-type-column'>
         <sql>  
             ALTER TABLE `account` 
-            ADD `type` varchar(255) COLLATE utf8_polish_ci NOT NULL;
+            ADD `type_id` int(11) NOT NULL;
         </sql>
     </changeSet>  
     
     <changeSet author='tkopacki' id='account-update-types'>
         <sql>  
-            UPDATE `account` SET type = 'DEFAULT';
+            UPDATE `account` SET type_id = (SELECT id FROM `dictionary` WHERE dictionaryKey = 'DEFAULT');
         </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='account-type-fkey'>
         <sql>  
             ALTER TABLE `account`
-            ADD CONSTRAINT `account_type_fkey` FOREIGN KEY (`type`) REFERENCES `dictionary` (`dictionaryKey`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `account_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
 </databaseChangeLog>
