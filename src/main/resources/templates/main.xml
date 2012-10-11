@@ -100,6 +100,16 @@
         </variables>
     </template>
     <template>
+        <name>master-accounts</name>
+        <source>master-accounts.vtl</source>
+        <variables>
+            <var>
+                <name>accounts</name>
+                <data>SELECT c FROM Account c WHERE c.parent IS null ORDER BY c.name ASC</data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>communities-and-possessions-list</name>
         <source>communities-and-possessions-list.vtl</source>
         <variables>
