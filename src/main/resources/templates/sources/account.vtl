@@ -6,4 +6,9 @@
     <type>$!account.getType().getValue()</type>
     <parentName>$!account.getParent().getName()</parentName>
     <parentNumber>$!account.getParent().getNumber()</parentNumber>
+    #for($possession in $account.getPossessions())
+        <possession>
+            <id>$!possession.getId()</id>
+        </possession>
+    #end
 </account>
