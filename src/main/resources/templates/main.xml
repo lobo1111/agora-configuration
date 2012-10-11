@@ -207,18 +207,9 @@
                 <name>accounts</name>
                 <data>
                     SELECT 
-                    account.bank.id,
-                    account.bank.name,
-                    account.id,
-                    account.name,
-                    account.number,
-                    dictionary.value,
-                    account.parent.id,
-                    account.parent.name,
-                    account.parent.number
+                    account
                     FROM 
                     Account account
-                    JOIN account.dictionary dictionary
                     WHERE {:where}
                 </data>
             </var>

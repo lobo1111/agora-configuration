@@ -40,9 +40,9 @@ public class Account implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "number")
     private String number;
-    @Basic(optional = false)
-    @Column(name = "type")
-    private String type;
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
+    @ManyToOne
+    private Dictionary type;
     @OneToMany(mappedBy = "parrentAccount")
     private Collection<Account> childAccounts;
     @JoinColumn(name = "bank_id", referencedColumnName = "id")
@@ -96,11 +96,11 @@ public class Account implements Serializable {
         this.number = number;
     }
 
-    public String getType() {
+    public Dictionary getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Dictionary type) {
         this.type = type;
     }
 
