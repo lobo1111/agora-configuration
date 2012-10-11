@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <accounts>
     #foreach($row in $accounts)
-        <item>
-            <bankId>$!row.getBank().getId()</bankId>
-            <bankName>$!row.getBank().getName()</bankName>
-            <parentAccountId>$!row.getParent().getId()</parentAccountId>
-            <parentAccountName>$!row.getParent().getName()</parentAccountName>
-            <parentAccountNumber>$!row.getParent().getNumber()</parentAccountNumber>
-            <accountId>$!row.getId()</accountId>
-            <accountName>$!row.getName()</accountName>
-            <accountNumber>$!row.getNumber()</accountNumber>
-            <accountType>$!row.getType().getValue()</accountType>
-        </item>
+    <item>
+        <bankId>$!row.getBank().getId()</bankId>
+        <bankName>$!row.getBank().getName()</bankName>
+        <parentAccountId>$!row.getParent().getId()</parentAccountId>
+        <parentAccountName>$!row.getParent().getName()</parentAccountName>
+        <parentAccountNumber>$!row.getParent().getNumber()</parentAccountNumber>
+        <accountId>$!row.getId()</accountId>
+        <accountName>$!row.getName()</accountName>
+        <accountNumber>$!row.getNumber()</accountNumber>
+        <accountType>$!row.getType().getValue()</accountType>
+        #for($possession in $account.getPossessions())
+        <possession>
+            <id>$!possession.getId()</id>
+        </possession>
+        #end
+    </item>
     #end
-        <settings>
-            <maxResults>$countRows</maxResults>
-        </settings>
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
 </accounts>
