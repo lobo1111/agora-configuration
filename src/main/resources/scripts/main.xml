@@ -106,7 +106,7 @@
         <onInit>MSAccessDataReader()</onInit>
         <scheduler>
             <name>import-access-db-data</name>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
             <fireAt>*/5 * * * *</fireAt>
         </scheduler>
         <dependencies>
