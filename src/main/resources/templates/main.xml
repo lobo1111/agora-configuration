@@ -218,7 +218,7 @@
                     account.parent.number
                     FROM 
                     Account account
-                    JOIN Dictionary dictionary
+                    JOIN account.dictionary dictionary
                     WHERE {:where}
                 </data>
             </var>
