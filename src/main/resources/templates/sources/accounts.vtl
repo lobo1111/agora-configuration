@@ -2,15 +2,15 @@
 <accounts>
     #foreach($row in $accounts)
         <item>
-            <bankId>$!row[0]</bankId>
-            <bankName>$!row[1]</bankName>
-            <parentAccountId>$!row[6]</parentAccountId>
-            <parentAccountName>$!row[7]</parentAccountName>
-            <parentAccountNumber>$!row[8]</parentAccountNumber>
-            <accountId>$!row[2]</accountId>
-            <accountName>$!row[3]</accountName>
-            <accountNumber>$!row[4]</accountNumber>
-            <accountType>$!row[5]</accountType>
+            <bankId>$!row.getBank().getId()</bankId>
+            <bankName>$!row.getBank().getName()</bankName>
+            <parentAccountId>$!row.getParent().getId()</parentAccountId>
+            <parentAccountName>$!row.getParent().getName()</parentAccountName>
+            <parentAccountNumber>$!row.getParent().getNumber()</parentAccountNumber>
+            <accountId>$!row.getId()</accountId>
+            <accountName>$!row.getName()</accountName>
+            <accountNumber>$!row.getNumber()</accountNumber>
+            <accountType>$!row.getType().getValue()</accountType>
         </item>
     #end
         <settings>
