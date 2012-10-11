@@ -47,4 +47,44 @@
             SELECT id, 'Bank Pocztowy - konto główne', '321421343214324' FROM `bank` WHERE `bankKey` = 'BANK_POCZTOWY'
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='dictionary-account-type'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('ACCOUNT_TYPE');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='accounts-types'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'DEFAULT', 'Konto ogólne' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'RENT', 'Konto czynszowe' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'REPAIR_FUND', 'Fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='account-add-type-column'>
+        <sql>  
+            ALTER TABLE `account` 
+            `type` varchar(255) COLLATE utf8_polish_ci NOT NULL;
+        </sql>
+    </changeSet>  
+    
+    <changeSet author='tkopacki' id='account-update-types'>
+        <sql>  
+            UPDATE `account` SET type = 'DEFAULT';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='account-type-fkey'>
+        <sql>  
+            ALTER TABLE `account`
+            ADD CONSTRAINT `account_type_fkey` FOREIGN KEY (`type`) REFERENCES `dictionary` (`dictionaryKey`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

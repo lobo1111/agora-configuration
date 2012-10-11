@@ -40,6 +40,9 @@ public class Account implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "number")
     private String number;
+    @Basic(optional = false)
+    @Column(name = "type")
+    private String type;
     @OneToMany(mappedBy = "parrentAccount")
     private Collection<Account> childAccounts;
     @JoinColumn(name = "bank_id", referencedColumnName = "id")
@@ -91,6 +94,14 @@ public class Account implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @XmlTransient
