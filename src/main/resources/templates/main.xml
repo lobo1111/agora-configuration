@@ -264,7 +264,7 @@
                     FROM 
                     IncomingPaymentDocumentPosition document,
                     Dictionary dictionary
-                    WHERE document.document.status = dictionary.dictionaryKey AND {:where}
+                    WHERE document.document.status = dictionary.key AND {:where}
                 </data>
             </var>
             <var>
@@ -276,7 +276,7 @@
                     FROM 
                     IncomingPaymentDocumentPosition document,
                     Dictionary dictionary
-                    WHERE document.document.status = dictionary.dictionaryKey AND {:where}
+                    WHERE document.document.status = dictionary.key AND {:where}
                 </data>
             </var>
         </variables>
