@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<accounts>
+<payments>
     #foreach($row in $payments)
     <item>
         <documentId>$!row.getDocument().getId()</documentId>
@@ -19,4 +19,4 @@
     <settings>
         <maxResults>$countRows</maxResults>
     </settings>
-</accounts>
+</payments>
