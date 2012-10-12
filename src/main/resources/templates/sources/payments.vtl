@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<accounts>
+    #foreach($row in $payments)
+    <item>
+        <documentId>$!row.getDocument().getId()</documentId>
+        <positionId>$!row.getId()</positionId>
+        <sender>$!row.getDocument().getSender()</sender>
+        <extractNumber>$!row.getDocument().getExtractNumber()</extractNumber>
+        <positionNo>$!row.getPositionNo()</positionNo>
+        <income>$!row.getIncome()</income>
+        <clientNumber>$!row.getClientNumber()</clientNumber>
+        <bookingDate>$!row.getBookingDate()</bookingDate>
+        <title>$!row.getTitle()</title>
+        <clientName>$!row.getClientName()</clientName>
+        <status>$!row.getDocument().getStatus()</status>
+        <timestamp>$!row.getDocument().getTimestamp()</timestamp>
+    </item>
+    #end
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
+</accounts>

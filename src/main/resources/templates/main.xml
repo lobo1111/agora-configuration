@@ -249,4 +249,32 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>payments</name>
+        <source>payments.vtl</source>
+        <variables>
+            <var>
+                <name>payments</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    document
+                    FROM 
+                    IncomingPaymentDocument document
+                    WHERE {:where}
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(document.id)
+                    FROM 
+                    IncomingPaymentDocumentPosition document
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>

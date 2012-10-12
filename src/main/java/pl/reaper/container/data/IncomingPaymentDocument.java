@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "incoming_payment_document")
 @XmlRootElement
 public class IncomingPaymentDocument implements Serializable {
+
     @Basic(optional = false)
     @Column(name = "status")
     private String status;
@@ -54,6 +55,9 @@ public class IncomingPaymentDocument implements Serializable {
     private BigDecimal spending;
     @Column(name = "positionCounter")
     private Integer positionCounter;
+    @Column(name = "timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "document")
     private Collection<IncomingPaymentDocumentPosition> incomingPaymentDocumentPositionCollection;
 
@@ -136,6 +140,14 @@ public class IncomingPaymentDocument implements Serializable {
         this.positionCounter = positionCounter;
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @XmlTransient
     public Collection<IncomingPaymentDocumentPosition> getIncomingPaymentDocumentPositionCollection() {
         return incomingPaymentDocumentPositionCollection;
@@ -177,5 +189,4 @@ public class IncomingPaymentDocument implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    
 }
