@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <payments>
     #foreach($row in $payments)
-    $row.getClass().getCanonicalName()
-    $row[0]
-    $row[0].getClass().getCanonicalName()
-    $row[1]
-    $row[1].getClass().getCanonicalName()
-    
     <item>
-        <documentId>$!row.getDocument().getId()</documentId>
-        <positionId>$!row.getId()</positionId>
-        <sender>$!row.getDocument().getSender()</sender>
-        <extractNumber>$!row.getDocument().getExtractNumber()</extractNumber>
-        <positionNo>$!row.getPositionNo()</positionNo>
-        <income>$!row.getIncome()</income>
-        <clientNumber>$!row.getClientNumber()</clientNumber>
-        <bookingDate>$!row.getBookingDate()</bookingDate>
-        <title>$!row.getTitle()</title>
-        <clientName>$!row.getClientName()</clientName>
-        <status>$!row.getDocument().getStatus()</status>
-        <timestamp>$!row.getDocument().getTimestamp()</timestamp>
+        <documentId>$!row[0].getDocument().getId()</documentId>
+        <positionId>$!row[0].getId()</positionId>
+        <sender>$!row[0].getDocument().getSender()</sender>
+        <extractNumber>$!row[0].getDocument().getExtractNumber()</extractNumber>
+        <positionNo>$!row[0].getPositionNo()</positionNo>
+        <income>$!row[0].getIncome()</income>
+        <clientNumber>$!row[0].getClientNumber()</clientNumber>
+        <bookingDate>$!row[0].getBookingDate()</bookingDate>
+        <title>$!row[0].getTitle()</title>
+        <clientName>$!row[0].getClientName()</clientName>
+        <status>$!row[1].getValue()</status>
+        <timestamp>$!row[0].getDocument().getTimestamp()</timestamp>
     </item>
     #end
     <settings>
