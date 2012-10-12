@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <payments>
+    $payments
+    $payments.size()
     #foreach($row in $payments)
     <item>
         <documentId>$!row.getDocument().getId()</documentId>
