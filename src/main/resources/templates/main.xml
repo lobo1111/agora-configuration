@@ -259,8 +259,8 @@
                 <data>
                     {:limit}
                     SELECT 
-                    document.*,
-                    dictionary.*
+                    document,
+                    dictionary
                     FROM 
                     IncomingPaymentDocumentPosition document,
                     Dictionary dictionary
