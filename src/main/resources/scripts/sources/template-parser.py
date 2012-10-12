@@ -79,12 +79,16 @@ class TemplateParser(Container):
         
     def handleSpecialVariable(self, data, variable):
         if variable == 'limit':
+            self._logger.info('"insert limit" marker found')
             self._insertLimit = True
         elif variable == 'single':
+            self._logger.info('"single" marker found')
             self._single = True
         elif variable == 'native':
+            self._logger.info('"native" marker found')
             self._native = True
         elif variable == 'update':
+            self._logger.info('"update" marker found')
             self._update = True
         data = data.replace('{:%s}' % variable, '')
         return data
