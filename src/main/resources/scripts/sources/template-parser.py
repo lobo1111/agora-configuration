@@ -36,15 +36,18 @@ class TemplateParser(Container):
         query = None
         if self._native:
             query = entityManager.createNativeQuery(data)
+            self._native = False
         else:
             query = entityManager.createQuery(data)
         if self._insertLimit:
             query = self.insertLimit(query)
             self._insertLimit = False
         if self._update:
+            self._update = False
             return query.executeUpdate()
         else:
             if self._single:
+                self._single = False
                 return query.getSingleResult()
             else:
                 return query.getResultList()
