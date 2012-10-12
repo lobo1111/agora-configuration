@@ -260,7 +260,7 @@
                     SELECT 
                     document
                     FROM 
-                    IncomingPaymentDocument document
+                    IncomingPaymentDocumentPosition document
                     WHERE {:where}
                 </data>
             </var>
