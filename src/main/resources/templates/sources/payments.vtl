@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <payments>
     #foreach($row in $payments)
-    $row
+    $row.getClass().getCanonicalName()
+    $row[0]
+    $row[0].getClass().getCanonicalName()
+    $row[1]
+    $row[1].getClass().getCanonicalName()
+    
     <item>
         <documentId>$!row.getDocument().getId()</documentId>
         <positionId>$!row.getId()</positionId>
