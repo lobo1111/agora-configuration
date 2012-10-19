@@ -87,4 +87,85 @@
             ADD CONSTRAINT `account_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-table'>
+        <sql> 
+            CREATE TABLE IF NOT EXISTS `payment` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `possession_id` int(11) NOT NULL,
+            `type_id` int(11) NOT NULL,
+            `status_id` int(11) NOT NULL,
+            `sender_id` int(11) NOT NULL,
+            `income` decimal(10,2) DEFAULT NULL,
+            `description` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+            `auto` int(1) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-possession-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-type-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `payment_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-status-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `payment_status_fkey` FOREIGN KEY (`status_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-sender-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `payment_sender_fkey` FOREIGN KEY (`sender_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-type'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('PAYMENT_TYPE');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payments-types-insert'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'RENT', 'Czynsz' FROM `dictionary_type` WHERE `type` = 'PAYMENT_TYPE';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'REPAIR_FUND', 'Fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'PAYMENT_TYPE';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-type'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('PAYMENT_STATUS');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payments-types-insert'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'NEW', 'Nowa płatność' FROM `dictionary_type` WHERE `type` = 'PAYMENT_STATUS';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'BOOKED', 'Zaksięgowana' FROM `dictionary_type` WHERE `type` = 'PAYMENT_STATUS';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'CANCELED', 'Anulowana' FROM `dictionary_type` WHERE `type` = 'PAYMENT_STATUS';
+        </sql>
+    </changeSet>
 </databaseChangeLog>
