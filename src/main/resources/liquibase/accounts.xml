@@ -124,13 +124,6 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='payment-sender-fkey'>
-        <sql>  
-            ALTER TABLE `payment`
-            ADD CONSTRAINT `payment_sender_fkey` FOREIGN KEY (`sender_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-        </sql>
-    </changeSet>
-    
     <changeSet author='tkopacki' id='payment-type'>
         <sql>
             INSERT INTO `dictionary_type` (`type`) VALUES
