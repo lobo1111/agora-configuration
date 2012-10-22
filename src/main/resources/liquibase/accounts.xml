@@ -151,7 +151,7 @@
     <changeSet author='tkopacki' id='payments-statuses-insert'>
         <sql>
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
-            SELECT id, 'NEW', 'Nowa płatność' FROM `dictionary_type` WHERE `type` = 'PAYMENT_STATUS';
+            SELECT id, 'NEW_PAYMENT', 'Nowa płatność' FROM `dictionary_type` WHERE `type` = 'PAYMENT_STATUS';
             
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'BOOKED', 'Zaksięgowana' FROM `dictionary_type` WHERE `type` = 'PAYMENT_STATUS';
