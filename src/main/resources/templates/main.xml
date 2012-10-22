@@ -251,11 +251,11 @@
         </variables>
     </template>
     <template>
-        <name>select-payments</name>
-        <source>payments.vtl</source>
+        <name>select-documents</name>
+        <source>incoming-documents.vtl</source>
         <variables>
             <var>
-                <name>payments</name>
+                <name>documents</name>
                 <data>
                     {:limit}
                     SELECT 
@@ -277,6 +277,34 @@
                     IncomingPaymentDocumentPosition document,
                     Dictionary dictionary
                     WHERE document.document.status = dictionary.key AND {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>select-payments</name>
+        <source>payments.vtl</source>
+        <variables>
+            <var>
+                <name>payments</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    payment
+                    FROM 
+                    Payment
+                    WHERE {:where}
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(payment.id)
+                    FROM 
+                    Payment
+                    WHERE {:where}
                 </data>
             </var>
         </variables>

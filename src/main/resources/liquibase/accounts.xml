@@ -95,7 +95,6 @@
             `possession_id` int(11) NOT NULL,
             `type_id` int(11) NOT NULL,
             `status_id` int(11) NOT NULL,
-            `sender_id` int(11) NOT NULL,
             `income` decimal(10,2) DEFAULT NULL,
             `description` varchar(255) COLLATE utf8_polish_ci NOT NULL,
             `auto` int(1) NOT NULL DEFAULT 0,

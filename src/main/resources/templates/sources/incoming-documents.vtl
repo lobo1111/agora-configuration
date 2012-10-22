@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<incoming-documents>
+    #foreach($row in $documents)
+    <item>
+        <documentId>$!row[0].getDocument().getId()</documentId>
+        <positionId>$!row[0].getId()</positionId>
+        <sender>$!row[0].getDocument().getSender()</sender>
+        <extractNumber>$!row[0].getDocument().getExtractNumber()</extractNumber>
+        <positionNo>$!row[0].getPositionNo()</positionNo>
+        <income>$!row[0].getIncome()</income>
+        <clientNumber>$!row[0].getClientNumber()</clientNumber>
+        <bookingDate>$!row[0].getBookingDate().getTime()</bookingDate>
+        <title>$!row[0].getTitle()</title>
+        <clientName>$!row[0].getClientName()</clientName>
+        <status>$!row[1].getValue()</status>
+        <timestamp>$!row[0].getDocument().getTimestamp().getTime()</timestamp>
+    </item>
+    #end
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
+</incoming-documents>
