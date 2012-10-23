@@ -292,7 +292,7 @@
                     SELECT 
                     payment
                     FROM 
-                    Payment
+                    Payment payment
                     WHERE {:where}
                 </data>
             </var>
@@ -303,7 +303,7 @@
                     SELECT 
                     count(payment.id)
                     FROM 
-                    Payment
+                    Payment payment
                     WHERE {:where}
                 </data>
             </var>
