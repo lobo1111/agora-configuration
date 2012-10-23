@@ -14,6 +14,7 @@
         <class>pl.reaper.container.data.IncomingPaymentDocument</class>
         <class>pl.reaper.container.data.IncomingPaymentDocumentPosition</class>
         <class>pl.reaper.container.data.Log</class>
+        <class>pl.reaper.container.data.Payment</class>
         <class>pl.reaper.container.data.Person</class>
         <class>pl.reaper.container.data.Possession</class>
         <class>pl.reaper.container.data.Script</class>
