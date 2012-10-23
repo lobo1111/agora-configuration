@@ -103,22 +103,29 @@
         </variables>
     </template> 
     <template>
+        <name>payments-types</name>
+        <source>payments-types.vtl</source>
+        <variables>
+            <var>
+                <name>types</name>
+                <data>SELECT 
+                    type
+                    FROM 
+                    Dictionary types
+                    WHERE 
+                    type.type.type = 'PAYMENT_TYPE'
+                    ORDER BY 
+                    type.value ASC</data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>communities-names</name>
         <source>communities-names.vtl</source>
         <variables>
             <var>
                 <name>communities</name>
                 <data>SELECT c FROM Community c ORDER BY c.name ASC</data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>master-accounts</name>
-        <source>master-accounts.vtl</source>
-        <variables>
-            <var>
-                <name>accounts</name>
-                <data>SELECT c FROM Account c WHERE c.parrentAccount IS null ORDER BY c.name ASC</data>
             </var>
         </variables>
     </template>

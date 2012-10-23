@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <list>
+    <item>
+        <id>0</id>
+        <name></name>
+    </item>
     #foreach($community in $communities)
-        <item>
-            <id>$community.getId()</id>
-            <name>$community.getName()</name>
-        </item>
+    <item>
+        <id>$community.getId()</id>
+        <name>$community.getName()</name>
+    </item>
     #end
 </list>
