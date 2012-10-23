@@ -111,7 +111,7 @@
                 <data>SELECT 
                     type
                     FROM 
-                    Dictionary types
+                    Dictionary type
                     WHERE 
                     type.type.type = \'PAYMENT_TYPE\'
                     ORDER BY 
