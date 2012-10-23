@@ -113,7 +113,7 @@
                     FROM 
                     Dictionary types
                     WHERE 
-                    type.type.type = 'PAYMENT_TYPE'
+                    type.type.type = \'PAYMENT_TYPE\'
                     ORDER BY 
                     type.value ASC</data>
             </var>
