@@ -109,13 +109,13 @@
             <var>
                 <name>types</name>
                 <data>SELECT 
-                    type
+                    dic
                     FROM 
-                    Dictionary type
+                    Dictionary dic
                     WHERE 
-                    type.type.type = \'PAYMENT_TYPE\'
+                    dic.type.type = \'PAYMENT_TYPE\'
                     ORDER BY 
-                    type.value ASC</data>
+                    dic.value ASC</data>
             </var>
         </variables>
     </template>
