@@ -25,4 +25,4 @@ class PaymentManager(Container):
         return self._dictManager.getDictionaryInstance(vars.get('type'))
     
     def getPaymentStatus(self):
-        return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'NEW')
+        return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'NEW_PAYMENT')
