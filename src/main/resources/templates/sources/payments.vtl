@@ -3,7 +3,7 @@
     #foreach($row in $payments)
     <item>
         <paymentId>$row.getPaymentsId()</paymentId>
-        <possession>$row.getPossession().getCommunity().getName() - $row.getPossession().getStreet() $row.getPossession().getHouseNumber()/$row.getPossession().getFlatNumber()</possession>
+        <possession>$row.getPossession().getCommunity().getName() - $row.getPossession().getAddress().getStreet() $row.getPossession().getAddress().getHouseNumber()/$row.getPossession().getAddress().getFlatNumber()</possession>
         <type>$row.getType().getValue()</type>
         <status>$row.getStatus().getValue()</status>
         <income>$row.getIncome()</income>
