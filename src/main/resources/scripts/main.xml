@@ -224,4 +224,32 @@
         </security>
     </script>
     
+    <script>
+        <name>dictionary-manager</name>
+        <source>dictionary.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>create-payment</name>
+        <source>payment.py</source>
+        <onInit>Payment().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>dictionary-manager</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
 </scripts>
