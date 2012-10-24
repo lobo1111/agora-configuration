@@ -22,7 +22,7 @@ class PaymentManager(Container):
         return BigDecimal(vars.get('income'))
     
     def getPaymentType(self):
-        return self._dictManager.getDictionaryInstance('PAYMENT_TYPE', vars.get('type'))
+        return self._dictManager.getDictionaryInstance(vars.get('type'))
     
     def getPaymentStatus(self):
-        return self._dictManager.getDictionaryInstance('PAYMENT_STATUS', 'NEW')
+        return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'NEW')
