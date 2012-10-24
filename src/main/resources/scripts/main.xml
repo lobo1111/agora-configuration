@@ -241,7 +241,7 @@
     <script>
         <name>create-payment</name>
         <source>payment.py</source>
-        <onInit>Payment().create()</onInit>
+        <onInit>PaymentManager().create()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>

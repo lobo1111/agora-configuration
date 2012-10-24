@@ -1,17 +1,16 @@
 from pl.reaper.container.data import Payment
 
-class Payment(Container):
+class PaymentManager(Container):
     def __init__(self):
         self._dictManager = DictionaryManager()
     
     def create(self):
         payment = Payment()
-        print dir(payment)
+        payment.setPossession(self.getPossession())
         payment.setIncome(self.getIncome())
         payment.setType(self.getPaymentType())
         payment.setStatus(self.getPaymentStatus())
         payment.setAuto(0)
-        payment.setPossession(self.getPossession())
         entityManager.persist(payment)
         
     def getPossession(self):
