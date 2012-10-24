@@ -12,6 +12,7 @@ class PaymentManager(Container):
         payment.setType(self.getPaymentType())
         payment.setStatus(self.getPaymentStatus())
         payment.setAuto(0)
+        payment.setDescription(self.getDescription())
         entityManager.persist(payment)
         
     def getPossession(self):
@@ -20,6 +21,9 @@ class PaymentManager(Container):
     
     def getIncome(self):
         return BigDecimal(vars.get('income'))
+    
+    def getDescription(self):
+        return vars.get('description')
     
     def getPaymentType(self):
         return self._dictManager.getDictionaryInstance(vars.get('type'))
