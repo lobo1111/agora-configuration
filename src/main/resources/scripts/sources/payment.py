@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Payment
+from java.math import BigDecimal
 
 class PaymentManager(Container):
     def __init__(self):
@@ -18,7 +19,7 @@ class PaymentManager(Container):
         return entityManager.createQuery(sql).getSingleResult()
     
     def getIncome(self):
-        return vars.get('income')
+        return BigDecimal(vars.get('income'))
     
     def getPaymentType(self):
         return self._dictManager.getDictionaryInstance('PAYMENT_TYPE', vars.get('type'))
