@@ -14,7 +14,7 @@ class PaymentManager(Container):
         entityManager.persist(payment)
         
     def getPossession(self):
-        sql = "Select possession From Possession possession Where possession.id = %d" % vars.get('possession')
+        sql = "Select possession From Possession possession Where possession.id = %s" % vars.get('possession')
         return entityManager.createQuery(sql).getSingleResult()
     
     def getIncome(self):
