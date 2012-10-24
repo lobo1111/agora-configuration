@@ -8,5 +8,5 @@ class DictionaryManager(Container):
         return entityManager.createQuery(sql).getSingleResult();
     
     def getDictionaryInstance(self, id):
-        sql = "Select dict From Dictionary Where dict.id = %s" % id
+        sql = "Select dict From Dictionary dict Where dict.id = %s" % id
         return entityManager.createQuery(sql).getSingleResult();
