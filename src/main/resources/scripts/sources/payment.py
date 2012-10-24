@@ -6,11 +6,12 @@ class Payment(Container):
     
     def create(self):
         payment = Payment()
-        payment.setPossession(self.getPossession())
+        print dir(payment)
         payment.setIncome(self.getIncome())
         payment.setType(self.getPaymentType())
         payment.setStatus(self.getPaymentStatus())
         payment.setAuto(0)
+        payment.setPossession(self.getPossession())
         entityManager.persist(payment)
         
     def getPossession(self):
