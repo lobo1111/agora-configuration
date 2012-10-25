@@ -330,10 +330,10 @@
                     FROM
                     ((SELECT
                     id,
-                    CONCAT(person.first_name, ' ', person.last_name) AS name,
+                    CONCAT(person.first_name, \' \', person.last_name) AS name,
                     person.pesel,
-                    'osoba fizyczna' AS type_label,
-                    'PERSON' AS type_key
+                    \'osoba fizyczna\' AS type_label,
+                    \'PERSON\' AS type_key
                     FROM
                     person)
                     UNION
@@ -341,8 +341,8 @@
                     id,
                     company.name,
                     company.nip,
-                    'firma' AS type_label,
-                    'COMPANY' AS type_key
+                    \'firma\' AS type_label,
+                    \'COMPANY\' AS type_key
                     FROM
                     company)) AS owner
                     WHERE 
