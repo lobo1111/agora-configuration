@@ -329,7 +329,8 @@
                     id,
                     CONCAT(person.first_name, \' \', person.last_name) AS name,
                     person.pesel,
-                    \'person\' AS type
+                    \'osoba fizyczna\' AS type_label,
+                    \'PERSON\' AS type_key,
                     FROM
                     person
                     UNION
@@ -337,7 +338,8 @@
                     id,
                     company.name,
                     company.nip,
-                    \'company\' AS type
+                    \'firma\' AS type_label,
+                    \'COMPANY\' AS type_key,
                     FROM
                     company
                     WHERE {:where}
