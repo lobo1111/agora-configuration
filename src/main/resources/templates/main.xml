@@ -336,7 +336,7 @@
                     \'PERSON\' AS type_key
                     FROM
                     person)
-                    UNION
+                    UNION ALL
                     (SELECT
                     id,
                     company.name,
@@ -355,13 +355,13 @@
                     {:single}
                     {:native}
                     SELECT
-                    count(id)
+                    count(*)
                     FROM
                     (SELECT
                     id
                     FROM
                     person
-                    UNION
+                    UNION ALL
                     SELECT
                     id
                     FROM
