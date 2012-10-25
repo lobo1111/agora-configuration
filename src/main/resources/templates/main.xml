@@ -316,4 +316,53 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>select-owners</name>
+        <source>owners.vtl</source>
+        <variables>
+            <var>
+                <name>owners</name>
+                <data>
+                    {:limit}
+                    {:native}
+                    SELECT
+                    id,
+                    CONCAT(person.first_name, ' ', person.last_name) AS name,
+                    person.pesel,
+                    'person' AS type
+                    FROM
+                    person
+                    UNION
+                    SELECT
+                    id,
+                    company.name,
+                    company.nip,
+                    'company' AS type
+                    FROM
+                    company
+                    WHERE {:where}
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    {:native}
+                    SELECT
+                    count(id)
+                    FROM
+                    (SELECT
+                    id
+                    FROM
+                    person
+                    UNION
+                    SELECT
+                    id
+                    FROM
+                    company) AS tmp
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>
