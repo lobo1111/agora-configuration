@@ -337,7 +337,7 @@
                     personAddress.flat_number AS flatNumber,
                     personAddress.postal_code AS postalCode,
                     personAddress.city AS city
-                    FROM person JOIN address AS personAddress ON(person.address_id = address.id) WHERE {:where})
+                    FROM person JOIN address AS personAddress ON(person.address_id = personAddress.id) WHERE {:where})
                     UNION ALL
                     (SELECT
                     company.id AS companyId,
@@ -350,7 +350,7 @@
                     companyAddress.flat_number AS flatNumber,
                     companyAddress.postal_code AS postalCode,
                     companyAddress.city AS city
-                    FROM company JOIN address AS companyAddress ON(company.address_id = address.id) WHERE {:where})
+                    FROM company JOIN address AS companyAddress ON(company.address_id = companyAddress.id) WHERE {:where})
                 </data>
             </var>
             <var>
