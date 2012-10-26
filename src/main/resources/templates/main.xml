@@ -341,7 +341,7 @@
                         FROM 
                                 person 
                                 JOIN address ON(person.address_id = address.id))
-                UNION ALL
+                    UNION ALL
                         (SELECT
                                 company.id AS id,
                                 company.name as name,
@@ -357,7 +357,7 @@
                             FROM 
                                 company 
                                 JOIN address ON(company.address_id = address.id))
-                        ) AS tmp WHERE {:where}
+                    ) AS tmp WHERE {:where}
                 </data>
             </var>
             <var>
@@ -365,19 +365,39 @@
                 <data>
                     {:single}
                     {:native}
-                    SELECT
-                    count(*)
-                    FROM
-                    (SELECT
-                    id
-                    FROM
-                    person
+                    SELECT count(*) FROM (
+                        (SELECT
+                                person.id AS id,
+                                CONCAT(person.first_name, \' \', person.last_name) AS name,
+                                person.pesel AS number,
+                                \'osoba fizyczna\' AS typeLabel,
+                                \'PERSON\' AS typeKey,
+                                person.last_name AS lastName,
+                                address.street AS street,
+                                address.house_number AS houseNumber,
+                                address.flat_number AS flatNumber,
+                                address.postal_code AS postalCode,
+                                address.city AS city
+                        FROM 
+                                person 
+                                JOIN address ON(person.address_id = address.id))
                     UNION ALL
-                    SELECT
-                    id
-                    FROM
-                    company) AS tmp WHERE {:where}
-                    
+                        (SELECT
+                                company.id AS id,
+                                company.name as name,
+                                company.nip as number,
+                                \'firma\' AS typelabel,
+                                \'COMPANY\' AS typeKey,
+                                \'\' AS lastName,
+                                address.street AS street,
+                                address.house_number AS houseNumber,
+                                address.flat_number AS flatNumber,
+                                address.postal_code AS postalCode,
+                                address.city AS city
+                            FROM 
+                                company 
+                                JOIN address ON(company.address_id = address.id))
+                    ) AS tmp WHERE {:where}
                 </data>
             </var>
         </variables>
