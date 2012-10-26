@@ -325,28 +325,21 @@
                 <data>
                     {:limit}
                     {:native}
-                    SELECT
-                    *
-                    FROM
-                    ((SELECT
+                    (SELECT
                     id,
-                    CONCAT(person.first_name, \' \', person.last_name) AS name,
-                    person.pesel,
+                    CONCAT(person.first_name, \' \', person.last_name) AS personName,
+                    person.pesel AS personPesel,
                     \'osoba fizyczna\' AS type_label,
                     \'PERSON\' AS type_key
-                    FROM
-                    person)
+                    FROM person JOIN address ON(person.address_id = address.id) WHERE {:where})
                     UNION ALL
                     (SELECT
                     id,
-                    company.name,
-                    company.nip,
+                    company.name as companyName,
+                    company.nip as companyNip,
                     \'firma\' AS type_label,
                     \'COMPANY\' AS type_key
-                    FROM
-                    company)) AS owner
-                    WHERE 
-                    {:where}
+                    FROM company JOIN address ON(company.address_id = address.id) WHERE {:where})
                 </data>
             </var>
             <var>
