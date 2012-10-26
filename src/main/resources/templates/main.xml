@@ -326,19 +326,29 @@
                     {:limit}
                     {:native}
                     (SELECT
-                    id,
+                    id AS personId,
                     CONCAT(person.first_name, \' \', person.last_name) AS personName,
                     person.pesel AS personPesel,
                     \'osoba fizyczna\' AS type_label,
-                    \'PERSON\' AS type_key
+                    \'PERSON\' AS type_key,
+                    address.street_name AS personStreetName,
+                    address.house_number AS personHouseNumber,
+                    address.flat_number AS personFlatNumber,
+                    address.postal_code AS personPostal,
+                    address.city AS personCity
                     FROM person JOIN address ON(person.address_id = address.id) WHERE {:where})
                     UNION ALL
                     (SELECT
-                    id,
+                    id AS companyId,
                     company.name as companyName,
                     company.nip as companyNip,
                     \'firma\' AS type_label,
-                    \'COMPANY\' AS type_key
+                    \'COMPANY\' AS type_key,
+                    address.street_name AS companyStreetName,
+                    address.house_number AS companyHouseNumber,
+                    address.flat_number AS companyFlatNumber,
+                    address.postal_code AS companyPostal,
+                    address.city AS companyCity
                     FROM company JOIN address ON(company.address_id = address.id) WHERE {:where})
                 </data>
             </var>
