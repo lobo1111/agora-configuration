@@ -326,7 +326,7 @@
                     {:limit}
                     {:native}
                     (SELECT
-                    id AS personId,
+                    person.id AS personId,
                     CONCAT(person.first_name, \' \', person.last_name) AS personName,
                     person.pesel AS personPesel,
                     \'osoba fizyczna\' AS type_label,
@@ -339,7 +339,7 @@
                     FROM person JOIN address ON(person.address_id = address.id) WHERE {:where})
                     UNION ALL
                     (SELECT
-                    id AS companyId,
+                    company.id AS companyId,
                     company.name as companyName,
                     company.nip as companyNip,
                     \'firma\' AS type_label,
@@ -363,13 +363,13 @@
                     (SELECT
                     id
                     FROM
-                    person
+                    person WHERE {:where}
                     UNION ALL
                     SELECT
                     id
                     FROM
-                    company) AS tmp
-                    WHERE {:where}
+                    company WHERE {:where}) AS tmp
+                    
                 </data>
             </var>
         </variables>
