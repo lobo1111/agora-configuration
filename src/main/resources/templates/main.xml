@@ -342,7 +342,7 @@
                     (SELECT
                     company.id AS companyId,
                     company.name as name,
-                    '' AS dummy,
+                    \'\' AS dummy,
                     company.nip as nip,
                     \'firma\' AS type_label,
                     \'COMPANY\' AS type_key,
