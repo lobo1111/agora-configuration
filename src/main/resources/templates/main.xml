@@ -328,7 +328,7 @@
                     (SELECT
                     person.id AS personId,
                     CONCAT(person.first_name, \' \', person.last_name) AS name,
-                    person.last_name AS lastName
+                    person.last_name AS lastName,
                     person.pesel AS pesel,
                     \'osoba fizyczna\' AS type_label,
                     \'PERSON\' AS type_key,
