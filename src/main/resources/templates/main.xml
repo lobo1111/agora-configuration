@@ -327,29 +327,30 @@
                     {:native}
                     (SELECT
                     person.id AS personId,
-                    CONCAT(person.first_name, \' \', person.last_name) AS personName,
-                    person.pesel AS personPesel,
+                    CONCAT(person.first_name, \' \', person.last_name) AS name,
+                    person.last_name AS lastName
+                    person.pesel AS pesel,
                     \'osoba fizyczna\' AS type_label,
                     \'PERSON\' AS type_key,
-                    address.street AS personStreetName,
-                    address.house_number AS personHouseNumber,
-                    address.flat_number AS personFlatNumber,
-                    address.postal_code AS personPostal,
-                    address.city AS personCity
-                    FROM person JOIN address ON(person.address_id = address.id) WHERE {:where})
+                    personAddress.street AS street,
+                    personAddress.house_number AS houseNumber,
+                    personAddress.flat_number AS flatNumber,
+                    personAddress.postal_code AS postalCode,
+                    personAddress.city AS city
+                    FROM person JOIN address AS personAddress ON(person.address_id = address.id) WHERE {:where})
                     UNION ALL
                     (SELECT
                     company.id AS companyId,
-                    company.name as companyName,
-                    company.nip as companyNip,
+                    company.name as name,
+                    company.nip as nip,
                     \'firma\' AS type_label,
                     \'COMPANY\' AS type_key,
-                    address.street AS companyStreetName,
-                    address.house_number AS companyHouseNumber,
-                    address.flat_number AS companyFlatNumber,
-                    address.postal_code AS companyPostal,
-                    address.city AS companyCity
-                    FROM company JOIN address ON(company.address_id = address.id) WHERE {:where})
+                    companyAddress.street AS street,
+                    companyAddress.house_number AS houseNumber,
+                    companyAddress.flat_number AS flatNumber,
+                    companyAddress.postal_code AS postalCode,
+                    companyAddress.city AS city
+                    FROM company JOIN address AS companyAddress ON(company.address_id = address.id) WHERE {:where})
                 </data>
             </var>
             <var>
