@@ -115,7 +115,8 @@
                     WHERE 
                     dic.type.type = \'PAYMENT_TYPE\'
                     ORDER BY 
-                    dic.value ASC</data>
+                    dic.value ASC
+                </data>
             </var>
         </variables>
     </template>
@@ -326,37 +327,37 @@
                     {:limit}
                     {:native}
                     SELECT * FROM (
-                        (SELECT
-                                person.id AS id,
-                                CONCAT(person.first_name, \' \', person.last_name) AS name,
-                                person.pesel AS number,
-                                \'osoba fizyczna\' AS typeLabel,
-                                \'PERSON\' AS typeKey,
-                                person.last_name AS lastName,
-                                address.street AS street,
-                                address.house_number AS houseNumber,
-                                address.flat_number AS flatNumber,
-                                address.postal_code AS postalCode,
-                                address.city AS city
-                        FROM 
-                                person 
-                                JOIN address ON(person.address_id = address.id))
+                    (SELECT
+                    person.id AS id,
+                    CONCAT(person.first_name, \' \', person.last_name) AS name,
+                    person.pesel AS number,
+                    \'osoba fizyczna\' AS typeLabel,
+                    \'PERSON\' AS typeKey,
+                    person.last_name AS lastName,
+                    address.street AS street,
+                    address.house_number AS houseNumber,
+                    address.flat_number AS flatNumber,
+                    address.postal_code AS postalCode,
+                    address.city AS city
+                    FROM 
+                    person 
+                    JOIN address ON(person.address_id = address.id))
                     UNION ALL
-                        (SELECT
-                                company.id AS id,
-                                company.name as name,
-                                company.nip as number,
-                                \'firma\' AS typelabel,
-                                \'COMPANY\' AS typeKey,
-                                \'\' AS lastName,
-                                address.street AS street,
-                                address.house_number AS houseNumber,
-                                address.flat_number AS flatNumber,
-                                address.postal_code AS postalCode,
-                                address.city AS city
-                            FROM 
-                                company 
-                                JOIN address ON(company.address_id = address.id))
+                    (SELECT
+                    company.id AS id,
+                    company.name as name,
+                    company.nip as number,
+                    \'firma\' AS typelabel,
+                    \'COMPANY\' AS typeKey,
+                    \'\' AS lastName,
+                    address.street AS street,
+                    address.house_number AS houseNumber,
+                    address.flat_number AS flatNumber,
+                    address.postal_code AS postalCode,
+                    address.city AS city
+                    FROM 
+                    company 
+                    JOIN address ON(company.address_id = address.id))
                     ) AS tmp WHERE {:where}
                 </data>
             </var>
@@ -366,38 +367,104 @@
                     {:single}
                     {:native}
                     SELECT count(*) FROM (
-                        (SELECT
-                                person.id AS id,
-                                CONCAT(person.first_name, \' \', person.last_name) AS name,
-                                person.pesel AS number,
-                                \'osoba fizyczna\' AS typeLabel,
-                                \'PERSON\' AS typeKey,
-                                address.street AS street,
-                                address.house_number AS houseNumber,
-                                address.flat_number AS flatNumber,
-                                address.postal_code AS postalCode,
-                                address.city AS city
-                        FROM 
-                                person 
-                                JOIN address ON(person.address_id = address.id))
+                    (SELECT
+                    person.id AS id,
+                    CONCAT(person.first_name, \' \', person.last_name) AS name,
+                    person.pesel AS number,
+                    \'osoba fizyczna\' AS typeLabel,
+                    \'PERSON\' AS typeKey,
+                    address.street AS street,
+                    address.house_number AS houseNumber,
+                    address.flat_number AS flatNumber,
+                    address.postal_code AS postalCode,
+                    address.city AS city
+                    FROM 
+                    person 
+                    JOIN address ON(person.address_id = address.id))
                     UNION ALL
-                        (SELECT
-                                company.id AS id,
-                                company.name as name,
-                                company.nip as number,
-                                \'firma\' AS typelabel,
-                                \'COMPANY\' AS typeKey,
-                                address.street AS street,
-                                address.house_number AS houseNumber,
-                                address.flat_number AS flatNumber,
-                                address.postal_code AS postalCode,
-                                address.city AS city
-                            FROM 
-                                company 
-                                JOIN address ON(company.address_id = address.id))
+                    (SELECT
+                    company.id AS id,
+                    company.name as name,
+                    company.nip as number,
+                    \'firma\' AS typelabel,
+                    \'COMPANY\' AS typeKey,
+                    address.street AS street,
+                    address.house_number AS houseNumber,
+                    address.flat_number AS flatNumber,
+                    address.postal_code AS postalCode,
+                    address.city AS city
+                    FROM 
+                    company 
+                    JOIN address ON(company.address_id = address.id))
                     ) AS tmp WHERE {:where}
                 </data>
             </var>
         </variables>
     </template>
+    <template>
+        <name>update-person</name>
+        <source>update.vtl</source>
+        <variables>
+            <var>
+                <name>person</name>
+                <data>
+                    {:update}
+                    {:native}
+                    UPDATE
+                    person,
+                    address
+                    SET 
+                    person.first_name = \'{:firstName}\',
+                    person.last_name = \'{:lastName}\',
+                    person.pesel = \'{:pesel}\',
+                    person.nip = \'{:nip}\',
+                    person.email = \'{:email}\',
+                    person.phone_number_1 = \'{:phoneNumber1}\',
+                    person.phone_number_2 = \'{:phoneNumber2}\',
+                    person.phone_number_3 = \'{:phoneNumber3}\',
+                    address.street = \'{:addressStreet}\',
+                    address.house_number = \'{:addressHouseNumber}\',
+                    address.flat_number = \'{:addressFlatNumber}\',
+                    address.postal_code = \'{:addressPostalCode}\',
+                    address.city = \'{:city}\'
+                    WHERE 
+                    person.id = {:id} AND
+                    person.address_id = address.id
+                </data>
+            </var>
+        </variables>
+    </template> 
+    <template>
+        <name>update-company</name>
+        <source>update.vtl</source>
+        <variables>
+            <var>
+                <name>person</name>
+                <data>
+                    {:update}
+                    {:native}
+                    UPDATE
+                    company,
+                    address
+                    SET 
+                    company.name = \'{:companyName}\',
+                    company.nip = \'{:companyNip}\',
+                    company.regon = \'{:companyRegon}\',
+                    company.www = \'{:companyWww}\',
+                    company.email = \'{:companyEmail}\',
+                    company.phone_number_1 = \'{:phoneNumber1}\',
+                    company.phone_number_2 = \'{:phoneNumber2}\',
+                    company.phone_number_3 = \'{:phoneNumber3}\',
+                    address.street = \'{:addressStreet}\',
+                    address.house_number = \'{:addressHouseNumber}\',
+                    address.flat_number = \'{:addressFlatNumber}\',
+                    address.postal_code = \'{:addressPostalCode}\',
+                    address.city = \'{:city}\'
+                    WHERE 
+                    company.id = {:id} AND
+                    company.address_id = address.id
+                </data>
+            </var>
+        </variables>
+    </template> 
 </templates>
