@@ -422,10 +422,10 @@
                     person.phone_number_1 = \'{:phoneNumber1}\',
                     person.phone_number_2 = \'{:phoneNumber2}\',
                     person.phone_number_3 = \'{:phoneNumber3}\',
-                    address.street = \'{:addressStreet}\',
-                    address.house_number = \'{:addressHouseNumber}\',
-                    address.flat_number = \'{:addressFlatNumber}\',
-                    address.postal_code = \'{:addressPostalCode}\',
+                    address.street = \'{:street}\',
+                    address.house_number = \'{:houseNumber}\',
+                    address.flat_number = \'{:flatNumber}\',
+                    address.postal_code = \'{:postalCode}\',
                     address.city = \'{:city}\'
                     WHERE 
                     person.id = {:id} AND
@@ -455,10 +455,10 @@
                     company.phone_number_1 = \'{:phoneNumber1}\',
                     company.phone_number_2 = \'{:phoneNumber2}\',
                     company.phone_number_3 = \'{:phoneNumber3}\',
-                    address.street = \'{:addressStreet}\',
-                    address.house_number = \'{:addressHouseNumber}\',
-                    address.flat_number = \'{:addressFlatNumber}\',
-                    address.postal_code = \'{:addressPostalCode}\',
+                    address.street = \'{:street}\',
+                    address.house_number = \'{:houseNumber}\',
+                    address.flat_number = \'{:flatNumber}\',
+                    address.postal_code = \'{:postalCode}\',
                     address.city = \'{:city}\'
                     WHERE 
                     company.id = {:id} AND
