@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<simpleList>
+    #foreach($row in $list)
+        <item>
+            <id>$row.getId()</id>
+            <label>$row.getLabel()</label>
+        </item>
+</simpleList>

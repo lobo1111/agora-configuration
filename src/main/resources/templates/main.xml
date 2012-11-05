@@ -439,7 +439,7 @@
         <source>update.vtl</source>
         <variables>
             <var>
-                <name>person</name>
+                <name>company</name>
                 <data>
                     {:update}
                     {:native}
@@ -467,4 +467,21 @@
             </var>
         </variables>
     </template> 
+    <template>
+        <name>person-owner-possessions</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                        possession.id, 
+                        CONCAT(possession.address.street, " ", possession.address.houseNumber, "/", possession.address.flatNumber)) 
+                    FROM Person person
+                    JOIN person.possessions possession
+                    WHERE person.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>
