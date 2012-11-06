@@ -25,9 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "person")
 @XmlRootElement
 public class Person implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "nip")
     private String nip;
     private static final long serialVersionUID = 1L;
@@ -46,8 +44,7 @@ public class Person implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "last_name")
     private String lastName;
-    @Basic(optional = false)
-    @Size(min = 1, max = 150)
+    @Size(max = 150)
     @Column(name = "pesel")
     private String pesel;
     @Size(max = 150)
