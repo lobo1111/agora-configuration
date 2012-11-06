@@ -160,4 +160,19 @@
             SELECT id, 'CANCELED', 'Anulowana' FROM `dictionary_type` WHERE `type` = 'PAYMENT_STATUS';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-income-not-null'>
+        <sql>  
+            ALTER TABLE `payment`
+            MODIFY `income` decimal(10,2) NOT NULL;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-description-null'>
+        <sql>  
+            ALTER TABLE `payment`
+            MODIFY `description` varchar(255) NULL;
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
