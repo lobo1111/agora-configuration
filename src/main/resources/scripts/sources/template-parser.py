@@ -101,7 +101,6 @@ class TemplateParser(Container):
     
     def parse(self):
         self._logger.info('Parsing template %s' % self._templateName)
-        self._logger.info(vars)
         template = self.find(self._templateName)
         evaluated = self.evaluate(template)
         output.setResult(evaluated)
