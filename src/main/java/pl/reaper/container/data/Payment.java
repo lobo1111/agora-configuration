@@ -35,7 +35,6 @@ public class Payment implements Serializable {
     private Dictionary status;
     @Column(name = "income")
     private BigDecimal income;
-    @Basic(optional = false)
     @Size(min = 1, max = 255)
     @Column(name = "description")
     private String description;
