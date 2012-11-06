@@ -56,7 +56,6 @@ public class Person implements Serializable {
     @Size(max = 150)
     @Column(name = "phone_number_3")
     private String phoneNumber3;
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")
     @Size(max = 150)
     @Column(name = "email")
     private String email;
