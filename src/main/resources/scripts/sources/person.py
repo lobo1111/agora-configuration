@@ -1,9 +1,7 @@
+from pl.reaper.container.data import Address
 from pl.reaper.container.data import Person
 
 class PersonManager(Container):
-    def __init__(self):
-        pass
-    
     def create(self):
         person = Person()
         person.setFirstName(vars.get('firstName'))
