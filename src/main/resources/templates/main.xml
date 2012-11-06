@@ -472,7 +472,7 @@
         <source>simple-list.vtl</source>
         <variables>
             <var>
-                <name>types</name>
+                <name>list</name>
                 <data>SELECT new pl.reaper.container.data.helpers.SimpleList(
                             dic.id, dic.value)
                         FROM 
