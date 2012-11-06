@@ -153,5 +153,13 @@ public class Address implements Serializable {
     public String toString() {
         return "pl.reaper.container.data.Address[ id=" + id + " ]";
     }
-    
+
+    public String longDescription() {
+        return "[id:" + id + "]"
+                + "[street:" + street + "]"
+                + "[houseNumber:" + houseNumber + "]"
+                + "[flatNumber:" + flatNumber + "]"
+                + "[postalCode:" + postalCode + "]"
+                + "[city:" + city + "]";
+    }
 }

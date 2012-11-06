@@ -209,5 +209,16 @@ public class Person implements Serializable {
     public void setNip(String nip) {
         this.nip = nip;
     }
-    
+
+    public String longDescription() {
+        return "[firstName:" + firstName + "]"
+                + "[lastName:" + lastName + "]"
+                + "[pesel:" + pesel + "]"
+                + "[nip:" + nip + "]"
+                + "[email:" + email + "]"
+                + "[phone1:" + phoneNumber1 + "]"
+                + "[phone2:" + phoneNumber2 + "]"
+                + "[phone3:" + phoneNumber3 + "]"
+                + "[address:" + address + "]";
+    }
 }
