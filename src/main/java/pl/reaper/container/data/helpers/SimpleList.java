@@ -5,10 +5,7 @@ public class SimpleList {
     private int id;
     private String label;
 
-    public SimpleList() {
-    }
-
-    public SimpleList(int id, String label) {
+    public SimpleList(Integer id, String label) {
         this.id = id;
         this.label = label;
     }
