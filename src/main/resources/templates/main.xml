@@ -102,24 +102,7 @@
             </var>
         </variables>
     </template> 
-    <template>
-        <name>payments-types</name>
-        <source>payments-types.vtl</source>
-        <variables>
-            <var>
-                <name>types</name>
-                <data>SELECT 
-                    dic
-                    FROM 
-                    Dictionary dic
-                    WHERE 
-                    dic.type.type = \'PAYMENT_TYPE\'
-                    ORDER BY 
-                    dic.value ASC
-                </data>
-            </var>
-        </variables>
-    </template>
+    
     <template>
         <name>communities-names</name>
         <source>communities-names.vtl</source>
@@ -480,6 +463,24 @@
                     FROM Person person
                     JOIN person.possessions possession
                     WHERE person.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>payments-types</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>types</name>
+                <data>SELECT new pl.reaper.container.data.helpers.SimpleList(
+                            dic.id, dic.value)
+                        FROM 
+                            Dictionary dic
+                        WHERE 
+                            dic.type.type = \'PAYMENT_TYPE\'
+                        ORDER BY 
+                            dic.value ASC
                 </data>
             </var>
         </variables>
