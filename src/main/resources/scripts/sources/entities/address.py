@@ -1,6 +1,6 @@
 from pl.reaper.container.data import Address
 
-def AddressManager(Container):
+class AddressManager(Container):
 
     def getAddress(self, entity):
         address = self.getOrCreateAddress(entity)
