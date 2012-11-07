@@ -5,8 +5,11 @@ class PossessionManager(Container):
         person = self.findPerson();
         possession = self.findPossession()
         if not self.hasBound(person, possession):
+            self._logger.info('Creating new bound: [person:%d]<->[possession:%d]' % (person.getId(), possession.getId()));
             possession.getPeople().add(person)
             entityManager.persist(possession)
+        else:
+            self._logger.info('Bound allready exists: [person:%d]<->[possession:%d]' % (person.getId(), possession.getId()));
         
     def hasBound(self, toBound, possession):
         for person in possession.getPeople():
