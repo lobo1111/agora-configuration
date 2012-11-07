@@ -45,7 +45,6 @@ public class Company implements Serializable {
     @Size(max = 150)
     @Column(name = "www")
     private String www;
-    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")
     @Size(max = 150)
     @Column(name = "email")
     private String email;
