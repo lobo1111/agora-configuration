@@ -266,4 +266,18 @@
             <group>all</group>
         </security>
     </script>
+    
+    <script>
+        <name>update-person</name>
+        <source>person.py</source>
+        <onInit>PersonManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
 </scripts>

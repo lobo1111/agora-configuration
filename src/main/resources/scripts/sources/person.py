@@ -6,6 +6,15 @@ class PersonManager(Container):
     
     def create(self):
         person = Person()
+        self.setPersonData(person)
+        self.savePerson(person)
+        
+    def update(self):
+        person = self.findPerson()
+        self.setPersonData(person)
+        self.savePerson(person)
+        
+    def setPersonData(self, person):
         person.setFirstName(vars.get('firstName'))
         person.setLastName(vars.get('lastName'))
         person.setNip(vars.get('nip'))
@@ -14,18 +23,26 @@ class PersonManager(Container):
         person.setPhoneNumber1(vars.get('phone1'))
         person.setPhoneNumber2(vars.get('phone2'))
         person.setPhoneNumber3(vars.get('phone3'))
-        person.setAddress(self.getAddress())
-        self.savePerson(person)
+        person.setAddress(self.getAddress(person))
         
-    def getAddress(self):
-        address = Address()
+    def getAddress(self, person):
+        address = getOrCreateAddress(person)
+        self.setAddressData(address)
+        self.saveAddress(address)
+        return address
+    
+    def setAddressData(self, address):
         address.setStreet(vars.get('street'))
         address.setHouseNumber(vars.get('houseNumber'))
         address.setFlatNumber(vars.get('flatNumber'))
         address.setPostalCode(vars.get('postal'))
         address.setCity(vars.get('city'))
-        self.saveAddress(address)
-        return address
+        
+    def getOrCreateAddress(self, person):
+        if person.getAddress() is not None:
+            return person.getAddress()
+        else:
+            return Address()
     
     def saveAddress(self, address):
         self._logger.info(address.longDescription())
@@ -36,3 +53,7 @@ class PersonManager(Container):
         self._logger.info(person.longDescription())
         entityManager.persist(person)
         entityManager.flush()
+        
+    def findPerson(self):
+        id = vars.get('id')
+        return entityManager.createQuery('Select person From Person person Where person.id = ' + id).getSingleResult()
