@@ -29,8 +29,8 @@ class CompanyManager(Container):
         return addressManager.getAddress(person)
         
     def saveCompany(self, company):
-        self._logger.info(person.longDescription())
-        entityManager.persist(person)
+        self._logger.info(company.longDescription())
+        entityManager.persist(company)
         entityManager.flush()
         
     def findCompany(self):
