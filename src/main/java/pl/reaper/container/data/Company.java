@@ -209,5 +209,15 @@ public class Company implements Serializable {
     public void setCommunityCollection(Collection<Community> communityCollection) {
         this.communities = communityCollection;
     }
-    
+        public String longDescription() {
+        return "[nameame:" + name + "]"
+                + "[regon:" + regon + "]"
+                + "[www:" + www + "]"
+                + "[nip:" + nip + "]"
+                + "[email:" + email + "]"
+                + "[phone1:" + phoneNumber1 + "]"
+                + "[phone2:" + phoneNumber2 + "]"
+                + "[phone3:" + phoneNumber3 + "]"
+                + "[address:" + address + "]";
+    }
 }
