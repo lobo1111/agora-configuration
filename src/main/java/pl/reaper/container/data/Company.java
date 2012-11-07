@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "company")
 @XmlRootElement
 public class Company implements Serializable {
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private Collection<Community> communities;
     private static final long serialVersionUID = 1L;
@@ -44,7 +45,7 @@ public class Company implements Serializable {
     @Size(max = 150)
     @Column(name = "www")
     private String www;
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")
     @Size(max = 150)
     @Column(name = "email")
     private String email;
@@ -68,9 +69,9 @@ public class Company implements Serializable {
     @ManyToMany
     @JoinTable(
         name = "possession_company", joinColumns =
-            @JoinColumn(name = "company_id", referencedColumnName = "id"),
-        inverseJoinColumns =
-            @JoinColumn(name = "possession_id", referencedColumnName = "id"))
+    @JoinColumn(name = "company_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "possession_id", referencedColumnName = "id"))
     private Collection<Possession> possessions;
 
     public Company() {
@@ -209,7 +210,8 @@ public class Company implements Serializable {
     public void setCommunityCollection(Collection<Community> communityCollection) {
         this.communities = communityCollection;
     }
-        public String longDescription() {
+
+    public String longDescription() {
         return "[nameame:" + name + "]"
                 + "[regon:" + regon + "]"
                 + "[www:" + www + "]"
