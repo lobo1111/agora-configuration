@@ -20,9 +20,9 @@ class PersonManager(Container):
         person.setNip(vars.get('nip'))
         person.setPesel(vars.get('pesel'))
         person.setEmail(vars.get('email'))
-        person.setPhoneNumber1(vars.get('phone1'))
-        person.setPhoneNumber2(vars.get('phone2'))
-        person.setPhoneNumber3(vars.get('phone3'))
+        person.setPhoneNumber1(vars.get('phoneNumber1'))
+        person.setPhoneNumber2(vars.get('phoneNumber2'))
+        person.setPhoneNumber3(vars.get('phoneNumber3'))
         person.setAddress(self.getAddress(person))
         
     def getAddress(self, person):
@@ -35,7 +35,7 @@ class PersonManager(Container):
         address.setStreet(vars.get('street'))
         address.setHouseNumber(vars.get('houseNumber'))
         address.setFlatNumber(vars.get('flatNumber'))
-        address.setPostalCode(vars.get('postal'))
+        address.setPostalCode(vars.get('postalCode'))
         address.setCity(vars.get('city'))
         
     def getOrCreateAddress(self, person):
