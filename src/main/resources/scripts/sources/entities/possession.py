@@ -4,7 +4,7 @@ class PossessionManager(Container):
     def addPersonOwner(self):
         person = self.findPerson();
         possession = self.findPossession()
-        if not self.hasBound(person, possession):
+        if not self.hasPersonBound(person, possession):
             self._logger.info('Creating new bound: [person:%d]<->[possession:%d]' % (person.getId(), possession.getId()));
             possession.getPeople().add(person)
             entityManager.persist(possession)
@@ -21,13 +21,13 @@ class PossessionManager(Container):
         else:
             self._logger.info('Bound allready exists: [company:%d]<->[possession:%d]' % (company.getId(), possession.getId()));
         
-    def hasPeopleBound(self, toBound, possession):
+    def hasPersonBound(self, toBound, possession):
         for person in possession.getPeople():
             if(toBound.getId() == person.getId()):
                 return True
         return False
     
-    def hasPeopleBound(self, toBound, possession):
+    def hasCompanyBound(self, toBound, possession):
         for company in possession.getCompanies():
             if(toBound.getId() == company.getId()):
                 return True
