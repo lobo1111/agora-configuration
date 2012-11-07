@@ -402,6 +402,23 @@
         </variables>
     </template>
     <template>
+        <name>company-owner-possessions</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                        possession.id, 
+                        CONCAT(possession.address.street, " ", possession.address.houseNumber, "/", possession.address.flatNumber)) 
+                    FROM Company company
+                    JOIN company.possessions possession
+                    WHERE company.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>payments-types</name>
         <source>simple-list.vtl</source>
         <variables>
