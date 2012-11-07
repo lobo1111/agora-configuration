@@ -1,4 +1,4 @@
-class PersonManager(Container):
+class PossessionManager(Container):
     _logger = Logger([:_scriptId])
     
     def addPersonOwner(self):
