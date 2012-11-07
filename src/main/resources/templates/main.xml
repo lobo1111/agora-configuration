@@ -129,10 +129,6 @@
                     Community community 
                     JOIN community.possessions possession 
                     JOIN possession.address possessionAddress
-                    LEFT OUTER JOIN possession.people possessionOwnerPerson
-                    LEFT OUTER JOIN possession.companies possessionOwnerCompany
-                    LEFT OUTER JOIN possessionOwnerPerson.address personAddress
-                    LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
                     WHERE {:where}
                 </data>
             </var>
@@ -146,10 +142,6 @@
                     Community community 
                     JOIN community.possessions possession 
                     JOIN possession.address possessionAddress
-                    LEFT OUTER JOIN possession.people possessionOwnerPerson
-                    LEFT OUTER JOIN possession.companies possessionOwnerCompany
-                    LEFT OUTER JOIN possessionOwnerPerson.address personAddress
-                    LEFT OUTER JOIN possessionOwnerCompany.address companyAddress
                     WHERE {:where}
                 </data>
             </var>
