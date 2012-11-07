@@ -13,7 +13,7 @@ class CompanyManager(Container):
         self.setCompanyData(company)
         self.saveCompany(company)
         
-    def setCompanynData(self, company):
+    def setCompanyData(self, company):
         company.setName(vars.get('name'))
         company.setNip(vars.get('nip'))
         company.setRegon(vars.get('regon'))
