@@ -14,8 +14,8 @@ class PossessionManager(Container):
     def hasBound(self, toBound, possession):
         for person in possession.getPeople():
             if(toBound.getId() == person.getId()):
-                return true
-        return false
+                return True
+        return False
         
     def findPerson(self):
         id = vars.get('owner')
