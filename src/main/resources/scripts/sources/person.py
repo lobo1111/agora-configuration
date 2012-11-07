@@ -26,7 +26,7 @@ class PersonManager(Container):
         person.setAddress(self.getAddress(person))
         
     def getAddress(self, person):
-        address = getOrCreateAddress(person)
+        address = self.getOrCreateAddress(person)
         self.setAddressData(address)
         self.saveAddress(address)
         return address
