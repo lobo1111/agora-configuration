@@ -1,4 +1,3 @@
-from pl.reaper.container.data import Address
 from pl.reaper.container.data import Person
 
 class PersonManager(Container):
@@ -26,28 +25,8 @@ class PersonManager(Container):
         person.setAddress(self.getAddress(person))
         
     def getAddress(self, person):
-        address = self.getOrCreateAddress(person)
-        self.setAddressData(address)
-        self.saveAddress(address)
-        return address
-    
-    def setAddressData(self, address):
-        address.setStreet(vars.get('street'))
-        address.setHouseNumber(vars.get('houseNumber'))
-        address.setFlatNumber(vars.get('flatNumber'))
-        address.setPostalCode(vars.get('postalCode'))
-        address.setCity(vars.get('city'))
-        
-    def getOrCreateAddress(self, person):
-        if person.getAddress() is not None:
-            return person.getAddress()
-        else:
-            return Address()
-    
-    def saveAddress(self, address):
-        self._logger.info(address.longDescription())
-        entityManager.persist(address)
-        entityManager.flush()
+        addressManager = AddressManager()
+        return addressManager.getAddress(person)
         
     def savePerson(self, person):
         self._logger.info(person.longDescription())
