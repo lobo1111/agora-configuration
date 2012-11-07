@@ -56,4 +56,4 @@ class PersonManager(Container):
         
     def findPerson(self):
         id = vars.get('id')
-        return entityManager.createQuery('Select person From Person person Where person.id = ' + int(id)).getSingleResult()
+        return entityManager.createQuery('Select person From Person person Where person.id = ' + id).getSingleResult()
