@@ -17,7 +17,6 @@ class CompanyManager(Container):
         company.setName(vars.get('name'))
         company.setNip(vars.get('nip'))
         company.setRegon(vars.get('regon'))
-        company.setPesel(vars.get('pesel'))
         company.setEmail(vars.get('email'))
         company.setPhoneNumber1(vars.get('phoneNumber1'))
         company.setPhoneNumber2(vars.get('phoneNumber2'))
