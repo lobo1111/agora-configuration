@@ -283,8 +283,8 @@
         </variables>
     </template>
     <template>
-        <name>simple-list-possession-owners</name>
-        <source>simple-list-possession-owners.vtl</source>
+        <name>list-possession-owners</name>
+        <source>list-possession-owners.vtl</source>
         <variables>
             <var>
                 <name>owners</name>
