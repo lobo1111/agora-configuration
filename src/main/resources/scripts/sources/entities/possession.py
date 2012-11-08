@@ -63,12 +63,12 @@ class PossessionManager(Container):
     def create(self):
         possession = Possession()
         self.setPossessionData(possession)
-        self.savePerson(possession)
+        self.savePossession(possession)
         
     def update(self):
         possession = self.findPossession()
         self.setPossessionData(possession)
-        self.savePerson(possession)
+        self.savePossession(possession)
         
     def setPossessionData(self, possession):
         possession.setArea(BigDecimal(vars.get('possessionArea')))
