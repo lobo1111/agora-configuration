@@ -20,27 +20,39 @@ class PossessionManager(Container):
             entityManager.persist(possession)
         else:
             self._logger.info('Bound allready exists: [company:%d]<->[possession:%d]' % (company.getId(), possession.getId()));
-        
+            
+    def removePersonOwner(self):
+        person = self.findPerson();
+        possession = self.findPossession()
+        possession.getPeople().remove(person)
+        entityManager.persist(possession)
+            
+    def removeCompanyOwner(self):
+        company = self.findCompany();
+        possession = self.findPossession()
+        possession.getCompanies().remove(company)
+        entityManager.persist(possession)
+            
     def hasPersonBound(self, toBound, possession):
-        for person in possession.getPeople():
-            if(toBound.getId() == person.getId()):
-                return True
-        return False
+        return self.hasBound(toBound, possession.getPeople())
     
     def hasCompanyBound(self, toBound, possession):
-        for company in possession.getCompanies():
-            if(toBound.getId() == company.getId()):
+        return self.hasBound(toBound, possession.getCompanies())
+    
+    def hasBound(self, toBound, entities):
+        for entity in entities:
+            if(toBound.getId() == entity.getId()):
                 return True
         return False
         
     def findPerson(self):
-        id = vars.get('owner')
-        return entityManager.createQuery('Select person From Person person Where person.id = ' + id).getSingleResult()
+        return self.find(('Select person From Person person Where person.id = %s' % vars.get('owner')))
     
     def findCompany(self):
-        id = vars.get('owner')
-        return entityManager.createQuery('Select company From Company company Where company.id = ' + id).getSingleResult()
+        return self.find(('Select company From Company company Where company.id = %s' % vars.get('owner')))
     
     def findPossession(self):
-        id = vars.get('possession')
-        return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()
+        return self.find(('Select possession From Possession possession Where possession.id = %s' % vars.get('possession')))
+    
+    def find(self, query):
+        return entityManager.createQuery(query).getSingleResult()

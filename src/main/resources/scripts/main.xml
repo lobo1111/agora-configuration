@@ -340,6 +340,34 @@
         </security>
     </script>
     
+        <script>
+        <name>remove-possession-from-person</name>
+        <source>entities/possession.py</source>
+        <onInit>PossessionManager().removePersonOwner()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>remove-possession-from-company</name>
+        <source>entities/possession.py</source>
+        <onInit>PossessionManager().removeCompanyOwner()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
     <script>
         <name>update-company</name>
         <source>entities/company.py</source>
