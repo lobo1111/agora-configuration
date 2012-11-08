@@ -1,44 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
+    <!-- ENTITIES -->
     <template>
-        <name>update-community</name>
-        <source>update.vtl</source>
-        <variables>
-            <var>
-                <name>comunity</name>
-                <data>
-                    {:update}
-                    {:native}
-                    UPDATE
-                    community,
-                    company,
-                    address AS companyAddress
-                    SET 
-                    community.name = \'{:communityName}\',
-                    company.name = \'{:companyName}\',
-                    company.nip = \'{:companyNip}\',
-                    company.regon = \'{:companyRegon}\',
-                    company.www = \'{:companyWww}\',
-                    company.email = \'{:companyEmail}\',
-                    company.phone_number_1 = \'{:phoneNumber1}\',
-                    company.phone_number_2 = \'{:phoneNumber2}\',
-                    company.phone_number_3 = \'{:phoneNumber3}\',
-                    companyAddress.street = \'{:addressStreet}\',
-                    companyAddress.house_number = \'{:addressHouseNumber}\',
-                    companyAddress.flat_number = \'{:addressFlatNumber}\',
-                    companyAddress.postal_code = \'{:addressPostalCode}\',
-                    companyAddress.city = \'{:city}\'
-                    WHERE 
-                    community.id = {:id} AND
-                    community.company_id = company.id AND
-                    company.address_id = companyAddress.id
-                </data>
-            </var>
-        </variables>
-    </template> 
-    <template>
-        <name>select-community</name>
-        <source>community.vtl</source>
+        <name>entity-community</name>
+        <source>entity-community.vtl</source>
         <variables>
             <var>
                 <name>community</name>
@@ -50,8 +15,8 @@
         </variables>
     </template>    
     <template>
-        <name>select-possession</name>
-        <source>possession.vtl</source>
+        <name>entity-possession</name>
+        <source>entity-possession.vtl</source>
         <variables>
             <var>
                 <name>possession</name>
@@ -63,8 +28,8 @@
         </variables>
     </template>
     <template>
-        <name>select-account</name>
-        <source>account.vtl</source>
+        <name>entity-account</name>
+        <source>entity-account.vtl</source>
         <variables>
             <var>
                 <name>account</name>
@@ -76,46 +41,45 @@
         </variables>
     </template>
     <template>
-        <name>update-possession</name>
-        <source>update.vtl</source>
+        <name>entity-person</name>
+        <source>entity-person.vtl</source>
         <variables>
             <var>
-                <name>possession</name>
+                <name>person</name>
                 <data>
-                    {:update}
-                    {:native}
-                    UPDATE
-                    possession,
-                    address
-                    SET 
-                    possession.share = {:possessionShare},
-                    possession.area = {:possessionArea},
-                    address.street = \'{:addressStreet}\',
-                    address.house_number = \'{:addressHouseNumber}\',
-                    address.flat_number = \'{:addressFlatNumber}\',
-                    address.postal_code = \'{:addressPostalCode}\',
-                    address.city = \'{:city}\'
-                    WHERE 
-                    possession.id = {:id} AND
-                    possession.address_id = address.id
+                    {:single}
+                    SELECT 
+                    p
+                    FROM 
+                    Person p
+                    WHERE
+                    p.id = {:id}
                 </data>
-            </var>
-        </variables>
-    </template> 
-    
-    <template>
-        <name>communities-names</name>
-        <source>communities-names.vtl</source>
-        <variables>
-            <var>
-                <name>communities</name>
-                <data>SELECT c FROM Community c ORDER BY c.name ASC</data>
             </var>
         </variables>
     </template>
     <template>
-        <name>communities-and-possessions-list</name>
-        <source>communities-and-possessions-list.vtl</source>
+        <name>entity-company</name>
+        <source>entity-company.vtl</source>
+        <variables>
+            <var>
+                <name>company</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    p
+                    FROM 
+                    Company p
+                    WHERE
+                    p.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <!-- LISTS -->
+    <template>
+        <name>list-possessions</name>
+        <source>list-possessions.vtl</source>
         <variables>
             <var>
                 <name>communities</name>
@@ -148,66 +112,8 @@
         </variables>
     </template>
     <template>
-        <name>possession-owners</name>
-        <source>possession-owners.vtl</source>
-        <variables>
-            <var>
-                <name>owners</name>
-                <data>
-                    SELECT 
-                    personOwner.id AS personId,
-                    CONCAT(personOwner.firstName, " ", personOwner.lastName) AS personName,
-                    companyOwner.id AS companyId,
-                    companyOwner.name AS companyName
-                    FROM 
-                    Possession possession
-                    LEFT OUTER JOIN possession.people personOwner
-                    LEFT OUTER JOIN possession.companies companyOwner
-                    WHERE
-                    possession.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>select-person</name>
-        <source>person.vtl</source>
-        <variables>
-            <var>
-                <name>person</name>
-                <data>
-                    {:single}
-                    SELECT 
-                    p
-                    FROM 
-                    Person p
-                    WHERE
-                    p.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>select-company</name>
-        <source>company.vtl</source>
-        <variables>
-            <var>
-                <name>company</name>
-                <data>
-                    {:single}
-                    SELECT 
-                    p
-                    FROM 
-                    Company p
-                    WHERE
-                    p.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>select-accounts</name>
-        <source>accounts.vtl</source>
+        <name>list-accounts</name>
+        <source>list-accounts.vtl</source>
         <variables>
             <var>
                 <name>accounts</name>
@@ -234,8 +140,8 @@
         </variables>
     </template>
     <template>
-        <name>select-documents</name>
-        <source>incoming-documents.vtl</source>
+        <name>list-incoming-documents</name>
+        <source>list-incoming-documents.vtl</source>
         <variables>
             <var>
                 <name>documents</name>
@@ -265,8 +171,8 @@
         </variables>
     </template>
     <template>
-        <name>select-payments</name>
-        <source>payments.vtl</source>
+        <name>list-payments</name>
+        <source>list-payments.vtl</source>
         <variables>
             <var>
                 <name>payments</name>
@@ -293,8 +199,8 @@
         </variables>
     </template>
     <template>
-        <name>select-owners</name>
-        <source>owners.vtl</source>
+        <name>list-owners</name>
+        <source>list-owners.vtl</source>
         <variables>
             <var>
                 <name>owners</name>
@@ -376,16 +282,39 @@
             </var>
         </variables>
     </template>
+    <!-- SIMPLE LISTS -->
     <template>
-        <name>person-owner-possessions</name>
+        <name>simple-list-possession-owners</name>
+        <source>simple-list-possession-owners.vtl</source>
+        <variables>
+            <var>
+                <name>owners</name>
+                <data>
+                    SELECT 
+                    personOwner.id AS personId,
+                    CONCAT(personOwner.firstName, " ", personOwner.lastName) AS personName,
+                    companyOwner.id AS companyId,
+                    companyOwner.name AS companyName
+                    FROM 
+                    Possession possession
+                    LEFT OUTER JOIN possession.people personOwner
+                    LEFT OUTER JOIN possession.companies companyOwner
+                    WHERE
+                    possession.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-person-owner-possessions</name>
         <source>simple-list.vtl</source>
         <variables>
             <var>
                 <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                        possession.id, 
-                        CONCAT(possession.address.street, " ", possession.address.houseNumber, "/", possession.address.flatNumber)) 
+                    possession.id, 
+                    CONCAT(possession.address.street, " ", possession.address.houseNumber, "/", possession.address.flatNumber)) 
                     FROM Person person
                     JOIN person.possessions possession
                     WHERE person.id = {:id}
@@ -394,15 +323,15 @@
         </variables>
     </template>
     <template>
-        <name>company-owner-possessions</name>
+        <name>simple-list-company-owner-possessions</name>
         <source>simple-list.vtl</source>
         <variables>
             <var>
                 <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                        possession.id, 
-                        CONCAT(possession.address.street, " ", possession.address.houseNumber, "/", possession.address.flatNumber)) 
+                    possession.id, 
+                    CONCAT(possession.address.street, " ", possession.address.houseNumber, "/", possession.address.flatNumber)) 
                     FROM Company company
                     JOIN company.possessions possession
                     WHERE company.id = {:id}
@@ -411,19 +340,37 @@
         </variables>
     </template>
     <template>
-        <name>payments-types</name>
+        <name>simple-list-payments-types</name>
         <source>simple-list.vtl</source>
         <variables>
             <var>
                 <name>list</name>
-                <data>SELECT new pl.reaper.container.data.helpers.SimpleList(
-                            dic.id, dic.value)
-                        FROM 
-                            Dictionary dic
-                        WHERE 
-                            dic.type.type = \'PAYMENT_TYPE\'
-                        ORDER BY 
-                            dic.value ASC
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'PAYMENT_TYPE\'
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-communities-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>communities</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    community.id, community.name)
+                    FROM 
+                    Community ccommunity 
+                    ORDER BY 
+                    c.name ASC
                 </data>
             </var>
         </variables>
