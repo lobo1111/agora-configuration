@@ -382,4 +382,34 @@
             <group>all</group>
         </security>
     </script>
+    
+    <script>
+        <name>create-community</name>
+        <source>entities/community.py</source>
+        <onInit>CommunityManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>update-community</name>
+        <source>entities/community.py</source>
+        <onInit>CommunityManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
 </scripts>
