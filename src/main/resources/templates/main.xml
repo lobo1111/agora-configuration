@@ -368,7 +368,7 @@
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     community.id, community.name)
                     FROM 
-                    Community ccommunity 
+                    Community community 
                     ORDER BY 
                     c.name ASC
                 </data>
