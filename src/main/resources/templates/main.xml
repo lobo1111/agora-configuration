@@ -282,7 +282,6 @@
             </var>
         </variables>
     </template>
-    <!-- SIMPLE LISTS -->
     <template>
         <name>simple-list-possession-owners</name>
         <source>simple-list-possession-owners.vtl</source>
@@ -305,6 +304,7 @@
             </var>
         </variables>
     </template>
+    <!-- SIMPLE LISTS -->
     <template>
         <name>simple-list-person-owner-possessions</name>
         <source>simple-list.vtl</source>
