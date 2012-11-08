@@ -15,7 +15,7 @@ class CommunityManager(Container):
         
     def setCommunityData(self, community):
         community.setName(vars.get('name'))
-        company.setCompany(self.getCompany(community))
+        community.setCompany(self.getCompany(community))
         
     def getCompany(self, community):
         companyManager = companyManager()
