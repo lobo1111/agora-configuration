@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scripts>
+    <!-- BASE -->
     <script>
         <name>output</name>
-        <source>output.py</source>
+        <source>base/output.py</source>
         <onInit/>
         <scheduler/>
         <dependencies/>
@@ -13,7 +14,7 @@
     
     <script>
         <name>db-logger</name>
-        <source>db-logger.py</source>
+        <source>base/db-logger.py</source>
         <onInit/>
         <scheduler/>
         <dependencies/>
@@ -24,7 +25,7 @@
     
     <script>
         <name>container</name>
-        <source>container.py</source>
+        <source>base/container.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -36,8 +37,24 @@
     </script>
     
     <script>
+        <name>template-parser</name>
+        <source>base/template-parser.py</source>
+        <onInit>TemplateParser().parse()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>output</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <!-- LOADERS -->
+    <script>
         <name>check-email</name>
-        <source>check-email.py</source>
+        <source>loaders/check-email.py</source>
         <onInit>MailProcessor().checkMailbox()</onInit>
         <scheduler>
             <name>check-email</name>
@@ -55,7 +72,7 @@
     
     <script>
         <name>xml-loader</name>
-        <source>xml-loader.py</source>
+        <source>loaders/xml-loader.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -69,7 +86,7 @@
     
     <script>
         <name>file-watchdog</name>
-        <source>file-watchdog.py</source>
+        <source>loaders/file-watchdog.py</source>
         <onInit>FileWatchdog().processFiles()</onInit>
         <scheduler>
             <name>file-watchdog</name>
@@ -88,7 +105,7 @@
     
     <script>
         <name>import-access-db-structure</name>
-        <source>import-access-db-structure.py</source>
+        <source>loaders/import-access-db-structure.py</source>
         <onInit>MSAccessStructureReader()</onInit>
         <scheduler/>
         <dependencies>
@@ -102,7 +119,7 @@
     
     <script>
         <name>import-access-db-data</name>
-        <source>import-access-db-data.py</source>
+        <source>loaders/import-access-db-data.py</source>
         <onInit>MSAccessDataReader()</onInit>
         <scheduler>
             <name>import-access-db-data</name>
@@ -118,9 +135,10 @@
         </security>
     </script>
 
+    <!-- SYNC -->
     <script>
         <name>sync-superclass</name>
-        <source>sync-superclass.py</source>
+        <source>sync/sync-superclass.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -133,7 +151,7 @@
             
     <script>
         <name>sync-communities</name>
-        <source>sync-communities.py</source>
+        <source>sync/sync-communities.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -147,7 +165,7 @@
     
     <script>
         <name>sync-possessions</name>
-        <source>sync-possessions.py</source>
+        <source>sync/sync-possessions.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -161,7 +179,7 @@
     
     <script>
         <name>sync-people</name>
-        <source>sync-people.py</source>
+        <source>sync/sync-people.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -175,7 +193,7 @@
     
     <script>
         <name>sync-companies</name>
-        <source>sync-companies.py</source>
+        <source>sync/sync-companies.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -189,7 +207,7 @@
     
     <script>
         <name>sync-access-to-db</name>
-        <source>sync-access-to-db.py</source>
+        <source>sync/sync-access-to-db.py</source>
         <onInit>SyncAccessToDb()</onInit>
         <scheduler>
             <name>sync-access-to-db</name>
@@ -209,24 +227,11 @@
         </security>
     </script>
     
-    <script>
-        <name>template-parser</name>
-        <source>template-parser.py</source>
-        <onInit>TemplateParser().parse()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>output</scriptName>
-            <scriptName>container</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
+    <!-- ENTITIES -->
     
     <script>
         <name>dictionary-manager</name>
-        <source>dictionary.py</source>
+        <source>entities/dictionary.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -355,7 +360,7 @@
         </security>
     </script>
     
-        <script>
+    <script>
         <name>remove-possession-from-person</name>
         <source>entities/possession.py</source>
         <onInit>PossessionManager().removePersonOwner()</onInit>
