@@ -211,7 +211,7 @@ public class Company implements Serializable {
     }
 
     public String longDescription() {
-        return "[nameame:" + name + "]"
+        return "[name:" + name + "]"
                 + "[regon:" + regon + "]"
                 + "[www:" + www + "]"
                 + "[nip:" + nip + "]"

@@ -27,6 +27,18 @@ class CompanyManager(Container):
     def getAddress(self, person):
         addressManager = AddressManager()
         return addressManager.getAddress(person)
+    
+    def getCompany(self, entity):
+        company = self.getOrCreateCompany(entity)
+        self.setCompanyData(company)
+        self.saveCompany(company)
+        return company
+    
+    def getOrCreateCompany(self, entity):
+        if entity.getCompany() is not None:
+            return entity.getCompany()
+        else:
+            return Company()
         
     def saveCompany(self, company):
         self._logger.info(company.longDescription())

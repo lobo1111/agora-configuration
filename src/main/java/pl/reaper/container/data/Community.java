@@ -145,4 +145,9 @@ public class Community implements Serializable {
     public void setCompany(Company company) {
         this.company = company;
     }
+    
+    public String longDescription() {
+        return "[name:" + name + "]"
+                + "[company:" + company + "]";
+    }
 }
