@@ -18,7 +18,7 @@ class CommunityManager(Container):
         community.setCompany(self.getCompany(community))
         
     def getCompany(self, community):
-        companyManager = companyManager()
+        companyManager = CompanyManager()
         return companyManager.getCompany(community)
         
     def saveCommunity(self, community):
