@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Person
+from java.math import BigDecimal
 
 class PossessionManager(Container):
     _logger = Logger([:_scriptId])
@@ -70,8 +71,8 @@ class PossessionManager(Container):
         self.savePerson(possession)
         
     def setPossessionData(self, possession):
-        possession.setArea(vars.get('possessionArea'))
-        possession.setShare(vars.get('possessionShare'))
+        possession.setArea(BigDecimal(vars.get('possessionArea')))
+        possession.setShare(BigDecimal(vars.get('possessionShare')))
         possession.setAddress(self.getAddress(possession))
         
     def getAddress(self, possession):
