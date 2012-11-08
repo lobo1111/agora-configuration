@@ -370,7 +370,7 @@
                     FROM 
                     Community community 
                     ORDER BY 
-                    c.name ASC
+                    community.name ASC
                 </data>
             </var>
         </variables>
