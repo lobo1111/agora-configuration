@@ -1,3 +1,5 @@
+from pl.reaper.container.data import Person
+
 class PossessionManager(Container):
     _logger = Logger([:_scriptId])
     
@@ -56,3 +58,31 @@ class PossessionManager(Container):
     
     def find(self, query):
         return entityManager.createQuery(query).getSingleResult()
+    
+    def create(self):
+        possession = Possession()
+        self.setPossessionData(possession)
+        self.savePerson(possession)
+        
+    def update(self):
+        possession = self.findPossession()
+        self.setPossessionData(possession)
+        self.savePerson(possession)
+        
+    def setPossessionData(self, possession):
+        possession.setArea(vars.get('possessionArea'))
+        possession.setShare(vars.get('possessionShare'))
+        possession.setAddress(self.getAddress(possession))
+        
+    def getAddress(self, possession):
+        addressManager = AddressManager()
+        return addressManager.getAddress(possession)
+        
+    def savePossession(self, possession):
+        self._logger.info(possession.longDescription())
+        entityManager.persist(possession)
+        entityManager.flush()
+        
+    def findPossession(self):
+        id = vars.get('id')
+        return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()

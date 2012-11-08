@@ -151,4 +151,10 @@ public class Possession implements Serializable {
     public void setShare(BigDecimal share) {
         this.share = share;
     }
+    
+    public String longDescription() {
+        return "[area:" + area + "]"
+                + "[share:" + share + "]"
+                + "[address:" + address + "]";
+    }
 }
