@@ -363,7 +363,7 @@
         <source>simple-list.vtl</source>
         <variables>
             <var>
-                <name>communities</name>
+                <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     community.id, community.name)
