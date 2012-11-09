@@ -289,21 +289,24 @@
             <var>
                 <name>owners</name>
                 <data>
+                    {:native}
                     SELECT 
-                    personOwner.id AS personId,
-                    CONCAT(personOwner.firstName, " ", personOwner.lastName) AS personName,
+                    person.id AS personId,
+                    CONCAT(person.first_name, " ", person.last_name) AS personName,
                     FROM 
-                    Possession possession
-                    LEFT OUTER JOIN possession.people personOwner
+                    possession
+                    JOIN possession_person ON(possession.id = possession_person.possession_id)
+                    JOIN person ON(possession_person.person_id = person.id)
                     WHERE
                     possession.id = {:id}
                     UNION ALL
                     SELECT 
-                    companyOwner.id AS companyId,
-                    companyOwner.name AS companyName
+                    company.id AS companyId,
+                    company.name AS companyName
                     FROM 
-                    Possession possession
-                    LEFT OUTER JOIN possession.companies companyOwner
+                    possession
+                    JOIN possession_company ON(possession.id = possession_company.possession_id)
+                    JOIN company ON(possession_company.company_id = company.id)
                     WHERE
                     possession.id = {:id}
                 </data>
