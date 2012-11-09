@@ -1,6 +1,7 @@
 from pl.reaper.container.data import Address
 
 class AddressManager(Container):
+    _logger = Logger([:_scriptId])
 
     def getAddress(self, entity):
         address = self.getOrCreateAddress(entity)
