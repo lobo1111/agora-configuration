@@ -293,6 +293,8 @@
                     SELECT 
                     person.id AS personId,
                     CONCAT(person.first_name, " ", person.last_name) AS personName,
+                    -1 AS companyId,
+                    ""  AS companyName
                     FROM 
                     possession
                     JOIN possession_person ON(possession.id = possession_person.possession_id)
@@ -301,6 +303,8 @@
                     possession.id = {:id}
                     UNION ALL
                     SELECT 
+                    -1 AS personId,
+                    "" AS personName,
                     company.id AS companyId,
                     company.name AS companyName
                     FROM 
