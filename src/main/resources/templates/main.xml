@@ -292,11 +292,17 @@
                     SELECT 
                     personOwner.id AS personId,
                     CONCAT(personOwner.firstName, " ", personOwner.lastName) AS personName,
+                    FROM 
+                    Possession possession
+                    LEFT OUTER JOIN possession.people personOwner
+                    WHERE
+                    possession.id = {:id}
+                    UNION ALL
+                    SELECT 
                     companyOwner.id AS companyId,
                     companyOwner.name AS companyName
                     FROM 
                     Possession possession
-                    LEFT OUTER JOIN possession.people personOwner
                     LEFT OUTER JOIN possession.companies companyOwner
                     WHERE
                     possession.id = {:id}
