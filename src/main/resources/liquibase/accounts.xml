@@ -195,7 +195,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='payment-status-fkey'>
+    <changeSet author='tkopacki' id='zpk-type-fkey'>
         <sql>  
             ALTER TABLE `zpk`
             ADD CONSTRAINT `zpk_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
