@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -55,7 +56,9 @@ public class Possession implements Serializable {
     @ManyToMany
     @JoinTable(name = "possession_account")
     private Collection<Account> accounts;
-
+    @OneToMany(mappedBy = "zpk")
+    private Collection<Zpk> zpks;
+    
     public Possession() {
     }
 
