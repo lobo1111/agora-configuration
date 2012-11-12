@@ -175,4 +175,31 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='zpk-table'>
+        <sql> 
+            CREATE TABLE IF NOT EXISTS `zpk` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `number` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `description` varchar(255) COLLATE utf8_polish_ci,
+            `possession_id` int(11) NOT NULL,
+            `type_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-possession-fkey'>
+        <sql>  
+            ALTER TABLE `zpk`
+            ADD CONSTRAINT `zpk_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-status-fkey'>
+        <sql>  
+            ALTER TABLE `zpk`
+            ADD CONSTRAINT `zpk_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
