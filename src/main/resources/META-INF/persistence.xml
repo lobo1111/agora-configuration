@@ -23,6 +23,7 @@
         <class>pl.reaper.container.data.TemplateVariable</class>
         <class>pl.reaper.container.data.User</class>
         <class>pl.reaper.container.data.UserGroup</class>
+        <class>pl.reaper.container.data.ZakladowyPlanKont</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.sharedCache.mode" value="NONE"/>
