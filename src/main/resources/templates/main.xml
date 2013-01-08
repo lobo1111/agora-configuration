@@ -93,6 +93,10 @@
                     Community community 
                     JOIN community.possessions possession 
                     JOIN possession.address possessionAddress
+                    JOIN possession.companies companyOwner
+                    JOIN companyOwner.address companyOwnerAddress
+                    JOIN possession.people personOwner
+                    JOIN personOwner.address personOwnerAddress
                     WHERE {:where}
                 </data>
             </var>
@@ -106,6 +110,10 @@
                     Community community 
                     JOIN community.possessions possession 
                     JOIN possession.address possessionAddress
+                    JOIN possession.companies companyOwner
+                    JOIN companyOwner.address companyOwnerAddress
+                    JOIN possession.people personOwner
+                    JOIN personOwner.address personOwnerAddress
                     WHERE {:where}
                 </data>
             </var>
