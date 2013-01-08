@@ -93,10 +93,10 @@
                     Community community 
                     JOIN community.possessions possession 
                     JOIN possession.address possessionAddress
-                    JOIN possession.companies companyOwner
-                    JOIN companyOwner.address companyOwnerAddress
-                    JOIN possession.people personOwner
-                    JOIN personOwner.address personOwnerAddress
+                    LEFT OUTER JOIN possession.companies companyOwner
+                    LEFT OUTER JOIN companyOwner.address companyOwnerAddress
+                    LEFT OUTER JOIN possession.people personOwner
+                    LEFT OUTER JOIN personOwner.address personOwnerAddress
                     WHERE {:where}
                 </data>
             </var>
@@ -110,10 +110,10 @@
                     Community community 
                     JOIN community.possessions possession 
                     JOIN possession.address possessionAddress
-                    JOIN possession.companies companyOwner
-                    JOIN companyOwner.address companyOwnerAddress
-                    JOIN possession.people personOwner
-                    JOIN personOwner.address personOwnerAddress
+                    LEFT OUTER JOIN possession.companies companyOwner
+                    LEFT OUTER JOIN companyOwner.address companyOwnerAddress
+                    LEFT OUTER JOIN possession.people personOwner
+                    LEFT OUTER JOIN personOwner.address personOwnerAddress
                     WHERE {:where}
                 </data>
             </var>
