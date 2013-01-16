@@ -75,7 +75,7 @@ class PossessionManager(Container):
         possession.setArea(BigDecimal(vars.get('possessionArea')))
         possession.setShare(BigDecimal(vars.get('possessionShare')))
         possession.setAddress(self.getAddress(possession))
-        possession.setCommunity(self.getCommunity(possession)
+        possession.setCommunity(self.getCommunity(possession))
         
     def getAddress(self, possession):
         addressManager = AddressManager()
