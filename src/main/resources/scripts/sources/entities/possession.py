@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Person
+from pl.reaper.container.data import Community
 from java.math import BigDecimal
 
 class PossessionManager(Container):
@@ -74,10 +75,15 @@ class PossessionManager(Container):
         possession.setArea(BigDecimal(vars.get('possessionArea')))
         possession.setShare(BigDecimal(vars.get('possessionShare')))
         possession.setAddress(self.getAddress(possession))
+        possession.setCommunity(self.getCommunity(possession)
         
     def getAddress(self, possession):
         addressManager = AddressManager()
         return addressManager.getAddress(possession)
+
+    def getCommunity(self, possession):
+        communityManager = CommunityManager()
+        return communityManager.findCommunityById(possession)
         
     def savePossession(self, possession):
         self._logger.info(possession.longDescription())

@@ -25,7 +25,10 @@ class CommunityManager(Container):
         self._logger.info(community.longDescription())
         entityManager.persist(community)
         entityManager.flush()
-        
+
     def findCommunity(self):
         id = vars.get('id')
+        return findCommunityById(id)
+
+    def findCommunityById(self, id):
         return entityManager.createQuery('Select community From Community community Where community.id = ' + id).getSingleResult()
