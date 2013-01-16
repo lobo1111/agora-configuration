@@ -28,7 +28,7 @@ class CommunityManager(Container):
 
     def findCommunity(self):
         id = vars.get('id')
-        return findCommunityById(id)
+        return self.findCommunityById(id)
 
     def findCommunityById(self, id):
         return entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
