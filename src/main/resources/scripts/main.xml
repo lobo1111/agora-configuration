@@ -274,7 +274,7 @@
     
     <script>
         <name>community</name>
-        <source>entities/company.py</source>
+        <source>entities/community.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>

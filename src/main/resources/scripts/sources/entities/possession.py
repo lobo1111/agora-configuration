@@ -1,5 +1,4 @@
 from pl.reaper.container.data import Person
-from pl.reaper.container.data import Community
 from java.math import BigDecimal
 
 class PossessionManager(Container):
