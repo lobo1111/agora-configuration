@@ -82,7 +82,7 @@ class PossessionManager(Container):
 
     def getCommunity(self, possession):
         communityManager = CommunityManager()
-        return communityManager.findCommunityById(possession)
+        return communityManager.findCommunityById(possession.getCommunity().getId())
         
     def savePossession(self, possession):
         self._logger.info(possession.longDescription())
