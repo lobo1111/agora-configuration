@@ -333,11 +333,11 @@
                 <name>zpks</name>
                 <data>
                     SELECT
-                        zpk
+                        possession.zpk
                     FROM
-                        ZakladowyPlanKont zpk
+                        Possession possession
                     WHERE
-                        zpk.community.id = {:id}
+                        possession.id = {:id}
                 </data>
             </var>
         </variables>
