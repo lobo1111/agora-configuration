@@ -212,4 +212,11 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='zpk-type-dict'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('ZPK_TYPE');
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
