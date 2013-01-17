@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Person
+from pl.reaper.container.data import Possession
 from java.math import BigDecimal
 
 class PossessionManager(Container):
@@ -12,7 +13,7 @@ class PossessionManager(Container):
             possession.getPeople().add(person)
             entityManager.persist(possession)
         else:
-            self._logger.info('Bound allready exists: [person:%d]<->[possession:%d]' % (person.getId(), possession.getId()));
+            self._logger.info('Bound already exists: [person:%d]<->[possession:%d]' % (person.getId(), possession.getId()));
             
     def addCompanyOwner(self):
         company = self.findCompany();
@@ -22,7 +23,7 @@ class PossessionManager(Container):
             possession.getCompanies().add(company)
             entityManager.persist(possession)
         else:
-            self._logger.info('Bound allready exists: [company:%d]<->[possession:%d]' % (company.getId(), possession.getId()));
+            self._logger.info('Bound already exists: [company:%d]<->[possession:%d]' % (company.getId(), possession.getId()));
             
     def removePersonOwner(self):
         person = self.findPerson();
