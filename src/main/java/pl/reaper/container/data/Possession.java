@@ -57,7 +57,8 @@ public class Possession implements Serializable {
     @ManyToMany
     @JoinTable(name = "possession_account")
     private Collection<Account> accounts;
-    @OneToOne(mappedBy = "possession")
+    @OneToOne
+    @JoinColumn(name="zpk_id")
     private ZakladowyPlanKont zpk;
 
     public Possession() {
