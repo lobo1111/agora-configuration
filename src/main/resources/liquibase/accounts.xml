@@ -181,17 +181,17 @@
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `number` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             `description` varchar(255) COLLATE utf8_polish_ci,
-            `possession_id` int(11) NOT NULL,
+            `community_id` int(11) NOT NULL,
             `type_id` int(11) NOT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='zpk-possession-fkey'>
+    <changeSet author='tkopacki' id='zpk-community-fkey'>
         <sql>  
             ALTER TABLE `zpk`
-            ADD CONSTRAINT `zpk_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `zpk_community_fkey` FOREIGN KEY `community_id` REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     
@@ -199,6 +199,20 @@
         <sql>  
             ALTER TABLE `zpk`
             ADD CONSTRAINT `zpk_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='possession-zpk-column'>
+        <sql>  
+            ALTER TABLE `possession`
+            ADD COLUMN `zpk_ik` int(11);
+        </sql>
+    </changeSet>
+    
+        <changeSet author='tkopacki' id='possession-zpk-fkey'>
+        <sql>  
+            ALTER TABLE `possession`
+            ADD CONSTRAINT `possession_zpk_fkey` FOREIGN KEY `zpk_id` REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     
