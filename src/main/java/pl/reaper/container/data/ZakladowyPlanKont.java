@@ -37,9 +37,9 @@ public class ZakladowyPlanKont implements Serializable {
     @Size(min = 0, max = 255)
     @Column(name = "description")
     private String description;
-    @JoinColumn(name = "possession_id", referencedColumnName = "id")
+    @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
-    private Possession possessions;
+    private Community community;
 
     public Integer getId() {
         return id;
@@ -73,11 +73,11 @@ public class ZakladowyPlanKont implements Serializable {
         this.description = description;
     }
 
-    public Possession getPossessions() {
-        return possessions;
+    public Community getCommunity() {
+        return community;
     }
 
-    public void setPossessions(Possession possessions) {
-        this.possessions = possessions;
+    public void setCommunity(Community community) {
+        this.community = community;
     }
 }

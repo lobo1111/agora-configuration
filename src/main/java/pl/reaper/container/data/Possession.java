@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -42,23 +43,23 @@ public class Possession implements Serializable {
     @ManyToMany
     @JoinTable(
         name = "possession_person", joinColumns =
-            @JoinColumn(name = "possession_id", referencedColumnName = "id"),
-        inverseJoinColumns =
-            @JoinColumn(name = "person_id", referencedColumnName = "id"))
+    @JoinColumn(name = "possession_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "person_id", referencedColumnName = "id"))
     private Collection<Person> people;
     @ManyToMany
     @JoinTable(
         name = "possession_company", joinColumns =
-            @JoinColumn(name = "possession_id", referencedColumnName = "id"),
-        inverseJoinColumns =
-            @JoinColumn(name = "company_id", referencedColumnName = "id"))
+    @JoinColumn(name = "possession_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "company_id", referencedColumnName = "id"))
     private Collection<Company> companies;
     @ManyToMany
     @JoinTable(name = "possession_account")
     private Collection<Account> accounts;
-    @OneToMany(mappedBy = "possessions")
-    private Collection<ZakladowyPlanKont> zpks;
-    
+    @OneToOne(mappedBy = "possession")
+    private ZakladowyPlanKont zpk;
+
     public Possession() {
     }
 
@@ -114,6 +115,14 @@ public class Possession implements Serializable {
         this.accounts = accounts;
     }
 
+    public ZakladowyPlanKont getZpk() {
+        return zpk;
+    }
+
+    public void setZpk(ZakladowyPlanKont zpk) {
+        this.zpk = zpk;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -154,7 +163,7 @@ public class Possession implements Serializable {
     public void setShare(BigDecimal share) {
         this.share = share;
     }
-    
+
     public String longDescription() {
         return "[area:" + area + "]"
                 + "[share:" + share + "]"
