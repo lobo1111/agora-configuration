@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<zpks>
+    #foreach($row in $zpks)
+    <item>
+        <id>$!row.getId()</id>
+        <number>$!row.getNumber()</number>
+        <description>$!row.getDescription()</description>
+        <type>$!row.getType().getType()</type>
+    </item>
+    #end
+</zpks>

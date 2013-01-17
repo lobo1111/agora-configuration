@@ -325,6 +325,23 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>list-community-zpks</name>
+        <source>list-community-zpks.vtl</source>
+        <variables>
+            <var>
+                <name>zpks</name>
+                <data>
+                    SELECT
+                        zpk
+                    FROM
+                        ZakladowyPlanKont zpk
+                    WHERE
+                        zpk.community.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
     <!-- SIMPLE LISTS -->
     <template>
         <name>simple-list-person-owner-possessions</name>
