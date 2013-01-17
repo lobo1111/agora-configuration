@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -57,9 +58,8 @@ public class Possession implements Serializable {
     @ManyToMany
     @JoinTable(name = "possession_account")
     private Collection<Account> accounts;
-    @OneToOne
-    @JoinColumn(name="zpk_id")
-    private ZakladowyPlanKont zpk;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
+    private Collection<ZakladowyPlanKont> zpks;
 
     public Possession() {
     }
@@ -116,12 +116,12 @@ public class Possession implements Serializable {
         this.accounts = accounts;
     }
 
-    public ZakladowyPlanKont getZpk() {
-        return zpk;
+    public Collection<ZakladowyPlanKont> getZpks() {
+        return zpks;
     }
 
-    public void setZpk(ZakladowyPlanKont zpk) {
-        this.zpk = zpk;
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
+        this.zpks = zpks;
     }
 
     @Override

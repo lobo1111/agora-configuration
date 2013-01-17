@@ -182,7 +182,7 @@
             `number` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             `description` varchar(255) COLLATE utf8_polish_ci,
             `community_id` int(11) NOT NULL,
-            `possession_id` int(11) NOT NULL,
+            `possession_id` int(11) NULL,
             `type_id` int(11) NOT NULL,
             `credit` decimal(10,2) DEFAULT 0,
             `debit` decimal(10,2) DEFAULT 0,

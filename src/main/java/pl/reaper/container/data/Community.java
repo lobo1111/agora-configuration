@@ -26,12 +26,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class Community implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Column(name = "area")
     private BigDecimal area;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Company company;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +51,8 @@ public class Community implements Serializable {
     private Date outDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
     private Collection<Possession> possessions;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
+    private Collection<ZakladowyPlanKont> zpks;
 
     public Community() {
     }
@@ -105,6 +107,14 @@ public class Community implements Serializable {
         this.possessions = possessions;
     }
 
+    public Collection<ZakladowyPlanKont> getZpks() {
+        return zpks;
+    }
+
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
+        this.zpks = zpks;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -145,7 +155,7 @@ public class Community implements Serializable {
     public void setCompany(Company company) {
         this.company = company;
     }
-    
+
     public String longDescription() {
         return "[name:" + name + "]"
                 + "[company:" + company + "]";

@@ -40,6 +40,9 @@ public class ZakladowyPlanKont implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
     private Community community;
+    @JoinColumn(name = "possession_id", referencedColumnName = "id")
+    @ManyToOne
+    private Possession possession;
 
     public Integer getId() {
         return id;
@@ -79,5 +82,13 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setCommunity(Community community) {
         this.community = community;
+    }
+
+    public Possession getPossession() {
+        return possession;
+    }
+
+    public void setPossession(Possession possession) {
+        this.possession = possession;
     }
 }
