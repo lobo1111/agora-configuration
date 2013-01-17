@@ -191,7 +191,7 @@
     <changeSet author='tkopacki' id='zpk-community-fkey'>
         <sql>  
             ALTER TABLE `zpk`
-            ADD CONSTRAINT `zpk_community_fkey` FOREIGN KEY `community_id` REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `zpk_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     
@@ -212,7 +212,7 @@
         <changeSet author='tkopacki' id='possession-zpk-fkey'>
         <sql>  
             ALTER TABLE `possession`
-            ADD CONSTRAINT `possession_zpk_fkey` FOREIGN KEY `zpk_id` REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `possession_zpk_fkey` FOREIGN KEY (`zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     
