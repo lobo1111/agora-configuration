@@ -58,7 +58,7 @@ public class Possession implements Serializable {
     @ManyToMany
     @JoinTable(name = "possession_account")
     private Collection<Account> accounts;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks;
 
     public Possession() {
