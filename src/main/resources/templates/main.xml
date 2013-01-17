@@ -326,14 +326,15 @@
         </variables>
     </template>
     <template>
-        <name>list-community-zpks</name>
-        <source>list-community-zpks.vtl</source>
+        <name>list-possession-zpks</name>
+        <source>simple-list.vtl</source>
         <variables>
             <var>
                 <name>zpks</name>
                 <data>
-                    SELECT
-                        possession.zpk
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                        possession.zpk.id, 
+                        possession.zpk.number) 
                     FROM
                         Possession possession
                     WHERE
