@@ -205,7 +205,7 @@
     <changeSet author='tkopacki' id='possession-zpk-column'>
         <sql>  
             ALTER TABLE `possession`
-            ADD COLUMN `zpk_ik` int(11);
+            ADD COLUMN `zpk_id` int(11);
         </sql>
     </changeSet>
     
