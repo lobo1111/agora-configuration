@@ -244,7 +244,7 @@
             ALTER TABLE `payment`
             ADD COLUMN booking_day timestamp NULL;
             ALTER TABLE `payment`
-            ADD COLUMN balance_id int(11) NOT NULL;
+            ADD COLUMN balance_id int(11) NULL;
         </sql>
     </changeSet>
     
