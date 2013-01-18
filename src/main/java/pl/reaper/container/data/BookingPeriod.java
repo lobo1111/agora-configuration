@@ -2,10 +2,16 @@ package pl.reaper.container.data;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@Entity
+@Table(name = "booking_period")
+@XmlRootElement
 public class BookingPeriod {
 
     @Id
