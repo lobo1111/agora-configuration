@@ -219,4 +219,80 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='zpk-credit-debit-remove'>
+        <sql>  
+            ALTER TABLE `zpk`
+            DROP COLUMN credit;
+            ALTER TABLE `zpk`
+            DROP COLUMN debit;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-auto-removed'>
+        <sql>  
+            ALTER TABLE `payment`
+            DROP COLUMN auto;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-booked-balance-columns-add'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD COLUMN booked boolean DEFAULT false;
+            ALTER TABLE `payment`
+            ADD COLUMN create_day timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
+            ALTER TABLE `payment`
+            ADD COLUMN booking_day timestamp NULL;
+            ALTER TABLE `payment`
+            ADD COLUMN balance_id int(11) NOT NULL;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-zpk-balance'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `zpk_balance` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `credit` decimal(10,2) DEFAULT 0,
+            `debit` decimal(10,2) DEFAULT 0,
+            `start_credit` decimal(10,2) DEFAULT 0,
+            `start_debit` decimal(10,2) DEFAULT 0,
+            `zpk_id` int(11) NOT NULL,
+            `booking_period_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table0booking-period'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `booking_period` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `default` boolean DEFAULT false,
+            `name`  varchar(255) COLLATE utf8_polish_ci,
+            `active` boolean DEFAULT true,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-zpk-balance-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `payment_zbk_balance_fkey` FOREIGN KEY (`balance_id`) REFERENCES `zpk_balance` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-balance-zpk-fkey'>
+        <sql>  
+            ALTER TABLE `zpk_balance`
+            ADD CONSTRAINT `zbk_balance_zpk_fkey` FOREIGN KEY (`zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-balance-booking-period-fkey'>
+        <sql>  
+            ALTER TABLE `zpk_balance`
+            ADD CONSTRAINT `zbk_balance_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
