@@ -333,10 +333,11 @@
                 <name>zpks</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                        possession.zpk.id, 
-                        possession.zpk.number) 
+                        zpk.id, 
+                        zpk.number) 
                     FROM
                         Possession possession
+                        JOIN possession.zpks zpk
                     WHERE
                         possession.id = {:id}
                 </data>
