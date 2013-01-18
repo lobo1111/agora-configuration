@@ -2,6 +2,30 @@
 <templates>
     <!-- ENTITIES -->
     <template>
+        <name>entity-zpk</name>
+        <source>entity-zpk.vtl</source>
+        <variables>
+            <var>
+                <name>zpk</name>
+                <data>
+                    {:single}
+                    SELECT 
+                        zpk.id,
+                        zpk.number,
+                        balance.credit,
+                        balance.debit
+                    FROM 
+                        ZakladowyPlanKont zpk
+                        JOIN zpk.zpkBalances balance
+                        JOIN balance.bookingPeriod period
+                    WHERE 
+                        zpk.id = {:id}
+                        AND period.defaultPeriod = true
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-community</name>
         <source>entity-community.vtl</source>
         <variables>
