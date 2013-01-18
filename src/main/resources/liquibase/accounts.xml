@@ -295,4 +295,13 @@
             ADD CONSTRAINT `zbk_balance_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-table-timestamp-to-date'>
+        <sql> 
+            ALTER TABLE `payment`
+            ALTER COLUMN create_day date
+            ALTER TABLE `payment`
+            ALTER COLUMN booking_date date
+        </sql>
+    </changeSet>
 </databaseChangeLog>
