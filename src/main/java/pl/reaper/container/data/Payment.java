@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -39,8 +42,17 @@ public class Payment implements Serializable {
     @Size(min = 0, max = 255)
     @Column(name = "description")
     private String description;
-    @Column(name = "auto")
-    private boolean auto;
+    @Column(name = "booked")
+    private boolean booked;
+    @Column(name = "create_day")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDay;
+    @Column(name = "booking_day")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date bookingDay;
+    @JoinColumn(name = "balance_id", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private ZpkBalance zpkBalance;
 
     public int getId() {
         return id;
@@ -90,11 +102,35 @@ public class Payment implements Serializable {
         this.description = description;
     }
 
-    public boolean isAuto() {
-        return auto;
+    public boolean isBooked() {
+        return booked;
     }
 
-    public void setAuto(boolean auto) {
-        this.auto = auto;
+    public void setBooked(boolean booked) {
+        this.booked = booked;
+    }
+
+    public Date getCreateDay() {
+        return createDay;
+    }
+
+    public void setCreateDay(Date createDay) {
+        this.createDay = createDay;
+    }
+
+    public Date getBookingDay() {
+        return bookingDay;
+    }
+
+    public void setBookingDay(Date bookingDay) {
+        this.bookingDay = bookingDay;
+    }
+
+    public ZpkBalance getZpkBalance() {
+        return zpkBalance;
+    }
+
+    public void setZpkBalance(ZpkBalance zpkBalance) {
+        this.zpkBalance = zpkBalance;
     }
 }
