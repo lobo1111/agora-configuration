@@ -299,9 +299,13 @@
     <changeSet author='tkopacki' id='payment-table-timestamp-to-date'>
         <sql> 
             ALTER TABLE `payment`
-            ALTER COLUMN `create_day` date DEFAULT NULL;
+            DROP COLUMN `create_day`;
             ALTER TABLE `payment`
-            ALTER COLUMN `booking_date` date DEFAULT NULL;
+            DROP COLUMN `booking_date`;
+            ALTER TABLE `payment`
+            ADD COLUMN `create_day` date DEFAULT NULL;
+            ALTER TABLE `payment`
+            ADD COLUMN `booking_date` date DEFAULT NULL;
         </sql>
     </changeSet>
 </databaseChangeLog>
