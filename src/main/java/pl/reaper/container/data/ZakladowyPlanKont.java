@@ -33,9 +33,6 @@ public class ZakladowyPlanKont implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "number")
     private String number;
-    @JoinColumn(name = "type_id", referencedColumnName = "id")
-    @ManyToOne
-    private Dictionary type;
     @Basic(optional = true)
     @Size(min = 0, max = 255)
     @Column(name = "description")
@@ -63,14 +60,6 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    public Dictionary getType() {
-        return type;
-    }
-
-    public void setType(Dictionary type) {
-        this.type = type;
     }
 
     public String getDescription() {
