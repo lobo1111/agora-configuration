@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <communities>
     #foreach($community in $communities)
+$community
         <item>
-            <id>$community.getId()</id>
-            <name>$community.getName()</name>
+            <id>$!community.getId()</id>
+            <name>$!community.getName()</name>
         </item>
     #end
         <settings>
