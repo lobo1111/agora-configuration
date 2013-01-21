@@ -110,8 +110,7 @@
                 <data>
                     {:limit}
                     SELECT
-                        community.id,
-                        community.name
+                        community
                     FROM
                         Community community
                     WHERE {:where}
