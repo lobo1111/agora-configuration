@@ -240,9 +240,9 @@
             ALTER TABLE `payment`
             ADD COLUMN booked boolean DEFAULT false;
             ALTER TABLE `payment`
-            ADD COLUMN create_day timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
+            ADD COLUMN create_day date DEFAULT NULL;
             ALTER TABLE `payment`
-            ADD COLUMN booking_day timestamp NULL;
+            ADD COLUMN booking_day date DEFAULT NULL;
             ALTER TABLE `payment`
             ADD COLUMN balance_id int(11) NULL;
         </sql>
@@ -293,19 +293,6 @@
         <sql>  
             ALTER TABLE `zpk_balance`
             ADD CONSTRAINT `zbk_balance_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
-        </sql>
-    </changeSet>
-    
-    <changeSet author='tkopacki' id='payment-table-timestamp-to-date'>
-        <sql> 
-            ALTER TABLE `payment`
-            DROP COLUMN `create_day`;
-            ALTER TABLE `payment`
-            DROP COLUMN `booking_date`;
-            ALTER TABLE `payment`
-            ADD COLUMN `create_day` date DEFAULT NULL;
-            ALTER TABLE `payment`
-            ADD COLUMN `booking_date` date DEFAULT NULL;
         </sql>
     </changeSet>
 </databaseChangeLog>
