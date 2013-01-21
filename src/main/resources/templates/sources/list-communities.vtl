@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<possessions>
+    #foreach($community in $communities)
+        <item>
+            <id>$community.getId()</id>
+            <name>$community.getName()</name>
+        </item>
+    #end
+        <settings>
+            <maxResults>$countRows</maxResults>
+        </settings>
+</possessions>

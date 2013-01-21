@@ -102,6 +102,35 @@
     </template>
     <!-- LISTS -->
     <template>
+        <name>list-communities</name>
+        <source>list-communities.vtl</source>
+        <variables>
+            <var>
+                <name>communities</name>
+                <data>
+                    {:limit}
+                    SELECT
+                        community.id,
+                        community.name
+                    FROM
+                        Community community
+                    WHERE {:where}
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                        count(community.id)
+                    FROM
+                        Community community
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-possessions</name>
         <source>list-possessions.vtl</source>
         <variables>
