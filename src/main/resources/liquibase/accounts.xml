@@ -212,13 +212,6 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='zpk-type-dict'>
-        <sql>
-            INSERT INTO `dictionary_type` (`type`) VALUES
-            ('ZPK_TYPE');
-        </sql>
-    </changeSet>
-    
     <changeSet author='tkopacki' id='zpk-credit-debit-remove'>
         <sql>  
             ALTER TABLE `zpk`
@@ -293,6 +286,13 @@
         <sql>  
             ALTER TABLE `zpk_balance`
             ADD CONSTRAINT `zbk_balance_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-type-column-drop'>
+        <sql> 
+            ALTER TABLE `zpk` DROP FOREIGN KEY `zpk_type_fkey`;
+            ALTER TABLE `zpk` DROP COLUMN `type_id`;
         </sql>
     </changeSet>
 </databaseChangeLog>

@@ -10,17 +10,17 @@
                 <data>
                     {:single}
                     SELECT 
-                        zpk.id,
-                        zpk.number,
-                        balance.credit,
-                        balance.debit
+                    zpk.id,
+                    zpk.number,
+                    balance.credit,
+                    balance.debit
                     FROM 
-                        ZakladowyPlanKont zpk
-                        JOIN zpk.zpkBalances balance
-                        JOIN balance.bookingPeriod period
+                    ZakladowyPlanKont zpk
+                    JOIN zpk.zpkBalances balance
+                    JOIN balance.bookingPeriod period
                     WHERE 
-                        zpk.id = {:id}
-                        AND period.defaultPeriod = true
+                    zpk.id = {:id}
+                    AND period.defaultPeriod = true
                 </data>
             </var>
         </variables>
@@ -349,6 +349,7 @@
             </var>
         </variables>
     </template>
+    <!-- SIMPLE LISTS -->
     <template>
         <name>list-possession-zpks</name>
         <source>simple-list.vtl</source>
@@ -357,18 +358,17 @@
                 <name>zpks</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                        zpk.id, 
-                        zpk.number) 
+                    zpk.id, 
+                    zpk.number) 
                     FROM
-                        Possession possession
-                        JOIN possession.zpks zpk
+                    Possession possession
+                    JOIN possession.zpks zpk
                     WHERE
-                        possession.id = {:id}
+                    possession.id = {:id}
                 </data>
             </var>
         </variables>
     </template>
-    <!-- SIMPLE LISTS -->
     <template>
         <name>simple-list-person-owner-possessions</name>
         <source>simple-list.vtl</source>

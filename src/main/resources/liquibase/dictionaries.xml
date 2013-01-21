@@ -198,11 +198,4 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='zpk-dictionary-type'>
-        <sql>
-            INSERT INTO `dictionary_type` (`type`) VALUES
-            ('ZPK');
-        </sql>
-    </changeSet>
-    
 </databaseChangeLog>
