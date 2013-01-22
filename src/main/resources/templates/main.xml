@@ -398,6 +398,25 @@
         </variables>
     </template>
     <template>
+        <name>list-community-zpks</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>zpks</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    zpk.id, 
+                    zpk.number) 
+                    FROM
+                    Community community
+                    JOIN community.zpks zpk
+                    WHERE
+                    community.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-person-owner-possessions</name>
         <source>simple-list.vtl</source>
         <variables>
