@@ -295,4 +295,10 @@
             ALTER TABLE `zpk` DROP COLUMN `type_id`;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-default-booking-period'>
+        <sql> 
+            INSERT INTO `booking_period`(`default`, `name`, `active`) VALUES(true, 'domyślny', true);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
