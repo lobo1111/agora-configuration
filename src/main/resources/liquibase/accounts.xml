@@ -301,4 +301,38 @@
             INSERT INTO `booking_period`(`default`, `name`, `active`) VALUES(true, 'domyślny', true);
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='drop-possession-account'>
+        <sql> 
+            DROP TABLE `possession_account;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='zpk-person-column'>
+        <sql> 
+            ALTER TABLE `zpk`
+            ADD COLUMN `person_id` int(11); 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-company-column'>
+        <sql> 
+            ALTER TABLE `zpk`
+            ADD COLUMN `company_id` int(11); 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-person-fkey'>
+        <sql>  
+            ALTER TABLE `zpk`
+            ADD CONSTRAINT `zbk_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-company-fkey'>
+        <sql>  
+            ALTER TABLE `zpk`
+            ADD CONSTRAINT `zbk_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>

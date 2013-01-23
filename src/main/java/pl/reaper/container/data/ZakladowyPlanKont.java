@@ -43,6 +43,12 @@ public class ZakladowyPlanKont implements Serializable {
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
     @ManyToOne
     private Possession possession;
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    @ManyToOne
+    private Person person;
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne
+    private Company company;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances;
 
@@ -84,6 +90,22 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setPossession(Possession possession) {
         this.possession = possession;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Collection<ZpkBalance> getZpkBalances() {

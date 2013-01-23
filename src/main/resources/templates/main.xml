@@ -406,7 +406,7 @@
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     zpk.id, 
-                    zpk.number + " " + possessionAddress.street + " " + possessionAddress.houseNumber + " " + possessionAddress.flatNumber) 
+                    zpk.number + " " + possessionAddress.street + " " + possessionAddress.houseNumber + " " + possessionAddress.flatNumber)
                     FROM
                     Community community
                     JOIN community.zpks zpk

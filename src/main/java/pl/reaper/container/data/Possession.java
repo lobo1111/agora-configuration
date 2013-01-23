@@ -55,9 +55,6 @@ public class Possession implements Serializable {
     inverseJoinColumns =
     @JoinColumn(name = "company_id", referencedColumnName = "id"))
     private Collection<Company> companies;
-    @ManyToMany
-    @JoinTable(name = "possession_account")
-    private Collection<Account> accounts;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks;
 
@@ -106,14 +103,6 @@ public class Possession implements Serializable {
 
     public void setCompanies(Collection<Company> companies) {
         this.companies = companies;
-    }
-
-    public Collection<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(Collection<Account> accounts) {
-        this.accounts = accounts;
     }
 
     public Collection<ZakladowyPlanKont> getZpks() {

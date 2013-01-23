@@ -51,13 +51,6 @@ public class Account implements Serializable {
     @JoinColumn(name = "parrent_account_id", referencedColumnName = "id")
     @ManyToOne
     private Account parrentAccount;
-    @ManyToMany
-    @JoinTable(
-        name = "possession_account", joinColumns =
-    @JoinColumn(name = "account_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "possession_id", referencedColumnName = "id"))
-    private Collection<Possession> possessions;
 
     public Account() {
     }
@@ -119,14 +112,6 @@ public class Account implements Serializable {
 
     public void setParrentAccount(Account parrentAccount) {
         this.parrentAccount = parrentAccount;
-    }
-
-    public Collection<Possession> getPossessions() {
-        return possessions;
-    }
-
-    public void setPossessions(Collection<Possession> possessions) {
-        this.possessions = possessions;
     }
 
     public Bank getBank() {
