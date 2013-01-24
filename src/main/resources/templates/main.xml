@@ -377,13 +377,17 @@
             </var>
         </variables>
     </template>
-    <!-- SIMPLE LISTS -->
+    
+    
+    <!-- ################### SIMPLE LISTS ########################## -->
+    
+    
     <template>
         <name>list-possession-zpks</name>
         <source>simple-list.vtl</source>
         <variables>
             <var>
-                <name>zpks</name>
+                <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     zpk.id, 
@@ -402,7 +406,7 @@
         <source>simple-list.vtl</source>
         <variables>
             <var>
-                <name>zpks</name>
+                <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     zpk.id, 
