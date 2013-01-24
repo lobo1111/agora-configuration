@@ -341,4 +341,9 @@
             ALTER TABLE `booking_period` CHANGE `default` `defualt_period` boolean;
         </sql>
     </changeSet>
+    <changeSet author='tkopacki' id='booking-period-refactoring'>
+        <sql>  
+            ALTER TABLE `booking_period` CHANGE `defualt_period` `default_period` boolean;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
