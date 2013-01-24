@@ -2,6 +2,24 @@
 <templates>
     <!-- ENTITIES -->
     <template>
+        <name>entity-default-booking-period</name>
+        <source>entity-default-booking-period.vtl</source>
+        <variables>
+            <var>
+                <name>period</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    period
+                    FROM 
+                    BookingPeriod period
+                    WHERE 
+                    period.defaultPeriod = true
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-zpk</name>
         <source>entity-zpk.vtl</source>
         <variables>
@@ -110,9 +128,9 @@
                 <data>
                     {:limit}
                     SELECT
-                        community
+                    community
                     FROM
-                        Community community
+                    Community community
                     WHERE {:where}
                 </data>
             </var>
@@ -121,9 +139,9 @@
                 <data>
                     {:single}
                     SELECT
-                        count(community.id)
+                    count(community.id)
                     FROM
-                        Community community
+                    Community community
                     WHERE {:where}
                 </data>
             </var>
