@@ -38,7 +38,7 @@
                     JOIN balance.bookingPeriod period
                     WHERE 
                     zpk.id = {:id}
-                    AND period.defaultPeriod = true
+                    AND period.id = {:bookingPeriod}
                 </data>
             </var>
         </variables>
