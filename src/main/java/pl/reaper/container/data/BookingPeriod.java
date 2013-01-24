@@ -19,7 +19,7 @@ public class BookingPeriod {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "defaultPeriod")
+    @Column(name = "default_period")
     private boolean defaultPeriod;
     @Column(name = "name")
     private String name;
