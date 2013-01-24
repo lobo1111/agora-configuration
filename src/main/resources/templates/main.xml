@@ -410,12 +410,10 @@
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     zpk.id, 
-                    zpk.number + " " + possessionAddress.street + " " + possessionAddress.houseNumber + " " + possessionAddress.flatNumber)
+                    CONCAT(zpk.number, " ", zpk.description))
                     FROM
                     Community community
                     JOIN community.zpks zpk
-                    LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN possession.address possessionAddress
                     WHERE
                     community.id = {:id}
                 </data>
