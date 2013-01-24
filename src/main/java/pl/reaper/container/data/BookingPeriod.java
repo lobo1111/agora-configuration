@@ -18,7 +18,7 @@ public class BookingPeriod {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Column(name = "default")
     private boolean defaultPeriod;
     @Column(name = "name")
@@ -26,11 +26,11 @@ public class BookingPeriod {
     @Column(name = "active")
     private boolean active;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
