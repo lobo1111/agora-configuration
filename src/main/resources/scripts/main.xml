@@ -288,6 +288,58 @@
     </script>
     
     <script>
+        <name>zpk</name>
+        <source>entities/zpk.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>community</scriptName>
+            <scriptName>person</scriptName>
+            <scriptName>possession</scriptName>
+            <scriptName>bookingPeriod</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>bookingPeriod</name>
+        <source>entities/bookingPeriod.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>create-zpk</name>
+        <source>entities/zpk.py</source>
+        <onInit>ZpkManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>community</scriptName>
+            <scriptName>person</scriptName>
+            <scriptName>possession</scriptName>
+            <scriptName>bookingPeriod</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-payment</name>
         <source>entities/payment.py</source>
         <onInit>PaymentManager().create()</onInit>

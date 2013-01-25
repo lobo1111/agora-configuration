@@ -92,4 +92,11 @@ public class ZpkBalance implements Serializable {
     public void setBookingPeriod(BookingPeriod bookingPeriod) {
         this.bookingPeriod = bookingPeriod;
     }
+
+    public String longDescription() {
+        return "[credit:" + credit + "]"
+                + "[debit:" + debit + "]"
+                + "[startCredit:" + startCredit + "]"
+                + "[startDebit:" + startDebit + "]";
+    }
 }

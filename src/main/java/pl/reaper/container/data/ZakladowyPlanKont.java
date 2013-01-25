@@ -115,4 +115,9 @@ public class ZakladowyPlanKont implements Serializable {
     public void setZpkBalances(Collection<ZpkBalance> zpkBalances) {
         this.zpkBalances = zpkBalances;
     }
+
+    public String longDescription() {
+        return "[number:" + number + "]"
+                + "[description:" + description + "]";
+    }
 }
