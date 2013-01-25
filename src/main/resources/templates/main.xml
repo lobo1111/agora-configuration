@@ -31,11 +31,26 @@
                     zpk.id,
                     zpk.number,
                     balance.credit,
-                    balance.debit
+                    balance.debit,
+                    community.id,
+                    community.name,
+                    person.id,
+                    person.firstName, 
+                    person.lastName,
+                    company.id,
+                    company.name,
+                    possession.id,
+                    possession.address.street, 
+                    possession.address.houseNumber, 
+                    possession.addres.flatNumber
                     FROM 
                     ZakladowyPlanKont zpk
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
+                    JOIN zpk.community community
+                    LEFT OUTER JOIN zpk.possession possession
+                    LEFT OUTER JOIN zpk.person Person
+                    LEFT OUTER JOIN zpk.company Company
                     WHERE 
                     zpk.id = {:id}
                     AND period.id = {:bookingPeriod}
