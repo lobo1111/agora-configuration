@@ -42,7 +42,7 @@
                     possession.id,
                     possessionAddress.street, 
                     possessionAddress.houseNumber, 
-                    possessionAddres.flatNumber
+                    possessionAddress.flatNumber
                     FROM 
                     ZakladowyPlanKont zpk
                     JOIN zpk.zpkBalances balance
