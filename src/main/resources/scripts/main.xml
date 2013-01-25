@@ -303,6 +303,22 @@
     </script>
     
     <script>
+        <name>possession</name>
+        <source>entities/possession.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>address</scriptName>
+            <scriptName>community</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>zpk</name>
         <source>entities/zpk.py</source>
         <onInit/>
