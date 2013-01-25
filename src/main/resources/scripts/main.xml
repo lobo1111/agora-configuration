@@ -318,6 +318,20 @@
         </security>
     </script>
     
+     <script>
+        <name>bookingPeriod</name>
+        <source>entities/bookingPeriod.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
     <script>
         <name>zpk</name>
         <source>entities/zpk.py</source>
@@ -331,20 +345,6 @@
             <scriptName>person</scriptName>
             <scriptName>possession</scriptName>
             <scriptName>bookingPeriod</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>bookingPeriod</name>
-        <source>entities/bookingPeriod.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
         </dependencies>
         <security>
             <group>all</group>
