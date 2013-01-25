@@ -40,15 +40,16 @@
                     company.id,
                     company.name,
                     possession.id,
-                    possession.address.street, 
-                    possession.address.houseNumber, 
-                    possession.addres.flatNumber
+                    possessionAddress.street, 
+                    possessionAddress.houseNumber, 
+                    possessionAddres.flatNumber
                     FROM 
                     ZakladowyPlanKont zpk
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
                     JOIN zpk.community community
                     LEFT OUTER JOIN zpk.possession possession
+                    LEFT OUTER JOIN possession.address possessionAddress
                     LEFT OUTER JOIN zpk.person Person
                     LEFT OUTER JOIN zpk.company Company
                     WHERE 
