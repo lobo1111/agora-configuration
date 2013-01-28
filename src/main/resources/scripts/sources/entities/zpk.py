@@ -19,22 +19,22 @@ class ZpkManager(Container):
         self.setAllBookingPeriods(zpk)
         
     def getCommunity(self, zpk):
-        if vars.get('communityId') is not None:
+        if 'communityId' in vars:
             communityManager = CommunityManager()
             return communityManager.findCommunityById(vars.get('communityId'))
         
     def getPerson(self, zpk):
-        if vars.get('personId') is not None:
+        if 'personId' in vars:
             personManager = PersonManager()
             return personManager.findPersonById(vars.get('personId'))
         
     def getPossession(self, zpk):
-        if vars.get('possessionId') is not None:
+        if 'possessionId'in vars:
             possessionManager = PossessionManager()
             return possessionManager.findPossessionById(vars.get('possessionId'))
         
     def getCompany(self, zpk):
-        if vars.get('companyId') is not None:
+        if 'companyId' in vars:
             companyManager = CompanyManager()
             return companyManager.findCompanyById(vars.get('companyId'))
         
