@@ -50,7 +50,7 @@ public class ZakladowyPlanKont implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne
     private Company company;
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "zpk")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
 
     public Integer getId() {

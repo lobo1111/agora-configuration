@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class ZpkBalance implements Serializable {
     @Column(name = "start_debit")
     private double startDebit;
     @JoinColumn(name = "zpk_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
     private ZakladowyPlanKont zpk;
     @JoinColumn(name = "booking_period_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
