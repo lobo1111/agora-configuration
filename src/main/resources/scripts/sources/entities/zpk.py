@@ -46,6 +46,7 @@ class ZpkManager(Container):
             
     def createBalanceForPeriod(self, bookingPeriod):
         balance = ZpkBalance()
+        balance.setBookingPeriod(bookingPeriod)
         if  bookingPeriod.isDefaultPeriod():
             balance.setCredit(vars.get('credit'))
             balance.setDebit(vars.get('debit'))
