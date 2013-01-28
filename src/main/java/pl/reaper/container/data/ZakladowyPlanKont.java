@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -50,7 +51,7 @@ public class ZakladowyPlanKont implements Serializable {
     @ManyToOne
     private Company company;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
-    private Collection<ZpkBalance> zpkBalances;
+    private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
 
     public Integer getId() {
         return id;
