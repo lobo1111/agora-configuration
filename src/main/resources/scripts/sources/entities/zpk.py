@@ -52,14 +52,10 @@ class ZpkManager(Container):
             balance.setDebit(vars.get('debit'))
             balance.setStartCredit(vars.get('credit'))
             balance.setStartDebit(vars.get('debit'))
+        return balance
         
     def saveZpk(self, zpk):
         self._logger.info(zpk.longDescription())
         entityManager.persist(zpk)
-        entityManager.flush()
-        
-    def saveBalance(self, balance):
-        self._logger.info(balance.longDescription())
-        entityManager.persist(balance)
         entityManager.flush()
         
