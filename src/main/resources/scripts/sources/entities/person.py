@@ -9,7 +9,7 @@ class PersonManager(Container):
         self.savePerson(person)
         
     def update(self):
-        person = self.findPerson()
+        person = self.findPersonById(vars.get('id'))
         self.setPersonData(person)
         self.savePerson(person)
         
@@ -33,6 +33,5 @@ class PersonManager(Container):
         entityManager.persist(person)
         entityManager.flush()
         
-    def findPerson(self):
-        id = vars.get('id')
+    def findPersonById(self, id):
         return entityManager.createQuery('Select person From Person person Where person.id = ' + id).getSingleResult()
