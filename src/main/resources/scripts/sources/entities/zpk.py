@@ -1,5 +1,6 @@
 from pl.reaper.container.data import ZakladowyPlanKont
 from pl.reaper.container.data import ZpkBalance
+from java.lang import Double
 
 class ZpkManager(Container):
     _logger = Logger([:_scriptId])
@@ -48,10 +49,10 @@ class ZpkManager(Container):
         balance = ZpkBalance()
         balance.setBookingPeriod(bookingPeriod)
         if  bookingPeriod.isDefaultPeriod():
-            balance.setCredit(vars.get('credit'))
-            balance.setDebit(vars.get('debit'))
-            balance.setStartCredit(vars.get('credit'))
-            balance.setStartDebit(vars.get('debit'))
+            balance.setCredit(Double.parseDouble(vars.get('credit')))
+            balance.setDebit(Double.parseDouble(vars.get('debit')))
+            balance.setStartCredit(Double.parseDouble(vars.get('credit')))
+            balance.setStartDebit(Double.parseDouble(vars.get('debit')))
         return balance
         
     def saveZpk(self, zpk):
