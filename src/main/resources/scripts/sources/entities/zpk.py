@@ -12,10 +12,10 @@ class ZpkManager(Container):
     def setZpkData(self, zpk):
         zpk.setNumber(vars.get('number'))
         zpk.setDescription(vars.get('description'))
-        self.setCommunity(self.getCommunity(zpk))
-        self.setPossession(self.getPossession(zpk))
-        self.setPerson(self.getPerson(zpk))
-        self.setCompany(self.getCompany(zpk))
+        zpk.setCommunity(self.getCommunity(zpk))
+        zpk.setPossession(self.getPossession(zpk))
+        zpk.setPerson(self.getPerson(zpk))
+        zpk.setCompany(self.getCompany(zpk))
         self.setAllBookingPeriods(zpk)
         
     def getCommunity(self, zpk):
