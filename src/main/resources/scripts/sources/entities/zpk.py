@@ -42,7 +42,7 @@ class ZpkManager(Container):
         bookingPeriodManager = BookingPeriodManager()
         for bookingPeriod in bookingPeriodManager.findAllBookingPeriods():
             zpkBalance = self.createBalanceForPeriod(bookingPeriod)
-            zpk.getZpkBalances.add(zpkBalance)
+            zpk.getZpkBalances().add(zpkBalance)
             
     def createBalanceForPeriod(self, bookingPeriod):
         balance = ZpkBalance()
