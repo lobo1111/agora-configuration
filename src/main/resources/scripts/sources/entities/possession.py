@@ -67,7 +67,7 @@ class PossessionManager(Container):
         self.savePossession(possession)
         
     def update(self):
-        possession = self.findPossessionById()
+        possession = self.findPossessionById(vars.get('id'))
         self.setPossessionData(possession)
         self.savePossession(possession)
         
@@ -90,6 +90,5 @@ class PossessionManager(Container):
         entityManager.persist(possession)
         entityManager.flush()
         
-    def findPossessionById(self):
-        id = vars.get('id')
+    def findPossessionById(self, id):
         return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()
