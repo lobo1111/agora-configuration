@@ -48,8 +48,8 @@ class ZpkManager(Container):
         if  bookingPeriod.isDefaultPeriod():
             balance.setCredit(vars.get('credit'))
             balance.setDebit(vars.get('debit'))
-            balance.setStartCredit(vars.get('startCredit'))
-            balance.setStartDebit(vars.get('startDebit'))
+            balance.setStartCredit(vars.get('credit'))
+            balance.setStartDebit(vars.get('debit'))
         self.saveBalance(balance)
         
     def saveZpk(self, zpk):
