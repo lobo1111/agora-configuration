@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -72,6 +71,8 @@ public class Company implements Serializable {
     inverseJoinColumns =
     @JoinColumn(name = "possession_id", referencedColumnName = "id"))
     private Collection<Possession> possessions;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
+    private Collection<ZakladowyPlanKont> zpks;
 
     public Company() {
     }
@@ -174,6 +175,14 @@ public class Company implements Serializable {
 
     public void setPossessions(Collection<Possession> possessions) {
         this.possessions = possessions;
+    }
+
+    public Collection<ZakladowyPlanKont> getZpks() {
+        return zpks;
+    }
+
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
+        this.zpks = zpks;
     }
 
     @Override

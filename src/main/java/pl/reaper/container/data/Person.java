@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "person")
 @XmlRootElement
 public class Person implements Serializable {
+
     @Size(max = 255)
     @Column(name = "nip")
     private String nip;
@@ -65,12 +66,14 @@ public class Person implements Serializable {
     @ManyToMany
     @JoinTable(
         name = "possession_person", joinColumns =
-            @JoinColumn(name = "person_id", referencedColumnName = "id"),
-        inverseJoinColumns =
-            @JoinColumn(name = "possession_id", referencedColumnName = "id"))
+    @JoinColumn(name = "person_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "possession_id", referencedColumnName = "id"))
     private Collection<Possession> possessions;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<User> users;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+    private Collection<ZakladowyPlanKont> zpks;
 
     public Person() {
     }
@@ -174,6 +177,14 @@ public class Person implements Serializable {
 
     public void setUsers(Collection<User> users) {
         this.users = users;
+    }
+
+    public Collection<ZakladowyPlanKont> getZpks() {
+        return zpks;
+    }
+
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
+        this.zpks = zpks;
     }
 
     @Override
