@@ -71,7 +71,7 @@ public class Company implements Serializable {
     inverseJoinColumns =
     @JoinColumn(name = "possession_id", referencedColumnName = "id"))
     private Collection<Possession> possessions;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private Collection<ZakladowyPlanKont> zpks;
 
     public Company() {
