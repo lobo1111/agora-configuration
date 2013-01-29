@@ -473,6 +473,44 @@
         </variables>
     </template>
     <template>
+        <name>list-person-zpks</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    zpk.id, 
+                    CONCAT(zpk.number, " ", zpk.description))
+                    FROM
+                    Person person
+                    JOIN person.zpks zpk
+                    WHERE
+                    person.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-company-zpks</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    zpk.id, 
+                    CONCAT(zpk.number, " ", zpk.description))
+                    FROM
+                    Company company
+                    JOIN company.zpks zpk
+                    WHERE
+                    company.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-person-owner-possessions</name>
         <source>simple-list.vtl</source>
         <variables>
