@@ -9,7 +9,7 @@ class CompanyManager(Container):
         self.saveCompany(company)
         
     def update(self):
-        company = self.findCompany()
+        company = self.findCompanyById(vars.get('id'))
         self.setCompanyData(company)
         self.saveCompany(company)
         
@@ -45,6 +45,5 @@ class CompanyManager(Container):
         entityManager.persist(company)
         entityManager.flush()
         
-    def findCompany(self):
-        id = vars.get('id')
+    def findCompanyById(self, id):
         return entityManager.createQuery('Select company From Company company Where company.id = ' + id).getSingleResult()
