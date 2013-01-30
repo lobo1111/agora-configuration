@@ -341,4 +341,18 @@
             ALTER TABLE `booking_period` CHANGE `default` `default_period` boolean;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-company-column'>
+        <sql>  
+            ALTER TABLE `bank` 
+            ADD `company_id` int(11) NOT NULL
+        </sql>
+    </changeSet>  
+    
+    <changeSet author='tkopacki' id='bank-company-fkey'>
+        <sql>  
+            ALTER TABLE `bank`
+            ADD CONSTRAINT `bank_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>

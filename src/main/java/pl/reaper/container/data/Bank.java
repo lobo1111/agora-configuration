@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -38,6 +40,9 @@ public class Bank implements Serializable {
     private String key;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bank")
     private Collection<Account> accounts;
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Company company;
 
     public Integer getId() {
         return id;
@@ -69,5 +74,13 @@ public class Bank implements Serializable {
 
     public void setAccounts(Collection<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
