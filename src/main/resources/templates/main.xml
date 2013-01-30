@@ -99,6 +99,19 @@
             </var>
         </variables>
     </template>
+     <template>
+        <name>entity-bank</name>
+        <source>entity-bank.vtl</source>
+        <variables>
+            <var>
+                <name>bank</name>
+                <data>
+                    {:single}
+                    SELECT c FROM Bank c WHERE c.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
     <template>
         <name>entity-person</name>
         <source>entity-person.vtl</source>
@@ -201,6 +214,34 @@
                     LEFT OUTER JOIN companyOwner.address companyOwnerAddress
                     LEFT OUTER JOIN possession.people personOwner
                     LEFT OUTER JOIN personOwner.address personOwnerAddress
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-banks</name>
+        <source>list-banks.vtl</source>
+        <variables>
+            <var>
+                <name>banks</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    bank
+                    FROM 
+                    Bank bank
+                    WHERE {:where}
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(bank.id)
+                    FROM 
+                    Bank bank
                     WHERE {:where}
                 </data>
             </var>
