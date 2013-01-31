@@ -287,6 +287,21 @@
         </security>
     </script>
     
+    <script>
+        <name>bank</name>
+        <source>entities/bank.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
      <script>
         <name>person</name>
         <source>entities/person.py</source>
@@ -520,6 +535,36 @@
         <name>update-community</name>
         <source>entities/community.py</source>
         <onInit>CommunityManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>create-bank</name>
+        <source>entities/bank.py</source>
+        <onInit>BankManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>update-bank</name>
+        <source>entities/bank.py</source>
+        <onInit>BankManager().update()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
