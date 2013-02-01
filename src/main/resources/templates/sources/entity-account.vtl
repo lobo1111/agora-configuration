@@ -4,7 +4,32 @@
     <name>$!account.getName()</name>
     <number>$!account.getNumber()</number>
     <type>$!account.getType().getValue()</type>
-    <bank>$!account.getBank().getName()</bank>
-    <parentName>$!account.getParrentAccount().getName()</parentName>
-    <parentNumber>$!account.getParrentAccount().getNumber()</parentNumber>
+    <bank>
+        <id>$!account.getBank().getId()</id>
+        <name>$!account.getBank().getName()</name>
+        <key>$!account.getBank().getKey()</key>
+        <company>
+            <name>$!account.getBank().getCompany().getName()</name>
+            <nip>$!account.getBank().getCompany().getNip()</nip>
+            <regon>$!account.getBank().getCompany().getRegon()</regon>
+            <www>$!account.getBank().getCompany().getWww()</www>
+            <email>$!account.getBank().getCompany().getEmail()</email>
+            <phone1>$!account.getBank().getCompany().getPhoneNumber1()</phone1>
+            <phone2>$!account.getBank().getCompany().getPhoneNumber2()</phone2>
+            <phone3>$!account.getBank().getCompany().getPhoneNumber3()</phone3>
+            <address>
+                <street>$!account.getBank().getCompany().getAddress().getStreet()</street>
+                <houseNumber>$!account.getBank().getCompany().getAddress().getHouseNumber()</houseNumber>
+                <flatNumber>$!account.getBank().getCompany().getAddress().getFlatNumber()</flatNumber>
+                <postalCode>$!account.getBank().getCompany().getAddress().getPostalCode()</postalCode>
+                <city>$!account.getBank().getCompany().getAddress().getCity()</city>
+            </address>
+        </company>
+    </bank>
+    <parrentAccount>
+        <id>$!account.getParrentAccount().getId()</id>
+        <name>$!account.getParrentAccount().getName()</name>
+        <number>$!account.getParrentAccount().getNumber()</number>
+        <type>$!account.getParrentAccount().getType().getValue()</type>
+    </parrentAccount>
 </account>
