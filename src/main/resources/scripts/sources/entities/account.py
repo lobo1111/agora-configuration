@@ -17,7 +17,8 @@ class AccountManager(Container):
         account.setName(vars.get('accountName'))
         account.setNumber(vars.get('accountNumber'))
         account.setType(self.getType())
-        account.setParrentAccount(self.getParent())
+        if vars.get('parrentAccountId') != None:
+            account.setParrentAccount(self.getParent())
         account.setBank(self.getBank())
         
     def getType(self):
