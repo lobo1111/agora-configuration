@@ -30,7 +30,7 @@ class AccountManager(Container):
     def getBank(self):
         return BankManager().findBankById(vars.get('bankId'))
         
-    def saveAccount(self, bank):
+    def saveAccount(self, account):
         self._logger.info(account.longDescription())
         entityManager.persist(account)
         entityManager.flush()
