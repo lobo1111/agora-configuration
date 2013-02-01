@@ -28,7 +28,7 @@ class AccountManager(Container):
         return self.findAccountById(vars.get('parrentAccountId'))
     
     def getBank(self):
-        return BankManager().findBankByKey(vars.get('bankKey'))
+        return BankManager().findBankById(vars.get('bankId'))
         
     def saveAccount(self, bank):
         self._logger.info(account.longDescription())
