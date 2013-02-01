@@ -624,6 +624,23 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-banks-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    bank.id, bank.name)
+                    FROM 
+                    Bank bank
+                    ORDER BY 
+                    bank.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-communities-names</name>
         <source>simple-list.vtl</source>
         <variables>
