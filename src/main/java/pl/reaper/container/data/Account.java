@@ -142,6 +142,11 @@ public class Account implements Serializable {
         return true;
     }
 
+    public String longDescription() {
+        return "[name:" + name + "]"
+                + "[number:" + number + "]";
+    }
+
     @Override
     public String toString() {
         return "pl.reaper.container.data.Account[ id=" + id + " ]";

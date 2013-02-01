@@ -301,8 +301,23 @@
             <group>all</group>
         </security>
     </script>
+    <script>
+        <name>account</name>
+        <source>entities/account.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>bank</scriptName>
+            <scriptName>dictionary-manager</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
     
-     <script>
+    <script>
         <name>person</name>
         <source>entities/person.py</source>
         <onInit/>
@@ -333,7 +348,7 @@
         </security>
     </script>
     
-     <script>
+    <script>
         <name>bookingPeriod</name>
         <source>entities/bookingPeriod.py</source>
         <onInit/>
@@ -570,6 +585,37 @@
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
             <scriptName>company</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    <script>
+        <name>create-account</name>
+        <source>entities/account.py</source>
+        <onInit>AccountManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>bank</scriptName>
+            <scriptName>dictionary-manager</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>update-account</name>
+        <source>entities/account.py</source>
+        <onInit>AccountManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>bank</scriptName>
+            <scriptName>dictionary-manager</scriptName>
         </dependencies>
         <security>
             <group>all</group>

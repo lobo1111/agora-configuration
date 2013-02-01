@@ -33,3 +33,6 @@ class BankManager(Container):
 
     def findBankById(self, id):
         return entityManager.createQuery('Select bank From Bank bank Where bank.id = ' + str(id)).getSingleResult()
+    
+    def findBankByKey(self, key):
+        return entityManager.createQuery('Select bank From Bank bank Where bank.key = ' + str(key)).getSingleResult()
