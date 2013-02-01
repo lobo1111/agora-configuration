@@ -21,7 +21,7 @@ class AccountManager(Container):
         account.setBank(self.getBank())
         
     def getType(self):
-        return DictionaryManager().getDictionaryInstance(vars.get('accountType'))
+        return DictionaryManager().getDictionaryInstance(vars.get('accountTypeId'))
     
     def getParrent(self):
         return self.findAccountById(vars.get('parrentAccountId'))
