@@ -16,19 +16,18 @@ class AccountManager(Container):
     def setAccountData(self, account):
         account.setName(vars.get('accountName'))
         account.setNumber(vars.get('accountNumber'))
-        account.setType(self.getType(account))
-        account.setParrent(self.getParent(account))
-        account.setBank(self.getBank(account))
+        account.setType(self.getType())
+        account.setParrent(self.getParent())
+        account.setBank(self.getBank())
         
-    def setType(self, account):
+    def getType(self):
         return DictionaryManager().getDictionaryInstance(vars.get('accountType'))
     
-    def setParrent(self, account):
+    def getParrent(self):
         return self.findAccountById(vars.get('parrentAccountId'))
     
-    def setBank(self, account):
-        bankManager = BankManager()
-        return bankManager.findBankByKey(vars.get('bankKey'))
+    def getBank(self):
+        return BankManager().findBankByKey(vars.get('bankKey'))
         
     def saveAccount(self, bank):
         self._logger.info(account.longDescription())
