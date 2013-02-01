@@ -23,7 +23,7 @@ class AccountManager(Container):
     def getType(self):
         return DictionaryManager().getDictionaryInstance(vars.get('accountTypeId'))
     
-    def getParrent(self):
+    def getParent(self):
         return self.findAccountById(vars.get('parrentAccountId'))
     
     def getBank(self):
