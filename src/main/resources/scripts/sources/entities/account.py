@@ -17,7 +17,7 @@ class AccountManager(Container):
         account.setName(vars.get('accountName'))
         account.setNumber(vars.get('accountNumber'))
         account.setType(self.getType())
-        if vars.get('parrentAccountId') != None:
+        if vars.get('parentAccountId') != None:
             account.setParrentAccount(self.getParent())
         account.setBank(self.getBank())
         
@@ -25,7 +25,7 @@ class AccountManager(Container):
         return DictionaryManager().getDictionaryInstance(vars.get('accountTypeId'))
     
     def getParent(self):
-        return self.findAccountById(vars.get('parrentAccountId'))
+        return self.findAccountById(vars.get('parentAccountId'))
     
     def getBank(self):
         return BankManager().findBankById(vars.get('bankId'))
