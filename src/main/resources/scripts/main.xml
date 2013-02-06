@@ -382,6 +382,22 @@
     </script>
     
     <script>
+        <name>book</name>
+        <source>entities/book.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>dictionary-manager</scriptName>
+            <scriptName>zpk</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-zpk</name>
         <source>entities/zpk.py</source>
         <onInit>ZpkManager().create()</onInit>

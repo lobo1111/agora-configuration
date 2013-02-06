@@ -62,3 +62,10 @@ class ZpkManager(Container):
         entityManager.persist(zpk)
         entityManager.flush()
         
+    def findZpkById(self, id):
+        sql = "Select zpk From ZakladowyPlanKont zpk Where zpk.id = '%s'" % id
+        return entityManager.createQuery(sql).getSingleResult()
+    
+    def findBalanceByZpkAndPeriod(self, zpk, period):
+        sql = "Select balance From ZpkBalance balance Where balance.zpk.id = '%s' and balance.bookingPeriod.id = '%s'" % (zpk.getId(), period.getId())
+        

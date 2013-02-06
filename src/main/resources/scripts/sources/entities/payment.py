@@ -1,5 +1,6 @@
 from pl.reaper.container.data import Payment
 from java.math import BigDecimal
+from java.util import Date
 
 class PaymentManager(Container):
     def __init__(self):
@@ -7,13 +8,23 @@ class PaymentManager(Container):
     
     def create(self):
         payment = Payment()
-        payment.setPossession(self.getPossession())
         payment.setIncome(self.getIncome())
         payment.setType(self.getPaymentType())
         payment.setStatus(self.getPaymentStatus())
-        payment.setAuto(0)
         payment.setDescription(self.getDescription())
+        payment.setCreateDate(Date())
+        if self.bookRequest():
+            self.book(payment)
         entityManager.persist(payment)
+        
+    def bookRequest(self):
+        if vars.get('book') != None and vars.get('book') == '1':
+            return True
+        else:
+            return False
+        
+    def book(self, payment):
+        BookingManager().book(payment)
         
     def getPossession(self):
         sql = "Select possession From Possession possession Where possession.id = %s" % vars.get('possession')
