@@ -369,4 +369,13 @@
             ADD CONSTRAINT `payment_account_column_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-possession-column-drop'>
+        <sql>  
+            SET FOREIGN_KEY_CHECKS = 0;
+            ALTER TABLE `payment` 
+            DROP `possession_id` int(11) NOT NULL
+            SET FOREIGN_KEY_CHECKS = 1;
+        </sql>
+    </changeSet> 
 </databaseChangeLog>
