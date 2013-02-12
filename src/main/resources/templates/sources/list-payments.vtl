@@ -2,12 +2,16 @@
 <payments>
     #foreach($row in $payments)
     <item>
-        <paymentId>$row.getId()</paymentId>
-        <possession>$row.getPossession().getCommunity().getName() - $row.getPossession().getAddress().getStreet() $row.getPossession().getAddress().getHouseNumber()/$row.getPossession().getAddress().getFlatNumber()</possession>
-        <type>$row.getType().getValue()</type>
-        <status>$row.getStatus().getValue()</status>
-        <income>$row.getIncome()</income>
-        <auto>$row.getAuto()</auto>
+        <paymentId>$!row.getId()</paymentId>
+        <createDate>$!row.getCreateDay()</createDate>
+        <bookingDate>$!row.getBookingDay</bookingDate>
+        <book>$!row.isBooked()</book>
+        <amount>$!row.getIncome()</amount>
+        <description>$!row.getDescription()</description>
+        <status>$!row.getStatus().getValue()</status>
+        <type>$!row.getType().getValue()</type>
+        <accountNumber>$!row.getAccount().getNumber()</accountNumber>
+        <communityName>$!row.getCommunity().getName()</communityName>
     </item>
     #end
     <settings>
