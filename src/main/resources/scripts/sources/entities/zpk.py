@@ -68,4 +68,5 @@ class ZpkManager(Container):
     
     def findBalanceByZpkAndPeriod(self, zpk, period):
         sql = "Select balance From ZpkBalance balance Where balance.zpk.id = '%s' and balance.bookingPeriod.id = '%s'" % (zpk.getId(), period.getId())
+        return entityManager.createQuery(sql).getSingleResult()
         

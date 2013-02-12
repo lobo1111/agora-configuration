@@ -20,11 +20,11 @@ class BookingManager(Container):
         return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'BOOKED')
     
     def getZpk(self):
-        ZpkManager().findZpkById(vars.get('zpkId'))
+        return ZpkManager().findZpkById(vars.get('zpkId'))
     
     def getZpkBalance(self, zpk, bookingPeriod):
-        ZpkManager().findBalanceByZpkAndPeriod(zpk, bookingPeriod)
+        return ZpkManager().findBalanceByZpkAndPeriod(zpk, bookingPeriod)
         
     def getBookingPeriod(self):
-        BookingPeriodManager().findBookingPeriodById(vars.get('paymentBookingPeriod'))
+        return BookingPeriodManager().findBookingPeriodById(vars.get('paymentBookingPeriod'))
         
