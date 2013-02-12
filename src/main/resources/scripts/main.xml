@@ -391,6 +391,7 @@
             <scriptName>container</scriptName>
             <scriptName>dictionary-manager</scriptName>
             <scriptName>zpk</scriptName>
+            <scriptName>bookingPeriod</scriptName>
         </dependencies>
         <security>
             <group>all</group>

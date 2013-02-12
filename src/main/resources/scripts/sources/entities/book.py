@@ -25,3 +25,6 @@ class BookingManager(Container):
     def getZpkBalance(self, zpk, bookingPeriod):
         ZpkManager().findBalanceByZpkAndPeriod(zpk, bookingPeriod)
         
+    def getBookingPeriod(self):
+        BookingPeriodManager().findBookingPeriodById(vars.get('paymentBookingPeriod'))
+        
