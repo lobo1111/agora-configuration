@@ -3,15 +3,15 @@
     #foreach($row in $payments)
     <item>
         <paymentId>$!row.getId()</paymentId>
-        <createDate>$!row.getCreateDay()</createDate>
-        <bookingDate>$!row.getBookingDay</bookingDate>
+        <createDate>$!row.getCreateDay().getTime()</createDate>
+        <bookingDate>$!row.getBookingDay().getTime()</bookingDate>
         <book>$!row.isBooked()</book>
-        <amount>$!row.getIncome()</amount>
+        <income>$!row.getIncome()</income>
         <description>$!row.getDescription()</description>
         <status>$!row.getStatus().getValue()</status>
         <type>$!row.getType().getValue()</type>
         <accountNumber>$!row.getAccount().getNumber()</accountNumber>
-        <communityName>$!row.getCommunity().getName()</communityName>
+        <communityName>$!row.getZpkBalance().getZpk().getCommunity().getName()</communityName>
     </item>
     #end
     <settings>
