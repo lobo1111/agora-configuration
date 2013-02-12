@@ -175,7 +175,7 @@
                     SELECT
                     count(zpk.id)
                     FROM
-                    Zpk zpk
+                    ZakladowyPlanKont zpk
                     JOIN zpk.community community
                     JOIN zpk.zpkBalance balance
                     JOIN balance.bookingPeriod period
