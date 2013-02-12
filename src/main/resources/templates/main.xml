@@ -160,7 +160,7 @@
                     SELECT
                     zpk
                     FROM
-                    Zpk zpk
+                    ZakladowyPlanKont zpk
                     JOIN zpk.community community
                     JOIN zpk.zpkBalance balance
                     JOIN zpk.balance.bookingPeriod period
