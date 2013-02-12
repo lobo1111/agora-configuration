@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <zpks>
     #foreach($row in $zpks)
+    !!!
+    $!row.getBalances().size()
+    $!row.getBalances()
+    $!row.getBalances().get(0)
+    !!!
     <item>
         <zpkId>$!row.getId()</zpkId>
         <number>$!row.getNumber()</number>
