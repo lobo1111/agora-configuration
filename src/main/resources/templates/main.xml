@@ -163,7 +163,7 @@
                     ZakladowyPlanKont zpk
                     JOIN zpk.community community
                     JOIN zpk.zpkBalances balance
-                    JOIN zpk.balance.bookingPeriod period
+                    JOIN balance.bookingPeriod period
                     WHERE {:where} AND
                     period.defaultPeriod = true
                 </data>
