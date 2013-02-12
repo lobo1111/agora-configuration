@@ -53,6 +53,9 @@ public class Payment implements Serializable {
     @JoinColumn(name = "balance_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
     private ZpkBalance zpkBalance;
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private Account account;
 
     public int getId() {
         return id;
@@ -132,5 +135,13 @@ public class Payment implements Serializable {
 
     public void setZpkBalance(ZpkBalance zpkBalance) {
         this.zpkBalance = zpkBalance;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

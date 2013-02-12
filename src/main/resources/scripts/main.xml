@@ -425,6 +425,7 @@
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
             <scriptName>dictionary-manager</scriptName>
+            <scriptName>account</scriptName>
         </dependencies>
         <security>
             <group>all</group>

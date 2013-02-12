@@ -13,12 +13,13 @@ class PaymentManager(Container):
         payment.setStatus(self.getPaymentStatus())
         payment.setDescription(self.getDescription())
         payment.setCreateDate(Date())
+        payment.setAccount(self.getAccount())
         if self.bookRequest():
             self.book(payment)
         entityManager.persist(payment)
         
     def bookRequest(self):
-        if vars.get('book') != None and vars.get('book') == '1':
+        if vars.get('paymentBook') != None and vars.get('paymentBook') == '1':
             return True
         else:
             return False
@@ -31,13 +32,16 @@ class PaymentManager(Container):
         return entityManager.createQuery(sql).getSingleResult()
     
     def getIncome(self):
-        return BigDecimal(vars.get('income'))
+        return BigDecimal(vars.get('paymentAmount'))
     
     def getDescription(self):
-        return vars.get('description')
+        return vars.get('paymentDescription')
     
     def getPaymentType(self):
-        return self._dictManager.getDictionaryInstance(vars.get('type'))
+        return self._dictManager.getDictionaryInstance(vars.get('paymentType'))
     
     def getPaymentStatus(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'NEW_PAYMENT')
+    
+    def getAccount(self):
+        return AccountManager().findAccountById(vars.get('accountId'))

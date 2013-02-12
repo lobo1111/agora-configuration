@@ -355,4 +355,18 @@
             ADD CONSTRAINT `bank_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-account-column'>
+        <sql>  
+            ALTER TABLE `payment` 
+            ADD `account_id` int(11) NOT NULL
+        </sql>
+    </changeSet> 
+    
+    <changeSet author='tkopacki' id='payment-account-column-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `payment_account_column_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
