@@ -370,9 +370,14 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='payment-possession-column-drop'>
+    <changeSet author='tkopacki' id='payment-possession-column-fkey-drop'>
         <sql>  
             ALTER TABLE `payment` DROP FOREIGN KEY `payment_account_column_fkey`;
+        </sql>
+    </changeSet> 
+    
+    <changeSet author='tkopacki' id='payment-possession-column-drop'>
+        <sql>  
             ALTER TABLE `payment` DROP COLUMN `possession_id`;
         </sql>
     </changeSet> 
