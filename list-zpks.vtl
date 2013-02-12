@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<zpks>
+    #foreach($row in $zpks)
+    <item>
+        <zpkId>$!row.getId()</zpkId>
+        <number>$!row.getNumber()</number>
+        <description>$!row.getDescription</description>
+        <credit>$!row.getBalance().getCredit()</credit>
+        <debit>$!row.getBalance().getDebit()</debit>
+        <community>
+            <id>$!row.getCommunity().getId()</id>
+            <name>$!row.getCommunity().getName()</name>
+        </community>
+    </item>
+    #end
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
+</zpks>

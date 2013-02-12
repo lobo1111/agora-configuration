@@ -149,6 +149,42 @@
         </variables>
     </template>
     <!-- LISTS -->
+     <template>
+        <name>list-zpks</name>
+        <source>list-zpks.vtl</source>
+        <variables>
+            <var>
+                <name>zpks</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    zpk
+                    FROM
+                    Zpk zpk
+                    JOIN zpk.community community
+                    JOIN zpk.zpkBalance balance
+                    JOIN zpk.balance.bookingPeriod period
+                    WHERE {:where} AND
+                    period.defaultPeriod = true
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(zpk.id)
+                    FROM
+                    Zpk zpk
+                    JOIN zpk.community community
+                    JOIN zpk.zpkBalance balance
+                    JOIN balance.bookingPeriod period
+                    WHERE {:where} AND
+                    period.defaultPeriod = true
+                </data>
+            </var>
+        </variables>
+    </template>
     <template>
         <name>list-communities</name>
         <source>list-communities.vtl</source>
