@@ -11,11 +11,7 @@ class BookingManager(Container):
         payment.setBookingDay(Date())
         bookingPeriod = self.getBookingPeriod()
         zpk = self.getZpk()
-        print "!!!!!!!!!!" 
-        print zpk
         balance = self.getZpkBalance(zpk, bookingPeriod)
-        print "!!!!!"
-        print balance
         balance.setDebit(balance.getDebit() + Double.parseDouble(vars.get('paymentAmount')))
         payment.setZpkBalance(balance)
         entityManager.persist(zpkBalance)
@@ -27,6 +23,12 @@ class BookingManager(Container):
         return ZpkManager().findZpkById(vars.get('zpkId'))
     
     def getZpkBalance(self, zpk, bookingPeriod):
+        print "!!!!!!!!!!!!!!!!!!!!"
+        print zpk
+        print zpk.getId()
+        print bookingPeriod
+        print bookingPeriod.getId()
+        print "!!!!!!!!!!!!!!!!!!!!"
         return ZpkManager().findBalanceByZpkAndPeriod(zpk, bookingPeriod)
         
     def getBookingPeriod(self):
