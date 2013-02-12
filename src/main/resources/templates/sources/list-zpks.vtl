@@ -2,16 +2,16 @@
 <zpks>
     #foreach($row in $zpks)
     !!!
-    $!row.getBalances().size()
-    $!row.getBalances()
-    $!row.getBalances().get(0)
+    $!row.getZpkBalances().size()
+    $!row.getZpkBalances()
+    $!row.getZpkBalances().get(0)
     !!!
     <item>
         <zpkId>$!row.getId()</zpkId>
         <number>$!row.getNumber()</number>
         <description>$!row.getDescription()</description>
-        <credit>$!row.getBalances().get(0).getCredit()</credit>
-        <debit>$!row.getBalances().get(0).getDebit()</debit>
+        <credit>$!row.getZpkBalances().get(0).getCredit()</credit>
+        <debit>$!row.getZpkBalances().get(0).getDebit()</debit>
         <community>
             <id>$!row.getCommunity().getId()</id>
             <name>$!row.getCommunity().getName()</name>
