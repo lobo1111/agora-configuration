@@ -372,10 +372,8 @@
     
     <changeSet author='tkopacki' id='payment-possession-column-drop'>
         <sql>  
-            SET FOREIGN_KEY_CHECKS = 0;
-            ALTER TABLE `payment` 
-            DROP COLUMN `possession_id`;
-            SET FOREIGN_KEY_CHECKS = 1;
+            ALTER TABLE `payment` DROP FOREIGN KEY `payment_account_column_fkey`;
+            ALTER TABLE `payment` DROP COLUMN `possession_id`;
         </sql>
     </changeSet> 
 </databaseChangeLog>
