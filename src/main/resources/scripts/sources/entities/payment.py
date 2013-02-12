@@ -19,7 +19,7 @@ class PaymentManager(Container):
         entityManager.persist(payment)
         
     def bookRequest(self):
-        if vars.get('paymentBook') != None and vars.get('paymentBook') == '1':
+        if vars.get('paymentBook') != None and vars.get('paymentBook') == 'true':
             return True
         else:
             return False
