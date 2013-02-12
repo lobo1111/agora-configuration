@@ -372,7 +372,8 @@
     
     <changeSet author='tkopacki' id='payment-possession-column-fkey-drop'>
         <sql>  
-            ALTER TABLE `payment` DROP FOREIGN KEY `payment_account_column_fkey`;
+            ALTER TABLE `payment` DROP KEY `possession_fkey`
+            ALTER TABLE `payment` DROP FOREIGN KEY `possession_fkey`
         </sql>
     </changeSet> 
     
