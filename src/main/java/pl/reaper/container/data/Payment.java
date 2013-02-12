@@ -27,9 +27,6 @@ public class Payment implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private int id;
-    @JoinColumn(name = "possession_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Possession possession;
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Dictionary type;
@@ -63,14 +60,6 @@ public class Payment implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Possession getPossession() {
-        return possession;
-    }
-
-    public void setPossession(Possession possession) {
-        this.possession = possession;
     }
 
     public Dictionary getType() {

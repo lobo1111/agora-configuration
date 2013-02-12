@@ -374,7 +374,7 @@
         <sql>  
             SET FOREIGN_KEY_CHECKS = 0;
             ALTER TABLE `payment` 
-            DROP `possession_id` int(11) NOT NULL
+            DROP `possession_id` int(11) NOT NULL;
             SET FOREIGN_KEY_CHECKS = 1;
         </sql>
     </changeSet> 
