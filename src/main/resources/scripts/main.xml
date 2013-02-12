@@ -426,6 +426,8 @@
             <scriptName>container</scriptName>
             <scriptName>dictionary-manager</scriptName>
             <scriptName>account</scriptName>
+            <scriptName>book</scriptName>
+            <scriptName>zpk</scriptName>
         </dependencies>
         <security>
             <group>all</group>
