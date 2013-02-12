@@ -12,7 +12,7 @@ class PaymentManager(Container):
         payment.setType(self.getPaymentType())
         payment.setStatus(self.getPaymentStatus())
         payment.setDescription(self.getDescription())
-        payment.setCreateDate(Date())
+        payment.setCreateDay(Date())
         payment.setAccount(self.getAccount())
         if self.bookRequest():
             self.book(payment)

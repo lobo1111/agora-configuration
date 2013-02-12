@@ -8,7 +8,7 @@ class BookingManager(Container):
     def book(self, payment):
         payment.setStatus(self.getPaymentStatus())
         payment.setBooked(True)
-        payment.setBookingDate(Date())
+        payment.setBookingDay(Date())
         bookingPeriod = self.getBookingPeriod()
         zpk = self.getZpk()
         balance = self.getZpkBalance(zpk, bookingPeriod)
