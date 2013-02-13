@@ -12,7 +12,7 @@ class BookingManager(Container):
         bookingPeriod = self.getBookingPeriod()
         zpk = self.getZpk()
         balance = self.getZpkBalance(zpk, bookingPeriod)
-        balance.setCredit(balance.getCredit() + Double.parseDouble(vars.get('paymentAmount')))
+        balance.setCredit(balance.getCredit() + payment.getIncome())
         payment.setZpkBalance(balance)
         entityManager.persist(balance)
     
