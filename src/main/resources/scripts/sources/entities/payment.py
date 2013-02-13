@@ -18,6 +18,12 @@ class PaymentManager(Container):
             self.book(payment)
         entityManager.persist(payment)
         
+    def bookStoredPayment(self):
+        pass
+    
+    def cancelStoredPayment(self):
+        pass
+        
     def bookRequest(self):
         if vars.get('paymentBook') != None and vars.get('paymentBook') == 'true':
             return True
