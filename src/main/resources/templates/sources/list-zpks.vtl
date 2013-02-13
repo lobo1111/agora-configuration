@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <zpks>
     #foreach($row in $zpks)
-    !!!!!!!!!
-    $!row.getZpkBalances().size()
-    !!!!!!!!!
     <item>
         <zpkId>$!row.getId()</zpkId>
         <number>$!row.getNumber()</number>
         <description>$!row.getDescription()</description>
-        <credit>$!row.getZpkBalances().get(0).getCredit()</credit>
-        <debit>$!row.getZpkBalances().get(0).getDebit()</debit>
+        #foreach($balance in $row.getZpkBalances())
+            #if($balance.getBookingPeriod().isDefaultPeriod())
+            <credit>$!row.getZpkBalances().get(0).getCredit()</credit>
+            <debit>$!row.getZpkBalances().get(0).getDebit()</debit>
+            #end
+        #end
         <community>
             <id>$!row.getCommunity().getId()</id>
             <name>$!row.getCommunity().getName()</name>

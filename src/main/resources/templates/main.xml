@@ -164,8 +164,7 @@
                     JOIN zpk.community community
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
-                    WHERE {:where} AND
-                    period.defaultPeriod = true
+                    WHERE {:where}
                 </data>
             </var>
             <var>
@@ -179,8 +178,7 @@
                     JOIN zpk.community community
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
-                    WHERE {:where} AND
-                    period.defaultPeriod = true
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
