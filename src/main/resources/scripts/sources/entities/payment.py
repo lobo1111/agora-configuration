@@ -26,7 +26,7 @@ class PaymentManager(Container):
     
     def cancelStoredPayment(self):
         payment = self.findPaymentById(vars.get('id'))
-        if not payment.isBooked():
+        if payment.isBooked():
             BookingManager().unbook(payment)
         payment.setStatus(self.getPaymentCancelStatus())
         entityManager.persist(payment)
