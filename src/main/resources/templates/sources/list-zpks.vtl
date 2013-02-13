@@ -6,10 +6,10 @@
         <number>$!row.getNumber()</number>
         <description>$!row.getDescription()</description>
         #foreach($balance in $row.getZpkBalances())
-            #if($balance.getBookingPeriod().isDefaultPeriod())
-            <credit>$!row.getZpkBalances().get(0).getCredit()</credit>
-            <debit>$!row.getZpkBalances().get(0).getDebit()</debit>
-            #end
+        #if($balance.getBookingPeriod().isDefaultPeriod())
+        <credit>$!row.getZpkBalances().get(0).getCredit()</credit>
+        <debit>$!row.getZpkBalances().get(0).getDebit()</debit>
+        #end
         #end
         <community>
             <id>$!row.getCommunity().getId()</id>
