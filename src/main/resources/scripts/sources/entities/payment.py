@@ -19,10 +19,17 @@ class PaymentManager(Container):
         entityManager.persist(payment)
         
     def bookStoredPayment(self):
-        pass
+        payment = self.findPaymentById(vars.get('id'))
+        if not payment.getBooked() == False:
+            self.book(payment)
+        entityManager.persist(payment)
     
     def cancelStoredPayment(self):
-        pass
+        payment = self.findPaymentById(vars.get('id'))
+        if not payment.getBooked() == True:
+            BookingManager().unbook(payment)
+        payment.setStatus(self.getPaymentCancelStatus())
+        entityManager.persist(payment)
         
     def bookRequest(self):
         if vars.get('paymentBook') != None and vars.get('paymentBook') == 'true':
@@ -51,3 +58,10 @@ class PaymentManager(Container):
     
     def getAccount(self):
         return AccountManager().findAccountById(vars.get('accountId'))
+    
+    def findPaymentById(self, id):
+        sql = "Select payment From Payment payment Where payment.id = %s" % id
+        return entityManager.createQuery(sql).getSingleResult()
+    
+    def getPaymentCancelStatus(self):
+        return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'CANCELED')
