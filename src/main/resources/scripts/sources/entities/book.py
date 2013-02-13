@@ -19,7 +19,7 @@ class BookingManager(Container):
     def unbook(self, payment):
         payment.setBooked(False)
         balance = payment.getZpkBalance()
-        balance.setCredit(balance.getCredit - payment.getIncome())
+        balance.setCredit(balance.getCredit() - payment.getIncome().floatValue())
         entityManager.persist(balance)
     
     def getPaymentStatus(self):
