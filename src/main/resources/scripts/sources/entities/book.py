@@ -31,7 +31,7 @@ class BookingManager(Container):
             balance.setDebit(calculated)
             
     def calculateAmount(self, base, payment, factor):
-        return base + (book * payment)
+        return base + (factor * payment)
     
     def getPaymentStatus(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'BOOKED')
