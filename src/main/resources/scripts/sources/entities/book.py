@@ -12,22 +12,22 @@ class BookingManager(Container):
         bookingPeriod = self.getBookingPeriod()
         zpk = self.getZpk()
         balance = self.getZpkBalance(zpk, bookingPeriod)
-        self.setAmount(payment, balance)
+        self.setAmount(payment, balance, 1)
         payment.setZpkBalance(balance)
         entityManager.persist(balance)
     
     def unbook(self, payment):
         payment.setBooked(False)
         balance = payment.getZpkBalance()
-        self.setAmount(payment, balance)
+        self.setAmount(payment, balance, -1)
         entityManager.persist(balance)
         
-    def setAmount(self, payment, balance):
+    def setAmount(self, payment, balance, book):
         if payment.getDirection().equals(Payment.Direction.INCOME):
-            calculated = self.calculateAmount(balance.getCredit(), payment.getIncome().floatValue(), 1)
+            calculated = self.calculateAmount(balance.getCredit(), payment.getIncome().floatValue(), 1 * book)
             balance.setCredit(calculated)
         elif payment.getDirection().equals(Payment.Direction.EXPENDITURE):
-            calculated = self.calculateAmount(balance.getDebit(), payment.getIncome().floatValue(), -1)
+            calculated = self.calculateAmount(balance.getDebit(), payment.getIncome().floatValue(), 1 * book)
             balance.setDebit(calculated)
             
     def calculateAmount(self, base, payment, factor):
