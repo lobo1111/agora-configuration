@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,6 +25,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Payment implements Serializable {
 
+    public enum Direction {
+
+        INCOME, EXPENDITURE
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -53,6 +60,11 @@ public class Payment implements Serializable {
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
     private Account account;
+    @Basic(optional = false)
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "direction")
+    private Direction direction;
 
     public int getId() {
         return id;
@@ -132,5 +144,13 @@ public class Payment implements Serializable {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 }

@@ -12,15 +12,26 @@ class BookingManager(Container):
         bookingPeriod = self.getBookingPeriod()
         zpk = self.getZpk()
         balance = self.getZpkBalance(zpk, bookingPeriod)
-        balance.setCredit(balance.getCredit() + payment.getIncome().floatValue())
+        self.setAmount(payment, balance, 1)
         payment.setZpkBalance(balance)
         entityManager.persist(balance)
     
     def unbook(self, payment):
         payment.setBooked(False)
         balance = payment.getZpkBalance()
-        balance.setCredit(balance.getCredit() - payment.getIncome().floatValue())
+        self.setAmount(payment, balance, -1)
         entityManager.persist(balance)
+        
+    def setAmount(self, payment, balance, book):
+        if payment.getDirection().equals(Payment.Direction.INCOME):
+            calculated = self.calculateAmount(balance.getCredit(), payment.getIncome().floatValue(), 1 * book)
+            balance.setCredit(calculated)
+        elif payment.getDirection().equals(Payment.Direction.EXPENDITURE):
+            calculated = slef.calculateAmount(balance.getDebit(), payment.getIncome().floatValue(), 1 * book * -1)
+            balance.setDebit(calculated)
+            
+    def calculateAmount(self, base, payment, factor):
+        return base + (book * payment)
     
     def getPaymentStatus(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'BOOKED')

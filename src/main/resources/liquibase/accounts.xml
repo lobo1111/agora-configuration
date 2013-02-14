@@ -377,4 +377,10 @@
         </sql>
     </changeSet> 
     
+    <changeSet author='tkopacki' id='payment-direction-column'>
+        <sql>
+            ALTER TABLE `payment` ADD COLUMN `direction` enum('INCOME', 'EXPENDITURE') NOT NULL DEFAULT 'INCOME',
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
