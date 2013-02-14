@@ -27,7 +27,7 @@ class BookingManager(Container):
             calculated = self.calculateAmount(balance.getCredit(), payment.getIncome().floatValue(), 1 * book)
             balance.setCredit(calculated)
         elif payment.getDirection().equals(Payment.Direction.EXPENDITURE):
-            calculated = slef.calculateAmount(balance.getDebit(), payment.getIncome().floatValue(), 1 * book * -1)
+            calculated = self.calculateAmount(balance.getDebit(), payment.getIncome().floatValue(), 1 * book * -1)
             balance.setDebit(calculated)
             
     def calculateAmount(self, base, payment, factor):
