@@ -14,6 +14,7 @@ class PaymentManager(Container):
         payment.setDescription(self.getDescription())
         payment.setCreateDay(Date())
         payment.setAccount(self.getAccount())
+        payment.setDirection(self.getDirection())
         if self.bookRequest():
             self.book(payment)
         entityManager.persist(payment)
@@ -52,6 +53,9 @@ class PaymentManager(Container):
     
     def getPaymentType(self):
         return self._dictManager.getDictionaryInstance(vars.get('paymentType'))
+    
+    def getDirection(self):
+        return vars.get('paymentDirection')
     
     def getPaymentStatus(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'NEW_PAYMENT')
