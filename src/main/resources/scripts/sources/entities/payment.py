@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Payment
+from pl.reaper.container.data.Payment import Direction
 from java.math import BigDecimal
 from java.util import Date
 
@@ -55,7 +56,10 @@ class PaymentManager(Container):
         return self._dictManager.getDictionaryInstance(vars.get('paymentType'))
     
     def getDirection(self):
-        return vars.get('paymentDirection')
+        if vars.get('paymentDirection') == 'INCOME':
+            return Direction.INCOME
+        if vars.get('paymentDirection') == 'EXPENDITURE':
+            return Direction.EXPENDITURE
     
     def getPaymentStatus(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'NEW_PAYMENT')
