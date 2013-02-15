@@ -663,6 +663,25 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-payments-statuses</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'PAYMENT_STATUS\'
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-accounts-types</name>
         <source>simple-list.vtl</source>
         <variables>
