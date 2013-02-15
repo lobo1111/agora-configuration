@@ -354,6 +354,17 @@
                     payment
                     FROM 
                     Payment payment
+                    JOIN payment.status status
+                    JOIN payment.type type
+                    LEFT OUTER JOIN payment.account account
+                    LEFT OUTER JOIN account.bank bank
+                    LEFT OUTER JOIN payment.zpkBalance balance
+                    LEFT OUTER JOIN balance.bookingPeriod period
+                    LEFT OUTER JOIN balance.zpk zpk
+                    LEFT OUTER JOIN zpk.community community
+                    LEFT OUTER JOIN zpk.possession possession
+                    LEFT OUTER JOIN zpk.person person
+                    LEFT OUTER JOIN zpk.company company
                     WHERE {:where}
                 </data>
             </var>
@@ -365,6 +376,17 @@
                     count(payment.id)
                     FROM 
                     Payment payment
+                    JOIN payment.status status
+                    JOIN payment.type type
+                    LEFT OUTER JOIN payment.account account
+                    LEFT OUTER JOIN account.bank bank
+                    LEFT OUTER JOIN payment.zpkBalance balance
+                    LEFT OUTER JOIN balance.bookingPeriod period
+                    LEFT OUTER JOIN balance.zpk zpk
+                    LEFT OUTER JOIN zpk.community community
+                    LEFT OUTER JOIN zpk.possession possession
+                    LEFT OUTER JOIN zpk.person person
+                    LEFT OUTER JOIN zpk.company company
                     WHERE {:where}
                 </data>
             </var>
