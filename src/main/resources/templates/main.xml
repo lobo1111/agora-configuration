@@ -354,8 +354,8 @@
                     payment
                     FROM 
                     Payment payment
-                    JOIN payment.status status
-                    JOIN payment.type type
+                    JOIN payment.status paymentStatus
+                    JOIN payment.type paymentType
                     LEFT OUTER JOIN payment.account account
                     LEFT OUTER JOIN account.bank bank
                     LEFT OUTER JOIN payment.zpkBalance balance
@@ -376,8 +376,8 @@
                     count(payment.id)
                     FROM 
                     Payment payment
-                    JOIN payment.status status
-                    JOIN payment.type type
+                    JOIN payment.status paymentStatus
+                    JOIN payment.type paymentType
                     LEFT OUTER JOIN payment.account account
                     LEFT OUTER JOIN account.bank bank
                     LEFT OUTER JOIN payment.zpkBalance balance
