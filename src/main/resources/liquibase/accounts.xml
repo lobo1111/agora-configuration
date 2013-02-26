@@ -382,5 +382,97 @@
             ALTER TABLE `payment` ADD `direction` enum('INCOME', 'EXPENDITURE') NOT NULL DEFAULT 'INCOME';
         </sql>
     </changeSet>
+        
+    <changeSet author='tkopacki' id='table-payment-scheduler'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `payment_scheduler` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name`  varchar(255) COLLATE utf8_polish_ci,
+            `active` boolean DEFAULT true,
+            `day` varchar(20) NOT NULL DEFAULT 1,
+            `community_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-community-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler`
+            ADD CONSTRAINT `payment_scheduler_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-log'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `payment_scheduler_log` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `payment_scheduler_id` int(11) NOT NULL,
+            `fired_month` varchar(20) NOT NULL,
+            `fired_year` varchar(20) NOT NULL,
+            `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-log-scheduler-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_log`
+            ADD CONSTRAINT `payment_scheduler_log_scheduler_fkey` FOREIGN KEY (`payment_scheduler_id`) REFERENCES `payment_scheduler` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `payment_scheduler_template` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `payment_scheduler_id` int(11) NOT NULL,
+            `amount` decimal(10,2) NOT NULL,
+            `account_id` int(11) NOT NULL,
+            `description` varchar(255) NOT NULL,
+            `type_id` int(11) NOT NULL,
+            `auto_book` tinyint(1) NOT NULL,
+            `zpk_account_id` int(11),
+            `booking_period_id` int(11),
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-scheduler-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            ADD CONSTRAINT `payment_scheduler_template_scheduler_fkey` FOREIGN KEY (`payment_scheduler_id`) REFERENCES `payment_scheduler` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-account-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            ADD CONSTRAINT `payment_scheduler_template_account_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-type-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            ADD CONSTRAINT `payment_scheduler_template_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-period-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            ADD CONSTRAINT `payment_scheduler_template_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-zpk-account-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            ADD CONSTRAINT `payment_scheduler_template_zpk_account_fkey` FOREIGN KEY (`zpk_account_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
     
 </databaseChangeLog>
