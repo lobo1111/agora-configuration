@@ -1,5 +1,6 @@
 package pl.reaper.container.data;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "payment_scheduler")
 @XmlRootElement
-public class PaymentScheduler {
+public class PaymentScheduler implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
