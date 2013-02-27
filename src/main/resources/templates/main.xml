@@ -150,6 +150,32 @@
     </template>
     <!-- LISTS -->
      <template>
+        <name>list-payments-scheduler</name>
+        <source>list-payments-scheduler.vtl</source>
+        <variables>
+            <var>
+                <name>schedulers</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    paymentScheduler
+                    FROM
+                    PaymentScheduler paymentScheduler
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(paymentScheduler.id)
+                    FROM
+                    PaymentScheduler paymentScheduler
+                </data>
+            </var>
+        </variables>
+    </template>
+     <template>
         <name>list-zpks</name>
         <source>list-zpks.vtl</source>
         <variables>

@@ -1,7 +1,9 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,6 +42,8 @@ public class PaymentScheduler implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Community community;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentScheduler")
+    private Collection<PaymentSchedulerTemplate> paymentSchedulerTemplates;
 
     public int getId() {
         return id;
@@ -78,5 +83,13 @@ public class PaymentScheduler implements Serializable {
 
     public void setCommunity(Community community) {
         this.community = community;
+    }
+
+    public Collection<PaymentSchedulerTemplate> getPaymentSchedulerTemplates() {
+        return paymentSchedulerTemplates;
+    }
+
+    public void setPaymentSchedulerTemplates(Collection<PaymentSchedulerTemplate> paymentSchedulerTemplates) {
+        this.paymentSchedulerTemplates = paymentSchedulerTemplates;
     }
 }
