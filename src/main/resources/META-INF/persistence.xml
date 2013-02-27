@@ -26,6 +26,9 @@
         <class>pl.reaper.container.data.ZakladowyPlanKont</class>
         <class>pl.reaper.container.data.ZpkBalance</class>
         <class>pl.reaper.container.data.BookingPeriod</class>
+        <class>pl.reaper.container.data.PaymentScheduler</class>
+        <class>pl.reaper.container.data.PaymentSchedulerLog</class>
+        <class>pl.reaper.container.data.PaymentSchedulerTemplate</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.sharedCache.mode" value="NONE"/>
