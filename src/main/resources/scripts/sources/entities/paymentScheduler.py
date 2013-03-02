@@ -20,7 +20,7 @@ class PaymentSchedulerManager(Container):
         
     def setTemplateData(self, ps):
         data = PaymentSchedulerTemplate()
-        data.setAmount(vars.get('paymentAmount'))
+        data.setAmount(BigDecimal(vars.get('paymentAmount')))
         data.setAccount(self.findAccount(vars.get('accountId')))
         data.setDescription(vars.get('paymentDescription'))
         data.setType(self.findType(vars.get('paymentType')))
