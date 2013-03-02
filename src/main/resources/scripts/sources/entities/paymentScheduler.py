@@ -27,8 +27,9 @@ class PaymentSchedulerManager(Container):
         data.setType(self.findType(vars.get('paymentType')))
         if vars.get('paymentBook') == 'true':
             data.setAutoBook(True)
-        data.setZpk(self.findZpk(vars.get('zpkId')))
-        data.setBookingPeriod(self.findBookingPeriod(vars.get('paymentBookingPeriod')))
+        if data.getAutoBook() == True:
+            data.setZpk(self.findZpk(vars.get('zpkId')))
+            data.setBookingPeriod(self.findBookingPeriod(vars.get('paymentBookingPeriod')))
         ps.getPaymentSchedulerTemplates().clear()
         ps.getPaymentSchedulerTemplates().add(data)
     
