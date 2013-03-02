@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<paymentScheduler>
+    <id>$!ps.getId()</id>
+    <name>$!ps.getName()</name>
+    <active>$!ps.isActive()</active>
+    <day>$!ps.getDay()</day>
+    <payment>
+        <id>$!ps.getPaymentSchedulerTemplate().getId()</id>
+        <bookingPeriod>$!ps.getPaymentSchedulerTemplate().getBookingPeriod().getId()</bookingPeriod>  
+        <payment>$!ps.getPaymentSchedulerTemplate().getAmount()</payment>
+        <paymentType>$!ps.getPaymentSchedulerTemplate().getPaymentType().getId()</paymentType>
+        <book>$!ps.getPaymentSchedulerTemplate().isAutoBook()</book>
+        <zpk>
+            <id>$!ps.getPaymentSchedulerTemplate().getZpk().getId()</id>
+            <description>$!ps.getPaymentSchedulerTemplate().getZpk().getDescription()</description>
+            <number>$!ps.getPaymentSchedulerTemplate().getZpk().getNumber()</number>
+        </zpk>
+         <account>
+            <id>$!ps.getPaymentSchedulerTemplate().getAccount().getId()</id>
+            <name>$!ps.getPaymentSchedulerTemplate().getAccount().getName()</name>
+            <number>$!ps.getPaymentSchedulerTemplate().getAccount().getNumber()</number>
+            <typeId>$!ps.getPaymentSchedulerTemplate().getAccount().getType().getId()</typeId>
+            <typeValue>$!ps.getPaymentSchedulerTemplate().getAccount().getType().getValue()</typeValue>
+        </account>
+    </payment>
+    <community>
+        <id>$!ps.getCommunity().getId()</id>
+        <name>$!ps.getCommunity().getName()</name>
+    </community>
+</paymentScheduler>

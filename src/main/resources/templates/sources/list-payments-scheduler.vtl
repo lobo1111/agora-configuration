@@ -2,22 +2,16 @@
 <paymentsScheduler>
     #foreach($row in $schedulers)
     <item>
-        <id>$!row.getId()</id>
+        <paymentSchedulerId>$!row.getId()</paymentSchedulerId>
         <name>$!row.getName()</name>
         <active>$!row.isActive()</active>
         <bookingDay>$!row.getDay()</bookingDay>
-        <community>
-            <id>$!row.getCommunity().getId()</id>
-            <name>$!row.getCommunity().getName()</name>
-        </community>
-        <templates>
-            #foreach($template in $row.getPaymentSchedulerTemplates())
-                <template>
-                    <autoBooking>$!template.isAutoBook()</autoBooking>
-                    <amount>$!template.getAmount()</amount>
-                </template>
-            #end
-        </templates>
+        <communityId>$!row.getCommunity().getId()</communityId>
+        <communityName>$!row.getCommunity().getName()</communityName>
+        #if($row.getPaymentSchedulerTemplates() != null && $row.getPaymentSchedulerTemplates().size() == 1)
+            <autoBooking>$!row.getPaymentSchedulerTemplates().get(0).isAutoBook()</autoBooking>
+            <amount>$!row.getPaymentSchedulerTemplates().get(0).getAmount()</amount>
+        #end
     </item>
     #end
     <settings>

@@ -20,6 +20,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-payment-scheduler</name>
+        <source>entity-payment-scheduler.vtl</source>
+        <variables>
+            <var>
+                <name>ps</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    ps
+                    FROM 
+                    PaymentScheduler ps
+                    WHERE 
+                    ps.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-zpk</name>
         <source>entity-zpk.vtl</source>
         <variables>

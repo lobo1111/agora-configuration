@@ -301,6 +301,7 @@
             <group>all</group>
         </security>
     </script>
+    
     <script>
         <name>account</name>
         <source>entities/account.py</source>
@@ -398,6 +399,55 @@
         </security>
     </script>
     
+        
+    <script>
+        <name>payment</name>
+        <source>entities/payment.py</source>
+        <onInit>PaymentManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>dictionary-manager</scriptName>
+            <scriptName>account</scriptName>
+            <scriptName>book</scriptName>
+            <scriptName>zpk</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+        
+    <script>
+        <name>payment-scheduler</name>
+        <source>entities/paymentScheduler.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>payment</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>create-payment-scheduler</name>
+        <source>entities/paymentScheduler.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>payment</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
     <script>
         <name>create-zpk</name>
         <source>entities/zpk.py</source>
@@ -434,6 +484,7 @@
             <group>all</group>
         </security>
     </script>
+    
     <script>
         <name>book-payment</name>
         <source>entities/payment.py</source>
