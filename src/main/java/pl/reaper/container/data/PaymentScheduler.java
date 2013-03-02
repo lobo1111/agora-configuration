@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -43,7 +44,7 @@ public class PaymentScheduler implements Serializable {
     @ManyToOne(optional = false)
     private Community community;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentScheduler")
-    private Collection<PaymentSchedulerTemplate> paymentSchedulerTemplates;
+    private Collection<PaymentSchedulerTemplate> paymentSchedulerTemplates = new ArrayList<>();
 
     public int getId() {
         return id;
