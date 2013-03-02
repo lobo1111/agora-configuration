@@ -8,7 +8,7 @@
         <bookingDay>$!row.getDay()</bookingDay>
         <communityId>$!row.getCommunity().getId()</communityId>
         <communityName>$!row.getCommunity().getName()</communityName>
-        #if($row.getPaymentSchedulerTemplates() != null && $row.getPaymentSchedulerTemplates().size() == 1)
+        #if($row.getPaymentSchedulerTemplates() && $row.getPaymentSchedulerTemplates().size() == 1)
             <autoBooking>$!row.getPaymentSchedulerTemplates().get(0).isAutoBook()</autoBooking>
             <amount>$!row.getPaymentSchedulerTemplates().get(0).getAmount()</amount>
         #end
