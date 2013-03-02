@@ -39,7 +39,7 @@ class PaymentSchedulerManager(Container):
         return AccountManager().findAccountById(accountId)
     
     def findType(self, typeId):
-        self._dictManager.getDictionaryInstance(typeId)
+        return self._dictManager.getDictionaryInstance(typeId)
     
     def findZpk(self, zpkId):
         return ZpkManager().findZpkById(zpkId)
