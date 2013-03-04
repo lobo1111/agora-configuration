@@ -22,29 +22,21 @@ class PaymentSchedulerManager(Container):
         data = PaymentSchedulerTemplate()
         data.setPaymentScheduler(ps)
         data.setAmount(BigDecimal(vars.get('paymentAmount')))
-        data.setAccount(self.findAccount(vars.get('accountId')))
         data.setDescription(vars.get('paymentDescription'))
         data.setType(self.findType(vars.get('paymentType')))
         if vars.get('paymentBook') == 'true':
             data.setAutoBook(True)
         if data.isAutoBook() == True:
             data.setZpk(self.findZpk(vars.get('zpkId')))
-            data.setBookingPeriod(self.findBookingPeriod(vars.get('paymentBookingPeriod')))
         ps.getPaymentSchedulerTemplates().clear()
         ps.getPaymentSchedulerTemplates().add(data)
     
     def findCommunity(self, communityId):
         return CommunityManager().findCommunityById(communityId)
     
-    def findAccount(self, accountId):
-        return AccountManager().findAccountById(accountId)
-    
     def findType(self, typeId):
         return self._dictManager.getDictionaryInstance(typeId)
     
     def findZpk(self, zpkId):
         return ZpkManager().findZpkById(zpkId)
-    
-    def findBookingPeriod(self, periodId):
-        return BookingPeriodManager().findBookingPeriodById(periodId)
     
