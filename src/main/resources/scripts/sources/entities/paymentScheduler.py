@@ -35,7 +35,7 @@ class PaymentSchedulerManager(Container):
             data.setAutoBook(True)
             data.setZpk(self.findZpk(vars.get('zpkId')))
         else:
-            set.setAutoBook(False)
+            data.setAutoBook(False)
             data.setZpk(None)
         ps.getPaymentSchedulerTemplates().clear()
         ps.getPaymentSchedulerTemplates().add(data)
