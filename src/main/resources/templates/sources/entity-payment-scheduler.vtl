@@ -6,7 +6,6 @@
     <day>$!ps.getDay()</day>
     <payment>
         <id>$!ps.getPaymentSchedulerTemplate().getId()</id>
-        <bookingPeriod>$!ps.getPaymentSchedulerTemplate().getBookingPeriod().getId()</bookingPeriod>  
         <payment>$!ps.getPaymentSchedulerTemplate().getAmount()</payment>
         <paymentType>$!ps.getPaymentSchedulerTemplate().getPaymentType().getId()</paymentType>
         <book>$!ps.getPaymentSchedulerTemplate().isAutoBook()</book>
@@ -15,13 +14,6 @@
             <description>$!ps.getPaymentSchedulerTemplate().getZpk().getDescription()</description>
             <number>$!ps.getPaymentSchedulerTemplate().getZpk().getNumber()</number>
         </zpk>
-         <account>
-            <id>$!ps.getPaymentSchedulerTemplate().getAccount().getId()</id>
-            <name>$!ps.getPaymentSchedulerTemplate().getAccount().getName()</name>
-            <number>$!ps.getPaymentSchedulerTemplate().getAccount().getNumber()</number>
-            <typeId>$!ps.getPaymentSchedulerTemplate().getAccount().getType().getId()</typeId>
-            <typeValue>$!ps.getPaymentSchedulerTemplate().getAccount().getType().getValue()</typeValue>
-        </account>
     </payment>
     <community>
         <id>$!ps.getCommunity().getId()</id>

@@ -30,9 +30,6 @@ public class PaymentSchedulerTemplate implements Serializable {
     private PaymentScheduler paymentScheduler;
     @Column(name = "amount")
     private BigDecimal amount;
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
-    @ManyToOne(optional = true)
-    private Account account;
     @Basic(optional = true)
     @Size(min = 0, max = 255)
     @Column(name = "description")
@@ -45,9 +42,6 @@ public class PaymentSchedulerTemplate implements Serializable {
     @JoinColumn(name = "zpk_account_id", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
     private ZakladowyPlanKont zpk;
-    @JoinColumn(name = "booking_period_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private BookingPeriod bookingPeriod;
 
     public int getId() {
         return id;
@@ -71,14 +65,6 @@ public class PaymentSchedulerTemplate implements Serializable {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public String getDescription() {
@@ -111,13 +97,5 @@ public class PaymentSchedulerTemplate implements Serializable {
 
     public void setZpk(ZakladowyPlanKont zpk) {
         this.zpk = zpk;
-    }
-
-    public BookingPeriod getBookingPeriod() {
-        return bookingPeriod;
-    }
-
-    public void setBookingPeriod(BookingPeriod bookingPeriod) {
-        this.bookingPeriod = bookingPeriod;
     }
 }
