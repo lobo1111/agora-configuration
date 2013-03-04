@@ -14,7 +14,8 @@ class PaymentManager(Container):
         payment.setStatus(self.getPaymentStatus())
         payment.setDescription(self.getDescription())
         payment.setCreateDay(Date())
-        payment.setAccount(self.getAccount())
+        if vars.get('paymentDirection') == 'INCOME':
+            payment.setAccount(self.getAccount())
         payment.setDirection(self.getDirection())
         if self.bookRequest():
             self.book(payment)
