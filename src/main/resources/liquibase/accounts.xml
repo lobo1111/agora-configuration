@@ -486,4 +486,16 @@
             ALTER TABLE `payment_scheduler_template` DROP `account_id`;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-booking-period-drop-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template` DROP FOREIGN KEY `payment_scheduler_template_period_fkey`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-period-drop-drop-column'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template` DROP `booking_period_id`;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
