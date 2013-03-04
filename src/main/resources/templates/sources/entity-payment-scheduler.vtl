@@ -5,14 +5,14 @@
     <active>$!ps.isActive()</active>
     <day>$!ps.getDay()</day>
     <payment>
-        <id>$!ps.getPaymentSchedulerTemplate().getId()</id>
-        <payment>$!ps.getPaymentSchedulerTemplate().getAmount()</payment>
-        <paymentType>$!ps.getPaymentSchedulerTemplate().getPaymentType().getId()</paymentType>
-        <book>$!ps.getPaymentSchedulerTemplate().isAutoBook()</book>
+        <id>$!ps.getPaymentSchedulerTemplates().get(0).getId()</id>
+        <payment>$!ps.getPaymentSchedulerTemplates().get(0).getAmount()</payment>
+        <paymentType>$!ps.getPaymentSchedulerTemplates().get(0).getPaymentType().getId()</paymentType>
+        <book>$!ps.getPaymentSchedulerTemplates().get(0).isAutoBook()</book>
         <zpk>
-            <id>$!ps.getPaymentSchedulerTemplate().getZpk().getId()</id>
-            <description>$!ps.getPaymentSchedulerTemplate().getZpk().getDescription()</description>
-            <number>$!ps.getPaymentSchedulerTemplate().getZpk().getNumber()</number>
+            <id>$!ps.getPaymentSchedulerTemplates().get(0).getZpk().getId()</id>
+            <description>$!ps.getPaymentSchedulerTemplates().get(0).getZpk().getDescription()</description>
+            <number>$!ps.getPaymentSchedulerTemplates().get(0).getZpk().getNumber()</number>
         </zpk>
     </payment>
     <community>
