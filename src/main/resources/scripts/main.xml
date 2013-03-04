@@ -455,6 +455,22 @@
     </script>
     
     <script>
+        <name>update-payment-scheduler</name>
+        <source>entities/paymentScheduler.py</source>
+        <onInit>PaymentSchedulerManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>payment</scriptName>
+            <scriptName>community</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-zpk</name>
         <source>entities/zpk.py</source>
         <onInit>ZpkManager().create()</onInit>
