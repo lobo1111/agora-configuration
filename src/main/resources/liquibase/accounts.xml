@@ -475,4 +475,15 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-account-drop-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template` DROP FOREIGN KEY `payment_scheduler_template_account_fkey`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-account-drop-column'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template` DROP `account_id`;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
