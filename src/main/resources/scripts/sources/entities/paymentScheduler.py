@@ -19,6 +19,8 @@ class PaymentSchedulerManager(Container):
         ps.setName(vars.get('paymentSchedulerName'))
         if vars.get('paymentSchedulerActive') == 'true':
             ps.setActive(True)
+        else:
+            ps.setActive(False)
         ps.setDay(vars.get('paymentSchedulerDay'))
         ps.setCommunity(self.findCommunity(vars.get('communityId')))
         self.setTemplateData(ps)
@@ -31,8 +33,10 @@ class PaymentSchedulerManager(Container):
         data.setType(self.findType(vars.get('paymentType')))
         if vars.get('paymentBook') == 'true':
             data.setAutoBook(True)
-        if data.isAutoBook() == True:
             data.setZpk(self.findZpk(vars.get('zpkId')))
+        else:
+            set.setAutoBook(False)
+            data.setZpk(None)
         ps.getPaymentSchedulerTemplates().clear()
         ps.getPaymentSchedulerTemplates().add(data)
     
