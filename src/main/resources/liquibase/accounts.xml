@@ -498,4 +498,11 @@
             ALTER TABLE `payment_scheduler_template` DROP `booking_period_id`;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-account-column-nullable'>
+        <sql>  
+            ALTER TABLE `payment` MODIFY `account_id` int(11) NULL;
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
