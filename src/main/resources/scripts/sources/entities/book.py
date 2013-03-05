@@ -23,7 +23,7 @@ class BookingManager(Container):
         return BookingPeriodManager().findChild(bookingPeriod)
     
     def updateStartBalance(self, bookingPeriod, payment):
-        zpk = self.getZpk(bookingPeriod, payment)
+        zpk = self.getZpk()
         balance = self.getZpkBalance(zpk, bookingPeriod)
         if payment.getDirection().equals(Payment.Direction.INCOME):
             calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), 1)
