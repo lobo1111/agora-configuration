@@ -15,7 +15,7 @@ class BookingManager(Container):
         
     def bookInChildren(self, bookingPeriod, payment):
         while bookingPeriod != None:
-            self.updateStartBalance(bookingPeriod, payment, 1)
+            self.updateStartBalance(bookingPeriod, payment)
             self.bookInPeriod(bookingPeriod, payment)
             bookingPeriod = self.findChild(bookingPeriod)
             
@@ -29,7 +29,7 @@ class BookingManager(Container):
             calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), 1)
             balance.setStartCredit(calculated)
         elif payment.getDirection().equals(Payment.Direction.EXPENDITURE):
-            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), 1)
+            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), -1)
             balance.setStartDebit(calculated)
         entityManager.persist(balance)
     
@@ -56,7 +56,7 @@ class BookingManager(Container):
         
     def unbookInChildren(self, bookingPeriod, payment):
          while bookingPeriod != None:
-            self.updateStartBalance(bookingPeriod, payment, -1)
+            self.updateStartBalance(bookingPeriod, payment)
             self.unbookInPeriod(bookingPeriod, payment)
             bookingPeriod = self.findChild(bookingPeriod)
         
