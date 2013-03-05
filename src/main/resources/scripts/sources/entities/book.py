@@ -10,6 +10,7 @@ class BookingManager(Container):
         payment.setStatus(self.getPaymentStatus())
         payment.setBooked(True)
         payment.setBookingDay(Date())
+        zpk = self.getZpk()
         balance = self.getZpkBalance(zpk, bookingPeriod)
         payment.setZpkBalance(balance)
         bookingPeriod = self.getBookingPeriod()
