@@ -8,6 +8,12 @@ class BookingPeriodManager(Container):
     def findBookingPeriodById(self, id):
         return entityManager.createQuery('Select period From BookingPeriod period Where period.id = ' + str(id)).getSingleResult()
 
+    def findChild(self, bookingPeriod):
+        try:
+            sql = 'Select period From BookingPeriod period Where period.order = ' + str(bookingPeriod.getOrder())
+            return entityManager.createQuery(sql).getSingleResult()
+        except:
+            return None
     
         
     

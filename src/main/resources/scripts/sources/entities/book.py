@@ -10,6 +10,30 @@ class BookingManager(Container):
         payment.setBooked(True)
         payment.setBookingDay(Date())
         bookingPeriod = self.getBookingPeriod()
+        self.bookInPeriod(bookingPeriod, payment)
+        self.bookInChildren(self.findChild(bookingPeriod), payment)
+        
+    def bookInChildren(self, bookingPeriod, payment):
+        while bookingPeriod != None:
+            self.updateStartBalance(bookingPeriod, payment, 1)
+            self.bookInPeriod(bookingPeriod, payment)
+            bookingPeriod = self.findChild(bookingPeriod)
+            
+    def findChild(self, bookingPeriod):
+        return BookingPeriodManager().findChild(bookingPeriod)
+    
+    def updateStartBalance(self, bookingPeriod, payment):
+        zpk = self.getZpk(bookingPeriod, payment)
+        balance = self.getZpkBalance(zpk, bookingPeriod)
+        if payment.getDirection().equals(Payment.Direction.INCOME):
+            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), 1)
+            balance.setStartCredit(calculated)
+        elif payment.getDirection().equals(Payment.Direction.EXPENDITURE):
+            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), 1)
+            balance.setStartDebit(calculated)
+        entityManager.persist(balance)
+    
+    def bookInPeriod(self, bookingPeriod, payment):
         zpk = self.getZpk()
         balance = self.getZpkBalance(zpk, bookingPeriod)
         self.setAmount(payment, balance, 1)
@@ -21,6 +45,20 @@ class BookingManager(Container):
         balance = payment.getZpkBalance()
         self.setAmount(payment, balance, -1)
         entityManager.persist(balance)
+        self.unbookInChildren(self.findChild(balance.getBookingPeriod()), payment)
+        
+    def unbookInPeriod(self, bookingPeriod, payment):
+        zpk = self.getZpk()
+        balance = self.getZpkBalance(zpk, bookingPeriod)
+        self.setAmount(payment, balance, -1)
+        payment.setZpkBalance(balance)
+        entityManager.persist(balance)
+        
+    def unbookInChildren(self, bookingPeriod, payment):
+         while bookingPeriod != None:
+            self.updateStartBalance(bookingPeriod, payment, -1)
+            self.unbookInPeriod(bookingPeriod, payment)
+            bookingPeriod = self.findChild(bookingPeriod)
         
     def setAmount(self, payment, balance, book):
         if payment.getDirection().equals(Payment.Direction.INCOME):
