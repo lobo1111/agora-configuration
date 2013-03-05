@@ -62,7 +62,7 @@ class BookingManager(Container):
         
     def unbookInChildren(self, bookingPeriod, payment):
          while bookingPeriod != None:
-            self.updateStartBalance(bookingPeriod, payment, ZpkManager().findZpkById(payment.getZpk().getId()))
+            self.updateStartBalance(bookingPeriod, payment, ZpkManager().findZpkById(payment.getZpkBalance().getZpk().getId()))
             self.unbookInPeriod(bookingPeriod, payment)
             bookingPeriod = self.findChild(bookingPeriod)
         
