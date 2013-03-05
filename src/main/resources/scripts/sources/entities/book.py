@@ -11,7 +11,7 @@ class BookingManager(Container):
         payment.setBooked(True)
         payment.setBookingDay(Date())
         bookingPeriod = self.getBookingPeriod()
-        self._logger.info('Booking payment %s in period %s' % str(payment.getIncome().floatValue()), bookingPeriod.getName())
+        self._logger.info('Booking payment in period %s' % bookingPeriod.getName())
         self.bookInPeriod(bookingPeriod, payment)
         self._logger.info('Now booking in children...')
         self.bookInChildren(self.findChild(bookingPeriod), payment)
