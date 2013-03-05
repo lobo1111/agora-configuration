@@ -1,5 +1,6 @@
 package pl.reaper.container.data;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "booking_period")
 @XmlRootElement
-public class BookingPeriod {
+public class BookingPeriod implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,8 @@ public class BookingPeriod {
     private String name;
     @Column(name = "active")
     private boolean active;
+    @Column(name = "period_order")
+    private int order;
 
     public Integer getId() {
         return id;
@@ -56,5 +59,13 @@ public class BookingPeriod {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

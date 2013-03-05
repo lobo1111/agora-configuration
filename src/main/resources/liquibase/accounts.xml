@@ -505,4 +505,11 @@
         </sql>
     </changeSet>
     
+     <changeSet author='tkopacki' id='table-booking-period-order-column'>
+        <sql> 
+            ALTER TABLE `booking_period`
+            ADD COLUMN `period_order` int(11) NOT NULL DEFAULT 1; 
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
