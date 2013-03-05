@@ -33,10 +33,10 @@ class BookingManager(Container):
     def updateStartBalance(self, bookingPeriod, payment, zpk, factor):
         balance = self.getZpkBalance(zpk, bookingPeriod)
         if payment.getDirection().equals(Payment.Direction.INCOME):
-            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), 1 * factor)
+            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), factor)
             balance.setStartCredit(calculated)
         elif payment.getDirection().equals(Payment.Direction.EXPENDITURE):
-            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), -1 * factor)
+            calculated = self.calculateAmount(balance.getStartDebit(), payment.getIncome().floatValue(), factor)
             balance.setStartDebit(calculated)
         entityManager.persist(balance)
     
