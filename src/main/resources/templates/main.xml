@@ -630,10 +630,10 @@
                     period.name) 
                     FROM
                     BookingPeriod period
-                    ORDER BY
-                    period.name DESC
                     WHERE
                     period.active = true
+                    ORDER BY
+                    period.name DESC
                 </data>
             </var>
         </variables>
