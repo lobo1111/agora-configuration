@@ -53,17 +53,16 @@ class BookingManager(Container):
         entityManager.persist(balance)
         self.unbookInChildren(self.findChild(balance.getBookingPeriod()), payment)
         
-    def unbookInPeriod(self, bookingPeriod, payment):
-        zpk = ZpkManager().findZpkById(payment.getZpk().getId())
+    def unbookInPeriod(self, bookingPeriod, payment, zpk):
         balance = self.getZpkBalance(zpk, bookingPeriod)
         self.setAmount(payment, balance, -1)
-        payment.setZpkBalance(balance)
         entityManager.persist(balance)
         
     def unbookInChildren(self, bookingPeriod, payment):
          while bookingPeriod != None:
-            self.updateStartBalance(bookingPeriod, payment, ZpkManager().findZpkById(payment.getZpkBalance().getZpk().getId()))
-            self.unbookInPeriod(bookingPeriod, payment)
+            zpk = ZpkManager().findZpkById(payment.getZpkBalance().getZpk().getId())
+            self.updateStartBalance(bookingPeriod, payment, zpk)
+            self.unbookInPeriod(bookingPeriod, payment, zpk)
             bookingPeriod = self.findChild(bookingPeriod)
         
     def setAmount(self, payment, balance, book):
