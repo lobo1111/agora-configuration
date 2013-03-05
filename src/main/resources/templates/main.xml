@@ -619,6 +619,26 @@
         </variables>
     </template>
     <template>
+        <name>list-booking-periods-active</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    period.id, 
+                    period.name) 
+                    FROM
+                    BookingPeriod period
+                    ORDER BY
+                    period.name DESC
+                    WHERE
+                    period.active = true
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-possession-zpks</name>
         <source>simple-list.vtl</source>
         <variables>
