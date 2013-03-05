@@ -23,20 +23,20 @@ class BookingManager(Container):
     def bookInChildren(self, bookingPeriod, payment):
         while bookingPeriod != None:
             self._logger.info('Booking in child period %s' % bookingPeriod.getName())
-            self.updateStartBalance(bookingPeriod, payment, self.getZpk())
+            self.updateStartBalance(bookingPeriod, payment, self.getZpk(), 1)
             self.bookInPeriod(bookingPeriod, payment)
             bookingPeriod = self.findChild(bookingPeriod)
             
     def findChild(self, bookingPeriod):
         return BookingPeriodManager().findChild(bookingPeriod)
     
-    def updateStartBalance(self, bookingPeriod, payment, zpk):
+    def updateStartBalance(self, bookingPeriod, payment, zpk, factor):
         balance = self.getZpkBalance(zpk, bookingPeriod)
         if payment.getDirection().equals(Payment.Direction.INCOME):
-            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), 1)
+            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), 1 * factor)
             balance.setStartCredit(calculated)
         elif payment.getDirection().equals(Payment.Direction.EXPENDITURE):
-            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), -1)
+            calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), -1 * factor)
             balance.setStartDebit(calculated)
         entityManager.persist(balance)
     
@@ -61,7 +61,7 @@ class BookingManager(Container):
     def unbookInChildren(self, bookingPeriod, payment):
          while bookingPeriod != None:
             zpk = ZpkManager().findZpkById(payment.getZpkBalance().getZpk().getId())
-            self.updateStartBalance(bookingPeriod, payment, zpk)
+            self.updateStartBalance(bookingPeriod, payment, zpk, -1)
             self.unbookInPeriod(bookingPeriod, payment, zpk)
             bookingPeriod = self.findChild(bookingPeriod)
         
