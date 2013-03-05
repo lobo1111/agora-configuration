@@ -10,6 +10,8 @@ class BookingManager(Container):
         payment.setStatus(self.getPaymentStatus())
         payment.setBooked(True)
         payment.setBookingDay(Date())
+        balance = self.getZpkBalance(zpk, bookingPeriod)
+        payment.setZpkBalance(balance)
         bookingPeriod = self.getBookingPeriod()
         self._logger.info('Booking payment in period %s' % bookingPeriod.getName())
         self.bookInPeriod(bookingPeriod, payment)
@@ -42,7 +44,6 @@ class BookingManager(Container):
         zpk = self.getZpk()
         balance = self.getZpkBalance(zpk, bookingPeriod)
         self.setAmount(payment, balance, 1)
-        payment.setZpkBalance(balance)
         entityManager.persist(balance)
     
     def unbook(self, payment):
