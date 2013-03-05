@@ -23,15 +23,14 @@ class BookingManager(Container):
     def bookInChildren(self, bookingPeriod, payment):
         while bookingPeriod != None:
             self._logger.info('Booking in child period %s' % bookingPeriod.getName())
-            self.updateStartBalance(bookingPeriod, payment)
+            self.updateStartBalance(bookingPeriod, payment, self.getZpk())
             self.bookInPeriod(bookingPeriod, payment)
             bookingPeriod = self.findChild(bookingPeriod)
             
     def findChild(self, bookingPeriod):
         return BookingPeriodManager().findChild(bookingPeriod)
     
-    def updateStartBalance(self, bookingPeriod, payment):
-        zpk = self.getZpk()
+    def updateStartBalance(self, bookingPeriod, payment, zpk):
         balance = self.getZpkBalance(zpk, bookingPeriod)
         if payment.getDirection().equals(Payment.Direction.INCOME):
             calculated = self.calculateAmount(balance.getStartCredit(), payment.getIncome().floatValue(), 1)
@@ -55,7 +54,7 @@ class BookingManager(Container):
         self.unbookInChildren(self.findChild(balance.getBookingPeriod()), payment)
         
     def unbookInPeriod(self, bookingPeriod, payment):
-        zpk = self.getZpk()
+        zpk = ZpkManager().findZpkById(payment.getZpk().getId())
         balance = self.getZpkBalance(zpk, bookingPeriod)
         self.setAmount(payment, balance, -1)
         payment.setZpkBalance(balance)
@@ -63,7 +62,7 @@ class BookingManager(Container):
         
     def unbookInChildren(self, bookingPeriod, payment):
          while bookingPeriod != None:
-            self.updateStartBalance(bookingPeriod, payment)
+            self.updateStartBalance(bookingPeriod, payment, ZpkManager().findZpkById(payment.getZpk().getId()))
             self.unbookInPeriod(bookingPeriod, payment)
             bookingPeriod = self.findChild(bookingPeriod)
         
