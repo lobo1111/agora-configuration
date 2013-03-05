@@ -1,6 +1,7 @@
 from java.lang import Double
 
 class BookingManager(Container):
+    _logger = Logger([:_scriptId])
     
     def __init__(self):
         self._dictManager = DictionaryManager()
@@ -10,11 +11,15 @@ class BookingManager(Container):
         payment.setBooked(True)
         payment.setBookingDay(Date())
         bookingPeriod = self.getBookingPeriod()
+        self._logger.info('Booking payment %d in period %s' % payment.getIncome(), bookingPeriod.getName())
         self.bookInPeriod(bookingPeriod, payment)
+        self._logger.info('Now booking in children...')
         self.bookInChildren(self.findChild(bookingPeriod), payment)
+        self._logger.info('Booking complete.')
         
     def bookInChildren(self, bookingPeriod, payment):
         while bookingPeriod != None:
+            self._logger.info('Booking in child period %s' % bookingPeriod.getName())
             self.updateStartBalance(bookingPeriod, payment)
             self.bookInPeriod(bookingPeriod, payment)
             bookingPeriod = self.findChild(bookingPeriod)
