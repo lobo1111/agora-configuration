@@ -39,9 +39,6 @@ public class PaymentSchedulerTemplate implements Serializable {
     private Dictionary type;
     @Column(name = "auto_book")
     private boolean autoBook;
-    @JoinColumn(name = "zpk_account_id", referencedColumnName = "id")
-    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
-    private ZakladowyPlanKont zpk;
 
     public int getId() {
         return id;
@@ -91,11 +88,4 @@ public class PaymentSchedulerTemplate implements Serializable {
         this.autoBook = autoBook;
     }
 
-    public ZakladowyPlanKont getZpk() {
-        return zpk;
-    }
-
-    public void setZpk(ZakladowyPlanKont zpk) {
-        this.zpk = zpk;
-    }
 }
