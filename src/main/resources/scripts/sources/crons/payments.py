@@ -21,7 +21,7 @@ class CronPayment(Container):
         self._day = calendar.get(Calendar.DAY_OF_MONTH)
     
     def getSchedulersToFire(self):
-        sql = 'Select ps From PaymentScheduler ps Where day = %s' % self._day
+        sql = 'Select ps From PaymentScheduler ps Where ps.day = %s' % self._day
         return entityManager.createQuery(sql).getResultList()
     
     def alreadyFired(self, scheduler):
@@ -57,7 +57,7 @@ class CronPayment(Container):
     
     def findLog(self, scheduler):
         try:
-            sql = 'Select log From PaymentSchedulerLog log Where firedYear = %s And firedMonth = %s' % (self._year, self._month)
+            sql = 'Select log From PaymentSchedulerLog log Where log.firedYear = %s And log.firedMonth = %s' % (self._year, self._month)
             return entityManager.createQuery(sql).getSingleResult()
         except:
             return None
