@@ -20,7 +20,7 @@ class CronPayment(Container):
                 self.fireScheduler(scheduler)
             else:
                 self._logger.info('Scheduler already fired, omitting.')
-        self._logger.info('Cron payment finished...')
+        self._logger.info('Cron payment finished.')
             
                 
     def getToday(self):
@@ -35,7 +35,7 @@ class CronPayment(Container):
         return entityManager.createQuery(sql).getResultList()
     
     def alreadyFired(self, scheduler):
-        return self.findLog(scheduler) == None
+        return self.findLog(scheduler) != None
     
     def fireScheduler(self, scheduler):
         for zpk in scheduler.getZpks():
