@@ -13,7 +13,9 @@
     </payment>
     <zpks>
         #foreach($row in $!ps.getPaymentSchedulerZpk())
-            <id>$!row.getId()</id>
+            <zpk>
+                <id>$!row.getId()</id>
+            </zpk>
         #end
     </zpks>
     <community>
