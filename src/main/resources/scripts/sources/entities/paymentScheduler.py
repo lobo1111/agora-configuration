@@ -30,7 +30,7 @@ class PaymentSchedulerManager(Container):
         ps.getZpks().clear()
         for i in range(int(counter)):
             zpkId = int(vars.get('boundedZpk' + str(i)))
-            zpk = self.findZpk(zpkdId)
+            zpk = self.findZpk(zpkId)
             ps.getZpks().add(zpk)
             
         
