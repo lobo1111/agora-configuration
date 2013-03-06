@@ -39,15 +39,18 @@
                 <name>free</name>
                 <data>
                     SELECT 
-                    free
+                        z
                     FROM 
-                    PaymentScheduler ps
-                    JOIN ps.community community
-                    LEFT OUTER JOIN community.zpks free
-                    LEFT OUTER JOIN ps.zpks bounded
+                        PaymentScheduler ps
+                        JOIN ps.community c
+                        JOIN c.zpks zpk
                     WHERE 
-                    ps.id = {:id} AND
-                    free.id != bounded.id
+                        ps.id = {:id}
+                        AND z.id NOT IN(
+                            SELECT 
+                                zpk.id
+                            FROM 
+                                ps.zpks zpk)
                 </data>
             </var>
         </variables>
