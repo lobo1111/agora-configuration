@@ -1,6 +1,5 @@
 from pl.reaper.container.data import PaymentScheduler
 from pl.reaper.container.data import PaymentSchedulerTemplate
-from pl.reaper.container.data import ZakladowyPlanKont
 
 class PaymentSchedulerManager(Container):
     def __init__(self):
@@ -31,8 +30,7 @@ class PaymentSchedulerManager(Container):
         ps.getZpks().clear()
         for i in range(int(counter)):
             zpkId = int(vars.get('boundedZpk' + str(i)))
-            zpk = ZakladowyPlanKont()
-            zpk.setId(zpkId)
+            zpk = self.findZpk(zpkdId)
             ps.getZpks().add(zpk)
             
         
