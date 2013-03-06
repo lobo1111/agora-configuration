@@ -227,6 +227,7 @@
         </security>
     </script>
     
+   
     <!-- ENTITIES -->
     
     <script>
@@ -778,6 +779,28 @@
         </dependencies>
         <security>
             <group>all</group>
+        </security>
+    </script>
+    
+    <!-- CRONS -->
+    <script>
+        <name>create-payments</name>
+        <source>crons/payments.py</source>
+        <onInit>CronPayment()</onInit>
+        <scheduler>
+            <name>create-payments</name>
+            <enabled>true</enabled>
+            <fireAt>*/5 * * * *</fireAt>
+        </scheduler>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>bookingPeriod</scriptName>
+            <scriptName>dictionary-manager</scriptName>
+            <scriptName>book</scriptName>
+        </dependencies>
+        <security>
+            <group>access-sync</group>
         </security>
     </script>
 </scripts>

@@ -8,6 +8,9 @@ class BookingPeriodManager(Container):
     def findBookingPeriodById(self, id):
         return entityManager.createQuery('Select period From BookingPeriod period Where period.id = ' + str(id)).getSingleResult()
 
+    def findDefaultBookingPeriod(self):
+        return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
+
     def findChild(self, bookingPeriod):
         try:
             sql = 'Select period From BookingPeriod period Where period.order = ' + str(bookingPeriod.getOrder() + 1)

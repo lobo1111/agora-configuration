@@ -9,6 +9,10 @@ class PaymentManager(Container):
     
     def create(self):
         payment = Payment()
+        self.setData(payment)
+        entityManager.persist(payment)
+        
+    def setData(self, payment):
         payment.setIncome(self.getIncome())
         payment.setType(self.getPaymentType())
         payment.setStatus(self.getPaymentStatus())
@@ -19,7 +23,6 @@ class PaymentManager(Container):
         payment.setDirection(self.getDirection())
         if self.bookRequest():
             self.book(payment)
-        entityManager.persist(payment)
         
     def bookStoredPayment(self):
         payment = self.findPaymentById(vars.get('id'))
