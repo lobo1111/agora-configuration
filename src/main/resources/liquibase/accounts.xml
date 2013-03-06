@@ -514,7 +514,7 @@
     
     <changeSet author='tkopacki' id='payment-scheduler-zpk-drop-fkey'>
         <sql>  
-            ALTER TABLE `payment_scheduler_template` DROP FOREIGN KEY `payment_scheduler_template_zpk_account_fkey`
+            ALTER TABLE `payment_scheduler_template` DROP FOREIGN KEY `payment_scheduler_template_zpk_account_fkey`;
             ALTER TABLE `payment_scheduler_template` DROP COLUMN `zpk_account_id`;
         </sql>
     </changeSet> 
