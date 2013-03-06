@@ -2,6 +2,7 @@ from java.util import Date
 from java.util import Calendar
 from java.math import BigDecimal
 from pl.reaper.container.data import Payment
+from pl.reaper.container.data.Payment import Direction
 from pl.reaper.container.data import PaymentSchedulerLog
 
 class CronPayment(Container):
@@ -46,7 +47,7 @@ class CronPayment(Container):
             payment.setStatus(self.getPaymentStatus())
             payment.setDescription(scheduler.getPaymentSchedulerTemplates().get(0).getDescription())
             payment.setCreateDay(Date())
-            payment.setDirection("EXPENDITURE")
+            payment.setDirection(Direction.EXPENDITURE)
             if scheduler.getPaymentSchedulerTemplates().get(0).isAutoBook():
                 vars.set('zpkId', str(zpk.getId()))
                 vars.set('paymentBookingPeriod', BookingPeriodManager().findDefaultBookingPeriod())
