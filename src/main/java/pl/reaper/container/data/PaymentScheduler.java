@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import pl.reaper.container.data.old.Zpk;
 
 @Entity
 @Table(name = "payment_scheduler")
@@ -54,7 +53,7 @@ public class PaymentScheduler implements Serializable {
     @JoinColumn(name = "payment_scheduler_id", referencedColumnName = "id"),
     inverseJoinColumns =
     @JoinColumn(name = "zpk_account_id", referencedColumnName = "id"))
-    private Collection<Zpk> zpks = new ArrayList<>();
+    private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -104,11 +103,11 @@ public class PaymentScheduler implements Serializable {
         this.paymentSchedulerTemplates = paymentSchedulerTemplates;
     }
 
-    public Collection<Zpk> getZpks() {
+    public Collection<ZakladowyPlanKont> getZpks() {
         return zpks;
     }
 
-    public void setZpks(Collection<Zpk> zpks) {
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
         this.zpks = zpks;
     }
 }
