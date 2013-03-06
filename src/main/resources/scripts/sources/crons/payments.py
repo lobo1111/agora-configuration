@@ -41,7 +41,7 @@ class CronPayment(Container):
         for zpk in scheduler.getZpks():
             self._logger.info('Creating payment for zpk %s' % str(zpk.getNumber()))
             payment = Payment()
-            self.setAmount(payment, scheduler.getPaymentSchedulerTemplates().get(0).getAmount())
+            self.setAmount(zpk, payment, scheduler.getPaymentSchedulerTemplates().get(0).getAmount())
             payment.setType(scheduler.getPaymentSchedulerTemplates().get(0).getType())
             payment.setStatus(self.getPaymentStatus())
             payment.setDescription(scheduler.getPaymentSchedulerTemplates().get(0).getDescription())
@@ -62,7 +62,7 @@ class CronPayment(Container):
         log.setTimestamp(Date())
         entityManager.persist(log)
             
-    def setAmount(self, payment, factor):
+    def setAmount(self, zpk, payment, factor):
         calculated = factor * zpk.getPossession().getArea()
         payment.setIncome(BigDecimal(calculated))
     
