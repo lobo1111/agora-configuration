@@ -23,7 +23,17 @@ class PaymentSchedulerManager(Container):
             ps.setActive(False)
         ps.setDay(vars.get('paymentSchedulerDay'))
         ps.setCommunity(self.findCommunity(vars.get('communityId')))
+        ps.setZpks(self.getZpks(ps, vars.get('boundedZpksCount')))
         self.setTemplateData(ps)
+        
+    def getZpks(self, ps, counter):
+        ps.getZpks().clear()
+        for i in range(counter):
+            zpkId = vars.get('boundedZpk' + str(i))
+            zpk = Zpk()
+            zpk.setId(zpkId)
+            ps.getZpks().add(zpk)
+            
         
     def setTemplateData(self, ps):
         data = self.getOrCreatePaymentSchedulerTemplate(ps)
