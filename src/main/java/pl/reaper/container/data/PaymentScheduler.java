@@ -45,6 +45,8 @@ public class PaymentScheduler implements Serializable {
     private Community community;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentScheduler")
     private Collection<PaymentSchedulerTemplate> paymentSchedulerTemplates = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentScheduler")
+    private Collection<PaymentSchedulerZpk> paymentSchedulerZpk = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -92,5 +94,13 @@ public class PaymentScheduler implements Serializable {
 
     public void setPaymentSchedulerTemplates(Collection<PaymentSchedulerTemplate> paymentSchedulerTemplates) {
         this.paymentSchedulerTemplates = paymentSchedulerTemplates;
+    }
+
+    public Collection<PaymentSchedulerZpk> getPaymentSchedulerZpk() {
+        return paymentSchedulerZpk;
+    }
+
+    public void setPaymentSchedulerZpk(Collection<PaymentSchedulerZpk> paymentSchedulerZpk) {
+        this.paymentSchedulerZpk = paymentSchedulerZpk;
     }
 }

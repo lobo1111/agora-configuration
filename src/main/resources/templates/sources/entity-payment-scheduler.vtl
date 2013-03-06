@@ -10,10 +10,12 @@
         <paymentType>$!ps.getPaymentSchedulerTemplates().get(0).getType().getId()</paymentType>
         <book>$!ps.getPaymentSchedulerTemplates().get(0).isAutoBook()</book>
         <description>$!ps.getPaymentSchedulerTemplates().get(0).getDescription()</description>
-        <zpk>
-            <id>$!ps.getPaymentSchedulerTemplates().get(0).getZpk().getId()</id>
-        </zpk>
     </payment>
+    <zpks>
+        #foreach($row in $!ps.getPaymentSchedulerZpk())
+            <id>$!row.getId()</id>
+        #end
+    </zpks>
     <community>
         <id>$!ps.getCommunity().getId()</id>
     </community>

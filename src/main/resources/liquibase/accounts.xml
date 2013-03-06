@@ -505,10 +505,42 @@
         </sql>
     </changeSet>
     
-     <changeSet author='tkopacki' id='table-booking-period-order-column'>
+    <changeSet author='tkopacki' id='table-booking-period-order-column'>
         <sql> 
             ALTER TABLE `booking_period`
             ADD COLUMN `period_order` int(11) NOT NULL DEFAULT 1; 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-scheduler-zpk-drop-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template` DROP FOREIGN KEY `payment_scheduler_template_zpk_account_fkey`
+            ALTER TABLE `payment_scheduler_template` DROP COLUMN `zpk_account_id`;
+        </sql>
+    </changeSet> 
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-zpk'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `payment_scheduler_zpk` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `payment_scheduler_id` int(11) NOT NULL,
+            `zpk_account_id` int(11),
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-zpk-scheduler-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_zpk`
+            ADD CONSTRAINT `payment_scheduler_zpk_scheduler_fkey` FOREIGN KEY (`payment_scheduler_id`) REFERENCES `payment_scheduler` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-zpk-zpk-account-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_zpk`
+            ADD CONSTRAINT `payment_scheduler_zpk_zpk_account_fkey` FOREIGN KEY (`zpk_account_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
     
