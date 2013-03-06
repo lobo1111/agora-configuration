@@ -5,13 +5,23 @@ from pl.reaper.container.data import Payment
 from pl.reaper.container.data import PaymentSchedulerLog
 
 class CronPayment(Container):
+    _logger = Logger([:_scriptId])
+    
     def __init__(self):
+        self._logger.info('Cron payment started...')
         self._dictManager = DictionaryManager()
         self.getToday()
         self._toFire = self.getSchedulersToFire()
+        self._logger.info('Found %s active and ready to fire schedulers' % (str(self._toFire.size())))
         for scheduler in self._toFire:
+            self._logger.info('Checking scheduler %s' % scheduler.getName())
             if not self.alreadyFired(scheduler):
+                self._logger.info('Scheduler not fired yet...')
                 self.fireScheduler(scheduler)
+            else:
+                self._logger.info('Scheduler already fired, omitting.')
+        self._logger.info('Cron payment finished...')
+            
                 
     def getToday(self):
         calendar = Calendar.getInstance()
@@ -21,7 +31,7 @@ class CronPayment(Container):
         self._day = calendar.get(Calendar.DAY_OF_MONTH)
     
     def getSchedulersToFire(self):
-        sql = 'Select ps From PaymentScheduler ps Where ps.day = %s' % self._day
+        sql = 'Select ps From PaymentScheduler ps Where ps.day = %s and ps.active = true' % self._day
         return entityManager.createQuery(sql).getResultList()
     
     def alreadyFired(self, scheduler):
@@ -29,6 +39,7 @@ class CronPayment(Container):
     
     def fireScheduler(self, scheduler):
         for zpk in scheduler.getZpks():
+            self._logger.info('Creating payment for zpk %s' % str(zpk.getNumber()))
             payment = Payment()
             self.setAmount(payment, scheduler.getPaymentSchedulerTemplates().get(0).getAmount())
             payment.setType(scheduler.getPaymentSchedulerTemplates().get(0).getType())
