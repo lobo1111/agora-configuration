@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,8 +47,13 @@ public class PaymentScheduler implements Serializable {
     private Community community;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentScheduler")
     private Collection<PaymentSchedulerTemplate> paymentSchedulerTemplates = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentScheduler")
-    private Collection<PaymentSchedulerZpk> paymentSchedulerZpk = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+        name = "payment_scheduler_zpk", joinColumns =
+    @JoinColumn(name = "payment_scheduler_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "zpk_account_id", referencedColumnName = "id"))
+    private Collection<PaymentSchedulerZpk> zpks = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -96,11 +103,11 @@ public class PaymentScheduler implements Serializable {
         this.paymentSchedulerTemplates = paymentSchedulerTemplates;
     }
 
-    public Collection<PaymentSchedulerZpk> getPaymentSchedulerZpk() {
-        return paymentSchedulerZpk;
+    public Collection<PaymentSchedulerZpk> getZpks() {
+        return zpks;
     }
 
-    public void setPaymentSchedulerZpk(Collection<PaymentSchedulerZpk> paymentSchedulerZpk) {
-        this.paymentSchedulerZpk = paymentSchedulerZpk;
+    public void setZpks(Collection<PaymentSchedulerZpk> zpks) {
+        this.zpks = zpks;
     }
 }

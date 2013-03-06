@@ -43,8 +43,8 @@
                     FROM 
                     PaymentScheduler ps
                     JOIN ps.community community
-                    JOIN community.zpks free
-                    JOIN ps.paymentSchedulerZpk bounded
+                    LEFT OUTER JOIN community.zpks free
+                    LEFT OUTER JOIN ps.zpks bounded
                     WHERE 
                     ps.id = {:id} AND
                     free.id != bounded.id
