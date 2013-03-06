@@ -12,7 +12,7 @@
         <description>$!ps.getPaymentSchedulerTemplates().get(0).getDescription()</description>
     </payment>
     <zpks>
-        #foreach($row in $!ps.getPaymentSchedulerZpk())
+        #foreach($row in $!ps.getZpks())
             <zpk>
                 <id>$!row.getId()</id>
                 <number>$!row.getNumber()</number>
