@@ -35,6 +35,21 @@
                     ps.id = {:id}
                 </data>
             </var>
+            <var>
+                <name>free</name>
+                <data>
+                    SELECT 
+                    free
+                    FROM 
+                    PaymentScheduler ps
+                    JOIN ps.community community
+                    JOIN community.zpks free
+                    JOIN ps.paymentSchedulerZpk bounded
+                    WHERE 
+                    ps.id = {:id} AND
+                    free.id != bounded.id
+                </data>
+            </var>
         </variables>
     </template>
     <template>
@@ -158,7 +173,7 @@
             </var>
         </variables>
     </template>
-     <template>
+    <template>
         <name>entity-bank</name>
         <source>entity-bank.vtl</source>
         <variables>
@@ -208,7 +223,7 @@
         </variables>
     </template>
     <!-- LISTS -->
-     <template>
+    <template>
         <name>list-payments-scheduler</name>
         <source>list-payments-scheduler.vtl</source>
         <variables>
@@ -234,7 +249,7 @@
             </var>
         </variables>
     </template>
-     <template>
+    <template>
         <name>list-zpks</name>
         <source>list-zpks.vtl</source>
         <variables>

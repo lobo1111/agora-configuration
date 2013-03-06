@@ -18,6 +18,13 @@
             </zpk>
         #end
     </zpks>
+    <freeZpks>
+        #foreach($row in $!free)
+            <zpk>
+                <id>$!row.getId()</id>
+            </zpk>
+        #end
+    </freeZpks>
     <community>
         <id>$!ps.getCommunity().getId()</id>
     </community>
