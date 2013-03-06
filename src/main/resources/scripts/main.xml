@@ -790,7 +790,7 @@
         <scheduler>
             <name>create-payments</name>
             <enabled>true</enabled>
-            <fireAt>*/5 * * * *</fireAt>
+            <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>db-logger</scriptName>
