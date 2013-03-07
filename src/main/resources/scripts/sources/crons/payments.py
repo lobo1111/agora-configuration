@@ -50,7 +50,7 @@ class CronPayment(Container):
             payment.setDirection(Direction.EXPENDITURE)
             if scheduler.getPaymentSchedulerTemplates().get(0).isAutoBook():
                 vars.put('zpkId', str(zpk.getId()))
-                vars.put('paymentBookingPeriod', BookingPeriodManager().findDefaultBookingPeriod())
+                vars.put('paymentBookingPeriod', BookingPeriodManager().findDefaultBookingPeriod().getId())
                 BookingManager().book(payment)
             entityManager.persist(payment)
         self.addLog(scheduler)
