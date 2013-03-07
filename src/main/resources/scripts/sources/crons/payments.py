@@ -58,8 +58,8 @@ class CronPayment(Container):
     def addLog(self, scheduler):
         log = PaymentSchedulerLog()
         log.setPaymentScheduler(scheduler)
-        log.setFiredMonth(self._month)
-        log.setFiredYear(self._year)
+        log.setFiredMonth(str(self._month))
+        log.setFiredYear(str(self._year))
         log.setTimestamp(Date())
         entityManager.persist(log)
             

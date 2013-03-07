@@ -16,7 +16,6 @@ class Logger:
     log.setUuid(vars.get('_uuid'))
     print '[JYTHON][%s][%s][%s]' % (vars.get('_uuid'), level, message)
     entityManager.persist(log)
-    entityManager.flush()
 
   def info(self, message):
     self.appendLog('INFO', message)
