@@ -29,6 +29,8 @@
         <class>pl.reaper.container.data.PaymentScheduler</class>
         <class>pl.reaper.container.data.PaymentSchedulerLog</class>
         <class>pl.reaper.container.data.PaymentSchedulerTemplate</class>
+        <class>pl.reaper.container.data.AutoPayment</class>
+        <class>pl.reaper.container.data.AutoPaymentOrder</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.sharedCache.mode" value="NONE"/>
