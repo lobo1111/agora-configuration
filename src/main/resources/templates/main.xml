@@ -253,6 +253,32 @@
         </variables>
     </template>
     <template>
+        <name>list-auto-payments</name>
+        <source>list-auto-payments.vtl</source>
+        <variables>
+            <var>
+                <name>autoPayments</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    autoPayment
+                    FROM
+                    AutoPayment autoPayment
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(autoPayment.id)
+                    FROM
+                    AutoPayment autoPayment
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-zpks</name>
         <source>list-zpks.vtl</source>
         <variables>
