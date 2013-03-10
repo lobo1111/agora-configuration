@@ -577,7 +577,7 @@
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `auto_payment_id` int(11),
             `zpk_account_id` int(11),
-            `payment_order` int(11) NOT NULL DEFAULT 1; 
+            `payment_order` int(11) NOT NULL DEFAULT 1,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
