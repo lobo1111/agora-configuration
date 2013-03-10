@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<paymentsScheduler>
+<autoPayment>
     #foreach($row in $autoPayments)
     <item>
         <autoPaymentId>$!row.getId()</autoPaymentId>
@@ -10,4 +10,4 @@
     <settings>
         <maxResults>$countRows</maxResults>
     </settings>
-</paymentsScheduler>
+</autoPayment>
