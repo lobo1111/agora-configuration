@@ -104,4 +104,15 @@ public class ScriptEngineWrapper {
         this.oldEntityManager = oldEntityManager;
         return this;
     }
+
+    public void clear() {
+        entityManager = null;
+        oldEntityManager = null;
+        propertyBean = null;
+        documentStatusBean = null;
+        variables.clear();
+        variables = null;
+        engine = null;
+        lastExecuted = null;
+    }
 }
