@@ -46,7 +46,7 @@ class AutoPaymentManager(Container):
         entityManager.persist(entity)
         return entity;
 
-    def clearOrder(self, ps):
+    def clearOrders(self, ps):
         for order in ps.getAutoPaymentOrders():
             entityManager.remove(order)
 
