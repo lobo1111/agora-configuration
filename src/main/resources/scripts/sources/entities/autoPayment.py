@@ -44,6 +44,7 @@ class AutoPaymentManager(Container):
         if order is None:
             entity = AutoPaymentOrder()
             entity.setAutoPayment(ps)
+            entityManager.persist(entity)
             return entity;
         else:
             return order
