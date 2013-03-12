@@ -30,17 +30,30 @@ class AutoPaymentManager(Container):
         ps.setAccount(self.findAccount(id))
         
     def setOrders(self, ps, counter):
-        ps.getAutoPaymentOrders().clear()
         for i in range(int(counter)):
+            id = int(vars.get('autoPayemntOrderId' + str(i)))
+            orderE = self.getOrder(ps.getAutoPaymentOrders(), id)
             zpkId = int(vars.get('autoPayemntOrderZpkId' + str(i)))
             order = int(vars.get('autoPayemntOrder' + str(i)))
             zpk = self.findZpk(zpkId)
-            orderE = AutoPaymentOrder()
             orderE.setOrder(order)
             orderE.setZpk(zpk)
             orderE.setAutoPayment(ps)
-            ps.getAutoPaymentOrders().add(orderE)
             
+    def getOrder(self, orders, id):
+        order = self.findInList(orders, id)
+        if order is None:
+            entity = AutoPaymentOrder()
+            order.add(entity)
+            return entity;
+        else:
+            return order
+
+    def findInList(self, orders, id):
+        for entity in orders:
+            if entity.getId() == id:
+                return entity
+        return None
         
     def findZpk(self, zpkId):
         return ZpkManager().findZpkById(zpkId)
