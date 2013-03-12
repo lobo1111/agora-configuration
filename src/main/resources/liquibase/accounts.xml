@@ -597,4 +597,54 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='table-auto-payment-payment'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `auto_payment_payment` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `auto_payment_id` int(11),
+            `payment_id` int(11),
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-auto-payment-auto-payment-fkey'>
+        <sql>  
+            ALTER TABLE `auto_payment_payment`
+            ADD CONSTRAINT `auto_payment_payment_auto_payment_fkey` FOREIGN KEY (`auto_payment_id`) REFERENCES `auto_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-auto-payment-payment-fkey'>
+        <sql>  
+            ALTER TABLE `auto_payment_payment`
+            ADD CONSTRAINT `auto_payment_payment_payment_fkey` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-incoming-payment-document-payment'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `incoming_payment_document_payment` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `incoming_payment_document_id` int(11),
+            `payment_id` int(11),
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-incoming-payment-document-payment-fkey'>
+        <sql>  
+            ALTER TABLE `incoming_payment_document_payment`
+            ADD CONSTRAINT `incoming_payment_document_payment_fkey` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-incoming-payment-document-incoming-payment-fkey'>
+        <sql>  
+            ALTER TABLE `incoming_payment_document_payment`
+            ADD CONSTRAINT `incoming_payment_document_incoming_payment_fkey` FOREIGN KEY (`incoming_payment_document_id`) REFERENCES `incoming_payment_document` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
