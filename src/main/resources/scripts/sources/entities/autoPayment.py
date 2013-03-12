@@ -48,6 +48,7 @@ class AutoPaymentManager(Container):
 
     def clearOrders(self, ps):
         for order in ps.getAutoPaymentOrders():
+            ps.getAutoPaymentOrders().remove(order)
             entityManager.remove(order)
 
     def findInList(self, orders, id):
