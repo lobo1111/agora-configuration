@@ -44,7 +44,7 @@ class AutoPaymentManager(Container):
         order = self.findInList(orders, id)
         if order is None:
             entity = AutoPaymentOrder()
-            order.add(entity)
+            orders.add(entity)
             return entity;
         else:
             return order
