@@ -47,7 +47,7 @@ class AutoPaymentManager(Container):
         return entity;
 
     def clearOrders(self, psId):
-        sql = "Select order From AutoPaymentOrder order Join order.autoPayment ps Where ps.id = '%s'" % psId
+        sql = "Select porder From AutoPaymentOrder porder Join porder.autoPayment ps Where ps.id = '%s'" % psId
         orders = entityManager.createQuery(sql).getResultList()
         for order in orders:
             print "!!!!!"
