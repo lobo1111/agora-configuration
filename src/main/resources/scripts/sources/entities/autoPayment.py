@@ -47,11 +47,15 @@ class AutoPaymentManager(Container):
         return entity;
 
     def clearOrders(self, ps):
+        print "!!! clear orders !!!"
         for i in range(int(ps.getAutoPaymentOrders().size())):
             order = ps.getAutoPaymentOrders().get(i)
+            print "!!! removing " + str(order.getId()) + " !!!"
             entityManager.remove(order)
-            print "!"
+            print "!!! done !!!"
+        print "!!! list !!!"
         ps.getAutoPaymentOrders().clear()
+        print "!!! all !!!"
 
     def findInList(self, orders, id):
         for entity in orders:
