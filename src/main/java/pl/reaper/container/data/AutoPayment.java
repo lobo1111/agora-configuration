@@ -44,7 +44,7 @@ public class AutoPayment implements Serializable {
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
     private Account account;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "AutoPayment")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "AutoPayment")
     private Collection<AutoPaymentOrder> AutoPaymentOrders = new ArrayList<>();
     @ManyToMany
     @JoinTable(

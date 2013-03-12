@@ -5,6 +5,8 @@
         <autoPaymentId>$!row.getId()</autoPaymentId>
         <name>$!row.getName()</name>
         <active>$!row.isActive()</active>
+        <zpk>$!row.getZpk().getNumber() $!row.getZpk().getDescription()</zpk>
+        <account>$!row.getAccount().getNumber() $!row.getAccount().getName()</account>
     </item>
     #end
     <settings>

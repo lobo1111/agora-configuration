@@ -38,6 +38,7 @@ class AutoPaymentManager(Container):
             orderE = AutoPaymentOrder()
             orderE.setOrder(order)
             orderE.setZpk(zpk)
+            orderE.setAutoPayment(ps)
             ps.getAutoPaymentOrders().add(orderE)
             
         
