@@ -14,7 +14,7 @@
          <number>$!autoPayment.getAccount().getNumber()</number>
     </account>
     <orders>
-        #foreach($row in $!autoPayment.getAutoPaymentOrders())
+        #foreach($row in $!orders)
             <orderItem>
                 <zpk>
                     <id>$!row.getZpk().getId()</id>

@@ -161,6 +161,18 @@
                     SELECT c FROM AutoPayment c WHERE c.id = {:id}
                 </data>
             </var>
+            <var>
+                <name>orders</name>
+                <data>
+                    {:single}
+                    SELECT c 
+                    FROM 
+                        AutoPaymentOrder c 
+                        JOIN c.autoPayment ap
+                    WHERE ap.id = {:id}
+                    ORDER BY c.order
+                </data>
+            </var>
         </variables>
     </template>    
     <template>
