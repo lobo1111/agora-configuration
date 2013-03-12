@@ -9,9 +9,9 @@
         <description>$!autoPayment.getZpk().getDescription()</description>
     </zpk>
     <account>
-         <id>$!account.getId()</id>
-         <name>$!account.getName()</name>
-         <number>$!account.getNumber()</number>
+         <id>$!autoPayment.getAccount().getId()</id>
+         <name>$!autoPayment.getAccount().getName()</name>
+         <number>$!autoPayment.getAccount().getNumber()</number>
     </account>
     <orders>
         #foreach($row in $!autoPayment.getAutoPaymentOrders())
