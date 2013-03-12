@@ -16,7 +16,7 @@
     <orders>
         #foreach($row in $!orders)
             <orderItem>
-                <id>!row.getId()</id>
+                <id>$!row.getId()</id>
                 <zpk>
                     <id>$!row.getZpk().getId()</id>
                     <number>$!row.getZpk().getNumber()</number>
