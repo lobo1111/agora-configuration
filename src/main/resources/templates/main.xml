@@ -164,7 +164,6 @@
             <var>
                 <name>orders</name>
                 <data>
-                    {:single}
                     SELECT c 
                     FROM 
                         AutoPaymentOrder c 
