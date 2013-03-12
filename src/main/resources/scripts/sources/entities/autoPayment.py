@@ -30,6 +30,7 @@ class AutoPaymentManager(Container):
         ps.setAccount(self.findAccount(id))
         
     def setOrders(self, ps, counter):
+        self.clearOrders(ps)
         for i in range(int(counter)):
             id = int(vars.get('autoPayemntOrderId' + str(i)))
             orderE = self.getOrder(ps, id)
@@ -40,14 +41,14 @@ class AutoPaymentManager(Container):
             orderE.setZpk(zpk)
             
     def getOrder(self, ps, id):
-        order = self.findOrderById(id)
-        if order is None:
-            entity = AutoPaymentOrder()
-            entity.setAutoPayment(ps)
-            entityManager.persist(entity)
-            return entity;
-        else:
-            return order
+        entity = AutoPaymentOrder()
+        entity.setAutoPayment(ps)
+        entityManager.persist(entity)
+        return entity;
+
+    def clearOrder(self, ps):
+        for order in ps.getAutoPaymentOrders():
+            entityManager.remove(order)
 
     def findInList(self, orders, id):
         for entity in orders:
@@ -64,12 +65,5 @@ class AutoPaymentManager(Container):
     def findAutoPaymentById(self, psId):
         sql = "Select ps From AutoPayment ps Where ps.id = '%s'" % psId
         return entityManager.createQuery(sql).getSingleResult()
-    
-    def findOrderById(self, id):
-        try:
-            sql = "Select ps From AutoPaymentOrder ps Where ps.id = '%s'" % id
-            return entityManager.createQuery(sql).getSingleResult()
-        except:
-            return None
     
     
