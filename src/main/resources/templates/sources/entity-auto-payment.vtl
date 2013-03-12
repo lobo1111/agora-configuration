@@ -15,14 +15,14 @@
     </account>
     <orders>
         #foreach($row in $!autoPayment.getAutoPaymentOrders())
-            <order>
+            <orderItem>
                 <zpk>
                     <id>$!row.getId()</id>
                     <number>$!row.getNumber()</number>
                     <description>$!row.getDescription()</description>
                 </zpk>
                 <order>$!row.getOrder()</order>
-            </order>
+            </orderItem>
         #end
     </orders>
     
