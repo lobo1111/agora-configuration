@@ -1,69 +1,54 @@
 from pl.reaper.container.data import AutoPayment
 from pl.reaper.container.data import AutoPaymentOrder
-from pl.reaper.container.data import AutoPaymentLog
 
 class PaymentSchedulerManager(Container):
-    def __init__(self):
-        self._dictManager = DictionaryManager()
     
     def create(self):
-        paymentScheduler = PaymentScheduler()
-        self.setData(paymentScheduler)
-        entityManager.persist(paymentScheduler)
+        autoPayment = AutoPayment()
+        self.setData(autoPayment)
+        entityManager.persist(autoPayment)
         
     def update(self):
-        paymentScheduler = self.findPaymentSchedulerById(vars.get('id'))
-        self.setData(paymentScheduler)
-        entityManager.persist(paymentScheduler)
+        autoPayment = self.findAutoPaymentById(vars.get('id'))
+        self.setData(autoPayment)
+        entityManager.persist(autoPayment)
         
     def setData(self, ps):
-        ps.setName(vars.get('paymentSchedulerName'))
-        if vars.get('paymentSchedulerActive') == 'true':
+        ps.setName(vars.get('autoPaymentName'))
+        if vars.get('autoPaymentActive') == 'true':
             ps.setActive(True)
         else:
             ps.setActive(False)
-        ps.setDay(vars.get('paymentSchedulerDay'))
-        ps.setCommunity(self.findCommunity(vars.get('communityId')))
-        self.setZpks(ps, vars.get('boundedZpksCount'))
-        self.setTemplateData(ps)
+        self.setZpk(ps, vars.get('autoPaymentZpkId'))
+        self.setAccount(ps, vars.get('autoPaymentAccountId'))
+        self.setOrders(ps, vars.get('autoPaymentOrderCount'))
         
-    def setZpks(self, ps, counter):
-        ps.getZpks().clear()
+    def setZpk(self, ps, id):
+        ps.setZpk(self.findZpk(id))
+        
+    def setAccount(self, ps, id):
+        ps.setAccount(self.findAccount(id))
+        
+    def setOrders(self, ps, counter):
+        ps.getAutoPaymentOrders().clear()
         for i in range(int(counter)):
-            zpkId = int(vars.get('boundedZpk' + str(i)))
+            zpkId = int(vars.get('autoPayemntOrderZpkId' + str(i)))
+            order = int(vars.get('autoPayemntOrder' + str(i)))
             zpk = self.findZpk(zpkId)
-            ps.getZpks().add(zpk)
+            orderE = AutoPaymentOrder()
+            orderE.setOrder(order)
+            orderE.setZpk(zpk)
+            ps.getAutoPaymentOrders().add(orderE)
             
         
-    def setTemplateData(self, ps):
-        data = self.getOrCreatePaymentSchedulerTemplate(ps)
-        data.setPaymentScheduler(ps)
-        data.setAmount(BigDecimal(vars.get('paymentAmount')))
-        data.setDescription(vars.get('paymentDescription'))
-        data.setType(self.findType(vars.get('paymentType')))
-        if vars.get('paymentBook') == 'true':
-            data.setAutoBook(True)
-        else:
-            data.setAutoBook(False)
-        ps.getPaymentSchedulerTemplates().clear()
-        ps.getPaymentSchedulerTemplates().add(data)
-    
-    def findCommunity(self, communityId):
-        return CommunityManager().findCommunityById(communityId)
-    
-    def findType(self, typeId):
-        return self._dictManager.getDictionaryInstance(typeId)
-    
     def findZpk(self, zpkId):
         return ZpkManager().findZpkById(zpkId)
     
-    def findPaymentSchedulerById(self, psId):
-        sql = "Select ps From PaymentScheduler ps Where ps.id = '%s'" % psId
+    def findAccount(self, accountId):
+        return AccountManager().findAccountById(accountId)
+    
+    def findAutoPaymentById(self, psId):
+        sql = "Select ps From AutoPayment ps Where ps.id = '%s'" % psId
         return entityManager.createQuery(sql).getSingleResult()
     
-    def getOrCreatePaymentSchedulerTemplate(self, entity):
-        if entity.getPaymentSchedulerTemplates().size() == 1:
-            return entity.getPaymentSchedulerTemplates().get(0)
-        else:
-            return PaymentSchedulerTemplate()
     
