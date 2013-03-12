@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -44,6 +46,13 @@ public class AutoPayment implements Serializable {
     private Account account;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "AutoPayment")
     private Collection<AutoPaymentOrder> AutoPaymentOrders = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+        name = "auto_payment_payment", joinColumns =
+    @JoinColumn(name = "auto_payment_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "payment_id", referencedColumnName = "id"))
+    private Collection<Payment> payments;
 
     public Integer getId() {
         return id;
@@ -91,5 +100,13 @@ public class AutoPayment implements Serializable {
 
     public void setAutoPaymentOrders(Collection<AutoPaymentOrder> AutoPaymentOrders) {
         this.AutoPaymentOrders = AutoPaymentOrders;
+    }
+
+    public Collection<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Collection<Payment> payments) {
+        this.payments = payments;
     }
 }

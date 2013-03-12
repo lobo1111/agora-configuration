@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -60,6 +63,13 @@ public class IncomingPaymentDocument implements Serializable {
     private Date timestamp;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "document")
     private Collection<IncomingPaymentDocumentPosition> incomingPaymentDocumentPositionCollection;
+    @ManyToMany
+    @JoinTable(
+        name = "incoming_payment_document_payment", joinColumns =
+    @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "payment_id", referencedColumnName = "id"))
+    private Collection<Payment> payments;
 
     public IncomingPaymentDocument() {
     }
@@ -155,6 +165,14 @@ public class IncomingPaymentDocument implements Serializable {
 
     public void setIncomingPaymentDocumentPositionCollection(Collection<IncomingPaymentDocumentPosition> incomingPaymentDocumentPositionCollection) {
         this.incomingPaymentDocumentPositionCollection = incomingPaymentDocumentPositionCollection;
+    }
+
+    public Collection<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Collection<Payment> payments) {
+        this.payments = payments;
     }
 
     @Override
