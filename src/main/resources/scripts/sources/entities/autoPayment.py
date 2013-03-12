@@ -1,7 +1,7 @@
 from pl.reaper.container.data import AutoPayment
 from pl.reaper.container.data import AutoPaymentOrder
 
-class PaymentSchedulerManager(Container):
+class AutoPaymentManager(Container):
     
     def create(self):
         autoPayment = AutoPayment()
