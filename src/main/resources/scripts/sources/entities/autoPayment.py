@@ -9,6 +9,7 @@ class AutoPaymentManager(Container):
         entityManager.persist(autoPayment)
         
     def update(self):
+        self.clearOrders(vars.get('id'))
         autoPayment = self.findAutoPaymentById(vars.get('id'))
         self.setData(autoPayment)
         entityManager.persist(autoPayment)
@@ -30,7 +31,6 @@ class AutoPaymentManager(Container):
         ps.setAccount(self.findAccount(id))
         
     def setOrders(self, ps, counter):
-        self.clearOrders(ps)
         for i in range(int(counter)):
             id = int(vars.get('autoPayemntOrderId' + str(i)))
             orderE = self.getOrder(ps, id)
@@ -46,16 +46,14 @@ class AutoPaymentManager(Container):
         entityManager.persist(entity)
         return entity;
 
-    def clearOrders(self, ps):
-        print "!!! clear orders !!!"
-        for i in range(int(ps.getAutoPaymentOrders().size())):
-            order = ps.getAutoPaymentOrders().get(i)
-            print "!!! removing " + str(order.getId()) + " !!!"
+    def clearOrders(self, psId):
+        sql = "Select order From AutoPaymentOrder order Join order.autoPayment ps Where ps.id = '%s'" % psId
+        orders = entityManager.createQuery(sql).getResultList()
+        for order in orders:
+            print "!!!!!"
+            print order.getId()
+            print "!!!!!"
             entityManager.remove(order)
-            print "!!! done !!!"
-        print "!!! list !!!"
-        ps.getAutoPaymentOrders().clear()
-        print "!!! all !!!"
 
     def findInList(self, orders, id):
         for entity in orders:
