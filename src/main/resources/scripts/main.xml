@@ -51,6 +51,20 @@
         </security>
     </script>
     
+    <script>
+        <name>dictionary-manager</name>
+        <source>entities/dictionary.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
     <!-- LOADERS -->
     <script>
         <name>check-email</name>
@@ -58,8 +72,8 @@
         <onInit>MailProcessor().checkMailbox()</onInit>
         <scheduler>
             <name>check-email</name>
-            <enabled>false</enabled>
-            <fireAt>*/5 * * * *</fireAt>
+            <enabled>true</enabled>
+            <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>db-logger</scriptName>
@@ -78,6 +92,7 @@
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
+            <scriptName>dictionary-manager</scriptName>
         </dependencies>
         <security>
             <group>incoming-documents-bp</group>
@@ -90,8 +105,8 @@
         <onInit>FileWatchdog().processFiles()</onInit>
         <scheduler>
             <name>file-watchdog</name>
-            <enabled>false</enabled>
-            <fireAt>*/5 * * * *</fireAt>
+            <enabled>true</enabled>
+            <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
             <scriptName>xml-loader</scriptName>
@@ -230,19 +245,7 @@
    
     <!-- ENTITIES -->
     
-    <script>
-        <name>dictionary-manager</name>
-        <source>entities/dictionary.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
+    
     
     <script>
         <name>address</name>
@@ -857,7 +860,7 @@
         <onInit>CronAutoPayment()</onInit>
         <scheduler>
             <name>bind-documents-to-payments</name>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
             <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>
