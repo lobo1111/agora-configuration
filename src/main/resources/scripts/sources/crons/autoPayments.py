@@ -46,8 +46,8 @@ class CronAutoPayment(Container):
         pass
     
     def findUnknownStatus(self):
-        self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'UNKNOWN')
+        return self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'UNKNOWN')
     
     def findProcessedStatus(self):
-        self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'PROCESSED')
+        return self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'PROCESSED')
         
