@@ -70,7 +70,7 @@ class CronAutoPayment(Container):
     def book(self, documentPosition, income, zpk):
         defaultPeriod = BookingPeriodManager().findDefaultBookingPeriod()
         balance = ZpkManager().findBalanceByZpkAndPeriod(zpk, defaultPeriod)
-        shouldBook = balance.getCredit() - balance.getDebit()
+        shouldBook = balance.getDebit() - balance.getCredit()
         if shouldBook > income:
             shouldBook = income
             income = 0
