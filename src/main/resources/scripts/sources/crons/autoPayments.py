@@ -13,19 +13,18 @@ class CronAutoPayment(Container):
         self._logger.info('Cron auto payment finished.')
         
     def getDocuments(self):
-        sql = "Select doc From IncomingPaymentDocument doc Where doc.status in('NEW', 'UNKNOWN')"
+        sql = "Select doc From IncomingPaymentDocumentPosition doc Join doc.status st Where st.key in('NEW', 'UNKNOWN')"
         return entityManager.createQuery(sql).getResultList()
     
     def handleDocument(self, document):
-        for documentPosition in document.getIncomingPaymentDocumentPositionCollection():
-            autoPayment = self.matchAutoPayment(document)
-            if autoPayment is None:
-                self._logger.info("Can't match this document to any account.")
-                self.setAsUnknown(document)
-            else:  
-                self._logger.info("Document matched, creating payments....")
-                self.createPayments(document, autoPayment)
-                #self.setAsProcessed(document)
+        autoPayment = self.matchAutoPayment(document)
+        if autoPayment is None:
+            self._logger.info("Can't match this document to any account.")
+            self.setAsUnknown(document)
+        else:  
+            self._logger.info("Document matched, creating payments....")
+            self.createPayments(document, autoPayment)
+            #self.setAsProcessed(document)
         entityManager.persist(document)
         
     def matchAutoPayment(self, document):
