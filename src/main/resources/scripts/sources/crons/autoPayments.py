@@ -20,18 +20,18 @@ class CronAutoPayment(Container):
     
     def handleDocument(self, document):
         autoPayment = self.matchAutoPayment(document)
-        #if autoPayment is None:
-        #    self._logger.info("Can't match this document to any account.")
-        #    self.setAsUnknown(document)
-        #else:  
-        #    self._logger.info("Document matched, creating payments....")
-        #    self.createPayments(document)
-        #    self.setAsProcessed(document)
+        if autoPayment is None:
+            self._logger.info("Can't match this document to any account.")
+            self.setAsUnknown(document)
+        else:  
+            self._logger.info("Document matched, creating payments....")
+            self.createPayments(document)
+            self.setAsProcessed(document)
         entityManager.persist(document)
         
     def matchAutoPayment(self, document):
         try:
-            sql = 'Select auto From AutoPayment auto Join auto.account account Where account.number = %s' % str(document.getAccountNumber())
+            sql = "Select auto From AutoPayment auto Join auto.account account Where account.number = '%s'" % str(document.getAccountNumber())
             return entityManager.createQuery(sql).getSingleResult()
         except:
             print "Unexpected error:", sys.exc_info()[0]
