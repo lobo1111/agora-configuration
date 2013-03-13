@@ -15,7 +15,7 @@ class CronAutoPayment(Container):
         self._logger.info('Cron auto payment finished.')
         
     def getDocuments(self):
-        sql = "Select doc From IncomingDocuments doc Where doc.status in('NEW', 'UNKNOWN')"
+        sql = "Select doc From IncomingPaymentDocument doc Where doc.status in('NEW', 'UNKNOWN')"
         return entityManager.createQuery(sql).getResultList()
     
     def process(self):
