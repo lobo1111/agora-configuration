@@ -198,7 +198,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='document-statuses'>
+    <changeSet author='tkopacki' id='document-statuses-processed'>
         <sql>
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'PROCESSED', 'Dokument przetworzony' FROM `dictionary_type` WHERE `type` = 'DOCUMENT_STATUS';
