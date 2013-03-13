@@ -37,17 +37,12 @@ class CronAutoPayment(Container):
             return None;
         
     def setAsUnknown(self, document):
-        document.setStatus(self.findUnknownStatus())
+        document.setStatus('UNKNOWN')
     
     def setAsProcessed(self, document):
-        document.setStatus(self.findProcessedStatus())
+        document.setStatus('PROCESSED')
     
     def createPayments(self, document):
         pass
     
-    def findUnknownStatus(self):
-        return self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'UNKNOWN')
-    
-    def findProcessedStatus(self):
-        return self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'PROCESSED')
         
