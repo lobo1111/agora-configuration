@@ -18,5 +18,5 @@ class CronAutoPayment(Container):
         sql = "Select doc From IncomingPaymentDocument doc Where doc.status in('NEW', 'UNKNOWN')"
         return entityManager.createQuery(sql).getResultList()
     
-    def process(self):
+    def process(self, document):
         pass
