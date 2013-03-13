@@ -5,13 +5,13 @@ class CronAutoPayment(Container):
     
     def __init__(self):
         self._logger.info('Cron auto payment started...')
-#        self._dictManager = DictionaryManager()
-#        self._documents = self.getDocuments()
-#        self._logger.info('Found %s documents ready for processing' % (str(self._documents.size())))
-#        for document in self._documents:
-#            self._logger.info('Processing document - id:%s' % document.getId())
-#            self.process(document)
-#            self._logger.info('Document processed')
+        self._dictManager = DictionaryManager()
+        self._documents = self.getDocuments()
+        self._logger.info('Found %s documents ready for processing' % (str(self._documents.size())))
+        for document in self._documents:
+            self._logger.info('Processing document - id:%s' % document.getId())
+            self.process(document)
+            self._logger.info('Document processed')
         self._logger.info('Cron auto payment finished.')
         
     def getDocuments(self):
@@ -27,7 +27,7 @@ class CronAutoPayment(Container):
             self._logger.info("Document matched, creating payments....")
             self.createPayments(document)
             self.setAsProcessed(document)
-        entityManager.persist(document)
+#        entityManager.persist(document)
         
     def matchAutoPayment(self, document):
         try:
