@@ -83,7 +83,7 @@ class CronAutoPayment(Container):
         vars.put('paymentDirection', 'INCOME')
         vars.put('paymentBook', 'true')
         vars.put('paymentAmount', income)
-        vars.put('paymentType', self.getAutoPaymentType())
+        vars.put('paymentType', self.getAutoPaymentType().getId())
         vars.put('accountId', self.getAccountId(position.getClientNumber()))
         vars.put('zpkId', zpk.getId())
         vars.put('paymentBookingPeriod', period.getId())
