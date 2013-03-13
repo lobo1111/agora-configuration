@@ -473,12 +473,10 @@
                 <data>
                     {:limit}
                     SELECT 
-                    document,
-                    dictionary
+                    document
                     FROM 
-                    IncomingPaymentDocumentPosition document,
-                    Dictionary dictionary
-                    WHERE document.document.status = dictionary.key AND {:where}
+                    IncomingPaymentDocumentPosition
+                    WHERE {:where}
                 </data>
             </var>
             <var>
@@ -488,9 +486,8 @@
                     SELECT 
                     count(document.id)
                     FROM 
-                    IncomingPaymentDocumentPosition document,
-                    Dictionary dictionary
-                    WHERE document.document.status = dictionary.key AND {:where}
+                    IncomingPaymentDocumentPosition
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
