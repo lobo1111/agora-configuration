@@ -1,4 +1,4 @@
-
+import sys
 
 class CronAutoPayment(Container):
     _logger = Logger([:_scriptId])
