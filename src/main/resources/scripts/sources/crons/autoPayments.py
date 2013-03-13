@@ -1,5 +1,3 @@
-import sys
-
 class CronAutoPayment(Container):
     _logger = Logger([:_scriptId])
     
@@ -25,8 +23,8 @@ class CronAutoPayment(Container):
             self.setAsUnknown(document)
         else:  
             self._logger.info("Document matched, creating payments....")
-            self.createPayments(document)
-            self.setAsProcessed(document)
+            self.createPayments(document, autoPayment)
+            #self.setAsProcessed(document)
         entityManager.persist(document)
         
     def matchAutoPayment(self, document):
@@ -34,7 +32,6 @@ class CronAutoPayment(Container):
             sql = "Select auto From AutoPayment auto Join auto.account account Where account.number = '%s'" % str(document.getAccountNumber())
             return entityManager.createQuery(sql).getSingleResult()
         except:
-            print "Unexpected error:", sys.exc_info()[0]
             return None;
         
     def setAsUnknown(self, document):
@@ -43,7 +40,31 @@ class CronAutoPayment(Container):
     def setAsProcessed(self, document):
         document.setStatus('PROCESSED')
     
-    def createPayments(self, document):
+    def createPayments(self, document, autoPayment):
+        for documentPosition in document.getIncomingPaymentDocumentPositionCollection():
+            income = documentPosition.getIncome().floatValue()
+            self._logger.info("Processing position %s, with income %s" %(str(documentPosition.getId()), str(income)))
+            for order in self.getOrders(autoPayment.getId()):
+                zpk = order.getZpk()
+                self._logger.info("Booking on %s..." % str(zpk.getNumber))
+                if income > 0 and self.hasNegativeBalance(zpk):
+                    income = self.book(documentPosition, income, zpk)
+                else:
+                    self._logger.info("It's already balanced")
+            if income > 0:
+                self._logger.info("Booking the rest on %s" % str(autoPayment.getZpk().getId()))
+                self.book(documentPosition, income, autoPayment.getZpk())
+
+    def getOrders(self, parentId):
+        sql = "SELECT c FROM AutoPaymentOrder c JOIN c.autoPayment ap WHERE ap.id = %s ORDER BY c.order" % str(parentId)
+        return entityManager.createQuery(sql).getResultList()
+
+    def hasNegativeBalance(self, zpk):
+        defaultPeriod = BookingPeriodManager().findDefaultBookingPeriod()
+        balance = ZpkManager().findBalanceByZpkAndPeriod(zpk, bookingPeriod)
+        return (balance.getCredit() - balance.getDebit()) < 0
+
+    def book(self, documentPosition, income, zpk):
         pass
-    
+        
         
