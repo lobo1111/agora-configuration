@@ -29,7 +29,7 @@ class CronAutoPayment(Container):
         
     def matchAutoPayment(self, document):
         try:
-            sql = "Select auto From AutoPayment auto Join auto.account account Where account.number = '%s'" % str(document.getAccountNumber())
+            sql = "Select auto From AutoPayment auto Join auto.account account Where account.number = '%s'" % str(document.getClientNumber())
             return entityManager.createQuery(sql).getSingleResult()
         except:
             return None;
