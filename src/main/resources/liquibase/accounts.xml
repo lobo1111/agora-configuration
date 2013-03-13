@@ -583,7 +583,7 @@
         </sql>
     </changeSet>
     
-      <changeSet author='tkopacki' id='table-auto-payment-order-zpk-account-fkey'>
+    <changeSet author='tkopacki' id='table-auto-payment-order-zpk-account-fkey'>
         <sql>  
             ALTER TABLE `auto_payment_order`
             ADD CONSTRAINT `auto_payment_order_zpk_account_fkey` FOREIGN KEY (`zpk_account_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
@@ -644,6 +644,19 @@
         <sql>  
             ALTER TABLE `incoming_payment_document_payment`
             ADD CONSTRAINT `incoming_payment_document_incoming_payment_fkey` FOREIGN KEY (`incoming_payment_document_id`) REFERENCES `incoming_payment_document` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-incoming-payment-document-payment-doc-id-drop'>
+        <sql>  
+            ALTER TABLE `incoming_payment_document_payment` DROP FOREIGN KEY `incoming_payment_document_incoming_payment_fkey`;
+        </sql>
+    </changeSet> 
+
+    <changeSet author='tkopacki' id='table-incoming-payment-document-incoming-payment-fkey'>
+        <sql>  
+            ALTER TABLE `incoming_payment_document_payment`
+            ADD CONSTRAINT `incoming_payment_document_incoming_payment_fkey` FOREIGN KEY (`incoming_payment_document_id`) REFERENCES `incoming_payment_document_position` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
     

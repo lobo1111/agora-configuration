@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "incoming_payment_document_position")
 @XmlRootElement
 public class IncomingPaymentDocumentPosition implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,9 +57,19 @@ public class IncomingPaymentDocumentPosition implements Serializable {
     @Size(max = 255)
     @Column(name = "clientAccountNumber")
     private String clientAccountNumber;
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Dictionary status;
     @JoinColumn(name = "document_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private IncomingPaymentDocument document;
+    @ManyToMany
+    @JoinTable(
+        name = "incoming_payment_document_payment", joinColumns =
+    @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "payment_id", referencedColumnName = "id"))
+    private Collection<Payment> payments;
 
     public IncomingPaymentDocumentPosition() {
     }
@@ -152,6 +166,22 @@ public class IncomingPaymentDocumentPosition implements Serializable {
         this.document = document;
     }
 
+    public Collection<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Collection<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public Dictionary getStatus() {
+        return status;
+    }
+
+    public void setStatus(Dictionary status) {
+        this.status = status;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -176,5 +206,4 @@ public class IncomingPaymentDocumentPosition implements Serializable {
     public String toString() {
         return "pl.reaper.container.data.IncomingPaymentDocumentPosition[ id=" + id + " ]";
     }
-    
 }

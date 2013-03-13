@@ -11,9 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,9 +24,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class IncomingPaymentDocument implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "status")
-    private String status;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,13 +57,6 @@ public class IncomingPaymentDocument implements Serializable {
     private Date timestamp;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "document")
     private Collection<IncomingPaymentDocumentPosition> incomingPaymentDocumentPositionCollection;
-    @ManyToMany
-    @JoinTable(
-        name = "incoming_payment_document_payment", joinColumns =
-    @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "payment_id", referencedColumnName = "id"))
-    private Collection<Payment> payments;
 
     public IncomingPaymentDocument() {
     }
@@ -167,14 +154,6 @@ public class IncomingPaymentDocument implements Serializable {
         this.incomingPaymentDocumentPositionCollection = incomingPaymentDocumentPositionCollection;
     }
 
-    public Collection<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Collection<Payment> payments) {
-        this.payments = payments;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -198,13 +177,5 @@ public class IncomingPaymentDocument implements Serializable {
     @Override
     public String toString() {
         return "pl.reaper.container.data.IncomingPaymentDocument[ id=" + id + " ]";
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }
