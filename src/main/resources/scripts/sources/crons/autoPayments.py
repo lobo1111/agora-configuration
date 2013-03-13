@@ -22,7 +22,7 @@ class CronAutoPayment(Container):
         autoPayment = self.matchAutoPayment(document)
         if autoPayment is None:
             self._logger.info("Can't match this document to any account.")
-            self.setAsUnknown(document)
+#            self.setAsUnknown(document)
         else:  
             self._logger.info("Document matched, creating payments....")
             self.createPayments(document)
