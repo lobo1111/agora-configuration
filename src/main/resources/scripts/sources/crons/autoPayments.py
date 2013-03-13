@@ -75,14 +75,14 @@ class CronAutoPayment(Container):
             shouldBook = income
             income = 0
         else:
-            income = income = shouldBook
+            income = income - shouldBook
         self.createAndBookPayment(documentPosition, shouldBook, zpk, defaultPeriod)
         return income
 
     def createAndBookPayment(self, position, income, zpk, period):
         vars.put('paymentDirection', 'INCOME')
         vars.put('paymentBook', 'true')
-        vars.put('paymentAmount', income)
+        vars.put('paymentAmount', float(income))
         vars.put('paymentType', self.getAutoPaymentType().getId())
         vars.put('accountId', self.getAccountId(position.getClientNumber()))
         vars.put('zpkId', zpk.getId())
