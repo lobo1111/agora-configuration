@@ -26,7 +26,7 @@ class CronAutoPayment(Container):
         else:  
             self._logger.info("Document matched, creating payments....")
             self.createPayments(document, autoPayment)
-            #self.setAsProcessed(document)
+            self.setAsProcessed(document)
         entityManager.persist(document)
         
     def matchAutoPayment(self, document):
@@ -76,7 +76,7 @@ class CronAutoPayment(Container):
             income = 0
         else:
             income = income = shouldBook
-        createAndBookPayment(documentPosition, shouldBook, zpk, defaultPeriod)
+        self.createAndBookPayment(documentPosition, shouldBook, zpk, defaultPeriod)
         return income
 
     def createAndBookPayment(self, position, income, zpk, period):
