@@ -43,4 +43,5 @@ class AccountManager(Container):
         return entityManager.createQuery('Select account From Account account Where account.id = ' + str(id)).getSingleResult()
 
     def findAccountByNumber(self, number):
-        return entityManager.createQuery('Select account From Account account Where account.number = ' + str(number)).getSingleResult()
+        sql = "Select account From Account account Where account.number = '%s'" % str(number)
+        return entityManager.createQuery(sql).getSingleResult()
