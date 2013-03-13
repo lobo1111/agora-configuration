@@ -9,6 +9,9 @@ class XMLLoader(Container):
 
   _logger = Logger([:_scriptId])
 
+  def __init__(self):
+    self._dictManager = DictionaryManager()
+
   def process(self, content):
     self._logger.info('Processing XML...')
     xml = self.initXML(content)
