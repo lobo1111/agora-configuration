@@ -8,7 +8,7 @@ class CronAutoPayment(Container):
         self._dictManager = DictionaryManager()
         self._documents = self.getDocuments()
         self._logger.info('Found %s documents ready for processing' % (str(self._documents.size())))
-        for document in self._document:
+        for document in self._documents:
             self._logger.info('Processing %s' % document.getId())
             self.process(document)
             self._logger.info('Document processed')
