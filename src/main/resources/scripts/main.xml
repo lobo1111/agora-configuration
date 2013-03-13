@@ -854,7 +854,7 @@
     <script>
         <name>bind-documents-to-payments</name>
         <source>crons/autoPayments.py</source>
-        <onInit>CronAutoPayment</onInit>
+        <onInit>CronAutoPayment()</onInit>
         <scheduler>
             <name>bind-documents-to-payments</name>
             <enabled>true</enabled>
