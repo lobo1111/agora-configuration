@@ -871,6 +871,7 @@
             <scriptName>zpk</scriptName>
             <scriptName>book</scriptName>
             <scriptName>payment</scriptName>
+            <scriptName>account</scriptName>
         </dependencies>
         <security>
             <group>access-sync</group>

@@ -1,3 +1,5 @@
+from pl.reaper.container.data import Payment
+
 class CronAutoPayment(Container):
     _logger = Logger([:_scriptId])
     
@@ -47,7 +49,7 @@ class CronAutoPayment(Container):
         self._logger.info("Processing position %s, with income %s" %(str(documentPosition.getId()), str(income)))
         for order in self.getOrders(autoPayment.getId()):
             zpk = order.getZpk()
-            self._logger.info("Booking on %s..." % str(zpk.getNumber))
+            self._logger.info("Booking on %s..." % str(zpk.getNumber()))
             if income > 0 and self.hasNegativeBalance(zpk):
                 income = self.book(documentPosition, income, zpk)
             else:
@@ -66,6 +68,32 @@ class CronAutoPayment(Container):
         return (balance.getCredit() - balance.getDebit()) < 0
 
     def book(self, documentPosition, income, zpk):
-        pass
+        defaultPeriod = BookingPeriodManager().findDefaultBookingPeriod()
+        balance = ZpkManager().findBalanceByZpkAndPeriod(zpk, defaultPeriod)
+        shouldBook = balance.getCredit() - balance.getDebit()
+        if shouldBook > income:
+            shouldBook = income
+            income = 0
+        else:
+            income = income = shouldBook
+        createAndBookPayment(documentPosition, shouldBook, zpk, defaultPeriod)
+        return income
+
+    def createAndBookPayment(self, position, income, zpk, period):
+        vars.put('paymentDirection', 'INCOME')
+        vars.put('paymentBook', true)
+        vars.put('paymentAmount', income)
+        vars.put('paymentType', self.getAutoPaymentType())
+        vars.put('accountId', self.getAccountId(position.getClientNumber()))
+        vars.put('zpkId', zpk.getId())
+        vars.put('paymentBookingPeriod', period.getId())
+        PaymentManager().create()
+
+    def getAutoPaymentType(self):
+        return self._dictManager.findDictionaryInstance('PAYMENT_TYPE', 'AUTO')
+
+    def getAccountId(self, number):
+        return AccountManager().findAccountByNumber(number).getId()
+        
         
         

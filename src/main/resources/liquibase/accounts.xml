@@ -141,6 +141,13 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='payments-types-insert'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'AUTO', 'Płatność automatyczna' FROM `dictionary_type` WHERE `type` = 'PAYMENT_TYPE';
+        </sql>
+    </changeSet>
+    
     <changeSet author='tkopacki' id='payment-status'>
         <sql>
             INSERT INTO `dictionary_type` (`type`) VALUES
