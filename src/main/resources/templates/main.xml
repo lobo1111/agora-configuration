@@ -475,7 +475,7 @@
                     SELECT 
                     document
                     FROM 
-                    IncomingPaymentDocumentPosition
+                    IncomingPaymentDocumentPosition document
                     WHERE {:where}
                 </data>
             </var>
@@ -486,7 +486,7 @@
                     SELECT 
                     count(document.id)
                     FROM 
-                    IncomingPaymentDocumentPosition
+                    IncomingPaymentDocumentPosition document
                     WHERE {:where}
                 </data>
             </var>
