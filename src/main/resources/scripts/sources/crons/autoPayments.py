@@ -62,7 +62,7 @@ class CronAutoPayment(Container):
 
     def hasNegativeBalance(self, zpk):
         defaultPeriod = BookingPeriodManager().findDefaultBookingPeriod()
-        balance = ZpkManager().findBalanceByZpkAndPeriod(zpk, bookingPeriod)
+        balance = ZpkManager().findBalanceByZpkAndPeriod(zpk, defaultPeriod)
         return (balance.getCredit() - balance.getDebit()) < 0
 
     def book(self, documentPosition, income, zpk):
