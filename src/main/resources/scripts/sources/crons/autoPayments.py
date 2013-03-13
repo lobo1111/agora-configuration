@@ -20,13 +20,13 @@ class CronAutoPayment(Container):
     
     def process(self, document):
         autoPayment = self.matchAutoPayment(document)
-        if autoPayment is None:
-            self._logger.info("Can't match this document to any account.")
-            #self.setAsUnknown(document)
-        else:  
-            self._logger.info("Document matched, creating payments....")
-            self.createPayments(document)
-            #self.setAsProcessed(document)
+        #if autoPayment is None:
+        #    self._logger.info("Can't match this document to any account.")
+        #    self.setAsUnknown(document)
+        #else:  
+        #    self._logger.info("Document matched, creating payments....")
+        #    self.createPayments(document)
+        #    self.setAsProcessed(document)
         entityManager.persist(document)
         
     def matchAutoPayment(self, document):
