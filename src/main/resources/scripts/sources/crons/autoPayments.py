@@ -9,7 +9,7 @@ class CronAutoPayment(Container):
         self._documents = self.getDocuments()
         self._logger.info('Found %s documents ready for processing' % (str(self._documents.size())))
         for document in self._documents:
-            self._logger.info('Processing %s' % document.getId())
+            self._logger.info('Processing document - id:%s' % document.getId())
             self.process(document)
             self._logger.info('Document processed')
         self._logger.info('Cron auto payment finished.')
@@ -19,4 +19,35 @@ class CronAutoPayment(Container):
         return entityManager.createQuery(sql).getResultList()
     
     def process(self, document):
+        autoPayment = self.matchAutoPayment(document)
+        if autoPayment is None:
+            self._logger.info("Can't match this document to any account.")
+            self.setAsUnknown(document)
+        else:  
+            self._logger.info("Document matched, creating payments....")
+            self.createPayments(document)
+            self.setAsProcessed(document)
+        entityManager.persist(document)
+        
+    def matchAutoPayment(self, document):
+        try:
+            sql = 'Select auto From AutoPayment auto Join auto.account account Where account.number = %s' % document.getAccountNumber()
+            return entityManager.createQuery(sql).getSingleResult()
+        except:
+            return None;
+        
+    def setAsUnknown(self, document):
+        document.setStatus(self.findUnknownStatus())
+    
+    def setAsProcessed(self, document):
+        document.setStatus(self.findProcessedStatus())
+    
+    def createPayments(self, document):
         pass
+    
+    def findUnknownStatus(self):
+        self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'UNKNOWN')
+    
+    def findProcessedStatus(self):
+        self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'PROCESSED')
+        
