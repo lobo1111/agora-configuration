@@ -653,7 +653,7 @@
         </sql>
     </changeSet> 
 
-    <changeSet author='tkopacki' id='table-incoming-payment-document-incoming-payment-fkey'>
+    <changeSet author='tkopacki' id='table-incoming-payment-document-incoming-payment-change-fkey'>
         <sql>  
             ALTER TABLE `incoming_payment_document_payment`
             ADD CONSTRAINT `incoming_payment_document_incoming_payment_fkey` FOREIGN KEY (`incoming_payment_document_id`) REFERENCES `incoming_payment_document_position` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
