@@ -851,4 +851,22 @@
             <group>access-sync</group>
         </security>
     </script>
+    <script>
+        <name>bind-documents-to-payments</name>
+        <source>crons/autoPayments.py</source>
+        <onInit>CronAutoPayment</onInit>
+        <scheduler>
+            <name>bind-documents-to-payments</name>
+            <enabled>true</enabled>
+            <fireAt>* * * * *</fireAt>
+        </scheduler>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>dictionary-manager</scriptName>
+        </dependencies>
+        <security>
+            <group>access-sync</group>
+        </security>
+    </script>
 </scripts>
