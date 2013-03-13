@@ -81,7 +81,7 @@ class CronAutoPayment(Container):
 
     def createAndBookPayment(self, position, income, zpk, period):
         vars.put('paymentDirection', 'INCOME')
-        vars.put('paymentBook', true)
+        vars.put('paymentBook', 'true')
         vars.put('paymentAmount', income)
         vars.put('paymentType', self.getAutoPaymentType())
         vars.put('accountId', self.getAccountId(position.getClientNumber()))
