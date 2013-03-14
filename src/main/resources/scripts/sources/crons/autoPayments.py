@@ -90,7 +90,6 @@ class CronAutoPayment(Container):
         vars.put('paymentDescription', position.getTitle())
         payment = PaymentManager().create()
         position.getPayments().add(payment)
-        payment.getDocuments().add(position)
 
     def getAutoPaymentType(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_TYPE', 'AUTO')
