@@ -33,10 +33,10 @@ public class Company implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(min = 1, max = 150)
+    @Size(max = 150)
     @Column(name = "nip")
     private String nip;
-    @Size(min = 1, max = 150)
+    @Size(max = 150)
     @Column(name = "regon")
     private String regon;
     @Size(max = 150)
