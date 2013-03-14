@@ -826,6 +826,7 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'PAYMENT_TYPE\'
+                    AND dic.key != \'AUTO\'
                     ORDER BY 
                     dic.value ASC
                 </data>
