@@ -538,6 +538,7 @@
                     LEFT OUTER JOIN zpk.possession possession
                     LEFT OUTER JOIN zpk.person person
                     LEFT OUTER JOIN zpk.company company
+                    LEFT OUTER JOIN payment.documents doc
                     WHERE {:where}
                 </data>
             </var>
