@@ -87,6 +87,7 @@ class CronAutoPayment(Container):
         vars.put('accountId', self.getAccountId(position.getClientNumber()))
         vars.put('zpkId', zpk.getId())
         vars.put('paymentBookingPeriod', period.getId())
+        vars.put('paymentDescription', position.getTitle())
         payment = PaymentManager().create()
         position.getPayments().add(payment)
         payment.getDocuments().add(position)
