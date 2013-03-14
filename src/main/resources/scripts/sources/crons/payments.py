@@ -70,7 +70,7 @@ class CronPayment(Container):
     
     def findLog(self, scheduler):
         try:
-            sql = 'Select log From PaymentSchedulerLog log Where log.firedYear = %s And log.firedMonth = %s' % (self._year, self._month)
+            sql = 'Select log From PaymentSchedulerLog log Join log.paymentScheduler ps Where ps.id = %s And log.firedYear = %s And log.firedMonth = %s' % (scheduler.getId(), self._year, self._month)
             return entityManager.createQuery(sql).getSingleResult()
         except:
             return None
