@@ -34,7 +34,7 @@ public class Address implements Serializable {
     @Size(max = 150)
     @Column(name = "flat_number")
     private String flatNumber;
-    @Size(max = 5)
+    @Size(max = 6)
     @Column(name = "postal_code")
     private String postalCode;
     @Size(max = 150)
