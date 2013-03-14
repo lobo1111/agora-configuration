@@ -56,7 +56,7 @@ class CronAutoPayment(Container):
                 self._logger.info("It's already balanced")
         if income > 0:
             self._logger.info("Booking the rest on %s" % str(autoPayment.getZpk().getId()))
-            self.book(documentPosition, income, autoPayment.getZpk())
+            self.bookRest(documentPosition, income, autoPayment.getZpk())
 
     def getOrders(self, parentId):
         sql = "SELECT c FROM AutoPaymentOrder c JOIN c.autoPayment ap WHERE ap.id = %s ORDER BY c.order" % str(parentId)
@@ -78,6 +78,10 @@ class CronAutoPayment(Container):
             income = income - shouldBook
         self.createAndBookPayment(documentPosition, shouldBook, zpk, defaultPeriod)
         return income
+    
+    def bookRest(self, documentPosition, income, zpk):
+        defaultPeriod = BookingPeriodManager().findDefaultBookingPeriod()
+        self.createAndBookPayment(documentPosition, income, zpk, defaultPeriod)
 
     def createAndBookPayment(self, position, income, zpk, period):
         vars.put('paymentDirection', 'INCOME')
