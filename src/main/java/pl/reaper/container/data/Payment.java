@@ -2,6 +2,8 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -65,6 +69,13 @@ public class Payment implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "direction")
     private Direction direction;
+    @ManyToMany
+    @JoinTable(
+        name = "incoming_payment_document_payment", joinColumns =
+    @JoinColumn(name = "payment_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"))
+    private Collection<IncomingPaymentDocumentPosition> documents = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -152,5 +163,13 @@ public class Payment implements Serializable {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public Collection<IncomingPaymentDocumentPosition> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(Collection<IncomingPaymentDocumentPosition> documents) {
+        this.documents = documents;
     }
 }

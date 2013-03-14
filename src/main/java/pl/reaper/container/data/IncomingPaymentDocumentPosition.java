@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -69,7 +70,7 @@ public class IncomingPaymentDocumentPosition implements Serializable {
     @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"),
     inverseJoinColumns =
     @JoinColumn(name = "payment_id", referencedColumnName = "id"))
-    private Collection<Payment> payments;
+    private Collection<Payment> payments = new ArrayList<>();
 
     public IncomingPaymentDocumentPosition() {
     }

@@ -11,6 +11,7 @@ class PaymentManager(Container):
         payment = Payment()
         self.setData(payment)
         entityManager.persist(payment)
+        return payment
         
     def setData(self, payment):
         payment.setIncome(self.getIncome())
