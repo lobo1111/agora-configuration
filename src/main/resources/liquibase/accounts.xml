@@ -35,12 +35,6 @@
         </sql>
     </changeSet> 
     
-    <changeSet author='tkopacki' id='bank-pocztowy-insert'>
-        <sql> 
-            INSERT INTO `bank` (`name`, `bankKey`) VALUES ('Bank Pocztowy', 'BANK_POCZTOWY');
-        </sql>
-    </changeSet>
-    
     <changeSet author='tkopacki' id='bank-pocztowy-account-insert'>
         <sql> 
             INSERT INTO `account` (`bank_id`, `name`, `number`)
