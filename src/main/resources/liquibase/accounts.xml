@@ -740,7 +740,7 @@
     <changeSet author='tkopacki' id='table-obligation-contractor-id-fkey'>
         <sql>  
             ALTER TABLE `obligation`
-            ADD CONSTRAINT `obligation_contractor_fkey` FOREIGN KEY (`contractor_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+            ADD CONSTRAINT `obligation_contractor_id_fkey` FOREIGN KEY (`contractor_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
 </databaseChangeLog>
