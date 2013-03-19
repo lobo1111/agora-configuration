@@ -24,6 +24,10 @@ class PaymentManager(Container):
         payment.setDirection(self.getDirection())
         if self.bookRequest():
             self.book(payment)
+        if vars.get('paymentCompanyId') != None:
+            payment.setCompany(CompanyManager().findCompanyById(int(vars.get('paymentCompanyId'))))
+        if vars.get('paymentPossessionId') != None:
+            payment.setPossession(PossessionManager().findPossessionById(int(vars.get('paymentPossessionId'))))
         
     def bookStoredPayment(self):
         payment = self.findPaymentById(vars.get('id'))
@@ -36,6 +40,7 @@ class PaymentManager(Container):
         if payment.isBooked():
             BookingManager().unbook(payment)
         payment.setStatus(self.getPaymentCancelStatus())
+        payment.setCancelComment(vars.get('paymentCancelComment'))
         entityManager.persist(payment)
         
     def bookRequest(self):

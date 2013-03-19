@@ -13,8 +13,15 @@
         <statusKey>$!row.getStatus().getKey()</statusKey>
         <type>$!row.getType().getValue()</type>
         <accountNumber>$!row.getAccount().getNumber()</accountNumber>
-        <communityName>$!row.getZpkBalance().getZpk().getCommunity().getName()</communityName>
+        <communityName>$!row.getCommunity().getName()</communityName>
+        #if($row.getCompany())
+            <subject>$!row.getCompany().getName()</subject>
+        #end
+        #if($row.getPossession())
+            <subject>$!row.getPossession().getName()</subject>
+        #end
         <zpkNumber>$!row.getZpkBalance().getZpk().getNumber()</zpkNumber>
+        <cancelComment>$!row.getZpkBalance().getZpk().getNumber()</cancelComment>
     </item>
     #end
     <settings>
