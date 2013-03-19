@@ -35,9 +35,9 @@ public class Obligation implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-    @JoinColumn(name = "community_id", referencedColumnName = "id")
-    @ManyToOne
-    private Community community;
+//    @JoinColumn(name = "community_id", referencedColumnName = "id")
+//    @ManyToOne
+//    private Community community;
     @JoinColumn(name = "zpk_id", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
     private ZakladowyPlanKont zpk;
@@ -67,13 +67,13 @@ public class Obligation implements Serializable {
         this.name = name;
     }
 
-    public Community getCommunity() {
-        return community;
-    }
-
-    public void setCommunity(Community community) {
-        this.community = community;
-    }
+//    public Community getCommunity() {
+//        return community;
+//    }
+//
+//    public void setCommunity(Community community) {
+//        this.community = community;
+//    }
 
     public ZakladowyPlanKont getZpk() {
         return zpk;
