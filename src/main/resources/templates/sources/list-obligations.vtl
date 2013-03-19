@@ -3,11 +3,11 @@
     #foreach($row in $obligations)
     <item>
         <obligationId>$!row.getId()</obligationId>
-        <name>$!row.getName()</name>
-        <company>
-            <id>$!row.getContractor().getId()</id>
-            <name>$!row.getContractor().getName()</name>
-        </company>
+        <obligationName>$!row.getName()</obligationName>
+        <companyId>$!row.getContractor().getId()</companyId>
+        <companyName>$!row.getContractor().getName()</companyName>
+        <communityId>$!row.getCommunity().getId()</communityId>
+        <communityName>$!row.getCommunity().getName()</communityName>
     </item>
     #end
     <settings>
