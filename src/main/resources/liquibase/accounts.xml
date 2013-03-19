@@ -743,4 +743,47 @@
             ADD CONSTRAINT `obligation_contractor_id_fkey` FOREIGN KEY (`contractor_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `obligation_group` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) NOT NULL,
+            `community_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-obligation'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `obligation_group_obligation` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `obligation_group_id` int(11) NOT NULL,
+            `obligation_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-community-fkey'>
+        <sql>  
+            ALTER TABLE `obligation_group`
+            ADD CONSTRAINT `obligation_group_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-obligation-obligation-group-fkey'>
+        <sql>  
+            ALTER TABLE `obligation_group_obligation`
+            ADD CONSTRAINT `obligation_group_obligation_obligation_group_fkey` FOREIGN KEY (`obligation_group_id`) REFERENCES `obligation_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-obligation-obligation-fkey'>
+        <sql>  
+            ALTER TABLE `obligation_group_obligation`
+            ADD CONSTRAINT `obligation_group_obligation_obligation_fkey` FOREIGN KEY (`obligation_id`) REFERENCES `obligation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
