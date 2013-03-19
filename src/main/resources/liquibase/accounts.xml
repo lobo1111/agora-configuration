@@ -787,13 +787,13 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='table-obligation-possession-obligation-fkey'>
+    <changeSet author='tkopacki' id='table-obligation-possession-obligation-drop-fkey'>
         <sql>  
             ALTER TABLE `obligation_possession_zpk` DROP FOREIGN KEY `obligation_possession_obligation_fkey`
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='table-obligation-possession-zpk-fkey'>
+    <changeSet author='tkopacki' id='table-obligation-possession-zpk-drop-fkey'>
         <sql>  
             ALTER TABLE `obligation_possession_zpk` DROP FOREIGN KEY `obligation_possession_zpk_fkey`
         </sql>
