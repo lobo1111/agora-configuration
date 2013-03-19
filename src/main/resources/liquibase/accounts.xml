@@ -729,4 +729,18 @@
             ADD CONSTRAINT `obligation_log_obligation_fkey` FOREIGN KEY (`obligation_id`) REFERENCES `obligation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-contractor_id'>
+        <sql>  
+            ALTER TABLE `obligation` 
+            ADD `contractor_id` int(11) NOT NULL
+        </sql>
+    </changeSet> 
+    
+    <changeSet author='tkopacki' id='table-obligation-contractor-fkey'>
+        <sql>  
+            ALTER TABLE `obligation`
+            ADD CONSTRAINT `obligation_contractor_fkey` FOREIGN KEY (`contractor_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>

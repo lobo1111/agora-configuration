@@ -38,6 +38,9 @@ public class Obligation implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
     private Community community;
+    @JoinColumn(name = "contractor_id", referencedColumnName = "id")
+    @ManyToOne
+    private Company contractor;
     @JoinColumn(name = "contractor_zpk_id", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     private ZakladowyPlanKont zpk;
@@ -73,6 +76,14 @@ public class Obligation implements Serializable {
 
     public void setCommunity(Community community) {
         this.community = community;
+    }
+
+    public Company getContractor() {
+        return contractor;
+    }
+
+    public void setContractor(Company contractor) {
+        this.contractor = contractor;
     }
 
     public ZakladowyPlanKont getZpk() {
