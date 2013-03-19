@@ -277,6 +277,32 @@
         </variables>
     </template>
     <template>
+        <name>list-obligations</name>
+        <source>list-obligations.vtl</source>
+        <variables>
+            <var>
+                <name>obligations</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    obligation
+                    FROM
+                    Obligation obligation
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(obligation.id)
+                    FROM
+                    Obligation obligation
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-auto-payments</name>
         <source>list-auto-payments.vtl</source>
         <variables>
