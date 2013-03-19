@@ -47,4 +47,6 @@ class CommunityManager(Container):
             if possession.getArea().floatValue() > 0:
                 share = area.divide(possession.getArea(), 10, RoundingMode.HALF_UP)
                 possession.setShare(share.multiply(BigDecimal(100)))
-                entityManager.persist(possession)
+            else:
+                possession.setShare(BigDecimal(0))
+            entityManager.persist(possession)
