@@ -67,7 +67,6 @@ class PossessionManager(Container):
         self.savePossession(possession)
         
     def update(self):
-        possession.dupa()
         possession = self.findPossessionById(vars.get('id'))
         self.setPossessionData(possession)
         self.savePossession(possession)
