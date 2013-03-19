@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Community
+from java.math import BigDecimal
 
 class CommunityManager(Container):
     _logger = Logger([:_scriptId])
@@ -32,3 +33,14 @@ class CommunityManager(Container):
 
     def findCommunityById(self, id):
         return entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
+
+    def recalculateShares(self, communityId):
+        community = self.findCommunityById(communityId)
+        area = 0
+        for possession in community.getPossessions():
+            area += possession.getArea().floatValue()
+        community.setArea(BigDecimal(area))
+        entityManager.persist(community)
+        for possession in community.getPossessions():
+            possession.setShare(area / possession.getArea().floatValue() * 100)
+            entityManager.persist(possession)

@@ -88,7 +88,7 @@ class PossessionManager(Container):
     def savePossession(self, possession):
         self._logger.info(possession.longDescription())
         entityManager.persist(possession)
-        entityManager.flush()
+        CommunityManager().recalculateShares(possession.getCommunity().getId())
         
     def findPossessionById(self, id):
         return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()
