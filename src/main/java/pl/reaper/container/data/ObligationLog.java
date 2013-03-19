@@ -28,7 +28,7 @@ public class ObligationLog implements Serializable {
     private Integer id;
     @JoinColumn(name = "obligation_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Community obligation;
+    private Obligation obligation;
     @Column(name = "timestamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
@@ -41,11 +41,11 @@ public class ObligationLog implements Serializable {
         this.id = id;
     }
 
-    public Community getObligation() {
+    public Obligation getObligation() {
         return obligation;
     }
 
-    public void setObligation(Community obligation) {
+    public void setObligation(Obligation obligation) {
         this.obligation = obligation;
     }
 

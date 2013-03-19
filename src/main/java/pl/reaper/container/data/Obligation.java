@@ -35,13 +35,13 @@ public class Obligation implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-//    @JoinColumn(name = "community_id", referencedColumnName = "id")
-//    @ManyToOne
-//    private Community community;
-    @JoinColumn(name = "zpk_id", referencedColumnName = "id")
-    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "community_id", referencedColumnName = "id")
+    @ManyToOne
+    private Community community;
+    @JoinColumn(name = "contractor_zpk_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     private ZakladowyPlanKont zpk;
-    @OneToMany(mappedBy = "obligation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "obligation")
     private Collection<ObligationLog> obligationLog;
     @ManyToMany
     @JoinTable(
@@ -67,13 +67,13 @@ public class Obligation implements Serializable {
         this.name = name;
     }
 
-//    public Community getCommunity() {
-//        return community;
-//    }
-//
-//    public void setCommunity(Community community) {
-//        this.community = community;
-//    }
+    public Community getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Community community) {
+        this.community = community;
+    }
 
     public ZakladowyPlanKont getZpk() {
         return zpk;
