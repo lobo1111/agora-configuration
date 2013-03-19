@@ -42,5 +42,5 @@ class CommunityManager(Container):
         community.setArea(BigDecimal(area))
         entityManager.persist(community)
         for possession in community.getPossessions():
-            possession.setShare(area / possession.getArea().floatValue() * 100)
+            possession.setShare(BigDecimal(area / possession.getArea().floatValue() * 100))
             entityManager.persist(possession)
