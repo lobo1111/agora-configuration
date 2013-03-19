@@ -36,7 +36,7 @@ public class Obligation implements Serializable {
     @Column(name = "name")
     private String name;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Community community;
     @JoinColumn(name = "zpk_id", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
