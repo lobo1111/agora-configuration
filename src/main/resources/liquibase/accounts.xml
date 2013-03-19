@@ -836,4 +836,53 @@
             ADD COLUMN `excess` decimal(10,2) DEFAULT 0; 
         </sql>
     </changeSet>
+        
+    <changeSet author='tkopacki' id='table-payment-community-column'>
+        <sql> 
+            ALTER TABLE `payment`
+            ADD COLUMN `community_id` int(11) NOT NULL; 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-community-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `payment_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-company-column'>
+        <sql> 
+            ALTER TABLE `payment`
+            ADD COLUMN `company_id` int(11);
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-company-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `payment_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-possession-column'>
+        <sql> 
+            ALTER TABLE `payment`
+            ADD COLUMN `possession_id` int(11);
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-possession-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `payment_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-cancel-comment-column'>
+        <sql> 
+            ALTER TABLE `payment`
+            ADD COLUMN `cancel_comment` varchar(4096); 
+        </sql>
+    </changeSet>
 </databaseChangeLog>

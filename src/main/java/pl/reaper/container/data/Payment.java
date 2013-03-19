@@ -50,6 +50,10 @@ public class Payment implements Serializable {
     @Size(min = 0, max = 255)
     @Column(name = "description")
     private String description;
+    @Basic(optional = true)
+    @Size(min = 0, max = 4096)
+    @Column(name = "cancel_comment")
+    private String cancelComment;
     @Column(name = "booked")
     private boolean booked;
     @Column(name = "create_day")
@@ -69,12 +73,21 @@ public class Payment implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "direction")
     private Direction direction;
+    @JoinColumn(name = "community_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Community community;
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private Community company;
+    @JoinColumn(name = "possession_id", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private Community possession;
     @ManyToMany
     @JoinTable(
-        name = "incoming_payment_document_payment", joinColumns =
-    @JoinColumn(name = "payment_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"))
+            name = "incoming_payment_document_payment", joinColumns =
+            @JoinColumn(name = "payment_id", referencedColumnName = "id"),
+            inverseJoinColumns =
+            @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"))
     private Collection<IncomingPaymentDocumentPosition> documents = new ArrayList<>();
 
     public int getId() {
@@ -171,5 +184,37 @@ public class Payment implements Serializable {
 
     public void setDocuments(Collection<IncomingPaymentDocumentPosition> documents) {
         this.documents = documents;
+    }
+
+    public Community getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Community community) {
+        this.community = community;
+    }
+
+    public String getCancelComment() {
+        return cancelComment;
+    }
+
+    public void setCancelComment(String cancelComment) {
+        this.cancelComment = cancelComment;
+    }
+
+    public Community getCompany() {
+        return company;
+    }
+
+    public void setCompany(Community company) {
+        this.company = company;
+    }
+
+    public Community getPossession() {
+        return possession;
+    }
+
+    public void setPossession(Community possession) {
+        this.possession = possession;
     }
 }
