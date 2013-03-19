@@ -1,5 +1,6 @@
 from pl.reaper.container.data import Community
 from java.math import BigDecimal
+from java.math import RoundingMode
 
 class CommunityManager(Container):
     _logger = Logger([:_scriptId])
@@ -43,6 +44,6 @@ class CommunityManager(Container):
         entityManager.persist(community)
         area = BigDecimal(area)
         for possession in community.getPossessions():
-            share = area.divide(possession.getArea())
+            share = area.divide(possession.getArea(), 2, RoundingMode.HALF_UP)
             possession.setShare(share.multiply(BigDecimal(100)))
             entityManager.persist(possession)
