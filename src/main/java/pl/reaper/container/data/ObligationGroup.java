@@ -20,9 +20,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "obligation")
+@Table(name = "obligation_group")
 @XmlRootElement
-public class Obligation implements Serializable {
+public class ObligationGroup implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,17 +38,15 @@ public class Obligation implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
     private Community community;
-    @JoinColumn(name = "contractor_id", referencedColumnName = "id")
-    @ManyToOne
-    private Company contractor;
-    @JoinColumn(name = "contractor_zpk_id", referencedColumnName = "id")
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    private ZakladowyPlanKont zpk;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "obligation")
-    private Collection<ObligationLog> obligationLogs;
-    @JoinColumn(name = "obligation_group_id", referencedColumnName = "id")
-    @ManyToOne
-    private Obligation obligationGroup;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "obligationGroup")
+    private Collection<Obligation> obligations;
+    @ManyToMany
+    @JoinTable(
+            name = "obligation_group_zpk", joinColumns =
+            @JoinColumn(name = "zpk_id", referencedColumnName = "id"),
+            inverseJoinColumns =
+            @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"))
+    private Collection<ZakladowyPlanKont> zpks;
 
     public Integer getId() {
         return id;
@@ -74,35 +72,19 @@ public class Obligation implements Serializable {
         this.community = community;
     }
 
-    public Company getContractor() {
-        return contractor;
+    public Collection<Obligation> getObligations() {
+        return obligations;
     }
 
-    public void setContractor(Company contractor) {
-        this.contractor = contractor;
+    public void setObligations(Collection<Obligation> obligations) {
+        this.obligations = obligations;
     }
 
-    public ZakladowyPlanKont getZpk() {
-        return zpk;
+    public Collection<ZakladowyPlanKont> getZpks() {
+        return zpks;
     }
 
-    public void setZpk(ZakladowyPlanKont zpk) {
-        this.zpk = zpk;
-    }
-
-    public Collection<ObligationLog> getObligationLogs() {
-        return obligationLogs;
-    }
-
-    public void setObligationLogs(Collection<ObligationLog> obligationLogs) {
-        this.obligationLogs = obligationLogs;
-    }
-
-    public Obligation getObligationGroup() {
-        return obligationGroup;
-    }
-
-    public void setObligationGroup(Obligation obligationGroup) {
-        this.obligationGroup = obligationGroup;
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
+        this.zpks = zpks;
     }
 }

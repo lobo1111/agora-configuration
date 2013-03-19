@@ -32,6 +32,8 @@ public class ObligationLog implements Serializable {
     @Column(name = "timestamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
+    @Column(name = "excess")
+    private float excess;
 
     public Integer getId() {
         return id;
@@ -55,5 +57,13 @@ public class ObligationLog implements Serializable {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public float getExcess() {
+        return excess;
+    }
+
+    public void setExcess(float excess) {
+        this.excess = excess;
     }
 }

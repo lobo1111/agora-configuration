@@ -786,4 +786,54 @@
             ADD CONSTRAINT `obligation_group_obligation_obligation_fkey` FOREIGN KEY (`obligation_id`) REFERENCES `obligation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-possession-obligation-fkey'>
+        <sql>  
+            ALTER TABLE `obligation_possession_zpk` DROP FOREIGN KEY `obligation_possession_obligation_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-possession-zpk-fkey'>
+        <sql>  
+            ALTER TABLE `obligation_possession_zpk` DROP FOREIGN KEY `obligation_possession_zpk_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-possession-zpk-drop'>
+        <sql>  
+            DROP TABLE `obligation_possession_zpk`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-zpk'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `obligation_group_zpk` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `obligation_group_id` int(11) NOT NULL,
+            `zpk_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-zpk-obligation-group-fkey'>
+        <sql>  
+            ALTER TABLE `obligation_group_zpk`
+            ADD CONSTRAINT `obligation_group_zpk_obligation_group_fkey` FOREIGN KEY (`obligation_group_id`) REFERENCES `obligation_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-zpk-zpk-fkey'>
+        <sql>  
+            ALTER TABLE `obligation_group_zpk`
+            ADD CONSTRAINT `obligation_group_zpk_zpk_fkey` FOREIGN KEY (`zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-obligation-log-excess-column'>
+        <sql> 
+            ALTER TABLE `obligation_log`
+            ADD COLUMN `excess` decimal(10,2) DEFAULT 0; 
+        </sql>
+    </changeSet>
 </databaseChangeLog>
