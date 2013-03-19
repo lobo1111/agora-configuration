@@ -73,7 +73,6 @@ class PossessionManager(Container):
         
     def setPossessionData(self, possession):
         possession.setArea(BigDecimal(vars.get('possessionArea')))
-        possession.setShare(BigDecimal(vars.get('possessionShare')))
         possession.setAddress(self.getAddress(possession))
         possession.setCommunity(self.getCommunity(possession))
         
