@@ -78,10 +78,10 @@ public class Payment implements Serializable {
     private Community community;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
-    private Community company;
+    private Company company;
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
-    private Community possession;
+    private Possession possession;
     @ManyToMany
     @JoinTable(
             name = "incoming_payment_document_payment", joinColumns =
@@ -202,19 +202,19 @@ public class Payment implements Serializable {
         this.cancelComment = cancelComment;
     }
 
-    public Community getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(Community company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
-    public Community getPossession() {
+    public Possession getPossession() {
         return possession;
     }
 
-    public void setPossession(Community possession) {
+    public void setPossession(Possession possession) {
         this.possession = possession;
     }
 }
