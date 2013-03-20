@@ -28,7 +28,7 @@ class PaymentManager(Container):
             payment.setCompany(CompanyManager().findCompanyById(vars.get('paymentCompanyId')))
         if vars.get('paymentPossessionId') != "0":
             payment.setPossession(PossessionManager().findPossessionById(vars.get('paymentPossessionId')))
-        payment.setPossession(CommunityManager().findCommunityById(vars.get('paymentCommunityId')))
+        payment.setCommunity(CommunityManager().findCommunityById(vars.get('paymentCommunityId')))
         
     def bookStoredPayment(self):
         payment = self.findPaymentById(vars.get('id'))
