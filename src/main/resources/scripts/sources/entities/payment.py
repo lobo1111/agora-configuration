@@ -24,9 +24,9 @@ class PaymentManager(Container):
         payment.setDirection(self.getDirection())
         if self.bookRequest():
             self.book(payment)
-        if vars.get('paymentCompanyId') != None:
+        if vars.get('paymentCompanyId') != "0":
             payment.setCompany(CompanyManager().findCompanyById(int(vars.get('paymentCompanyId'))))
-        if vars.get('paymentPossessionId') != None:
+        if vars.get('paymentPossessionId') != "0":
             payment.setPossession(PossessionManager().findPossessionById(int(vars.get('paymentPossessionId'))))
         payment.setPossession(CommunityManager().findCommunityById(int(vars.get('paymentCommunityId'))))
         
