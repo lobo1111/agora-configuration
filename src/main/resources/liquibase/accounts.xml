@@ -885,4 +885,18 @@
             ADD COLUMN `cancel_comment` varchar(4096); 
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-obligation-group-id-column'>
+        <sql> 
+            ALTER TABLE `obligation`
+            ADD COLUMN `obligation_group_id` int(11);
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-obligation-obligation-group-id-fkey'>
+        <sql>  
+            ALTER TABLE `obligation`
+            ADD CONSTRAINT `obligation_obligation_group_id_fkey` FOREIGN KEY (`obligation_group_id`) REFERENCES `obligation_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
