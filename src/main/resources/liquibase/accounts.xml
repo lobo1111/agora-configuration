@@ -899,4 +899,30 @@
             ADD CONSTRAINT `obligation_obligation_group_id_fkey` FOREIGN KEY (`obligation_group_id`) REFERENCES `obligation_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+        
+    <changeSet author='tkopacki' id='table-payment-company-drop-fkey'>
+        <sql>  
+            ALTER TABLE `payment` DROP FOREIGN KEY `payment_company_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-possession-zpk-drop'>
+        <sql>  
+            ALTER TABLE `payment` DROP `company_id`
+        </sql>
+    </changeSet>
+
+    <changeSet author='tkopacki' id='table-payment_obligation-column'>
+        <sql> 
+            ALTER TABLE `payment`
+            ADD COLUMN `obligation_id` int(11);
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-payment-obligation-fkey'>
+        <sql>  
+            ALTER TABLE `payment`
+            ADD CONSTRAINT `payment_obligation_id_fkey` FOREIGN KEY (`obligation_id`) REFERENCES `obligation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>

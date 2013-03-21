@@ -14,8 +14,8 @@
         <type>$!row.getType().getValue()</type>
         <accountNumber>$!row.getAccount().getNumber()</accountNumber>
         <communityName>$!row.getCommunity().getName()</communityName>
-        #if($row.getCompany())
-            <subject>$!row.getCompany().getName()</subject>
+        #if($row.getObligation())
+            <subject>$!row.getObligation().getName()</subject>
         #end
         #if($row.getPossession())
             <subject>$!row.getPossession().getName()</subject>

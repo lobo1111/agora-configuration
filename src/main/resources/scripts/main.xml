@@ -416,7 +416,7 @@
             <scriptName>account</scriptName>
             <scriptName>book</scriptName>
             <scriptName>zpk</scriptName>
-            <scriptName>company</scriptName>
+            <scriptName>obligation</scriptName>
             <scriptName>possession</scriptName>
             <scriptName>community</scriptName>
         </dependencies>
@@ -607,7 +607,7 @@
             <scriptName>account</scriptName>
             <scriptName>book</scriptName>
             <scriptName>zpk</scriptName>
-            <scriptName>company</scriptName>
+            <scriptName>obligation</scriptName>
             <scriptName>possession</scriptName>
             <scriptName>community</scriptName>
         </dependencies>

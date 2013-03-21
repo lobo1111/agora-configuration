@@ -76,18 +76,18 @@ public class Payment implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Community community;
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @JoinColumn(name = "obligation_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
-    private Company company;
+    private Obligation obligation;
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
     private Possession possession;
     @ManyToMany
     @JoinTable(
             name = "incoming_payment_document_payment", joinColumns =
-            @JoinColumn(name = "payment_id", referencedColumnName = "id"),
-            inverseJoinColumns =
-            @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"))
+    @JoinColumn(name = "payment_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"))
     private Collection<IncomingPaymentDocumentPosition> documents = new ArrayList<>();
 
     public int getId() {
@@ -202,12 +202,12 @@ public class Payment implements Serializable {
         this.cancelComment = cancelComment;
     }
 
-    public Company getCompany() {
-        return company;
+    public Obligation getObligation() {
+        return obligation;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setObligation(Obligation obligation) {
+        this.obligation = obligation;
     }
 
     public Possession getPossession() {
