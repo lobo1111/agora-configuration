@@ -906,13 +906,13 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='table-obligation-possession-zpk-drop'>
+    <changeSet author='tkopacki' id='table-payment-company-drop'>
         <sql>  
             ALTER TABLE `payment` DROP `company_id`
         </sql>
     </changeSet>
 
-    <changeSet author='tkopacki' id='table-payment_obligation-column'>
+    <changeSet author='tkopacki' id='table-payment-obligation-column'>
         <sql> 
             ALTER TABLE `payment`
             ADD COLUMN `obligation_id` int(11);
