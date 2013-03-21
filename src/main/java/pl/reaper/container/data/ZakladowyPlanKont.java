@@ -52,6 +52,8 @@ public class ZakladowyPlanKont implements Serializable {
     private Company company;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "obligation")
+    private Collection<Obligation> obligations;
 
     public Integer getId() {
         return id;
@@ -115,6 +117,14 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setZpkBalances(Collection<ZpkBalance> zpkBalances) {
         this.zpkBalances = zpkBalances;
+    }
+
+    public Collection<Obligation> getObligations() {
+        return obligations;
+    }
+
+    public void setObligations(Collection<Obligation> obligations) {
+        this.obligations = obligations;
     }
 
     public String longDescription() {
