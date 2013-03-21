@@ -321,6 +321,32 @@
         </variables>
     </template>
     <template>
+        <name>list-obligations-groups</name>
+        <source>list-obligations-groups.vtl</source>
+        <variables>
+            <var>
+                <name>groups</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    og
+                    FROM
+                    ObligationGroup og
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(og.id)
+                    FROM
+                    ObligationGroup og
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-auto-payments</name>
         <source>list-auto-payments.vtl</source>
         <variables>
