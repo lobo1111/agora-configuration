@@ -20,6 +20,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-obligation</name>
+        <source>entity-obligation.vtl</source>
+        <variables>
+            <var>
+                <name>obligation</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    o
+                    FROM 
+                    Obligation o
+                    WHERE 
+                    o.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-payment-scheduler</name>
         <source>entity-payment-scheduler.vtl</source>
         <variables>

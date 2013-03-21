@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<obligation>
+        <id>$!obligation.getId()</id>
+        <name>$!obligation.getName()</name>
+        <company>
+            <id>$!obligation.getContractor().getId()</id>
+            <name>$!obligation.getContractor().getName()</name>
+        </company>
+        <zpk>
+            <id>$!obligation.getZpk().getId()</id>
+            <description>$!obligation.getZpk().getDescription()</description>
+            <number>$!obligation.getZpk().getNumber()</number>
+        </zpk>
+        <community>
+            <id>$!obligation.getCommunity().getId()</id>
+        </community>
+</obligation>
