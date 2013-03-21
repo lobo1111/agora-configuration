@@ -52,7 +52,7 @@ public class ZakladowyPlanKont implements Serializable {
     private Company company;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "obligation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<Obligation> obligations;
 
     public Integer getId() {
