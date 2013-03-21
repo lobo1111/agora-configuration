@@ -15,7 +15,7 @@ class ObligationManager(Container):
     def setData(self, obligation):
         obligation.setName(vars.get('obligationName'))
         obligation.setContractor(self.findContractor(vars.get('obligationContractorId')))
-        obligation.setZpk(self.findContractorZpk(vars.get('obligationContractorZpkId')))
+        obligation.setZpk(self.findContractorZpk(vars.get('obligationZpkId')))
         obligation.setCommunity(self.findCommunity(vars.get('obligationCommunityId')))
         
     def findObligationById(self, id):
