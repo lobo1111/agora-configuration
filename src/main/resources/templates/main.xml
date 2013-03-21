@@ -383,6 +383,7 @@
                     LEFT OUTER JOIN zpk.possession possession
                     LEFT OUTER JOIN zpk.company company
                     LEFT OUTER JOIN zpk.person person
+                    LEFT OUTER JOIN zpk.obligations obligation
                     WHERE {:where} AND
                     period.defaultPeriod = true
                 </data>
