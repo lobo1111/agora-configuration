@@ -2,7 +2,7 @@ from pl.reaper.container.data import ObligationGroup
 
 class ObligationGroupManager(Container):
     
-     def create(self):
+    def create(self):
         obligation = ObligationGroup()
         self.setData(obligation)
         entityManager.persist(obligation)
