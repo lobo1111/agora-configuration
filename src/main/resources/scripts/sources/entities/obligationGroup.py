@@ -1,6 +1,5 @@
 from pl.reaper.container.data import ObligationGroup
 
-
 class ObligationGroupManager(Container):
 
     def create(self):
