@@ -479,6 +479,23 @@
     </script>
     
     <script>
+        <name>obligation-group</name>
+        <source>entities/obligationGroup.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>community</scriptName>
+            <scriptName>zpk</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-obligation</name>
         <source>entities/obligation.py</source>
         <onInit>ObligationManager().create()</onInit>
@@ -499,6 +516,40 @@
         <name>update-obligation</name>
         <source>entities/obligation.py</source>
         <onInit>ObligationManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>community</scriptName>
+            <scriptName>zpk</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>create-obligation-group</name>
+        <source>entities/obligationGroup.py</source>
+        <onInit>ObligationGroupManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>community</scriptName>
+            <scriptName>zpk</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>update-obligation-group</name>
+        <source>entities/obligationGroup.py</source>
+        <onInit>ObligationGroupManager().update()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
