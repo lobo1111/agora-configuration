@@ -48,7 +48,7 @@ public class Obligation implements Serializable {
     private Collection<ObligationLog> obligationLogs;
     @JoinColumn(name = "obligation_group_id", referencedColumnName = "id")
     @ManyToOne
-    private Obligation obligationGroup;
+    private ObligationGroup obligationGroup;
 
     public Integer getId() {
         return id;
@@ -98,11 +98,11 @@ public class Obligation implements Serializable {
         this.obligationLogs = obligationLogs;
     }
 
-    public Obligation getObligationGroup() {
+    public ObligationGroup getObligationGroup() {
         return obligationGroup;
     }
 
-    public void setObligationGroup(Obligation obligationGroup) {
+    public void setObligationGroup(ObligationGroup obligationGroup) {
         this.obligationGroup = obligationGroup;
     }
 }
