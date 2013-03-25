@@ -3,7 +3,7 @@
     <id>$!row.getId()</id>
     <name>$!row.getName()</name>
     <community>
-        <id>$!obligation.getCommunity().getId()</id>
+        <id>$!row.getCommunity().getId()</id>
     </community>
     <obligations>
         #foreach($obligation in $row.getObligations())
