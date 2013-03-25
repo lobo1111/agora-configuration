@@ -38,8 +38,6 @@ public class ObligationGroup implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
     private Community community;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "obligationGroup")
-    private Collection<Obligation> obligations;
     @ManyToMany
     @JoinTable(
             name = "obligation_group_zpk", joinColumns =
@@ -47,6 +45,13 @@ public class ObligationGroup implements Serializable {
             inverseJoinColumns =
             @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"))
     private Collection<ZakladowyPlanKont> zpks;
+    @ManyToMany
+    @JoinTable(
+            name = "obligation_group_obligation", joinColumns =
+            @JoinColumn(name = "obligation_id", referencedColumnName = "id"),
+            inverseJoinColumns =
+            @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"))
+    private Collection<Obligation> obligations;
 
     public Integer getId() {
         return id;
