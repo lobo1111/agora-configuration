@@ -15,6 +15,22 @@ class ObligationGroupManager(Container):
     def setData(self, obligation):
         obligation.setName(vars.get('obligationGroupName'))
         obligation.setCommunity(self.findCommunity(vars.get('obligationGroupCommunityId')))
+        obligation.setZpks(ps, vars.get('boundedZpksCount'))
+        obligation.setObligations(ps, vars.get('boundedObligationsCount'))
+        
+    def setZpks(self, group, counter):
+        group.getZpks().clear()
+        for i in range(int(counter)):
+            zpkId = int(vars.get('boundedZpk' + str(i)))
+            zpk = self.findZpk(zpkId)
+            group.getZpks().add(zpk)
+        
+    def setObligations(self, group, counter):
+        group.getObligations().clear()
+        for i in range(int(counter)):
+            obligationId = int(vars.get('boundedObligation' + str(i)))
+            obligation = self.findObligation(obligationId)
+            group.getObligations().add(obligation)
         
     def findObligationGroupById(self, id):
         return entityManager.createQuery('Select o From ObligationGroup o Where o.id = ' + str(id)).getSingleResult()
@@ -27,3 +43,9 @@ class ObligationGroupManager(Container):
     
     def findCommunity(self, id):
         return CommunityManager().findCommunityById(id)
+    
+    def findZpk(self, id):
+        return ZpkManager().findZpkById(id)
+    
+    def findObligation(self, id):
+        return ObligationManager().findObligationById(id)
