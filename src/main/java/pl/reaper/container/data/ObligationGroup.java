@@ -41,16 +41,16 @@ public class ObligationGroup implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "obligation_group_zpk", joinColumns =
-            @JoinColumn(name = "zpk_id", referencedColumnName = "id"),
+            @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"),
             inverseJoinColumns =
-            @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"))
+            @JoinColumn(name = "zpk_id", referencedColumnName = "id"))
     private Collection<ZakladowyPlanKont> zpks;
     @ManyToMany
     @JoinTable(
             name = "obligation_group_obligation", joinColumns =
-            @JoinColumn(name = "obligation_id", referencedColumnName = "id"),
+            @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"),
             inverseJoinColumns =
-            @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"))
+            @JoinColumn(name = "obligation_id", referencedColumnName = "id"))
     private Collection<Obligation> obligations;
 
     public Integer getId() {
