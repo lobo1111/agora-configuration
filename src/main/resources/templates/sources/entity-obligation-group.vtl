@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<obligationGroups>
+    <obligationGroupId>$!row.getId()</obligationGroupId>
+    <obligationGroupName>$!row.getName()</obligationGroupName>
+    <communityId>$!row.getCommunity().getId()</communityId>
+    <communityName>$!row.getCommunity().getName()</communityName>
+    <obligations>
+        #foreach($obligation in $row.getObligations())
+        <obligation>
+            <id>$!obligation.getId()</id>
+            <name>$!obligation.getName()</name>
+        </obligation>
+        #end
+    </obligations>
+    <zpks>
+        #foreach($zpk in $row.getZpks())
+        <zpk>
+            <id>$!zpk.getId()</id>
+            <description>$!zpk.getDescription()</description>
+            <number>$!zpk.getNumber()</number>
+        </zpk>
+        #end
+    </zpks>
+</obligationGroups>
