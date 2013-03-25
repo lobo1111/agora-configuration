@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <obligationGroups>
-    <obligationGroupId>$!row.getId()</obligationGroupId>
-    <obligationGroupName>$!row.getName()</obligationGroupName>
-    <communityId>$!row.getCommunity().getId()</communityId>
-    <communityName>$!row.getCommunity().getName()</communityName>
+    <id>$!row.getId()</id>
+    <name>$!row.getName()</name>
+    <community>
+        <id>$!obligation.getCommunity().getId()</id>
+    </community>
     <obligations>
         #foreach($obligation in $row.getObligations())
         <obligation>
