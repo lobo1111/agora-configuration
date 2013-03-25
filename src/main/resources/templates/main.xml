@@ -1003,4 +1003,24 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>simple-list-communities-obligations</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    obligation.id, obligation.name)
+                    FROM 
+                    Obligation obligation 
+                    JOIN obligation.community community
+                    WHERE
+                    community.id = {:id}
+                    ORDER BY 
+                    obligaiton.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>
