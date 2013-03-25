@@ -15,8 +15,8 @@ class ObligationGroupManager(Container):
     def setData(self, obligation):
         obligation.setName(vars.get('obligationGroupName'))
         obligation.setCommunity(self.findCommunity(vars.get('obligationGroupCommunityId')))
-        obligation.setZpks(obligation, vars.get('boundedZpksCount'))
-        obligation.setObligations(obligation, vars.get('boundedObligationsCount'))
+        self.setZpks(obligation, vars.get('boundedZpksCount'))
+        self.setObligations(obligation, vars.get('boundedObligationsCount'))
         
     def setZpks(self, group, counter):
         group.getZpks().clear()
