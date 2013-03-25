@@ -1018,7 +1018,7 @@
                     WHERE
                     community.id = {:id}
                     ORDER BY 
-                    obligaiton.name ASC
+                    obligation.name ASC
                 </data>
             </var>
         </variables>
