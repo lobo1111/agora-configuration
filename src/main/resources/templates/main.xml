@@ -39,7 +39,7 @@
     </template>
     <template>
         <name>entity-obligation-group</name>
-        <source>entity-obligation.vtl</source>
+        <source>entity-obligation-group.vtl</source>
         <variables>
             <var>
                 <name>row</name>
