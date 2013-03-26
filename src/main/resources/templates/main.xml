@@ -299,9 +299,8 @@
                     sum(balance.debit),
                     og.id,
                     og.name,
-                    c.name,
-                    sum(obalance.credit),
-                    sum(obalance.debit)
+                    c.name
+                    
                     FROM
                     ObligationGroup og
                     JOIN og.community c
@@ -309,12 +308,20 @@
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
                     JOIN og.obligations o
-                    JOIN o.zpk oz
-                    JOIN oz.zpkBalances obalance
-                    JOIN obalance.bookingPeriod operiod
                     WHERE
+                    EXISTS (
+                        SELECT 
+                            sum(balance.credit) as c,
+                            sum(balance.debit) as d,
+                        FROM 
+                            Obligation oo
+                            JOIN oo.zpk ozpk
+                            JOIN ozpk.zpkBalances obalance
+                            JOIN obalance.bookingPeriod operiod
+                        WHERE 
+                            oo.id = o.id
+                            operiod.defaultPeriod = true) AS os
                     period.defaultPeriod = true
-                    AND operiod.defaultPeriod = true
                     GROUP BY og.id, og.name, c.name
                 </data>
             </var>
@@ -331,12 +338,20 @@
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
                     JOIN og.obligations o
-                    JOIN o.zpk oz
-                    JOIN zpk.zpkBalances obalance
-                    JOIN balance.bookingPeriod operiod
                     WHERE
+                    EXISTS (
+                        SELECT 
+                            sum(balance.credit) as c,
+                            sum(balance.debit) as d,
+                        FROM 
+                            Obligation oo
+                            JOIN oo.zpk ozpk
+                            JOIN ozpk.zpkBalances obalance
+                            JOIN obalance.bookingPeriod operiod
+                        WHERE 
+                            oo.id = o.id
+                            operiod.defaultPeriod = true) AS os
                     period.defaultPeriod = true
-                    AND operiod.defaultPeriod = true
                     GROUP BY og.id, og.name, c.name
                 </data>
             </var>
