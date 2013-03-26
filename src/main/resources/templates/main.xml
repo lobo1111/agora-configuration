@@ -293,8 +293,8 @@
             <var>
                 <name>settlements</name>
                 <data>
-                    {:limit}
                     {:native}
+                    {:limit}
                     SELECT
                         og.id,
                         og.name,
@@ -344,8 +344,8 @@
             <var>
                 <name>countRows</name>
                 <data>
-                    {:single}
                     {:native}
+                    {:single}
                     SELECT
                     count(og.id)
                     FROM
