@@ -310,8 +310,8 @@
                     JOIN balance.bookingPeriod period
                     JOIN og.obligations o
                     JOIN o.zpk oz
-                    JOIN zpk.zpkBalances obalance
-                    JOIN balance.bookingPeriod operiod
+                    JOIN oz.zpkBalances obalance
+                    JOIN obalance.bookingPeriod operiod
                     WHERE
                     period.defaultPeriod = true
                     AND operiod.defaultPeriod = true
