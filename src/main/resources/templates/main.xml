@@ -287,6 +287,42 @@
     </template>
     <!-- LISTS -->
     <template>
+        <name>list-settlements</name>
+        <source>list-settlements.vtl</source>
+        <variables>
+            <var>
+                <name>settlements</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    sum(zpk.credit),
+                    sum(zpk.debit),
+                    og.id,
+                    og.name,
+                    c.name,
+                    FROM
+                    ObligationGroup og
+                    JOIN og.community c
+                    JOIN og.zpks zpk
+                    GROUP BY og.id, ig.name, c.name
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(og.id)
+                    FROM
+                    ObligationGroup og
+                    JOIN og.community c
+                    JOIN og.zpks zpk
+                    GROUP BY og.id, ig.name, c.name
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-payments-scheduler</name>
         <source>list-payments-scheduler.vtl</source>
         <variables>
