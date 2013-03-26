@@ -295,8 +295,8 @@
                 <data>
                     {:limit}
                     SELECT
-                    sum(zpk.credit),
-                    sum(zpk.debit),
+                    sum(balance.credit),
+                    sum(balance.debit),
                     og.id,
                     og.name,
                     c.name
@@ -304,6 +304,10 @@
                     ObligationGroup og
                     JOIN og.community c
                     JOIN og.zpks zpk
+                    JOIN zpk.zpkBalances balance
+                    JOIN balance.bookingPeriod period
+                    WHERE
+                    period.defaultPeriod = true
                     GROUP BY og.id, og.name, c.name
                 </data>
             </var>
@@ -317,6 +321,10 @@
                     ObligationGroup og
                     JOIN og.community c
                     JOIN og.zpks zpk
+                    JOIN zpk.zpkBalances balance
+                    JOIN balance.bookingPeriod period
+                    WHERE
+                    period.defaultPeriod = true
                     GROUP BY og.id, og.name, c.name
                 </data>
             </var>
