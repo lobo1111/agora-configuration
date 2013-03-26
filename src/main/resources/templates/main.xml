@@ -297,11 +297,11 @@
                     SELECT
                     sum(balance.credit),
                     sum(balance.debit),
-                    sum(obalance.credit),
-                    sum(obalance.debit),
                     og.id,
                     og.name,
-                    c.name
+                    c.name,
+                    sum(obalance.credit),
+                    sum(obalance.debit)
                     FROM
                     ObligationGroup og
                     JOIN og.community c
