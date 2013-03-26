@@ -311,8 +311,8 @@
                     WHERE
                     EXISTS (
                         SELECT 
-                            sum(balance.credit) as c,
-                            sum(balance.debit) as d
+                            sum(balance.credit) c,
+                            sum(balance.debit) d
                         FROM 
                             Obligation oo
                             JOIN oo.zpk ozpk
@@ -341,8 +341,8 @@
                     WHERE
                     EXISTS (
                         SELECT 
-                            sum(balance.credit) as c,
-                            sum(balance.debit) as d
+                            sum(balance.credit) c,
+                            sum(balance.debit) d
                         FROM 
                             Obligation oo
                             JOIN oo.zpk ozpk
