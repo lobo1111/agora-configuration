@@ -304,7 +304,7 @@
                     ObligationGroup og
                     JOIN og.community c
                     JOIN og.zpks zpk
-                    GROUP BY og.id, ig.name, c.name
+                    GROUP BY og.id, og.name, c.name
                 </data>
             </var>
             <var>
@@ -317,7 +317,7 @@
                     ObligationGroup og
                     JOIN og.community c
                     JOIN og.zpks zpk
-                    GROUP BY og.id, ig.name, c.name
+                    GROUP BY og.id, og.name, c.name
                 </data>
             </var>
         </variables>
