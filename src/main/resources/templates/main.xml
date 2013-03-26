@@ -312,7 +312,7 @@
                     EXISTS (
                         SELECT 
                             sum(balance.credit) as c,
-                            sum(balance.debit) as d,
+                            sum(balance.debit) as d
                         FROM 
                             Obligation oo
                             JOIN oo.zpk ozpk
@@ -342,7 +342,7 @@
                     EXISTS (
                         SELECT 
                             sum(balance.credit) as c,
-                            sum(balance.debit) as d,
+                            sum(balance.debit) as d
                         FROM 
                             Obligation oo
                             JOIN oo.zpk ozpk
