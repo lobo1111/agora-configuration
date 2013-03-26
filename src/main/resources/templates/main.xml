@@ -299,7 +299,7 @@
                     sum(zpk.debit),
                     og.id,
                     og.name,
-                    c.name,
+                    c.name
                     FROM
                     ObligationGroup og
                     JOIN og.community c
