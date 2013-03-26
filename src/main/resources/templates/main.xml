@@ -294,65 +294,96 @@
                 <name>settlements</name>
                 <data>
                     {:limit}
+                    {:native}
                     SELECT
-                    sum(balance.credit),
-                    sum(balance.debit),
-                    og.id,
-                    og.name,
-                    c.name
-                    
+                        og.id,
+                        og.name,
+                        c.name,
+                        sum1.c,
+                        sum1.d,
+                        sum2.oc,
+                        sum2.od
                     FROM
-                    ObligationGroup og
-                    JOIN og.community c
-                    JOIN og.zpks zpk
-                    JOIN zpk.zpkBalances balance
-                    JOIN balance.bookingPeriod period
-                    JOIN og.obligations o
-                    WHERE
-                    EXISTS (
-                        SELECT 
-                            sum(balance.credit) c,
-                            sum(balance.debit) d
-                        FROM 
-                            Obligation oo
-                            JOIN oo.zpk ozpk
-                            JOIN ozpk.zpkBalances obalance
-                            JOIN obalance.bookingPeriod operiod
-                        WHERE 
-                            oo.id = o.id
-                            operiod.defaultPeriod = true) AS os
-                    period.defaultPeriod = true
-                    GROUP BY og.id, og.name, c.name
+                        obligation_group AS og
+                        JOIN community AS c ON(og.community_id = c.id)
+                        JOIN 
+                            (SELECT
+                                og.id AS id,
+                                og.name,
+                                SUM(zb.credit) AS c,
+                                SUM(zb.debit) AS d
+                            FROM
+                                    obligation_group AS og
+                                    JOIN obligation_group_zpk AS ogz ON(og.id = ogz.obligation_group_id)
+                                    JOIN zpk AS z ON(z.id = ogz.zpk_id)
+                                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
+                                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
+                            WHERE
+                                    bp.default_period = 1
+                            GROUP BY 
+                                    og.id, og.name) AS sum1 ON(og.id = sum1.id)
+                        JOIN
+                            (SELECT
+                                    og.id AS id,
+                                    og.name,
+                                    SUM(zb.credit) AS oc,
+                                    SUM(zb.debit) AS od
+                            FROM
+                                    obligation_group AS og
+                                    JOIN obligation_group_obligation AS ogo ON(og.id = ogo.obligation_group_id)
+                                    JOIN obligation AS o ON(ogo.obligation_id = o.id)
+                                    JOIN zpk AS z ON(z.id = o.contractor_zpk_id)
+                                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
+                                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
+                            WHERE
+                                    bp.default_period = 1
+                            GROUP BY 
+                                    og.id, og.name) AS sum2 ON(og.id = sum2.id)
                 </data>
             </var>
             <var>
                 <name>countRows</name>
                 <data>
                     {:single}
+                    {:native}
                     SELECT
                     count(og.id)
                     FROM
-                    ObligationGroup og
-                    JOIN og.community c
-                    JOIN og.zpks zpk
-                    JOIN zpk.zpkBalances balance
-                    JOIN balance.bookingPeriod period
-                    JOIN og.obligations o
-                    WHERE
-                    EXISTS (
-                        SELECT 
-                            sum(balance.credit) c,
-                            sum(balance.debit) d
-                        FROM 
-                            Obligation oo
-                            JOIN oo.zpk ozpk
-                            JOIN ozpk.zpkBalances obalance
-                            JOIN obalance.bookingPeriod operiod
-                        WHERE 
-                            oo.id = o.id
-                            operiod.defaultPeriod = true) AS os
-                    period.defaultPeriod = true
-                    GROUP BY og.id, og.name, c.name
+                        obligation_group AS og
+                        JOIN community AS c ON(og.community_id = c.id)
+                        JOIN 
+                            (SELECT
+                                og.id AS id,
+                                og.name,
+                                SUM(zb.credit) AS c,
+                                SUM(zb.debit) AS d
+                            FROM
+                                    obligation_group AS og
+                                    JOIN obligation_group_zpk AS ogz ON(og.id = ogz.obligation_group_id)
+                                    JOIN zpk AS z ON(z.id = ogz.zpk_id)
+                                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
+                                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
+                            WHERE
+                                    bp.default_period = 1
+                            GROUP BY 
+                                    og.id, og.name) AS sum1 ON(og.id = sum1.id)
+                        JOIN
+                            (SELECT
+                                    og.id AS id,
+                                    og.name,
+                                    SUM(zb.credit) AS oc,
+                                    SUM(zb.debit) AS od
+                            FROM
+                                    obligation_group AS og
+                                    JOIN obligation_group_obligation AS ogo ON(og.id = ogo.obligation_group_id)
+                                    JOIN obligation AS o ON(ogo.obligation_id = o.id)
+                                    JOIN zpk AS z ON(z.id = o.contractor_zpk_id)
+                                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
+                                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
+                            WHERE
+                                    bp.default_period = 1
+                            GROUP BY 
+                                    og.id, og.name) AS sum2 ON(og.id = sum2.id)
                 </data>
             </var>
         </variables>
