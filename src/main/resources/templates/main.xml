@@ -299,15 +299,22 @@
                     sum(balance.debit),
                     og.id,
                     og.name,
-                    c.name
+                    c.name,
+                    sum(obalance.credit),
+                    sum(obalance.debit)
                     FROM
                     ObligationGroup og
                     JOIN og.community c
                     JOIN og.zpks zpk
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
+                    JOIN og.obligations o
+                    JOIN o.zpk oz
+                    JOIN zpk.zpkBalances obalance
+                    JOIN balance.bookingPeriod operiod
                     WHERE
                     period.defaultPeriod = true
+                    AND operiod.defaultPeriod = true
                     GROUP BY og.id, og.name, c.name
                 </data>
             </var>
@@ -323,8 +330,13 @@
                     JOIN og.zpks zpk
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
+                    JOIN og.obligations o
+                    JOIN o.zpk oz
+                    JOIN zpk.zpkBalances obalance
+                    JOIN balance.bookingPeriod operiod
                     WHERE
                     period.defaultPeriod = true
+                    AND operiod.defaultPeriod = true
                     GROUP BY og.id, og.name, c.name
                 </data>
             </var>
