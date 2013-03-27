@@ -30,7 +30,8 @@ class ObligationGroupManager(Container):
         for i in range(int(counter)):
             obligationId = int(vars.get('boundedObligation' + str(i)))
             obligation = self.findObligationById(obligationId)
-            group.getObligations().add(obligation)
+            obligation.setObligationGroup(group)
+            entityManager.persist(obligation)
         
     def findObligationGroupById(self, id):
         return entityManager.createQuery('Select o From ObligationGroup o Where o.id = ' + str(id)).getSingleResult()
