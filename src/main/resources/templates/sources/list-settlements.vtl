@@ -2,11 +2,13 @@
 <settlements>
     #foreach($row in $settlements)
         <item>
-            <ocredit>$!row[3]</ocredit>
-            <odebit>$!row[4]</odebit>
-            <id>$!row[0]</id>
-            <name>$!row[1]</name>
-            <communityName>$!row[2]</communityName>
+            <credit>$row[3]</credit>
+            <debit>$row[4]</debit>
+            <ocredit>$row[5]</ocredit>
+            <odebit>$row[6]</odebit>
+            <id>$row[0]</id>
+            <name>$row[1]</name>
+            <communityName>$row[2]</communityName>
             
         </item>
     #end
