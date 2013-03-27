@@ -29,7 +29,7 @@ class ObligationGroupManager(Container):
         group.getObligations().clear()
         for i in range(int(counter)):
             obligationId = int(vars.get('boundedObligation' + str(i)))
-            obligation = self.findObligation(obligationId)
+            obligation = self.findObligationById(obligationId)
             group.getObligations().add(obligation)
         
     def findObligationGroupById(self, id):
@@ -47,5 +47,5 @@ class ObligationGroupManager(Container):
     def findZpk(self, id):
         return ZpkManager().findZpkById(id)
     
-    def findObligation(self, id):
-        return ObligationManager().findObligationById(id)
+    def findObligationById(self, id):
+        return entityManager.createQuery('Select o From Obligation o Where o.id = ' + str(id)).getSingleResult()
