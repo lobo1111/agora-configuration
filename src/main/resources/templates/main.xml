@@ -307,10 +307,10 @@
                             JOIN og.community c
                             JOIN og.obligations o
                             JOIN o.zpk ozpk
-                            JOIN zpk.zpkBalances obalance
-                            JOIN balance.bookingPeriod operiod
+                            JOIN ozpk.zpkBalances obalance
+                            JOIN obalance.bookingPeriod operiod
                             JOIN og.zpks zpk
-                            JOIN ozpk.zpkBalances balance
+                            JOIN zpk.zpkBalances balance
                             JOIN balance.bookingPeriod period
                     WHERE
                             period.defaultPeriod = true
@@ -330,10 +330,10 @@
                             JOIN og.community c
                             JOIN og.obligations o
                             JOIN o.zpk ozpk
-                            JOIN zpk.zpkBalances obalance
-                            JOIN balance.bookingPeriod operiod
+                            JOIN ozpk.zpkBalances obalance
+                            JOIN obalance.bookingPeriod operiod
                             JOIN og.zpks zpk
-                            JOIN ozpk.zpkBalances balance
+                            JOIN zpk.zpkBalances balance
                             JOIN balance.bookingPeriod period
                     WHERE
                             period.defaultPeriod = true
