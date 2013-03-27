@@ -298,17 +298,23 @@
                             og.id,
                             og.name,
                             c.name,
+                            SUM(obalance.credit),
+                            SUM(obalance.debit),
                             SUM(balance.credit),
                             SUM(balance.debit)
                     FROM
                             ObligationGroup og
                             JOIN og.community c
                             JOIN og.obligations o
-                            JOIN o.zpk zpk
-                            JOIN zpk.zpkBalances balance
+                            JOIN o.zpk ozpk
+                            JOIN zpk.zpkBalances obalance
+                            JOIN balance.bookingPeriod operiod
+                            JOIN og.zpks zpk
+                            JOIN ozpk.zpkBalances balance
                             JOIN balance.bookingPeriod period
                     WHERE
                             period.defaultPeriod = true
+                            AND operiod.defaultPeriod = true
                     GROUP BY
                             og.id, og.name, c.name
                 </data>
@@ -323,13 +329,17 @@
                             ObligationGroup og
                             JOIN og.community c
                             JOIN og.obligations o
-                            JOIN o.zpk zpk
-                            JOIN zpk.zpkBalances balance
+                            JOIN o.zpk ozpk
+                            JOIN zpk.zpkBalances obalance
+                            JOIN balance.bookingPeriod operiod
+                            JOIN og.zpks zpk
+                            JOIN ozpk.zpkBalances balance
                             JOIN balance.bookingPeriod period
                     WHERE
                             period.defaultPeriod = true
+                            AND operiod.defaultPeriod = true
                     GROUP BY
-                            og.id
+                            og.id, og.name, c.name
                 </data>
             </var>
         </variables>
