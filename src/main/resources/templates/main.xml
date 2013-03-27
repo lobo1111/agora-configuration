@@ -1119,7 +1119,6 @@
                     JOIN obligation.community community
                     WHERE
                     community.id = {:id}
-                    AND obligation.obligationGroup IS NULL
                     ORDER BY 
                     obligation.name ASC
                 </data>
