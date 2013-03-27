@@ -303,7 +303,7 @@
                     FROM
                             ObligationGroup og
                             JOIN og.community c
-                            JOIN og.obligation o
+                            JOIN og.obligations o
                             JOIN o.zpks zpk
                             JOIN zpk.zpkBalances balance
                             JOIN balance.bookingPeriod period
@@ -322,7 +322,7 @@
                     FROM
                             ObligationGroup og
                             JOIN og.community c
-                            JOIN og.obligation o
+                            JOIN og.obligations o
                             JOIN o.zpks zpk
                             JOIN zpk.zpkBalances balance
                             JOIN balance.bookingPeriod period
