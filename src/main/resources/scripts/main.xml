@@ -472,6 +472,7 @@
             <scriptName>company</scriptName>
             <scriptName>community</scriptName>
             <scriptName>zpk</scriptName>
+            <scriptName>obligation-group</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -507,6 +508,7 @@
             <scriptName>company</scriptName>
             <scriptName>community</scriptName>
             <scriptName>zpk</scriptName>
+            <scriptName>obligation-group</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -524,6 +526,7 @@
             <scriptName>company</scriptName>
             <scriptName>community</scriptName>
             <scriptName>zpk</scriptName>
+            <scriptName>obligation-group</scriptName>
         </dependencies>
         <security>
             <group>all</group>
