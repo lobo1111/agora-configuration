@@ -43,6 +43,8 @@ class CronPayment(Container):
             self._logger.info('Creating payment for zpk %s' % str(zpk.getNumber()))
             payment = Payment()
             self.setAmount(zpk, payment, scheduler.getPaymentSchedulerTemplates().get(0).getAmount())
+            payment.setCommunity(self.getCommunity(vars.get('communityId')))
+            payment.setPossession(self.getPossession(vars.get('zpkId')))
             payment.setType(scheduler.getPaymentSchedulerTemplates().get(0).getType())
             payment.setStatus(self.getPaymentStatus())
             payment.setDescription(scheduler.getPaymentSchedulerTemplates().get(0).getDescription())
@@ -77,4 +79,12 @@ class CronPayment(Container):
         
     def getPaymentStatus(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_STATUS', 'NEW_PAYMENT')
+        
+    
+    def getCommunity(self, id):
+        return CommunityManager().findCommunityById(id)
+        
+    def getPossession(self, zpkId):
+        zpk = ZpkManager().findZpkById(zpkId)
+        return zpk.getPossession()
         
