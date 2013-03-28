@@ -1137,6 +1137,7 @@
                     JOIN zpk.community c
                     LEFT OUTER JOIN c.paymentSchedulers ps
                     WHERE c.id = {:cid}
+                    AND zpk.possession IS NOT NULL
                     AND zpk.id NOT IN(
                     SELECT 
                     bounded.id
