@@ -1133,12 +1133,11 @@
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     free.id, CONCAT(free.number, " - ", free.description))
                     FROM 
-                    PaymentScheduler ps
-                    JOIN ps.community c
-                    JOIN c.zpks free
-                    WHERE 
-                    c.id = {:cid}
-                    AND free.id NOT IN(
+                    ZakladowyPlanKont zpk
+                    JOIN zpk.community c
+                    LEFT OUTER JOIN c.paymentSchedulers ps
+                    WHERE c.id = {:cid}
+                    AND zpk.id NOT IN(
                     SELECT 
                     bounded.id
                     FROM 
