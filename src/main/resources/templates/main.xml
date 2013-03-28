@@ -1131,7 +1131,7 @@
                 <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    free.id, CONCAT(free.number, " - ", free.description))
+                    zpk.id, CONCAT(zpk.number, " - ", zpk.description))
                     FROM 
                     ZakladowyPlanKont zpk
                     JOIN zpk.community c
