@@ -1128,7 +1128,7 @@
         <source>simple-list.vtl</source>
         <variables>
             <var>
-                <name>free</name>
+                <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     free.id, CONCAT(free.number, " - ", free.description))
