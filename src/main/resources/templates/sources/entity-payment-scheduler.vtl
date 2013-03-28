@@ -20,15 +20,6 @@
             </zpk>
         #end
     </zpks>
-    <freeZpks>
-        #foreach($row in $!free)
-            <zpk>
-                <id>$!row.getId()</id>
-                <number>$!row.getNumber()</number>
-                <description>$!row.getDescription()</description>
-            </zpk>
-        #end
-    </freeZpks>
     <community>
         <id>$!ps.getCommunity().getId()</id>
     </community>
