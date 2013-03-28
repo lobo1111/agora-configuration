@@ -1137,12 +1137,14 @@
                     JOIN ps.community c
                     JOIN c.zpks free
                     WHERE 
-                    ps.id = {:id}
+                    c.id = {:cid}
                     AND free.id NOT IN(
                     SELECT 
                     bounded.id
                     FROM 
-                    ps.zpks bounded)
+                    ps.zpks bounded
+                    WHERE
+                    ps.id = {:psid})
                 </data>
             </var>
         </variables>
