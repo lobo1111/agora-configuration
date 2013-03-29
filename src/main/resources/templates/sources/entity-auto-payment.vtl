@@ -7,23 +7,26 @@
         <id>$!autoPayment.getZpk().getId()</id>
         <number>$!autoPayment.getZpk().getNumber()</number>
         <description>$!autoPayment.getZpk().getDescription()</description>
+        <community>
+            <communityId>$!autoPayment.getCommunity().getId()</communityId>
+        </community>
     </zpk>
     <account>
-         <id>$!autoPayment.getAccount().getId()</id>
-         <name>$!autoPayment.getAccount().getName()</name>
-         <number>$!autoPayment.getAccount().getNumber()</number>
+        <id>$!autoPayment.getAccount().getId()</id>
+        <name>$!autoPayment.getAccount().getName()</name>
+        <number>$!autoPayment.getAccount().getNumber()</number>
     </account>
     <orders>
         #foreach($row in $!orders)
-            <orderItem>
-                <id>$!row.getId()</id>
-                <zpk>
-                    <id>$!row.getZpk().getId()</id>
-                    <number>$!row.getZpk().getNumber()</number>
-                    <description>$!row.getZpk().getDescription()</description>
-                </zpk>
-                <order>$!row.getOrder()</order>
-            </orderItem>
+        <orderItem>
+            <id>$!row.getId()</id>
+            <zpk>
+                <id>$!row.getZpk().getId()</id>
+                <number>$!row.getZpk().getNumber()</number>
+                <description>$!row.getZpk().getDescription()</description>
+            </zpk>
+            <order>$!row.getOrder()</order>
+        </orderItem>
         #end
     </orders>
     
