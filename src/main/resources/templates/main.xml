@@ -422,8 +422,10 @@
                     {:limit}
                     SELECT
                     obligation
+                    JOIN obligation.community community
                     FROM
                     Obligation obligation
+                    WHERE {:where}
                 </data>
             </var>
             <var>
@@ -434,6 +436,8 @@
                     count(obligation.id)
                     FROM
                     Obligation obligation
+                    JOIN obligation.community community
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
@@ -450,6 +454,7 @@
                     og
                     FROM
                     ObligationGroup og
+                    WHERE {:where}
                 </data>
             </var>
             <var>
@@ -460,6 +465,7 @@
                     count(og.id)
                     FROM
                     ObligationGroup og
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
@@ -476,6 +482,7 @@
                     autoPayment
                     FROM
                     AutoPayment autoPayment
+                    WHERE {:where}
                 </data>
             </var>
             <var>
@@ -486,6 +493,7 @@
                     count(autoPayment.id)
                     FROM
                     AutoPayment autoPayment
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
