@@ -48,9 +48,13 @@ class TemplateParser(Container):
         else:
             if self._single:
                 self._single = False
-                return query.getSingleResult()
+                try:
+                    return query.getSingleResult()
+                except:
+                    return None
             else:
                 return query.getResultList()
+
     
     def insertLimit(self, query):
         if vars.get('limit') != None:

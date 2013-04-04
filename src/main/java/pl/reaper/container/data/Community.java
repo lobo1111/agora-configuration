@@ -53,6 +53,8 @@ public class Community implements Serializable {
     private Collection<Possession> possessions;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
     private Collection<ZakladowyPlanKont> zpks;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
+    private Collection<PaymentScheduler> paymentSchedulers;
 
     public Community() {
     }
@@ -113,6 +115,14 @@ public class Community implements Serializable {
 
     public void setZpks(Collection<ZakladowyPlanKont> zpks) {
         this.zpks = zpks;
+    }
+
+    public Collection<PaymentScheduler> getPaymentSchedulers() {
+        return paymentSchedulers;
+    }
+
+    public void setPaymentSchedulers(Collection<PaymentScheduler> paymentSchedulers) {
+        this.paymentSchedulers = paymentSchedulers;
     }
 
     @Override

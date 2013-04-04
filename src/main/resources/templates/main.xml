@@ -75,18 +75,18 @@
                 <name>free</name>
                 <data>
                     SELECT 
-                        free
+                    free
                     FROM 
-                        PaymentScheduler ps
-                        JOIN ps.community c
-                        JOIN c.zpks free
+                    PaymentScheduler ps
+                    JOIN ps.community c
+                    JOIN c.zpks free
                     WHERE 
-                        ps.id = {:id}
-                        AND free.id NOT IN(
-                            SELECT 
-                                bounded.id
-                            FROM 
-                                ps.zpks bounded)
+                    ps.id = {:id}
+                    AND free.id NOT IN(
+                    SELECT 
+                    bounded.id
+                    FROM 
+                    ps.zpks bounded)
                 </data>
             </var>
         </variables>
@@ -202,8 +202,8 @@
                 <data>
                     SELECT c 
                     FROM 
-                        AutoPaymentOrder c 
-                        JOIN c.autoPayment ap
+                    AutoPaymentOrder c 
+                    JOIN c.autoPayment ap
                     WHERE ap.id = {:id}
                     ORDER BY c.order
                 </data>
@@ -286,6 +286,106 @@
         </variables>
     </template>
     <!-- LISTS -->
+    <template>
+        <name>list-settlements</name>
+        <source>list-settlements.vtl</source>
+        <variables>
+            <var>
+                <name>settlements</name>
+                <data>
+                    {:native}
+                    {:limit}
+                    SELECT
+                    og.id,
+                    og.name,
+                    c.name,
+                    sum1.c,
+                    sum1.d,
+                    sum2.oc,
+                    sum2.od
+                    FROM
+                    obligation_group AS og
+                    JOIN community AS c ON(og.community_id = c.id)
+                    JOIN 
+                    (SELECT
+                    og.id AS id,
+                    og.name,
+                    SUM(zb.credit) AS c,
+                    SUM(zb.debit) AS d
+                    FROM
+                    obligation_group AS og
+                    JOIN obligation_group_zpk AS ogz ON(og.id = ogz.obligation_group_id)
+                    JOIN zpk AS z ON(z.id = ogz.zpk_id)
+                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
+                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
+                    WHERE
+                    bp.default_period = 1
+                    GROUP BY 
+                    og.id, og.name) AS sum1 ON(og.id = sum1.id)
+                    JOIN
+                    (SELECT
+                    og.id AS id,
+                    og.name,
+                    SUM(zb.credit) AS oc,
+                    SUM(zb.debit) AS od
+                    FROM
+                    obligation_group AS og
+                    JOIN obligation AS o ON(o.obligation_group_id = og.id)
+                    JOIN zpk AS z ON(z.id = o.contractor_zpk_id)
+                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
+                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
+                    WHERE
+                    bp.default_period = 1
+                    GROUP BY 
+                    og.id, og.name) AS sum2 ON(og.id = sum2.id)
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:native}
+                    {:single}
+                    SELECT
+                    count(og.id)
+                    FROM
+                    obligation_group AS og
+                    JOIN community AS c ON(og.community_id = c.id)
+                    JOIN 
+                    (SELECT
+                    og.id AS id,
+                    og.name,
+                    SUM(zb.credit) AS c,
+                    SUM(zb.debit) AS d
+                    FROM
+                    obligation_group AS og
+                    JOIN obligation_group_zpk AS ogz ON(og.id = ogz.obligation_group_id)
+                    JOIN zpk AS z ON(z.id = ogz.zpk_id)
+                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
+                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
+                    WHERE
+                    bp.default_period = 1
+                    GROUP BY 
+                    og.id, og.name) AS sum1 ON(og.id = sum1.id)
+                    JOIN
+                    (SELECT
+                    og.id AS id,
+                    og.name,
+                    SUM(zb.credit) AS oc,
+                    SUM(zb.debit) AS od
+                    FROM
+                    obligation_group AS og
+                    JOIN obligation AS o ON(o.obligation_group_id = og.id)
+                    JOIN zpk AS z ON(z.id = o.contractor_zpk_id)
+                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
+                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
+                    WHERE
+                    bp.default_period = 1
+                    GROUP BY 
+                    og.id, og.name) AS sum2 ON(og.id = sum2.id)
+                </data>
+            </var>
+        </variables>
+    </template>
     <template>
         <name>list-payments-scheduler</name>
         <source>list-payments-scheduler.vtl</source>
@@ -829,7 +929,7 @@
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     zpk.id, 
-                    CONCAT(zpk.number, " ", zpk.description))
+                    CONCAT(zpk.number, " - ", zpk.description))
                     FROM
                     Community community
                     JOIN community.zpks zpk
@@ -1019,6 +1119,32 @@
                     community.id = {:id}
                     ORDER BY 
                     obligation.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-payment-scheduler-free-zpks</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    zpk.id, CONCAT(zpk.number, " - ", zpk.description))
+                    FROM 
+                    ZakladowyPlanKont zpk
+                    JOIN zpk.community c
+                    LEFT OUTER JOIN c.paymentSchedulers ps
+                    WHERE c.id = {:cid}
+                    AND zpk.possession IS NOT NULL
+                    AND zpk.id NOT IN(
+                    SELECT 
+                    bounded.id
+                    FROM 
+                    ps.zpks bounded
+                    WHERE
+                    ps.id = {:psid})
                 </data>
             </var>
         </variables>
