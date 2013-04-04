@@ -7,4 +7,6 @@ import pl.reaper.container.jython.ScriptEngineWrapper;
 public interface JythonEngineHolderLocal {
 
     public ScriptEngineWrapper getJythonEngine();
+
+    void releaseEngine(ScriptEngineWrapper engine);
 }

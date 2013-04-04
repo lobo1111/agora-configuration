@@ -52,14 +52,17 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
     @Override
     public String executeScript(String scriptName, Map variables, boolean preservePrivilages) {
+        ScriptEngineWrapper engineBuilder = null;
         try {
             ScriptLoader scriptLoader = getScriptLoader();
-            ScriptEngineWrapper engineBuilder = getScriptEngine();
+            engineBuilder = getScriptEngine();
             ScriptExecutor executor = getScriptExecutor(scriptLoader, engineBuilder, preservePrivilages);
             return executor.fire(scriptName, variables);
         } catch (ScriptEngineNotFoundException ex) {
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            engineHolder.releaseEngine(engineBuilder);
         }
     }
 

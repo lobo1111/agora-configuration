@@ -30,7 +30,6 @@ public class ScriptExecutor {
             }
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Executing final script...");
             Object result = engineBuilder.eval(scripts.get(scripts.size() - 1).getOnInit());
-            engineBuilder.clear();
             return result;
         } catch (ScriptException ex) {
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.SEVERE, "Script execution exception[[" + engineBuilder.getLastExecuted() + "]]", ex);
