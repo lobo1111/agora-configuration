@@ -26,6 +26,7 @@ public class ScriptEngineWrapper {
     public ScriptEngineWrapper() throws ScriptEngineNotFoundException {
         if (engine == null) {
             engine = new ScriptEngineManager().getEngineByName("python");
+            Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Jython engine created");
         }
         lastExecuted = "";
         putMetaVars();
