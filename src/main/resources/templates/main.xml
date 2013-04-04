@@ -454,6 +454,7 @@
                     og
                     FROM
                     ObligationGroup og
+                    JOIN og.community community
                     WHERE {:where}
                 </data>
             </var>
@@ -465,6 +466,7 @@
                     count(og.id)
                     FROM
                     ObligationGroup og
+                    JOIN og.community community
                     WHERE {:where}
                 </data>
             </var>
