@@ -20,13 +20,12 @@ public class ScriptEngineWrapper {
     private PropertyBeanLocal propertyBean;
     private DocumentStatusBeanLocal documentStatusBean;
     private Map<String, Object> variables;
-    private ScriptEngine engine;
+    private static ScriptEngine engine;
     private String lastExecuted;
 
     public ScriptEngineWrapper() throws ScriptEngineNotFoundException {
-        engine = new ScriptEngineManager().getEngineByName("python");
         if (engine == null) {
-            throw new ScriptEngineNotFoundException("Python engine not found");
+            engine = new ScriptEngineManager().getEngineByName("python");
         }
         lastExecuted = "";
         putMetaVars();
