@@ -422,9 +422,9 @@
                     {:limit}
                     SELECT
                     obligation
-                    JOIN obligation.community community
                     FROM
                     Obligation obligation
+                    JOIN obligation.community community
                     WHERE {:where}
                 </data>
             </var>
