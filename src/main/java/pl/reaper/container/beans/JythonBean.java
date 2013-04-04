@@ -33,6 +33,8 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     private DocumentStatusBeanLocal documentStatusBean;
     @EJB
     private JythonAuthenticatorLocal authenticator;
+    @EJB
+    private JythonEngineHolderLocal engineHolder;
     @Resource
     private SessionContext ctx;
 
@@ -67,7 +69,7 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     }
 
     private ScriptEngineWrapper getScriptEngine() throws ScriptEngineNotFoundException {
-        ScriptEngineWrapper engineBuilder = new ScriptEngineWrapper()
+        ScriptEngineWrapper engineBuilder = engineHolder.getJythonEngine()
                 .setDocumentStatusBean(documentStatusBean)
                 .setEntityManager(entityManager)
                 .setOldEntityManager(oldEntityManager)
