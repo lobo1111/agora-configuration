@@ -38,8 +38,8 @@
                     SELECT
                         obligation
                     FROM
-                        ObligationGroup group
-                        JOIN group.obligations obligation
+                        Obligation obligation
+                        JOIN obligation.obligationGroup og
                         JOIN obligation.zpk zpk
                         JOIN zpk.zpkBalances balance
                         JOIN balance.bookingPeriod period
