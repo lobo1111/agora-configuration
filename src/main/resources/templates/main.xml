@@ -48,8 +48,6 @@
                         AND og.id = {:id}
                 </data>
             </var>
-            <var></var>
-            <var></var>
         </variables>
     </template>
     <template>
