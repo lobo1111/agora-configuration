@@ -23,8 +23,8 @@
                     SELECT
                         zpk
                     FROM
-                        ObligationGroup group
-                        JOIN group.zpks zpk
+                        ObligationGroup og
+                        JOIN og.zpks zpk
                         JOIN zpk.zpkBalances balance
                         JOIN balance.bookingPeriod period
                     WHERE
