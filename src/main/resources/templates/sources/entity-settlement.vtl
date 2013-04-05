@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settlement>
+    <obligationGroup>
+        <id>$!obligationGroup.getId()</id>
+        <name>$!obligationGroup.getName()</name>
+        <community>
+            <id>$!obligationGroup.getCommunity().getId()</id>
+        </community>
+    </obligationGroup>
+    <obligations>
+        #foreach($obligation in $obligations)
+        <obligation>
+             <id>$!obligation.getId()</id>
+            <name>$!obligation.getName()</name>
+            <company>
+                <id>$!obligation.getContractor().getId()</id>
+                <name>$!obligation.getContractor().getName()</name>
+            </company>
+            <zpk>
+                <id>$!obligation.getZpk().getId()</id>
+                <number>$!obligation.getZpk().getNumber()</number>
+                #foreach($balance in $!obligation.getZpk().getZpkBalances())
+                #if($balance.getBookingPeriod().isDefaultPeriod())
+                    <credit>$balance.getCredit()</credit>
+                    <debit>$balance.getDebit()</debit>
+                #end
+                #end
+            </zpk>
+        </obligation>
+        #end
+    </obligations>
+    <zpks>
+        #foreach($zpk in $possessions)
+        <zpk>
+            <id>$!zpk.getId()</id>
+            <description>$!zpk.getPossession().getAddress().getStreet() $!zpk.getPossession().getAddress().getHouseNumber() $!zpk.getPossession().getAddress().getFlatNumber()</description>
+            <number>$!zpk.getNumber()</number>
+            #foreach($balance in $!zpk.getZpkBalances())
+            #if($balance.getBookingPeriod().isDefaultPeriod())
+                <credit>$balance.getCredit()</credit>
+                <debit>$balance.getDebit()</debit>
+            #end
+            #end
+        </zpk>
+        #end
+    </zpks>
+</settlement>

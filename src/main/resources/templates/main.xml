@@ -2,6 +2,57 @@
 <templates>
     <!-- ENTITIES -->
     <template>
+        <name>entity-settlement</name>
+        <source>entity-settlement.vtl</source>
+        <variables>
+            <var>
+                <name>obligationGroup</name>
+                <data>
+                    {:single}
+                    SELECT
+                        og
+                    FROM
+                        ObligationGroup og
+                    WHERE
+                        og.id = {:id}
+                </data>
+            </var>
+            <var>
+                <name>possessions</name>
+                <data>
+                    SELECT
+                        zpk
+                    FROM
+                        ObligationGroup group
+                        JOIN group.zpks zpk
+                        JOIN zpk.zpkBalances balance
+                        JOIN balance.bookingPeriod period
+                    WHERE
+                        period.defaultPeriod = true
+                        AND og.id = {:id}
+                </data>
+            </var>
+            <var>
+                <name>obligations</name>
+                <data>
+                    SELECT
+                        obligation
+                    FROM
+                        ObligationGroup group
+                        JOIN group.obligations obligation
+                        JOIN obligation.zpk zpk
+                        JOIN zpk.zpkBalances balance
+                        JOIN balance.bookingPeriod period
+                    WHERE
+                        period.defaultPeriod = true
+                        AND og.id = {:id}
+                </data>
+            </var>
+            <var></var>
+            <var></var>
+        </variables>
+    </template>
+    <template>
         <name>entity-default-booking-period</name>
         <source>entity-default-booking-period.vtl</source>
         <variables>
