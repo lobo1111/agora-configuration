@@ -934,7 +934,7 @@
     
     <changeSet author='tkopacki' id='table-obligation-group-obligation-fkey2-drop'>
         <sql> 
-            ALTER TABLE `zpk` DROP FOREIGN KEY `obligation_group_obligation_obligation_fkey`
+            ALTER TABLE `obligation_group_obligation` DROP FOREIGN KEY `obligation_group_obligation_obligation_fkey`
         </sql>
     </changeSet>
     
