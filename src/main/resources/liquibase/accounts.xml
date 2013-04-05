@@ -988,14 +988,14 @@
     <changeSet author='tkopacki' id='table-settlement-log-settlement-fkey'>
         <sql>  
             ALTER TABLE `settlement_log_payment`
-            ADD CONSTRAINT `settlement_log_settlement_id_fkey` FOREIGN KEY `settlement_id` REFERENCES `settlement_log` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+            ADD CONSTRAINT `settlement_log_settlement_id_fkey` FOREIGN KEY (`settlement_id`) REFERENCES `settlement_log` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='table-settlement-log-payment-fkey'>
         <sql>  
             ALTER TABLE `settlement_log_payment`
-            ADD CONSTRAINT `settlement_log_payment_id_fkey` FOREIGN KEY `payment_id` REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+            ADD CONSTRAINT `settlement_log_payment_id_fkey` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
 </databaseChangeLog>
