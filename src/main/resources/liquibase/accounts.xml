@@ -925,4 +925,77 @@
             ADD CONSTRAINT `payment_obligation_id_fkey` FOREIGN KEY (`obligation_id`) REFERENCES `obligation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-obligation-fkey1-drop'>
+        <sql> 
+            ALTER TABLE `obligation_group_obligation`; DROP FOREIGN KEY `obligation_group_obligation_obligation_group_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-obligation-fkey2-drop'>
+        <sql> 
+            ALTER TABLE `zpk` DROP FOREIGN KEY `obligation_group_obligation_obligation_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-group-obligation-drop'>
+        <sql>  
+            DROP TABLE `obligation_group_obligation`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-settlement-log'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `settlement_log` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `obligation_group_id` int(11) NOT NULL,
+            `community_id` int(11) NOT NULL,
+            `total_income` decimal(10,2) DEFAULT 0,
+            `total_obligations` decimal(10,2) DEFAULT 0,
+            `settlement_balance` decimal(10,2) DEFAULT 0,
+            `total_area` decimal(10,2) DEFAULT 0,
+            `reference_rate` decimal(10,2) DEFAULT 0,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-settlement-obligation-group-fkey'>
+        <sql>  
+            ALTER TABLE `settlement_log`
+            ADD CONSTRAINT `settlement_obligation_group_id_fkey` FOREIGN KEY (`obligation_group_id`) REFERENCES `obligation_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-settlement-payment-fkey'>
+        <sql>  
+            ALTER TABLE `settlement_log`
+            ADD CONSTRAINT `settlement_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-settlement-log-payment'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `settlement_log_payment` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `settlement_id` int(11) NOT NULL,
+            `payment_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-settlement-log-settlement-fkey'>
+        <sql>  
+            ALTER TABLE `settlement_log_payment`
+            ADD CONSTRAINT `settlement_log_settlement_id_fkey` FOREIGN KEY `settlement_id` REFERENCES `settlement_log` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-settlement-log-payment-fkey'>
+        <sql>  
+            ALTER TABLE `settlement_log_payment`
+            ADD CONSTRAINT `settlement_log_payment_id_fkey` FOREIGN KEY `payment_id` REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
