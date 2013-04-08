@@ -20,30 +20,36 @@ public class JythonEngineHolder implements JythonEngineHolderLocal {
 
     public JythonEngineHolder() {
         engineManager = new ScriptEngineManager();
-        addEngines(initSize);
+//        addEngines(initSize);
     }
 
     @Override
     public ScriptEngineWrapper getJythonEngine() {
-        if (pool.isEmpty()) {
-            addEngines(step);
+        try {
+            return new ScriptEngineWrapper(engineManager);
+    //        if (pool.isEmpty()) {
+    //            addEngines(step);
+    //        }
+    //        ScriptEngineWrapper engine = pool.remove(0);
+    //        working.add(engine);
+    //        return engine;
+    //        return engine;
+        } catch (ScriptEngineNotFoundException ex) {
+            Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ScriptEngineWrapper engine = pool.remove(0);
-        working.add(engine);
-        Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.INFO, "Engine reserved({0})", engine);
-        return engine;
+        return null;
     }
 
     @Override
     public void releaseEngine(ScriptEngineWrapper engine) {
-        engine.clear();
-        if (working.contains(engine)) {
-            working.remove(engine);
-            Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.INFO, "Engine released({0})", engine);
-        } else {
-            Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.SEVERE, "Unknown engine({0}) !", engine);
-        }
-        pool.add(engine);
+//        engine.clear();
+//        if (working.contains(engine)) {
+//            working.remove(engine);
+//            Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.INFO, "Engine released({0})", engine);
+//        } else {
+//            Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.SEVERE, "Unknown engine({0}) !", engine);
+//        }
+//        pool.add(engine);
     }
 
     private void addEngines(int size) {
