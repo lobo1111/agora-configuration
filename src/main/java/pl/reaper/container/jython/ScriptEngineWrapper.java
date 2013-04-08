@@ -29,7 +29,6 @@ public class ScriptEngineWrapper {
         if (engine == null) {
             throw new ScriptEngineNotFoundException("Python engine not found");
         }
-        engine.setContext(new SimpleScriptContext());
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Jython engine created");
         lastExecuted = "";
         putMetaVars();
@@ -67,6 +66,7 @@ public class ScriptEngineWrapper {
     public Object eval(String script) throws ScriptException {
         lastExecuted += (script = new VariableParser(script, variables).parse()) + "\n";
         engine.eval(script);
+        variables.clear();
         return extractResult(engine);
     }
 
