@@ -64,12 +64,13 @@ public class ScriptEngineWrapper {
 
     public Object eval(String script) throws ScriptException {
         lastExecuted += (script = new VariableParser(script, variables).parse()) + "\n";
+        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
         engine.eval(script);
         return extractResult(engine);
     }
 
     public Object eval() throws ScriptException {
-        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, lastExecuted);
+        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
         engine.eval("");
         return extractResult(engine);
     }
@@ -124,5 +125,13 @@ public class ScriptEngineWrapper {
         engine.put("vars", null);
         engine.put("properties", null);
         engine.put("documentStatusLoader", null);
+    }
+
+    private String variablesAsString() {
+        StringBuilder builder = new StringBuilder();
+        for(String key: variables.keySet()) {
+            builder.append(key).append("=").append(variables.get(key)).append("\n");
+        }
+        return builder.toString();
     }
 }
