@@ -19,7 +19,7 @@ public class ScriptEngineWrapper {
     private EntityManager oldEntityManager;
     private PropertyBeanLocal propertyBean;
     private DocumentStatusBeanLocal documentStatusBean;
-    private Map<String, Object> variables;
+    private Map<String, Object> variables = new HashMap<>();
     private ScriptEngine engine;
     private String lastExecuted;
 
@@ -44,7 +44,6 @@ public class ScriptEngineWrapper {
     }
 
     private void putMetaVars() {
-        variables = new HashMap<>();
         variables.put("_threadId", Thread.currentThread().getId());
         variables.put("_threadName", Thread.currentThread().getName());
         variables.put("_uuid", UUID.randomUUID().toString());
@@ -71,7 +70,7 @@ public class ScriptEngineWrapper {
 
     public Object eval() throws ScriptException {
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-        engine.eval(lastExecuted);
+        engine.eval("\nprint vars.get('_uuid')\n");
         return extractResult(engine);
     }
 
