@@ -36,6 +36,7 @@ public class JythonEngineHolder implements JythonEngineHolderLocal {
 
     @Override
     public void releaseEngine(ScriptEngineWrapper engine) {
+        engine.clear();
         if (working.contains(engine)) {
             working.remove(engine);
             Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.INFO, "Engine released({0})", engine);

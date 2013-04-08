@@ -66,7 +66,6 @@ public class ScriptEngineWrapper {
     public Object eval(String script) throws ScriptException {
         lastExecuted += (script = new VariableParser(script, variables).parse()) + "\n";
         engine.eval(script);
-        variables.clear();
         return extractResult(engine);
     }
 
@@ -106,5 +105,13 @@ public class ScriptEngineWrapper {
     public ScriptEngineWrapper setOldEntityManager(EntityManager oldEntityManager) {
         this.oldEntityManager = oldEntityManager;
         return this;
+    }
+
+    public void clear() {
+        engine.put("entityManager", null);
+        engine.put("oldEntityManager", null);
+        engine.put("vars", null);
+        engine.put("properties", null);
+        engine.put("documentStatusLoader", null);
     }
 }
