@@ -18,7 +18,7 @@ public class ScriptEngineCache implements ScriptEngineCacheLocal {
     private Map<String, ScriptEngineWrapper> cache = new HashMap<>();
     private ScriptEngineManager engineManager;
     @EJB
-    private ScriptCompilator compilator;
+    private ScriptCompilatorLocal compilator;
     @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
     private EntityManager entityManager;
     @PersistenceContext(name = "agora_old_erp", unitName = "agora_old_erp")
