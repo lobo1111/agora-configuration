@@ -34,7 +34,7 @@ public class ScriptCompilator implements ScriptCompilatorLocal {
             Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Executing final script...");
             return engineBuilder.eval(chain.get(chain.size() - 1).getOnInit());
         } catch (ScriptException ex) {
-            Logger.getLogger(ScriptCompilator.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ScriptCompilator.class.getName()).log(Level.SEVERE, engineBuilder.getLastExecuted(), ex);
             return null;
         }
     }
