@@ -71,7 +71,7 @@ public class ScriptEngineWrapper {
 
     public Object eval() throws ScriptException {
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-        engine.eval("\nprint vars('_uuid')\n");
+        engine.eval("\nprint vars.get('_uuid')\n");
         return extractResult(engine);
     }
 
