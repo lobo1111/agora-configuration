@@ -498,7 +498,7 @@
     
     <script>
         <name>settlement</name>
-        <source>actions/settle.py</source>
+        <source>actions/settlement.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -513,7 +513,7 @@
     
     <script>
         <name>settle-create-payments</name>
-        <source>actions/settle.py</source>
+        <source>actions/settlement.py</source>
         <onInit>SettleManager().settle()</onInit>
         <scheduler/>
         <dependencies>
