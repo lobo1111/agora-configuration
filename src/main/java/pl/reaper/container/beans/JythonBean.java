@@ -45,7 +45,7 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
         } catch (ScriptException ex) {
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, output.substring(0, 256));
+        Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, output.length() > 256 ? output.substring(0, 256) : output);
         return output;
     }
 
