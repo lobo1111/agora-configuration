@@ -497,6 +497,36 @@
     </script>
     
     <script>
+        <name>settlement</name>
+        <source>actions/settle.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>obligation-group</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>settle-create-payments</name>
+        <source>actions/settle.py</source>
+        <onInit>SettleManager().settle()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>obligation-group</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-obligation</name>
         <source>entities/obligation.py</source>
         <onInit>ObligationManager().create()</onInit>
