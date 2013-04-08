@@ -71,7 +71,7 @@ public class ScriptEngineWrapper {
 
     public Object eval() throws ScriptException {
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-        engine.eval("");
+        engine.eval("\nprint vars\nprint _uuid\n");
         return extractResult(engine);
     }
 
@@ -117,14 +117,6 @@ public class ScriptEngineWrapper {
     public ScriptEngineWrapper setOldEntityManager(EntityManager oldEntityManager) {
         this.oldEntityManager = oldEntityManager;
         return this;
-    }
-
-    public void clear() {
-        engine.put("entityManager", null);
-        engine.put("oldEntityManager", null);
-        engine.put("vars", null);
-        engine.put("properties", null);
-        engine.put("documentStatusLoader", null);
     }
 
     private String variablesAsString() {
