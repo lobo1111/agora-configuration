@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import javax.script.SimpleScriptContext;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
 
@@ -69,6 +68,11 @@ public class ScriptEngineWrapper {
         return extractResult(engine);
     }
 
+    public Object eval() throws ScriptException {
+        engine.eval("");
+        return extractResult(engine);
+    }
+
     public ScriptEngineWrapper setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
         return this;
@@ -88,6 +92,12 @@ public class ScriptEngineWrapper {
         if (toAdd != null) {
             variables.putAll(toAdd);
         }
+        return this;
+    }
+    
+    public ScriptEngineWrapper resetVariables() {
+        variables.clear();
+        putMetaVars();
         return this;
     }
 
