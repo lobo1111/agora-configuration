@@ -65,6 +65,7 @@ public class ScriptEngineWrapper {
 
     public Object eval(String script) throws ScriptException {
         lastExecuted += (script = new VariableParser(script, variables).parse()) + "\n";
+        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script - '{0}'", script);
         engine.eval(script);
         return extractResult(engine);
     }
