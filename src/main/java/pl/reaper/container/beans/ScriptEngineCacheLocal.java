@@ -8,7 +8,13 @@ import pl.reaper.container.jython.ScriptEngineWrapper;
 @Local
 public interface ScriptEngineCacheLocal {
 
-    public ScriptEngineWrapper get(String scriptName, Map variables);
+    public ScriptEngineWrapper get(String scriptName);
+
+    public void put(String scriptName, ScriptEngineWrapper scriptEngineWrapper);
+
+    public boolean contains(String scriptName);
+
+    public Object init(String ScriptName, Map variables);
 
     public ScriptEngineManager getEngineManager();
 }

@@ -7,5 +7,5 @@ import pl.reaper.container.jython.ScriptEngineWrapper;
 @Local
 public interface ScriptCompilatorLocal {
 
-    public ScriptEngineWrapper compileScript(String scriptName, Map variables);
+    public Object compile(ScriptEngineWrapper engineBuilder, String scriptName, Map variables);
 }

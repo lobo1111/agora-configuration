@@ -34,8 +34,13 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     @Override
     public String executeScript(String scriptName, Map variables, boolean preservePrivilages) {
         try {
-            ScriptEngineWrapper engineBuilder = cache.get(scriptName, variables);
-            return (String) engineBuilder.eval();
+            if (cache.contains(scriptName)) {
+                ScriptEngineWrapper engineBuilder = cache.get(scriptName);
+                engineBuilder.resetVariables().addVariables(variables);
+                return (String) engineBuilder.eval();
+            } else {
+                return (String) cache.init(scriptName, variables);
+            }
         } catch (ScriptException ex) {
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
