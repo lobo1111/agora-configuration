@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Singleton;
+import javax.script.ScriptEngineManager;
 import pl.reaper.container.jython.ScriptEngineNotFoundException;
 import pl.reaper.container.jython.ScriptEngineWrapper;
 
@@ -15,8 +16,10 @@ public class JythonEngineHolder implements JythonEngineHolderLocal {
     private List<ScriptEngineWrapper> working = new ArrayList<>();
     private static final int initSize = 10;
     private static final int step = initSize / 3;
+    private ScriptEngineManager engineManager;
 
     public JythonEngineHolder() {
+        engineManager = new ScriptEngineManager();
         addEngines(initSize);
     }
 
@@ -27,6 +30,7 @@ public class JythonEngineHolder implements JythonEngineHolderLocal {
         }
         ScriptEngineWrapper engine = pool.remove(0);
         working.add(engine);
+        Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.INFO, "Engine reserved({0})", engine);
         return engine;
     }
 
@@ -34,8 +38,9 @@ public class JythonEngineHolder implements JythonEngineHolderLocal {
     public void releaseEngine(ScriptEngineWrapper engine) {
         if (working.contains(engine)) {
             working.remove(engine);
+            Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.INFO, "Engine released({0})", engine);
         } else {
-            Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.SEVERE, "Unknown engine !");
+            Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.SEVERE, "Unknown engine({0}) !", engine);
         }
         pool.add(engine);
     }
@@ -43,7 +48,7 @@ public class JythonEngineHolder implements JythonEngineHolderLocal {
     private void addEngines(int size) {
         try {
             for (int i = 0; i < size; i++) {
-                pool.add(new ScriptEngineWrapper());
+                pool.add(new ScriptEngineWrapper(engineManager));
             }
             Logger.getLogger(JythonEngineHolder.class.getName()).log(Level.INFO, "Engine pool increased({0})", size);
         } catch (ScriptEngineNotFoundException ex) {

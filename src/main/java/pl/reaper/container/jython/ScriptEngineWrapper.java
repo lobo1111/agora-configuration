@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import javax.script.SimpleScriptContext;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
 
@@ -23,11 +24,12 @@ public class ScriptEngineWrapper {
     private ScriptEngine engine;
     private String lastExecuted;
 
-    public ScriptEngineWrapper() throws ScriptEngineNotFoundException {
-        engine = new ScriptEngineManager().getEngineByName("python");
+    public ScriptEngineWrapper(ScriptEngineManager engineManager) throws ScriptEngineNotFoundException {
+        engine = engineManager.getEngineByName("python");
         if (engine == null) {
             throw new ScriptEngineNotFoundException("Python engine not found");
         }
+        engine.setContext(new SimpleScriptContext());
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Jython engine created");
         lastExecuted = "";
         putMetaVars();
