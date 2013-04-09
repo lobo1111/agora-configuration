@@ -32,7 +32,7 @@ class SettleManager(Container):
         return ObligationGroupManager().findObligationGroupById(vars.get('obligationGroupId'))
     
     def getDebit(self, zpk):
-        for balance in zpk.getBalances():
+        for balance in zpk.getZpkBalances():
             if balance.getBookingPeriod().isDefaultPeriod():
                 return balance.getDebit().floatValue()
         return 0.0;
