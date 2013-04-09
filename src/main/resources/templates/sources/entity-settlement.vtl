@@ -62,7 +62,7 @@
         #foreach($log in $logs)
         <log>
             <id>$!log.getId()</id>
-            <timestamp>$!log.getTimestamp()</timestamp>
+            <timestamp>$!log.getTimestamp().getTime()</timestamp>
             <totalIncome>$!log.getTotalIncome()</totalIncome>
             <totalObligations>$!log.getTotalObligations()</totalObligations>
             <totalArea>$!log.getTotalArea()</totalArea>
