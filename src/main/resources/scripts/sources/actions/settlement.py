@@ -34,5 +34,5 @@ class SettleManager(Container):
     def getDebit(self, zpk):
         for balance in zpk.getZpkBalances():
             if balance.getBookingPeriod().isDefaultPeriod():
-                return balance.getDebit().floatValue()
+                return balance.getDebit()
         return 0.0;
