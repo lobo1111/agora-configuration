@@ -1,3 +1,5 @@
+from pl.reaper.container.data import SettlementLog
+
 class SettleManager(Container):
     _logger = Logger([:_scriptId])
 
