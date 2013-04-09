@@ -34,6 +34,7 @@
         <class>pl.reaper.container.data.Obligation</class>
         <class>pl.reaper.container.data.ObligationGroup</class>
         <class>pl.reaper.container.data.ObligationLog</class>
+        <class>pl.reaper.container.data.SettlementLog</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.sharedCache.mode" value="NONE"/>
