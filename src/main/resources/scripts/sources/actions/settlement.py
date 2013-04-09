@@ -60,4 +60,4 @@ class SettleManager(Container):
         return None
     
     def getPaymentType(self):
-        return self._dictManager.getDictionaryInstance('SETTLEMENT')
+        return self._dictManager.findDictionaryInstance('PAYMENT_TYPE', 'SETTLEMENT')
