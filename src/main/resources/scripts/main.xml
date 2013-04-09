@@ -522,6 +522,8 @@
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
             <scriptName>obligation-group</scriptName>
+            <scriptName>payment</scriptName>
+            <scriptName>dictionary-manager</scriptName>
         </dependencies>
         <security>
             <group>all</group>
