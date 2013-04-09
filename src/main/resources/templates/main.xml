@@ -57,7 +57,7 @@
                         SettlementLog log
                         JOIN log.obligationGroup og
                     WHERE
-                        AND og.id = {:id}
+                        og.id = {:id}
                     ORDER BY log.timestamp DESC
                 </data>
             </var>
