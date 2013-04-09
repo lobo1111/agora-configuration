@@ -7,12 +7,31 @@ class SettleManager(Container):
     def settle(self):
         groupManager = self.findObligationGroup()
         balance = self.calculateBalance(groupManager)
+        log = self.addLog(groupManager, balance)
         self._logger.info("Balance calculated as %f" % balance)
         for zpk in groupManager.getZpks():
             share = (zpk.getPossession().getShare().floatValue() / 100.0)
             amount = self.round(share * balance)
             self._logger.info("Share calculated as %f" % share)
-            self.createPayment(zpk, amount, groupManager.getCommunity().getId(), zpk.getPossession().getId())
+            self.createPayment(log, zpk, amount, groupManager.getCommunity().getId(), zpk.getPossession().getId())
+        entityManager.persist(log) 
+            
+    def addLog(self, groupManager, balance):
+        log = SettlementLog()
+        log.setObligationGroup(groupManager)
+        log.setCommunity(groupManager.getCommunity)
+        log.setTotalIncome(self.calculateIncome(groupManager.getZpks()))
+        log.setTotalObligations(self.calculateExpenditure(groupManager.getObligations()))
+        log.setSettlementBalance(balance)
+        log.setTotalArea(self.calculateTotalArea(groupManager.getZpks()))
+        log.setReferenceRate(self.round(log.getTotalObligations() / log.getTotalArea()))
+        return log
+        
+    def calculateTotalArea(self, zpks):
+        total = 0.0
+        for zpk in zpks:
+            total += zpk.getPossession().getArea().floatValue()
+        return total
             
     def calculateBalance(self, groupManager):
         income = self.calculateIncome(groupManager.getZpks())
@@ -31,7 +50,7 @@ class SettleManager(Container):
             expenditure += self.getDebit(obligation.getZpk())
         return expenditure
     
-    def createPayment(self, zpk, amount, communityId, possessionId):
+    def createPayment(self, log, zpk, amount, communityId, possessionId):
         self._logger.info("Creating expenditure(%f) for %s" % (amount, zpk.getNumber()))
         vars.put('paymentPossessionId', str(possessionId))
         vars.put('paymentObligationId', str(0))
@@ -43,7 +62,8 @@ class SettleManager(Container):
         vars.put('paymentDirection', 'EXPENDITURE')
         vars.put('zpkId', str(zpk.getId()))
         vars.put('paymentBookingPeriod', str(self.getDefaultPeriod(zpk).getId()))
-        PaymentManager().create()
+        payment = PaymentManager().create()
+        log.getPayments().add(payment)
         
     def findObligationGroup(self):
         return ObligationGroupManager().findObligationGroupById(vars.get('obligationGroupId'))

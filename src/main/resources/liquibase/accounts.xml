@@ -1005,4 +1005,11 @@
             SELECT id, 'SETTLEMENT', 'Rozliczenie' FROM `dictionary_type` WHERE `type` = 'PAYMENT_TYPE';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-settlement-log-timestamp-column'>
+        <sql>  
+            ALTER TABLE `settlement_log`
+            ADD COLUMN `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+        </sql>
+    </changeSet>
 </databaseChangeLog>

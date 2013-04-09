@@ -3,6 +3,7 @@ package pl.reaper.container.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -49,6 +53,11 @@ public class SettlementLog implements Serializable {
     inverseJoinColumns =
     @JoinColumn(name = "payment_id", referencedColumnName = "id"))
     private Collection<Payment> payments = new ArrayList<>();
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp = new Date();
 
     public Integer getId() {
         return id;
@@ -120,5 +129,13 @@ public class SettlementLog implements Serializable {
 
     public void setPayments(Collection<Payment> payments) {
         this.payments = payments;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 }
