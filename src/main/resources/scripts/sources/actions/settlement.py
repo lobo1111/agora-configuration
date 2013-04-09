@@ -4,8 +4,11 @@ class SettleManager(Container):
     def settle(self):
         groupManager = self.findObligationGroup()
         balance = self.calculateBalance(groupManager)
+        self._logger.info("Balance calculated as %f" % balance)
         for zpk in groupManager.getZpks():
-            amount = (zpk.getPossession().getShare().floatValue() / 100.0) * balance
+            share = (zpk.getPossession().getShare().floatValue() / 100.0)
+            amount = share * balance
+            self._logger.info("Share calculated as %f" % share)
             self.createPayment(zpk, amount)
             
     def calculateBalance(self, groupManager):
