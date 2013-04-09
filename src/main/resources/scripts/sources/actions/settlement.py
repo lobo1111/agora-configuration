@@ -10,14 +10,14 @@ class SettleManager(Container):
         self._logger.info("Balance calculated as %f" % balance)
         for zpk in groupManager.getZpks():
             share = (zpk.getPossession().getShare().floatValue() / 100.0)
-            amount = share * balance
+            amount = self.round(share * balance)
             self._logger.info("Share calculated as %f" % share)
             self.createPayment(zpk, amount, groupManager.getCommunity().getId(), zpk.getPossession().getId())
             
     def calculateBalance(self, groupManager):
         income = self.calculateIncome(groupManager.getZpks())
         expenditure = self.calculateExpenditure(groupManager.getObligations())
-        return income - expenditure
+        return (income - expenditure) * -1
     
     def calculateIncome(self, zpks):
         income = 0.0
@@ -62,3 +62,6 @@ class SettleManager(Container):
     
     def getPaymentType(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_TYPE', 'SETTLEMENT')
+    
+    def round(self, toRound):
+        return round(toRound, 2)
