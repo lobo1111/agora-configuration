@@ -21,7 +21,7 @@ class SettleManager(Container):
     def addLog(self, groupManager, balance):
         log = SettlementLog()
         log.setObligationGroup(groupManager)
-        log.setCommunity(groupManager.getCommunity)
+        log.setCommunity(groupManager.getCommunity())
         log.setTotalIncome(self.calculateIncome(groupManager.getZpks()))
         log.setTotalObligations(self.calculateExpenditure(groupManager.getObligations()))
         log.setSettlementBalance(balance)
