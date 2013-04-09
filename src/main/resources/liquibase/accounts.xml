@@ -999,7 +999,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='payments-types-insert'>
+    <changeSet author='tkopacki' id='payments-type-settlement'>
         <sql>
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'SETTLEMENT', 'Rozliczenie' FROM `dictionary_type` WHERE `type` = 'PAYMENT_TYPE';
