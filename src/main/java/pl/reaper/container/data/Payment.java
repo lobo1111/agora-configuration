@@ -89,6 +89,13 @@ public class Payment implements Serializable {
     inverseJoinColumns =
     @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"))
     private Collection<IncomingPaymentDocumentPosition> documents = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "settlement_log_payment", joinColumns =
+    @JoinColumn(name = "payment_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "settlement_id", referencedColumnName = "id"))
+    private Collection<SettlementLog> setlements = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -216,5 +223,13 @@ public class Payment implements Serializable {
 
     public void setPossession(Possession possession) {
         this.possession = possession;
+    }
+
+    public Collection<SettlementLog> getSetlements() {
+        return setlements;
+    }
+
+    public void setSetlements(Collection<SettlementLog> setlements) {
+        this.setlements = setlements;
     }
 }

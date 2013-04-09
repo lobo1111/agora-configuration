@@ -48,6 +48,19 @@
                         AND og.id = {:id}
                 </data>
             </var>
+            <var>
+                <name>logs</name>
+                <data>
+                    SELECT
+                        log
+                    FROM
+                        SettlementLog log
+                        JOIN log.obligationGroup og
+                    WHERE
+                        AND og.id = {:id}
+                    ORDER BY log.timestamp DESC
+                </data>
+            </var>
         </variables>
     </template>
     <template>
