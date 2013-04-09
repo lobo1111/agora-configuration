@@ -34,6 +34,7 @@ class SettleManager(Container):
     def createPayment(self, zpk, amount, communityId, possessionId):
         self._logger.info("Creating expenditure(%f) for %s" % (amount, zpk.getNumber()))
         vars.put('paymentPossessionId', str(possessionId))
+        vars.put('paymentObligationId', str(0))
         vars.put('paymentCommunityId', str(communityId))
         vars.put('paymentBook', 'true')
         vars.put('paymentAmount', str(amount))
