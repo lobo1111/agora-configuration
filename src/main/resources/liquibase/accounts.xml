@@ -998,4 +998,11 @@
             ADD CONSTRAINT `settlement_log_payment_id_fkey` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='payments-types-insert'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'SETTLEMENT', 'Rozliczenie' FROM `dictionary_type` WHERE `type` = 'PAYMENT_TYPE';
+        </sql>
+    </changeSet>
 </databaseChangeLog>
