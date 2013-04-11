@@ -17,7 +17,8 @@ class ObligationManager(Container):
         obligation.setContractor(self.findContractor(vars.get('obligationContractorId')))
         obligation.setZpk(self.findContractorZpk(vars.get('obligationZpkId')))
         obligation.setCommunity(self.findCommunity(vars.get('obligationCommunityId')))
-        obligation.setObligationGroup(self.findObligationGroup(vars.get('obligationGroupId')))
+        if vars.get('obligationGroupId') != '0':
+            obligation.setObligationGroup(self.findObligationGroup(vars.get('obligationGroupId')))
         
     def findObligationById(self, id):
         return entityManager.createQuery('Select o From Obligation o Where o.id = ' + str(id)).getSingleResult()
@@ -31,5 +32,5 @@ class ObligationManager(Container):
     def findCommunity(self, id):
         return CommunityManager().findCommunityById(id)
     
-    def setObligationGroup(self, id):
+    def findObligationGroup(self, id):
         return ObligationGroupManager().findObligationGroupById(id)
