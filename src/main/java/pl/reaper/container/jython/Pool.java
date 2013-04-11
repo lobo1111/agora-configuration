@@ -7,19 +7,20 @@ import java.util.logging.Logger;
 import pl.reaper.container.beans.JythonBean;
 
 public class Pool {
+
     private List<ScriptEngineWrapper> pool = new ArrayList<>();
     private List<ScriptEngineWrapper> working = new ArrayList<>();
 
     public Pool(String scriptName) {
         Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, "Pool for " + scriptName + " created.");
     }
-    
+
     public boolean isEmpty() {
         return pool.isEmpty();
     }
-    
+
     public ScriptEngineWrapper get() throws ScriptEnginePoolIsEmptyException {
-        if(!pool.isEmpty()) {
+        if (!pool.isEmpty()) {
             ScriptEngineWrapper engine = pool.remove(0);
             working.add(engine);
             return engine;
@@ -27,17 +28,13 @@ public class Pool {
             throw new ScriptEnginePoolIsEmptyException();
         }
     }
-    
+
     public void release(ScriptEngineWrapper engine) throws UnknownScriptEngineException {
-        if(working.remove(engine)) {
-            pool.add(engine);
-        } else {
-            throw new UnknownScriptEngineException();
-        }
-    }
-    
-    public void put(ScriptEngineWrapper engine) {
+        working.remove(engine);
         pool.add(engine);
     }
 
+    public void put(ScriptEngineWrapper engine) {
+        pool.add(engine);
+    }
 }
