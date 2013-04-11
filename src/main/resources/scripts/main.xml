@@ -403,6 +403,40 @@
         </security>
     </script>
     
+   <script>
+        <name>obligation</name>
+        <source>entities/obligation.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>community</scriptName>
+            <scriptName>zpk</scriptName>
+            <scriptName>obligation-group</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>obligation-group</name>
+        <source>entities/obligationGroup.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>community</scriptName>
+            <scriptName>zpk</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script> 
         
     <script>
         <name>payment</name>
@@ -454,41 +488,6 @@
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
             <scriptName>account</scriptName>
-            <scriptName>zpk</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>obligation</name>
-        <source>entities/obligation.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>company</scriptName>
-            <scriptName>community</scriptName>
-            <scriptName>zpk</scriptName>
-            <scriptName>obligation-group</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>obligation-group</name>
-        <source>entities/obligationGroup.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>company</scriptName>
-            <scriptName>community</scriptName>
             <scriptName>zpk</scriptName>
         </dependencies>
         <security>
