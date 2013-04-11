@@ -36,12 +36,14 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
         String output = "";
         ScriptEngineWrapper engineBuilder = null;
         try {
-            if (cache.contains(scriptName)) {
-                engineBuilder = cache.get(scriptName);
-                engineBuilder.resetVariables().addVariables(variables);
-                output = (String) engineBuilder.eval();
-            } else {
-                output = (String) cache.init(scriptName, variables);
+            synchronized(JythonBean.class) {
+                if (cache.contains(scriptName)) {
+                    engineBuilder = cache.get(scriptName);
+                    engineBuilder.resetVariables().addVariables(variables);
+                    output = (String) engineBuilder.eval();
+                } else {
+                    output = (String) cache.init(scriptName, variables);
+                }
             }
         } catch (ScriptException ex) {
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
