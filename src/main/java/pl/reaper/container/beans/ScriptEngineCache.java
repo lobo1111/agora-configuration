@@ -40,7 +40,7 @@ public class ScriptEngineCache implements ScriptEngineCacheLocal {
         try {
             return cache.get(scriptName).get();
         } catch (ScriptEnginePoolIsEmptyException ex) {
-            Logger.getLogger(ScriptEngineCache.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ScriptEngineCache.class.getName()).log(Level.SEVERE, "Pool " + scriptName + " is empty !");
             return null;
         }
     }
