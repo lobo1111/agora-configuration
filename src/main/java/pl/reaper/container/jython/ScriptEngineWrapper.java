@@ -120,7 +120,7 @@ public class ScriptEngineWrapper {
 
     private String variablesAsString() {
         StringBuilder builder = new StringBuilder();
-        for(String key: variables.keySet()) {
+        for(String key: variables.keySet().toArray(new String[0])) {
             builder.append(key).append("=").append(variables.get(key)).append("\n");
         }
         return builder.toString();
