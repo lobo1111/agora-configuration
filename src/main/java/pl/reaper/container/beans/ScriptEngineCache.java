@@ -82,7 +82,7 @@ public class ScriptEngineCache implements ScriptEngineCacheLocal {
         if(cache.containsKey(scriptName)) {
             cache.get(scriptName).put(engine);
         } else {
-            Pool pool = new Pool();
+            Pool pool = new Pool(scriptName);
             pool.put(engine);
             cache.put(scriptName, pool);
         }
