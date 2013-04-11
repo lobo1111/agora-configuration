@@ -34,9 +34,10 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     @Override
     public String executeScript(String scriptName, Map variables, boolean preservePrivilages) {
         String output = "";
+        ScriptEngineWrapper engineBuilder = null;
         try {
             if (cache.contains(scriptName)) {
-                ScriptEngineWrapper engineBuilder = cache.get(scriptName);
+                engineBuilder = cache.get(scriptName);
                 engineBuilder.resetVariables().addVariables(variables);
                 output = (String) engineBuilder.eval();
             } else {
@@ -44,6 +45,8 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
             }
         } catch (ScriptException ex) {
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cache.releaseEngine(scriptName, engineBuilder);
         }
         Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, output.length() > 256 ? output.substring(0, 256) : output);
         return output;

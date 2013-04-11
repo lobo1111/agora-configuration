@@ -9,13 +9,16 @@ import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.script.ScriptEngineManager;
+import pl.reaper.container.jython.Pool;
 import pl.reaper.container.jython.ScriptEngineNotFoundException;
+import pl.reaper.container.jython.ScriptEnginePoolIsEmptyException;
 import pl.reaper.container.jython.ScriptEngineWrapper;
+import pl.reaper.container.jython.UnknownScriptEngineException;
 
 @Singleton
 public class ScriptEngineCache implements ScriptEngineCacheLocal {
 
-    private Map<String, ScriptEngineWrapper> cache = new HashMap<>();
+    private Map<String, Pool> cache = new HashMap<>();
     private ScriptEngineManager engineManager;
     @EJB
     private ScriptCompilatorLocal compilator;
@@ -34,25 +37,25 @@ public class ScriptEngineCache implements ScriptEngineCacheLocal {
 
     @Override
     public ScriptEngineWrapper get(String scriptName) {
-        return cache.get(scriptName);
-    }
-
-    @Override
-    public void put(String scriptName, ScriptEngineWrapper scriptEngineWrapper) {
-        cache.put(scriptName, scriptEngineWrapper);
+        try {
+            return cache.get(scriptName).get();
+        } catch (ScriptEnginePoolIsEmptyException ex) {
+            Logger.getLogger(ScriptEngineCache.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     @Override
     public boolean contains(String scriptName) {
-        return cache.containsKey(scriptName);
+        return cache.containsKey(scriptName) && !cache.get(scriptName).isEmpty();
     }
 
     @Override
-    public Object init(String ScriptName, Map variables) {
+    public Object init(String scriptName, Map variables) {
         try {
             ScriptEngineWrapper engine = getScriptEngine();
-            Object output = compilator.compile(engine, ScriptName, variables);
-            put(ScriptName, engine);
+            Object output = compilator.compile(engine, scriptName, variables);
+            addToPool(scriptName, engine);
             return output;
         } catch (ScriptEngineNotFoundException ex) {
             Logger.getLogger(ScriptEngineCache.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,5 +76,24 @@ public class ScriptEngineCache implements ScriptEngineCacheLocal {
                 .setPropertyBean(propertyBean)
                 .init();
         return engineBuilder;
+    }
+
+    private void addToPool(String scriptName, ScriptEngineWrapper engine) {
+        if(cache.containsKey(scriptName)) {
+            cache.get(scriptName).put(engine);
+        } else {
+            Pool pool = new Pool();
+            pool.put(engine);
+            cache.put(scriptName, pool);
+        }
+    }
+
+    @Override
+    public void releaseEngine(String scriptName, ScriptEngineWrapper engine) {
+        try {
+            cache.get(scriptName).release(engine);
+        } catch (UnknownScriptEngineException ex) {
+            Logger.getLogger(ScriptEngineCache.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
