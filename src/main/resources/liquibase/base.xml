@@ -241,11 +241,4 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
     </changeSet>  
-    
-    <changeSet author='tkopacki' id='nip-column-person-table'>
-        <sql>  
-            ALTER TABLE `person` 
-            ADD `nip` VARCHAR(255) NULL DEFAULT NULL
-        </sql>
-    </changeSet>  
 </databaseChangeLog> 
