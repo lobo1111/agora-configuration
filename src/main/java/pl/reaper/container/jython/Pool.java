@@ -18,7 +18,6 @@ public class Pool {
     }
 
     public boolean isEmpty() {
-        Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, "Pool(" + scriptName + ") is empty");
         return pool.isEmpty();
     }
 
