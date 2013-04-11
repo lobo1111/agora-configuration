@@ -35,9 +35,11 @@ public class Pool {
     }
 
     public void release(ScriptEngineWrapper engine) throws UnknownScriptEngineException {
-        Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, "Pool(" + scriptName + ") - engine released(" + engine + ")");
-        working.remove(engine);
-        pool.add(engine);
+        if (engine != null) {
+            Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, "Pool(" + scriptName + ") - engine released(" + engine + ")");
+            working.remove(engine);
+            pool.add(engine);
+        }
     }
 
     public void put(ScriptEngineWrapper engine) {
