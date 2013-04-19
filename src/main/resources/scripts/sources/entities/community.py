@@ -40,6 +40,7 @@ class CommunityManager(Container):
         area = 0
         for possession in community.getPossessions():
             area += possession.getArea().floatValue()
+        self._logger.info('Area recalculated(%s) on community %s' % (str(area), community.getName()))
         community.setArea(BigDecimal(area))
         entityManager.persist(community)
         area = BigDecimal(area)
@@ -49,4 +50,5 @@ class CommunityManager(Container):
                 possession.setShare(share.multiply(BigDecimal(100)).setScale(2, RoundingMode.HALF_UP))
             else:
                 possession.setShare(BigDecimal(0))
+            self._logger.info('Share recalculated(%s) on possession %s' % (str(possession.getShare().floatValue()), str(possession.getId())))
             entityManager.persist(possession)
