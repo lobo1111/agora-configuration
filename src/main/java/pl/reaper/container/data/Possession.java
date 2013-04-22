@@ -40,7 +40,7 @@ public class Possession implements Serializable {
     private Address address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<Owner> owners;
 
     public Possession() {
