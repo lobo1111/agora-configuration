@@ -62,7 +62,7 @@ public class Person implements Serializable {
     private Address address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<User> users;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<Owner> owners;
 
     public Person() {

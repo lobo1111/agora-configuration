@@ -60,7 +60,7 @@ public class Company implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<Owner> owners;
 
     public Company() {
