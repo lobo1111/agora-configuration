@@ -767,8 +767,7 @@
                     LEFT OUTER JOIN balance.zpk zpk
                     LEFT OUTER JOIN zpk.community community
                     LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.person person
-                    LEFT OUTER JOIN zpk.company company
+                    LEFT OUTER JOIN zpk.obligation obligation
                     LEFT OUTER JOIN payment.documents doc
                     WHERE {:where}
                 </data>
@@ -790,8 +789,7 @@
                     LEFT OUTER JOIN balance.zpk zpk
                     LEFT OUTER JOIN zpk.community community
                     LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.person person
-                    LEFT OUTER JOIN zpk.company company
+                    LEFT OUTER JOIN zpk.obligation obligation
                     LEFT OUTER JOIN payment.documents doc
                     WHERE {:where}
                 </data>
@@ -961,7 +959,7 @@
             </var>
         </variables>
     </template>
-       <template>
+    <template>
         <name>simple-list-payments-types</name>
         <source>simple-list.vtl</source>
         <variables>
