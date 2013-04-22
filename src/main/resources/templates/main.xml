@@ -578,9 +578,8 @@
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
                     LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.company company
-                    LEFT OUTER JOIN zpk.person person
-                    LEFT OUTER JOIN zpk.obligations obligation
+                    LEFT OUTER JOIN zpk.community community
+                    LEFT OUTER JOIN zpk.obligation obligation
                     WHERE {:where} AND
                     period.defaultPeriod = true
                 </data>
@@ -597,9 +596,8 @@
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
                     LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.company company
-                    LEFT OUTER JOIN zpk.person person
-                    LEFT OUTER JOIN zpk.obligations obligation
+                    LEFT OUTER JOIN zpk.community community
+                    LEFT OUTER JOIN zpk.obligation obligation
                     WHERE {:where} AND
                     period.defaultPeriod = true
                 </data>
