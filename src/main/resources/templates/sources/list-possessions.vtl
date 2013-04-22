@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <possessions>
-    #foreach($row in $communities)
+    #foreach($row in $possessions)
         <item>
-            <communityId>$row[7]</communityId>
-            <communityName>$row[0]</communityName>
-            <communityArea>$row[1]</communityArea>
-            <possessionId>$row[6]</possessionId>
-            <possessionStreet>$row[2]</possessionStreet>
-            <possessionHouseNumber>$row[3]</possessionHouseNumber>
-            <possessionFlatNumber>$row[4]</possessionFlatNumber>
-            <possessionArea>$row[5]</possessionArea>
+            <communityId>$!possession.getCommunity().getId()</communityId>
+            <communityName>$!possession.getCommunity().getName()</communityName>
+            <communityArea>$!possession.getCommunity().getArea().floatValue()</communityArea>
+            <possessionId>$!possession.getId()</possessionId>
+            <possessionStreet>$!possession.getAddress().getStreet()</possessionStreet>
+            <possessionHouseNumber>$!possession.getAddress().getHouseNumber()</possessionHouseNumber>
+            <possessionFlatNumber>$!possession.getAddress().getFlatNumber()</possessionFlatNumber>
+            <possessionArea>$!possession.getArea().floatValue()</possessionArea>
         </item>
     #end
         <settings>

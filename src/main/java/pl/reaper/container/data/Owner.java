@@ -74,4 +74,16 @@ public class Owner {
     public void setPossession(Possession possession) {
         this.possession = possession;
     }
+    
+    public boolean isCompany() {
+        return company != null;
+    }
+    
+    public String getName() {
+        if(isCompany()) {
+            return company.getName();
+        } else {
+            return person.getFirstName() + " " + person.getLastName();
+        }
+    }
 }

@@ -10,54 +10,54 @@
                 <data>
                     {:single}
                     SELECT
-                        og
+                    og
                     FROM
-                        ObligationGroup og
+                    ObligationGroup og
                     WHERE
-                        og.id = {:id}
+                    og.id = {:id}
                 </data>
             </var>
             <var>
                 <name>possessions</name>
                 <data>
                     SELECT
-                        zpk
+                    zpk
                     FROM
-                        ObligationGroup og
-                        JOIN og.zpks zpk
-                        JOIN zpk.zpkBalances balance
-                        JOIN balance.bookingPeriod period
+                    ObligationGroup og
+                    JOIN og.zpks zpk
+                    JOIN zpk.zpkBalances balance
+                    JOIN balance.bookingPeriod period
                     WHERE
-                        period.defaultPeriod = true
-                        AND og.id = {:id}
+                    period.defaultPeriod = true
+                    AND og.id = {:id}
                 </data>
             </var>
             <var>
                 <name>obligations</name>
                 <data>
                     SELECT
-                        obligation
+                    obligation
                     FROM
-                        Obligation obligation
-                        JOIN obligation.obligationGroup og
-                        JOIN obligation.zpk zpk
-                        JOIN zpk.zpkBalances balance
-                        JOIN balance.bookingPeriod period
+                    Obligation obligation
+                    JOIN obligation.obligationGroup og
+                    JOIN obligation.zpk zpk
+                    JOIN zpk.zpkBalances balance
+                    JOIN balance.bookingPeriod period
                     WHERE
-                        period.defaultPeriod = true
-                        AND og.id = {:id}
+                    period.defaultPeriod = true
+                    AND og.id = {:id}
                 </data>
             </var>
             <var>
                 <name>logs</name>
                 <data>
                     SELECT
-                        log
+                    log
                     FROM
-                        SettlementLog log
-                        JOIN log.obligationGroup og
+                    SettlementLog log
+                    JOIN log.obligationGroup og
                     WHERE
-                        og.id = {:id}
+                    og.id = {:id}
                     ORDER BY log.timestamp DESC
                 </data>
             </var>
@@ -393,7 +393,7 @@
                     FROM
                     obligation_group AS og
                     JOIN obligation AS o ON(o.obligation_group_id = og.id)
-                    JOIN zpk AS z ON(z.id = o.contractor_zpk_id)
+                    JOIN zpk AS z ON(z.obligation_id = o.id)
                     JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
                     JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
                     WHERE
@@ -437,7 +437,7 @@
                     FROM
                     obligation_group AS og
                     JOIN obligation AS o ON(o.obligation_group_id = og.id)
-                    JOIN zpk AS z ON(z.id = o.contractor_zpk_id)
+                    JOIN zpk AS z ON(z.obligation_id = o.id)
                     JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
                     JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
                     WHERE
@@ -639,21 +639,13 @@
         <source>list-possessions.vtl</source>
         <variables>
             <var>
-                <name>communities</name>
+                <name>possessions</name>
                 <data>
                     {:limit}
                     SELECT 
-                    community.name, community.area, 
-                    possessionAddress.street, possessionAddress.houseNumber, possessionAddress.flatNumber, 
-                    possession.area, possession.id, community.id
+                    possession
                     FROM 
-                    Community community 
-                    JOIN community.possessions possession 
-                    JOIN possession.address possessionAddress
-                    LEFT OUTER JOIN possession.companies companyOwner
-                    LEFT OUTER JOIN companyOwner.address companyOwnerAddress
-                    LEFT OUTER JOIN possession.people personOwner
-                    LEFT OUTER JOIN personOwner.address personOwnerAddress
+                    Possesssion possession
                     WHERE {:where}
                 </data>
             </var>
@@ -662,15 +654,9 @@
                 <data>
                     {:single}
                     SELECT 
-                    count(community.id)
+                    count(possession.id)
                     FROM 
-                    Community community 
-                    JOIN community.possessions possession 
-                    JOIN possession.address possessionAddress
-                    LEFT OUTER JOIN possession.companies companyOwner
-                    LEFT OUTER JOIN companyOwner.address companyOwnerAddress
-                    LEFT OUTER JOIN possession.people personOwner
-                    LEFT OUTER JOIN personOwner.address personOwnerAddress
+                    Possesssion possession
                     WHERE {:where}
                 </data>
             </var>
@@ -820,78 +806,21 @@
                 <name>owners</name>
                 <data>
                     {:limit}
-                    {:native}
-                    SELECT * FROM (
-                    (SELECT
-                    person.id AS id,
-                    CONCAT(person.first_name, \' \', person.last_name) AS name,
-                    person.pesel AS number,
-                    \'osoba fizyczna\' AS typeLabel,
-                    \'PERSON\' AS typeKey,
-                    person.last_name AS lastName,
-                    address.street AS street,
-                    address.house_number AS houseNumber,
-                    address.flat_number AS flatNumber,
-                    address.postal_code AS postalCode,
-                    address.city AS city
+                    SELECT
+                    owner
                     FROM 
-                    person 
-                    JOIN address ON(person.address_id = address.id))
-                    UNION ALL
-                    (SELECT
-                    company.id AS id,
-                    company.name as name,
-                    company.nip as number,
-                    \'firma\' AS typelabel,
-                    \'COMPANY\' AS typeKey,
-                    \'\' AS lastName,
-                    address.street AS street,
-                    address.house_number AS houseNumber,
-                    address.flat_number AS flatNumber,
-                    address.postal_code AS postalCode,
-                    address.city AS city
-                    FROM 
-                    company 
-                    JOIN address ON(company.address_id = address.id))
-                    ) AS tmp WHERE {:where}
+                    Owner owner
+                    WHERE {:where}
                 </data>
             </var>
             <var>
                 <name>countRows</name>
                 <data>
                     {:single}
-                    {:native}
-                    SELECT count(*) FROM (
-                    (SELECT
-                    person.id AS id,
-                    CONCAT(person.first_name, \' \', person.last_name) AS name,
-                    person.pesel AS number,
-                    \'osoba fizyczna\' AS typeLabel,
-                    \'PERSON\' AS typeKey,
-                    address.street AS street,
-                    address.house_number AS houseNumber,
-                    address.flat_number AS flatNumber,
-                    address.postal_code AS postalCode,
-                    address.city AS city
-                    FROM 
-                    person 
-                    JOIN address ON(person.address_id = address.id))
-                    UNION ALL
-                    (SELECT
-                    company.id AS id,
-                    company.name as name,
-                    company.nip as number,
-                    \'firma\' AS typelabel,
-                    \'COMPANY\' AS typeKey,
-                    address.street AS street,
-                    address.house_number AS houseNumber,
-                    address.flat_number AS flatNumber,
-                    address.postal_code AS postalCode,
-                    address.city AS city
-                    FROM 
-                    company 
-                    JOIN address ON(company.address_id = address.id))
-                    ) AS tmp WHERE {:where}
+                    SELECT count(owner.id)
+                    FROM
+                    Owner owner
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
@@ -903,28 +832,11 @@
             <var>
                 <name>owners</name>
                 <data>
-                    {:native}
                     SELECT 
-                    person.id AS personId,
-                    CONCAT(person.first_name, " ", person.last_name) AS personName,
-                    -1 AS companyId,
-                    ""  AS companyName
-                    FROM 
-                    possession
-                    JOIN possession_person ON(possession.id = possession_person.possession_id)
-                    JOIN person ON(possession_person.person_id = person.id)
-                    WHERE
-                    possession.id = {:id}
-                    UNION ALL
-                    SELECT 
-                    -1 AS personId,
-                    "" AS personName,
-                    company.id AS companyId,
-                    company.name AS companyName
-                    FROM 
-                    possession
-                    JOIN possession_company ON(possession.id = possession_company.possession_id)
-                    JOIN company ON(possession_company.company_id = company.id)
+                    owner
+                    FROM
+                    Owner owner
+                    JOIN owner.possession possession
                     WHERE
                     possession.id = {:id}
                 </data>
@@ -1049,41 +961,7 @@
             </var>
         </variables>
     </template>
-    <template>
-        <name>simple-list-person-owner-possessions</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    possession.id, 
-                    CONCAT(possession.address.street, " ", possession.address.houseNumber, "/", possession.address.flatNumber)) 
-                    FROM Person person
-                    JOIN person.possessions possession
-                    WHERE person.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>simple-list-company-owner-possessions</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    possession.id, 
-                    CONCAT(possession.address.street, " ", possession.address.houseNumber, "/", possession.address.flatNumber)) 
-                    FROM Company company
-                    JOIN company.possessions possession
-                    WHERE company.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
+       <template>
         <name>simple-list-payments-types</name>
         <source>simple-list.vtl</source>
         <variables>

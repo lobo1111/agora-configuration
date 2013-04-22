@@ -2,11 +2,9 @@
 <owners>
     #foreach($row in $owners)
     <item>
-        <id>$!row[0]</id>
-        <name>$!row[1]</name>
-        <number>$!row[2]</number>
-        <typeLabel>$!row[3]</typeLabel>
-        <typeKey>$!row[4]</typeKey>
+        <id>$!owner.getId()</id>
+        <name>$!owner.getName()</name>
+        <isCompany>$!owner.isCompany()</isCompany>
     </item>
     #end
     <settings>
