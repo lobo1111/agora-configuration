@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <possessions>
-    #foreach($row in $possessions)
+    #foreach($possession in $possessions)
         <item>
             <communityId>$!possession.getCommunity().getId()</communityId>
             <communityName>$!possession.getCommunity().getName()</communityName>
