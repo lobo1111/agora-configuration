@@ -642,7 +642,9 @@
                     possession
                     FROM 
                     Possession possession
+                    JOIN possession.community community
                     WHERE {:where}
+                    ORDER BY community.name ASC
                 </data>
             </var>
             <var>
@@ -653,7 +655,9 @@
                     count(possession.id)
                     FROM 
                     Possession possession
+                    JOIN possession.community community
                     WHERE {:where}
+                    ORDER BY community.name ASC
                 </data>
             </var>
         </variables>
