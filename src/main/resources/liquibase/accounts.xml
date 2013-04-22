@@ -1015,7 +1015,7 @@
     
     <changeSet author='tkopacki' id='table-zpk-table-person-fk-drop'>
         <sql>  
-            ALTER TABLE `zpk` DROP FOREIGN KEY `zpk_person_fkey`
+            ALTER TABLE `zpk` DROP FOREIGN KEY `zbk_person_fkey`
         </sql>
     </changeSet>
     
@@ -1027,7 +1027,7 @@
     
     <changeSet author='tkopacki' id='table-zpk-table-company-fk-drop'>
         <sql>  
-            ALTER TABLE `zpk` DROP FOREIGN KEY `zpk_company_fkey`
+            ALTER TABLE `zpk` DROP FOREIGN KEY `zbk_company_fkey`
         </sql>
     </changeSet>
     
