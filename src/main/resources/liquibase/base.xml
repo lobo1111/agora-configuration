@@ -266,7 +266,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='table-possession-person-possession-fkey-drop'>
+    <changeSet author='tkopacki' id='table-possession-person-person-fkey-drop'>
         <sql>  
             ALTER TABLE `possession_person` DROP FOREIGN KEY `possession_person_person_fkey`
         </sql>
