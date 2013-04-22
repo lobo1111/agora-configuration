@@ -645,7 +645,7 @@
                     SELECT 
                     possession
                     FROM 
-                    Possesssion possession
+                    Possession possession
                     WHERE {:where}
                 </data>
             </var>
@@ -656,7 +656,7 @@
                     SELECT 
                     count(possession.id)
                     FROM 
-                    Possesssion possession
+                    Possession possession
                     WHERE {:where}
                 </data>
             </var>
