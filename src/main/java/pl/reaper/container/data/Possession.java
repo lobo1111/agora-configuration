@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -40,22 +38,10 @@ public class Possession implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
-    @ManyToMany
-    @JoinTable(
-        name = "possession_person", joinColumns =
-    @JoinColumn(name = "possession_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "person_id", referencedColumnName = "id"))
-    private Collection<Person> people;
-    @ManyToMany
-    @JoinTable(
-        name = "possession_company", joinColumns =
-    @JoinColumn(name = "possession_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "company_id", referencedColumnName = "id"))
-    private Collection<Company> companies;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    private Collection<Owner> owners;
 
     public Possession() {
     }
@@ -88,28 +74,20 @@ public class Possession implements Serializable {
         this.address = address;
     }
 
-    public Collection<Person> getPeople() {
-        return people;
-    }
-
-    public void setPeople(Collection<Person> people) {
-        this.people = people;
-    }
-
-    public Collection<Company> getCompanies() {
-        return companies;
-    }
-
-    public void setCompanies(Collection<Company> companies) {
-        this.companies = companies;
-    }
-
     public Collection<ZakladowyPlanKont> getZpks() {
         return zpks;
     }
 
     public void setZpks(Collection<ZakladowyPlanKont> zpks) {
         this.zpks = zpks;
+    }
+
+    public Collection<Owner> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(Collection<Owner> owners) {
+        this.owners = owners;
     }
 
     @Override

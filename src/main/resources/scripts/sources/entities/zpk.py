@@ -15,8 +15,7 @@ class ZpkManager(Container):
         zpk.setDescription(vars.get('description'))
         zpk.setCommunity(self.getCommunity(zpk))
         zpk.setPossession(self.getPossession(zpk))
-        zpk.setPerson(self.getPerson(zpk))
-        zpk.setCompany(self.getCompany(zpk))
+        zpk.setObligation(self.getObligation(zpk))
         self.setAllBookingPeriods(zpk)
         
     def getCommunity(self, zpk):
@@ -24,20 +23,14 @@ class ZpkManager(Container):
             communityManager = CommunityManager()
             return communityManager.findCommunityById(vars.get('communityId'))
         
-    def getPerson(self, zpk):
-        if 'personId' in vars and vars.get('personId') != '0':
-            personManager = PersonManager()
-            return personManager.findPersonById(vars.get('personId'))
-        
     def getPossession(self, zpk):
         if 'possessionId'in vars and vars.get('possessionId') != '0':
             possessionManager = PossessionManager()
             return possessionManager.findPossessionById(vars.get('possessionId'))
         
-    def getCompany(self, zpk):
-        if 'companyId' in vars and vars.get('companyId') != '0':
-            companyManager = CompanyManager()
-            return companyManager.findCompanyById(vars.get('companyId'))
+    def getObligation(self, zpk):
+        if 'obligationId' in vars and vars.get('obligationId') != '0':
+            return entityManager.createQuery('Select o From Obligation o Where o.id = ' + str(vars.get('obligationId'))).getSingleResult()
         
     def setAllBookingPeriods(self, zpk):
         bookingPeriodManager = BookingPeriodManager()

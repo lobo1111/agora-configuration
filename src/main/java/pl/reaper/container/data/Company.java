@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -62,15 +60,8 @@ public class Company implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
-    @ManyToMany
-    @JoinTable(
-        name = "possession_company", joinColumns =
-    @JoinColumn(name = "company_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "possession_id", referencedColumnName = "id"))
-    private Collection<Possession> possessions;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-    private Collection<ZakladowyPlanKont> zpks;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    private Collection<Owner> owners;
 
     public Company() {
     }
@@ -166,21 +157,20 @@ public class Company implements Serializable {
         this.address = address;
     }
 
-    @XmlTransient
-    public Collection<Possession> getPossessions() {
-        return possessions;
+    public Collection<Community> getCommunities() {
+        return communities;
     }
 
-    public void setPossessions(Collection<Possession> possessions) {
-        this.possessions = possessions;
+    public void setCommunities(Collection<Community> communities) {
+        this.communities = communities;
     }
 
-    public Collection<ZakladowyPlanKont> getZpks() {
-        return zpks;
+    public Collection<Owner> getOwners() {
+        return owners;
     }
 
-    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
-        this.zpks = zpks;
+    public void setOwners(Collection<Owner> owners) {
+        this.owners = owners;
     }
 
     @Override

@@ -10,13 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -63,17 +60,10 @@ public class Person implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
-    @ManyToMany
-    @JoinTable(
-        name = "possession_person", joinColumns =
-    @JoinColumn(name = "person_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "possession_id", referencedColumnName = "id"))
-    private Collection<Possession> possessions;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<User> users;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
-    private Collection<ZakladowyPlanKont> zpks;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    private Collection<Owner> owners;
 
     public Person() {
     }
@@ -162,15 +152,6 @@ public class Person implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Possession> getPossessions() {
-        return possessions;
-    }
-
-    public void setPossessions(Collection<Possession> possessions) {
-        this.possessions = possessions;
-    }
-
-    @XmlTransient
     public Collection<User> getUsers() {
         return users;
     }
@@ -179,12 +160,12 @@ public class Person implements Serializable {
         this.users = users;
     }
 
-    public Collection<ZakladowyPlanKont> getZpks() {
-        return zpks;
+    public Collection<Owner> getOwners() {
+        return owners;
     }
 
-    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
-        this.zpks = zpks;
+    public void setOwners(Collection<Owner> owners) {
+        this.owners = owners;
     }
 
     @Override

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,16 +45,11 @@ public class ZakladowyPlanKont implements Serializable {
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
     @ManyToOne
     private Possession possession;
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
-    @ManyToOne
-    private Person person;
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne
-    private Company company;
+    @OneToOne
+    @JoinColumn(name = "obligation_id", referencedColumnName = "id")
+    private Obligation obligation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
-    private Collection<Obligation> obligations;
 
     public Integer getId() {
         return id;
@@ -95,20 +91,12 @@ public class ZakladowyPlanKont implements Serializable {
         this.possession = possession;
     }
 
-    public Person getPerson() {
-        return person;
+    public Obligation getObligation() {
+        return obligation;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setObligation(Obligation obligation) {
+        this.obligation = obligation;
     }
 
     public Collection<ZpkBalance> getZpkBalances() {
@@ -117,14 +105,6 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setZpkBalances(Collection<ZpkBalance> zpkBalances) {
         this.zpkBalances = zpkBalances;
-    }
-
-    public Collection<Obligation> getObligations() {
-        return obligations;
-    }
-
-    public void setObligations(Collection<Obligation> obligations) {
-        this.obligations = obligations;
     }
 
     public String longDescription() {

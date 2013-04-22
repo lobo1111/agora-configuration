@@ -1103,4 +1103,10 @@
             ADD CONSTRAINT `owner_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+        <changeSet author='tkopacki' id='table-obligation-contractor-zpk-id-column-drop'>
+        <sql>  
+            ALTER TABLE `owner` DROP COLUMN `label`
+        </sql>
+    </changeSet>
 </databaseChangeLog>
