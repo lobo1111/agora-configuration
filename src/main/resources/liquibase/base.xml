@@ -241,4 +241,40 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
     </changeSet>  
+    
+    <changeSet author='tkopacki' id='table-possession-company-possession-fkey-drop'>
+        <sql>  
+            ALTER TABLE `possession_company` DROP FOREIGN KEY `possession_company_possession_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-possession-company-possession-fkey-drop'>
+        <sql>  
+            ALTER TABLE `possession_company` DROP FOREIGN KEY `possession_company_company_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-possession-company-drop'>
+        <sql>  
+            DROP TABLE `possession_company`
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-possession-person-possession-fkey-drop'>
+        <sql>  
+            ALTER TABLE `possession_person` DROP FOREIGN KEY `possession_person_possession_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-possession-person-possession-fkey-drop'>
+        <sql>  
+            ALTER TABLE `possession_person` DROP FOREIGN KEY `possession_person_person_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-possession-person-drop'>
+        <sql>  
+            DROP TABLE `possession_person`
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

@@ -1012,4 +1012,95 @@
             ADD COLUMN `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-zpk-table-person-fk-drop'>
+        <sql>  
+            ALTER TABLE `zpk` DROP FOREIGN KEY `zpk_person_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-zpk-table-person-column-drop'>
+        <sql>  
+            ALTER TABLE `zpk` DROP COLUMN `person_id`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-zpk-table-company-fk-drop'>
+        <sql>  
+            ALTER TABLE `zpk` DROP FOREIGN KEY `zpk_company_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-zpk-table-company-column-drop'>
+        <sql>  
+            ALTER TABLE `zpk` DROP COLUMN `company_id`
+        </sql>
+    </changeSet>
+    
+    <changeSet id="tkopacki" author="table-zpk-obligation-id-column">
+        <sql>
+            ALTER TABLE `zpk` ADD COLUMN `obligation_id` int(11)
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-zpk-obligation-id-fkey'>
+        <sql>  
+            ALTER TABLE `zpk`
+            ADD CONSTRAINT `zpk_obligation_fkey` FOREIGN KEY (`obligation_id`) REFERENCES `obligation` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-obligation-contractor-zpk-id-fkey-drop'>
+        <sql>  
+            ALTER TABLE `obligation` DROP FOREIGN KEY `obligation_contractor_fkey`
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-obligation-contractor-zpk-id-column-drop'>
+        <sql>  
+            ALTER TABLE `obligation` DROP COLUMN `contractor_zpk_id`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-owner'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `owner` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `label` varchar(1024) NOT NULL,
+            `address_id` int(11) NULL,
+            `possession_id` int(11) NOT NULL,
+            `person_id` int(11) NOT NULL,
+            `company_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-owner-address-id-fkey'>
+        <sql>  
+            ALTER TABLE `owner`
+            ADD CONSTRAINT `owner_address_fkey` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-owner-possession-id-fkey'>
+        <sql>  
+            ALTER TABLE `owner`
+            ADD CONSTRAINT `owner_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-owner-person-id-fkey'>
+        <sql>  
+            ALTER TABLE `owner`
+            ADD CONSTRAINT `owner_person_fkey` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-owner-company-id-fkey'>
+        <sql>  
+            ALTER TABLE `owner`
+            ADD CONSTRAINT `owner_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
