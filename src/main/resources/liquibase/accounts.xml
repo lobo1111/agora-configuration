@@ -1104,7 +1104,7 @@
         </sql>
     </changeSet>
     
-        <changeSet author='tkopacki' id='table-obligation-contractor-zpk-id-column-drop'>
+        <changeSet author='tkopacki' id='table-owner-label-column-drop'>
         <sql>  
             ALTER TABLE `owner` DROP COLUMN `label`
         </sql>
