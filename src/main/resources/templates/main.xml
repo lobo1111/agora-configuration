@@ -541,6 +541,7 @@
                     ObligationGroup og
                     JOIN og.community community
                     WHERE {:where}
+                    ORDER BY
                     community.name, og.name ASC
                 </data>
             </var>
