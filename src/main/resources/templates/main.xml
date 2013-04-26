@@ -762,7 +762,7 @@
                     FROM 
                     IncomingPaymentDocumentPosition document
                     WHERE {:where}
-                    ORDER BY document.timestamp DESC
+                    ORDER BY document.requestDate DESC
                 </data>
             </var>
             <var>
