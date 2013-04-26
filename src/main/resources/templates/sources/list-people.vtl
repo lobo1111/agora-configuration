@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<companies>
-    #foreach($row in $people)
+<people>
+    #foreach($person in $people)
     <item>
         <id>$!person.getId()</id>
         <firstName>$!person.getFirstName()</firstName>
@@ -13,4 +13,4 @@
     <settings>
         <maxResults>$countRows</maxResults>
     </settings>
-</owners>
+</people>
