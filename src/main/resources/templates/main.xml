@@ -82,6 +82,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-owner</name>
+        <source>entity-owner.vtl</source>
+        <variables>
+            <var>
+                <name>owner</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    owner
+                    FROM 
+                    Owner owner
+                    WHERE 
+                    owner.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-obligation</name>
         <source>entity-obligation.vtl</source>
         <variables>
@@ -400,6 +418,7 @@
                     bp.default_period = 1
                     GROUP BY 
                     og.id, og.name) AS sum2 ON(og.id = sum2.id)
+                    ORDER BY c.name, og.name ASC
                 </data>
             </var>
             <var>
@@ -460,6 +479,8 @@
                     paymentScheduler
                     FROM
                     PaymentScheduler paymentScheduler
+                    ORDER BY
+                    paymentScheduler.name ASC
                 </data>
             </var>
             <var>
@@ -488,6 +509,8 @@
                     Obligation obligation
                     JOIN obligation.community community
                     WHERE {:where}
+                    ORDER BY
+                    community.name, obligation.name ASC
                 </data>
             </var>
             <var>
@@ -518,6 +541,7 @@
                     ObligationGroup og
                     JOIN og.community community
                     WHERE {:where}
+                    community.name, og.name ASC
                 </data>
             </var>
             <var>
@@ -547,6 +571,8 @@
                     FROM
                     AutoPayment autoPayment
                     WHERE {:where}
+                    ORDER BY
+                    autoPayment.name ASC
                 </data>
             </var>
             <var>
@@ -581,6 +607,8 @@
                     LEFT OUTER JOIN zpk.obligation obligation
                     WHERE {:where} AND
                     period.defaultPeriod = true
+                    ORDER BY
+                    community.name, zpk.number ASC
                 </data>
             </var>
             <var>
@@ -615,6 +643,7 @@
                     FROM
                     Community community
                     WHERE {:where}
+                    ORDER BY community.name ASC
                 </data>
             </var>
             <var>
@@ -675,6 +704,7 @@
                     FROM 
                     Bank bank
                     WHERE {:where}
+                    ORDER BY bank.name
                 </data>
             </var>
             <var>
@@ -703,6 +733,7 @@
                     FROM 
                     Account account
                     WHERE {:where}
+                    ORDER BY name ASC
                 </data>
             </var>
             <var>
@@ -731,6 +762,7 @@
                     FROM 
                     IncomingPaymentDocumentPosition document
                     WHERE {:where}
+                    ORDER BY document.timestamp DESC
                 </data>
             </var>
             <var>
@@ -770,6 +802,7 @@
                     LEFT OUTER JOIN zpk.obligation obligation
                     LEFT OUTER JOIN payment.documents doc
                     WHERE {:where}
+                    ORDER BY payment.createDay DESC
                 </data>
             </var>
             <var>
@@ -809,6 +842,7 @@
                     FROM 
                     Owner owner
                     WHERE {:where}
+                    ORDER BY owner.name ASC
                 </data>
             </var>
             <var>
@@ -824,24 +858,61 @@
         </variables>
     </template>
     <template>
-        <name>list-possession-owners</name>
-        <source>list-possession-owners.vtl</source>
+        <name>list-companies</name>
+        <source>list-companies.vtl</source>
         <variables>
             <var>
-                <name>owners</name>
+                <name>companies</name>
                 <data>
-                    SELECT 
-                    owner
+                    {:limit}
+                    SELECT
+                    company
+                    FROM 
+                    Company company
+                    WHERE {:where}
+                    ORDER BY company.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(company.id)
                     FROM
-                    Owner owner
-                    JOIN owner.possession possession
-                    WHERE
-                    possession.id = {:id}
+                    Company company
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
     </template>
-    
+    <template>
+        <name>list-people</name>
+        <source>list-people.vtl</source>
+        <variables>
+            <var>
+                <name>people</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    person
+                    FROM 
+                    Person person
+                    WHERE {:where}
+                    ORDER BY person.lastName, person.firstName ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(person.id)
+                    FROM
+                    Person person
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
     
     <!-- ################### SIMPLE LISTS ########################## -->
     
@@ -898,6 +969,7 @@
                     JOIN possession.zpks zpk
                     WHERE
                     possession.id = {:id}
+                    ORDER BY zpk.number ASC
                 </data>
             </var>
         </variables>
@@ -917,44 +989,7 @@
                     JOIN community.zpks zpk
                     WHERE
                     community.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>list-person-zpks</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    zpk.id, 
-                    CONCAT(zpk.number, " ", zpk.description))
-                    FROM
-                    Person person
-                    JOIN person.zpks zpk
-                    WHERE
-                    person.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>list-company-zpks</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    zpk.id, 
-                    CONCAT(zpk.number, " ", zpk.description))
-                    FROM
-                    Company company
-                    JOIN company.zpks zpk
-                    WHERE
-                    company.id = {:id}
+                    ORDER BY zpk.number ASC
                 </data>
             </var>
         </variables>

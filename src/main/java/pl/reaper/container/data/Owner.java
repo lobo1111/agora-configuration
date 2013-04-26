@@ -1,5 +1,6 @@
 package pl.reaper.container.data;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "owner")
 @XmlRootElement
-public class Owner {
+public class Owner implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -23,7 +24,7 @@ public class Owner {
     @Column(name = "id")
     private Integer id;
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Address address;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
