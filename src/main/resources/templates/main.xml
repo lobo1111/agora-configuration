@@ -733,7 +733,7 @@
                     FROM 
                     Account account
                     WHERE {:where}
-                    ORDER BY name ASC
+                    ORDER BY account.name ASC
                 </data>
             </var>
             <var>
