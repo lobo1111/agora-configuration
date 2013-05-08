@@ -672,9 +672,17 @@
                     possession
                     FROM 
                     Possession possession
+                    JOIN possession.address possessionAddress
                     JOIN possession.community community
+                    LEFT OUTER JOIN possession.owners owner
+                    LEFT OUTER JOIN owner.person personOwner
+                    LEFT OUTER JOIN owner.company companyOwner
                     WHERE {:where}
-                    ORDER BY community.name ASC
+                    ORDER BY 
+                    community.name, 
+                    possessionAddress.street, 
+                    possessionAddress.houseNumber, 
+                    possessionAddress.flatNumber ASC
                 </data>
             </var>
             <var>
@@ -685,9 +693,12 @@
                     count(possession.id)
                     FROM 
                     Possession possession
+                    JOIN possession.address possessionAddress
                     JOIN possession.community community
+                    LEFT OUTER JOIN possession.owners owner
+                    LEFT OUTER JOIN owner.person personOwner
+                    LEFT OUTER JOIN owner.company companyOwner
                     WHERE {:where}
-                    ORDER BY community.name ASC
                 </data>
             </var>
         </variables>
