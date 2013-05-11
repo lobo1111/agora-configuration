@@ -479,6 +479,8 @@
                     paymentScheduler
                     FROM
                     PaymentScheduler paymentScheduler
+                    JOIN paymentScheduler.community community
+                    WHERE {:where}
                     ORDER BY
                     paymentScheduler.name ASC
                 </data>
@@ -491,6 +493,8 @@
                     count(paymentScheduler.id)
                     FROM
                     PaymentScheduler paymentScheduler
+                    JOIN paymentScheduler.community community
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
