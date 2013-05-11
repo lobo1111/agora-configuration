@@ -416,9 +416,9 @@
                     JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
                     WHERE
                     bp.default_period = 1
-                    AND {:where}
                     GROUP BY 
                     og.id, og.name) AS sum2 ON(og.id = sum2.id)
+                    WHERE {:where}
                     ORDER BY c.name, og.name ASC
                 </data>
             </var>
@@ -462,9 +462,9 @@
                     JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
                     WHERE
                     bp.default_period = 1
-                    AND {:where}
                     GROUP BY 
                     og.id, og.name) AS sum2 ON(og.id = sum2.id)
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
