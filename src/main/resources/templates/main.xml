@@ -577,6 +577,7 @@
                     autoPayment
                     FROM
                     AutoPayment autoPayment
+                    JOIN autoPayment.account account
                     WHERE {:where}
                     ORDER BY
                     autoPayment.name ASC
@@ -590,6 +591,7 @@
                     count(autoPayment.id)
                     FROM
                     AutoPayment autoPayment
+                    JOIN autoPayment.account account
                     WHERE {:where}
                 </data>
             </var>
