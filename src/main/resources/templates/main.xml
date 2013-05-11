@@ -479,6 +479,7 @@
                     paymentScheduler
                     FROM
                     PaymentScheduler paymentScheduler
+                    JOIN paymentScheduler.paymentSchedulerTemplates template
                     JOIN paymentScheduler.community community
                     WHERE {:where}
                     ORDER BY
@@ -493,6 +494,7 @@
                     count(paymentScheduler.id)
                     FROM
                     PaymentScheduler paymentScheduler
+                    JOIN paymentScheduler.paymentSchedulerTemplates template
                     JOIN paymentScheduler.community community
                     WHERE {:where}
                 </data>
