@@ -62,6 +62,8 @@ public class Company implements Serializable {
     private Address address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private Collection<Owner> owners;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "contractor")
+    private Collection<Obligation> obligations;
 
     public Company() {
     }
@@ -171,6 +173,14 @@ public class Company implements Serializable {
 
     public void setOwners(Collection<Owner> owners) {
         this.owners = owners;
+    }
+
+    public Collection<Obligation> getObligations() {
+        return obligations;
+    }
+
+    public void setObligations(Collection<Obligation> obligations) {
+        this.obligations = obligations;
     }
 
     @Override
