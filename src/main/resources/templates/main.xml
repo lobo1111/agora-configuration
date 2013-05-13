@@ -929,6 +929,9 @@
                     {:limit}
                     SELECT
                     person
+                    JOIN person.address personAddress
+                    LEFT OUTER JOIN person.owners owner
+                    LEFT OUTER JOIN owner.possession possession
                     FROM 
                     Person person
                     WHERE {:where}
@@ -942,6 +945,9 @@
                     SELECT count(person.id)
                     FROM
                     Person person
+                    JOIN person.address personAddress
+                    LEFT OUTER JOIN person.owners owner
+                    LEFT OUTER JOIN owner.possession possession
                     WHERE {:where}
                 </data>
             </var>
