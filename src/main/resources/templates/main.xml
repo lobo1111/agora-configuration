@@ -515,6 +515,7 @@
                     obligation
                     FROM
                     Obligation obligation
+                    JOIN obligation.contractor company
                     JOIN obligation.community community
                     JOIN obligation.obligationGroup obligationGroup
                     WHERE {:where}
@@ -530,6 +531,7 @@
                     count(obligation.id)
                     FROM
                     Obligation obligation
+                    JOIN obligation.contractor company
                     JOIN obligation.obligationGroup obligationGroup
                     JOIN obligation.community community
                     WHERE {:where}
