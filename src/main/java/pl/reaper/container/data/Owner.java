@@ -27,10 +27,10 @@ public class Owner implements Serializable {
     @ManyToOne(optional = true)
     private Address address;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Company company;
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Person person;
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
     @ManyToOne
