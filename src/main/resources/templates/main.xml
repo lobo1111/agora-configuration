@@ -867,8 +867,10 @@
                     owner
                     FROM 
                     Owner owner
+                    LEFT OUTER JOIN owner.company company
+                    LEFT OUTER JOIN owner.person person
                     WHERE {:where}
-                    ORDER BY owner.name ASC
+                    ORDER BY company.name, person.lastName ASC
                 </data>
             </var>
             <var>
@@ -878,6 +880,8 @@
                     SELECT count(owner.id)
                     FROM
                     Owner owner
+                    LEFT OUTER JOIN owner.company company
+                    LEFT OUTER JOIN owner.person person
                     WHERE {:where}
                 </data>
             </var>
