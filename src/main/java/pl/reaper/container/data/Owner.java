@@ -75,16 +75,27 @@ public class Owner implements Serializable {
     public void setPossession(Possession possession) {
         this.possession = possession;
     }
-    
+
     public boolean isCompany() {
         return company != null;
     }
-    
+
     public String getName() {
-        if(isCompany()) {
+        if (isCompany()) {
             return company.getName();
         } else {
             return person.getFirstName() + " " + person.getLastName();
         }
+    }
+
+    public String longDescription() {
+        String description = "[name:" + getName() + "]";
+        if (getPerson() != null) {
+            description += "[person:" + getPerson().longDescription() + "]";
+        }
+        if (getCompany() != null) {
+            description += "[company:" + getCompany().longDescription() + "]";
+        }
+        return description;
     }
 }
