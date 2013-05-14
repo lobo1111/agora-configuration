@@ -1112,21 +1112,18 @@
     
     <changeSet author='tkopacki' id='table-owner-possession-nullable'>
         <sql>  
-            ALTER TABLE `owner` 
             ALTER TABLE `owner` MODIFY `owner`.`possession_id` int(11)
         </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='table-owner-company-nullable'>
         <sql>  
-            ALTER TABLE `owner` 
             ALTER TABLE `owner` MODIFY `owner`.`company_id` int(11)
         </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='table-owner-person-nullable'>
         <sql>  
-            ALTER TABLE `owner` 
             ALTER TABLE `owner` MODIFY `owner`.`person_id` int(11)
         </sql>
     </changeSet>
