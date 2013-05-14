@@ -14,11 +14,11 @@ class OwnerManager(Container):
         self.saveOwner(owner)
         
     def setOwnerData(self, owner):
-        if vars.get('personId') is not None:
+        if vars.get('personId') != '0':
             person = PersonManager().findPersonById(vars.get('personId'))
             owner.setCompany(None)
             owner.setPerson(person)
-        if vars.get('companyId') is not None:
+        if vars.get('companyId') != '0':
             company = CompanyManager().findCompanyById(vars.get('companyId'))
             owner.setCompany(company)
             owner.setPerson(None)
