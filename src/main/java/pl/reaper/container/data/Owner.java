@@ -80,11 +80,17 @@ public class Owner implements Serializable {
         return company != null;
     }
 
+    public boolean isPerson() {
+        return person != null;
+    }
+
     public String getName() {
         if (isCompany()) {
             return company.getName();
-        } else {
+        } else if (isPerson()) {
             return person.getFirstName() + " " + person.getLastName();
+        } else {
+            return "<unset>";
         }
     }
 
