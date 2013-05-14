@@ -90,7 +90,7 @@ public class Owner implements Serializable {
         } else if (isPerson()) {
             return person.getFirstName() + " " + person.getLastName();
         } else {
-            return "<unset>";
+            return "";
         }
     }
 
