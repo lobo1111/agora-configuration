@@ -787,6 +787,7 @@
                     document
                     FROM 
                     IncomingPaymentDocumentPosition document
+                    JOIN document.status status
                     JOIN document.document parentDocument
                     WHERE {:where}
                     ORDER BY document.requestDate DESC
@@ -800,6 +801,7 @@
                     count(document.id)
                     FROM 
                     IncomingPaymentDocumentPosition document
+                    JOIN document.status status
                     JOIN document.document parentDocument
                     WHERE {:where}
                 </data>
