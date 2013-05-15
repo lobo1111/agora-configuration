@@ -879,6 +879,8 @@
                     Owner owner
                     LEFT OUTER JOIN owner.company company
                     LEFT OUTER JOIN owner.person person
+                    JOIN owner.possessions possession
+                    JOIN possession.community community
                     WHERE {:where}
                     ORDER BY company.name, person.lastName ASC
                 </data>
@@ -892,6 +894,8 @@
                     Owner owner
                     LEFT OUTER JOIN owner.company company
                     LEFT OUTER JOIN owner.person person
+                    JOIN owner.possessions possession
+                    JOIN possession.community community
                     WHERE {:where}
                 </data>
             </var>
