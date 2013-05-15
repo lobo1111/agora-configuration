@@ -758,7 +758,7 @@
                     account
                     FROM 
                     Account account
-                    JOIN account.type type
+                    JOIN account.type accountType
                     JOIN account.bank bank
                     JOIN account.parrentAccount parentAccount
                     WHERE {:where}
