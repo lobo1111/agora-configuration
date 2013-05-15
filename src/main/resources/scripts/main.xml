@@ -437,6 +437,23 @@
             <group>all</group>
         </security>
     </script>
+     
+   <script>
+        <name>owner</name>
+        <source>entities/owner.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>person</scriptName>
+            <scriptName>address</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
         
     <script>
         <name>payment</name>
@@ -523,6 +540,40 @@
             <scriptName>obligation-group</scriptName>
             <scriptName>payment</scriptName>
             <scriptName>dictionary-manager</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+        
+   <script>
+        <name>create-owner</name>
+        <source>entities/owner.py</source>
+        <onInit>OwnerManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>person</scriptName>
+            <scriptName>address</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+        
+   <script>
+        <name>update-owner</name>
+        <source>entities/owner.py</source>
+        <onInit>OwnerManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>person</scriptName>
+            <scriptName>address</scriptName>
         </dependencies>
         <security>
             <group>all</group>

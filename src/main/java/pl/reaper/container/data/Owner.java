@@ -27,10 +27,10 @@ public class Owner implements Serializable {
     @ManyToOne(optional = true)
     private Address address;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Company company;
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Person person;
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
     @ManyToOne
@@ -75,16 +75,33 @@ public class Owner implements Serializable {
     public void setPossession(Possession possession) {
         this.possession = possession;
     }
-    
+
     public boolean isCompany() {
         return company != null;
     }
-    
+
+    public boolean isPerson() {
+        return person != null;
+    }
+
     public String getName() {
-        if(isCompany()) {
+        if (isCompany()) {
             return company.getName();
-        } else {
+        } else if (isPerson()) {
             return person.getFirstName() + " " + person.getLastName();
+        } else {
+            return "";
         }
+    }
+
+    public String longDescription() {
+        String description = "[name:" + getName() + "]";
+        if (getPerson() != null) {
+            description += "[person:" + getPerson().longDescription() + "]";
+        }
+        if (getCompany() != null) {
+            description += "[company:" + getCompany().longDescription() + "]";
+        }
+        return description;
     }
 }
