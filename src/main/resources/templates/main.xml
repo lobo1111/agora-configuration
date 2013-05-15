@@ -758,7 +758,7 @@
                     account
                     FROM 
                     Account account
-                    JOIN account bank bank
+                    JOIN account.bank bank
                     JOIN account.parrentAccount parentAccount
                     WHERE {:where}
                     ORDER BY account.name ASC
@@ -772,7 +772,7 @@
                     count(account.id)
                     FROM 
                     Account account
-                    JOIN account bank bank
+                    JOIN account.bank bank
                     JOIN account.parrentAccount parentAccount
                     WHERE {:where}
                 </data>
