@@ -950,8 +950,6 @@
                     FROM 
                     Person person
                     JOIN person.address personAddress
-                    LEFT OUTER JOIN person.owners owner
-                    LEFT OUTER JOIN owner.possession possession
                     WHERE {:where}
                     ORDER BY person.lastName, person.firstName ASC
                 </data>
@@ -964,8 +962,6 @@
                     FROM
                     Person person
                     JOIN person.address personAddress
-                    LEFT OUTER JOIN person.owners owner
-                    LEFT OUTER JOIN owner.possession possession
                     WHERE {:where}
                 </data>
             </var>
