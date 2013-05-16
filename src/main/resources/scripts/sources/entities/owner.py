@@ -23,23 +23,23 @@ class OwnerManager(Container):
         self.setAdditionalAddressData(owner)
         
     def setSubjectData(self, owner):
-        if vars.get('personSubject') != 'true':
-            if vars.get('newSubject') != 'true':
-                vars.put('id', vars.get('personId'))
+        if vars.get('personSubject') == 'true':
+            if vars.get('newSubject') == 'true':
                 person = PersonManager().create()
             else:
+                vars.put('id', vars.get('personId'))
                 person = PersonManager().update()
             owner.setPerson(person)
         else:
-            if vars.get('newSubject') != 'true':
-                vars.put('id', vars.get('companyId'))
+            if vars.get('newSubject') == 'true':
                 company = CompanyManager().create()
             else:
+                vars.put('id', vars.get('companyId'))
                 company = CompanyManager().update()
             owner.setCompany(company)
             
     def setAdditionalAddressData(self, owner):
-        if vars.get('additionalAddress') != 'true':
+        if vars.get('additionalAddress') == 'true':
             addressManager = AddressManager()
             addressManager.setPrefix('additionalAddress_')
             addressManager.getAddress(owner)
