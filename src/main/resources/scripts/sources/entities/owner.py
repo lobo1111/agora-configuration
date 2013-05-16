@@ -47,7 +47,7 @@ class OwnerManager(Container):
         if vars.get('additionalAddress') == 'true':
             addressManager = AddressManager()
             addressManager.setPrefix('additionalAddress_')
-            return addressManager.getAddress(owner)
+            return addressManager.getAddress(Owner())
         else:
             return None
         
