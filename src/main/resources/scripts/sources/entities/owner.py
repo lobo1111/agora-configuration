@@ -21,7 +21,7 @@ class OwnerManager(Container):
         possession = possessionManager.create()
         owner = Owner()
         owner.setPossession(possession)
-        owner.setSubject(subject)
+        self.setSubject(owner, subject)
         additionalAddress = self.getAdditionalAddress()
         self.setAdditionalAddress(owner, additionalAddress)
         self.saveOwner(owner)
