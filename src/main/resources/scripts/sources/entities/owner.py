@@ -5,12 +5,11 @@ class OwnerManager(Container):
     
     def create(self):
         subject = self.getSubject()
-        additionalAddress = self.getAdditionalAddress()
-        
         for possession in self.getPossessions():
             owner = Owner()
             owner.setPossession(possession)
             self.setSubject(owner, subject)
+            additionalAddress = self.getAdditionalAddress()
             self.setAdditionalAddress(owner, additionalAddress)
             self.saveOwner(owner)
             
