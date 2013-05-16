@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "address")
 @XmlRootElement
 public class Address implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -161,5 +162,13 @@ public class Address implements Serializable {
                 + "[flatNumber:" + flatNumber + "]"
                 + "[postalCode:" + postalCode + "]"
                 + "[city:" + city + "]";
+    }
+
+    public String getFullAddress() {
+        String output = street + " " + houseNumber;
+        if (flatNumber != null && !"".equals(flatNumber)) {
+            output += "/" + flatNumber;
+        }
+        return output;
     }
 }

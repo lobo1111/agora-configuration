@@ -136,4 +136,8 @@ public class Possession implements Serializable {
                 + "[share:" + share + "]"
                 + "[address:" + address + "]";
     }
+
+    public String getFullAddress() {
+        return address.getFullAddress();
+    }
 }
