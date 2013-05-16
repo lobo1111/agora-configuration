@@ -2,6 +2,10 @@ from pl.reaper.container.data import Address
 
 class AddressManager(Container):
     _logger = Logger([:_scriptId])
+    _prefix = ''
+    
+    def setPrefix(self, prefix):
+        self._prefix = prefix
 
     def getAddress(self, entity):
         address = self.getOrCreateAddress(entity)
@@ -10,11 +14,11 @@ class AddressManager(Container):
         return address
     
     def setAddressData(self, address):
-        address.setStreet(vars.get('street'))
-        address.setHouseNumber(vars.get('houseNumber'))
-        address.setFlatNumber(vars.get('flatNumber'))
-        address.setPostalCode(vars.get('postalCode'))
-        address.setCity(vars.get('city'))
+        address.setStreet(vars.get(self._prefix + 'street'))
+        address.setHouseNumber(vars.get(self._prefix + 'houseNumber'))
+        address.setFlatNumber(vars.get(self._prefix + 'flatNumber'))
+        address.setPostalCode(vars.get(self._prefix + 'postalCode'))
+        address.setCity(vars.get(self._prefix + 'city'))
         
     def getOrCreateAddress(self, entity):
         if entity.getAddress() is not None:

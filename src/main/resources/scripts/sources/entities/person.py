@@ -7,11 +7,13 @@ class PersonManager(Container):
         person = Person()
         self.setPersonData(person)
         self.savePerson(person)
+        return person
         
     def update(self):
         person = self.findPersonById(vars.get('id'))
         self.setPersonData(person)
         self.savePerson(person)
+        return person
         
     def setPersonData(self, person):
         person.setFirstName(vars.get('firstName'))

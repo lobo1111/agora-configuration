@@ -4,25 +4,46 @@ class OwnerManager(Container):
     _logger = Logger([:_scriptId])
     
     def create(self):
-        owner = Owner()
-        self.setOwnerData(owner)
-        self.saveOwner(owner)
-        
-    def update(self):
-        owner = self.findOwnerById(vars.get('id'))
-        self.setOwnerData(owner)
-        self.saveOwner(owner)
+        for possession in self.getPossessions():
+            owner = Owner()
+            owner.setPossession(possession)
+            self.setOwnerData(owner)
+            self.saveOwner(owner)
+            
+    def getPossessions(self):
+        possessions = []
+        for i in range(int(vars.get('possessionsCount'))):
+            possessionId = int(vars.get('possession' + str(i)))
+            possessions.append(PossessionManager().findPossessionById(possessionId))
+        return possessions
+            
         
     def setOwnerData(self, owner):
-        if vars.get('personId') != '0':
-            person = PersonManager().findPersonById(vars.get('personId'))
-            owner.setCompany(None)
-            owner.setPerson(person)
-        if vars.get('companyId') != '0':
-            company = CompanyManager().findCompanyById(vars.get('companyId'))
-            owner.setCompany(company)
-            owner.setPerson(None)
+        self.setSubjectData(owner)
+        self.setAdditionalAddressData(owner)
         
+    def setSubjectData(self, owner):
+        if vars.get('personSubject') != 'true':
+            if vars.get('newSubject') != 'true':
+                vars.put('id', vars.get('personId'))
+                person = PersonManager().create()
+            else:
+                person = PersonManager().update()
+            owner.setPerson(person)
+        else:
+            if vars.get('newSubject') != 'true':
+                vars.put('id', vars.get('companyId'))
+                company = CompanyManager().create()
+            else:
+                company = CompanyManager().update()
+            owner.setCompany(company)
+            
+    def setAdditionalAddressData(self, owner):
+        if vars.get('additionalAddress') != 'true':
+            addressManager = AddressManager()
+            addressManager.setPrefix('additionalAddress_')
+            addressManager.getAddress(owner)
+            
     def getAddress(self, owner):
         addressManager = AddressManager()
         return addressManager.getAddress(owner)
