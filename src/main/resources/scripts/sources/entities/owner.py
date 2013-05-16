@@ -13,7 +13,7 @@ class OwnerManager(Container):
     def getPossessions(self):
         possessions = []
         for i in range(int(vars.get('possessionsCount'))):
-            possessionId = int(vars.get('possession' + str(i)))
+            possessionId = vars.get('possession' + str(i))
             possessions.append(PossessionManager().findPossessionById(possessionId))
         return possessions
             
