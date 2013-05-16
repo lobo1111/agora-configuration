@@ -7,11 +7,13 @@ class CompanyManager(Container):
         company = Company()
         self.setCompanyData(company)
         self.saveCompany(company)
+        return company
         
     def update(self):
         company = self.findCompanyById(vars.get('id'))
         self.setCompanyData(company)
         self.saveCompany(company)
+        return company
         
     def setCompanyData(self, company):
         company.setName(vars.get('name'))

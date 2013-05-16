@@ -36,18 +36,16 @@ class OwnerManager(Container):
     def getSubject(self):
         if vars.get('personSubject') == 'true':
             if vars.get('newSubject') == 'true':
-                person = PersonManager().create()
+                return PersonManager().create()
             else:
                 vars.put('id', vars.get('personId'))
-                person = PersonManager().update()
-            return person
+                return PersonManager().update()
         else:
             if vars.get('newSubject') == 'true':
-                company = CompanyManager().create()
+                return CompanyManager().create()
             else:
                 vars.put('id', vars.get('companyId'))
-                company = CompanyManager().update()
-            return company
+                return CompanyManager().update()
         
     def setSubject(self, owner, subject):
         if vars.get('personSubject') == 'true':
