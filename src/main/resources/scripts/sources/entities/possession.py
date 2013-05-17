@@ -12,12 +12,14 @@ class PossessionManager(Container):
     def create(self):
         possession = Possession()
         self.setPossessionData(possession)
+        self.setPossessionAdditionalData(possession)
         self.savePossession(possession)
         return possession;
         
     def update(self):
         possession = self.findPossessionById(vars.get('id'))
         self.setPossessionData(possession)
+        self.setPossessionAdditionalData(possession)
         self.savePossession(possession)
         return possession;
         
@@ -25,6 +27,14 @@ class PossessionManager(Container):
         possession.setArea(BigDecimal(vars.get(self._prefix + 'possessionArea')))
         possession.setAddress(self.getAddress(possession))
         possession.setCommunity(self.getCommunity(possession))
+        
+    def setPossessionAdditionalData(self, possession):
+        possession.getAdditionalData().setDeclaredArea(Double.parseDouble(vars.get(self._prefix + 'declaredArea')))
+        possession.getAdditionalData().setDeclaredShare(Double.parseDouble(vars.get(self._prefix + 'declaredShare')))
+        possession.getAdditionalData().setHotWater(Double.parseDouble(vars.get(self._prefix + 'hotWater')))
+        possession.getAdditionalData().setColdWater(Double.parseDouble(vars.get(self._prefix + 'coldWater')))
+        possession.getAdditionalData().setPeople(Integer.parseInt(vars.get(self._prefix + 'people')))
+        possession.getAdditionalData().setRooms(Integer.parseInt(vars.get(self._prefix + 'rooms')))
         
     def getAddress(self, possession):
         addressManager = AddressManager()
