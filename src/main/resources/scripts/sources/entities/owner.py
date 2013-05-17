@@ -23,7 +23,7 @@ class OwnerManager(Container):
         
     def delete(self):
         owner = self.findOwnerById(vars.get('id'))
-        enittyManager.remove(owner)
+        entityManager.remove(owner)
 
     def createPossession(self, subject):
         possessionManager = PossessionManager()
