@@ -14,6 +14,12 @@ class OwnerManager(Container):
             self.saveOwner(owner)
         if vars.get('newPossession') == 'true':
             self.createPossession(subject)
+            
+    def update(self):
+        owner = self.findOwnerById(vars.get('id'))
+        additionalAddress = self.getAdditionalAddress()
+        self.setAdditionalAddress(owner, additionalAddress)
+        self.saveOwner(owner)
 
     def createPossession(self, subject):
         possessionManager = PossessionManager()
