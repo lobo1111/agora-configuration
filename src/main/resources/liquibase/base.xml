@@ -304,8 +304,8 @@
     
     <changeSet author='tkopacki' id='possession-additiona-data-initial-insert'>
         <sql>  
-            INSERT INTO `possession_additional_data`(possession_id)
-            SELECT possession_id FROM possession
+            INSERT INTO `possession_additional_data`(`possession_id`)
+            SELECT `id` FROM possession
         </sql>
     </changeSet>
 </databaseChangeLog> 
