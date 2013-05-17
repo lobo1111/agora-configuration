@@ -692,7 +692,7 @@
                     LEFT OUTER JOIN owner.person personOwner
                     LEFT OUTER JOIN owner.company companyOwner
                     WHERE {:where}
-                    GROUP BY owner
+                    GROUP BY possession
                     ORDER BY 
                     community.name, 
                     possessionAddress.street, 
@@ -714,7 +714,7 @@
                     LEFT OUTER JOIN owner.person personOwner
                     LEFT OUTER JOIN owner.company companyOwner
                     WHERE {:where}
-                    GROUP BY owner
+                    GROUP BY possession
                 </data>
             </var>
         </variables>
