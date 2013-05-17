@@ -688,11 +688,7 @@
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    LEFT OUTER JOIN possession.owners owner
-                    LEFT OUTER JOIN owner.person personOwner
-                    LEFT OUTER JOIN owner.company companyOwner
                     WHERE {:where}
-                    GROUP BY possession.id
                     ORDER BY 
                     community.name, 
                     possessionAddress.street, 
@@ -710,11 +706,6 @@
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    LEFT OUTER JOIN possession.owners owner
-                    LEFT OUTER JOIN owner.person personOwner
-                    LEFT OUTER JOIN owner.company companyOwner
-                    WHERE {:where}
-                    GROUP BY possession.id
                 </data>
             </var>
         </variables>
