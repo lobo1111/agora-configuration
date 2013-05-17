@@ -27,9 +27,7 @@ class ObligationManager(Container):
         return CompanyManager().findCompanyById(id)
     
     def findCommunity(self, id):
-        community = CommunityManager().findCommunityById(id)
-        print "FOUND COMMUNITY" + community.getName()
-        return community
+        return CommunityManager().findCommunityById(id)
     
     def findObligationGroup(self, id):
         return ObligationGroupManager().findObligationGroupById(id)
@@ -37,5 +35,4 @@ class ObligationManager(Container):
     def createZpk(self, obligation):
         zpk = ZpkManager().create()
         zpk.setObligation(obligation)
-        entityManager.persist(zpk)
         return zpk
