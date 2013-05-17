@@ -45,7 +45,7 @@ public class Possession implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<Owner> owners;
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "possession")
-    private PossessionAdditionalData additionalData;
+    private PossessionAdditionalData additionalData = new PossessionAdditionalData();
 
     public Possession() {
     }
