@@ -54,4 +54,18 @@
         </address>
     </person>
     #end
+    <additionalAddress>
+        #if($!owner.getAddress())
+            1
+        #else
+            0
+        #end
+    </additionalAddress>
+    <address>
+        <street>$!owner.getAddress().getStreet()</street>
+        <houseNumber>$!owner.getAddress().getHouseNumber()</houseNumber>
+        <flatNumber>$!owner.getAddress().getFlatNumber()</flatNumber>
+        <postalCode>$!owner.getAddress().getPostalCode()</postalCode>
+        <city>$!owner.getAddress().getCity()</city>
+    </address>
 </owner>
