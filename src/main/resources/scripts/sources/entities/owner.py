@@ -20,6 +20,10 @@ class OwnerManager(Container):
         additionalAddress = self.getAdditionalAddress()
         self.setAdditionalAddress(owner, additionalAddress)
         self.saveOwner(owner)
+        
+    def delete(self):
+        owner = self.findOwnerById(vars.get('id'))
+        enittyManager.remove(owner)
 
     def createPossession(self, subject):
         possessionManager = PossessionManager()

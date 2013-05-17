@@ -583,6 +583,24 @@
         </security>
     </script>
     
+   <script>
+        <name>delete-owner</name>
+        <source>entities/owner.py</source>
+        <onInit>OwnerManager().delete()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>person</scriptName>
+            <scriptName>address</scriptName>
+            <scriptName>possession</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
     <script>
         <name>create-obligation</name>
         <source>entities/obligation.py</source>
