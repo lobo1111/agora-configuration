@@ -29,6 +29,8 @@ public class PossessionAdditionalData implements Serializable {
     private Integer id;
     @Column(name = "declared_share")
     private double declaredShare;
+    @Column(name = "declared_area")
+    private double declaredArea;
     @Column(name = "people")
     private int people;
     @Column(name = "rooms")
@@ -47,6 +49,14 @@ public class PossessionAdditionalData implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public double getDeclaredArea() {
+        return declaredArea;
+    }
+
+    public void setDeclaredArea(double declaredArea) {
+        this.declaredArea = declaredArea;
     }
 
     public double getDeclaredShare() {
