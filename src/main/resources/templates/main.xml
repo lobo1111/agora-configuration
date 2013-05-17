@@ -902,6 +902,42 @@
         </variables>
     </template>
     <template>
+        <name>list-possession-owners</name>
+        <source>list-owners.vtl</source>
+        <variables>
+            <var>
+                <name>owners</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    owner
+                    FROM 
+                    Owner owner
+                    LEFT OUTER JOIN owner.company company
+                    LEFT OUTER JOIN owner.person person
+                    JOIN owner.possession possession
+                    JOIN possession.community community
+                    WHERE possession.id = {:id}
+                    ORDER BY company.name, person.lastName ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(owner.id)
+                    FROM
+                    Owner owner
+                    LEFT OUTER JOIN owner.company company
+                    LEFT OUTER JOIN owner.person person
+                    JOIN owner.possession possession
+                    JOIN possession.community community
+                    WHERE possession.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-companies</name>
         <source>list-companies.vtl</source>
         <variables>
