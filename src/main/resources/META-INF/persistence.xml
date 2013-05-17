@@ -36,6 +36,7 @@
     <class>pl.reaper.container.data.ObligationLog</class>
     <class>pl.reaper.container.data.SettlementLog</class>
     <class>pl.reaper.container.data.Owner</class>
+    <class>pl.reaper.container.data.PossessionAdditionalData</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.sharedCache.mode" value="NONE"/>
