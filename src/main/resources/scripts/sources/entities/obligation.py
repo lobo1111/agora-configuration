@@ -27,7 +27,9 @@ class ObligationManager(Container):
         return CompanyManager().findCompanyById(id)
     
     def findCommunity(self, id):
-        return CommunityManager().findCommunityById(id)
+        community = CommunityManager().findCommunityById(id)
+        print "FOUND COMMUNITY" + community.getName()
+        return community
     
     def findObligationGroup(self, id):
         return ObligationGroupManager().findObligationGroupById(id)
