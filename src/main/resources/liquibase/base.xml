@@ -277,4 +277,35 @@
             DROP TABLE `possession_person`
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='possession-additional-data-table'>
+        <sql>       
+            CREATE TABLE IF NOT EXISTS `possession_additional_data` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `possession_id` int(11) NOT NULL,
+            `people` int(11) DEFAULT 0,
+            `rooms` int(11) DEFAULT 0,
+            `declared_area` DECIMAL(10,2) DEFAULT 0,
+            `declared_share` DECIMAL(10,2) DEFAULT 0,
+            `hot_water` DECIMAL(10,2) DEFAULT 0,
+            `cold_water` DECIMAL(10,2) DEFAULT 0,
+            PRIMARY KEY (`id`),
+            KEY `possession_possession_fkey` (`possession_id`),
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='possession-additional-data-possession-fkey'>
+        <sql> 
+            ALTER TABLE `possession_additional_data`   
+            ADD CONSTRAINT `possession_additional_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>    
+    
+    <changeSet author='tkopacki' id='possession-additiona-data-initial-insert'>
+        <sql>  
+            INSERT INTO `possession_additional_data`(possession_id)
+            SELECT possession_id FROM possession
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
