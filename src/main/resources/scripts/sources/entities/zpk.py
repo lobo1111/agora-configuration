@@ -9,6 +9,7 @@ class ZpkManager(Container):
         zpk = ZakladowyPlanKont()
         self.setZpkData(zpk)
         self.saveZpk(zpk)
+        return zpk
         
     def setZpkData(self, zpk):
         zpk.setNumber(vars.get('number'))
