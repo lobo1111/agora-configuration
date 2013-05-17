@@ -43,7 +43,7 @@ public class Obligation implements Serializable {
     private Company contractor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "obligation")
     private Collection<ObligationLog> obligationLogs = new ArrayList<>();
-    @OneToOne(mappedBy = "obligation", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "obligation")
     private ZakladowyPlanKont zpk;
     @JoinColumn(name = "obligation_group_id", referencedColumnName = "id")
     @ManyToOne

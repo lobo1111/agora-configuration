@@ -45,7 +45,7 @@ public class ZakladowyPlanKont implements Serializable {
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
     @ManyToOne
     private Possession possession;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "obligation_id", referencedColumnName = "id")
     private Obligation obligation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
