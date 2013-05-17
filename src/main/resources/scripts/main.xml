@@ -564,6 +564,24 @@
             <group>all</group>
         </security>
     </script>
+        
+   <script>
+        <name>update-owner</name>
+        <source>entities/owner.py</source>
+        <onInit>OwnerManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+            <scriptName>person</scriptName>
+            <scriptName>address</scriptName>
+            <scriptName>possession</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
     
     <script>
         <name>create-obligation</name>
