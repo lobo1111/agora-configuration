@@ -2,6 +2,7 @@ from pl.reaper.container.data import Person
 from pl.reaper.container.data import Possession
 from java.math import BigDecimal
 from java.lang import Double
+from java.lang import Integer
 
 class PossessionManager(Container):
     _logger = Logger([:_scriptId])
