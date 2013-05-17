@@ -706,6 +706,7 @@
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
