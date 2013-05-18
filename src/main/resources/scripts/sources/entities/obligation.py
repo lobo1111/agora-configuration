@@ -13,18 +13,21 @@ class ObligationManager(Container):
         entityManager.persist(obligation)
         
     def setData(self, obligation):
-        obligation.setName(vars.get('obligationName'))
-        obligation.setContractor(self.findContractor(vars.get('obligationContractorId')))
+        obligation.setContractor(self.getContractor())
         obligation.setCommunity(self.findCommunity(vars.get('communityId')))
         if vars.get('obligationGroupId') != '0':
             obligation.setObligationGroup(self.findObligationGroup(vars.get('obligationGroupId')))
         obligation.setZpk(self.createZpk(obligation))
+
+    def getContractor(self):
+        companyManager = CompanyManager()
+        if vars.get('exsitingCompany') == 'true':
+            return companyManager.findCompanyById(vars.get('obligationContractorId'))
+        else:
+            return companyManager.create()
         
     def findObligationById(self, id):
         return entityManager.createQuery('Select o From Obligation o Where o.id = ' + str(id)).getSingleResult()
-    
-    def findContractor(self, id):
-        return CompanyManager().findCompanyById(id)
     
     def findCommunity(self, id):
         return CommunityManager().findCommunityById(id)

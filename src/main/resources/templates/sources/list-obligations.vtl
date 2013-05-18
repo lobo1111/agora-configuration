@@ -3,7 +3,6 @@
     #foreach($row in $obligations)
     <item>
         <obligationId>$!row.getId()</obligationId>
-        <obligationName>$!row.getName()</obligationName>
         <companyId>$!row.getContractor().getId()</companyId>
         <companyName>$!row.getContractor().getName()</companyName>
         <communityId>$!row.getCommunity().getId()</communityId>
