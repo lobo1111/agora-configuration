@@ -29,6 +29,8 @@ class ObligationGroupManager(Container):
         for obligation in group.getObligations():
             obligation.setObligationGroup(None)
             entityManager.persist(obligation)
+        group.getObligations().clear()
+        entityManager.persist(group)
         for i in range(int(counter)):
             obligationId = int(vars.get('boundedObligation' + str(i)))
             obligation = self.findObligationById(obligationId)

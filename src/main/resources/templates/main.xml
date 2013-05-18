@@ -1168,7 +1168,7 @@
                     JOIN obligation.community community
                     WHERE
                     community.id = {:id}
-                    AND obligationGroup IS NULL
+                    AND obligationGroup IS NULL OR obligationGroup.id = {:ogid}
                     ORDER BY 
                     obligation.name ASC
                 </data>
