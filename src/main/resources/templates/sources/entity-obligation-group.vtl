@@ -9,7 +9,9 @@
         #foreach($obligation in $row.getObligations())
         <obligation>
             <id>$!obligation.getId()</id>
-            <name>$!obligation.getName()</name>
+            <company>
+                <name>$!obligation.getName()</name>
+            </company>
         </obligation>
         #end
     </obligations>
