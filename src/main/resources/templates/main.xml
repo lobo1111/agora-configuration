@@ -517,7 +517,7 @@
                     Obligation obligation
                     JOIN obligation.contractor company
                     JOIN obligation.community community
-                    JOIN obligation.obligationGroup obligationGroup
+                    LEFT OUTER JOIN obligation.obligationGroup obligationGroup
                     WHERE {:where}
                     ORDER BY
                     community.name, obligation.name ASC
@@ -532,7 +532,7 @@
                     FROM
                     Obligation obligation
                     JOIN obligation.contractor company
-                    JOIN obligation.obligationGroup obligationGroup
+                    LEFT OUTER JOIN obligation.obligationGroup obligationGroup
                     JOIN obligation.community community
                     WHERE {:where}
                 </data>
