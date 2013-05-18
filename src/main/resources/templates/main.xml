@@ -1164,9 +1164,11 @@
                     obligation.id, obligation.name)
                     FROM 
                     Obligation obligation 
+                    LEFT OUTER JOIN obligation.obligationGroup obligationGroup
                     JOIN obligation.community community
                     WHERE
                     community.id = {:id}
+                    AND obligationGroup IS NULL
                     ORDER BY 
                     obligation.name ASC
                 </data>
