@@ -14,6 +14,7 @@ class ObligationManager(Container):
         
     def setData(self, obligation):
         obligation.setContractor(self.getContractor())
+        obligation.setName(obligation.getContractor().getName())
         obligation.setCommunity(self.findCommunity(vars.get('communityId')))
         if vars.get('obligationGroupId') != '0':
             obligation.setObligationGroup(self.findObligationGroup(vars.get('obligationGroupId')))
