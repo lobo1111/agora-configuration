@@ -22,7 +22,7 @@ class ObligationManager(Container):
 
     def getContractor(self, obligation):
         companyManager = CompanyManager()
-        if vars.get('exsitingCompany') == 'true' or obligation.getCompany().getId() > 0:
+        if vars.get('exsitingCompany') == 'true' or obligation.getContractor().getId() > 0:
             return companyManager.findCompanyById(vars.get('obligationContractorId'))
         else:
             return companyManager.create()
