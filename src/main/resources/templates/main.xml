@@ -1203,12 +1203,12 @@
     </template>
     <template>
         <name>can-delete-obligation</name>
-        <source>simple-integer-response.vtl</source>
+        <source>simple-long-response.vtl</source>
         <variables>
             <var>
                 <name>response</name>
                 <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleIntegerResponse(
+                    SELECT new pl.reaper.container.data.helpers.SimpleLongResponse(
                     count(payment.id))
                     FROM
                     Obligation obligation
