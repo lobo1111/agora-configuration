@@ -1209,7 +1209,7 @@
                 <name>response</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleIntegerResponse(
-                    count(payment.id) == 0)
+                    count(payment.id))
                     FROM
                     Obligation obligation
                     JOIN obligation.zpk zpk
