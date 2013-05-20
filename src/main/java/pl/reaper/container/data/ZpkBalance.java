@@ -41,7 +41,7 @@ public class ZpkBalance implements Serializable {
     @ManyToOne(optional = false)
     private BookingPeriod bookingPeriod;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpkBalance")
-    private List<Payment> payment = new ArrayList<>();
+    private List<Payment> payments = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -99,12 +99,12 @@ public class ZpkBalance implements Serializable {
         this.bookingPeriod = bookingPeriod;
     }
 
-    public List<Payment> getPayment() {
-        return payment;
+    public List<Payment> getPayments() {
+        return payments;
     }
 
-    public void setPayment(List<Payment> payment) {
-        this.payment = payment;
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 
     public String longDescription() {
