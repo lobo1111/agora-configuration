@@ -1203,7 +1203,7 @@
     </template>
     <template>
         <name>can-delete-obligation</name>
-        <source>simple-boolean-response.vtl</source>
+        <source>simple-integer-response.vtl</source>
         <variables>
             <var>
                 <name>response</name>

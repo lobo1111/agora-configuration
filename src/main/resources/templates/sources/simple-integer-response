@@ -1,0 +1,3 @@
+<simple-integer-response>
+    <value>$!response.getValue()</value>
+</simple-integer-response>
