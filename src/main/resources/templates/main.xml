@@ -1208,8 +1208,7 @@
             <var>
                 <name>response</name>
                 <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleLongResponse(
-                    count(payment.id))
+                    count(payment.id)
                     FROM
                     Payment payment
                     JOIN payment.obligation obligation
