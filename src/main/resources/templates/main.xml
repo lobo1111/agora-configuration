@@ -1211,10 +1211,8 @@
                     SELECT new pl.reaper.container.data.helpers.SimpleLongResponse(
                     count(payment.id))
                     FROM
-                    Obligation obligation
-                    JOIN obligation.zpk zpk
-                    JOIN zpk.zpkBalances balance
-                    JOIN balance.payments payment
+                    Payment payment
+                    JOIN payment.obligation obligation
                     WHERE
                     obligation.id = {:id}
                 </data>
