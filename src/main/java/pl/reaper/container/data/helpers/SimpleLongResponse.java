@@ -4,7 +4,7 @@ public class SimpleLongResponse {
 
     private long value;
 
-    public SimpleLongResponse(long value) {
+    public SimpleLongResponse(Long value) {
         this.value = value;
     }
 
