@@ -1,6 +1,8 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -37,6 +40,8 @@ public class ZpkBalance implements Serializable {
     @JoinColumn(name = "booking_period_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private BookingPeriod bookingPeriod;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpkBalance")
+    private List<Payment> payment = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -92,6 +97,14 @@ public class ZpkBalance implements Serializable {
 
     public void setBookingPeriod(BookingPeriod bookingPeriod) {
         this.bookingPeriod = bookingPeriod;
+    }
+
+    public List<Payment> getPayment() {
+        return payment;
+    }
+
+    public void setPayment(List<Payment> payment) {
+        this.payment = payment;
     }
 
     public String longDescription() {

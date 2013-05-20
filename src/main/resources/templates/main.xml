@@ -1208,11 +1208,13 @@
             <var>
                 <name>response</name>
                 <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleBooleanResponse(
-                    count(zpk.id) == 0)
+                    SELECT new pl.reaper.container.data.helpers.SimpleIntegerResponse(
+                    count(payment.id) == 0)
                     FROM
-                    ZakladowyPlanKont zpk
-                    JOIN zpk.obligation obligation
+                    Obligation obligation
+                    JOIN obligation.zpk zpk
+                    JOIN zpk.zpkBalances balance
+                    JOIN balance.payments payment
                     WHERE
                     obligation.id = {:id}
                 </data>

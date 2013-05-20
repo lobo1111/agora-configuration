@@ -4,6 +4,10 @@ public class SimpleBooleanResponse {
 
     private boolean value;
 
+    public SimpleBooleanResponse(boolean value) {
+        this.value = value;
+    }
+
     public boolean isValue() {
         return value;
     }
