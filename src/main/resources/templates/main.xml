@@ -1208,6 +1208,7 @@
             <var>
                 <name>response</name>
                 <data>
+                    {:single}
                     SELECT
                     count(payment.id)
                     FROM
