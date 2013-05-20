@@ -640,7 +640,7 @@
     <script>
         <name>remove-obligation</name>
         <source>entities/obligation.py</source>
-        <onInit>ObligationManager().update()</onInit>
+        <onInit>ObligationManager().remove()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
