@@ -11,6 +11,11 @@ class ObligationManager(Container):
         obligation = self.findObligationById(vars.get('id'))
         self.setData(obligation)
         entityManager.persist(obligation)
+
+    def remove(self):
+        obligation = self.findObligationById(vars.get('id'))
+        entityManager.remove(obligation.getZpk())
+        entityManager.remove(obligation)
         
     def setData(self, obligation):
         obligation.setContractor(self.getContractor(obligation))

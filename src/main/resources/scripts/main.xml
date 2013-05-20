@@ -638,6 +638,20 @@
     </script>
     
     <script>
+        <name>remove-obligation</name>
+        <source>entities/obligation.py</source>
+        <onInit>ObligationManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-obligation-group</name>
         <source>entities/obligationGroup.py</source>
         <onInit>ObligationGroupManager().create()</onInit>
