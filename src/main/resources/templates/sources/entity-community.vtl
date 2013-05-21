@@ -20,4 +20,19 @@
             <city>$!community.getCompany().getAddress().getCity()</city>
         </address>
     </company>
+    <zpks>
+        #foreach($zpk in $!community.getZpks())
+        <zpk>
+            <id>$!zpk.getId()</id>
+            <description>$!zpk.getDescription()</description>
+            <number>$!zpk.getNumber()</number>
+            #foreach($balance in $!zpk.getZpkBalances())
+                #if($balance.getBookingPeriod().isDefaultPeriod())
+                    <credit>$balance.getCredit()</credit>
+                    <debit>$balance.getDebit()</debit>
+            #end
+            #end
+        </zpk>
+        #end
+    </zpks>
 </community>
