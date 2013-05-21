@@ -1065,6 +1065,20 @@
         </security>
     </script>
     
+    <script>
+        <name>remove-possession</name>
+        <source>entities/possession.py</source>
+        <onInit>PossessionManager().remove()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
     <!-- CRONS -->
     <script>
         <name>create-payments</name>

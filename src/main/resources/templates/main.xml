@@ -1220,4 +1220,23 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>can-delete-possession</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(payment.id)
+                    FROM
+                    Payment payment
+                    JOIN payment.possession possession
+                    WHERE
+                    possession.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>

@@ -26,6 +26,16 @@ class PossessionManager(Container):
         self.savePossession(possession)
         return possession;
         
+    def remove(self):
+        possession = self.findPossessionById(vars.get('id'))
+        entityManager.remove(possession.getAddress())
+        for owner in possession.getOwners():
+            entityManager.remove(owner)
+        for zpk in possession.getZpks():
+            entityManager.remove(zpk)
+        entityManager.remove(possession.getAdditionalData())
+        entityManager.remove(possession)
+        
     def setPossessionData(self, possession):
         possession.setArea(BigDecimal(vars.get(self._prefix + 'possessionArea')))
         possession.setAddress(self.getAddress(possession))
