@@ -1041,6 +1041,7 @@
             <scriptName>container</scriptName>
             <scriptName>address</scriptName>
             <scriptName>community</scriptName>
+            <scriptName>zpk</scriptName>
         </dependencies>
         <security>
             <group>all</group>

@@ -40,7 +40,7 @@ public class Possession implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<Owner> owners;

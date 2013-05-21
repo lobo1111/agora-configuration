@@ -15,6 +15,7 @@ class PossessionManager(Container):
         possession = Possession()
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
+        self.setZpkData(possession)
         self.savePossession(possession)
         return possession;
         
@@ -38,6 +39,15 @@ class PossessionManager(Container):
         possession.getAdditionalData().setColdWater(Double.parseDouble(vars.get(self._prefix + 'coldWater')))
         possession.getAdditionalData().setPeople(Integer.parseInt(vars.get(self._prefix + 'people')))
         possession.getAdditionalData().setRooms(Integer.parseInt(vars.get(self._prefix + 'rooms')))
+        
+    def setZpkData(self, possession):
+        for i in range(int(vars.get(self._prefix + 'zpkCount'))): 
+            vars.put(self._prefix + str(i) + "_communityId" + vars.get('communityId'))
+            manager = ZpkManager()
+            manager.setPrefix(self._prefix + str(i) + "_")
+            zpk = manager.create()
+            zpk.setPossession(possession)
+            possession.getZpks().add(zpk)
         
     def getAddress(self, possession):
         addressManager = AddressManager()

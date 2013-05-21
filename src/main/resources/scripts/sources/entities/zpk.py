@@ -5,6 +5,9 @@ from java.lang import Double
 class ZpkManager(Container):
     _logger = Logger([:_scriptId])
     
+    def setPrefix(self, prefix):
+        self._prefix = prefix
+    
     def create(self):
         zpk = ZakladowyPlanKont()
         self.setZpkData(zpk)
@@ -12,24 +15,24 @@ class ZpkManager(Container):
         return zpk
         
     def setZpkData(self, zpk):
-        zpk.setNumber(vars.get('number'))
-        zpk.setDescription(vars.get('description'))
+        zpk.setNumber(vars.get(self._prefix + 'number'))
+        zpk.setDescription(vars.get(self._prefix + 'description'))
         zpk.setCommunity(self.getCommunity(zpk))
         zpk.setPossession(self.getPossession(zpk))
         zpk.setObligation(self.getObligation(zpk))
         self.setAllBookingPeriods(zpk)
         
     def getCommunity(self, zpk):
-        return CommunityManager().findCommunityById(vars.get('communityId'))
+        return CommunityManager().findCommunityById(vars.get(self._prefix + 'communityId'))
         
     def getPossession(self, zpk):
-        if 'possessionId'in vars and vars.get('possessionId') != '0':
+        if (self._prefix + 'possessionId') in vars and vars.get(self._prefix + 'possessionId') != '0':
             possessionManager = PossessionManager()
-            return possessionManager.findPossessionById(vars.get('possessionId'))
+            return possessionManager.findPossessionById(vars.get(self._prefix + 'possessionId'))
         
     def getObligation(self, zpk):
-        if 'obligationId' in vars and vars.get('obligationId') != '0':
-            return entityManager.createQuery('Select o From Obligation o Where o.id = ' + str(vars.get('obligationId'))).getSingleResult()
+        if (self._prefix + 'obligationId') in vars and vars.get(self._prefix + 'obligationId') != '0':
+            return entityManager.createQuery('Select o From Obligation o Where o.id = ' + str(vars.get(self._prefix + 'obligationId'))).getSingleResult()
         
     def setAllBookingPeriods(self, zpk):
         bookingPeriodManager = BookingPeriodManager()
@@ -43,10 +46,10 @@ class ZpkManager(Container):
         balance = ZpkBalance()
         balance.setBookingPeriod(bookingPeriod)
         if  bookingPeriod.isDefaultPeriod():
-            balance.setCredit(Double.parseDouble(vars.get('credit')))
-            balance.setDebit(Double.parseDouble(vars.get('debit')))
-            balance.setStartCredit(Double.parseDouble(vars.get('credit')))
-            balance.setStartDebit(Double.parseDouble(vars.get('debit')))
+            balance.setCredit(Double.parseDouble(vars.get(self._prefix + 'credit')))
+            balance.setDebit(Double.parseDouble(vars.get(self._prefix + 'debit')))
+            balance.setStartCredit(Double.parseDouble(vars.get(self._prefix + 'credit')))
+            balance.setStartDebit(Double.parseDouble(vars.get(self._prefix + 'debit')))
         return balance
         
     def saveZpk(self, zpk):
