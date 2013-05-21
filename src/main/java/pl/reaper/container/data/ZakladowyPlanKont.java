@@ -43,7 +43,7 @@ public class ZakladowyPlanKont implements Serializable {
     @ManyToOne
     private Community community;
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Possession possession;
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "obligation_id", referencedColumnName = "id")

@@ -41,7 +41,7 @@ public class Possession implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
+    @OneToMany(mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<Owner> owners = new ArrayList<>();
