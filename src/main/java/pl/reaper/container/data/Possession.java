@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -41,9 +42,9 @@ public class Possession implements Serializable {
     @ManyToOne(optional = false)
     private Address address;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
-    private Collection<ZakladowyPlanKont> zpks;
+    private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
-    private Collection<Owner> owners;
+    private Collection<Owner> owners = new ArrayList<>();
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "possession")
     private PossessionAdditionalData additionalData = new PossessionAdditionalData();
 
