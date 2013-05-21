@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -54,6 +56,13 @@ public class ZakladowyPlanKont implements Serializable {
     private Collection<AutoPayment> autoPayments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<AutoPaymentOrder> autoPaymentOrders = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "obligation_group_zpk", joinColumns =
+            @JoinColumn(name = "zpk_id", referencedColumnName = "id"),
+            inverseJoinColumns =
+            @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"))
+    private Collection<ObligationGroup> obligationGroups = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -125,6 +134,14 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setAutoPaymentOrders(Collection<AutoPaymentOrder> autoPaymentOrders) {
         this.autoPaymentOrders = autoPaymentOrders;
+    }
+
+    public Collection<ObligationGroup> getObligationGroups() {
+        return obligationGroups;
+    }
+
+    public void setObligationGroups(Collection<ObligationGroup> obligationGroups) {
+        this.obligationGroups = obligationGroups;
     }
 
     public String longDescription() {
