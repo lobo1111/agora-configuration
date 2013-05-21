@@ -42,7 +42,8 @@ class PossessionManager(Container):
         
     def setZpkData(self, possession):
         for i in range(int(vars.get(self._prefix + 'zpkCount'))): 
-            vars.put(self._prefix + str(i) + "_communityId", vars.get('communityId'))
+            vars.put(self._prefix + str(i) + "_communityId", vars.get(self._prefix + 'communityId'))
+            self._logger.info('Community id restored from:{'+self._prefix + 'communityId'+'='+vars.get(self._prefix + 'communityId')+'} to:{'+self._prefix + str(i) + "_communityId"+'='+vars.get(self._prefix + str(i) + "_communityId")+'}')
             manager = ZpkManager()
             manager.setPrefix(self._prefix + str(i) + "_")
             zpk = manager.create()
