@@ -33,7 +33,10 @@ class CommunityManager(Container):
         return self.findCommunityById(id)
 
     def findCommunityById(self, id):
-        return entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
+        try:
+            return entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
+        except:
+            self._logger.error('Can\'t load community. Tried to load by id stored as ' + str(id))
 
     def recalculateShares(self, communityId):
         community = self.findCommunityById(communityId)
