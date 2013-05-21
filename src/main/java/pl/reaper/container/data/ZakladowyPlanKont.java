@@ -50,6 +50,8 @@ public class ZakladowyPlanKont implements Serializable {
     private Obligation obligation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
+    private Collection<AutoPayment> autoPayments = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -105,6 +107,14 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setZpkBalances(Collection<ZpkBalance> zpkBalances) {
         this.zpkBalances = zpkBalances;
+    }
+
+    public Collection<AutoPayment> getAutoPayments() {
+        return autoPayments;
+    }
+
+    public void setAutoPayments(Collection<AutoPayment> autoPayments) {
+        this.autoPayments = autoPayments;
     }
 
     public String longDescription() {

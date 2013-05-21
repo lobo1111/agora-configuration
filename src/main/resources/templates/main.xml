@@ -1254,9 +1254,12 @@
                     LEFT OUTER JOIN zpk.obligation obligation
                     LEFT OUTER JOIN zpk.zpkBalances balance
                     LEFT OUTER JOIN balance.payments payment
+                    LEFT OUTER JOIN zpk.autoPayments autoPayment
                     WHERE
                     zpk.id = {:id}
-                    AND (payment.id IS NOT NULL OR obligation.id IS NOT NULL)
+                    AND (payment.id IS NOT NULL 
+                        OR obligation.id IS NOT NULL
+                        OR autoPayment.id IS NOT NULL)
                 </data>
             </var>
         </variables>
