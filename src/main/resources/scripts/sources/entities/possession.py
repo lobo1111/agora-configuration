@@ -31,6 +31,7 @@ class PossessionManager(Container):
         possession.setCommunity(self.getCommunity(possession))
         
     def setPossessionAdditionalData(self, possession):
+        possession.getAdditionalData().setPossession(possession)
         possession.getAdditionalData().setDeclaredArea(Double.parseDouble(vars.get(self._prefix + 'declaredArea')))
         possession.getAdditionalData().setDeclaredShare(Double.parseDouble(vars.get(self._prefix + 'declaredShare')))
         possession.getAdditionalData().setHotWater(Double.parseDouble(vars.get(self._prefix + 'hotWater')))
