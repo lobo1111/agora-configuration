@@ -23,6 +23,7 @@ class ZpkManager(Container):
         self.setAllBookingPeriods(zpk)
         
     def getCommunity(self, zpk):
+        self._logger.info('Loading community - id key=\'' + self._prefix + 'communityId' + '\'')
         return CommunityManager().findCommunityById(vars.get(self._prefix + 'communityId'))
         
     def getPossession(self, zpk):
