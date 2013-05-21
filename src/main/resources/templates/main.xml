@@ -1239,4 +1239,26 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>can-delete-zpk</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(zpk.id)
+                    FROM
+                    zpk
+                    LEFT OUTER JOIN zpk.obligation obligation
+                    LEFT OUTER JOIN zpk.zpkBalances balance
+                    LEFT OUTER JOIN balance.payments payment
+                    WHERE
+                    zpk.id = {:id}
+                    AND (payment IS NOT NULL OR obligation IS NOT NULL
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>

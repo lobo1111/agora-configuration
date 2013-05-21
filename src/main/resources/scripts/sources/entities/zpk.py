@@ -13,6 +13,12 @@ class ZpkManager(Container):
         self.setZpkData(zpk)
         self.saveZpk(zpk)
         return zpk
+
+    def remove(self):
+        zpk = self.findZpkById(vars.get('id'))
+        for balance in zpk.getZpkBalances():
+            entityManager.remove(balance)
+        entityManager.remove(zpk)
         
     def setZpkData(self, zpk):
         zpk.setNumber(vars.get(self._prefix + 'number'))

@@ -751,18 +751,13 @@
     </script>
     
     <script>
-        <name>create-zpk</name>
+        <name>remove-zpk</name>
         <source>entities/zpk.py</source>
-        <onInit>ZpkManager().create()</onInit>
+        <onInit>ZpkManager().remove()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
-            <scriptName>company</scriptName>
-            <scriptName>community</scriptName>
-            <scriptName>person</scriptName>
-            <scriptName>possession</scriptName>
-            <scriptName>bookingPeriod</scriptName>
         </dependencies>
         <security>
             <group>all</group>
