@@ -1250,13 +1250,13 @@
                     SELECT
                     count(zpk.id)
                     FROM
-                    zpk
+                    ZakladowyPlanKont zpk
                     LEFT OUTER JOIN zpk.obligation obligation
                     LEFT OUTER JOIN zpk.zpkBalances balance
                     LEFT OUTER JOIN balance.payments payment
                     WHERE
                     zpk.id = {:id}
-                    
+                    AND (payment.id IS NOT NULL OR obligation.id IS NOT NULL)
                 </data>
             </var>
         </variables>
