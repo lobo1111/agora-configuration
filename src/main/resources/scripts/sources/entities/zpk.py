@@ -4,6 +4,7 @@ from java.lang import Double
 
 class ZpkManager(Container):
     _logger = Logger([:_scriptId])
+    _prefix = ''
     
     def setPrefix(self, prefix):
         self._prefix = prefix
