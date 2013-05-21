@@ -1256,7 +1256,7 @@
                     LEFT OUTER JOIN balance.payments payment
                     WHERE
                     zpk.id = {:id}
-                    AND (payment IS NOT NULL OR obligation IS NOT NULL)
+                    AND (payment.id IS NOT NULL OR obligation.id IS NOT NULL)
                 </data>
             </var>
         </variables>
