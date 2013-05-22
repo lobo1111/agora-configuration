@@ -4,7 +4,11 @@ from java.math import RoundingMode
 
 class CommunityManager(Container):
     _logger = Logger([:_scriptId])
+    _prefix = ''
     
+    def setPrefix(self, prefix):
+        self._prefix = prefix
+        
     def create(self):
         community = Community()
         self.setCommunityData(community)
