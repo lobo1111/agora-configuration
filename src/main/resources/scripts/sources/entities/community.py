@@ -8,11 +8,13 @@ class CommunityManager(Container):
     def create(self):
         community = Community()
         self.setCommunityData(community)
+        self.setZpkData(possession)
         self.saveCommunity(community)
         
     def update(self):
         community = self.findCommunity()
         self.setCommunityData(community)
+        self.setZpkData(possession)
         self.saveCommunity(community)
         
     def setCommunityData(self, community):
@@ -27,6 +29,15 @@ class CommunityManager(Container):
         self._logger.info(community.longDescription())
         entityManager.persist(community)
         entityManager.flush()
+        
+    def setZpkData(self, community):
+        for i in range(int(vars.get(self._prefix + 'zpkCount'))): 
+            vars.put(self._prefix + str(i) + "_communityId", vars.get(self._prefix + 'id'))
+            manager = ZpkManager()
+            manager.setPrefix(self._prefix + str(i) + "_")
+            zpk = manager.create()
+            zpk.setCommunity(community)
+            community.getZpks().add(zpk)
 
     def findCommunity(self):
         id = vars.get('id')
