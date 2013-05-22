@@ -8,13 +8,13 @@ class CommunityManager(Container):
     def create(self):
         community = Community()
         self.setCommunityData(community)
-        self.setZpkData(possession)
+        self.setZpkData(community)
         self.saveCommunity(community)
         
     def update(self):
         community = self.findCommunity()
         self.setCommunityData(community)
-        self.setZpkData(possession)
+        self.setZpkData(community)
         self.saveCommunity(community)
         
     def setCommunityData(self, community):
