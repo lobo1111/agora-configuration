@@ -49,6 +49,8 @@ class ObligationManager(Container):
         return ObligationGroupManager().findObligationGroupById(id)
 
     def createZpk(self, obligation):
-        zpk = ZpkManager().create()
+        zpkManager = ZpkManager()
+        zpkManager.setPrefix(self._prefix)
+        zpk = zpkManager.create()
         zpk.setObligation(obligation)
         return zpk
