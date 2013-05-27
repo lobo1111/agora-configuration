@@ -2,6 +2,10 @@ from pl.reaper.container.data import Company
 
 class CompanyManager(Container):
     _logger = Logger([:_scriptId])
+    _prefix = ''
+    
+    def setPrefix(self, prefix):
+        self._prefix = prefix
     
     def create(self):
         company = Company()
@@ -10,20 +14,20 @@ class CompanyManager(Container):
         return company
         
     def update(self):
-        company = self.findCompanyById(vars.get('id'))
+        company = self.findCompanyById(vars.get(self._prefix + 'id'))
         self.setCompanyData(company)
         self.saveCompany(company)
         return company
         
     def setCompanyData(self, company):
-        company.setName(vars.get('name'))
-        company.setNip(vars.get('nip'))
-        company.setRegon(vars.get('regon'))
-        company.setEmail(vars.get('email'))
+        company.setName(vars.get(self._prefix + 'name'))
+        company.setNip(vars.get(self._prefix + 'nip'))
+        company.setRegon(vars.get(self._prefix + 'regon'))
+        company.setEmail(vars.get(self._prefix + 'email'))
         company.setWww(vars.get('www'))
-        company.setPhoneNumber1(vars.get('phoneNumber1'))
-        company.setPhoneNumber2(vars.get('phoneNumber2'))
-        company.setPhoneNumber3(vars.get('phoneNumber3'))
+        company.setPhoneNumber1(vars.get(self._prefix + 'phoneNumber1'))
+        company.setPhoneNumber2(vars.get(self._prefix + 'phoneNumber2'))
+        company.setPhoneNumber3(vars.get(self._prefix + 'phoneNumber3'))
         company.setAddress(self.getAddress(company))
         
     def getAddress(self, person):

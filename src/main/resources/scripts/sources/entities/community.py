@@ -48,7 +48,6 @@ class CommunityManager(Container):
         for i in range(int(vars.get(self._prefix + 'obligationsCount'))): 
             prefix = self._prefix + str(i)
             vars.put(prefix + 'communityId', str(community.getId()))
-            self._logger.info('com_put['+prefix + 'communityId'+']['+vars.get(prefix + 'communityId')+']')
             obligationManager = ObligationManager()
             obligationManager.setPrefix(prefix)
             obligationManager.create()
