@@ -11,11 +11,13 @@ class ObligationManager(Container):
         self.setData(obligation)
         entityManager.persist(obligation)
         entityManager.flush()
+        return obligation
         
     def update(self):
         obligation = self.findObligationById(vars.get(self._prefix + 'id'))
         self.setData(obligation)
         entityManager.persist(obligation)
+        return obligation
 
     def remove(self):
         obligation = self.findObligationById(vars.get(self._prefix + 'id'))

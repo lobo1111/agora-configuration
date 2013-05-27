@@ -50,8 +50,9 @@ class CommunityManager(Container):
             vars.put(prefix + 'communityId', str(community.getId()))
             obligationManager = ObligationManager()
             obligationManager.setPrefix(prefix)
-            obligationManager.create()
-
+            community.getObligations.add(obligationManager.create())
+            self.saveCommunity(community)
+            
     def findCommunity(self):
         id = vars.get('id')
         return self.findCommunityById(id)
