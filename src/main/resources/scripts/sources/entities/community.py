@@ -45,9 +45,9 @@ class CommunityManager(Container):
             community.getZpks().add(zpk)
 
     def setObligationData(self, community):
-        vars.put(self._prefix + 'communityId', str(community.getId()))
         for i in range(int(vars.get(self._prefix + 'obligationsCount'))): 
             prefix = self._prefix + str(i)
+            vars.put(prefix + 'communityId', str(community.getId()))
             obligationManager = ObligationManager()
             obligationManager.setPrefix(prefix)
             obligationManager.create()
