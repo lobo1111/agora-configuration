@@ -14,6 +14,7 @@ class CommunityManager(Container):
         self.setCommunityData(community)
         self.setZpkData(community)
         self.saveCommunity(community)
+        self.setObligationData(community)
         
     def update(self):
         community = self.findCommunity()
@@ -42,6 +43,14 @@ class CommunityManager(Container):
             zpk = manager.create()
             zpk.setCommunity(community)
             community.getZpks().add(zpk)
+
+    def setObligationData(data, community):
+        vars.put(self._prefix + 'communityId', str(community.getId()))
+        for i in range(int(vars.get(self._prefix + 'obligationsCount'))): 
+            prefix = self._prefix + str(i)
+            obligationManager = ObligationManager()
+            obligationManager.setPrefix(prefix)
+            obligationManager.create()
 
     def findCommunity(self):
         id = vars.get('id')

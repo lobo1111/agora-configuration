@@ -1,36 +1,40 @@
 from pl.reaper.container.data import Obligation
 
 class ObligationManager(Container):
+    _prefix = ''
     
+    def setPrefix(self, prefix):
+        self._prefix = prefix
+
     def create(self):
         obligation = Obligation()
         self.setData(obligation)
         entityManager.persist(obligation)
         
     def update(self):
-        obligation = self.findObligationById(vars.get('id'))
+        obligation = self.findObligationById(vars.get(self._prefix + 'id'))
         self.setData(obligation)
         entityManager.persist(obligation)
 
     def remove(self):
-        obligation = self.findObligationById(vars.get('id'))
+        obligation = self.findObligationById(vars.get(self._prefix + 'id'))
         entityManager.remove(obligation.getZpk())
         entityManager.remove(obligation)
         
     def setData(self, obligation):
         obligation.setContractor(self.getContractor(obligation))
         obligation.setName(obligation.getContractor().getName())
-        obligation.setCommunity(self.findCommunity(vars.get('communityId')))
-        if vars.get('obligationGroupId') > '0':
-            obligation.setObligationGroup(self.findObligationGroup(vars.get('obligationGroupId')))
+        obligation.setCommunity(self.findCommunity(vars.get(self._prefix + 'communityId')))
+        if vars.get(self._prefix + 'obligationGroupId') > '0':
+            obligation.setObligationGroup(self.findObligationGroup(vars.get(self._prefix + 'obligationGroupId')))
         else:
             obligation.setObligationGroup(None)
         obligation.setZpk(self.createZpk(obligation))
 
     def getContractor(self, obligation):
         companyManager = CompanyManager()
-        if vars.get('exsitingCompany') == 'true' and obligation.getContractor() != None and obligation.getContractor().getId() > 0:
-            return companyManager.findCompanyById(vars.get('obligationContractorId'))
+        if vars.get(self._prefix + 'exsitingCompany') == 'true' and obligation.getContractor() != None and obligation.getContractor().getId() > 0:
+            return companyManager.findCompanyById(vars.get(self._prefix + 'obligationContractorId'))
         else:
             return companyManager.create()
         
