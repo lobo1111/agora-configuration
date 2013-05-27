@@ -946,6 +946,7 @@
             <scriptName>container</scriptName>
             <scriptName>company</scriptName>
             <scriptName>zpk</scriptName>
+            <scriptName>obligation</scriptName>
         </dependencies>
         <security>
             <group>all</group>
