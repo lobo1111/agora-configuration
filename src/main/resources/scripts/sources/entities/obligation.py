@@ -10,6 +10,7 @@ class ObligationManager(Container):
         obligation = Obligation()
         self.setData(obligation)
         entityManager.persist(obligation)
+        entityManager.flush()
         
     def update(self):
         obligation = self.findObligationById(vars.get(self._prefix + 'id'))
