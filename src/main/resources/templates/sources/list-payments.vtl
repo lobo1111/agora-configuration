@@ -18,7 +18,7 @@
             <subject>$!row.getObligation().getName()</subject>
         #end
         #if($row.getPossession())
-            <subject>$!row.getPossession().getName()</subject>
+            <subject>$!row.getPossession().getFullAddress()</subject>
         #end
         <zpkNumber>$!row.getZpkBalance().getZpk().getNumber()</zpkNumber>
         <cancelComment>$!row.getZpkBalance().getZpk().getNumber()</cancelComment>
