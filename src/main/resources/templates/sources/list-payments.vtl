@@ -13,11 +13,16 @@
         <statusKey>$!row.getStatus().getKey()</statusKey>
         <type>$!row.getType().getValue()</type>
         <accountNumber>$!row.getAccount().getNumber()</accountNumber>
+        <communityId>$!row.getCommunity().getId()</communityId>
         <communityName>$!row.getCommunity().getName()</communityName>
         #if($row.getObligation())
+            <subjectId>$!row.getObligation().getId()</subjectId>
+            <subjectType>OBLIGATION</subjectType>
             <subject>$!row.getObligation().getName()</subject>
         #end
         #if($row.getPossession())
+            <subjectId>$!row.getPossession().getId()</subjectId>
+            <subjectType>POSSESSION</subjectType>
             <subject>$!row.getPossession().getFullAddress()</subject>
         #end
         <zpkNumber>$!row.getZpkBalance().getZpk().getNumber()</zpkNumber>
