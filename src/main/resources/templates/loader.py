@@ -66,6 +66,7 @@ class DBManager:
     def insertTemplateVariable(self, templateId, variableName, data):
         sql = self._config.get('queries' ,'insetTemplateVariable')
         cursor = self._connection.cursor()
+        print data
         cursor.execute(sql % (int(templateId), variableName, data))
         cursor.connection.commit()
         cursor.close()
@@ -100,7 +101,6 @@ class TemplateLoader:
             varName = self.getText(var.find('name'))
             varData = self.getText(var.find('data'))
             print "\tAdding template variable - [name:%s]" % (varName)
-            print varData
             self._dbManager.insertTemplateVariable(id, varName, varData)
                 
     def getText(self, node):
