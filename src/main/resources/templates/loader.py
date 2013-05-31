@@ -100,6 +100,7 @@ class TemplateLoader:
             varName = self.getText(var.find('name'))
             varData = self.getText(var.find('data'))
             print "\tAdding template variable - [name:%s]" % (varName)
+            print varData
             self._dbManager.insertTemplateVariable(id, varName, varData)
                 
     def getText(self, node):
