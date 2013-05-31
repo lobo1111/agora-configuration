@@ -67,7 +67,6 @@ class DBManager:
         sql = self._config.get('queries' ,'insetTemplateVariable')
         cursor = self._connection.cursor()
         fullsql = sql % (int(templateId), variableName, data)
-        print fullsql
         cursor.execute(fullsql)
         cursor.connection.commit()
         cursor.close()
