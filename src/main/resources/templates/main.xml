@@ -215,7 +215,7 @@
                     JOIN sum.community community
                     WHERE
                     bookingPeriod.id = {:bookingPeriodId}
-                    AND zpk.number LIKE sum.numberPrefix || '%'
+                    AND zpk.number LIKE CONCAT(sum.numberPrefix, '%')
                     AND sum.id = {:id}
                 </data>
             </var>
@@ -1228,10 +1228,10 @@
                     WHERE
                     zpk.id = {:id}
                     AND (payment.id IS NOT NULL 
-                        OR obligation.id IS NOT NULL
-                        OR autoPayment.id IS NOT NULL
-                        OR autoPaymentOrder.id IS NOT NULL
-                        OR obligationGroup.id IS NOT NULL)
+                    OR obligation.id IS NOT NULL
+                    OR autoPayment.id IS NOT NULL
+                    OR autoPaymentOrder.id IS NOT NULL
+                    OR obligationGroup.id IS NOT NULL)
                 </data>
             </var>
         </variables>
