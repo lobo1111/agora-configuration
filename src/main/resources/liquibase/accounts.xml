@@ -1127,4 +1127,30 @@
             ALTER TABLE `owner` MODIFY `owner`.`person_id` int(11)
         </sql>
     </changeSet>
+        
+    <changeSet author='tkopacki' id='table-zpk-sum'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `zpk_sum` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `zpk_id` int(11) NOT NULL,
+            `booking_period_id` int(11) NULL,
+            `number_prefix` varchar(10) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-zpk-sum-zpk-id-fkey'>
+        <sql>  
+            ALTER TABLE `zpk_sum`
+            ADD CONSTRAINT `zpk_sum_zpk_fkey` FOREIGN KEY (`zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-zpk-sum-booking-period-id-fkey'>
+        <sql>  
+            ALTER TABLE `zpk_sum`
+            ADD CONSTRAINT `zpk_sum_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
