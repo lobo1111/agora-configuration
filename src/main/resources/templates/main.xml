@@ -180,31 +180,11 @@
                 <data>
                     {:single}
                     SELECT 
-                    zpk.id,
-                    zpk.number,
-                    balance.credit,
-                    balance.debit,
-                    community.id,
-                    community.name,
-                    person.id,
-                    person.firstName, 
-                    person.lastName,
-                    company.id,
-                    company.name,
-                    possession.id,
-                    possessionAddress.street, 
-                    possessionAddress.houseNumber, 
-                    possessionAddress.flatNumber,
-                    zpk.description
+                    zpk
                     FROM 
                     ZakladowyPlanKont zpk
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
-                    JOIN zpk.community community
-                    LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN possession.address possessionAddress
-                    LEFT OUTER JOIN zpk.person Person
-                    LEFT OUTER JOIN zpk.company Company
                     WHERE 
                     zpk.id = {:id}
                     AND period.id = {:bookingPeriod}
@@ -213,42 +193,30 @@
         </variables>
     </template>
     <template>
-        <name>entity-zpk-default</name>
-        <source>entity-zpk.vtl</source>
+        <name>entity-zpk-sum</name>
+        <source>entity-zpk-sum.vtl</source>
         <variables>
             <var>
                 <name>zpk</name>
                 <data>
                     {:single}
-                    SELECT 
-                    zpk.id,
-                    zpk.number,
-                    balance.credit,
-                    balance.debit,
+                    SELECT
+                    sum.number,
+                    sum.description,
+                    SUM(balance.credit),
+                    SUM(balance.debit),
                     community.id,
-                    community.name,
-                    person.id,
-                    person.firstName, 
-                    person.lastName,
-                    company.id,
-                    company.name,
-                    possession.id,
-                    possessionAddress.street, 
-                    possessionAddress.houseNumber, 
-                    possessionAddress.flatNumber,
-                    zpk.description
-                    FROM 
-                    ZakladowyPlanKont zpk
-                    JOIN zpk.zpkBalances balance
-                    JOIN balance.bookingPeriod period
-                    JOIN zpk.community community
-                    LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN possession.address possessionAddress
-                    LEFT OUTER JOIN zpk.person Person
-                    LEFT OUTER JOIN zpk.company Company
-                    WHERE 
-                    zpk.id = {:id}
-                    AND period.defaultPeriod = true
+                    community.name
+                    FROM
+                    ZpkBalance balance
+                    JOIN balance.zpk zpk
+                    JOIN balance.bookingPeriod
+                    JOIN zpk.zpkSum sum
+                    JOIN sum.community community
+                    WHERE
+                    bookingPeriod.id = {:bookingPeriodId}
+                    AND zpk.number LIKE sum.numberPrefix || '%'
+                    AND sum.id = {:id}
                 </data>
             </var>
         </variables>

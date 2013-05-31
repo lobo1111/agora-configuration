@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <zpk>
-    <id>$!zpk[0]</id>
-    <description>$!zpk[9]</description>
-    <number>$!zpk[1]</number>
-    <credit>$!zpk[2]</credit>
-    <debit>$!zpk[3]</debit>
+    <id>$!zpk.getId()</id>
+    <description>$!zpk.getDescription()</description>
+    <number>$!zpk.getNumber()</number>
+    <credit>$!zpk.getCredit()</credit>
+    <debit>$!zpk.getDebit()</debit>
     <possession>
-        <id>$!zpk[11]</id>
+        <id>$!zpk.getPossession().getId()</id>
         <address>
-            <street>$!zpk[12]</street>
-            <houseNumber>$!zpk[13]</houseNumber>
-            <flatNumber>$!zpk[14]</flatNumber>
+            <street>$!zpk.getPossession().getAddress().getStreet()</street>
+            <houseNumber>$!zpk.getPossession().getAddress().getHouseNumber()</houseNumber>
+            <flatNumber>$!zpk.getPossession().getAddress().getFlatNumber</flatNumber>
         </address>
     </possession>
     <community>
-        <id>$!zpk[4]</id>
-        <name>$!zpk[5]</name>
+        <id>$!zpk.getCommunity().getId()</id>
+        <name>$!zpk.getCommunity().getName()</name>
     </community>
-    <company>
-        <id>$!zpk[9]</id>
-        <name>$!zpk[10]</name>
-    </company>
-    <person>
-        <id>$!zpk[6]</id>
-        <firstName>$!zpk[7]</firstName>
-        <lastName>$!zpk[8]</lastName>
-    </person>
 </zpk>
