@@ -214,9 +214,9 @@
                     JOIN zpk.zpkSum sum
                     JOIN sum.community community
                     WHERE
-                    bookingPeriod.id = {:bookingPeriodId}
+                    bookingPeriod.defaultPeriod = true
                     AND zpk.number LIKE CONCAT(sum.numberPrefix, \'%\')
-                    AND sum.id = {:id}
+                    AND community.id = {:communityId}
                 </data>
             </var>
         </variables>
