@@ -765,6 +765,20 @@
     </script>
     
     <script>
+        <name>create-zpk-sum</name>
+        <source>entities/zpk.py</source>
+        <onInit>ZpkManager().createSum()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-payment</name>
         <source>entities/payment.py</source>
         <onInit>PaymentManager().create()</onInit>

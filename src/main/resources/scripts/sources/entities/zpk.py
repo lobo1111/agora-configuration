@@ -1,5 +1,6 @@
 from pl.reaper.container.data import ZakladowyPlanKont
 from pl.reaper.container.data import ZpkBalance
+from pl.reaper.container.data import ZpkSum
 from java.lang import Double
 
 class ZpkManager(Container):
@@ -12,6 +13,15 @@ class ZpkManager(Container):
     def create(self):
         zpk = ZakladowyPlanKont()
         self.setZpkData(zpk)
+        self.saveZpk(zpk)
+        return zpk
+
+    def createSum(self):
+        zpk = ZakladowyPlanKont()
+        zpk.setNumber(vars.get(self._prefix + 'number'))
+        zpk.setDescription(vars.get(self._prefix + 'description'))
+        zpk.setCommunity(self.getCommunity(zpk))
+        self.createAllSums(zpk)
         self.saveZpk(zpk)
         return zpk
 
@@ -42,6 +52,14 @@ class ZpkManager(Container):
         if (self._prefix + 'obligationId') in vars and vars.get(self._prefix + 'obligationId') != '0':
             return entityManager.createQuery('Select o From Obligation o Where o.id = ' + str(vars.get(self._prefix + 'obligationId'))).getSingleResult()
         
+    def createAllSums(self, zpk):
+        bookingPeriodManager = BookingPeriodManager()
+        for bookingPeriod in bookingPeriodManager.findAllBookingPeriods():
+            sum = self.createSumForPeriod(bookingPeriod)
+            sum.setZpk(zpk)
+            zpk.getZpkSums().add(sum)
+            entityManager.persist(sum)
+
     def setAllBookingPeriods(self, zpk):
         bookingPeriodManager = BookingPeriodManager()
         for bookingPeriod in bookingPeriodManager.findAllBookingPeriods():
@@ -59,6 +77,12 @@ class ZpkManager(Container):
             balance.setStartCredit(Double.parseDouble(vars.get(self._prefix + 'credit')))
             balance.setStartDebit(Double.parseDouble(vars.get(self._prefix + 'debit')))
         return balance
+
+    def createSumForPeriod(self, bookingPeriod):
+        sum = ZpkSum()
+        sum.setNumberPrefix(vars.get(self._prefix + 'prefix'))
+        balance.setBookingPeriod(bookingPeriod)
+        return sum
         
     def saveZpk(self, zpk):
         self._logger.info(zpk.longDescription())
