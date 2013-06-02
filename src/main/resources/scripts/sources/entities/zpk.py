@@ -81,7 +81,7 @@ class ZpkManager(Container):
     def createSumForPeriod(self, bookingPeriod):
         sum = ZpkSum()
         sum.setNumberPrefix(vars.get(self._prefix + 'prefix'))
-        balance.setBookingPeriod(bookingPeriod)
+        sum.setBookingPeriod(bookingPeriod)
         return sum
         
     def saveZpk(self, zpk):
