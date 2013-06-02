@@ -209,7 +209,7 @@
                     JOIN zpk.community community
                     JOIN community.zpks zpkToCount
                     JOIN zpkToCount.balances balance
-                    JOIN balance.bookingPeriod
+                    JOIN balance.bookingPeriod bookingPeriod
                     WHERE
                     zpk.id = {:id}
                     AND bookingPeriod.defaultPeriod = true
