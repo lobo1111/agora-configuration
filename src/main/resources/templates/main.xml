@@ -201,12 +201,7 @@
                 <data>
                     {:single}
                     SELECT
-                    sum.number,
-                    sum.description,
-                    SUM(balance.credit),
-                    SUM(balance.debit),
-                    community.id,
-                    community.name
+                    sum
                     FROM
                     ZakladowyPlanKont zpk
                     JOIN zpk.zpkSums sum
