@@ -200,8 +200,34 @@
                 <name>zpk</name>
                 <data>
                     {:single}
-                    SELECT c FROM Community c WHERE c.id = {:id}
+                    SUM(balance.credit),
+                    SUM(balance.debit)
+                    FROM
+                    ZakladowyPlanKont zpk
+                    JOIN zpk.balances balance
+                    WHERE
+                    zpk.id = {:id}
                 </data>
+                <data1>
+                    {:single}
+                    sum.number,
+                    sum.description,
+                    SUM(balance.credit),
+                    SUM(balance.debit),
+                    community.id,
+                    community.name
+                    FROM
+                    ZakladowyPlanKont zpk
+                    JOIN zpk.zpkSums sum
+                    JOIN zpk.community community
+                    JOIN community.zpks zpkToCount
+                    JOIN zpkToCount.balances balance
+                    JOIN balance.bookingPeriod
+                    WHERE
+                    zpk.id = {:id}
+                    AND bookingPeriod.defaultPeriod = true
+                    AND zpkToCount.number LIKE sum.numberPrefix || \'%\'
+                </data1>
             </var>
         </variables>
     </template>
