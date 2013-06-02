@@ -212,12 +212,13 @@
                     JOIN balance.zpk zpk
                     JOIN balance.bookingPeriod
                     JOIN zpk.zpkSums sum
-                    JOIN sum.community community
+                    JOIN zpk.community community
                     JOIN sum.zpk otherZpk
+                    JOIN otherZpk.community otherCommunity
                     WHERE
                     bookingPeriod.defaultPeriod = true
                     AND zpk.number LIKE CONCAT(sum.numberPrefix, \'%\')
-                    AND community.id = {:communityId}
+                    AND community.id = otherCommunity.id
                     AND otherZpk = {:id}
                 </data>
             </var>
