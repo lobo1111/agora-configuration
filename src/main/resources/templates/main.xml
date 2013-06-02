@@ -205,7 +205,7 @@
                     SUM(balance.debit)
                     FROM
                     ZakladowyPlanKont zpk
-                    JOIN zpk.balances balance
+                    JOIN zpk.zpkBalances balance
                     WHERE
                     zpk.id = {:id}
                 </data>
