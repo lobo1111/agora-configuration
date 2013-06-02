@@ -205,13 +205,15 @@
                     SUM(balance.debit)
                     FROM
                     ZakladowyPlanKont zpk
-                    JOIN zpk.zpkSums sum
+                    JOIN zpk.zpkSums zpkSum
                     JOIN zpk.community community
                     JOIN community.zpks zpkToCount
                     JOIN zpkToCount.balances balance
                     JOIN balance.bookingPeriod
                     WHERE
                     zpk.id = {:id}
+                    AND bookingPeriod.defaultPeriod = true
+                    AND zpkToCount.number LIKE sum.numberPrefix || \'%\'
                 </data>
                 <data1>
                     {:single}
