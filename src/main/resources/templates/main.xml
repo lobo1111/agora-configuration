@@ -208,17 +208,16 @@
                     community.id,
                     community.name
                     FROM
-                    ZpkBalance balance
-                    JOIN balance.zpk zpk
-                    JOIN balance.bookingPeriod
+                    ZakladowyPlanKont zpk
                     JOIN zpk.zpkSums sum
                     JOIN zpk.community community
-                    JOIN sum.zpk otherZpk
-                    JOIN otherZpk.community otherCommunity
+                    JOIN community.zpks zpkToCount
+                    JOIN zpkToCount.balances balance
+                    JOIN balance.bookingPeriod
                     WHERE
-                    bookingPeriod.defaultPeriod = true
-                    AND community.id = otherCommunity.id
-                    AND otherZpk = {:id}
+                    zpk.id = {:id}
+                    AND bookingPeriod.defaultPeriod = true
+                    AND zpkToCount.number LIKE sum.numberPrefix || \'%\'
                 </data>
             </var>
         </variables>
