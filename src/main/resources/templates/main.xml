@@ -203,8 +203,7 @@
                     SELECT
                     sum.number,
                     sum.description,
-                    SUM(balance.credit),
-                    SUM(balance.debit),
+                    
                     community.id,
                     community.name
                     FROM
