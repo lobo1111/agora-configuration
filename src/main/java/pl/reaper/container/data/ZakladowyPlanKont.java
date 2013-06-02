@@ -153,6 +153,10 @@ public class ZakladowyPlanKont implements Serializable {
     public void setZpkSums(Collection<ZpkSum> zpkSums) {
         this.zpkSums = zpkSums;
     }
+    
+    public boolean isSumAccount() {
+        return this.zpkSums.size() > 0;
+    }
 
     public String longDescription() {
         return "[number:" + number + "]"

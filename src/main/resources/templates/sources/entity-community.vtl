@@ -26,6 +26,7 @@
             <id>$!zpk.getId()</id>
             <description>$!zpk.getDescription()</description>
             <number>$!zpk.getNumber()</number>
+            <isSum>$!zpk.isSumAccount()</isSum>
             #foreach($balance in $!zpk.getZpkBalances())
                 #if($balance.getBookingPeriod().isDefaultPeriod())
                     <credit>$balance.getCredit()</credit>
