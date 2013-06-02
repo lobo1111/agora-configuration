@@ -203,7 +203,8 @@
                     SELECT
                     sum.number,
                     sum.description,
-                    
+                    SUM(balance.credit),
+                    SUM(balance.debit),
                     community.id,
                     community.name
                     FROM
@@ -216,7 +217,6 @@
                     JOIN otherZpk.community otherCommunity
                     WHERE
                     bookingPeriod.defaultPeriod = true
-                    AND zpk.number LIKE CONCAT(sum.numberPrefix, \'%\')
                     AND community.id = otherCommunity.id
                     AND otherZpk = {:id}
                 </data>
