@@ -201,8 +201,8 @@
                 <data>
                     {:single}
                     SELECT
-                    zpkSum.number,
-                    zpkSum.description,
+                    zpk.number,
+                    zpk.description,
                     SUM(balance.credit),
                     SUM(balance.debit),
                     community.id,
