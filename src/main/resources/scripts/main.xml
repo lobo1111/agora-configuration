@@ -772,6 +772,8 @@
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
+            <scriptName>community</scriptName>
+            <scriptName>book</scriptName>
         </dependencies>
         <security>
             <group>all</group>
