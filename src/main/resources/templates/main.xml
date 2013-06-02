@@ -213,7 +213,7 @@
                     WHERE
                     zpk.id = {:id}
                     AND bookingPeriod.defaultPeriod = true
-                    AND zpkToCount.number LIKE sum.numberPrefix || \'%\'
+                    AND zpkToCount.number LIKE CONCAT(sum.numberPrefix, \'%\')
                 </data>
                 <data1>
                     {:single}
