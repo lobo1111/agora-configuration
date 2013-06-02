@@ -200,6 +200,7 @@
                 <name>zpk</name>
                 <data>
                     {:single}
+                    SELECT
                     SUM(balance.credit),
                     SUM(balance.debit)
                     FROM
@@ -210,6 +211,7 @@
                 </data>
                 <data1>
                     {:single}
+                    SELECT
                     sum.number,
                     sum.description,
                     SUM(balance.credit),
