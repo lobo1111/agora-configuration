@@ -213,7 +213,6 @@
                     WHERE
                     zpk.id = {:id}
                     AND bookingPeriod.defaultPeriod = true
-                    AND zpkToCount.number.startsWith(sum.numberPrefix)
                 </data>
                 <data1>
                     {:single}
