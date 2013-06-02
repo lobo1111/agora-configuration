@@ -53,7 +53,7 @@ public class ZakladowyPlanKont implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
-    private Collection<ZpkSum> zpkSums;
+    private Collection<ZpkSum> zpkSums = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<AutoPayment> autoPayments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
