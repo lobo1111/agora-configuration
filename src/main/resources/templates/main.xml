@@ -208,7 +208,7 @@
                     JOIN zpk.zpkSums zpkSum
                     JOIN zpk.community community
                     JOIN community.zpks zpkToCount
-                    JOIN zpkToCount.balances balance
+                    JOIN zpkToCount.zpkBalances balance
                     JOIN balance.bookingPeriod bookingPeriod
                     WHERE
                     zpk.id = {:id}
