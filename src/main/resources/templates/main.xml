@@ -933,6 +933,52 @@
         </variables>
     </template>
     
+    <!-- ################### REPORTS ########################## -->
+    
+    <template>
+        <name>report-zpks</name>
+        <source>report-zpks.vtl</source>
+        <variables>
+            <var>
+                <name>report</name>
+                <data>
+                    {:limit}
+                    SELECT
+                        zpk.number,
+                        zpk.description,
+                        address,
+                        CONCAT(owner.firstName, \' \', owner.lastName),
+                        balance.debit,
+                        balance.credit
+                    FROM 
+                        ZakladowyPlanKont zpk
+                        JOIN zpk.community community
+                        JOIN zpk.zpkBalances balance
+                        JOIN balance.bookingPeriod bookingPeriod
+                        JOIN zpk.possession possession
+                        JOIN possession.address address
+                        JOIN possession.owners owner
+                    WHERE 
+                        community.id = {:id}
+                        AND bookingPeriod.defaultPeriod = true
+                    ORDER BY 
+                        zpk.number ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(person.id)
+                    FROM
+                    Person person
+                    JOIN person.address personAddress
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    
     <!-- ################### SIMPLE LISTS ########################## -->
     
     <template>

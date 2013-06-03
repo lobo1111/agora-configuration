@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<report-zpks>
+    #foreach($row in $report)
+        <item>
+            <zpk>$!row[0]</zpk>
+            <description>$!row[1]</description>
+            <address>$!row[2].getFullAddress()</address>
+            <owner>$!row[3]</owner>
+            <debit>$!row[4]</debit>
+            <credit>$!row[5]</credit>
+        </item>
+    #end
+</report-zpks>
