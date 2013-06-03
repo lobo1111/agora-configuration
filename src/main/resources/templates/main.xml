@@ -947,7 +947,7 @@
                         zpk.number,
                         zpk.description,
                         address,
-                        CONCAT(owner.firstName, \' \', owner.lastName),
+                        owner,
                         balance.debit,
                         balance.credit
                     FROM 
