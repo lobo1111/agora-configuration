@@ -2,7 +2,7 @@
 <report-zpks>
     #foreach($row in $report)
         <item>
-            <zpk>$!row[0]</zpk>
+            <number>$!row[0]</number>
             <description>$!row[1]</description>
             <address>$!row[2].getFullAddress()</address>
             <owner>$!row[3].getName()</owner>
