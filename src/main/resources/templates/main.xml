@@ -959,7 +959,7 @@
                         JOIN possession.address address
                         JOIN possession.owners owner
                     WHERE 
-                        community.id = {:id}
+                        {:where} 
                         AND bookingPeriod.defaultPeriod = true
                     ORDER BY 
                         zpk.number ASC
@@ -969,11 +969,19 @@
                 <name>countRows</name>
                 <data>
                     {:single}
-                    SELECT count(person.id)
-                    FROM
-                    Person person
-                    JOIN person.address personAddress
-                    WHERE {:where}
+                    SELECT
+                        COUNT(zpk.id)
+                    FROM 
+                        ZakladowyPlanKont zpk
+                        JOIN zpk.community community
+                        JOIN zpk.zpkBalances balance
+                        JOIN balance.bookingPeriod bookingPeriod
+                        JOIN zpk.possession possession
+                        JOIN possession.address address
+                        JOIN possession.owners owner
+                    WHERE 
+                        {:where} 
+                        AND bookingPeriod.defaultPeriod = true
                 </data>
             </var>
         </variables>
