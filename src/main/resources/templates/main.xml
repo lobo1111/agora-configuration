@@ -957,7 +957,7 @@
                         JOIN balance.bookingPeriod bookingPeriod
                         JOIN zpk.possession possession
                         JOIN possession.address address
-                        JOIN possession.owners owner
+                        LEFT OUTER JOIN possession.owners owner
                     WHERE 
                         {:where} 
                         AND bookingPeriod.defaultPeriod = true
@@ -978,7 +978,7 @@
                         JOIN balance.bookingPeriod bookingPeriod
                         JOIN zpk.possession possession
                         JOIN possession.address address
-                        JOIN possession.owners owner
+                        LEFT OUTER JOIN possession.owners owner
                     WHERE 
                         {:where} 
                         AND bookingPeriod.defaultPeriod = true
