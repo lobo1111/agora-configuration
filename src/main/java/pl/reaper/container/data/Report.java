@@ -32,8 +32,10 @@ public class Report implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Community community;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "section")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<ReportSection> sections;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
+    private Collection<ReportAttribute> attributes;
 
     public Integer getId() {
         return id;
@@ -65,5 +67,13 @@ public class Report implements Serializable {
 
     public void setSections(Collection<ReportSection> sections) {
         this.sections = sections;
+    }
+
+    public Collection<ReportAttribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Collection<ReportAttribute> attributes) {
+        this.attributes = attributes;
     }
 }
