@@ -1153,4 +1153,67 @@
             ADD CONSTRAINT `zpk_sum_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `report` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) NOT NULL,
+            `community_id` int(11) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-community-id-fkey'>
+        <sql>  
+            ALTER TABLE `report`
+            ADD CONSTRAINT `report_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `report_section` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `report_id` int(11) NOT NULL,
+            `parent_id` int(11) NOT NULL,
+            `query` varchar(255) NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section-report-id-fkey'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD CONSTRAINT `report_section_report_fkey` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section-parent-id-fkey'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD CONSTRAINT `report_section_parent_fkey` FOREIGN KEY (`parent_id`) REFERENCES `section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-attribute'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `report_attribute` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `report_id` int(11) NOT NULL,
+            `attribute` varchar(255) NOT NULL,
+            `attribute_alias` varchar(255) NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>    
+    
+    <changeSet author='tkopacki' id='table-report-attribute-report-id-fkey'>
+        <sql>  
+            ALTER TABLE `report_attribute`
+            ADD CONSTRAINT `report_attribute_report_fkey` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
