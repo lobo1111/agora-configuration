@@ -1194,7 +1194,7 @@
     <changeSet author='tkopacki' id='table-report-section-parent-id-fkey'>
         <sql>  
             ALTER TABLE `report_section`
-            ADD CONSTRAINT `report_section_parent_fkey` FOREIGN KEY (`parent_id`) REFERENCES `section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+            ADD CONSTRAINT `report_section_parent_fkey` FOREIGN KEY (`parent_id`) REFERENCES `report_section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
     
