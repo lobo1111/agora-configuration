@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -33,9 +34,11 @@ public class Report implements Serializable {
     @ManyToOne(optional = false)
     private Community community;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
-    private Collection<ReportSection> sections;
+    private Collection<ReportSection> sections = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
-    private Collection<ReportAttribute> attributes;
+    private Collection<ReportAttribute> attributes = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
+    private Collection<ReportFilter> filters = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -75,5 +78,13 @@ public class Report implements Serializable {
 
     public void setAttributes(Collection<ReportAttribute> attributes) {
         this.attributes = attributes;
+    }
+
+    public Collection<ReportFilter> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Collection<ReportFilter> filters) {
+        this.filters = filters;
     }
 }

@@ -1216,4 +1216,24 @@
             ADD CONSTRAINT `report_attribute_report_fkey` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-filter'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `report_filter` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `report_id` int(11) NOT NULL,
+            `table` varchar(255) NOT NULL,
+            `attribute` varchar(255) NOT NULL,
+            `filter_type` varchar(255) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>   
+    
+    <changeSet author='tkopacki' id='table-report-filter-report-id-fkey'>
+        <sql>  
+            ALTER TABLE `report_filter`
+            ADD CONSTRAINT `report_filter_report_fkey` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
