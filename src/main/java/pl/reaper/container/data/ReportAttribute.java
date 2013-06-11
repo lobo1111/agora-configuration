@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "report_atribute")
+@Table(name = "report_attribute")
 @XmlRootElement
 public class ReportAttribute implements Serializable {
 
