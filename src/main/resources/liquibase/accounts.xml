@@ -1236,4 +1236,18 @@
             ADD CONSTRAINT `report_filter_report_fkey` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+        <changeSet author='tkopacki' id='table-report-section-parent-null'>
+        <sql>  
+            ALTER TABLE `report_section`
+            MODIFY `parent_id` int(11) NULL;
+        </sql>
+    </changeSet>
+    
+        <changeSet author='tkopacki' id='table-report-section-query-text'>
+            <sql>  
+                ALTER TABLE `report_section`
+                MODIFY `query` text NOT NULL;
+            </sql>
+        </changeSet>
 </databaseChangeLog>
