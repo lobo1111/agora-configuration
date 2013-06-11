@@ -531,6 +531,20 @@
     </script>
     
     <script>
+        <name>report</name>
+        <source>entities/report.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>settle-create-payments</name>
         <source>actions/settlement.py</source>
         <onInit>SettleManager().settle()</onInit>
