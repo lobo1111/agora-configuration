@@ -4,26 +4,25 @@ from org.eclipse.persistence.config import QueryHints
 class ReportManager(Container):
 
     def createReport(self):
-        reportName = vars.get('report')
-        community = vars.get('community')
-        report = self.getReport(reportName)
-        return self.generateXML(report, community)
+        reportId = vars.get('reportId')
+        report = self.getReport(reportId)
+        return self.generateXML(report)
 
-    def generateXML(self, report, community):
+    def generateXML(self, report):
         xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>'
         xml += '<report>'
         for section in report.getSections():
-            xml += self.generateSectionXml(report, section, community)
+            xml += self.generateSectionXml(report, section)
         xml += '</report>'
         return xml
 
-    def generateSectionXml(self, report, section, community):
+    def generateSectionXml(self, report, section):
         xml = '<section>'
-        data = self.getData(section.getQuery(), report.getFilters(), community)
+        data = self.getData(section.getQuery(), report.getFilters())
         for row in data:
             xml += self.generateRowXml(report, row)
         for child in section.getChildren():
-            xml += self.generateSectionXml(report, child, community)
+            xml += self.generateSectionXml(report, child)
         xml = '</section>'
         return xml
 
@@ -40,8 +39,10 @@ class ReportManager(Container):
             xml += '</attribute>'
         return xml
 
-    def getData(query, filters, community):
+    def getData(self, query, filters):
         queryInstance = entityManager.createQuery(query);
         queryInstance.setHint(QueryHints.RESULT_TYPE, ResultType.Map);
-        queryInstance.setParameter('communityId', community)
         return queryInstance.getResultList()
+
+    def getReport(self, id):
+        return entityManager.createQuery('Select report From Report report Where report.id = ' + str(id)).getSingleResult()
