@@ -45,7 +45,10 @@ class ReportManager(Container):
             xml += '</name>'
             xml += '<value>'
             if row.containsKey(attribute.getAttribute()):
-                xml += row.get(attribute.getAttribute())
+                xml += str(row.get(attribute.getAttribute()))
+            else:
+                self._logger.warn('Attribute not available - %s' % attribute.getAttribute())
+                xml += 'ATTRIBUTE NOT AVAILABLE - %s' % attribute.getAttribute()
             xml += '</value>'
             xml += '</attribute>'
         return xml
