@@ -533,7 +533,7 @@
     <script>
         <name>report</name>
         <source>entities/report.py</source>
-        <onInit/>
+        <onInit>ReportManager().createReport()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>

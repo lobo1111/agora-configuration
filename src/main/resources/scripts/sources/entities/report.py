@@ -1,7 +1,7 @@
 from org.eclipse.persistence.config import ResultType
 from org.eclipse.persistence.config import QueryHints
 
-class Report(Container):
+class ReportManager(Container):
 
     def createReport(self):
         reportName = vars.get('report')
