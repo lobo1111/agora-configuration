@@ -33,7 +33,7 @@ class ReportManager(Container):
             self._logger.info('Generating section children...')
             xml += self.generateSectionXml(report, child)
             self._logger.info('Section children generated...')
-        xml = '</section>'
+        xml += '</section>'
         self._logger.info('Section generated')
         return xml
 
