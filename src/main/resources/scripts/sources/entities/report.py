@@ -7,7 +7,9 @@ class ReportManager(Container):
     def createReport(self):
         reportId = vars.get('reportId')
         report = self.getReport(reportId)
-        return self.generateXML(report)
+        generatedXML = self.generateXML(report)
+        output.setResult(generatedXML)
+        return generatedXML
 
     def generateXML(self, report):
         self._logger.info('Generating report %s...' % report.getName())

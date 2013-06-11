@@ -538,6 +538,7 @@
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
+            <scriptName>output</scriptName>
         </dependencies>
         <security>
             <group>all</group>
