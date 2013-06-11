@@ -1201,6 +1201,23 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-reports</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    report.id, report.name)
+                    FROM 
+                    Report report
+                    ORDER BY 
+                    report.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-payment-scheduler-free-zpks</name>
         <source>simple-list.vtl</source>
         <variables>
