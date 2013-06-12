@@ -1245,10 +1245,10 @@
     </changeSet>
     
     <changeSet author='tkopacki' id='table-report-section-query-text'>
-        <sql>  
-            ALTER TABLE `report_section`
-            MODIFY `query` text NOT NULL;
-        </sql>
+            <sql>  
+                ALTER TABLE `report_section`
+                MODIFY `query` text NOT NULL;
+            </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='table-report-community-id-fkey-drop'>
