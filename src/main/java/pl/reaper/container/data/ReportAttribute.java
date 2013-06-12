@@ -32,6 +32,9 @@ public class ReportAttribute implements Serializable {
     @Basic(optional = false)
     @Column(name = "attribute_alias")
     private String attributeAlias;
+    @Basic(optional = false)
+    @Column(name = "attribute_order")
+    private String attributeOrder;
 
     public Integer getId() {
         return id;
@@ -63,5 +66,13 @@ public class ReportAttribute implements Serializable {
 
     public void setAttributeAlias(String attributeAlias) {
         this.attributeAlias = attributeAlias;
+    }
+
+    public String getAttributeOrder() {
+        return attributeOrder;
+    }
+
+    public void setAttributeOrder(String attributeOrder) {
+        this.attributeOrder = attributeOrder;
     }
 }

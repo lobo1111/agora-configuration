@@ -1237,17 +1237,35 @@
         </sql>
     </changeSet>
     
-        <changeSet author='tkopacki' id='table-report-section-parent-null'>
+    <changeSet author='tkopacki' id='table-report-section-parent-null'>
         <sql>  
             ALTER TABLE `report_section`
             MODIFY `parent_id` int(11) NULL;
         </sql>
     </changeSet>
     
-        <changeSet author='tkopacki' id='table-report-section-query-text'>
-            <sql>  
-                ALTER TABLE `report_section`
-                MODIFY `query` text NOT NULL;
-            </sql>
-        </changeSet>
+    <changeSet author='tkopacki' id='table-report-section-query-text'>
+        <sql>  
+            ALTER TABLE `report_section`
+            MODIFY `query` text NOT NULL;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-community-id-fkey-drop'>
+        <sql>  
+            ALTER TABLE `report` DROP FOREIGN KEY `report_community_fkey`
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-report-community-id-column-drop'>
+        <sql>  
+            ALTER TABLE `report` DROP COLUMN `community_id`
+        </sql>
+    </changeSet>
+    
+    <changeSet id="tkopacki" author="table-report-attribute-order-column">
+        <sql>
+            ALTER TABLE `report_attribute` ADD COLUMN `attribute_order` int(11) NOT NULL DEFAULT 0
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -30,9 +30,6 @@ public class Report implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @JoinColumn(name = "community_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Community community;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<ReportSection> sections = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
@@ -54,14 +51,6 @@ public class Report implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Community getCommunity() {
-        return community;
-    }
-
-    public void setCommunity(Community community) {
-        this.community = community;
     }
 
     public Collection<ReportSection> getSections() {
