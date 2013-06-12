@@ -24,10 +24,10 @@ class ReportManager(Container):
     def generateSectionXml(self, report, section):
         self._logger.info('Generating section...')
         xml = '<table>'
-        xml += '<th>'
+        xml += '<tr>'
         for attribute in report.getAttributes():
             xml += '<td>' + attribute.getAttributeAlias() + '</td>'
-        xml += '</th>'
+        xml += '</tr>'
         data = self.getData(section.getQuery())
         for row in data:
             self._logger.info('Generating section row...')
