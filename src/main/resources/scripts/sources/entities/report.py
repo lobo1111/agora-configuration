@@ -25,7 +25,7 @@ class ReportManager(Container):
         self._logger.info('Generating section...')
         xml = '<table>'
         xml += '<tr>'
-        for attribute in report.getAttributes():
+        for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += '<td>' + attribute.getAttributeAlias() + '</td>'
         xml += '</tr>'
         data = self.getData(section.getQuery())
@@ -42,9 +42,11 @@ class ReportManager(Container):
         return xml
 
     def generateRowXml(self, report, row):
+        for entry in row.entrySet():
+            print entry.getKey + '=' + entry.getValue()
+        print '====================='
         xml = '<tr>'
-        attributes = sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder)
-        for attribute in attributes:
+        for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             self._logger.info('Adding section attribute[%s=%s]' % (attribute.getAttribute(), attribute.getAttributeAlias()))
             xml += '<td>'
             if row.containsKey(attribute.getAttribute()):
