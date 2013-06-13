@@ -50,11 +50,11 @@ class ReportManager(Container):
 
     def getData(self, query, native):
         query = query.replace('{:where}', vars.get('where'))
-        queryInstance.setHint(QueryHints.RESULT_TYPE, ResultType.Map);
         if native:
             queryInstance = entityManager.createNativeQuery(query);
         else:
             queryInstance = entityManager.createQuery(query);
+        queryInstance.setHint(QueryHints.RESULT_TYPE, ResultType.Map);
         return queryInstance.getResultList()
 
     def getReport(self, id):
