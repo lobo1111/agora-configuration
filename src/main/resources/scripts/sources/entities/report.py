@@ -23,7 +23,7 @@ class ReportManager(Container):
 
     def generateSectionXml(self, report, section):
         self._logger.info('Generating section...')
-        xml = '<table>'
+        xml = '<table style="border: 1px solid black;">'
         xml += '<tr>'
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += '<td>' + attribute.getAttributeAlias() + '</td>'
