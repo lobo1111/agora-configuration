@@ -1303,4 +1303,11 @@
             ADD COLUMN `data_style` varchar(1024) NULL DEFAULT '';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-attribute-add-header-style'>
+        <sql>  
+            ALTER TABLE `report_attribute`
+            ADD COLUMN `header_style` varchar(1024) NULL DEFAULT '';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -23,6 +23,9 @@ public class ReportAttribute implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @Column(name = "header_style")
+    private String headerStyle;
     @JoinColumn(name = "report_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Report report;
@@ -42,6 +45,14 @@ public class ReportAttribute implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getHeaderStyle() {
+        return headerStyle;
+    }
+
+    public void setHeaderStyle(String headerStyle) {
+        this.headerStyle = headerStyle;
     }
 
     public Report getReport() {

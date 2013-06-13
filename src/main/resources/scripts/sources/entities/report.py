@@ -23,9 +23,9 @@ class ReportManager(Container):
 
     def generateSectionXml(self, report, section):
         xml = '<table style="%s">' % report.getTableStyle()
-        xml += '<tr>'
+        xml += '<tr style="%s">' % report.getHeaderStyle()
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-            xml += '<td style="%s">%s</td>' % (report.getHeaderStyle(), attribute.getAttributeAlias())
+            xml += '<td style="%s">%s</td>' % (attribute.getHeaderStyle(), attribute.getAttributeAlias())
         xml += '</tr>'
         data = self.getData(section.getQuery())
         for row in data:
@@ -36,9 +36,9 @@ class ReportManager(Container):
         return xml
 
     def generateRowXml(self, report, row):
-        xml = '<tr>'
+        xml = '<tr style="%s">' % report.getDataStyle()
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-            xml += '<td style="%s">' % report.getDataStyle()
+            xml += '<td>'
             if row.containsKey(attribute.getAttribute()):
                 xml += str(row.get(attribute.getAttribute()))
             else:
