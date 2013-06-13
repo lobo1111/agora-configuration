@@ -1268,4 +1268,18 @@
             ALTER TABLE `report_attribute` ADD COLUMN `attribute_order` int(11) NOT NULL DEFAULT 0
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-filter-drop-table'>
+        <sql>  
+            ALTER TABLE `report_filter`
+            DROP COLUMN `table`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-filter-add-entity'>
+        <sql>  
+            ALTER TABLE `report_filter`
+            ADD COLUMN `entity` varchar(255) NOT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

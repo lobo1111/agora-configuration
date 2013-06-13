@@ -27,8 +27,8 @@ public class ReportFilter implements Serializable {
     @ManyToOne(optional = false)
     private Report report;
     @Basic(optional = false)
-    @Column(name = "table")
-    private String table;
+    @Column(name = "entity")
+    private String entity;
     @Basic(optional = false)
     @Column(name = "attribute")
     private String attribute;
@@ -52,12 +52,12 @@ public class ReportFilter implements Serializable {
         this.report = report;
     }
 
-    public String getTable() {
-        return table;
+    public String getEntity() {
+        return entity;
     }
 
-    public void setTable(String table) {
-        this.table = table;
+    public void setEntity(String entity) {
+        this.entity = entity;
     }
 
     public String getAttribute() {

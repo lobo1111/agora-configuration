@@ -43,7 +43,8 @@ class ReportManager(Container):
 
     def generateRowXml(self, report, row):
         xml = '<tr>'
-        for attribute in report.getAttributes():
+        attributes = sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder)
+        for attribute in attributes:
             self._logger.info('Adding section attribute[%s=%s]' % (attribute.getAttribute(), attribute.getAttributeAlias()))
             xml += '<td>'
             if row.containsKey(attribute.getAttribute()):

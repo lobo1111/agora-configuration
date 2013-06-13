@@ -64,6 +64,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-report</name>
+        <source>entity-report.vtl</source>
+        <variables>
+            <var>
+                <name>report</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    report
+                    FROM 
+                    Report report
+                    WHERE 
+                    report.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-default-booking-period</name>
         <source>entity-default-booking-period.vtl</source>
         <variables>
