@@ -39,10 +39,10 @@ class ReportManager(Container):
         xml = '<tr style="%s">' % report.getDataStyle()
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += '<td>'
-            if row.containsKey(attribute.getAttribute()):
+            if row.containsKey(attribute.getAttribute()) and row.get(attribute.getAttribute()) is not None:
                 xml += str(row.get(attribute.getAttribute()))
             else:
-                self._logger.warn('Attribute not available - %s' % attribute.getAttribute())
+                self._logger.warn('Attribute not available or is null - %s' % attribute.getAttribute())
                 xml += ''
             xml += '</td>'
         xml += '</tr>'
