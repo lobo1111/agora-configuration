@@ -30,6 +30,15 @@ public class Report implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
+    @Column(name = "table_style")
+    private String tableStyle;
+    @Basic(optional = false)
+    @Column(name = "header_style")
+    private String headerStyle;
+    @Basic(optional = false)
+    @Column(name = "data_style")
+    private String dataStyle;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<ReportSection> sections = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
@@ -51,6 +60,30 @@ public class Report implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTableStyle() {
+        return tableStyle;
+    }
+
+    public void setTableStyle(String tableStyle) {
+        this.tableStyle = tableStyle;
+    }
+
+    public String getHeaderStyle() {
+        return headerStyle;
+    }
+
+    public void setHeaderStyle(String headerStyle) {
+        this.headerStyle = headerStyle;
+    }
+
+    public String getDataStyle() {
+        return dataStyle;
+    }
+
+    public void setDataStyle(String dataStyle) {
+        this.dataStyle = dataStyle;
     }
 
     public Collection<ReportSection> getSections() {

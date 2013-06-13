@@ -22,30 +22,23 @@ class ReportManager(Container):
         return xml
 
     def generateSectionXml(self, report, section):
-        self._logger.info('Generating section...')
-        xml = '<table style="border: 1px solid black;">'
+        xml = '<table style="%s">' % report.getTableStyle()
         xml += '<tr>'
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-            xml += '<td>' + attribute.getAttributeAlias() + '</td>'
+            xml += '<td style="%s">%s</td>' % (report.getHeaderStyle(), attribute.getAttributeAlias())
         xml += '</tr>'
         data = self.getData(section.getQuery())
         for row in data:
-            self._logger.info('Generating section row...')
             xml += self.generateRowXml(report, row)
-            self._logger.info('Section row generated...')
         for child in section.getChildren():
-            self._logger.info('Generating section children...')
             xml += self.generateSectionXml(report, child)
-            self._logger.info('Section children generated...')
         xml += '</table>'
-        self._logger.info('Section generated')
         return xml
 
     def generateRowXml(self, report, row):
         xml = '<tr>'
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-            self._logger.info('Adding section attribute[%s=%s]' % (attribute.getAttribute(), attribute.getAttributeAlias()))
-            xml += '<td>'
+            xml += '<td style="%s">' % report.getDataStyle()
             if row.containsKey(attribute.getAttribute()):
                 xml += str(row.get(attribute.getAttribute()))
             else:

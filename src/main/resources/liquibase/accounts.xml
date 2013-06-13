@@ -1282,4 +1282,25 @@
             ADD COLUMN `entity` varchar(255) NOT NULL;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-add-table-style'>
+        <sql>  
+            ALTER TABLE `report`
+            ADD COLUMN `table_style` varchar(1024) NULL DEFAULT '';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-add-header-style'>
+        <sql>  
+            ALTER TABLE `report`
+            ADD COLUMN `header_style` varchar(1024) NULL DEFAULT '';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-add-data-style'>
+        <sql>  
+            ALTER TABLE `report`
+            ADD COLUMN `data_style` varchar(1024) NULL DEFAULT '';
+        </sql>
+    </changeSet>
 </databaseChangeLog>
