@@ -1310,4 +1310,11 @@
             ADD COLUMN `header_style` varchar(1024) NULL DEFAULT '';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section-add-native'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD COLUMN `native_query` boolean NOT NULL DEFAULT false;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

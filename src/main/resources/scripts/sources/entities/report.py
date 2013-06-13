@@ -27,7 +27,7 @@ class ReportManager(Container):
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += '<td style="%s">%s</td>' % (attribute.getHeaderStyle(), attribute.getAttributeAlias())
         xml += '</tr>'
-        data = self.getData(section.getQuery())
+        data = self.getData(section.getQuery(), section.isNativeQuery())
         for row in data:
             xml += self.generateRowXml(report, row)
         for child in section.getChildren():
@@ -48,10 +48,13 @@ class ReportManager(Container):
         xml += '</tr>'
         return xml
 
-    def getData(self, query):
+    def getData(self, query, native):
         query = query.replace('{:where}', vars.get('where'))
-        queryInstance = entityManager.createQuery(query);
-        queryInstance.setHint(QueryHints.RESULT_TYPE, ResultType.Map);
+        if native:
+            queryInstance = entityManager.createNativeQuery(query);
+        else:
+            queryInstance = entityManager.createQuery(query);
+            queryInstance.setHint(QueryHints.RESULT_TYPE, ResultType.Map);
         return queryInstance.getResultList()
 
     def getReport(self, id):

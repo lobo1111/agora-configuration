@@ -37,6 +37,9 @@ public class ReportSection implements Serializable {
     @Basic(optional = true)
     @Column(name = "query")
     private String query;
+    @Basic(optional = false)
+    @Column(name = "native_query")
+    private boolean nativeQuery;
 
     public Integer getId() {
         return id;
@@ -76,5 +79,13 @@ public class ReportSection implements Serializable {
 
     public void setQuery(String query) {
         this.query = query;
+    }
+
+    public boolean isNativeQuery() {
+        return nativeQuery;
+    }
+
+    public void setNativeQuery(boolean nativeQuery) {
+        this.nativeQuery = nativeQuery;
     }
 }
