@@ -43,7 +43,9 @@ class ReportManager(Container):
 
     def generateRowXml(self, report, row):
         for entry in row.entrySet():
-            print entry.getKey() + '=' + entry.getValue()
+            print entry.getKey()
+            print entry.getValue()
+            print '-----'
         print '====================='
         xml = '<tr>'
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
