@@ -31,7 +31,7 @@ class ReportManager(Container):
         data = self.getData(section.getQuery())
         for row in data:
             self._logger.info('Generating section row...')
-            xml += self.generateRowXml(report, row)
+            xml += self.generateRowXml(row)
             self._logger.info('Section row generated...')
         for child in section.getChildren():
             self._logger.info('Generating section children...')
@@ -41,21 +41,11 @@ class ReportManager(Container):
         self._logger.info('Section generated')
         return xml
 
-    def generateRowXml(self, report, row):
-        for entry in row.entrySet():
-            print entry.getKey()
-            print entry.getValue()
-            print '-----'
-        print '====================='
+    def generateRowXml(self, row):
         xml = '<tr>'
-        for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-            self._logger.info('Adding section attribute[%s=%s]' % (attribute.getAttribute(), attribute.getAttributeAlias()))
+        for attribute in row:
             xml += '<td>'
-            if row.containsKey(attribute.getAttribute()):
-                xml += str(row.get(attribute.getAttribute()))
-            else:
-                self._logger.warn('Attribute not available - %s' % attribute.getAttribute())
-                xml += 'ATTRIBUTE NOT AVAILABLE - %s' % attribute.getAttribute()
+            xml += str(attribute)
             xml += '</td>'
         xml += '</tr>'
         return xml
@@ -63,7 +53,6 @@ class ReportManager(Container):
     def getData(self, query):
         query = query.replace('{:where}', vars.get('where'))
         queryInstance = entityManager.createQuery(query);
-        queryInstance.setHint(QueryHints.RESULT_TYPE, ResultType.Map);
         return queryInstance.getResultList()
 
     def getReport(self, id):
