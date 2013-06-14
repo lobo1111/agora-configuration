@@ -35,34 +35,31 @@ class ReportManager(Container):
             xml += '</tr>'
         data = self.getData(section.getQuery())
         for row in data:
-            self._logger.info('Generating section row...')
             xml += self.generateRowXml(report, row)
-            self._logger.info('Section row generated...')
         for child in section.getChildren():
-            self._logger.info('Generating section children...')
             xml += self.generateSectionXml(report, child)
-            self._logger.info('Section children generated...')
         xml += '</table>'
-        self._logger.info('Section generated')
         return xml
 
     def generateRowXml(self, report, row):
-        xml = '<tr>'
+        xml = '<tr style="%s">' % report.getDataStyle()
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-            self._logger.info('Adding section attribute[%s=%s]' % (attribute.getAttribute(), attribute.getAttributeAlias()))
             xml += '<td>'
-            if row.containsKey(attribute.getAttribute()):
+            if row.containsKey(attribute.getAttribute()) and row.get(attribute.getAttribute()) is not None:
                 xml += str(row.get(attribute.getAttribute()))
             else:
-                self._logger.warn('Attribute not available - %s' % attribute.getAttribute())
+                self._logger.warn('Attribute not available or is null - %s' % attribute.getAttribute())
                 xml += ''
             xml += '</td>'
         xml += '</tr>'
         return xml
 
-    def getData(self, query):
+    def getData(self, query, native):
         query = query.replace('{:where}', vars.get('where'))
-        queryInstance = entityManager.createQuery(query);
+        if native:
+            queryInstance = entityManager.createNativeQuery(query);
+        else:
+            queryInstance = entityManager.createQuery(query);
         queryInstance.setHint(QueryHints.RESULT_TYPE, ResultType.Map);
         return queryInstance.getResultList()
 
