@@ -15,7 +15,7 @@ class ReportManager(Container):
         self._logger.info('Generating report %s...' % report.getName())
         xml = ''
         xml += '<html>'
-        for section in report.getSections():
+        for section in sorted(report.getSections(), key=lambda section: section.sectionOrder):
             xml += self.generateSectionXml(report, section)
         xml += '</html>'
         self._logger.info('Report generated')
@@ -24,10 +24,15 @@ class ReportManager(Container):
     def generateSectionXml(self, report, section):
         self._logger.info('Generating section...')
         xml = '<table style="border: 1px solid black;">'
-        xml += '<tr>'
-        for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-            xml += '<td>' + attribute.getAttributeAlias() + '</td>'
-        xml += '</tr>'
+        if section.isShowTitle():
+            xml += '<tr>'
+            xml += '<td colspan="%d">%s</td>' %(len(report.getAttributes(), section.getTitle()))
+            xml += '</tr>'
+        if section.isShowHeader():
+            xml += '<tr>'
+            for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
+                xml += '<td>' + attribute.getAttributeAlias() + '</td>'
+            xml += '</tr>'
         data = self.getData(section.getQuery())
         for row in data:
             self._logger.info('Generating section row...')
