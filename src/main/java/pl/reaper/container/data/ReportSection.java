@@ -52,6 +52,8 @@ public class ReportSection implements Serializable {
     @Basic(optional = true)
     @Column(name = "title_style")
     private String titleStyle;
+    @Column(name = "native_query")
+    private boolean nativeQuery;
 
     public Integer getId() {
         return id;
@@ -131,5 +133,13 @@ public class ReportSection implements Serializable {
 
     public void setTitleStyle(String titleStyle) {
         this.titleStyle = titleStyle;
+    }
+
+    public boolean isNativeQuery() {
+        return nativeQuery;
+    }
+
+    public void setNativeQuery(boolean nativeQuery) {
+        this.nativeQuery = nativeQuery;
     }
 }

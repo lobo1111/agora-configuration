@@ -23,17 +23,17 @@ class ReportManager(Container):
 
     def generateSectionXml(self, report, section):
         self._logger.info('Generating section...')
-        xml = '<table style="border: 1px solid black;">'
+        xml = '<table style="%s">' % report.getTableStyle()
         if section.isShowTitle():
-            xml += '<tr>'
+            xml += '<tr style="%s">' % report.getTitleStyle()
             xml += '<td colspan="%d">%s</td>' %(len(report.getAttributes(), section.getTitle()))
             xml += '</tr>'
         if section.isShowHeader():
-            xml += '<tr>'
+            xml += '<tr style="%s">' % report.getHeaderStyle()
             for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-                xml += '<td>' + attribute.getAttributeAlias() + '</td>'
+                xml += '<td style="%s">%s</td>' % (attribute.getHeaderStyle(), attribute.getAttributeAlias())
             xml += '</tr>'
-        data = self.getData(section.getQuery())
+        data = self.getData(section.getQuery(), section.isNativeQuery())
         for row in data:
             xml += self.generateRowXml(report, row)
         for child in section.getChildren():

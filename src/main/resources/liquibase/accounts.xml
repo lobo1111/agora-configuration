@@ -1245,10 +1245,10 @@
     </changeSet>
     
     <changeSet author='tkopacki' id='table-report-section-query-text'>
-            <sql>  
-                ALTER TABLE `report_section`
-                MODIFY `query` text NOT NULL;
-            </sql>
+        <sql>  
+            ALTER TABLE `report_section`
+            MODIFY `query` text NOT NULL;
+        </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='table-report-community-id-fkey-drop'>
@@ -1315,6 +1315,13 @@
         <sql>  
             ALTER TABLE `report_section`
             ADD COLUMN `title_style` varchar(255) NULL DEFAULT '';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section-add-native'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD COLUMN `native_query` boolean NOT NULL DEFAULT false;
         </sql>
     </changeSet>
 </databaseChangeLog>
