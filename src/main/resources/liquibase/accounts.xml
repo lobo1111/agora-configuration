@@ -1282,4 +1282,39 @@
             ADD COLUMN `entity` varchar(255) NOT NULL;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section-add-order'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD COLUMN `section_order` int(11) NOT NULL DEFAULT 0;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section-add-show-header'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD COLUMN `show_header` boolean NOT NULL DEFAULT true;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section-add-title'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD COLUMN `title` varchar(255) NULL DEFAULT '';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section-add-show-title'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD COLUMN `show_title` boolean NOT NULL DEFAULT false;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-section-add-title-style'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD COLUMN `title_style` varchar(255) NULL DEFAULT '';
+        </sql>
+    </changeSet>
 </databaseChangeLog>
