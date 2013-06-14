@@ -46,11 +46,7 @@ class ReportManager(Container):
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += '<td>'
             if row.containsKey(attribute.getAttribute()) and row.get(attribute.getAttribute()) is not None:
-                data = row.get(attribute.getAttribute())
-                if type(data) is not type('') and type(data) is not type(0) and type(data) is not type(0.0):
-                    xml += ''.join([str(x) for x in data])
-                else:
-                    xml += str(data)
+                xml += str(row.get(attribute.getAttribute()))
             else:
                 self._logger.warn('Attribute not available or is null - %s' % attribute.getAttribute())
                 xml += ''
