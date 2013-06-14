@@ -1,6 +1,5 @@
 from org.eclipse.persistence.config import ResultType
 from org.eclipse.persistence.config import QueryHints
-import types
 
 class ReportManager(Container):
     _logger = Logger([:_scriptId])
@@ -47,10 +46,8 @@ class ReportManager(Container):
         for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += '<td>'
             if row.containsKey(attribute.getAttribute()) and row.get(attribute.getAttribute()) is not None:
-                if isinstance(row.get(attribute.getAttribute()), types.ListType):
-                    xml += ''.join(row.get(attribute.getAttribute()))
-                else:
-                    xml += str(row.get(attribute.getAttribute()))
+                print type(row.get(attribute.getAttribute()))
+                xml += str(row.get(attribute.getAttribute()))
             else:
                 self._logger.warn('Attribute not available or is null - %s' % attribute.getAttribute())
                 xml += ''
