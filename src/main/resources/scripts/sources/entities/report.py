@@ -24,7 +24,7 @@ class ReportManager(Container):
         return xml
 
     def generateSectionXml(self, report, section):
-        self._logger.info('Generating section...')
+        xml = ''
         if section.isShowTitle():
             xml += '<tr style="%s">' % report.getTitleStyle()
             xml += '<td colspan="%d">%s</td>' %(len(report.getAttributes(), section.getTitle()))
