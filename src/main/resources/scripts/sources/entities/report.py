@@ -15,15 +15,16 @@ class ReportManager(Container):
         self._logger.info('Generating report %s...' % report.getName())
         xml = ''
         xml += '<html>'
+        xml = '<table style="%s">' % report.getTableStyle()
         for section in sorted(report.getSections(), key=lambda section: section.sectionOrder):
             xml += self.generateSectionXml(report, section)
+        xml += '</table>'
         xml += '</html>'
         self._logger.info('Report generated')
         return xml
 
     def generateSectionXml(self, report, section):
         self._logger.info('Generating section...')
-        xml = '<table style="%s">' % report.getTableStyle()
         if section.isShowTitle():
             xml += '<tr style="%s">' % report.getTitleStyle()
             xml += '<td colspan="%d">%s</td>' %(len(report.getAttributes(), section.getTitle()))
@@ -38,7 +39,6 @@ class ReportManager(Container):
             xml += self.generateRowXml(report, row)
         for child in section.getChildren():
             xml += self.generateSectionXml(report, child)
-        xml += '</table>'
         return xml
 
     def generateRowXml(self, report, row):
