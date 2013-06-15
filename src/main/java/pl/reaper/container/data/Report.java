@@ -37,6 +37,9 @@ public class Report implements Serializable {
     @Basic(optional = false)
     @Column(name = "on_init")
     private String onInit;
+    @Basic(optional = false)
+    @Column(name = "header_style")
+    private String headerStyle;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<ReportSection> sections = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
@@ -56,6 +59,14 @@ public class Report implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getHeaderStyle() {
+        return headerStyle;
+    }
+
+    public void setHeaderStyle(String headerStyle) {
+        this.headerStyle = headerStyle;
     }
 
     public String getOnInit() {
