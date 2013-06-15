@@ -112,4 +112,4 @@ class HTML:
         return '<tr style="%s">' % style
 
     def closeTr(self):
-        returb '</tr>'
+        return '</tr>'
