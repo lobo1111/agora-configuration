@@ -42,7 +42,7 @@ public class Report implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<ReportSection> sections = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
-    private Collection<ReportAttribute> attributes = new ArrayList<>();
+    private Collection<ReportSectionAttribute> attributes = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<ReportFilter> filters = new ArrayList<>();
 
@@ -94,11 +94,11 @@ public class Report implements Serializable {
         this.sections = sections;
     }
 
-    public Collection<ReportAttribute> getAttributes() {
+    public Collection<ReportSectionAttribute> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(Collection<ReportAttribute> attributes) {
+    public void setAttributes(Collection<ReportSectionAttribute> attributes) {
         this.attributes = attributes;
     }
 

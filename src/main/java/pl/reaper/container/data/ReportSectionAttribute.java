@@ -13,9 +13,9 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "report_attribute")
+@Table(name = "report_section_attribute")
 @XmlRootElement
-public class ReportAttribute implements Serializable {
+public class ReportSectionAttribute implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

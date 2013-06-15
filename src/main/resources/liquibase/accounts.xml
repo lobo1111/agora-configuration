@@ -1392,4 +1392,11 @@
             ADD COLUMN `row_style` varchar(1024) NULL DEFAULT '';
         </sql>
     </changeSet>
+            
+    <changeSet author='tkopacki' id='table-section-attribute-drop-report-id'>
+        <sql>  
+            ALTER TABLE `report_section_attribute`
+            DROP COLUMN `report_id`
+        </sql>
+    </changeSet>
 </databaseChangeLog>
