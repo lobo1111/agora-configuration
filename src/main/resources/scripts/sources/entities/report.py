@@ -94,7 +94,7 @@ class ReportManager(Container):
         xml = ''
         if section.isShowHeader():
             xml += self._html.openTr('')
-            for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
+            for attribute in sorted(section.getAttributes(), key=lambda attribute: attribute.attributeOrder):
                 xml += self._html.openTd(attribute.getHeaderStyle())
                 xml += attribute.getAttributeAlias()
                 xml += self._html.closeTd()
