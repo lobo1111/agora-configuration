@@ -78,10 +78,12 @@ class ReportManager(Container):
         xml = ''
         xml += self._html.openHeader()
         xml += self._html.openScript()
-        xml += report.getJs()
+        if report.getJs() is not None:
+            xml += report.getJs()
         xml += self._html.closeScript()
         xml += self._html.openStyle()
-        xml += report.getCss()
+        if report.getCss() is not None:
+            xml += report.getCss()
         xml += self._html.closeStyle()
         xml += self._html.closeHeader()
         return xml;
