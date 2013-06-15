@@ -1,6 +1,6 @@
 from org.eclipse.persistence.config import ResultType
 from org.eclipse.persistence.config import QueryHints
-import datetime
+from time import strftime
 
 class HTML:
     def openHTML(self):
@@ -90,7 +90,7 @@ class ReportManager(Container):
         xml += self._html.closeDiv()
         xml += self._html.openDiv('float: none;')
         now = datetime.datetime.now()
-        xml += 'Bilans na dzień: %d-%d-%d' % (now.day, now.month, now.year)
+        xml += 'Bilans na dzień: %s' % strftime("%Y-%m-%d")
         xml += self._html.closeDiv()
         xml += self._html.closeDiv()
         return xml
