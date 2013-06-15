@@ -1375,7 +1375,7 @@
     <changeSet author='tkopacki' id='table-section-attribute-add-section-id'>
         <sql>  
             ALTER TABLE `report_section_attribute`
-            ADD COLUMN `section_id` INT(11) NOT NULL DEFAULT
+            ADD COLUMN `section_id` int(11) NOT NULL
         </sql>
     </changeSet>
         
