@@ -89,7 +89,10 @@ class ReportManager(Container):
         xml += report.getName()
         xml += self._html.closeDiv()
         xml += self._html.openDiv('float: none;')
-        xml += 'Bilans na dzień: %d-%d-%d' % (datetime.datetime.now().day, datetime.datetime.now().month, datetime.datetime.now().year)
+        day = str(datetime.datetime.now().day)
+        month = str(datetime.datetime.now().month)
+        year = str(datetime.datetime.now().year)
+        xml += 'Bilans na dzień: %s-%s-%s' % (day, month, year)
         xml += self._html.closeDiv()
         xml += self._html.closeDiv()
         return xml
