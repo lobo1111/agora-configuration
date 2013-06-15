@@ -29,6 +29,24 @@ class HTML:
     def closeTr(self):
         return '</tr>'
 
+    def openHeader(self):
+        return '<head>'
+
+    def closeHeader(self):
+        return '</head>'
+
+    def openScript(self):
+        return '<script type="text/javascript">'
+
+    def closeScript(self):
+        return '</script>'
+
+    def openStyle(self):
+        return '<style type="text/css">'
+
+    def closeStyle(self):
+        return '</style>'
+
 class ReportManager(Container):
     _logger = Logger([:_scriptId])
     _html = HTML()
@@ -42,10 +60,23 @@ class ReportManager(Container):
 
     def generateXML(self, report):
         xml = self._html.openHTML()
+        xml += self.addHeaderData(report)
         for section in sorted(report.getSections(), key=lambda section: section.sectionOrder):
             xml += self.generateSectionXml(section)
         xml += self._html.closeHTML()
         return xml
+
+    def addHeaderData(self, report):
+        xml = ''
+        xml += self._html.openHeader()
+        xml += self._html.openScript()
+        xml += report.getJs()
+        xml += self._html.closeScript()
+        xml += self._html.openStyle()
+        xml += report.getCss()
+        xml += self._html.closeStyle()
+        xml += self._html.closeHeader()
+        return xml;
 
     def generateSectionXml(self, section):
         xml = ''
