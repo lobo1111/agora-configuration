@@ -1342,14 +1342,14 @@
     <changeSet author='tkopacki' id='table-report-add-css'>
         <sql>  
             ALTER TABLE `report`
-            ADD COLUMN `css` TEXT NULL DEFAULT ''
+            ADD COLUMN `css` TEXT NULL
         </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='table-report-add-js'>
         <sql>  
             ALTER TABLE `report`
-            ADD COLUMN `js` TEXT NULL DEFAULT ''
+            ADD COLUMN `js` TEXT NULL
         </sql>
     </changeSet>
     
