@@ -84,14 +84,24 @@ class ReportManager(Container):
 
     def addTitle(self, report):
         xml = ''
-        xml += self._html.openDiv(report.getHeaderStyle())
-        xml += self._html.openDiv('float: none;')
+        xml += self._html.openTable(report.getHeaderStyle())
+        xml += self._html.openTr('')
+        xml += self._html.openTd('margin-right: 10px')
+        xml += 'Raport:'
+        xml += self._html.closeTd()
+        xml += self._html.openTd('')
         xml += report.getName()
-        xml += self._html.closeDiv()
-        xml += self._html.openDiv('float: none;')
-        xml += 'Data utworzenia: %s' % strftime("%d-%m-%Y").decode('utf-8')
-        xml += self._html.closeDiv()
-        xml += self._html.closeDiv()
+        xml += self._html.closeTd()
+        xml += self._html.closeTr()
+        xml += self._html.openTr('')
+        xml += self._html.openTd('margin-right: 10px')
+        xml += 'Data utworzenia:'
+        xml += self._html.closeTd()
+        xml += self._html.openTd('')
+        xml += strftime("%d-%m-%Y").decode('utf-8')
+        xml += self._html.closeTd()
+        xml += self._html.closeTr()
+        xml += self._html.closeTable()
         return xml
 
     def addHeaderData(self, report):
