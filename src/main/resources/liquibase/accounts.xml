@@ -1245,10 +1245,10 @@
     </changeSet>
     
     <changeSet author='tkopacki' id='table-report-section-query-text'>
-            <sql>  
-                ALTER TABLE `report_section`
-                MODIFY `query` text NOT NULL;
-            </sql>
+        <sql>  
+            ALTER TABLE `report_section`
+            MODIFY `query` text NOT NULL;
+        </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='table-report-community-id-fkey-drop'>
@@ -1315,6 +1315,74 @@
         <sql>  
             ALTER TABLE `report_section`
             ADD COLUMN `native_query` boolean NOT NULL DEFAULT false;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-drop-table-style'>
+        <sql>  
+            ALTER TABLE `report`
+            DROP COLUMN `table_style`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-drop-data-style'>
+        <sql>  
+            ALTER TABLE `report`
+            DROP COLUMN `data_style`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-add-css'>
+        <sql>  
+            ALTER TABLE `report`
+            ADD COLUMN `css` TEXT NULL DEFAULT ''
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-add-js'>
+        <sql>  
+            ALTER TABLE `report`
+            ADD COLUMN `js` TEXT NULL DEFAULT ''
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-attribute-rename'>
+        <sql>  
+            RENAME TABLE `report_attribute` TO `report_section_attribute`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-section-attribute-add-column-style'>
+        <sql>  
+            ALTER TABLE `report_section_attribute`
+            ADD COLUMN `column_style` varchar(1024) NULL DEFAULT '';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-section-attribute-report-id-fkey-drop'>
+        <sql>  
+            ALTER TABLE `report_section_attribute` DROP FOREIGN KEY `report_attribute_report_fkey`
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-section-attribute-add-section-id'>
+        <sql>  
+            ALTER TABLE `report_section_attribute`
+            ADD COLUMN `section_id` INT(11) NOT NULL DEFAULT
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-section-attribute-section-id-fkey'>
+        <sql>  
+            ALTER TABLE `report_section_attribute`
+            ADD CONSTRAINT `section_attribute_section_fkey` FOREIGN KEY (`section_id`) REFERENCES `section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-report-section-add-row-style'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD COLUMN `row_style` varchar(1024) NULL DEFAULT '';
         </sql>
     </changeSet>
 </databaseChangeLog>
