@@ -1,6 +1,34 @@
 from org.eclipse.persistence.config import ResultType
 from org.eclipse.persistence.config import QueryHints
 
+class HTML:
+    def openHTML(self):
+        return '<html>'
+
+    def closeHTML(self):
+        return '</html>'
+
+    def openTable(self, style):
+        return '<table style="%s">' % style
+
+    def closeTable(self):
+        return '</table>'
+
+    def openTd(self, colspan, style):
+        return '<td colspan="%s" style="%s">' % (str(colspan), style)
+
+    def openTd(self, style):
+        return '<td style="%s">' % style
+
+    def closeTd(self):
+        return '</td>'
+
+    def openTr(self, style):
+        return '<tr style="%s">' % style
+
+    def closeTr(self):
+        return '</tr>'
+
 class ReportManager(Container):
     _logger = Logger([:_scriptId])
     _html = HTML()
@@ -86,30 +114,3 @@ class ReportManager(Container):
             xml += self.generateSectionXml(child)
         return xml
     
-class HTML:
-    def openHTML(self):
-        return '<html>'
-
-    def closeHTML(self):
-        return '</html>'
-
-    def openTable(self, style):
-        return '<table style="%s">' % style
-
-    def closeTable(self):
-        return '</table>'
-
-    def openTd(self, colspan, style):
-        return '<td colspan="%s" style="%s">' % (str(colspan), style)
-
-    def openTd(self, style):
-        return '<td style="%s">' % style
-
-    def closeTd(self):
-        return '</td>'
-
-    def openTr(self, style):
-        return '<tr style="%s">' % style
-
-    def closeTr(self):
-        return '</tr>'
