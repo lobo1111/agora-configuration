@@ -48,7 +48,7 @@ class HTML:
         return '</style>'
 
     def openBody(self, onInit):
-        return '<body oninit="%s">' % onInit
+        return '<body onload="%s">' % onInit
 
     def closeBody(self):
         return '</body>'
