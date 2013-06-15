@@ -1382,7 +1382,7 @@
     <changeSet author='tkopacki' id='table-section-attribute-section-id-fkey'>
         <sql>  
             ALTER TABLE `report_section_attribute`
-            ADD CONSTRAINT `section_attribute_section_fkey` FOREIGN KEY (`section_id`) REFERENCES `section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+            ADD CONSTRAINT `section_attribute_section_fkey` FOREIGN KEY (`section_id`) REFERENCES `report_section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
         
