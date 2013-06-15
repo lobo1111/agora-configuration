@@ -15,24 +15,30 @@ class ReportManager(Container):
         self._logger.info('Generating report %s...' % report.getName())
         xml = ''
         xml += '<html>'
-        for section in report.getSections():
+        xml = '<table style="%s">' % report.getTableStyle()
+        for section in sorted(report.getSections(), key=lambda section: section.sectionOrder):
             xml += self.generateSectionXml(report, section)
+        xml += '</table>'
         xml += '</html>'
         self._logger.info('Report generated')
         return xml
 
     def generateSectionXml(self, report, section):
-        xml = '<table style="%s">' % report.getTableStyle()
-        xml += '<tr style="%s">' % report.getHeaderStyle()
-        for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-            xml += '<td style="%s">%s</td>' % (attribute.getHeaderStyle(), attribute.getAttributeAlias())
-        xml += '</tr>'
+        xml = ''
+        if section.isShowTitle():
+            xml += '<tr style="%s">' % report.getTitleStyle()
+            xml += '<td colspan="%d">%s</td>' %(len(report.getAttributes(), section.getTitle()))
+            xml += '</tr>'
+        if section.isShowHeader():
+            xml += '<tr style="%s">' % report.getHeaderStyle()
+            for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
+                xml += '<td style="%s">%s</td>' % (attribute.getHeaderStyle(), attribute.getAttributeAlias())
+            xml += '</tr>'
         data = self.getData(section.getQuery(), section.isNativeQuery())
         for row in data:
             xml += self.generateRowXml(report, row)
         for child in section.getChildren():
             xml += self.generateSectionXml(report, child)
-        xml += '</table>'
         return xml
 
     def generateRowXml(self, report, row):
