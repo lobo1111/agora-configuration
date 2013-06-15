@@ -106,7 +106,7 @@ class HTML:
         return '<td style="%s">' % style
 
     def closeTd(self):
-        returb '</td>'
+        return '</td>'
 
     def openTr(self, style):
         return '<tr style="%s">' % style
