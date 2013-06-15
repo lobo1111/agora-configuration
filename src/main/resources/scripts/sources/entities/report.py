@@ -104,6 +104,7 @@ class ReportManager(Container):
         return xml
 
     def renderSectionData(self, section):
+        xml = ''
         for row in self.getData(section.getQuery(), section.isNativeQuery()):
             xml += self.generateRowXml(section, row)
         return xml
