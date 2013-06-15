@@ -56,7 +56,7 @@ class ReportManager(Container):
         xml = ''
         if section.isShowTitle():
             xml += self._html.openTr(section.getTitleStyle())
-            xml += self._html.openTd(len(report.getAttributes(), '')
+            xml += self._html.openTd(len(report.getAttributes(), ''))
             xml += section.getTitle()
             xml += self._html.closeTd()
             xml += self._html.closeTr()
