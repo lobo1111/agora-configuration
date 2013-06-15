@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -52,8 +53,13 @@ public class ReportSection implements Serializable {
     @Basic(optional = true)
     @Column(name = "title_style")
     private String titleStyle;
+    @Basic(optional = true)
+    @Column(name = "row_style")
+    private String rowStyle;
     @Column(name = "native_query")
     private boolean nativeQuery;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "section")
+    private Collection<ReportSectionAttribute> attributes = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -111,6 +117,14 @@ public class ReportSection implements Serializable {
         this.showHeader = showHeader;
     }
 
+    public String getRowStyle() {
+        return rowStyle;
+    }
+
+    public void setRowStyle(String rowStyle) {
+        this.rowStyle = rowStyle;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -141,5 +155,13 @@ public class ReportSection implements Serializable {
 
     public void setNativeQuery(boolean nativeQuery) {
         this.nativeQuery = nativeQuery;
+    }
+
+    public Collection<ReportSectionAttribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Collection<ReportSectionAttribute> attributes) {
+        this.attributes = attributes;
     }
 }

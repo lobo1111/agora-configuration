@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,18 +29,13 @@ public class Report implements Serializable {
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-    @Column(name = "table_style")
-    private String tableStyle;
+    @Column(name = "css")
+    private String css;
     @Basic(optional = false)
-    @Column(name = "header_style")
-    private String headerStyle;
-    @Basic(optional = false)
-    @Column(name = "data_style")
-    private String dataStyle;
+    @Column(name = "js")
+    private String js;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<ReportSection> sections = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
-    private Collection<ReportSectionAttribute> attributes = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<ReportFilter> filters = new ArrayList<>();
 
@@ -62,28 +55,20 @@ public class Report implements Serializable {
         this.name = name;
     }
 
-    public String getTableStyle() {
-        return tableStyle;
+    public String getCss() {
+        return css;
     }
 
-    public void setTableStyle(String tableStyle) {
-        this.tableStyle = tableStyle;
+    public void setCss(String css) {
+        this.css = css;
     }
 
-    public String getHeaderStyle() {
-        return headerStyle;
+    public String getJs() {
+        return js;
     }
 
-    public void setHeaderStyle(String headerStyle) {
-        this.headerStyle = headerStyle;
-    }
-
-    public String getDataStyle() {
-        return dataStyle;
-    }
-
-    public void setDataStyle(String dataStyle) {
-        this.dataStyle = dataStyle;
+    public void setJs(String js) {
+        this.js = js;
     }
 
     public Collection<ReportSection> getSections() {
@@ -92,14 +77,6 @@ public class Report implements Serializable {
 
     public void setSections(Collection<ReportSection> sections) {
         this.sections = sections;
-    }
-
-    public Collection<ReportSectionAttribute> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(Collection<ReportSectionAttribute> attributes) {
-        this.attributes = attributes;
     }
 
     public Collection<ReportFilter> getFilters() {

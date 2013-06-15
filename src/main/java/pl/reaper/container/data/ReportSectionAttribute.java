@@ -26,9 +26,12 @@ public class ReportSectionAttribute implements Serializable {
     @Basic(optional = false)
     @Column(name = "header_style")
     private String headerStyle;
-    @JoinColumn(name = "report_id", referencedColumnName = "id")
+    @Basic(optional = false)
+    @Column(name = "column_style")
+    private String columnStyle;
+    @JoinColumn(name = "section_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Report report;
+    private ReportSection section;
     @Basic(optional = false)
     @Column(name = "attribute")
     private String attribute;
@@ -55,12 +58,20 @@ public class ReportSectionAttribute implements Serializable {
         this.headerStyle = headerStyle;
     }
 
-    public Report getReport() {
-        return report;
+    public String getColumnStyle() {
+        return columnStyle;
     }
 
-    public void setReport(Report report) {
-        this.report = report;
+    public void setColumnStyle(String columnStyle) {
+        this.columnStyle = columnStyle;
+    }
+
+    public ReportSection getSection() {
+        return section;
+    }
+
+    public void setSection(ReportSection section) {
+        this.section = section;
     }
 
     public String getAttribute() {
