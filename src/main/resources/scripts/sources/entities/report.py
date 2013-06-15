@@ -49,12 +49,12 @@ class ReportManager(Container):
 
     def generateSectionXml(self, section):
         xml = ''
-        xml = self._html.openTable(section.getTableStyle())
+        xml += self._html.openTable(section.getTableStyle())
         xml += self.renderSectionTitle(section)
         xml += self.renderSectionHeader(section)
         xml += self.renderSectionData(section)
         xml += self.renderSectionChildren(section)
-        xml = self._html.closeTable()
+        xml += self._html.closeTable()
         return xml
 
     def generateRowXml(self, section, row):
