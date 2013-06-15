@@ -1,5 +1,6 @@
 from org.eclipse.persistence.config import ResultType
 from org.eclipse.persistence.config import QueryHints
+import datetime
 
 class HTML:
     def openHTML(self):
@@ -53,6 +54,12 @@ class HTML:
     def closeBody(self):
         return '</body>'
 
+    def openDiv(self, style):
+        return '<div style="%s">' % style
+
+    def closeDiv(self):
+        return '</div>'
+
 class ReportManager(Container):
     _logger = Logger([:_scriptId])
     _html = HTML()
@@ -68,10 +75,23 @@ class ReportManager(Container):
         xml = self._html.openHTML()
         xml += self.addHeaderData(report)
         xml += self._html.openBody(report.getOnInit())
+        xml += self.addTitle(report)
         for section in sorted(report.getSections(), key=lambda section: section.sectionOrder):
             xml += self.generateSectionXml(section)
         xml += self._html.closeBody()
         xml += self._html.closeHTML()
+        return xml
+
+    def addTitle(self, report):
+        xml = ''
+        xml += self._html.openDiv(report.getHeaderStyle())
+        xml += self._html.openDiv('float: none;')
+        xml += report.getName()
+        xml += self._html.closeDiv()
+        xml += self._html.openDiv('float: none;')
+        xml += 'Bilans na dzień: ' + datetime.datetime.now().day + '-' + datetime.datetime.now().month + '-' + datetime.datetime.now().year
+        xml += self._html.closeDiv()
+        xml += self._html.closeDiv()
         return xml
 
     def addHeaderData(self, report):
