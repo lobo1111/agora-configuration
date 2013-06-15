@@ -54,6 +54,9 @@ public class ReportSection implements Serializable {
     @Column(name = "title_style")
     private String titleStyle;
     @Basic(optional = true)
+    @Column(name = "table_style")
+    private String tableStyle;
+    @Basic(optional = true)
     @Column(name = "row_style")
     private String rowStyle;
     @Column(name = "native_query")
@@ -99,6 +102,14 @@ public class ReportSection implements Serializable {
 
     public void setQuery(String query) {
         this.query = query;
+    }
+
+    public String getTableStyle() {
+        return tableStyle;
+    }
+
+    public void setTableStyle(String tableStyle) {
+        this.tableStyle = tableStyle;
     }
 
     public String getSectionOrder() {

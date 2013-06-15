@@ -1399,4 +1399,11 @@
             DROP COLUMN `report_id`
         </sql>
     </changeSet>
+            
+    <changeSet author='tkopacki' id='table-report-section-add-table-style'>
+        <sql>  
+            ALTER TABLE `report_section`
+            ADD COLUMN `table_style` varchar(1024) NULL DEFAULT '';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

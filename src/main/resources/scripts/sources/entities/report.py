@@ -3,6 +3,7 @@ from org.eclipse.persistence.config import QueryHints
 
 class ReportManager(Container):
     _logger = Logger([:_scriptId])
+    _html = HTML()
 
     def createReport(self):
         reportId = vars.get('reportId')
@@ -12,46 +13,31 @@ class ReportManager(Container):
         return generatedXML
 
     def generateXML(self, report):
-        self._logger.info('Generating report %s...' % report.getName())
-        xml = ''
-        xml += '<html>'
-        xml = '<table style="%s">' % report.getTableStyle()
+        xml = self._html.openHTML()
         for section in sorted(report.getSections(), key=lambda section: section.sectionOrder):
-            xml += self.generateSectionXml(report, section)
-        xml += '</table>'
-        xml += '</html>'
-        self._logger.info('Report generated')
+            xml += self.generateSectionXml(section)
+        xml += self._html.closeHTML()
         return xml
 
-    def generateSectionXml(self, report, section):
+    def generateSectionXml(self, section):
         xml = ''
-        if section.isShowTitle():
-            xml += '<tr style="%s">' % report.getTitleStyle()
-            xml += '<td colspan="%d">%s</td>' %(len(report.getAttributes(), section.getTitle()))
-            xml += '</tr>'
-        if section.isShowHeader():
-            xml += '<tr style="%s">' % report.getHeaderStyle()
-            for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-                xml += '<td style="%s">%s</td>' % (attribute.getHeaderStyle(), attribute.getAttributeAlias())
-            xml += '</tr>'
-        data = self.getData(section.getQuery(), section.isNativeQuery())
-        for row in data:
-            xml += self.generateRowXml(report, row)
-        for child in section.getChildren():
-            xml += self.generateSectionXml(report, child)
+        xml += self.renderSectionTitle(section)
+        xml += self.renderSectionHeader(section)
+        xml += self.renderSectionData(section)
+        xml += self.renderSectionChildren(section)
         return xml
 
-    def generateRowXml(self, report, row):
-        xml = '<tr style="%s">' % report.getDataStyle()
-        for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
-            xml += '<td>'
+    def generateRowXml(self, section, row):
+        xml = self._html.openTr(section.getRowStyle())
+        for attribute in sorted(section.getAttributes(), key=lambda attribute: attribute.attributeOrder):
+            xml += self._html.openTd(attribute.getColumnStyle())
             if row.containsKey(attribute.getAttribute()) and row.get(attribute.getAttribute()) is not None:
                 xml += str(row.get(attribute.getAttribute()))
             else:
                 self._logger.warn('Attribute not available or is null - %s' % attribute.getAttribute())
                 xml += ''
-            xml += '</td>'
-        xml += '</tr>'
+            xml += self._html.closeTd()
+        xml += self._html.closeTr()
         return xml
 
     def getData(self, query, native):
@@ -65,3 +51,65 @@ class ReportManager(Container):
 
     def getReport(self, id):
         return entityManager.createQuery('Select report From Report report Where report.id = ' + str(id)).getSingleResult()
+
+    def renderSectionTitle(self, section):
+        xml = ''
+        if section.isShowTitle():
+            xml += self._html.openTr(section.getTitleStyle())
+            xml += self._html.openTd(len(report.getAttributes(), '')
+            xml += section.getTitle()
+            xml += self._html.closeTd()
+            xml += self._html.closeTr()
+        return xml
+
+    def renderSectionHeader(self, section):
+        xml = ''
+        if section.isShowHeader():
+            xml += self._html.openTr(section.getHeaderStyle())
+            for attribute in sorted(report.getAttributes(), key=lambda attribute: attribute.attributeOrder):
+                xml += self._html.openTd(attribute.getHeaderStyle())
+                xml += attribute.getAttributeAlias()
+                xml += self._html.closeTd()
+            xml += self._html.closeTr()
+        return xml
+
+    def renderSectionData(self, section):
+        xml = self._html.openTable(section.getTableStyle())
+        for row in self.getData(section.getQuery(), section.isNativeQuery()):
+            xml += self.generateRowXml(section, row)
+        xml = self._html.closeTable()
+        return xml
+
+    def renderSectionChildren(self, section):
+        xml = ''
+        for child in section.getChildren():
+            xml += self.generateSectionXml(child)
+        return xml
+    
+class HTML:
+    def openHTML(self):
+        return '<html>'
+
+    def closeHTML(self):
+        return '</html>'
+
+    def openTable(self, style):
+        return '<table style="%s">' % style
+
+    def closeTable(self):
+        return '</table>'
+
+    def openTd(self, colspan, style):
+        return '<td colspan="%s" style="%s">' % (str(colspan), style)
+
+    def openTd(self, style):
+        return '<td style="%s">' % style
+
+    def closeTd(self):
+        returb '</td>'
+
+    def openTr(self, style):
+        return '<tr style="%s">' % style
+
+    def closeTr(self):
+        returb '</tr>'
