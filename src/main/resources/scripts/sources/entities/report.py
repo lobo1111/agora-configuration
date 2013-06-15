@@ -49,10 +49,12 @@ class ReportManager(Container):
 
     def generateSectionXml(self, section):
         xml = ''
+        xml = self._html.openTable(section.getTableStyle())
         xml += self.renderSectionTitle(section)
         xml += self.renderSectionHeader(section)
         xml += self.renderSectionData(section)
         xml += self.renderSectionChildren(section)
+        xml = self._html.closeTable()
         return xml
 
     def generateRowXml(self, section, row):
@@ -102,10 +104,8 @@ class ReportManager(Container):
         return xml
 
     def renderSectionData(self, section):
-        xml = self._html.openTable(section.getTableStyle())
         for row in self.getData(section.getQuery(), section.isNativeQuery()):
             xml += self.generateRowXml(section, row)
-        xml = self._html.closeTable()
         return xml
 
     def renderSectionChildren(self, section):
