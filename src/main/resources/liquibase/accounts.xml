@@ -1406,4 +1406,11 @@
             ADD COLUMN `table_style` varchar(1024) NULL DEFAULT '';
         </sql>
     </changeSet>
+            
+    <changeSet author='tkopacki' id='table-report-add-oninit'>
+        <sql>  
+            ALTER TABLE `report`
+            ADD COLUMN `on_init` varchar(1024) NULL DEFAULT '';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

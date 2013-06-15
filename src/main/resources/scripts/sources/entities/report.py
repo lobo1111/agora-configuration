@@ -47,6 +47,12 @@ class HTML:
     def closeStyle(self):
         return '</style>'
 
+    def openBody(self, onInit):
+        return '<body oninit="%s">' % onInit
+
+    def closeBody(self):
+        return '</body>'
+
 class ReportManager(Container):
     _logger = Logger([:_scriptId])
     _html = HTML()
@@ -61,8 +67,10 @@ class ReportManager(Container):
     def generateXML(self, report):
         xml = self._html.openHTML()
         xml += self.addHeaderData(report)
+        xml += self._html.openBody(report.getOnInit())
         for section in sorted(report.getSections(), key=lambda section: section.sectionOrder):
             xml += self.generateSectionXml(section)
+        xml += self._html.closeBody()
         xml += self._html.closeHTML()
         return xml
 
