@@ -57,6 +57,9 @@ class HTML:
     def openDiv(self, style):
         return '<div style="%s">' % style
 
+    def openDiv(self, id, style):
+        return '<div id="%s" style="%s">' % (id, style)
+
     def closeDiv(self):
         return '</div>'
 
@@ -129,15 +132,19 @@ class ReportManager(Container):
         return xml
 
     def generateRowXml(self, section, row):
+        counter = 0
         xml = self._html.openTr(section.getRowStyle())
         for attribute in sorted(section.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += self._html.openTd(attribute.getColumnStyle())
             if row.containsKey(attribute.getAttribute()) and row.get(attribute.getAttribute()) is not None:
+                xml += self._html.openDiv(attribute.getAttribute() + '_' + counter, '')
                 xml += str(row.get(attribute.getAttribute()))
+                xml += self._html.closeDiv()
             else:
                 self._logger.warn('Attribute not available or is null - %s' % attribute.getAttribute())
                 xml += ''
             xml += self._html.closeTd()
+            counter += 1
         xml += self._html.closeTr()
         return xml
 
