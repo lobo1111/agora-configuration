@@ -131,8 +131,7 @@ class ReportManager(Container):
         xml += self._html.closeTable()
         return xml
 
-    def generateRowXml(self, section, row):
-        counter = 0
+    def generateRowXml(self, section, row, counter):
         xml = self._html.openTr(section.getRowStyle())
         for attribute in sorted(section.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += self._html.openTd(attribute.getColumnStyle())
@@ -144,7 +143,6 @@ class ReportManager(Container):
                 self._logger.warn('Attribute not available or is null - %s' % attribute.getAttribute())
                 xml += ''
             xml += self._html.closeTd()
-            counter += 1
         xml += self._html.closeTr()
         return xml
 
@@ -183,8 +181,10 @@ class ReportManager(Container):
 
     def renderSectionData(self, section):
         xml = ''
+        counter = 0;
         for row in self.getData(section.getQuery(), section.isNativeQuery()):
-            xml += self.generateRowXml(section, row)
+            xml += self.generateRowXml(section, row, counter)
+            counter += 1
         return xml
 
     def renderSectionChildren(self, section):
