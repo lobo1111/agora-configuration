@@ -81,6 +81,7 @@ class ReportManager(Container):
         xml += self.addTitle(report)
         for section in sorted(report.getSections(), key=lambda section: section.sectionOrder):
             xml += self.generateSectionXml(section)
+        xml += '<A HREF="javascript:window.print()">Click to Print This Page</A>'
         xml += self._html.closeBody()
         xml += self._html.closeHTML()
         return xml
