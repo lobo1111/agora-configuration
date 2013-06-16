@@ -81,6 +81,7 @@ class ReportManager(Container):
         xml += self.addTitle(report)
         for section in sorted(report.getSections(), key=lambda section: section.sectionOrder):
             xml += self.generateSectionXml(section)
+        xml += '<a href="javascript:var firebug=document.createElement(\'script\');firebug.setAttribute(\'src\',\'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js\');document.body.appendChild(firebug);(function(){if(window.firebug.version){firebug.init();}else{setTimeout(arguments.callee);}})();void(firebug);">Firebug Lite</a>'
         xml += self._html.closeBody()
         xml += self._html.closeHTML()
         return xml
