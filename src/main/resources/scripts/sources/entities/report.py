@@ -137,7 +137,7 @@ class ReportManager(Container):
         for attribute in sorted(section.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += self._html.openTd(attribute.getColumnStyle())
             if row.containsKey(attribute.getAttribute()) and row.get(attribute.getAttribute()) is not None:
-                xml += self._html.openDiv(attribute.getAttribute() + '_' + counter, '')
+                xml += self._html.openDiv(attribute.getAttribute() + '_' + str(counter), '')
                 xml += str(row.get(attribute.getAttribute()))
                 xml += self._html.closeDiv()
             else:
