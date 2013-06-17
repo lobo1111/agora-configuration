@@ -44,6 +44,8 @@ public class Report implements Serializable {
     private Collection<ReportSection> sections = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<ReportFilter> filters = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
+    private Collection<ReportFilterGroup> filterGroups = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -107,5 +109,13 @@ public class Report implements Serializable {
 
     public void setFilters(Collection<ReportFilter> filters) {
         this.filters = filters;
+    }
+
+    public Collection<ReportFilterGroup> getFilterGroups() {
+        return filterGroups;
+    }
+
+    public void setFilterGroups(Collection<ReportFilterGroup> filterGroups) {
+        this.filterGroups = filterGroups;
     }
 }

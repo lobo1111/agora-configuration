@@ -1413,4 +1413,38 @@
             ADD COLUMN `on_init` varchar(1024) NULL DEFAULT '';
         </sql>
     </changeSet>
+            
+    <changeSet author='tkopacki' id='table-report-filter-add-group'>
+        <sql>  
+            ALTER TABLE `report_filter`
+            ADD COLUMN `group_id` int(11) NOT NULL;
+        </sql>
+    </changeSet>
+            
+    <changeSet author='tkopacki' id='table-report-filter-add-order'>
+        <sql>  
+            ALTER TABLE `report_filter`
+            ADD COLUMN `filter_order` int(11) NOT NULL DEFAULT '0';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-filter-group'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `report_filter_group` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `report_id` int(11) NOT NULL,
+            `name` varchar(255) NOT NULL DEFAULT '',
+            `group_order` int(11) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-filter-group-id-fkey'>
+        <sql>  
+            ALTER TABLE `report_filter`
+            ADD CONSTRAINT `report_filter_report_filter_group_fkey` FOREIGN KEY (`group_id`) REFERENCES `report_filter` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+   
 </databaseChangeLog>
