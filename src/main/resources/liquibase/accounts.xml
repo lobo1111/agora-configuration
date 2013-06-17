@@ -1454,4 +1454,16 @@
         </sql>
     </changeSet>
    
+    <changeSet author='tkopacki' id='table-report-community-id-fkey-drop'>
+        <sql>  
+            ALTER TABLE `report_filter` DROP FOREIGN KEY `report_filter_report_filter_group_fkey`
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-report-filter-group-id-fkey-2'>
+        <sql>  
+            ALTER TABLE `report_filter`
+            ADD CONSTRAINT `report_filter_report_filter_group_fkey` FOREIGN KEY (`group_id`) REFERENCES `report_filter_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
