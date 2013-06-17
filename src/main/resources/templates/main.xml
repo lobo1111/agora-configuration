@@ -962,7 +962,7 @@
                         filter.id,
                         filter.entity,
                         filter.attribute,
-                        filter.filterTpe
+                        filter.filterType
                     FROM
                         ReportFilter filter
                         JOIN filter.report report
