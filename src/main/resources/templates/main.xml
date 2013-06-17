@@ -951,60 +951,6 @@
         </variables>
     </template>
     
-    <!-- ################### REPORTS ########################## -->
-    
-    <template>
-        <name>report-zpks</name>
-        <source>report-zpks.vtl</source>
-        <variables>
-            <var>
-                <name>report</name>
-                <data>
-                    {:limit}
-                    SELECT
-                        zpk.number,
-                        zpk.description,
-                        address,
-                        owner,
-                        balance.debit,
-                        balance.credit
-                    FROM 
-                        ZakladowyPlanKont zpk
-                        JOIN zpk.community community
-                        JOIN zpk.zpkBalances balance
-                        JOIN balance.bookingPeriod bookingPeriod
-                        JOIN zpk.possession possession
-                        JOIN possession.address address
-                        LEFT OUTER JOIN possession.owners owner
-                    WHERE 
-                        {:where} 
-                        AND bookingPeriod.defaultPeriod = true
-                    ORDER BY 
-                        zpk.number ASC
-                </data>
-            </var>
-            <var>
-                <name>countRows</name>
-                <data>
-                    {:single}
-                    SELECT
-                        COUNT(zpk.id)
-                    FROM 
-                        ZakladowyPlanKont zpk
-                        JOIN zpk.community community
-                        JOIN zpk.zpkBalances balance
-                        JOIN balance.bookingPeriod bookingPeriod
-                        JOIN zpk.possession possession
-                        JOIN possession.address address
-                        LEFT OUTER JOIN possession.owners owner
-                    WHERE 
-                        {:where} 
-                        AND bookingPeriod.defaultPeriod = true
-                </data>
-            </var>
-        </variables>
-    </template>
-        
     <template>
         <name>list-report-filters</name>
         <source>list-report-filters.vtl</source>
