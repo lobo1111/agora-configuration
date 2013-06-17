@@ -1447,7 +1447,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='table-report-filter-group-id-fkey'>
+    <changeSet author='tkopacki' id='table-report-filter-group-report-id-fkey'>
         <sql>  
             ALTER TABLE `report_filter_group`
             ADD CONSTRAINT `report_filter_group_report_fkey` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
