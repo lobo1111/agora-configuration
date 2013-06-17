@@ -959,10 +959,7 @@
                 <name>filters</name>
                 <data>
                     SELECT 
-                        filter.id,
-                        filter.entity,
-                        filter.attribute,
-                        filter.filterType
+                        filter
                     FROM
                         ReportFilter filter
                         JOIN filter.report report
