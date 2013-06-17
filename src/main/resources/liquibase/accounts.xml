@@ -1446,5 +1446,12 @@
             ADD CONSTRAINT `report_filter_report_filter_group_fkey` FOREIGN KEY (`group_id`) REFERENCES `report_filter` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-report-filter-group-id-fkey'>
+        <sql>  
+            ALTER TABLE `report_filter_group`
+            ADD CONSTRAINT `report_filter_group_report_fkey` FOREIGN KEY (`report_id`) REFERENCES `report` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
    
 </databaseChangeLog>
