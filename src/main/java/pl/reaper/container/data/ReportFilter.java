@@ -89,4 +89,12 @@ public class ReportFilter implements Serializable {
     public void setFilterOrder(String filterOrder) {
         this.filterOrder = filterOrder;
     }
+
+    public ReportFilterGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(ReportFilterGroup group) {
+        this.group = group;
+    }
 }

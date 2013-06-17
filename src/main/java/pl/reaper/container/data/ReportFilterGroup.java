@@ -37,7 +37,7 @@ public class ReportFilterGroup implements Serializable {
     @Column(name = "group_order")
     private String groupOrder;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
-    private Collection<ReportFilterGroup> filters = new ArrayList<>();
+    private Collection<ReportFilter> filters = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -71,11 +71,11 @@ public class ReportFilterGroup implements Serializable {
         this.groupOrder = groupOrder;
     }
 
-    public Collection<ReportFilterGroup> getFilters() {
+    public Collection<ReportFilter> getFilters() {
         return filters;
     }
 
-    public void setFilters(Collection<ReportFilterGroup> filters) {
+    public void setFilters(Collection<ReportFilter> filters) {
         this.filters = filters;
     }
 }
