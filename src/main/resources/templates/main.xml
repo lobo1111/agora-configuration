@@ -967,7 +967,7 @@
                         ReportFilter filter
                         JOIN filter.report report
                     WHERE
-                        report.id = {:id}
+                        {:where}
                 </data>
             </var>
         </variables>
