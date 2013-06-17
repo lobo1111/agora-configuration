@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<filter>
+    #foreach($filter in $filters)
+    <item>
+        <id>$!filter.getId()</id>
+        <entity>$!filter.getEntity()</entity>
+        <attribute>$!filter.getAttribute()</attribute>
+        <filterType>$!filter.getFilterType()</filterType>
+    </item>
+    #end
+</filter>

@@ -1004,7 +1004,28 @@
             </var>
         </variables>
     </template>
-    
+        
+    <template>
+        <name>list-report-filters</name>
+        <source>list-report-filters.vtl</source>
+        <variables>
+            <var>
+                <name>filters</name>
+                <data>
+                    SELECT 
+                        filter.id,
+                        filter.entity,
+                        filter.attribute,
+                        filter.filterTpe
+                    FROM
+                        ReportFilter filter
+                        JOIN filter.report report
+                    WHERE
+                        report.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
     <!-- ################### SIMPLE LISTS ########################## -->
     
     <template>
