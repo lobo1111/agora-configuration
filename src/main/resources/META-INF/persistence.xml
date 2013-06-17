@@ -42,6 +42,7 @@
     <class>pl.reaper.container.data.ReportSectionAttribute</class>
     <class>pl.reaper.container.data.ReportSection</class>
     <class>pl.reaper.container.data.ReportFilter</class>
+    <class>pl.reaper.container.data.ReportFilterGroup</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.sharedCache.mode" value="NONE"/>
