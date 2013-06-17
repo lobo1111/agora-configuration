@@ -1454,7 +1454,7 @@
         </sql>
     </changeSet>
    
-    <changeSet author='tkopacki' id='table-report-community-id-fkey-drop'>
+    <changeSet author='tkopacki' id='table-report-filter-group-id-fkey-drop'>
         <sql>  
             ALTER TABLE `report_filter` DROP FOREIGN KEY `report_filter_report_filter_group_fkey`
         </sql>
