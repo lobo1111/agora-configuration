@@ -963,8 +963,11 @@
                     FROM
                         ReportFilter filter
                         JOIN filter.report report
+                        JOIN filter.group group
                     WHERE
                         {:where}
+                    ORDER BY
+                        group.groupOrder, filter.filterOrder ASC
                 </data>
             </var>
         </variables>
