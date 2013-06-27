@@ -1466,4 +1466,18 @@
             ADD CONSTRAINT `report_filter_report_filter_group_fkey` FOREIGN KEY (`group_id`) REFERENCES `report_filter_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+                
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-type-column-add'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            ADD COLUMN `calculation_type` enum('METER', 'DECLARATION') NOT NULL DEFAULT 'METER';
+        </sql>
+    </changeSet>
+                
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-prefix-add'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            ADD COLUMN `prefix` varchar(255) NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

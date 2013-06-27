@@ -3,15 +3,17 @@ package pl.reaper.container.data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,6 +22,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PaymentSchedulerTemplate implements Serializable {
 
+    public enum CalculationType {
+
+        METER, DECLARATION
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -34,6 +40,15 @@ public class PaymentSchedulerTemplate implements Serializable {
     @Size(min = 0, max = 255)
     @Column(name = "description")
     private String description;
+    @Basic(optional = true)
+    @Size(min = 0, max = 255)
+    @Column(name = "prefix")
+    private String prefix;
+    @Basic(optional = false)
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "calculation_type")
+    private CalculationType calculationType;
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Dictionary type;
@@ -88,4 +103,19 @@ public class PaymentSchedulerTemplate implements Serializable {
         this.autoBook = autoBook;
     }
 
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public CalculationType getCalculationType() {
+        return calculationType;
+    }
+
+    public void setCalculationType(CalculationType calculationType) {
+        this.calculationType = calculationType;
+    }
 }
