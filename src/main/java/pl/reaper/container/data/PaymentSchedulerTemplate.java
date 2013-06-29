@@ -22,10 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PaymentSchedulerTemplate implements Serializable {
 
-    public enum CalculationType {
-
-        METER, DECLARATION
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -44,14 +40,12 @@ public class PaymentSchedulerTemplate implements Serializable {
     @Size(min = 0, max = 255)
     @Column(name = "prefix")
     private String prefix;
-    @Basic(optional = false)
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "calculation_type")
-    private CalculationType calculationType;
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Dictionary type;
+    @JoinColumn(name = "algorithm_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private PaymentAlgorithm algorithm;
     @Column(name = "auto_book")
     private boolean autoBook;
 
@@ -111,11 +105,11 @@ public class PaymentSchedulerTemplate implements Serializable {
         this.prefix = prefix;
     }
 
-    public CalculationType getCalculationType() {
-        return calculationType;
+    public PaymentAlgorithm getAlgorithm() {
+        return algorithm;
     }
 
-    public void setCalculationType(CalculationType calculationType) {
-        this.calculationType = calculationType;
+    public void setAlgorithm(PaymentAlgorithm algorithm) {
+        this.algorithm = algorithm;
     }
 }

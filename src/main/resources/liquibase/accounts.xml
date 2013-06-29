@@ -1480,4 +1480,42 @@
             ADD COLUMN `prefix` varchar(255) NULL;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-algorithm'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `payment_algorithm` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) NOT NULL,
+            `algorithm` varchar(512) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-algorithm-insert'>
+        <sql>  
+            INSERT INTO `payment_algorithm`(name, algorithm) VALUES('m.kw.', '#{payment.income} * #{possession.area}');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-type-column-remove'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            DROP COLUMN `calculation_type`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-algorithm-id-add'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            ADD COLUMN `algorithm_id` int(11) NOT NULL DEFAULT 1
+        </sql>
+    </changeSet>
+            
+    <changeSet author='tkopacki' id='table-payment-scheduler-template-algorithm-id-fkey'>
+        <sql>  
+            ALTER TABLE `payment_scheduler_template`
+            ADD CONSTRAINT `payment_scheduler_template_algorithm_id_fkey` FOREIGN KEY (`algorithm_id`) REFERENCES `payment_algorithm` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
