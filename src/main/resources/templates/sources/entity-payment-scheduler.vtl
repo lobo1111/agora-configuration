@@ -5,7 +5,7 @@
     <active>$!ps.isActive()</active>
     <day>$!ps.getDay()</day>
     <prefix>$!ps.getPaymentSchedulerTemplates().get(0).getPrefix()</prefix>
-    <algorithm>$!ps.getPaymentSchedulerTemplates().get(0).getAlgorithm()</algorithm>
+    <algorithm>$!ps.getPaymentSchedulerTemplates().get(0).getAlgorithm().getId()</algorithm>
     <payment>
         <id>$!ps.getPaymentSchedulerTemplates().get(0).getId()</id>
         <payment>$!ps.getPaymentSchedulerTemplates().get(0).getAmount()</payment>
