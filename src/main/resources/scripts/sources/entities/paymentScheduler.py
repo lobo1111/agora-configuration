@@ -37,18 +37,20 @@ class PaymentSchedulerManager(Container):
     def setTemplateData(self, ps):
         data = self.getOrCreatePaymentSchedulerTemplate(ps)
         data.setPaymentScheduler(ps)
+        data.setAlgorithm(self.findAlgorithm())
         data.setAmount(BigDecimal(vars.get('paymentAmount')))
         data.setDescription(vars.get('paymentDescription'))
         data.setType(self.findType(vars.get('paymentType')))
+        if vars.get('paymentSchedulerPrefixEnabled') == 'true':
+            data.setPrefix(vars.get('paymentSchedulerPrefix'))
+        else:
+            data.setPrefix(None)
         if vars.get('paymentBook') == 'true':
             data.setAutoBook(True)
         else:
             data.setAutoBook(False)
         ps.getPaymentSchedulerTemplates().clear()
         ps.getPaymentSchedulerTemplates().add(data)
-        if vars.get('paymentSchedulerPrefixEnabled') == 'true':
-            data.setPrefix(vars.get('paymentSchedulerPrefix'))
-        ps.setAlgorithm(self.findAlgorithm())
     
     def findCommunity(self, communityId):
         return CommunityManager().findCommunityById(communityId)
