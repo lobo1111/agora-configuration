@@ -1118,11 +1118,11 @@
                 <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    e.id, e.name)
+                    pa.id, pa.name)
                     FROM 
-                    PaymentAlgorithm e
+                    PaymentAlgorithm pa
                     ORDER BY 
-                    e.name ASC
+                    pa.name ASC
                 </data>
             </var>
         </variables>
