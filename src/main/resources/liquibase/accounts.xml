@@ -1498,6 +1498,12 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='payment-algorithm-insert-2'>
+        <sql>  
+            INSERT INTO `payment_algorithm`(name, algorithm) VALUES('kwota * woda zimna * il. osob', '#{payment.income} * #{possession.coldWater} * #{possession.people}');
+        </sql>
+    </changeSet>
+    
     <changeSet author='tkopacki' id='table-payment-scheduler-template-type-column-remove'>
         <sql>  
             ALTER TABLE `payment_scheduler_template`
