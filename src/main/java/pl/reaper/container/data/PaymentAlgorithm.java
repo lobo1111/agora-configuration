@@ -19,7 +19,7 @@ public class PaymentAlgorithm implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
@@ -27,11 +27,11 @@ public class PaymentAlgorithm implements Serializable {
     @Column(name = "algorithm")
     private String algorithm;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
