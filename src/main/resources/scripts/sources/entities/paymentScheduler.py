@@ -46,9 +46,16 @@ class PaymentSchedulerManager(Container):
             data.setAutoBook(False)
         ps.getPaymentSchedulerTemplates().clear()
         ps.getPaymentSchedulerTemplates().add(data)
+        if vars.get('paymentSchedulerPrefixEnabled') == 'true':
+            data.setPrefix(vars.get('paymentSchedulerPrefix'))
+        ps.setAlgorithm(self.findAlgorithm())
     
     def findCommunity(self, communityId):
         return CommunityManager().findCommunityById(communityId)
+
+    def findAlgorithm(self):
+        sql = "Select a From PaymentAlgorithm a Where a.id = %s" % vars.get('algorithmId')
+        return entityManager.createQuery(sql).getSingleResult() 
     
     def findType(self, typeId):
         return self._dictManager.getDictionaryInstance(typeId)
