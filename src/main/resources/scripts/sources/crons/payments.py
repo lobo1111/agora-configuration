@@ -73,8 +73,12 @@ class CronPayment(Container):
         entityManager.persist(log)
             
     def setAmount(self, zpk, payment, factor):
-        calculated = factor.floatValue() * zpk.getPossession().getArea().floatValue()
-        self._logger.info('calculated payment - %s' % str(calculated))
+        try:
+            calculated = factor.floatValue() * zpk.getPossession().getArea().floatValue()
+            self._logger.info('calculated payment - %s' % str(calculated))
+        except:
+            calculated = 0
+            self._logger.info('payment scheduler fired for zpk without possession - %s' % zpk.getNumber())
         payment.setIncome(BigDecimal(calculated))
     
     def findLog(self, scheduler):
