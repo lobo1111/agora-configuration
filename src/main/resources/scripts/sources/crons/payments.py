@@ -4,6 +4,17 @@ from java.math import BigDecimal
 from pl.reaper.container.data import Payment
 from pl.reaper.container.data.Payment import Direction
 from pl.reaper.container.data import PaymentSchedulerLog
+import re
+
+class PaymentAlgorithm:
+    def calculate(self, scheduler, possession):
+        entities = {"scheduler" : scheduler, "possession" : possession}
+        algorithm = scheduler.getPaymentSchedulerTemplates().get(0).getAlgorithm().getAlgorithm()
+        occurences = re.findall('#\{(.+?)\.(.+?)\}', algorithm)
+        for occurence in occurences:
+            entity = occurence[0]
+            attriubte = occurence[1]
+            print entity + ' - ' + attribute
 
 class CronPayment(Container):
     _logger = Logger([:_scriptId])
