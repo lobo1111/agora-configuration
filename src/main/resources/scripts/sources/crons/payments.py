@@ -39,7 +39,7 @@ class CronPayment(Container):
         return self.findLog(scheduler) != None
     
     def fireScheduler(self, scheduler):
-        for zpk in scheduler.getZpks():
+        for zpk in self.getSchedulerZpks(scheduler):
             self._logger.info('Creating payment for zpk %s' % str(zpk.getNumber()))
             payment = Payment()
             self.setAmount(zpk, payment, scheduler.getPaymentSchedulerTemplates().get(0).getAmount())
@@ -56,6 +56,13 @@ class CronPayment(Container):
                 BookingManager().book(payment)
             entityManager.persist(payment)
         self.addLog(scheduler)
+        
+    def getSchedulerZpks(self, scheduler):
+        if scheduler.getPrefix() is None:
+            return scheduler.getZpks()
+        else:
+            sql = "Select z From ZakladowyPlanKont z Join z.community c Where z.number like '%s' and c.id = %d" % (scheduler.getPrefix() + "%", scheduler.getCommunity().getId())
+            return entityManager.createQuery(sql).getResultList()
         
     def addLog(self, scheduler):
         log = PaymentSchedulerLog()
