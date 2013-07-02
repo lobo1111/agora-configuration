@@ -58,10 +58,10 @@ class CronPayment(Container):
         self.addLog(scheduler)
         
     def getSchedulerZpks(self, scheduler):
-        if scheduler.getPrefix() is None:
+        if scheduler.getPaymentSchedulerTemplates().get(0).getPrefix() is None:
             return scheduler.getZpks()
         else:
-            sql = "Select z From ZakladowyPlanKont z Join z.community c Where z.number like '%s' and c.id = %d" % (scheduler.getPrefix() + "%", scheduler.getCommunity().getId())
+            sql = "Select z From ZakladowyPlanKont z Join z.community c Where z.number like '%s' and c.id = %d" % (scheduler.getPaymentSchedulerTemplates().get(0).getPrefix() + "%", scheduler.getCommunity().getId())
             return entityManager.createQuery(sql).getResultList()
         
     def addLog(self, scheduler):
