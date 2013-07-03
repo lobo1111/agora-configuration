@@ -20,7 +20,7 @@ public class VariableParser {
         int previousEndMarker = 0;
         int from;
         int to;
-        while ((from = toParse.indexOf("[:", previousEndMarker)) > -1 && (to = toParse.indexOf("]", previousEndMarker)) > -1) {
+        while ((from = toParse.indexOf("[:", previousEndMarker)) > -1 && (to = toParse.indexOf("]", from)) > -1) {
             Logger.getLogger(VariableParser.class.getName()).log(Level.INFO, "Found variable at {0}-{1}", new Object[]{from, to});
             String toReplace = toParse.substring(from + 2, to);
             Logger.getLogger(VariableParser.class.getName()).log(Level.INFO, "Replacing {0}", toReplace);
