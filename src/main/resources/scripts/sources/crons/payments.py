@@ -1,5 +1,7 @@
 from java.util import Date
 from java.util import Calendar
+from java.math import BigDecimal
+from java.math import RoundingMode
 from pl.reaper.container.data import Payment
 from pl.reaper.container.data.Payment import Direction
 from pl.reaper.container.data import PaymentSchedulerLog
@@ -66,7 +68,7 @@ class CronPayment(Container):
         for zpk in self.getSchedulerZpks(scheduler):
             self._logger.info('Creating payment for zpk %s' % str(zpk.getNumber()))
             payment = Payment()
-            payment.setAmount(paymentAlgorithm.calculate(scheduler, zpk.getPossession()))
+            payment.setIncome(BigDecimal(paymentAlgorithm.calculate(scheduler, zpk.getPossession())).setScale(2, RoundingMode.HALF_UP))
             payment.setCommunity(scheduler.getCommunity())
             payment.setPossession(zpk.getPossession())
             payment.setType(scheduler.getPaymentSchedulerTemplates().get(0).getType())
