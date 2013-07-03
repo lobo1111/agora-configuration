@@ -66,7 +66,7 @@ class CronPayment(Container):
         for zpk in self.getSchedulerZpks(scheduler):
             self._logger.info('Creating payment for zpk %s' % str(zpk.getNumber()))
             payment = Payment()
-            self.setAmount(paymentAlgorithm.calculate(scheduler, zpk.getPossession()))
+            payment.setAmount(paymentAlgorithm.calculate(scheduler, zpk.getPossession()))
             payment.setCommunity(scheduler.getCommunity())
             payment.setPossession(zpk.getPossession())
             payment.setType(scheduler.getPaymentSchedulerTemplates().get(0).getType())
