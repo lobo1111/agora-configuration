@@ -29,7 +29,6 @@ class PaymentAlgorithm:
             attribute = occurence[1]
             instance = entities.get(entity)
             if instance is None:
-                self._logger.warn('Trying to calculate value on empty entity: %s' % entity)
                 value = ''
             else:
                 value = self.getAttributeValue(instance, attribute)
