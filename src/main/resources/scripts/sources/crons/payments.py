@@ -8,7 +8,7 @@ from pl.reaper.container.data import PaymentSchedulerLog
 import re
 
 class PaymentAlgorithm:
-    def capitalize(line):
+    def capitalize(self, line):
         return ' '.join([s[0].upper() + s[1:] for s in line.split(' ')])
     
     def getAttributeValue(self, instance, attribute):
