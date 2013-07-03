@@ -31,9 +31,10 @@ class PaymentAlgorithm:
             instance = entities.get(entity)
             print instance
             value = self.getAttributeValue(instance, attribute)
-            print 'value ' + value
+            print 'value ' + str(value)
+            print algorithm
             algorithm = algorithm.replace('#{' + entity + '.' + attribute + '}', str(value))
-        print algorithm
+            print algorithm
         return eval(algorithm)
 
 class CronPayment(Container):
