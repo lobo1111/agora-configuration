@@ -16,25 +16,25 @@ public class VariableParser {
 
     public String parse() throws StringIndexOutOfBoundsException {
         StringBuilder result = new StringBuilder();
-        Logger.getLogger(VariableParser.class.getName()).log(Level.FINE, "Parsing string: {0}", toParse);
+        Logger.getLogger(VariableParser.class.getName()).log(Level.INFO, "Parsing string: {0}", toParse);
         int previousEndMarker = 0;
         int from;
         int to;
         while ((from = toParse.indexOf("[:", previousEndMarker)) > -1 && (to = toParse.indexOf("]", previousEndMarker)) > -1) {
-            Logger.getLogger(VariableParser.class.getName()).log(Level.FINE, "Found variable at {0}-{1}", new Object[]{from, to});
+            Logger.getLogger(VariableParser.class.getName()).log(Level.INFO, "Found variable at {0}-{1}", new Object[]{from, to});
             String toReplace = toParse.substring(from + 2, to);
-            Logger.getLogger(VariableParser.class.getName()).log(Level.FINE, "Replacing {0}", toReplace);
+            Logger.getLogger(VariableParser.class.getName()).log(Level.INFO, "Replacing {0}", toReplace);
             if (variables.containsKey(toReplace)) {
-                Logger.getLogger(VariableParser.class.getName()).log(Level.FINE, "Variable found, inserting {0}", variables.get(toReplace));
+                Logger.getLogger(VariableParser.class.getName()).log(Level.INFO, "Variable found, inserting {0}", variables.get(toReplace));
                 result.append(toParse.substring(previousEndMarker, from)).append(String.valueOf(variables.get(toReplace)));
             } else {
-                Logger.getLogger(VariableParser.class.getName()).log(Level.FINE, "Variable not found, inserting {0}", toReplace);
+                Logger.getLogger(VariableParser.class.getName()).log(Level.INFO, "Variable not found, inserting {0}", toReplace);
                 result.append(toParse.substring(previousEndMarker, from)).append("[:").append(toReplace).append("]");
             }
             previousEndMarker = to + 1;
         }
         result.append(toParse.substring(previousEndMarker, toParse.length()));
-        Logger.getLogger(VariableParser.class.getName()).log(Level.FINE, "String parsed: {0}", result.toString());
+        Logger.getLogger(VariableParser.class.getName()).log(Level.INFO, "String parsed: {0}", result.toString());
         return result.toString();
     }
 }
