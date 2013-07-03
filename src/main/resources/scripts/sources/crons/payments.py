@@ -8,8 +8,11 @@ from pl.reaper.container.data import PaymentSchedulerLog
 import re
 
 class PaymentAlgorithm:
+    def capitalize(line):
+        return ' '.join([s[0].upper() + s[1:] for s in line.split(' ')])
+    
     def getAttributeValue(self, instance, attribute):
-        method = getattr(instance, 'get' + attribute.title())
+        method = getattr(instance, 'get' + self.capitalize(attribute))
         result = method()
         floatValueMethod = getattr(result, 'floatValue')
         if floatValueMethod is None:
