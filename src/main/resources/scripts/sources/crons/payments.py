@@ -21,7 +21,7 @@ class PaymentAlgorithm:
             return floatValueMethod()
     
     def calculate(self, scheduler, possession):
-        entities = {"scheduler" : scheduler.getPaymentSchedulerTemplates().get(0), "possession" : possession}
+        entities = {"scheduler" : scheduler.getPaymentSchedulerTemplates().get(0), "possession" : possession, "possessionData" : possession.getAdditionalData()}
         algorithm = scheduler.getPaymentSchedulerTemplates().get(0).getAlgorithm().getAlgorithm()
         occurences = re.findall('#\{(.+?)\.(.+?)\}', algorithm)
         for occurence in occurences:
