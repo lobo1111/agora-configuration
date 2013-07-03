@@ -1,20 +1,32 @@
 from java.util import Date
 from java.util import Calendar
-from java.math import BigDecimal
 from pl.reaper.container.data import Payment
 from pl.reaper.container.data.Payment import Direction
 from pl.reaper.container.data import PaymentSchedulerLog
 import re
 
 class PaymentAlgorithm:
+    def getAttributeValue(self, instance, attribute):
+        method = getattr(instance, 'get' + attribute.title())
+        result = method()
+        floatValueMethod = getattr(result, 'floatValue')
+        if floatValueMethod is None:
+            return result
+        else:
+            return floatValueMethod()
+    
     def calculate(self, scheduler, possession):
         entities = {"scheduler" : scheduler, "possession" : possession}
         algorithm = scheduler.getPaymentSchedulerTemplates().get(0).getAlgorithm().getAlgorithm()
         occurences = re.findall('#\{(.+?)\.(.+?)\}', algorithm)
         for occurence in occurences:
             entity = occurence[0]
-            attriubte = occurence[1]
-            print entity + ' - ' + attribute
+            attribute = occurence[1]
+            instance = entities.get(entity)
+            value = self.getAttributeValue(instance, attribute)
+            algorithm = algorithm.replace('#{' + entity + '.' + attriubte + '}', value)
+        print algorithm
+        return eval(algorithm)
 
 class CronPayment(Container):
     _logger = Logger([:_scriptId])
@@ -50,10 +62,11 @@ class CronPayment(Container):
         return self.findLog(scheduler) != None
     
     def fireScheduler(self, scheduler):
+        paymentAlgorithm = PaymentAlgorithm()
         for zpk in self.getSchedulerZpks(scheduler):
             self._logger.info('Creating payment for zpk %s' % str(zpk.getNumber()))
             payment = Payment()
-            self.setAmount(zpk, payment, scheduler.getPaymentSchedulerTemplates().get(0).getAmount())
+            self.setAmount(paymentAlgorithm.calculate(scheduler, zpk.getPossession()))
             payment.setCommunity(scheduler.getCommunity())
             payment.setPossession(zpk.getPossession())
             payment.setType(scheduler.getPaymentSchedulerTemplates().get(0).getType())
@@ -82,15 +95,6 @@ class CronPayment(Container):
         log.setFiredYear(str(self._year))
         log.setTimestamp(Date())
         entityManager.persist(log)
-            
-    def setAmount(self, zpk, payment, factor):
-        try:
-            calculated = factor.floatValue() * zpk.getPossession().getArea().floatValue()
-            self._logger.info('calculated payment - %s' % str(calculated))
-        except:
-            calculated = 0
-            self._logger.info('payment scheduler fired for zpk without possession - %s' % zpk.getNumber())
-        payment.setIncome(BigDecimal(calculated))
     
     def findLog(self, scheduler):
         try:
