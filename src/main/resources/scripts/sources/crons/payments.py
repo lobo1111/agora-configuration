@@ -29,7 +29,7 @@ class PaymentAlgorithm:
             attribute = occurence[1]
             instance = entities.get(entity)
             if instance is None:
-                value = ''
+                value = 0
             else:
                 value = self.getAttributeValue(instance, attribute)
             algorithm = algorithm.replace('#{' + entity + '.' + attribute + '}', str(value))
