@@ -27,8 +27,11 @@ class PaymentAlgorithm:
         for occurence in occurences:
             entity = occurence[0]
             attribute = occurence[1]
+            print 'evalutaing %s.%s' % (entity, attribute)
             instance = entities.get(entity)
+            print instance
             value = self.getAttributeValue(instance, attribute)
+            print 'value ' + value
             algorithm = algorithm.replace('#{' + entity + '.' + attribute + '}', str(value))
         print algorithm
         return eval(algorithm)
