@@ -12,13 +12,11 @@ class PaymentAlgorithm:
         return ' '.join([s[0].upper() + s[1:] for s in line.split(' ')])
     
     def getAttributeValue(self, instance, attribute):
-        method = getattr(instance, 'get' + self.capitalize(attribute))
-        result = method()
-        floatValueMethod = getattr(result, 'floatValue')
-        if floatValueMethod is None:
-            return result
+        result = getattr(instance, 'get' + self.capitalize(attribute))()
+        if hasattr(result, 'floatValue'):
+            return getattr(result, 'floatValue')()
         else:
-            return floatValueMethod()
+            return result
     
     def calculate(self, scheduler, possession):
         entities = {"scheduler" : scheduler.getPaymentSchedulerTemplates().get(0), "possession" : possession}
