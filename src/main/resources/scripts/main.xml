@@ -498,22 +498,6 @@
     </script>
     
     <script>
-        <name>auto-payment</name>
-        <source>entities/autoPayment.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>account</scriptName>
-            <scriptName>zpk</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
         <name>settlement</name>
         <source>actions/settlement.py</source>
         <onInit/>
@@ -694,38 +678,6 @@
             <scriptName>container</scriptName>
             <scriptName>company</scriptName>
             <scriptName>community</scriptName>
-            <scriptName>zpk</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>create-auto-payment</name>
-        <source>entities/autoPayment.py</source>
-        <onInit>AutoPaymentManager().create()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>account</scriptName>
-            <scriptName>zpk</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>update-auto-payment</name>
-        <source>entities/autoPayment.py</source>
-        <onInit>AutoPaymentManager().update()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>account</scriptName>
             <scriptName>zpk</scriptName>
         </dependencies>
         <security>
