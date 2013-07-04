@@ -1539,7 +1539,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='table-auto-payment-order'>
+    <changeSet author='tkopacki' id='table-possesion-auto-payment-order'>
         <sql>  
             CREATE TABLE IF NOT EXISTS `possession_auto_payment_order` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
