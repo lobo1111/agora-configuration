@@ -33,6 +33,7 @@ class PaymentAlgorithm:
             else:
                 value = self.getAttributeValue(instance, attribute)
             algorithm = algorithm.replace('#{' + entity + '.' + attribute + '}', str(value))
+        print algorithm
         return eval(algorithm)
 
 class CronPayment(Container):
