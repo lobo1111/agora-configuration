@@ -14,22 +14,22 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "auto_payment_order")
+@Table(name = "possession_auto_payment_order")
 @XmlRootElement
-public class AutoPaymentOrder implements Serializable {
+public class PossessionAutoPaymentOrder implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "auto_payment_id", referencedColumnName = "id")
-    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
-    private AutoPayment autoPayment;
-    @JoinColumn(name = "zpk_account_id", referencedColumnName = "id")
-    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
+    @JoinColumn(name = "possession_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Possession possession;
+    @JoinColumn(name = "zpk_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
     private ZakladowyPlanKont zpk;
+    @Basic(optional = false)
     @Column(name = "payment_order")
     private int order;
 
@@ -41,12 +41,12 @@ public class AutoPaymentOrder implements Serializable {
         this.id = id;
     }
 
-    public AutoPayment getAutoPayment() {
-        return autoPayment;
+    public Possession getPossession() {
+        return possession;
     }
 
-    public void setAutoPayment(AutoPayment autoPayment) {
-        this.autoPayment = autoPayment;
+    public void setPossession(Possession possession) {
+        this.possession = possession;
     }
 
     public ZakladowyPlanKont getZpk() {

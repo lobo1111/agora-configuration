@@ -29,8 +29,6 @@
     <class>pl.reaper.container.data.PaymentScheduler</class>
     <class>pl.reaper.container.data.PaymentSchedulerLog</class>
     <class>pl.reaper.container.data.PaymentSchedulerTemplate</class>
-    <class>pl.reaper.container.data.AutoPayment</class>
-    <class>pl.reaper.container.data.AutoPaymentOrder</class>
     <class>pl.reaper.container.data.Obligation</class>
     <class>pl.reaper.container.data.ObligationGroup</class>
     <class>pl.reaper.container.data.ObligationLog</class>
@@ -44,6 +42,7 @@
     <class>pl.reaper.container.data.ReportFilter</class>
     <class>pl.reaper.container.data.ReportFilterGroup</class>
     <class>pl.reaper.container.data.PaymentAlgorithm</class>
+    <class>pl.reaper.container.data.PossessionAutoPaymentOrder</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.sharedCache.mode" value="NONE"/>

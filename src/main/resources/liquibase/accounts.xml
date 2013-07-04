@@ -1524,4 +1524,76 @@
             ADD CONSTRAINT `payment_scheduler_template_algorithm_id_fkey` FOREIGN KEY (`algorithm_id`) REFERENCES `payment_algorithm` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+            
+    <changeSet author='tkopacki' id='table-possession-add-default-zpk-booking-id'>
+        <sql>  
+            ALTER TABLE `possession`
+            ADD COLUMN `default_zpk_booking_id` int(11) NULL;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-possession-add-account-id'>
+        <sql>  
+            ALTER TABLE `possession`
+            ADD COLUMN `account_id` int(11) NULL;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-auto-payment-order'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `possession_auto_payment_order` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `possession_id` int(11) NOT NULL,
+            `zpk_id` int(11) NOT NULL,
+            `payment_order` int(11) NOT NULL DEFAULT 1,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+                
+    <changeSet author='tkopacki' id='table-possession-default-zpk-id-fkey'>
+        <sql>  
+            ALTER TABLE `possession`
+            ADD CONSTRAINT `possesison_default_zpk_fkey` FOREIGN KEY (`default_zpk_booking_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+                
+    <changeSet author='tkopacki' id='table-possession-account-id-fkey'>
+        <sql>  
+            ALTER TABLE `possession`
+            ADD CONSTRAINT `possession_account_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+                    
+    <changeSet author='tkopacki' id='table-possession-auto-payment-possession-fkey'>
+        <sql>  
+            ALTER TABLE `possession_auto_payment_order`
+            ADD CONSTRAINT `possession_auto_payment_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+                    
+    <changeSet author='tkopacki' id='table-possession-auto-payment-zpk-fkey'>
+        <sql>  
+            ALTER TABLE `possession_auto_payment_order`
+            ADD CONSTRAINT `possession_auto_payment_zpk_fkey` FOREIGN KEY (`zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+                    
+    <changeSet author='tkopacki' id='table-drop-auto-payment-payment'>
+        <sql>  
+            DROP TABLE `auto_payment_payment`
+        </sql>
+    </changeSet>
+                    
+    <changeSet author='tkopacki' id='table-drop-auto-payment-order'>
+        <sql>  
+            DROP TABLE `auto_payment_order`
+        </sql>
+    </changeSet>
+                    
+    <changeSet author='tkopacki' id='table-drop-auto-payment'>
+        <sql>  
+            DROP TABLE `auto_payment`
+        </sql>
+    </changeSet>
 </databaseChangeLog>

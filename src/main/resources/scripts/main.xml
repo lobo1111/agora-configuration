@@ -1136,7 +1136,7 @@
         <onInit>CronAutoPayment()</onInit>
         <scheduler>
             <name>bind-documents-to-payments</name>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
             <fireAt>* * * * *</fireAt>
         </scheduler>
         <dependencies>

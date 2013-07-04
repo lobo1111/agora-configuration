@@ -54,10 +54,6 @@ public class ZakladowyPlanKont implements Serializable {
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkSum> zpkSums = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
-    private Collection<AutoPayment> autoPayments = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
-    private Collection<AutoPaymentOrder> autoPaymentOrders = new ArrayList<>();
     @ManyToMany
     @JoinTable(
             name = "obligation_group_zpk", joinColumns =
@@ -120,22 +116,6 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setZpkBalances(Collection<ZpkBalance> zpkBalances) {
         this.zpkBalances = zpkBalances;
-    }
-
-    public Collection<AutoPayment> getAutoPayments() {
-        return autoPayments;
-    }
-
-    public void setAutoPayments(Collection<AutoPayment> autoPayments) {
-        this.autoPayments = autoPayments;
-    }
-
-    public Collection<AutoPaymentOrder> getAutoPaymentOrders() {
-        return autoPaymentOrders;
-    }
-
-    public void setAutoPaymentOrders(Collection<AutoPaymentOrder> autoPaymentOrders) {
-        this.autoPaymentOrders = autoPaymentOrders;
     }
 
     public Collection<ObligationGroup> getObligationGroups() {

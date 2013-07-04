@@ -35,6 +35,12 @@ public class Possession implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @JoinColumn(name = "default_zpk_booking_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private ZakladowyPlanKont defaultBooking;
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Account account;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Community community;
@@ -43,6 +49,8 @@ public class Possession implements Serializable {
     private Address address;
     @OneToMany(mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
+    @OneToMany(mappedBy = "possession")
+    private Collection<PossessionAutoPaymentOrder> autoPayments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<Owner> owners = new ArrayList<>();
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "possession")
@@ -93,6 +101,30 @@ public class Possession implements Serializable {
 
     public void setOwners(Collection<Owner> owners) {
         this.owners = owners;
+    }
+
+    public ZakladowyPlanKont getDefaultBooking() {
+        return defaultBooking;
+    }
+
+    public void setDefaultBooking(ZakladowyPlanKont defaultBooking) {
+        this.defaultBooking = defaultBooking;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Collection<PossessionAutoPaymentOrder> getAutoPayments() {
+        return autoPayments;
+    }
+
+    public void setAutoPayments(Collection<PossessionAutoPaymentOrder> autoPayments) {
+        this.autoPayments = autoPayments;
     }
 
     @Override
