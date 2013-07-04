@@ -256,30 +256,6 @@
         </variables>
     </template>    
     <template>
-        <name>entity-auto-payment</name>
-        <source>entity-auto-payment.vtl</source>
-        <variables>
-            <var>
-                <name>autoPayment</name>
-                <data>
-                    {:single}
-                    SELECT c FROM AutoPayment c WHERE c.id = {:id}
-                </data>
-            </var>
-            <var>
-                <name>orders</name>
-                <data>
-                    SELECT c 
-                    FROM 
-                    AutoPaymentOrder c 
-                    JOIN c.autoPayment ap
-                    WHERE ap.id = {:id}
-                    ORDER BY c.order
-                </data>
-            </var>
-        </variables>
-    </template>    
-    <template>
         <name>entity-possession</name>
         <source>entity-possession.vtl</source>
         <variables>
@@ -555,38 +531,6 @@
                     FROM
                     ObligationGroup og
                     JOIN og.community community
-                    WHERE {:where}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>list-auto-payments</name>
-        <source>list-auto-payments.vtl</source>
-        <variables>
-            <var>
-                <name>autoPayments</name>
-                <data>
-                    {:limit}
-                    SELECT
-                    autoPayment
-                    FROM
-                    AutoPayment autoPayment
-                    JOIN autoPayment.account account
-                    WHERE {:where}
-                    ORDER BY
-                    autoPayment.name ASC
-                </data>
-            </var>
-            <var>
-                <name>countRows</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(autoPayment.id)
-                    FROM
-                    AutoPayment autoPayment
-                    JOIN autoPayment.account account
                     WHERE {:where}
                 </data>
             </var>
@@ -1298,15 +1242,11 @@
                     LEFT OUTER JOIN zpk.obligation obligation
                     LEFT OUTER JOIN zpk.zpkBalances balance
                     LEFT OUTER JOIN balance.payments payment
-                    LEFT OUTER JOIN zpk.autoPayments autoPayment
-                    LEFT OUTER JOIN zpk.autoPaymentOrders autoPaymentOrder
                     LEFT OUTER JOIN zpk.obligationGroups obligationGroup
                     WHERE
                     zpk.id = {:id}
                     AND (payment.id IS NOT NULL 
                     OR obligation.id IS NOT NULL
-                    OR autoPayment.id IS NOT NULL
-                    OR autoPaymentOrder.id IS NOT NULL
                     OR obligationGroup.id IS NOT NULL)
                 </data>
             </var>
