@@ -46,7 +46,7 @@ class PossessionManager(Container):
         possession.setCommunity(self.getCommunity(possession))
         
     def setAutoPaymentData(self, possession):
-        possession.setAccount(self.getAccount(possession))
+        possession.setAccount(self.findAccountById(possession))
         possession.setDefaultBooking(self.getDefaultBooking(possession))
         possession.getAutoPayments().clear()
         for i in range(int(vars.get(self._prefix + 'zpkOrderCount'))): 
@@ -90,6 +90,9 @@ class PossessionManager(Container):
         
     def findZpkById(self, id):
         return entityManager.createQuery('Select zpk From ZakladowyPlanKont zpk Where zpk.id = ' + id).getSingleResult()
+        
+    def findAccountById(self, id):
+        return entityManager.createQuery('Select a From Account a Where a.id = ' + id).getSingleResult()
         
     def findPossessionById(self, id):
         return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()
