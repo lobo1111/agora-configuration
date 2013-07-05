@@ -23,9 +23,9 @@
         <number>$!possession.getAccount().getNumber()</number>
     </account>
     <zpk>
-        <id>$!possession.getDefaultBooking.getId()</id>
-        <description>$!possession.getDefaultBooking.getDescription()</description>
-        <number>$!possession.getDefaultBooking.getNumber()</number>
+        <id>$!possession.getDefaultBooking().getId()</id>
+        <description>$!possession.getDefaultBooking().getDescription()</description>
+        <number>$!possession.getDefaultBooking().getNumber()</number>
     </zpk>
     <zpksOrder>
         #foreach($order in $!possession.getAutoPayments())
