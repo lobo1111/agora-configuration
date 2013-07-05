@@ -47,7 +47,7 @@ class PossessionManager(Container):
         
     def setAutoPaymentData(self, possession):
         possession.setAccount(self.findAccountById(vars.get('account')))
-        possession.setDefaultBooking(self.getDefaultBooking(possession))
+        possession.setDefaultBooking(self.findZpkById(vars.get('defaultBooking')))
         possession.getAutoPayments().clear()
         for i in range(int(vars.get(self._prefix + 'zpkOrderCount'))): 
             auto = PossessionAutoPaymentOrder()
