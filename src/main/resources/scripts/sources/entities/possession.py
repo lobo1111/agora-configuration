@@ -1,5 +1,6 @@
 from pl.reaper.container.data import Person
 from pl.reaper.container.data import Possession
+from pl.reaper.container.data import PossessionAutoPaymentOrder
 from java.math import BigDecimal
 from java.lang import Double
 from java.lang import Integer
@@ -16,6 +17,7 @@ class PossessionManager(Container):
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
         self.setZpkData(possession)
+        self.setAutoPaymentData(possession)
         self.savePossession(possession)
         return possession;
         
@@ -24,6 +26,7 @@ class PossessionManager(Container):
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
         self.setZpkData(possession)
+        self.setAutoPaymentData(possession)
         self.savePossession(possession)
         return possession;
         
@@ -41,6 +44,17 @@ class PossessionManager(Container):
         possession.setArea(BigDecimal(vars.get(self._prefix + 'possessionArea')))
         possession.setAddress(self.getAddress(possession))
         possession.setCommunity(self.getCommunity(possession))
+        
+    def setAutoPaymentData(self, possession):
+        possession.setAccount(self.getAccount(possession))
+        possession.setDefaultBooking(self.getDefaultBooking(possession))
+        possession.getAutoPayments().clear()
+        for i in range(int(vars.get(self._prefix + 'zpkOrderCount'))): 
+            auto = PossessionAutoPaymentOrder()
+            auto.setPossession(possession)
+            auto.setZpk(self.findZpkById(vars.get(self._prefix + str(i) + '_order_id')))
+            auto.setOrder(int(vars.get(self._prefix + str(i) + '_order_order')))
+            possession.getAutoPayments().add(auto)
         
     def setPossessionAdditionalData(self, possession):
         possession.getAdditionalData().setPossession(possession)
@@ -73,6 +87,9 @@ class PossessionManager(Container):
         self._logger.info(possession.longDescription())
         entityManager.persist(possession)
         CommunityManager().recalculateShares(possession.getCommunity().getId())
+        
+    def findZpkById(self, id):
+        return entityManager.createQuery('Select zpk From ZakladowyPlanKont zpk Where zpk.id = ' + id).getSingleResult()
         
     def findPossessionById(self, id):
         return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()
