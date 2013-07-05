@@ -49,7 +49,6 @@ class CronAutoPayment(Container):
         self._logger.info("Processing position %s, with income %s" %(str(documentPosition.getId()), str(income)))
         for order in self.getOrders(possession.getId()):
             zpk = order.getZpk()
-            vars.put(self._prefix + 'communityId', str(zpk.getCommunity().getId()))
             self._logger.info("Booking on %s..." % str(zpk.getNumber()))
             if income > 0 and self.hasNegativeBalance(zpk):
                 income = self.book(documentPosition, income, zpk)
@@ -93,6 +92,7 @@ class CronAutoPayment(Container):
         vars.put('zpkId', zpk.getId())
         vars.put('paymentBookingPeriod', period.getId())
         vars.put('paymentDescription', position.getTitle())
+        vars.put('communityId', str(zpk.getCommunity().getId()))
         payment = PaymentManager().create()
         position.getPayments().add(payment)
 
