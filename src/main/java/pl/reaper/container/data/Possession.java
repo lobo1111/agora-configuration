@@ -49,7 +49,7 @@ public class Possession implements Serializable {
     private Address address;
     @OneToMany(mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
-    @OneToMany(mappedBy = "possession")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<PossessionAutoPaymentOrder> autoPayments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<Owner> owners = new ArrayList<>();
