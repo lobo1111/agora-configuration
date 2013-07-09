@@ -82,6 +82,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-community-default-contractor</name>
+        <source>entity-community-default-contractor.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    a
+                    FROM 
+                    CommunityDefaultContractor a
+                    WHERE 
+                    a.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-default-booking-period</name>
         <source>entity-default-booking-period.vtl</source>
         <variables>
