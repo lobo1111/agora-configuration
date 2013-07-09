@@ -894,6 +894,21 @@
     </script>
     
     <script>
+        <name>remove-community-default-contractor</name>
+        <source>entities/communityDefaultContractor.py</source>
+        <onInit>CommunityDefaultContractorManager().remove()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>add-possession-to-person</name>
         <source>entities/possession.py</source>
         <onInit>PossessionManager().addPersonOwner()</onInit>

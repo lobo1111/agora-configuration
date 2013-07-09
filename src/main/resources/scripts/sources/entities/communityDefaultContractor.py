@@ -13,6 +13,11 @@ class CommunityDefaultContractorManager(Container):
         self.setTemplateData(template)
         self.saveTemplate(template)
         
+    def remove(self):
+        template = self.findCommunityDefaultContractor(vars.get('id'))
+        entityManager.remove(template)
+        entityManager.flush()
+        
     def setTemplateData(self, template):
         template.setCompany(self.getCompany())
         template.setZpkNumber(vars.get('number'))
