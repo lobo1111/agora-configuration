@@ -27,4 +27,4 @@ class CommunityDefaultContractorManager(Container):
         entityManager.flush()
         
     def findCommunityDefaultContractor(self, id):
-        return entityManager.createQuery('Select  From CommunityDefaultContractor a Where a.id = ' + str(id)).getSingleResult()
+        return entityManager.createQuery('Select a From CommunityDefaultContractor a Where a.id = ' + str(id)).getSingleResult()
