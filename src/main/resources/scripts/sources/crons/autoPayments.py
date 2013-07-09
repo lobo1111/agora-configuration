@@ -48,7 +48,7 @@ class CronAutoPayment(Container):
         document.getPayments().addAll(payments)
     
     def createPayments(self, possession):
-        income = documentPosition.getIncome().floatValue()
+        income = vars.get('income')
         payments = []
         for order in self.getOrders(possession.getId()):
             zpk = order.getZpk()
