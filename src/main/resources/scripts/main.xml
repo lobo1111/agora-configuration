@@ -277,6 +277,21 @@
     </script>
     
     <script>
+        <name>communityDefaultContractor</name>
+        <source>entities/communityDefaultContractor.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>community</name>
         <source>entities/community.py</source>
         <onInit/>
@@ -842,6 +857,36 @@
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
             <scriptName>address</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>create-community-default-contractor</name>
+        <source>entities/communityDefaultContractor.py</source>
+        <onInit>CommunityDefaultContractorManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>update-community-default-contractor</name>
+        <source>entities/communityDefaultContractor.py</source>
+        <onInit>CommunityDefaultContractorManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>company</scriptName>
         </dependencies>
         <security>
             <group>all</group>
