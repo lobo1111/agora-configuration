@@ -57,7 +57,7 @@ class CronAutoPayment(Container):
                 payments.append(payment)
         if income > 0:
             payment = self.bookRest(income, possession.getDefaultBooking())
-            payment.append(payment)
+            payments.append(payment)
         return payments
 
     def getOrders(self, parentId):
