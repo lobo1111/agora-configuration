@@ -3,15 +3,13 @@ from pl.reaper.container.data import Payment
 class CronAutoPayment(Container):
     _logger = Logger([:_scriptId])
     
-    def __init__(self):
+    def processDocuments(self):
         self._logger.info('Cron auto payment started...')
         self._dictManager = DictionaryManager()
         self._documents = self.getDocuments()
         self._logger.info('Found %s documents ready for processing' % (str(self._documents.size())))
         for document in self._documents:
-            self._logger.info('Processing document - id:%s' % document.getId())
             self.handleDocument(document)
-            self._logger.info('Document processed')
         self._logger.info('Cron auto payment finished.')
         
     def getDocuments(self):
@@ -21,11 +19,9 @@ class CronAutoPayment(Container):
     def handleDocument(self, document):
         possession = self.matchAutoPayment(document)
         if possession is None:
-            self._logger.info("Can't match this document to any account.")
             self.setAsUnknown(document)
         else:  
-            self._logger.info("Document matched, creating payments....")
-            self.createPayments(document, possession)
+            self.createPaymentsFromDocument(document, possession)
             self.setAsProcessed(document)
         entityManager.persist(document)
         
@@ -43,20 +39,26 @@ class CronAutoPayment(Container):
     def setAsProcessed(self, document):
         status = self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'PROCESSED')
         document.setStatus(status)
+        
+    def createPaymentsFromDocument(self, document, possession):
+        vars.put('income', document.getIncome().floatValue())
+        vars.put('accountId', document.getClientNumber())
+        vars.put('description', document.getTitle())
+        payments = self.createPayments(possession)
+        document.getPayments().addAll(payments)
     
-    def createPayments(self, documentPosition, possession):
+    def createPayments(self, possession):
         income = documentPosition.getIncome().floatValue()
-        self._logger.info("Processing position %s, with income %s" %(str(documentPosition.getId()), str(income)))
+        payments = []
         for order in self.getOrders(possession.getId()):
             zpk = order.getZpk()
-            self._logger.info("Booking on %s..." % str(zpk.getNumber()))
             if income > 0 and self.hasNegativeBalance(zpk):
-                income = self.book(documentPosition, income, zpk)
-            else:
-                self._logger.info("It's already balanced")
+                (income, payment) = self.book(income, zpk)
+                payments.append(payment)
         if income > 0:
-            self._logger.info("Booking the rest on %s" % str(possession.getDefaultBooking().getId()))
-            self.bookRest(documentPosition, income, possession.getDefaultBooking())
+            payment = self.bookRest(income, possession.getDefaultBooking())
+            payment.append(payment)
+        return payments
 
     def getOrders(self, parentId):
         sql = "SELECT c FROM PossessionAutoPaymentOrder c JOIN c.possession ap WHERE ap.id = %s ORDER BY c.order ASC" % str(parentId)
@@ -67,7 +69,7 @@ class CronAutoPayment(Container):
         balance = ZpkManager().findBalanceByZpkAndPeriod(zpk, defaultPeriod)
         return (balance.getCredit() - balance.getDebit()) < 0
 
-    def book(self, documentPosition, income, zpk):
+    def book(self, income, zpk):
         defaultPeriod = BookingPeriodManager().findDefaultBookingPeriod()
         balance = ZpkManager().findBalanceByZpkAndPeriod(zpk, defaultPeriod)
         shouldBook = balance.getDebit() - balance.getCredit()
@@ -76,31 +78,26 @@ class CronAutoPayment(Container):
             income = 0
         else:
             income = income - shouldBook
-        self.createAndBookPayment(documentPosition, shouldBook, zpk, defaultPeriod)
-        return income
+        self.createAndBookPayment(shouldBook, zpk, defaultPeriod)
+        return (income, payment)
     
-    def bookRest(self, documentPosition, income, zpk):
+    def bookRest(self, income, zpk):
         defaultPeriod = BookingPeriodManager().findDefaultBookingPeriod()
-        self.createAndBookPayment(documentPosition, income, zpk, defaultPeriod)
+        return self.createAndBookPayment(income, zpk, defaultPeriod)
 
-    def createAndBookPayment(self, position, income, zpk, period):
+    def createAndBookPayment(self, income, zpk, period):
         vars.put('paymentDirection', 'INCOME')
         vars.put('paymentBook', 'true')
         vars.put('paymentAmount', float(income))
         vars.put('paymentType', self.getAutoPaymentType().getId())
-        vars.put('accountId', self.getAccountId(position.getClientNumber()))
+        vars.put('accountId', vars.get('accountId'))
         vars.put('zpkId', zpk.getId())
         vars.put('paymentBookingPeriod', period.getId())
-        vars.put('paymentDescription', position.getTitle())
+        vars.put('paymentDescription', vars.get('description'))
         vars.put('paymentCommunityId', zpk.getCommunity().getId())
         payment = PaymentManager().create()
         position.getPayments().add(payment)
+        return payment
 
     def getAutoPaymentType(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_TYPE', 'AUTO')
-
-    def getAccountId(self, number):
-        return AccountManager().findAccountByNumber(number).getId()
-        
-        
-        
