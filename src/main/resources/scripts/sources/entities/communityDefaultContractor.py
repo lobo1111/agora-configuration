@@ -9,7 +9,7 @@ class CommunityDefaultContractorManager(Container):
         self.saveTemplate(template)
         
     def update(self):
-        template = self.findCommunityDefaultContractor()
+        template = self.findCommunityDefaultContractor(vars.get('id'))
         self.setTemplateData(template)
         self.saveTemplate(template)
         
@@ -25,3 +25,6 @@ class CommunityDefaultContractorManager(Container):
     def saveTemplate(self, template):
         entityManager.persist(template)
         entityManager.flush()
+        
+    def findCommunityDefaultContractor(self, id):
+        return entityManager.createQuery('Select  From CommunityDefaultContractor a Where a.id = ' + str(id)).getSingleResult()
