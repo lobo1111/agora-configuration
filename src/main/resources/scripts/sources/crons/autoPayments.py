@@ -42,7 +42,7 @@ class CronAutoPayment(Container):
         
     def createPaymentsFromDocument(self, document, possession):
         vars.put('income', document.getIncome().floatValue())
-        vars.put('accountId', document.getClientNumber())
+        vars.put('accountNumber', document.getClientNumber())
         vars.put('description', document.getTitle())
         payments = self.createPayments(possession)
         document.getPayments().addAll(payments)
@@ -90,7 +90,7 @@ class CronAutoPayment(Container):
         vars.put('paymentBook', 'true')
         vars.put('paymentAmount', float(income))
         vars.put('paymentType', self.getAutoPaymentType().getId())
-        vars.put('accountId', vars.get('accountId'))
+        vars.put('accountId', self.getAccountId(vars.get('accountNumber')))
         vars.put('zpkId', zpk.getId())
         vars.put('paymentBookingPeriod', period.getId())
         vars.put('paymentDescription', vars.get('description'))
@@ -101,3 +101,6 @@ class CronAutoPayment(Container):
 
     def getAutoPaymentType(self):
         return self._dictManager.findDictionaryInstance('PAYMENT_TYPE', 'AUTO')
+
+    def getAccountId(self, number):
+        return AccountManager().findAccountByNumber(number).getId()
