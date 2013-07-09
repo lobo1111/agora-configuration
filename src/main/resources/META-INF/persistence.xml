@@ -43,6 +43,7 @@
     <class>pl.reaper.container.data.ReportFilterGroup</class>
     <class>pl.reaper.container.data.PaymentAlgorithm</class>
     <class>pl.reaper.container.data.PossessionAutoPaymentOrder</class>
+    <class>pl.reaper.container.data.CommunityDefaultContractor</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.sharedCache.mode" value="NONE"/>

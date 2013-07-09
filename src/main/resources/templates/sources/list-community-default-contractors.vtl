@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<communityDefaultContractors>
+    #foreach($item in $contractors)
+        <item>
+            <id>$!item.getId()</id>
+            <companyId>$!item.getCompany().getId()</companyId>
+            <companyName>$!item.getCompany().getName()</companyName>
+            <zpkNumber>$!item.getZpkNumber()</zpkNumber>
+            <zpkDescription>$!item.getZpkDescription()</zpkDescription>
+        </item>
+    #end
+        <settings>
+            <maxResults>$countRows</maxResults>
+        </settings>
+</communityDefaultContractors>

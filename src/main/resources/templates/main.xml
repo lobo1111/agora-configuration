@@ -537,6 +537,38 @@
         </variables>
     </template>
     <template>
+        <name>list-community-default-contractors</name>
+        <source>list-community-default-contractors.vtl</source>
+        <variables>
+            <var>
+                <name>contractors</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    c
+                    FROM
+                    CommunityDefaultContractor c
+                    JOIN c.company
+                    WHERE {:where}
+                    ORDER BY
+                    company.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(c.id)
+                    FROM
+                    CommunityDefaultContractor c
+                    JOIN c.company
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-zpks</name>
         <source>list-zpks.vtl</source>
         <variables>

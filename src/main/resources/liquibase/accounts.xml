@@ -1596,4 +1596,23 @@
             DROP TABLE `auto_payment`
         </sql>
     </changeSet>
+        
+    <changeSet author='tkopacki' id='table-community-default-contractor'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `community_default_contractor` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `company_id` int(11) NOT NULL,
+            `zpk_number` varchar(255) NOT NULL,
+            `zpk_description` varchar(255) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-community-default-contractor-company-id-fkey'>
+        <sql>  
+            ALTER TABLE `community_default_contractor`
+            ADD CONSTRAINT `community_default_contractor_company_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
