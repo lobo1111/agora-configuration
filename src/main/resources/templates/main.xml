@@ -548,7 +548,7 @@
                     c
                     FROM
                     CommunityDefaultContractor c
-                    JOIN c.company
+                    JOIN c.company company
                     WHERE {:where}
                     ORDER BY
                     company.name ASC
@@ -562,7 +562,7 @@
                     count(c.id)
                     FROM
                     CommunityDefaultContractor c
-                    JOIN c.company
+                    JOIN c.company company
                     WHERE {:where}
                 </data>
             </var>
