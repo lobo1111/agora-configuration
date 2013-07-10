@@ -44,10 +44,11 @@ class CronAutoPayment(Container):
         
     def processPayment(self):
         possession = self.findPossessionById(vars.get('paymentPossessionId'))
-        vars.put('income', vars.get('paymentAmount'))
-        vars.put('accountNumber', self.findAccountById(vars.get('accountId')).getNumber())
-        vars.put('description', vars.get('paymentDescription'))
-        self.createPayments(possession)
+        if possession.getDefaultBooking() is not None:
+            vars.put('income', vars.get('paymentAmount'))
+            vars.put('accountNumber', self.findAccountById(vars.get('accountId')).getNumber())
+            vars.put('description', vars.get('paymentDescription'))
+            self.createPayments(possession)
         
     def createPaymentsFromDocument(self, document, possession):
         vars.put('income', document.getIncome().floatValue())

@@ -36,10 +36,10 @@ public class Possession implements Serializable {
     @Column(name = "id")
     private Integer id;
     @JoinColumn(name = "default_zpk_booking_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private ZakladowyPlanKont defaultBooking;
     @JoinColumn(name = "account_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Account account;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
