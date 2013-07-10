@@ -45,7 +45,7 @@ class CronAutoPayment(Container):
     def processPayment(self):
         possession = self.findPossessionById(vars.get('paymentPossessionId'))
         vars.put('income', vars.get('paymentAmount'))
-        vars.put('accountNumber', vars.get('accountId'))
+        vars.put('accountNumber', self.findAccountById(vars.get('accountId')).getNumber())
         vars.put('description', vars.get('paymentDescription'))
         self.createPayments(possession)
         
@@ -111,6 +111,9 @@ class CronAutoPayment(Container):
 
     def getAccountId(self, number):
         return AccountManager().findAccountByNumber(number).getId()
+    
+    def findAccountById(self, id):
+        return AccountManager().findAccountById(id)
     
     def findPossessionById(self, id):
         return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()
