@@ -3,9 +3,11 @@ from pl.reaper.container.data import Payment
 class CronAutoPayment(Container):
     _logger = Logger([:_scriptId])
     
+    def __init__(self):
+        self._dictManager = DictionaryManager()
+    
     def processDocuments(self):
         self._logger.info('Cron auto payment started...')
-        self._dictManager = DictionaryManager()
         self._documents = self.getDocuments()
         self._logger.info('Found %s documents ready for processing' % (str(self._documents.size())))
         for document in self._documents:
