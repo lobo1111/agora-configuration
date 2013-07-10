@@ -40,6 +40,13 @@ class CronAutoPayment(Container):
         status = self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'PROCESSED')
         document.setStatus(status)
         
+    def processPayment(self):
+        possession = self.findPossessionById(vars.get('paymentPossessionId'))
+        vars.put('income', vars.get('paymentAmount'))
+        vars.put('accountNumber', vars.get('accountId'))
+        vars.put('description', vars.get('paymentDescription'))
+        self.createPayments(possession)
+        
     def createPaymentsFromDocument(self, document, possession):
         vars.put('income', document.getIncome().floatValue())
         vars.put('accountNumber', document.getClientNumber())
@@ -102,3 +109,6 @@ class CronAutoPayment(Container):
 
     def getAccountId(self, number):
         return AccountManager().findAccountByNumber(number).getId()
+    
+    def findPossessionById(self, id):
+        return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()

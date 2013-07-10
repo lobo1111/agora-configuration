@@ -530,6 +530,26 @@
     </script>
     
     <script>
+        <name>create-auto-payment-entity</name>
+        <source>crons/autoPayments.py</source>
+        <onInit>CronAutoPayment().processPayment()</onInit>
+        <scheduler />
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>dictionary-manager</scriptName>
+            <scriptName>bookingPeriod</scriptName>
+            <scriptName>zpk</scriptName>
+            <scriptName>book</scriptName>
+            <scriptName>payment</scriptName>
+            <scriptName>account</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>report</name>
         <source>entities/report.py</source>
         <onInit>ReportManager().createReport()</onInit>
