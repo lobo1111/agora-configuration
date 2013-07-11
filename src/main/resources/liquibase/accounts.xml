@@ -1399,13 +1399,6 @@
             ADD COLUMN `table_style` varchar(1024) NULL DEFAULT '';
         </sql>
     </changeSet>
-    
-    <changeSet author='tkopacki' id='table-report-drop-table-style'>
-        <sql>  
-            ALTER TABLE `report`
-            DROP COLUMN `table_style`
-        </sql>
-    </changeSet>
             
     <changeSet author='tkopacki' id='table-report-add-oninit'>
         <sql>  
