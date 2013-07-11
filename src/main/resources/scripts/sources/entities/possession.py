@@ -50,7 +50,7 @@ class PossessionManager(Container):
     def setAutoPaymentData(self, possession):
         if vars.get('account') != None and vars.get('account') != '0':
             possession.setAccount(self.findAccountById(vars.get('account')))
-        if vars.get('defaultBooking') is not None and vars.get('defaultBooking') is not '':
+        if vars.get('defaultBooking') != None and vars.get('defaultBooking') != '0':
             possession.setDefaultBooking(self.findZpkById(vars.get('defaultBooking')))
         for order in possession.getAutoPayments():
             entityManager.remove(order)
