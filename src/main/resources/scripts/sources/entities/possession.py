@@ -46,7 +46,7 @@ class PossessionManager(Container):
         possession.setCommunity(self.getCommunity(possession))
         
     def setAutoPaymentData(self, possession):
-        if vars.get('account') is not None and vars.get('account') is not '0':
+        if vars.get('account') != None and vars.get('account') != '0':
             possession.setAccount(self.findAccountById(vars.get('account')))
         if vars.get('defaultBooking') is not None and vars.get('defaultBooking') is not '':
             possession.setDefaultBooking(self.findZpkById(vars.get('defaultBooking')))
@@ -96,7 +96,6 @@ class PossessionManager(Container):
         return entityManager.createQuery('Select zpk From ZakladowyPlanKont zpk Where zpk.id = ' + id).getSingleResult()
         
     def findAccountById(self, id):
-        self._logger.info('Searching for account id:' + id)
         return entityManager.createQuery('Select a From Account a Where a.id = ' + id).getSingleResult()
         
     def findPossessionById(self, id):
