@@ -132,12 +132,14 @@ class ReportManager(Container):
         return xml
 
     def generateRowXml(self, section, row, counter):
-        xml = self._html.openTr(section.getRowStyle())
+        xml = unicode("")
+        xml += self._html.openTr(section.getRowStyle())
         for attribute in sorted(section.getAttributes(), key=lambda attribute: attribute.attributeOrder):
             xml += self._html.openTd(attribute.getColumnStyle())
             if row.containsKey(attribute.getAttribute()) and row.get(attribute.getAttribute()) is not None:
                 xml += self._html.openDiv(attribute.getAttribute() + '_' + str(counter), '')
-                xml += str(row.get(attribute.getAttribute()))
+                self._logger.warn()
+                xml += unicode(row.get(attribute.getAttribute()))
                 xml += self._html.closeDiv()
             else:
                 self._logger.warn('Attribute not available or is null - %s' % attribute.getAttribute())
