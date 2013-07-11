@@ -27,11 +27,14 @@ class PaymentAlgorithm:
         for occurence in occurences:
             entity = occurence[0]
             attribute = occurence[1]
+            print 'Looking for %s.%s' % (entity, attribute)
             instance = entities.get(entity)
             if instance is None:
+                print 'Entity not found, assuming attribute value = 0'
                 value = 0
             else:
                 value = self.getAttributeValue(instance, attribute)
+                print 'Value established = ' + str(value)
             algorithm = algorithm.replace('#{' + entity + '.' + attribute + '}', str(value))
         algorithmValue = eval(algorithm)
         print str(algorithm) + '=' + str(algorithmValue)
