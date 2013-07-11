@@ -1325,13 +1325,6 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='table-report-drop-data-style'>
-        <sql>  
-            ALTER TABLE `report`
-            DROP COLUMN `data_style`
-        </sql>
-    </changeSet>
-    
     <changeSet author='tkopacki' id='table-report-add-css'>
         <sql>  
             ALTER TABLE `report`
