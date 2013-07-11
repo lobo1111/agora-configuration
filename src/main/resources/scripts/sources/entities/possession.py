@@ -43,7 +43,9 @@ class PossessionManager(Container):
     def setPossessionData(self, possession):
         possession.setArea(BigDecimal(vars.get(self._prefix + 'possessionArea')))
         possession.setAddress(self.getAddress(possession))
-        possession.setCommunity(self.getCommunity(possession))
+        community = self.getCommunity(possession)
+        possession.setCommunity(community)
+        community.getPossessions().add(possession)
         
     def setAutoPaymentData(self, possession):
         if vars.get('account') != None and vars.get('account') != '0':
