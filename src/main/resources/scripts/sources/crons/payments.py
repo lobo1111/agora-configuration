@@ -33,8 +33,12 @@ class PaymentAlgorithm:
                 print 'Entity not found, assuming attribute value = 0'
                 value = 0
             else:
-                value = self.getAttributeValue(instance, attribute)
-                print 'Value established = ' + str(value)
+                try:
+                    value = self.getAttributeValue(instance, attribute)
+                    print 'Value established = ' + str(value)
+                except:
+                    value = 0
+                    print 'Exception raised, attribute not found. Assuming attribute value = 0'
             algorithm = algorithm.replace('#{' + entity + '.' + attribute + '}', str(value))
         algorithmValue = eval(algorithm)
         print str(algorithm) + '=' + str(algorithmValue)

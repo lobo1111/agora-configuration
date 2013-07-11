@@ -1614,4 +1614,16 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='payment-algorithm-update3'>
+        <sql>  
+            UPDATE `payment_algorithm` SET `algorithm` = '#{scheduler.amount} * #{possession.area}' WHERE `name` = 'm.kw.'
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-algorithm-update4'>
+        <sql>  
+            UPDATE `payment_algorithm` SET `algorithm` = '#{scheduler.amount} * #{possession.coldWater} * #{possession.people}' WHERE `name` = 'kwota * woda zimna * il. osob'
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
