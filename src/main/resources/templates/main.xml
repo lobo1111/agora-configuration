@@ -737,7 +737,7 @@
                     Account account
                     JOIN account.type accountType
                     JOIN account.bank bank
-                    JOIN account.parrentAccount parentAccount
+                    LEFT OUTER JOIN account.parrentAccount parentAccount
                     WHERE {:where}
                     ORDER BY account.name ASC
                 </data>
