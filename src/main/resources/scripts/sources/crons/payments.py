@@ -33,7 +33,9 @@ class PaymentAlgorithm:
             else:
                 value = self.getAttributeValue(instance, attribute)
             algorithm = algorithm.replace('#{' + entity + '.' + attribute + '}', str(value))
-        return eval(algorithm)
+        algorithmValue = eval(algorithm)
+        print str(algorithm) + '=' + str(algorithmValue)
+        return algorithmValue
 
 class CronPayment(Container):
     _logger = Logger([:_scriptId])
