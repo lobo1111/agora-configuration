@@ -96,6 +96,7 @@ class PossessionManager(Container):
         return entityManager.createQuery('Select zpk From ZakladowyPlanKont zpk Where zpk.id = ' + id).getSingleResult()
         
     def findAccountById(self, id):
+        self._logger.info('Searching for account id:' + id)
         return entityManager.createQuery('Select a From Account a Where a.id = ' + id).getSingleResult()
         
     def findPossessionById(self, id):
