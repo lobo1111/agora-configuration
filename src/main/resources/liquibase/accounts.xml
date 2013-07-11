@@ -1632,4 +1632,10 @@
         </sql>
     </changeSet>
     
+    <changeSet id="tkopacki" author="table-report-section-attribute-header-style-column">
+        <sql>
+            ALTER TABLE `report_section_attribute` ADD COLUMN `header_style` varchar(1024) NULL
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
