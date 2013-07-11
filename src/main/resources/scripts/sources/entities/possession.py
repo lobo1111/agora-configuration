@@ -45,7 +45,8 @@ class PossessionManager(Container):
         possession.setAddress(self.getAddress(possession))
         community = self.getCommunity(possession)
         possession.setCommunity(community)
-        community.getPossessions().add(possession)
+        if possession.getId() == 0:
+            community.getPossessions().add(possession)
         
     def setAutoPaymentData(self, possession):
         if vars.get('account') != None and vars.get('account') != '0':
