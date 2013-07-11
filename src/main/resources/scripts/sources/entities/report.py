@@ -138,7 +138,6 @@ class ReportManager(Container):
             xml += self._html.openTd(attribute.getColumnStyle())
             if row.containsKey(attribute.getAttribute()) and row.get(attribute.getAttribute()) is not None:
                 xml += self._html.openDiv(attribute.getAttribute() + '_' + str(counter), '')
-                self._logger.warn()
                 xml += unicode(row.get(attribute.getAttribute()))
                 xml += self._html.closeDiv()
             else:
