@@ -1604,13 +1604,13 @@
     
     <changeSet author='tkopacki' id='payment-algorithm-update1'>
         <sql>  
-            UPDATE TABLE `payment_algorithm` SET `algorithm` = '#{scheduler.income} * #{possession.area}' WHERE `name` = 'm.kw.'
+            UPDATE `payment_algorithm` SET `algorithm` = '#{scheduler.income} * #{possession.area}' WHERE `name` = 'm.kw.'
         </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='payment-algorithm-update2'>
         <sql>  
-            UPDATE TABLE `payment_algorithm` SET `algorithm` = '#{scheduler.income} * #{possession.coldWater} * #{possession.people}' WHERE `name` = 'kwota * woda zimna * il. osob'
+            UPDATE `payment_algorithm` SET `algorithm` = '#{scheduler.income} * #{possession.coldWater} * #{possession.people}' WHERE `name` = 'kwota * woda zimna * il. osob'
         </sql>
     </changeSet>
     
