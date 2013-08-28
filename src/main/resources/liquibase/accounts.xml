@@ -1719,14 +1719,14 @@
         </sql>
     </changeSet>
                         
-    <changeSet author='tkopacki' id='table-community-elements-element-id-fkey'>
+    <changeSet author='tkopacki' id='table-possession-elements-element-id-fkey'>
         <sql>  
             ALTER TABLE `element_possession`
             ADD CONSTRAINT `element_possession_element_id_fkey` FOREIGN KEY (`element_id`) REFERENCES `element` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
                         
-    <changeSet author='tkopacki' id='table-community-elements-community-id-fkey'>
+    <changeSet author='tkopacki' id='table-possession-elements-possession-id-fkey'>
         <sql>  
             ALTER TABLE `element_possession`
             ADD CONSTRAINT `element_possession_possession_id_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
