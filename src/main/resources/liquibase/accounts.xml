@@ -1626,11 +1626,11 @@
         </sql>
     </changeSet>
     
-    <changeSet id="tkopacki" author="table-report-header-style-column">
+<!--    <changeSet id="tkopacki" author="table-report-header-style-column">
         <sql>
             ALTER TABLE `report` ADD COLUMN `header_style` varchar(1024) NULL
         </sql>
-    </changeSet>
+    </changeSet>-->
     
     <changeSet id="tkopacki" author="table-report-section-attribute-header-style-column">
         <sql>
