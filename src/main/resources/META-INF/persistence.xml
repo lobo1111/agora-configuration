@@ -44,6 +44,9 @@
     <class>pl.reaper.container.data.PaymentAlgorithm</class>
     <class>pl.reaper.container.data.PossessionAutoPaymentOrder</class>
     <class>pl.reaper.container.data.CommunityDefaultContractor</class>
+    <class>pl.reaper.container.data.Element</class>
+    <class>pl.reaper.container.data.ElementCommunity</class>
+    <class>pl.reaper.container.data.ElementPossession</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.sharedCache.mode" value="NONE"/>
