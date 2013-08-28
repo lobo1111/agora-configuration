@@ -1638,4 +1638,98 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='dictionary-elements'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('ELEMENTS');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='elements-values'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'RENT', 'Czynszowe' FROM `dictionary_type` WHERE `type` = 'ELEMENTS';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'UTILITIES', 'Media' FROM `dictionary_type` WHERE `type` = 'ELEMENTS';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'REPAIR_FUND', 'Fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'ELEMENTS';
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-elements'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `element` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `group_id` int(11) NOT NULL,
+            `key` varchar(255) NOT NULL,
+            `name` varchar(255) NOT NULL,
+            `global_value` decimal(10, 2) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `element_key` (`key`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+                    
+    <changeSet author='tkopacki' id='table-elements-group-id-fkey'>
+        <sql>  
+            ALTER TABLE `element`
+            ADD CONSTRAINT `element_group_id_fkey` FOREIGN KEY (`group_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-community-elements'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `element_community` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `element_id` int(11) NOT NULL,
+            `community_id` int(11) NOT NULL,
+            `value` decimal(10, 2) NOT NULL DEFAULT 0,
+            `override_parent_value` boolean DEFAULT false,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+                        
+    <changeSet author='tkopacki' id='table-community-elements-element-id-fkey'>
+        <sql>  
+            ALTER TABLE `element_community`
+            ADD CONSTRAINT `element_community_element_id_fkey` FOREIGN KEY (`element_id`) REFERENCES `element` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+                        
+    <changeSet author='tkopacki' id='table-community-elements-community-id-fkey'>
+        <sql>  
+            ALTER TABLE `element_community`
+            ADD CONSTRAINT `element_community_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-possession-elements'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `element_possession` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `element_id` int(11) NOT NULL,
+            `possession_id` int(11) NOT NULL,
+            `value` decimal(10, 2) NOT NULL DEFAULT 0,
+            `override_parent_value` boolean DEFAULT false,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+                        
+    <changeSet author='tkopacki' id='table-community-elements-element-id-fkey'>
+        <sql>  
+            ALTER TABLE `element_possession`
+            ADD CONSTRAINT `element_possession_element_id_fkey` FOREIGN KEY (`element_id`) REFERENCES `element` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+                        
+    <changeSet author='tkopacki' id='table-community-elements-community-id-fkey'>
+        <sql>  
+            ALTER TABLE `element_possession`
+            ADD CONSTRAINT `element_possession_possession_id_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
