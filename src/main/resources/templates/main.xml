@@ -792,6 +792,37 @@
         </variables>
     </template>
     <template>
+        <name>list-elements</name>
+        <source>list-elements.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    element
+                    FROM 
+                    Element element
+                    JOIN element.group group
+                    WHERE {:where}
+                    ORDER BY element.key ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(element.id)
+                    FROM 
+                    Element element
+                    JOIN element.group group
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-payments</name>
         <source>list-payments.vtl</source>
         <variables>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<companies>
+    #foreach($item in $items)
+    <item>
+        <id>$!item.getId()</id>
+        <group>$!item.getGroup().getValue()</group>
+        <key>$!item.getKey()</key>
+        <name>$!item.getName()</name>
+        <value>$!item.getGlobalValue()</value>
+    </item>
+    #end
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
+</companies>
