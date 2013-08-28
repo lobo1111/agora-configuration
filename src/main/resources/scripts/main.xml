@@ -531,7 +531,7 @@
     
     <script>
         <name>element</name>
-        <source>actions/element.py</source>
+        <source>entities/element.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -545,7 +545,7 @@
     
     <script>
         <name>create-element</name>
-        <source>actions/element.py</source>
+        <source>entities/element.py</source>
         <onInit>ElementManager().create()</onInit>
         <scheduler/>
         <dependencies>
@@ -559,7 +559,7 @@
     
     <script>
         <name>update-element</name>
-        <source>actions/element.py</source>
+        <source>entities/element.py</source>
         <onInit>ElementManager().update()</onInit>
         <scheduler/>
         <dependencies>
