@@ -26,7 +26,7 @@ public class Element implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "key")
+    @Column(name = "key_value")
     private String key;
     @Basic(optional = false)
     @NotNull
