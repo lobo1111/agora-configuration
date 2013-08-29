@@ -25,7 +25,7 @@ class ElementManager(Container):
         element.setName(vars.get(self._prefix + 'name'))
         element.setKey(vars.get(self._prefix + 'key'))
         element.setGlobalValue(BigDecimal(vars.get(self._prefix + 'value')).floatValue())
-        element.setGroup(self.findGroupByKey(vars.get(self._prefix + 'groupId')))
+        element.setGroup(self.findGroupById(vars.get(self._prefix + 'groupId')))
         
     def saveElement(self, element):
         entityManager.persist(element)
@@ -34,5 +34,5 @@ class ElementManager(Container):
     def findElementById(self, id):
         return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
     
-    def findGroupByKey(self, key):
-        return entityManager.createQuery('Select dict From Dictionary dict Where dict.key = ' + key).getSingleResult()
+    def findGroupById(self, id):
+        return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + key).getSingleResult()
