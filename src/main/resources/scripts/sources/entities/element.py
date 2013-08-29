@@ -22,7 +22,7 @@ class ElementManager(Container):
     def setElementData(self, element):
         element.setName(vars.get(self._prefix + 'name'))
         element.setKey(vars.get(self._prefix + 'key'))
-        element.setGlobalValue(vars.get(self._prefix + 'globalValue'))
+        element.setGlobalValue(double(vars.get(self._prefix + 'globalValue')))
         element.setGroup(self.findGroupByKey(vars.get(self._prefix + 'group')))
         
     def saveElement(self, element):
