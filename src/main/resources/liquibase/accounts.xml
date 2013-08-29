@@ -1735,7 +1735,7 @@
     
      <changeSet author='tkopacki' id='table-elements-key-column-rename'>
         <sql>  
-            ALTER TABLE `elements` CHANGE `key` `key_value` varchar(255);
+            ALTER TABLE `element` CHANGE `key` `key_value` varchar(255);
         </sql>
     </changeSet>
 </databaseChangeLog>
