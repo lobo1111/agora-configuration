@@ -35,4 +35,4 @@ class ElementManager(Container):
         return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
     
     def findGroupById(self, id):
-        return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + key).getSingleResult()
+        return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + id).getSingleResult()
