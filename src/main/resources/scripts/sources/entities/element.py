@@ -24,7 +24,7 @@ class ElementManager(Container):
     def setElementData(self, element):
         element.setName(vars.get(self._prefix + 'name'))
         element.setKey(vars.get(self._prefix + 'key'))
-        element.setGlobalValue(BigDecimal(vars.get(self._prefix + 'globalValue')).floatValue())
+        element.setGlobalValue(BigDecimal(vars.get(self._prefix + 'value')).floatValue())
         element.setGroup(self.findGroupByKey(vars.get(self._prefix + 'group')))
         
     def saveElement(self, element):
