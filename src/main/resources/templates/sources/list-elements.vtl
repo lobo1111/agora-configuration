@@ -3,7 +3,8 @@
     #foreach($item in $items)
     <item>
         <id>$!item.getId()</id>
-        <group>$!item.getGroup().getValue()</group>
+        <groupKey>$!item.getGroup().getKey()</groupKey>
+        <groupValue>$!item.getGroup().getValue()</groupValue>
         <key>$!item.getKey()</key>
         <name>$!item.getName()</name>
         <value>$!item.getGlobalValue()</value>
