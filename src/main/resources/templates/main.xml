@@ -803,7 +803,7 @@
                     element
                     FROM 
                     Element element
-                    JOIN element.group group
+                    JOIN element.group elGroup
                     WHERE {:where}
                     ORDER BY element.key ASC
                 </data>
@@ -816,7 +816,7 @@
                     count(element.id)
                     FROM 
                     Element element
-                    JOIN element.group group
+                    JOIN element.group elGroup
                     WHERE {:where}
                 </data>
             </var>
