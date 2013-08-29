@@ -25,7 +25,7 @@ class ElementManager(Container):
         element.setName(vars.get(self._prefix + 'name'))
         element.setKey(vars.get(self._prefix + 'key'))
         element.setGlobalValue(BigDecimal(vars.get(self._prefix + 'value')).floatValue())
-        element.setGroup(self.findGroupByKey(vars.get(self._prefix + 'group')))
+        element.setGroup(self.findGroupByKey(vars.get(self._prefix + 'groupId')))
         
     def saveElement(self, element):
         entityManager.persist(element)
