@@ -1,5 +1,7 @@
 from pl.reaper.container.data import Element
 
+from java.math import BigDecimal
+
 class ElementManager(Container):
     _logger = Logger([:_scriptId])
     _prefix = ''
@@ -22,7 +24,7 @@ class ElementManager(Container):
     def setElementData(self, element):
         element.setName(vars.get(self._prefix + 'name'))
         element.setKey(vars.get(self._prefix + 'key'))
-        element.setGlobalValue(float(vars.get(self._prefix + 'globalValue')))
+        element.setGlobalValue(BigDecimal(vars.get(self._prefix + 'globalValue')).floatValue())
         element.setGroup(self.findGroupByKey(vars.get(self._prefix + 'group')))
         
     def saveElement(self, element):
