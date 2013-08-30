@@ -37,6 +37,26 @@ public class Element implements Serializable {
     private Dictionary group;
     @Column(name = "global_value")
     private double globalValue;
+    @Column(name = "default_element")
+    private boolean defaultElement;
+    @Column(name = "algorithm")
+    private String algorithm;
+
+    public boolean isDefaultElement() {
+        return defaultElement;
+    }
+
+    public void setDefaultElement(boolean defaultElement) {
+        this.defaultElement = defaultElement;
+    }
+
+    public String getAlgorithm() {
+        return algorithm;
+    }
+
+    public void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
 
     public Integer getId() {
         return id;

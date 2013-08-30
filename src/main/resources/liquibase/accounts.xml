@@ -1738,4 +1738,16 @@
             ALTER TABLE `element` CHANGE `key` `key_value` varchar(255);
         </sql>
     </changeSet>
+    
+     <changeSet author='tkopacki' id='table-elements-add-column-default'>
+        <sql>  
+            ALTER TABLE `element` ADD COLUMN `default_element` boolean NOT NULL DEFAULT true;
+        </sql>
+    </changeSet>
+    
+     <changeSet author='tkopacki' id='table-elements-add-column-algorithm'>
+        <sql>  
+            ALTER TABLE `element` ADD COLUMN `algorithm` varchar(1024);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
