@@ -27,9 +27,9 @@ class ElementManager(Container):
         element.setGlobalValue(BigDecimal(vars.get(self._prefix + 'value')).floatValue())
         element.setGroup(self.findGroupById(vars.get(self._prefix + 'groupId')))
         if vars.get(self._prefix + 'defaultValue') == 'true':
-            element.setDefaultValue(True)
+            element.setDefaultElementTrue)
         else:
-            element.setDefaultValue(False)
+            element.setDefaultElement(False)
         element.setAlgorithm(vars.get(self._prefix + 'algorithm'))
         
     def saveElement(self, element):
