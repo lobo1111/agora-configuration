@@ -27,7 +27,7 @@ class ElementManager(Container):
         element.setGlobalValue(BigDecimal(vars.get(self._prefix + 'value')).floatValue())
         element.setGroup(self.findGroupById(vars.get(self._prefix + 'groupId')))
         if vars.get(self._prefix + 'defaultValue') == 'true':
-            element.setDefaultElementTrue)
+            element.setDefaultElement(True)
         else:
             element.setDefaultElement(False)
         element.setAlgorithm(vars.get(self._prefix + 'algorithm'))
