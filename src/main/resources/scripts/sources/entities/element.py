@@ -26,6 +26,11 @@ class ElementManager(Container):
         element.setKey(vars.get(self._prefix + 'key'))
         element.setGlobalValue(BigDecimal(vars.get(self._prefix + 'value')).floatValue())
         element.setGroup(self.findGroupById(vars.get(self._prefix + 'groupId')))
+        if vars.get(self._prefix + 'defaultValue') == 'true':
+            element.setDefaultValue(True)
+        else:
+            element.setDefaultValue(False)
+        element.setAlgorithm(vars.get(self._prefix + 'algorithm'))
         
     def saveElement(self, element):
         entityManager.persist(element)
