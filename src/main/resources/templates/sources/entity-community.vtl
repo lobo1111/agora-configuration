@@ -39,11 +39,11 @@
     <elements>
         #foreach($entity in $!community.getElements())
         <element>
-            <id>$!entity.getId()</id>
-            <groupKey>$!entity.getElememt().getGroup().getId()</groupKey>
-            <key>$!entity.getElememt().getKey()</key>
-            <name>$!entity.getElememt().getName()</name>
-            <globalValue>$!entity.getElememt().getGlobalValue()</globalValue>
+            <id>$!entity.getElement().getId()</id>
+            <groupKey>$!entity.getElement().getGroup().getId()</groupKey>
+            <key>$!entity.getElement().getKey()</key>
+            <name>$!entity.getElement().getName()</name>
+            <globalValue>$!entity.getElement().getGlobalValue()</globalValue>
             <communityValue>$!entity.getGlobalValue()</communityValue>
             <overrideValue>$!entity.isOverrideParentValue()</overrideValue>
         </element>
