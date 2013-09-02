@@ -21,10 +21,19 @@ class CommunityManager(Container):
         self.setCommunityData(community)
         self.setZpkData(community)
         self.saveCommunity(community)
+        self.setElementsData(community)
         
     def setCommunityData(self, community):
         community.setName(vars.get('name'))
         community.setCompany(self.getCompany(community))
+        
+    def setElementsData(self, community):
+        for i in range(int(vars.get(self._prefix + 'elementsCount'))): 
+            vars.put("elementId", vars.get(self._prefix + str(i) + "_elementId"))
+            vars.put("overrideValue", vars.get(self._prefix + str(i) + "_overrideValue"))
+            vars.put("communityValue", vars.get(self._prefix + str(i) + "_communityValue"))
+            manager = ElementManager()
+            manager.CreateOrUpdateCommunityElement(community)
         
     def getCompany(self, community):
         companyManager = CompanyManager()

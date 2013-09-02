@@ -52,4 +52,17 @@
         </zpk>
         #end
     </zpks>
+    <elements>
+        #foreach($entity in $!possession.getElements())
+        <element>
+            <id>$!entity.getId()</id>
+            <groupKey>$!entity.getElememt().getGroup().getId()</groupKey>
+            <key>$!entity.getElememt().getKey()</key>
+            <name>$!entity.getElememt().getName()</name>
+            <globalValue>$!entity.getElememt().getGlobalValue()</globalValue>
+            <possessionValue>$!entity.getGlobalValue()</possessionValue>
+            <overrideValue>$!entity.isOverrideParentValue()</overrideValue>
+        </element>
+        #end
+    </elements>
 </possession>

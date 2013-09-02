@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Element
+from pl.reaper.container.data import ElementCommunity
 
 from java.math import BigDecimal
 
@@ -20,6 +21,42 @@ class ElementManager(Container):
         self.setElementData(element)
         self.saveElement(element)
         return element
+    
+    def CreateOrUpdateCommunityElement(self, community):
+        elementId = vars.get("elementId")
+        communityId = community.getId()
+        communityElement = self.findCommunityElement(elementId, communityId)
+        if communityElement is None:
+            communityElement = ElementCommunity()
+            self.setElementForPossessions(community)
+        communityElement.setElement(self.findElementById(elementId))
+        communityElement.setCommunity(community)
+        if vars.get('overrideValue') == 'true':
+            element.setOverrideParentValue(True)
+        else:
+            element.setOverrideParentValue(False)
+        communityElement.setGlobalValue(float(vars.get("communityValue")))
+        self.saveElement(communityElement)
+        
+    def setElementForPossessions(self, community):
+        for possession in community.getPossessions():
+            vars.put("possessionValue", "0")
+            self.createOrUpdatePossessionElement(possession)
+            
+    def createOrUpdatePossessionElement(self, possession):
+        elementId = vars.get("elementId")
+        possessionId = possession.getId()
+        possessionElement = self.findPossessionElement(elementId, possessionId)
+        if possessionElement is None:
+            possessionElement = ElementPossession()
+        possessionElement.setElement(self.findElementById(elementId))
+        possessionElement.setPossession(possession)
+        if vars.get('overrideValue') == 'true':
+            possessionElement.setOverrideParentValue(True)
+        else:
+            possessionElement.setOverrideParentValue(False)
+        possessionElement.setGlobalValue(float(vars.get("possessionValue")))
+        self.saveElement(possessionElement)
         
     def setElementData(self, element):
         element.setName(vars.get(self._prefix + 'name'))
@@ -38,6 +75,12 @@ class ElementManager(Container):
         
     def findElementById(self, id):
         return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
+    
+    def findCommunityElement(self, elementId, communityId):
+        return entityManager.createQuery('Select element From ElementCommunity element join element.element parent join element.community community Where parent.id = %s and community.id = %s' % (elementId, communityId)).getSingleResult()
+    
+    def findPossessionElement(self, elementId, possessionId):
+        return entityManager.createQuery('Select element From ElementPossession element join element.element parent join element.possession community Where parent.id = %s and possession.id = %s' % (elementId, possessionId)).getSingleResult()
     
     def findGroupById(self, id):
         return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + id).getSingleResult()
