@@ -1,5 +1,6 @@
 from pl.reaper.container.data import Element
 from pl.reaper.container.data import ElementCommunity
+from pl.reaper.container.data import ElementPossession
 
 from java.math import BigDecimal
 
