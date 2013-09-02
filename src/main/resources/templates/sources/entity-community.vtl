@@ -36,4 +36,19 @@
         </zpk>
         #end
     </zpks>
+    <elements>
+        #foreach($entity in $!community.getElements())
+        <element>
+            <id>$!entity.getId()</id>
+            <groupKey>$!entity.getElememt().getGroup().getId()</groupKey>
+            <key>$!entity.getElememt().getKey()</key>
+            <name>$!entity.getElememt().getName()</name>
+            <globalValue>$!entity.getElememt().getGlobalValue()</globalValue>
+            <communityValue>$!entity.getGlobalValue()</communityValue>
+            <overrideValue>$!entity.isOverrideParentValue()</overrideValue>
+        </element>
+        #end
+    </elements>
 </community>
+
+
