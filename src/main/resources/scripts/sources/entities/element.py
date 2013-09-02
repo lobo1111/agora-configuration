@@ -33,9 +33,9 @@ class ElementManager(Container):
         communityElement.setElement(self.findElementById(elementId))
         communityElement.setCommunity(community)
         if vars.get('overrideValue') == 'true':
-            element.setOverrideParentValue(True)
+            communityElement.setOverrideParentValue(True)
         else:
-            element.setOverrideParentValue(False)
+            communityElement.setOverrideParentValue(False)
         communityElement.setGlobalValue(float(vars.get("communityValue")))
         self.saveElement(communityElement)
         
