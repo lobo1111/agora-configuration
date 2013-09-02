@@ -30,8 +30,8 @@ class CommunityManager(Container):
     def setElementsData(self, community):
         for i in range(int(vars.get(self._prefix + 'elementsCount'))): 
             vars.put("elementId", vars.get(self._prefix + str(i) + "_elementId"))
+            vars.put("override", vars.get(self._prefix + str(i) + "_override"))
             vars.put("overrideValue", vars.get(self._prefix + str(i) + "_overrideValue"))
-            vars.put("communityValue", vars.get(self._prefix + str(i) + "_communityValue"))
             manager = ElementManager()
             manager.CreateOrUpdateCommunityElement(community)
         
