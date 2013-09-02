@@ -77,10 +77,16 @@ class ElementManager(Container):
         return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
     
     def findCommunityElement(self, elementId, communityId):
-        return entityManager.createQuery('Select element From ElementCommunity element join element.element parent join element.community community Where parent.id = %s and community.id = %s' % (elementId, communityId)).getSingleResult()
+        try:
+            return entityManager.createQuery('Select element From ElementCommunity element join element.element parent join element.community community Where parent.id = %s and community.id = %s' % (elementId, communityId)).getSingleResult()
+        except:
+            return None
     
     def findPossessionElement(self, elementId, possessionId):
-        return entityManager.createQuery('Select element From ElementPossession element join element.element parent join element.possession community Where parent.id = %s and possession.id = %s' % (elementId, possessionId)).getSingleResult()
+        try:
+            return entityManager.createQuery('Select element From ElementPossession element join element.element parent join element.possession community Where parent.id = %s and possession.id = %s' % (elementId, possessionId)).getSingleResult()
+        except:
+            return None
     
     def findGroupById(self, id):
         return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + id).getSingleResult()
