@@ -55,8 +55,8 @@ public class Possession implements Serializable {
     private Collection<Owner> owners = new ArrayList<>();
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "possession")
     private PossessionAdditionalData additionalData = new PossessionAdditionalData();
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
-    private Collection<ElementCommunity> elements;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
+    private Collection<ElementPossession> elements;
 
     public Possession() {
     }
@@ -129,11 +129,11 @@ public class Possession implements Serializable {
         this.autoPayments = autoPayments;
     }
 
-    public Collection<ElementCommunity> getElements() {
+    public Collection<ElementPossession> getElements() {
         return elements;
     }
 
-    public void setElements(Collection<ElementCommunity> elements) {
+    public void setElements(Collection<ElementPossession> elements) {
         this.elements = elements;
     }
 
