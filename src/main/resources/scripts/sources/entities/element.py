@@ -63,6 +63,8 @@ class ElementManager(Container):
             possessionElement.setElementCommunity(elementCommunity)
             possessionElement.setElement(self.findElementById(elementId))
             possessionElement.setPossession(possession)
+        if not elementCommunity is None:
+            possessionElement.setElementCommunity(elementCommunity)
         if vars.get('override') == 'true':
             possessionElement.setOverrideParentValue(True)
         else:
