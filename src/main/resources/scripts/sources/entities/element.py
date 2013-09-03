@@ -32,7 +32,7 @@ class ElementManager(Container):
             communityElement = ElementCommunity()
             tmpOverride = vars.get('override')
             tmpOverrideValue = vars.get("overrideValue")
-            self.setElementForPossessions(community)
+            self.setElementForPossessions(community, communityElement)
             vars.put('override', tmpOverride)
             vars.put('overrideValue', tmpOverrideValue)
         communityElement.setElement(self.findElementById(elementId))
@@ -44,19 +44,19 @@ class ElementManager(Container):
         communityElement.setGlobalValue(float(vars.get("overrideValue")))
         self.saveElement(communityElement)
         
-    def setElementForPossessions(self, community):
+    def setElementForPossessions(self, community, communityElement):
         for possession in community.getPossessions():
             vars.put("overrideValue", "0")
             vars.put("override", "false")
             vars.put("communityId", community.getId())
-            self.createPossessionElement(possession)
+            self.createPossessionElement(possession, communityElement)
             
-    def createPossessionElement(self, possession):
+    def createPossessionElement(self, possession, elementCommunity = None):
         self._logger.info('Creating new Possession Element for possession %d' % possession.getId())
         elementId = vars.get("elementId")
         possessionElement = ElementPossession()
         possessionElement.setElement(self.findElementById(elementId))
-        possessionElement.setElementCommunity(self.findCommunityById(vars.get('communityId')))
+        possessionElement.setElementCommunity(elementCommunity)
         possessionElement.setPossession(possession)
         if vars.get('possessionOverrideValue') == 'true':
             possessionElement.setOverrideParentValue(True)
@@ -82,9 +82,6 @@ class ElementManager(Container):
         
     def findElementById(self, id):
         return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
-    
-    def findCommunityById(self, id):
-        return entityManager.createQuery('Select e From Community e Where e.id = %d' % id).getSingleResult()
     
     def findCommunityElement(self, elementId, communityId):
         try:

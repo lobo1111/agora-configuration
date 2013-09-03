@@ -1763,4 +1763,10 @@
             ADD CONSTRAINT `element_possession_element_community_id_fkey` FOREIGN KEY (`element_community_id`) REFERENCES `element_community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+
+     <changeSet author='tkopacki' id='table-element-possession-column-element-community-nullable'>
+        <sql>  
+            ALTER TABLE `element_possession` MODIFY `element_community_id` int(11);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
