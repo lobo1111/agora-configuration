@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class ElementPossession implements Serializable {
     @ManyToOne(optional = false)
     private Element element;
     @JoinColumn(name = "element_community_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private ElementCommunity elementCommunity;
     @Column(name = "override_parent_value")
     private boolean overrideParentValue;
