@@ -32,8 +32,8 @@ class ElementManager(Container):
             self._logger.info('Creating new Community Element for community %d' % community.getId())
             communityElement = ElementCommunity()
             createElementForPossessions = True
-        communityElement.setElement(self.findElementById(elementId))
-        communityElement.setCommunity(community)
+            communityElement.setElement(self.findElementById(elementId))
+            communityElement.setCommunity(community)
         if vars.get('override') == 'true':
             communityElement.setOverrideParentValue(True)
         else:
@@ -51,18 +51,18 @@ class ElementManager(Container):
         for possession in community.getPossessions():
             vars.put("overrideValue", "0")
             vars.put("override", "false")
-            self.createPossessionElement(possession, communityElement)
+            self.CreateOrUpdatePossessionElement(possession, communityElement)
             
-    def CreateOrUpdatePossessionElement(self, possession):
+    def CreateOrUpdatePossessionElement(self, possession, elementCommunity = None):
         elementId = vars.get("elementId")
         possessionId = possession.getId()
         possessionElement = self.findPossessionElement(elementId, possessionId)
         if possessionElement is None:
             self._logger.info('Creating new Possession Element for possession %d and element %s' % (possession.getId(), elementId))
             possessionElement = ElementPossession()
-        possessionElement.setElement(self.findElementById(elementId))
-        possessionElement.setElementCommunity(None)
-        possessionElement.setPossession(possession)
+            possessionElement.setElementCommunity(elementCommunity)
+            possessionElement.setElement(self.findElementById(elementId))
+            possessionElement.setPossession(possession)
         if vars.get('override') == 'true':
             possessionElement.setOverrideParentValue(True)
         else:
@@ -70,20 +70,6 @@ class ElementManager(Container):
         possessionElement.setGlobalValue(float(vars.get('overrideValue')))
         self.saveElement(possessionElement)
             
-    def createPossessionElement(self, possession, elementCommunity = None):
-        self._logger.info('Creating new Possession Element for possession %d' % possession.getId())
-        elementId = vars.get("elementId")
-        possessionElement = ElementPossession()
-        possessionElement.setElement(self.findElementById(elementId))
-        possessionElement.setElementCommunity(elementCommunity)
-        possessionElement.setPossession(possession)
-        if vars.get('override') == 'true':
-            possessionElement.setOverrideParentValue(True)
-        else:
-            possessionElement.setOverrideParentValue(False)
-        possessionElement.setGlobalValue(float(vars.get('overrideValue')))
-        self.saveElement(possessionElement)
-        
     def setElementData(self, element):
         element.setName(vars.get(self._prefix + 'name'))
         element.setKey(vars.get(self._prefix + 'key'))
