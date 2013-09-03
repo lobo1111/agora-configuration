@@ -1164,6 +1164,7 @@
             <scriptName>address</scriptName>
             <scriptName>community</scriptName>
             <scriptName>zpk</scriptName>
+            <scriptName>element</scriptName>
         </dependencies>
         <security>
             <group>all</group>
