@@ -1750,4 +1750,17 @@
             ALTER TABLE `element` ADD COLUMN `algorithm` varchar(1024);
         </sql>
     </changeSet>
+    
+     <changeSet author='tkopacki' id='table-elements-possession-add-column-community-element'>
+        <sql>  
+            ALTER TABLE `element_possession` ADD COLUMN `element_community_id` int(11) NOT NULL;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-possession-elements-element-community-id-fkey'>
+        <sql>  
+            ALTER TABLE `element_possession`
+            ADD CONSTRAINT `element_possession_element_community_id_fkey` FOREIGN KEY (`element_community_id`) REFERENCES `element_community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>

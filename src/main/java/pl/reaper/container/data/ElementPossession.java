@@ -29,6 +29,9 @@ public class ElementPossession implements Serializable {
     @JoinColumn(name = "element_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Element element;
+    @JoinColumn(name = "element_community_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private ElementCommunity elementCommunity;
     @Column(name = "override_parent_value")
     private boolean overrideParentValue;
     @Column(name = "value")
@@ -56,6 +59,14 @@ public class ElementPossession implements Serializable {
 
     public void setElement(Element element) {
         this.element = element;
+    }
+
+    public ElementCommunity getElementCommunity() {
+        return elementCommunity;
+    }
+
+    public void setElementCommunity(ElementCommunity elementCommunity) {
+        this.elementCommunity = elementCommunity;
     }
 
     public boolean isOverrideParentValue() {

@@ -60,7 +60,11 @@
             <groupValue>$!entity.getElement().getGroup().getValue()</groupValue>
             <key>$!entity.getElement().getKey()</key>
             <name>$!entity.getElement().getName()</name>
-            <globalValue>$!entity.getElement().getGlobalValue()</globalValue>
+            #if($!entity.getElementCommunity().isOverrideParentValue())
+                <globalValue>$!entity.getElementCommunity().getGlobalValue()</globalValue>
+            #else
+                <globalValue>$!entity.getElement().getGlobalValue()</globalValue>
+            #end
             <overrideValue>$!entity.getGlobalValue()</overrideValue>
             <override>$!entity.isOverrideParentValue()</override>
         </element>

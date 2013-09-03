@@ -48,14 +48,15 @@ class ElementManager(Container):
         for possession in community.getPossessions():
             vars.put("overrideValue", "0")
             vars.put("override", "false")
+            vars.put("communityId", community.getId())
             self.createPossessionElement(possession)
             
     def createPossessionElement(self, possession):
         self._logger.info('Creating new Possession Element for possession %d' % possession.getId())
         elementId = vars.get("elementId")
-        possessionId = possession.getId()
         possessionElement = ElementPossession()
         possessionElement.setElement(self.findElementById(elementId))
+        possessionElement.setElementCommunity(self.findCommunityById(vars.get('communityId')))
         possessionElement.setPossession(possession)
         if vars.get('possessionOverrideValue') == 'true':
             possessionElement.setOverrideParentValue(True)
@@ -81,6 +82,9 @@ class ElementManager(Container):
         
     def findElementById(self, id):
         return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
+    
+    def findCommunityById(self, id):
+        return entityManager.createQuery('Select e From Community e Where e.id = ' + id).getSingleResult()
     
     def findCommunityElement(self, elementId, communityId):
         try:
