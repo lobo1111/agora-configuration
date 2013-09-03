@@ -23,6 +23,10 @@ class ElementManager(Container):
         self.saveElement(element)
         return element
     
+    def remove(self):
+        element = self.findElementById(vars.get('id'))
+        entityManager.remove(element)
+    
     def CreateOrUpdateCommunityElement(self, community):
         elementId = vars.get("elementId")
         communityId = community.getId()

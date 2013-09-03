@@ -1,7 +1,9 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,6 +44,10 @@ public class Element implements Serializable {
     private boolean defaultElement;
     @Column(name = "algorithm")
     private String algorithm;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "element")
+    private Collection<ElementCommunity> communityElements;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "element")
+    private Collection<ElementPossession> possessionElements;
 
     public boolean isDefaultElement() {
         return defaultElement;
@@ -96,5 +103,21 @@ public class Element implements Serializable {
 
     public void setGlobalValue(double globalValue) {
         this.globalValue = globalValue;
+    }
+
+    public Collection<ElementCommunity> getCommunityElements() {
+        return communityElements;
+    }
+
+    public void setCommunityElements(Collection<ElementCommunity> communityElements) {
+        this.communityElements = communityElements;
+    }
+
+    public Collection<ElementPossession> getPossessionElements() {
+        return possessionElements;
+    }
+
+    public void setPossessionElements(Collection<ElementPossession> possessionElements) {
+        this.possessionElements = possessionElements;
     }
 }

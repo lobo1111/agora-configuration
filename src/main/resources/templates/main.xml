@@ -1370,4 +1370,26 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>can-delete-element</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(element.id)
+                    FROM
+                    Element e
+                    LEFT OUTER JOIN e.communityElements ce
+                    LEFT OUTER JOIN e.possessionElements pe
+                    WHERE
+                    e.id = {:id}
+                    AND (ce.id IS NOT NULL 
+                    OR pe.id IS NOT NULL)
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>

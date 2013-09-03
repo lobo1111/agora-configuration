@@ -572,6 +572,20 @@
     </script>
     
     <script>
+        <name>remove-element</name>
+        <source>entities/element.py</source>
+        <onInit>ElementManager().remove()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-auto-payment-entity</name>
         <source>crons/autoPayments.py</source>
         <onInit>CronAutoPayment().processPayment()</onInit>
