@@ -110,7 +110,7 @@ class ElementManager(Container):
     
     def findPossessionElement(self, elementId, possessionId):
         try:
-            return entityManager.createQuery('Select element From ElementPossession element join element.element parent join element.possession community Where parent.id = %s and possession.id = %s' % (elementId, possessionId)).getSingleResult()
+            return entityManager.createQuery('Select element From ElementPossession element join element.element parent join element.possession possession Where parent.id = %s and possession.id = %s' % (elementId, possessionId)).getSingleResult()
         except:
             return None
     
