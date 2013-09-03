@@ -84,7 +84,7 @@ class ElementManager(Container):
         return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
     
     def findCommunityById(self, id):
-        return entityManager.createQuery('Select e From Community e Where e.id = ' + id).getSingleResult()
+        return entityManager.createQuery('Select e From Community e Where e.id = %d' % id).getSingleResult()
     
     def findCommunityElement(self, elementId, communityId):
         try:
