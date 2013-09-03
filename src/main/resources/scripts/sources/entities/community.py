@@ -20,8 +20,8 @@ class CommunityManager(Container):
         community = self.findCommunity()
         self.setCommunityData(community)
         self.setZpkData(community)
-        self.setElementsData(community)
         self.saveCommunity(community)
+        self.setElementsData(community)
         
     def setCommunityData(self, community):
         community.setName(vars.get('name'))

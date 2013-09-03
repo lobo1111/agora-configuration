@@ -27,8 +27,8 @@ class PossessionManager(Container):
         self.setPossessionAdditionalData(possession)
         self.setZpkData(possession)
         self.setAutoPaymentData(possession)
-        self.setElementsData(possession)
         self.savePossession(possession)
+        self.setElementsData(possession)
         return possession;
         
     def remove(self):
