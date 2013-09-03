@@ -48,7 +48,6 @@ class ElementManager(Container):
         for possession in community.getPossessions():
             vars.put("overrideValue", "0")
             vars.put("override", "false")
-            vars.put("communityId", community.getId())
             self.createPossessionElement(possession, communityElement)
             
     def createPossessionElement(self, possession, elementCommunity = None):
@@ -58,11 +57,11 @@ class ElementManager(Container):
         possessionElement.setElement(self.findElementById(elementId))
         possessionElement.setElementCommunity(elementCommunity)
         possessionElement.setPossession(possession)
-        if vars.get('possessionOverrideValue') == 'true':
+        if vars.get('override') == 'true':
             possessionElement.setOverrideParentValue(True)
         else:
             possessionElement.setOverrideParentValue(False)
-        possessionElement.setGlobalValue(float(vars.get('possessionValue')))
+        possessionElement.setGlobalValue(float(vars.get('overrideValue')))
         self.saveElement(possessionElement)
         
     def setElementData(self, element):
