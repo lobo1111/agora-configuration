@@ -27,6 +27,7 @@ class PossessionManager(Container):
         self.setPossessionAdditionalData(possession)
         self.setZpkData(possession)
         self.setAutoPaymentData(possession)
+        self.setElementsData(possession)
         self.savePossession(possession)
         return possession;
         
@@ -39,6 +40,14 @@ class PossessionManager(Container):
             entityManager.remove(zpk)
         entityManager.remove(possession.getAdditionalData())
         entityManager.remove(possession)
+        
+    def setElementsData(self, possession):
+        for i in range(int(vars.get(self._prefix + 'elementsCount'))): 
+            vars.put("elementId", vars.get(self._prefix + str(i) + "_elementId"))
+            vars.put("override", vars.get(self._prefix + str(i) + "_override"))
+            vars.put("overrideValue", vars.get(self._prefix + str(i) + "_overrideValue"))
+            manager = ElementManager()
+            manager.CreateOrUpdatePossessionElement(possession)
         
     def setPossessionData(self, possession):
         possession.setArea(BigDecimal(vars.get(self._prefix + 'possessionArea')))
