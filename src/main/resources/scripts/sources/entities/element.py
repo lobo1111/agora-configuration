@@ -107,7 +107,7 @@ class ElementManager(Container):
         return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
         
     def findSubElementCommunity(self, id):
-        return entityManager.createQuery('Select element From ElementComunity element Where element.id = ' + id).getSingleResult()
+        return entityManager.createQuery('Select element From ElementCommunity element Where element.id = ' + id).getSingleResult()
         
     def findSubElementPossession(self, id):
         return entityManager.createQuery('Select element From ElementPossession element Where element.id = ' + id).getSingleResult()
