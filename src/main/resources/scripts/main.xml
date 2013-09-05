@@ -1080,6 +1080,7 @@
             <scriptName>company</scriptName>
             <scriptName>zpk</scriptName>
             <scriptName>obligation</scriptName>
+            <scriptName>element</scriptName>
         </dependencies>
         <security>
             <group>all</group>
