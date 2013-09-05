@@ -64,7 +64,8 @@ class ElementManager(Container):
             communityElement.setOverrideParentValue(True)
         else:
             communityElement.setOverrideParentValue(False)
-        communityElement.setGlobalValue(float(vars.get("overrideValue")))
+        if not vars.get("overrideValue") is None and not vars.get("overrideValue") == '':
+            communityElement.setGlobalValue(float(vars.get("overrideValue")))
         if createElementForPossessions:
             tmpOverride = vars.get('override')
             tmpOverrideValue = vars.get("overrideValue")
