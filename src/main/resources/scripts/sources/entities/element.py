@@ -29,13 +29,13 @@ class ElementManager(Container):
         
     def removeSubElement(self):
         if vars.get('subType') == "COMMUNITY":
-            element = self.findSubElementCommunity(vars.get('id'))
+            element = self.findSubElementCommunity(vars.get('subId'))
             for possessionElement in element.getPossessionsElements():
                 if not possessionElement.isOverrideParentValue():
                     entityManager.remove(possessionElement)
             entityManager.remove(element)
         elif vars.get('subType') == "POSSESSION":
-            element = self.findSubElementPossession(vars.get('id'))
+            element = self.findSubElementPossession(vars.get('subId'))
             entityManager.remove(element)
         
     def CreateOrUpdateCommunityElement(self, community):
