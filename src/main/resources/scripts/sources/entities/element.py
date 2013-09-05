@@ -105,6 +105,12 @@ class ElementManager(Container):
         
     def findElementById(self, id):
         return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
+        
+    def findSubElementCommunity(self, id):
+        return entityManager.createQuery('Select element From ElementComunity element Where element.id = ' + id).getSingleResult()
+        
+    def findSubElementPossession(self, id):
+        return entityManager.createQuery('Select element From ElementPossession element Where element.id = ' + id).getSingleResult()
     
     def findCommunityElement(self, elementId, communityId):
         try:
