@@ -30,17 +30,17 @@ class ElementManager(Container):
     def removeSubElement(self):
         if vars.get('subType') == "COMMUNITY":
             element = self.findSubElementCommunity(vars.get('subId'))
-            self._logger.info('Removing community element' % element.getId())
+            self._logger.info('Removing community element - %d' % element.getId())
             for possessionElement in element.getPossessionsElements():
                 if not possessionElement.isOverrideParentValue():
                     entityManager.remove(possessionElement)
-                    self._logger.info('\tRemoving possession element' % possessionElement.getId())
+                    self._logger.info('\tRemoving possession element - %d' % possessionElement.getId())
                 else:
-                    self._logger.info('\tPossession element not removued due to override flag set' % possessionElement.getId())
+                    self._logger.info('\tPossession element not removued due to override flag set - %d' % possessionElement.getId())
             entityManager.remove(element)
         elif vars.get('subType') == "POSSESSION":
             element = self.findSubElementPossession(vars.get('subId'))
-            self._logger.info('Removing possession element' % element.getId())
+            self._logger.info('Removing possession element - %d' % element.getId())
             entityManager.remove(element)
         
     def CreateOrUpdateCommunityElement(self, community):
