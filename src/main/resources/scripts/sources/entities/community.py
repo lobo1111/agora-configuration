@@ -13,8 +13,8 @@ class CommunityManager(Container):
         community = Community()
         self.setCommunityData(community)
         self.setZpkData(community)
-        self.addDefaultElements(community)
         self.saveCommunity(community)
+        self.addDefaultElements(community)
         self.setObligationData(community)
         
     def update(self):
