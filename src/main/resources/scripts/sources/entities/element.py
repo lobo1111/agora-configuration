@@ -34,9 +34,11 @@ class ElementManager(Container):
             for possessionElement in element.getPossessionsElements():
                 if not possessionElement.isOverrideParentValue():
                     entityManager.remove(possessionElement)
-                    self._logger.info('\tRemoving possession element - %d' % possessionElement.getId())
+                    self._logger.info('Removing possession element - %d' % possessionElement.getId())
                 else:
-                    self._logger.info('\tPossession element not removued due to override flag set - %d' % possessionElement.getId())
+                    possessionElement.setElementCommunity(None)
+                    self.saveElement(possessionElement)
+                    self._logger.info('Possession element not removued due to override flag set - %d' % possessionElement.getId())
             entityManager.remove(element)
         elif vars.get('subType') == "POSSESSION":
             element = self.findSubElementPossession(vars.get('subId'))
