@@ -23,6 +23,11 @@ class ElementManager(Container):
         self.saveElement(element)
         return element
     
+    def addDefaultElements(self, community):
+        for element in self.findDefaultElements():
+            vars.set("elementId", element.getId())
+            self.CreateOrUpdateCommunityElement(community)
+    
     def remove(self):
         element = self.findElementById(vars.get('id'))
         entityManager.remove(element)
@@ -133,3 +138,6 @@ class ElementManager(Container):
     
     def findGroupById(self, id):
         return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + id).getSingleResult()
+    
+    def findDefaultElements(self):
+        return entityManager.createQuery('Select element From Element element where element.isDefaultElement is true').getResultList()

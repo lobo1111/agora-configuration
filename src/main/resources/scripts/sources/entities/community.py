@@ -13,6 +13,7 @@ class CommunityManager(Container):
         community = Community()
         self.setCommunityData(community)
         self.setZpkData(community)
+        self.addDefaultElements(community)
         self.saveCommunity(community)
         self.setObligationData(community)
         
@@ -34,6 +35,10 @@ class CommunityManager(Container):
             vars.put("overrideValue", vars.get(self._prefix + str(i) + "_overrideValue"))
             manager = ElementManager()
             manager.CreateOrUpdateCommunityElement(community)
+            
+    def addDefaultElements(self, community):
+        manager = ElementManager()
+        manager.addDefaultElements(community)
         
     def getCompany(self, community):
         companyManager = CompanyManager()
