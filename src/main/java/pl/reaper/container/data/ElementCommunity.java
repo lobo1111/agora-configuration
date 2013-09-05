@@ -27,7 +27,7 @@ public class ElementCommunity implements Serializable {
     @Column(name = "id")
     private Integer id;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Community community;
     @JoinColumn(name = "element_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
