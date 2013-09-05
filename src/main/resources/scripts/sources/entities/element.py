@@ -114,28 +114,28 @@ class ElementManager(Container):
         entityManager.flush()
         
     def findElementById(self, id):
-        return entityManager.createQuery('Select element From Element element Where element.id = ' + id).getSingleResult()
+        return entityManager.createQuery('Select element From Element element Where element.id = ' + str(id)).getSingleResult()
         
     def findSubElementCommunity(self, id):
-        return entityManager.createQuery('Select element From ElementCommunity element Where element.id = ' + id).getSingleResult()
+        return entityManager.createQuery('Select element From ElementCommunity element Where element.id = ' + str(id)).getSingleResult()
         
     def findSubElementPossession(self, id):
-        return entityManager.createQuery('Select element From ElementPossession element Where element.id = ' + id).getSingleResult()
+        return entityManager.createQuery('Select element From ElementPossession element Where element.id = ' + str(id)).getSingleResult()
     
     def findCommunityElement(self, elementId, communityId):
         try:
-            return entityManager.createQuery('Select element From ElementCommunity element join element.element parent join element.community community Where parent.id = %s and community.id = %s' % (elementId, communityId)).getSingleResult()
+            return entityManager.createQuery('Select element From ElementCommunity element join element.element parent join element.community community Where parent.id = %s and community.id = %s' % (str(elementId), str(communityId))).getSingleResult()
         except:
             return None
     
     def findPossessionElement(self, elementId, possessionId):
         try:
-            return entityManager.createQuery('Select element From ElementPossession element join element.element parent join element.possession possession Where parent.id = %s and possession.id = %s' % (elementId, possessionId)).getSingleResult()
+            return entityManager.createQuery('Select element From ElementPossession element join element.element parent join element.possession possession Where parent.id = %s and possession.id = %s' % (str(elementId), str(possessionId))).getSingleResult()
         except:
             return None
     
     def findGroupById(self, id):
-        return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + id).getSingleResult()
+        return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + str(id)).getSingleResult()
     
     def findDefaultElements(self):
         return entityManager.createQuery('Select element From Element element where element.defaultElement = 1').getResultList()
