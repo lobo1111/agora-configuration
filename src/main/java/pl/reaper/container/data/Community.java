@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -50,15 +51,15 @@ public class Community implements Serializable {
     @Column(name = "out_date")
     private Date outDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
-    private Collection<Possession> possessions;
+    private Collection<Possession> possessions = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
-    private Collection<ZakladowyPlanKont> zpks;
+    private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
-    private Collection<PaymentScheduler> paymentSchedulers;
+    private Collection<PaymentScheduler> paymentSchedulers = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
-    private Collection<Obligation> obligations;
+    private Collection<Obligation> obligations = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
-    private Collection<ElementCommunity> elements;
+    private Collection<ElementCommunity> elements = new ArrayList<>();
 
     public Community() {
     }
