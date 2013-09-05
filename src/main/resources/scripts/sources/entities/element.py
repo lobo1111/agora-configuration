@@ -25,7 +25,7 @@ class ElementManager(Container):
     
     def addDefaultElements(self, community):
         for element in self.findDefaultElements():
-            vars.set("elementId", element.getId())
+            vars.put("elementId", element.getId())
             self.CreateOrUpdateCommunityElement(community)
     
     def remove(self):
