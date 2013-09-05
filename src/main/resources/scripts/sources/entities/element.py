@@ -56,7 +56,6 @@ class ElementManager(Container):
         communityElement = self.findCommunityElement(elementId, communityId)
         createElementForPossessions = False
         if communityElement is None:
-            self._logger.info('Creating new Community Element for community %d' % community.getId())
             communityElement = ElementCommunity()
             createElementForPossessions = True
             communityElement.setElement(self.findElementById(elementId))
@@ -85,7 +84,6 @@ class ElementManager(Container):
         possessionId = possession.getId()
         possessionElement = self.findPossessionElement(elementId, possessionId)
         if possessionElement is None:
-            self._logger.info('Creating new Possession Element for possession %d and element %s' % (possession.getId(), elementId))
             possessionElement = ElementPossession()
             possessionElement.setElementCommunity(elementCommunity)
             possessionElement.setElement(self.findElementById(elementId))
