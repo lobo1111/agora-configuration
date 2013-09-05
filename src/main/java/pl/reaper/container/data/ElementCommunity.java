@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -34,6 +36,8 @@ public class ElementCommunity implements Serializable {
     private boolean overrideParentValue;
     @Column(name = "value")
     private double globalValue;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "elementCommunity")
+    private Collection<ElementPossession> possessionsElements;
 
     public Integer getId() {
         return id;
@@ -73,5 +77,13 @@ public class ElementCommunity implements Serializable {
 
     public void setGlobalValue(double globalValue) {
         this.globalValue = globalValue;
+    }
+
+    public Collection<ElementPossession> getPossessionsElements() {
+        return possessionsElements;
+    }
+
+    public void setPossessionsElements(Collection<ElementPossession> possessionsElements) {
+        this.possessionsElements = possessionsElements;
     }
 }
