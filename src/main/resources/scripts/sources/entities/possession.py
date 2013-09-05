@@ -19,6 +19,7 @@ class PossessionManager(Container):
         self.setZpkData(possession)
         self.setAutoPaymentData(possession)
         self.savePossession(possession)
+        self.propagateElementsForNewPossession(possession)
         return possession;
         
     def update(self):
@@ -40,6 +41,10 @@ class PossessionManager(Container):
             entityManager.remove(zpk)
         entityManager.remove(possession.getAdditionalData())
         entityManager.remove(possession)
+        
+    def propagateElementsForNewPossession(self, possession):
+        manager = ElementManager()
+        manager.propagateElementsForNewPossession(possession)
         
     def setElementsData(self, possession):
         for i in range(int(vars.get(self._prefix + 'elementsCount'))): 
