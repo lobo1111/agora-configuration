@@ -86,7 +86,7 @@ class ElementManager(Container):
     def propagateElementsForNewPossession(self, possession):
         for communityElement in possession.getCommunity().getElements():
             vars.put("elementId", str(communityElement.getElement().getId()))
-            self.CreateOrUpdatePossessionElement(possession, communityElement)
+            self.CreateOrUpdatePossessionElement(possession, communityElement, False)
             
     def CreateOrUpdatePossessionElement(self, possession, elementCommunity = None, override = True):
         elementId = vars.get("elementId")
