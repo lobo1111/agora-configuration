@@ -106,6 +106,8 @@ class ElementManager(Container):
             else:
                 possessionElement.setOverrideParentValue(False)
             possessionElement.setGlobalValue(float(vars.get('overrideValue')))
+            possession.getElements().add(possessionElement)
+            entityManager.persist(possession)
         self.saveElement(possessionElement)
             
     def setElementData(self, element):

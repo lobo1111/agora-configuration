@@ -39,6 +39,8 @@ class PossessionManager(Container):
             entityManager.remove(owner)
         for zpk in possession.getZpks():
             entityManager.remove(zpk)
+        for possessionElement in possession.getElements():
+            entityManager.remove(possessionElement)
         entityManager.remove(possession.getAdditionalData())
         entityManager.remove(possession)
         
