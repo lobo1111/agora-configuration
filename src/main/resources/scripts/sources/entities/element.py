@@ -140,4 +140,4 @@ class ElementManager(Container):
         return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + id).getSingleResult()
     
     def findDefaultElements(self):
-        return entityManager.createQuery('Select element From Element element where element.isDefaultElement = 1').getResultList()
+        return entityManager.createQuery('Select element From Element element where element.defaultElement = 1').getResultList()
