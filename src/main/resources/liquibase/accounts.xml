@@ -1796,4 +1796,32 @@
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-charging-possession-id-fkey'>
+        <sql>  
+            ALTER TABLE `charging`
+            ADD CONSTRAINT `charging_possession_id_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-charging-booking-period-id-fkey'>
+        <sql>  
+            ALTER TABLE `charging`
+            ADD CONSTRAINT `charging_booking_period_id_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-charging-element-charging-id-fkey'>
+        <sql>  
+            ALTER TABLE `charging_element`
+            ADD CONSTRAINT `charging_element_id_fkey` FOREIGN KEY (`charging_element_id`) REFERENCES `charging` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-charging-group-id-fkey'>
+        <sql>  
+            ALTER TABLE `charging_element`
+            ADD CONSTRAINT `charging_group_id_fkey` FOREIGN KEY (`group_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
