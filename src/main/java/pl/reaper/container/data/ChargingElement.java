@@ -35,7 +35,7 @@ public class ChargingElement implements Serializable {
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     @ManyToOne
     private Dictionary group;
-    @Column(name = "value")
+    @Column(name = "element_value")
     private double value;
     @JoinColumn(name = "charging_id", referencedColumnName = "id")
     @ManyToOne(optional = false)

@@ -841,6 +841,40 @@
         </variables>
     </template>
     <template>
+        <name>list-chargings</name>
+        <source>list-chargings.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    charging,
+                    SUM(chargingElements.value)
+                    FROM 
+                    Charging charging
+                    JOIN charging.chargingElements chargingElements
+                    WHERE {:where}
+                    GROUP BY chargingElements.charging
+                    ORDER BY charging.timestamp DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(charging.id)
+                    FROM 
+                    Charging charging
+                    JOIN charging.chargingElements chargingElements
+                    WHERE {:where}
+                    GROUP BY chargingElements.charging
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-payments</name>
         <source>list-payments.vtl</source>
         <variables>

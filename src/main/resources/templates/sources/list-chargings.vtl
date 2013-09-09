@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<elements>
+    #foreach($item in $items)
+    <item>
+        <id>$!item[0].getId()</id>
+        <value>$!item[1]</value>
+    </item>
+    #end
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
+</elements>
+
