@@ -1814,7 +1814,7 @@
     <changeSet author='tkopacki' id='table-charging-element-charging-id-fkey'>
         <sql>  
             ALTER TABLE `charging_element`
-            ADD CONSTRAINT `charging_element_id_fkey` FOREIGN KEY (`charging_element_id`) REFERENCES `charging` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+            ADD CONSTRAINT `charging_id_fkey` FOREIGN KEY (`charging_id`) REFERENCES `charging` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
     
