@@ -1626,13 +1626,13 @@
         </sql>
     </changeSet>
     
-<!--    <changeSet id="tkopacki" author="table-report-header-style-column">
+    <!--    <changeSet id="tkopacki" author="table-report-header-style-column">
         <sql>
             ALTER TABLE `report` ADD COLUMN `header_style` varchar(1024) NULL
         </sql>
     </changeSet>-->
     
-<!--    <changeSet id="tkopacki" author="table-report-section-attribute-header-style-column">
+    <!--    <changeSet id="tkopacki" author="table-report-section-attribute-header-style-column">
         <sql>
             ALTER TABLE `report_section_attribute` ADD COLUMN `header_style` varchar(1024) NULL
         </sql>
@@ -1733,25 +1733,25 @@
         </sql>
     </changeSet>
     
-     <changeSet author='tkopacki' id='table-elements-key-column-rename'>
+    <changeSet author='tkopacki' id='table-elements-key-column-rename'>
         <sql>  
             ALTER TABLE `element` CHANGE `key` `key_value` varchar(255);
         </sql>
     </changeSet>
     
-     <changeSet author='tkopacki' id='table-elements-add-column-default'>
+    <changeSet author='tkopacki' id='table-elements-add-column-default'>
         <sql>  
             ALTER TABLE `element` ADD COLUMN `default_element` boolean NOT NULL DEFAULT true;
         </sql>
     </changeSet>
     
-     <changeSet author='tkopacki' id='table-elements-add-column-algorithm'>
+    <changeSet author='tkopacki' id='table-elements-add-column-algorithm'>
         <sql>  
             ALTER TABLE `element` ADD COLUMN `algorithm` varchar(1024);
         </sql>
     </changeSet>
     
-     <changeSet author='tkopacki' id='table-elements-possession-add-column-community-element'>
+    <changeSet author='tkopacki' id='table-elements-possession-add-column-community-element'>
         <sql>  
             ALTER TABLE `element_possession` ADD COLUMN `element_community_id` int(11) NOT NULL;
         </sql>
@@ -1764,7 +1764,7 @@
         </sql>
     </changeSet>
 
-     <changeSet author='tkopacki' id='table-element-possession-column-element-community-nullable'>
+    <changeSet author='tkopacki' id='table-element-possession-column-element-community-nullable'>
         <sql>  
             ALTER TABLE `element_possession` MODIFY `element_community_id` int(11);
         </sql>
@@ -1822,6 +1822,12 @@
         <sql>  
             ALTER TABLE `charging_element`
             ADD CONSTRAINT `charging_group_id_fkey` FOREIGN KEY (`group_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-charging-elements-column-value-to-element-value'>
+        <sql>  
+            ALTER TABLE `charging_element` CHANGE `value` `element_value` decimal(10, 2);
         </sql>
     </changeSet>
 </databaseChangeLog>
