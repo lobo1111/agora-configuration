@@ -1769,4 +1769,31 @@
             ALTER TABLE `element_possession` MODIFY `element_community_id` int(11);
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-charging'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `charging` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `possession_id` int(11) NOT NULL,
+            `booking_period_id` int(11) NOT NULL,
+            `month` int(11) NOT NULL,
+            `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-charging-element'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `charging_element` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `charging_id` int(11) NOT NULL,
+            `group_id` int(11) NOT NULL,
+            `key` varchar(255) NOT NULL,
+            `name` varchar(255) NOT NULL,
+            `value` decimal(10, 2) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
