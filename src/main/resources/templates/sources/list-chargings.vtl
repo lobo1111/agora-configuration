@@ -8,7 +8,7 @@
         <bookingPeriodName>$!item[0].getBookingPeriod().getName()</bookingPeriodName>
         <timestamp>$!item[0].getTimestamp()</timestamp>
         <communityName>$!item[0].getPossession().getCommunity().getName()</communityName>
-        #if($!item[0].getPossession.getAddress().getFlatNumber())
+        #if($!item[0].getPossession.getAddress().getFlatNumber() != "")
         <possessionName>$!item[0].getPossession().getAddress().getStreet() $!item[0].getPossession().getAddress().getHouseNumber()/$!item[0].getPossession().getAddress().getFlatNumber()</possessionName>
         #else
         <possessionName>$!item[0].getPossession().getAddress().getStreet() $!item[0].getPossession().getAddress().getHouseNumber()</possessionName>
