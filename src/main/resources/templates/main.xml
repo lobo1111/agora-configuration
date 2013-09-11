@@ -854,6 +854,9 @@
                     FROM 
                     Charging charging
                     JOIN charging.chargingElements chargingElements
+                    JOIN charging.possession possession
+                    JOIN possession.address address
+                    JOIN charging.bookingPeriod bookingPeriod
                     WHERE {:where}
                     GROUP BY chargingElements.charging
                     ORDER BY charging.timestamp DESC
@@ -868,6 +871,9 @@
                     FROM 
                     Charging charging
                     JOIN charging.chargingElements chargingElements
+                    JOIN charging.possession possession
+                    JOIN possession.address address
+                    JOIN charging.bookingPeriod bookingPeriod
                     WHERE {:where}
                     GROUP BY chargingElements.charging
                 </data>
