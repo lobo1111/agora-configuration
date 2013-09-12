@@ -1830,4 +1830,18 @@
             ALTER TABLE `charging_element` CHANGE `value` `element_value` decimal(10, 2);
         </sql>
     </changeSet>
+    
+        <changeSet author='tkopacki' id='dicitonary-periods'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('PERIODS');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='charging-period'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'CURRENT', '1' FROM `dictionary_type` WHERE `type` = 'PERIODS';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

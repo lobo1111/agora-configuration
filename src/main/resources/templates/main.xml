@@ -368,6 +368,32 @@
     </template>
     <!-- LISTS -->
     <template>
+        <name>list-community-charging</name>
+        <source>list-community-charging.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT
+                        community,
+                        COUNT(possession.id)
+                    FROM
+                        Community community
+                        JOIN community.possessions possession
+                    WHERE
+                        possession.id NOT IN(
+                            SELECT 
+                                possession.id 
+                            FROM 
+                                Charging charginig
+                                JOIN charging.possession possession)
+                    GROUP BY
+                        community.id
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-settlements</name>
         <source>list-settlements.vtl</source>
         <variables>

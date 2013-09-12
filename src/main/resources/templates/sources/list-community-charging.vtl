@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<communityCharging>
+    #foreach($item in $items)
+        <item>
+            <communityName>$!item[0].getName()</communityName>
+            <counter>$!item[1]</counter>
+        </item>
+    #end
+        <settings>
+            <maxResults>0</maxResults>
+        </settings>
+</communityCharging>
