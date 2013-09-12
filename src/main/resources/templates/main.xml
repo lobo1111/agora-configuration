@@ -383,10 +383,10 @@
                     WHERE
                         possession.id NOT IN(
                             SELECT 
-                                possession.id 
+                                charged.id 
                             FROM 
                                 Charging charginig
-                                JOIN charging.possession possession)
+                                JOIN charging.possession charged
                     GROUP BY
                         community.id
                 </data>
