@@ -1378,6 +1378,26 @@
         </variables>
     </template>
     <template>
+        <name>current-charge-month</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        dict.value
+                    FROM
+                        Dictionary dict
+                        JOIN dict.type type
+                    WHERE
+                        type = "PERIODS"
+                        AND dict.key = "CURRENT"
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>can-delete-obligation</name>
         <source>simple-long-response.vtl</source>
         <variables>
