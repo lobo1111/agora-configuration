@@ -1391,7 +1391,7 @@
                         Dictionary dict
                         JOIN dict.type dtype
                     WHERE
-                        dtype = "PERIODS"
+                        dtype.type = "PERIODS"
                         AND dict.key = "CURRENT"
                 </data>
             </var>
