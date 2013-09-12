@@ -386,7 +386,7 @@
                                 charged.id 
                             FROM 
                                 Charging charginig
-                                JOIN charging.possession charged
+                                JOIN charging.possession charged)
                     GROUP BY
                         community.id
                 </data>
