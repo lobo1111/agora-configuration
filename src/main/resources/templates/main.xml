@@ -1389,9 +1389,9 @@
                         dict.value
                     FROM
                         Dictionary dict
-                        JOIN dict.type type
+                        JOIN dict.type dtype
                     WHERE
-                        type = "PERIODS"
+                        dtype = "PERIODS"
                         AND dict.key = "CURRENT"
                 </data>
             </var>
