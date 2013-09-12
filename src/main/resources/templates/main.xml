@@ -385,7 +385,7 @@
                             SELECT 
                                 charged.id 
                             FROM 
-                                Charging charginig
+                                Charging charging
                                 JOIN charging.possession charged)
                     GROUP BY
                         community.id
