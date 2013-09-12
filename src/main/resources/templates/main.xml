@@ -376,7 +376,7 @@
                 <data>
                     SELECT
                         community,
-                        COUNT(possession.id)
+                        COUNT(possession.id) as counter
                     FROM
                         Community community
                         JOIN community.possessions possession
@@ -387,8 +387,11 @@
                             FROM 
                                 Charging charging
                                 JOIN charging.possession charged)
+                        AND counter > 0
                     GROUP BY
                         community.id
+                    ORDER BY
+                        community.name ASC
                 </data>
             </var>
         </variables>
