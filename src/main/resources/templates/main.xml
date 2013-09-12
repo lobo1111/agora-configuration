@@ -387,9 +387,10 @@
                             FROM 
                                 Charging charging
                                 JOIN charging.possession charged)
-                        AND counter > 0
                     GROUP BY
                         community.id
+                    HAVING
+                        counter > 0
                     ORDER BY
                         community.name ASC
                 </data>
