@@ -66,7 +66,7 @@ class ChargeManager:
             self.chargePossession(item.getPossession())
             
     def chargePossession(self, possession):
-        if not alreadyCharged(possession):
+        if not self.alreadyCharged(possession):
             charging = Charging()
             charging.setPossession(possession)
             charging.setBookingPeriod(self._bookingPeriod)
