@@ -7,11 +7,11 @@ class ChargingQueue:
         communityId = vars.get('communityId')
         possessionId = vars.get('possessionId')
         cq = ChargingQueue()
-        cq.setType(type)
         if not communityId is None and communityId != '':
             cq.setCommunity(self.findCommunityById(communityId))
         if not possessionId is None and possessionId != '':
             cq.setPossession(self.findPossessionById(possessionId))
+        cq.setType(type)
         entityManager.persist(cq)
     
     def popFromQueue(self):
