@@ -1,8 +1,9 @@
 from pl.reaper.container.data import ChargingQueue
+from pl.reaper.container.data.ChargingQueue import TYPE
 
 class ChargingQueue:
     def addToQueue(self):
-        type = vars.get('type')
+        type = self.getType(vars.get('type'))
         communityId = vars.get('communityId')
         possessionId = vars.get('possessionId')
         cq = ChargingQueue()
@@ -17,6 +18,15 @@ class ChargingQueue:
         item = self.getFirst()
         entityManager.remove(item)
         return item
+    
+    def getType(self, type): 
+        if type == "ALL":
+            return TYPE.ALL
+        elif type == "COMMUNITY":
+            return TYPE.COMMUNITY
+        elif type == "POSSESSION":
+            return TYPE.POSSESSION
+        return None
     
     def getFirst(self):
         try:
