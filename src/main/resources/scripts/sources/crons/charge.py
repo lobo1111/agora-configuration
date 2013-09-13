@@ -48,7 +48,7 @@ class ChargeManager:
         self._queue = ChargingQueueManager()
         self._currentMonth = self.getCurrentMonth()
         self._bookingPeriod = self.getBookingPeriod()
-#        item = self._queue.popFromQueue()
+        item = self._queue.popFromQueue()
 #        while not item is None:
 #            self._logger.info('charging: %s' % item.getType())
 #            charge(item)

@@ -2,6 +2,7 @@ from pl.reaper.container.data import ChargingQueue
 from pl.reaper.container.data.ChargingQueue import TYPE
 
 class ChargingQueueManager:
+    _logger = Logger([:_scriptId])
     def addToQueue(self):
         type = self.getType(vars.get('type'))
         communityId = vars.get('communityId')
@@ -17,10 +18,12 @@ class ChargingQueueManager:
     def popFromQueue(self):
         item = self.getFirst()
         if not item is None:
+            self._logger.info('item poped - %s' % str(item.getId()))
             entityManager.remove(item)
             entityManager.flush()
             return item
         else:
+            self._logger.info('Charge queue is empty')
             return None
     
     def getType(self, type): 
