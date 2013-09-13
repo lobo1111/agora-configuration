@@ -50,6 +50,7 @@ class ChargeManager:
     
     def chargeAll(self):
         self._logger.info('Processing charge requests...')
+        print "DUPAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 #        item = self._queue.popFromQueue()
 #        while not item is None:
 #            self._logger.info('charging: %s' % item.getType())
