@@ -558,7 +558,7 @@
     <script>
         <name>add-to-charging-queue</name>
         <source>entities/chargingQueue.py</source>
-        <onInit>ChargingQueue().addToQueue()</onInit>
+        <onInit>ChargingQueueManager().addToQueue()</onInit>
         <scheduler/>
         <dependencies>
         </dependencies>
