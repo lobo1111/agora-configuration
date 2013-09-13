@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -46,7 +47,7 @@ public class Charging implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "charging")
-    private Collection<ChargingElement> chargingElements;
+    private Collection<ChargingElement> chargingElements = new ArrayList<>();
 
     public Integer getId() {
         return id;
