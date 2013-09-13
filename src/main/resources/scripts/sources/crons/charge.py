@@ -41,6 +41,8 @@ class Calculator:
         return algorithmValue
 
 class ChargeManager:
+    _logger = Logger([:_scriptId])
+    
     def __init__(self):
         self._queue = ChargingQueueManager()
         self._currentMonth = self.getCurrentMonth()
@@ -48,9 +50,12 @@ class ChargeManager:
     
     def chargeAll(self):
         item = self._queue.popFromQueue()
+        self._logger.info('Processing charge requests...')
         while not item is None:
+            self._logger.info('charging: %s' % item.getType())
             charge(item)
             item = self._queue.popFromQueue()
+        self._logger.info('All charge request processed.')
             
     def alreadyCharged(self, possession):
         try:

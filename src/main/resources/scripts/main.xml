@@ -549,6 +549,8 @@
         <onInit/>
         <scheduler/>
         <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -561,6 +563,8 @@
         <onInit/>
         <scheduler/>
         <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
             <scriptName>chargingQueue</scriptName>
         </dependencies>
         <security>
@@ -574,6 +578,8 @@
         <onInit>ChargingQueueManager().addToQueue()</onInit>
         <scheduler/>
         <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
         </dependencies>
         <security>
             <group>all</group>
