@@ -49,10 +49,10 @@ class ChargeManager:
         self._currentMonth = self.getCurrentMonth()
         self._bookingPeriod = self.getBookingPeriod()
         item = self._queue.popFromQueue()
-#        while not item is None:
-#            self._logger.info('charging: %s' % item.getType())
-#            charge(item)
-#            item = self._queue.popFromQueue()
+        while not item is None:
+            self._logger.info('charging: %s' % item.getType())
+            charge(item)
+            item = self._queue.popFromQueue()
         self._logger.info('All charge request processed.')
             
     def alreadyCharged(self, possession):
