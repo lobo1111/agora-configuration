@@ -1844,4 +1844,30 @@
             SELECT id, 'CURRENT', '1' FROM `dictionary_type` WHERE `type` = 'PERIODS';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-charging-queue'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `charging_queue` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `charge_type` ENUM('ALL', 'COMMUNITY', 'POSSESSION') NOT NULL,
+            `community_id` int(11),
+            `possession_id` int(11),
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-charging-queue-possession-id-fkey'>
+        <sql>  
+            ALTER TABLE `charging_queue`
+            ADD CONSTRAINT `charging_queue_possession_id_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>    
+    
+    <changeSet author='tkopacki' id='table-charging-queue-community-id-fkey'>
+        <sql>  
+            ALTER TABLE `charging_queue`
+            ADD CONSTRAINT `charging_queue_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>    
 </databaseChangeLog>

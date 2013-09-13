@@ -49,6 +49,7 @@
     <class>pl.reaper.container.data.ElementPossession</class>
     <class>pl.reaper.container.data.Charging</class>
     <class>pl.reaper.container.data.ChargingElement</class>
+    <class>pl.reaper.container.data.ChargingQueue</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.sharedCache.mode" value="NONE"/>
