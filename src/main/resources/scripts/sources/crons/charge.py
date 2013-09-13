@@ -34,7 +34,7 @@ class Calculator:
                     print 'Value established = ' + str(value)
                 except:
                     value = 0
-                    print 'Exception raised, attribute not found. Assuming attribute value = 0'
+                    print 'Exception raised, attribute not found(%s). Assuming attribute value = 0' % attribute
             algorithm = algorithm.replace('#{' + entity + '.' + attribute + '}', str(value))
         algorithmValue = eval(algorithm)
         print str(algorithm) + '=' + str(algorithmValue)
