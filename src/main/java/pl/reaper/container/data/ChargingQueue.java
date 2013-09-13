@@ -22,7 +22,7 @@ public class ChargingQueue implements Serializable {
 
     public enum TYPE {
 
-        ALL, COMMUNIY, POSSESSION
+        ALL, COMMUNITY, POSSESSION
     }
     private static final long serialVersionUID = 1L;
     @Id
