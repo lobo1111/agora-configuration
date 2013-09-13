@@ -542,6 +542,30 @@
             <group>all</group>
         </security>
     </script>
+
+    <script>
+        <name>chargingQueue</name>
+        <source>entities/chargingQueue.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>add-to-charging-queue</name>
+        <source>entities/chargingQueue.py</source>
+        <onInit>ChargingQueue().addToQueue()</onInit>
+        <scheduler/>
+        <dependencies>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
     
     <script>
         <name>create-element</name>
