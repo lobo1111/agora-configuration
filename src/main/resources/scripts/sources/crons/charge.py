@@ -51,7 +51,7 @@ class ChargeManager:
         item = self._queue.popFromQueue()
         while not item is None:
             self._logger.info('charging: %s' % item.getType())
-            charge(item)
+            self.charge(item)
             item = self._queue.popFromQueue()
         self._logger.info('All charge request processed.')
             
