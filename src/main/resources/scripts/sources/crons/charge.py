@@ -50,11 +50,11 @@ class ChargeManager:
     
     def chargeAll(self):
         self._logger.info('Processing charge requests...')
-#        item = self._queue.popFromQueue()
-#        while not item is None:
-#            self._logger.info('charging: %s' % item.getType())
-#            charge(item)
-#            item = self._queue.popFromQueue()
+        item = self._queue.popFromQueue()
+        while not item is None:
+            self._logger.info('charging: %s' % item.getType())
+            charge(item)
+            item = self._queue.popFromQueue()
         self._logger.info('All charge request processed.')
             
     def alreadyCharged(self, possession):
@@ -66,7 +66,7 @@ class ChargeManager:
     
     def charge(self, item):
         if item.getType().toString() == "ALL":
-            self.chargeAll()
+            self.chargeAllCommunities()
         elif item.getType().toString() == "COMMUNITY":
             self.chargeCommunity(item.getCommunity())
         elif item.getType().toString() == "POSSESSION":
@@ -86,7 +86,7 @@ class ChargeManager:
         for possession in community.getPossessions():
             self.chargePossession(possession)
             
-    def chargeAll(self):
+    def chargeAllCommunities(self):
         for community in self.findAllCommunities():
             self.chargeCommunity(community)
             
