@@ -49,12 +49,12 @@ class ChargeManager:
         self._bookingPeriod = self.getBookingPeriod()
     
     def chargeAll(self):
-        item = self._queue.popFromQueue()
         self._logger.info('Processing charge requests...')
-        while not item is None:
-            self._logger.info('charging: %s' % item.getType())
-            charge(item)
-            item = self._queue.popFromQueue()
+#        item = self._queue.popFromQueue()
+#        while not item is None:
+#            self._logger.info('charging: %s' % item.getType())
+#            charge(item)
+#            item = self._queue.popFromQueue()
         self._logger.info('All charge request processed.')
             
     def alreadyCharged(self, possession):
