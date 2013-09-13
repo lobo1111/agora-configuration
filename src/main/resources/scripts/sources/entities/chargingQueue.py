@@ -7,6 +7,7 @@ class ChargingQueue:
         communityId = vars.get('communityId')
         possessionId = vars.get('possessionId')
         cq = ChargingQueue()
+        print dir(cq)
         if not communityId is None and communityId != '':
             cq.setCommunity(self.findCommunityById(communityId))
         if not possessionId is None and possessionId != '':
