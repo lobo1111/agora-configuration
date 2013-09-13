@@ -36,13 +36,12 @@ class ChargingQueueManager:
         return None
     
     def itemsInQueue(self):
-        return entityManager.createQuery('Select count(cq.id) From ChargingQueue cq').getSingleResult() > 0
+        queueSize = entityManager.createQuery('Select count(cq.id) From ChargingQueue cq').getSingleResult()
+        self._logger.info('charge queue size - %s' % str(queueSize))
+        return queueSize
     
     def getFirst(self):
-        try:
-            return entityManager.createQuery('Select item From ChargingQueue cq Order By cq.id ASC').getSingleResult()
-        except:
-            return None
+        return entityManager.createQuery('Select item From ChargingQueue cq Order By cq.id ASC').getSingleResult()
         
     def findCommunityById(self, id):
         return entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
