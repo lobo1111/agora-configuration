@@ -16,8 +16,12 @@ class ChargingQueueManager:
     
     def popFromQueue(self):
         item = self.getFirst()
-        entityManager.remove(item)
-        return item
+        if not item is None:
+            entityManager.remove(item)
+            entityManager.flush()
+            return item
+        else:
+            return None
     
     def getType(self, type): 
         if type == "ALL":
