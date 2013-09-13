@@ -16,8 +16,8 @@ class ChargingQueueManager:
         entityManager.persist(cq)
     
     def popFromQueue(self):
-        item = self.getFirst()
-        if not item is None:
+        if self.itemsInQueue():
+            item = self.getFirst()
             self._logger.info('item poped - %s' % str(item.getId()))
             entityManager.remove(item)
             entityManager.flush()
@@ -34,6 +34,9 @@ class ChargingQueueManager:
         elif type == "POSSESSION":
             return TYPE.POSSESSION
         return None
+    
+    def itemsInQueue(self):
+        return entityManager.createQuery('Select count(cq.id) From ChargingQueue cq').getSingleResult() > 0
     
     def getFirst(self):
         try:
