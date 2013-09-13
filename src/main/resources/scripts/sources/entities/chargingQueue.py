@@ -7,9 +7,9 @@ class ChargingQueueManager:
         communityId = vars.get('communityId')
         possessionId = vars.get('possessionId')
         cq = ChargingQueue()
-        if not communityId is None and communityId != '':
+        if not communityId is None and communityId != '0':
             cq.setCommunity(self.findCommunityById(communityId))
-        if not possessionId is None and possessionId != '':
+        if not possessionId is None and possessionId != '0':
             cq.setPossession(self.findPossessionById(possessionId))
         cq.setType(type)
         entityManager.persist(cq)
