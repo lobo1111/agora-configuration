@@ -1870,4 +1870,10 @@
             ADD CONSTRAINT `charging_queue_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>    
+    
+    <changeSet author='tkopacki' id='table-charging-element-key-column-rename'>
+        <sql>  
+            ALTER TABLE `charging_element` CHANGE `key` `key_value` varchar(255);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
