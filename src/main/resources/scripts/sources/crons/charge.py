@@ -57,7 +57,7 @@ class ChargeManager:
             
     def alreadyCharged(self, possession):
         try:
-            entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId()) + " and c.month != %s)" % self._currentMonth).getSingleResult()
+            entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId()) + " and c.month = %s)" % self._currentMonth).getSingleResult()
             return True
         except:
             return False
@@ -112,7 +112,7 @@ class ChargeManager:
             return possessionElement.getElement().getGlobalValue()
             
     def findAllUncharged(self):
-        return entityManager.createQuery("Select p From Possession p Where p.id not in(Select ped.id From Charging c Join c.possession ped Where c.month != %s)" % self._currentMonth).getResultList()
+        return entityManager.createQuery("Select p From Possession p Where p.id not in(Select ped.id From Charging c Join c.possession ped Where c.month = %s)" % self._currentMonth).getResultList()
             
     def getCurrentMonth(self):
         return entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
