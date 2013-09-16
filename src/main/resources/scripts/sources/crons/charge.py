@@ -1,6 +1,8 @@
 from pl.reaper.container.data import Charging
 from pl.reaper.container.data import ChargingElement
 
+from java.util import Date
+
 import re
 
 class Calculator:
@@ -76,6 +78,7 @@ class ChargeManager:
             charging.setPossession(possession)
             charging.setBookingPeriod(self._bookingPeriod)
             charging.setMonth(self._currentMonth)
+            charging.setTimestamp(Date())
             for possessionElement in possession.getElements():
                 charging.getChargingElements().add(self.calculate(charging, possession, possessionElement))
             entityManager.persist(charging)
