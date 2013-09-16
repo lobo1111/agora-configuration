@@ -896,15 +896,15 @@
                 <name>countRows</name>
                 <data>
                     {:single}
-                    SELECT DISTINCT
-                    count(ce.id)
+                    SELECT COUNT(tmp.cid) FROM
+                    (SELECT c.id cid
                     FROM
-                    ChargingElement ce
-                    JOIN ce.charging c
+                    Charging c
+                    JOIN c.chargingElement ce
                     JOIN c.possession p
                     JOIN p.address a
                     JOIN c.bookingPeriod bp
-                    WHERE {:where}
+                    WHERE {:where}) AS tmp
                 </data>
             </var>
         </variables>
