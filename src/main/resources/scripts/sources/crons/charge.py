@@ -57,21 +57,21 @@ class ChargeManager:
             
     def alreadyCharged(self, possession):
         try:
-            entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId())).getSingleResult()
+            entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId()) + " and c.month != %s)" % self._currentMonth).getSingleResult()
             return True
         except:
             return False
     
     def charge(self, item):
         if item.getType().toString() == "ALL":
-            self.chargeAllCommunities()
+            self.chargeAllUncharged()
         elif item.getType().toString() == "COMMUNITY":
             self.chargeCommunity(item.getCommunity())
         elif item.getType().toString() == "POSSESSION":
             self.chargePossession(item.getPossession())
             
-    def chargePossession(self, possession):
-        if not self.alreadyCharged(possession):
+    def chargePossession(self, possession, check = True):
+        if (not check) or (not self.alreadyCharged(possession)):
             charging = Charging()
             charging.setPossession(possession)
             charging.setBookingPeriod(self._bookingPeriod)
@@ -84,9 +84,9 @@ class ChargeManager:
         for possession in community.getPossessions():
             self.chargePossession(possession)
             
-    def chargeAllCommunities(self):
-        for community in self.findAllCommunities():
-            self.chargeCommunity(community)
+    def chargeAllUncharged(self):
+        for possession in self.findAllUncharged():
+            self.chargePossession(possession, False)
             
     def getBookingPeriod(self):
         return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
@@ -111,8 +111,8 @@ class ChargeManager:
         else:
             return possessionElement.getElement().getGlobalValue()
             
-    def findAllCommunities(self):
-        return entityManager.createQuery("Select c From Community c").getResultList()
+    def findAllUncharged(self):
+        return entityManager.createQuery("Select p From Possession p Where p.id not in(Select ped.id From Charging c Join c.possession ped and c.month != %s)" % self._currentMonth).getResultList()
             
     def getCurrentMonth(self):
         return entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
