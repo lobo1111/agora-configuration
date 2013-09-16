@@ -112,7 +112,7 @@ class ChargeManager:
             return possessionElement.getElement().getGlobalValue()
             
     def findAllUncharged(self):
-        return entityManager.createQuery("Select p From Possession p Where p.id not in(Select ped.id From Charging c Join c.possession ped and c.month != %s)" % self._currentMonth).getResultList()
+        return entityManager.createQuery("Select p From Possession p Where p.id not in(Select ped.id From Charging c Join c.possession ped Where c.month != %s)" % self._currentMonth).getResultList()
             
     def getCurrentMonth(self):
         return entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
