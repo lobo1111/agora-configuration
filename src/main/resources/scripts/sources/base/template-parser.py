@@ -49,7 +49,8 @@ class TemplateParser(Container):
             if self._single:
                 self._single = False
                 try:
-                    return query.getSingleResult()
+                    singleResult = query.getSingleResult()
+                    return singleResult
                 except:
                     return None
             else:
