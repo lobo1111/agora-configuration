@@ -897,14 +897,14 @@
                 <data>
                     {:single}
                     SELECT COUNT(tmp.cid) FROM
-                    (SELECT c.id cid
+                    SELECT c.id cid
                     FROM
                     Charging c
                     JOIN c.chargingElement ce
                     JOIN c.possession p
                     JOIN p.address a
                     JOIN c.bookingPeriod bp
-                    WHERE {:where}) AS tmp
+                    WHERE {:where} tmp
                 </data>
             </var>
         </variables>
