@@ -2,6 +2,8 @@ from java.io import StringWriter
 from org.apache.velocity import VelocityContext
 from org.apache.velocity.app import VelocityEngine
 
+import sys
+
 class TemplateParser(Container):
     _logger = Logger([:_scriptId])
     _single = False
@@ -53,6 +55,7 @@ class TemplateParser(Container):
                     self._logger.info('Single result found: %s' % str(singleResult))
                     return singleResult
                 except:
+                    self._logger.warn(sys.exc_info()[1])
                     return None
             else:
                 return query.getResultList()
