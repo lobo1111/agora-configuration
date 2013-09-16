@@ -897,7 +897,7 @@
                 <data>
                     {:single}
                     SELECT 
-                    count(charging.id)
+                    count(*)
                     FROM 
                     Charging charging
                     LEFT OUTER JOIN charging.chargingElements chargingElements
