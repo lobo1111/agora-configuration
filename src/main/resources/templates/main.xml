@@ -896,8 +896,8 @@
                 <name>countRows</name>
                 <data>
                     {:single}
-                    SELECT COUNT(tmp.cid) FROM
-                    SELECT c.id cid
+                    SELECT COUNT(tmp.c) FROM
+                    SELECT c
                     FROM
                     Charging c
                     JOIN c.chargingElement ce
