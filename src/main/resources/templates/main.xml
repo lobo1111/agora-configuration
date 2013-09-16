@@ -895,8 +895,9 @@
             <var>
                 <name>countRows</name>
                 <data>
+                    {:single}
                     SELECT 
-                    count(charging.id)
+                    count(count(charging.id))
                     FROM 
                     Charging charging
                     LEFT OUTER JOIN charging.chargingElements chargingElements
