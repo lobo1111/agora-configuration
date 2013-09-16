@@ -888,14 +888,13 @@
                     LEFT OUTER JOIN possession.address address
                     LEFT OUTER JOIN charging.bookingPeriod bookingPeriod
                     WHERE {:where}
-                    GROUP BY charging.id
+                    GROUP BY chargingElements.charging
                     ORDER BY charging.timestamp DESC
                 </data>
             </var>
             <var>
                 <name>countRows</name>
                 <data>
-                    {:single}
                     SELECT 
                     count(charging.id)
                     FROM 
@@ -905,7 +904,7 @@
                     LEFT OUTER JOIN possession.address address
                     LEFT OUTER JOIN charging.bookingPeriod bookingPeriod
                     WHERE {:where}
-                    GROUP BY charging.id
+                    GROUP BY chargingElements.charging
                 </data>
             </var>
         </variables>
