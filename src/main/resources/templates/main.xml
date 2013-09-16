@@ -883,10 +883,10 @@
                     SUM(chargingElements.value)
                     FROM 
                     Charging charging
-                    LEFT OUTER JOIN charging.chargingElements chargingElements
-                    LEFT OUTER JOIN charging.possession possession
-                    LEFT OUTER JOIN possession.address address
-                    LEFT OUTER JOIN charging.bookingPeriod bookingPeriod
+                    JOIN charging.chargingElements chargingElements
+                    JOIN charging.possession possession
+                    JOIN possession.address address
+                    JOIN charging.bookingPeriod bookingPeriod
                     WHERE {:where}
                     GROUP BY chargingElements.charging
                     ORDER BY charging.timestamp DESC
@@ -896,16 +896,15 @@
                 <name>countRows</name>
                 <data>
                     {:single}
-                    SELECT 
-                    count(count(charging.id))
-                    FROM 
-                    Charging charging
-                    LEFT OUTER JOIN charging.chargingElements chargingElements
-                    LEFT OUTER JOIN charging.possession possession
-                    LEFT OUTER JOIN possession.address address
-                    LEFT OUTER JOIN charging.bookingPeriod bookingPeriod
+                    SELECT DISTINCT
+                    count(ce.id)
+                    FROM
+                    ChargingElement ce
+                    JOIN ce.charging c
+                    JOIN c.possession p
+                    JOIN p.address a
+                    JOIN c.bookingPeriod bp
                     WHERE {:where}
-                    GROUP BY chargingElements.charging
                 </data>
             </var>
         </variables>
