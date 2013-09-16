@@ -50,6 +50,7 @@ class TemplateParser(Container):
                 self._single = False
                 try:
                     singleResult = query.getSingleResult()
+                    self._logger.info('Single result found: %s' % str(singleResult))
                     return singleResult
                 except:
                     return None
