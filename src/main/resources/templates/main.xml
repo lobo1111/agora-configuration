@@ -896,15 +896,17 @@
                 <name>countRows</name>
                 <data>
                     {:single}
-                    SELECT COUNT(tmp.c) FROM
-                    (SELECT c
-                    FROM
-                    Charging c
-                    JOIN c.chargingElement ce
-                    JOIN c.possession p
-                    JOIN p.address a
-                    JOIN c.bookingPeriod bp
-                    WHERE {:where}) tmp
+                    {:native}
+                    SELECT count(*)
+                    FROM (
+                        SELECT DISTINCT c.id
+                        FROM charging AS c
+                        JOIN charging_element AS ce ON (c.id = ce.charging_id)
+                        JOIN possession AS p ON (p.id = ce.possession_id)
+                        JOIN address AS a ON(a.id = p.address_id)
+                        JOIN booking_period AS bp ON(bp.id = charging.booking_period_id)
+                        WHERE {:where}
+                    ) AS tmp
                 </data>
             </var>
         </variables>
