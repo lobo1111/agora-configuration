@@ -900,10 +900,10 @@
                     count(charging.id)
                     FROM 
                     Charging charging
-                    JOIN charging.chargingElements chargingElements
-                    JOIN charging.possession possession
-                    JOIN possession.address address
-                    JOIN charging.bookingPeriod bookingPeriod
+                    LEFT OUTER JOIN charging.chargingElements chargingElements
+                    LEFT OUTER JOIN charging.possession possession
+                    LEFT OUTER JOIN possession.address address
+                    LEFT OUTER JOIN charging.bookingPeriod bookingPeriod
                     WHERE {:where}
                     GROUP BY chargingElements.charging
                 </data>
