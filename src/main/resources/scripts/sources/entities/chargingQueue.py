@@ -41,7 +41,7 @@ class ChargingQueueManager:
         return queueSize
     
     def getFirst(self):
-        return entityManager.createQuery('Select cq From ChargingQueue cq Order By cq.id ASC').getSingleResult()
+        return entityManager.createQuery('Select cq From ChargingQueue cq Order By cq.id ASC Limit 1').getSingleResult()
         
     def findCommunityById(self, id):
         return entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
