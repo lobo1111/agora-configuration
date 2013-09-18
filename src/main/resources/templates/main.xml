@@ -924,8 +924,18 @@
                     FROM 
                     ChargingElement element
                     JOIN element.charging charging
-                    WHERE {:where} AND charging.id = {:id}
+                    WHERE charging.id = {:where}
                     ORDER BY element.key ASC
+                </data>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    COUNT(element.id)
+                    FROM 
+                    ChargingElement element
+                    JOIN element.charging charging
+                    WHERE charging.id = {:where}
                 </data>
             </var>
         </variables>
