@@ -912,6 +912,25 @@
         </variables>
     </template>
     <template>
+        <name>list-charging-elements</name>
+        <source>list-charging-elements.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    element
+                    FROM 
+                    ChargingElement element
+                    JOIN element.charging charging
+                    WHERE {:where} AND charging.id = {:id}
+                    ORDER BY element.key ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-payments</name>
         <source>list-payments.vtl</source>
         <variables>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<charging-elements>
+    #foreach($item in $items)
+    <item>
+        <groupValue>$!item.getGroup().getValue()</groupValue>
+        <key>!item.getKey()</key>
+        <name>!item.getName()</name>
+        <value>!item.getValue()</value>
+    </item>
+    #end
+    <settings>
+        <maxResults>-1</maxResults>
+    </settings>
+</charging-elements>
+
