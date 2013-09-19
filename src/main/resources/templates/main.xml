@@ -887,6 +887,9 @@
                     JOIN charging.possession possession
                     JOIN possession.address address
                     JOIN charging.bookingPeriod bookingPeriod
+                    JOIN element.possession
+                    JOIN possession.address possessionAddress
+                    JOIN possession.community community
                     WHERE {:where}
                     GROUP BY chargingElements.charging
                     ORDER BY charging.timestamp DESC
@@ -902,9 +905,10 @@
                         SELECT DISTINCT c.id
                         FROM charging AS c
                         JOIN charging_element AS ce ON (c.id = ce.charging_id)
-                        JOIN possession AS p ON (p.id = c.possession_id)
-                        JOIN address AS a ON(a.id = p.address_id)
+                        JOIN possession AS possession ON (possession.id = c.possession_id)
+                        JOIN address AS possessionAddress ON(a.id = possession.address_id)
                         JOIN booking_period AS bp ON(bp.id = c.booking_period_id)
+                        JOIN community AS community ON (community.id = possession.community_id)
                         WHERE {:where}
                     ) AS tmp
                 </data>
@@ -924,9 +928,6 @@
                     FROM 
                     ChargingElement element
                     JOIN element.charging charging
-                    JOIN element.possession
-                    JOIN possession.address possessionAddress
-                    JOIN possession.community community
                     WHERE charging.id = {:where}
                     ORDER BY element.key ASC
                 </data>
@@ -938,9 +939,6 @@
                     FROM 
                     ChargingElement element
                     JOIN element.charging charging
-                    JOIN element.possession
-                    JOIN possession.address possessionAddress
-                    JOIN possession.community community
                     WHERE charging.id = {:where}
                 </data>
             </var>
