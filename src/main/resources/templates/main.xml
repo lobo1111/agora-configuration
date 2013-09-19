@@ -884,8 +884,6 @@
                     FROM 
                     Charging charging
                     JOIN charging.chargingElements chargingElements
-                    JOIN charging.possession possession
-                    JOIN possession.address address
                     JOIN charging.bookingPeriod bookingPeriod
                     JOIN charging.possession possession
                     JOIN possession.address possessionAddress
