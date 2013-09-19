@@ -926,6 +926,7 @@
                     JOIN element.charging charging
                     JOIN element.possession
                     JOIN possession.address possessionAddress
+                    JOIN possession.community community
                     WHERE charging.id = {:where}
                     ORDER BY element.key ASC
                 </data>
@@ -939,6 +940,7 @@
                     JOIN element.charging charging
                     JOIN element.possession
                     JOIN possession.address possessionAddress
+                    JOIN possession.community community
                     WHERE charging.id = {:where}
                 </data>
             </var>
