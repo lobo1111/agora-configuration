@@ -904,7 +904,7 @@
                         FROM charging AS c
                         JOIN charging_element AS ce ON (c.id = ce.charging_id)
                         JOIN possession AS possession ON (possession.id = c.possession_id)
-                        JOIN address AS possessionAddress ON(a.id = possession.address_id)
+                        JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
                         JOIN booking_period AS bp ON(bp.id = c.booking_period_id)
                         JOIN community AS community ON (community.id = possession.community_id)
                         WHERE {:where}
