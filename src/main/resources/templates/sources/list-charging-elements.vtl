@@ -3,9 +3,9 @@
     #foreach($item in $items)
     <item>
         <groupValue>$!item.getGroup().getValue()</groupValue>
-        <key>!$item.getKey()</key>
-        <name>!$item.getName()</name>
-        <value>!$item.getValue()</value>
+        <key>$!item.getKey()</key>
+        <name>$!item.getName()</name>
+        <value>$!item.getValue()</value>
     </item>
     #end
     <settings>
