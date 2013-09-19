@@ -887,7 +887,7 @@
                     JOIN charging.possession possession
                     JOIN possession.address address
                     JOIN charging.bookingPeriod bookingPeriod
-                    JOIN element.possession
+                    JOIN charging.possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
                     WHERE {:where}
