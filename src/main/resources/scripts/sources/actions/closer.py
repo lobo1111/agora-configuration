@@ -3,7 +3,7 @@ class Close:
     
     def closeMonth(self):
         self._currentMonth = self.getCurrentMonth()
-        if self._currentMonth < '12':
+        if int(self._currentMonth) < 12:
             self._logger.info('Closing month...')
             self.clearQueue()
             self.setNextMonth()
