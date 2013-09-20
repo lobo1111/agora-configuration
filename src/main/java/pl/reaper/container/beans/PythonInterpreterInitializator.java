@@ -2,14 +2,12 @@ package pl.reaper.container.beans;
 
 import java.util.Properties;
 import javax.annotation.PostConstruct;
-import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.Stateless;
 import org.python.util.PythonInterpreter;
 
-@Stateless
-@LocalBean
 @Startup
+@Singleton
 public class PythonInterpreterInitializator {
 
     @PostConstruct
