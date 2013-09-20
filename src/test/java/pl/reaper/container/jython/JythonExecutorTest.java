@@ -13,7 +13,7 @@ public class JythonExecutorTest {
         ScriptLoader scriptLoader = new ScriptLoaderSimpleImpl();
         ScriptExecutor executor = new ScriptExecutor();
         executor.setLoader(scriptLoader);
-        executor.setEngineBuilder(new ScriptEngineWrapper(new ScriptEngineManager()).init());
+        executor.setEngineBuilder(new ScriptEngineWrapper().init());
         String expResult = "test";
         String result = executor.fire("simple", null);
         assertEquals(expResult, result);
@@ -24,7 +24,7 @@ public class JythonExecutorTest {
         ScriptLoader scriptLoader = new ScriptLoaderSimpleImpl();
         ScriptExecutor executor = new ScriptExecutor();
         executor.setLoader(scriptLoader);
-        executor.setEngineBuilder(new ScriptEngineWrapper(new ScriptEngineManager()).init());
+        executor.setEngineBuilder(new ScriptEngineWrapper().init());
         String expResult = "customVarValue";
         Map<String, String> customVars = new HashMap<>();
         customVars.put("customVar", expResult);

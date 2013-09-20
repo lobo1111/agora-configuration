@@ -7,9 +7,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import org.python.util.PythonInterpreter;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
 
@@ -20,26 +19,24 @@ public class ScriptEngineWrapper {
     private PropertyBeanLocal propertyBean;
     private DocumentStatusBeanLocal documentStatusBean;
     private Map<String, Object> variables = new HashMap<>();
-    private ScriptEngine engine;
+    private PythonInterpreter interpreter;
     private String lastExecuted;
 
-    public ScriptEngineWrapper(ScriptEngineManager engineManager) throws ScriptEngineNotFoundException {
-        engine = engineManager.getEngineByName("python");
-        if (engine == null) {
-            throw new ScriptEngineNotFoundException("Python engine not found");
-        }
+    public ScriptEngineWrapper() {
+        interpreter = new PythonInterpreter();
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Jython engine created");
         lastExecuted = "";
         putMetaVars();
     }
 
     public ScriptEngineWrapper init() {
-        engine.getContext().setWriter(new PrintWriter(System.out));
-        engine.put("entityManager", entityManager);
-        engine.put("oldEntityManager", oldEntityManager);
-        engine.put("vars", variables);
-        engine.put("properties", propertyBean);
-        engine.put("documentStatusLoader", documentStatusBean);
+        interpreter.setOut(new PrintWriter(System.out));
+        interpreter.setErr(new PrintWriter(System.out));
+        interpreter.set("entityManager", entityManager);
+        interpreter.set("oldEntityManager", oldEntityManager);
+        interpreter.set("vars", variables);
+        interpreter.set("properties", propertyBean);
+        interpreter.set("documentStatusLoader", documentStatusBean);
         return this;
     }
 
@@ -49,14 +46,10 @@ public class ScriptEngineWrapper {
         variables.put("_uuid", UUID.randomUUID().toString());
     }
 
-    public Object extractResult(ScriptEngine engine) {
-        try {
-            String result = (String) engine.eval("output.getResult()");
-            if (result != null && !"".equals(result)) {
-                return result;
-            }
-        } catch (ScriptException ex) {
-            Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Output not found");
+    public Object extractResult(PythonInterpreter interpreter) {
+        String result = interpreter.eval("output.getResult()").asString();
+        if (result != null && !"".equals(result)) {
+            return result;
         }
         return "<no output>";
     }
@@ -64,14 +57,14 @@ public class ScriptEngineWrapper {
     public Object eval(String script) throws ScriptException {
         lastExecuted += (script = new VariableParser(script, variables).parse()) + "\n";
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-        engine.eval(script);
-        return extractResult(engine);
+        interpreter.eval(script);
+        return extractResult(interpreter);
     }
 
     public Object eval() throws ScriptException {
         Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-        engine.eval(lastExecuted);
-        return extractResult(engine);
+        interpreter.eval(lastExecuted);
+        return extractResult(interpreter);
     }
 
     public ScriptEngineWrapper setEntityManager(EntityManager entityManager) {
@@ -95,7 +88,7 @@ public class ScriptEngineWrapper {
         }
         return this;
     }
-    
+
     public ScriptEngineWrapper resetVariables() {
         variables.clear();
         putMetaVars();
@@ -120,7 +113,7 @@ public class ScriptEngineWrapper {
 
     private String variablesAsString() {
         StringBuilder builder = new StringBuilder();
-        for(String key: variables.keySet().toArray(new String[0])) {
+        for (String key : variables.keySet().toArray(new String[0])) {
             builder.append(key).append("=").append(variables.get(key)).append("\n");
         }
         return builder.toString();

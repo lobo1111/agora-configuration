@@ -8,6 +8,8 @@ import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.script.ScriptException;
 import pl.reaper.container.jython.ScriptEngineWrapper;
 import pl.reaper.container.ws.wrappers.MapWrapper;
@@ -17,7 +19,15 @@ import pl.reaper.container.ws.wrappers.MapWrapper;
 public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
     @EJB
-    private ScriptEngineCacheLocal cache;
+    private ScriptCompilatorLocal compilator;
+    @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
+    private EntityManager entityManager;
+    @PersistenceContext(name = "agora_old_erp", unitName = "agora_old_erp")
+    private EntityManager oldEntityManager;
+    @EJB
+    private PropertyBeanLocal propertyBean;
+    @EJB
+    private DocumentStatusBeanLocal documentStatusBean;
 
     @PermitAll
     @Override
@@ -31,24 +41,25 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
         return executeScript(scriptName, new HashMap<String, String>(), true);
     }
 
+    private ScriptEngineWrapper getScriptEngine() {
+        ScriptEngineWrapper engineBuilder = new ScriptEngineWrapper()
+                .setDocumentStatusBean(documentStatusBean)
+                .setEntityManager(entityManager)
+                .setOldEntityManager(oldEntityManager)
+                .setPropertyBean(propertyBean)
+                .init();
+        return engineBuilder;
+    }
+
     @Override
     public String executeScript(String scriptName, Map variables, boolean preservePrivilages) {
         String output = "";
-        ScriptEngineWrapper engineBuilder = null;
+        ScriptEngineWrapper engineBuilder = getScriptEngine();
+        engineBuilder.resetVariables().addVariables(variables);
         try {
-            synchronized(JythonBean.class) {
-                if (cache.contains(scriptName)) {
-                    engineBuilder = cache.get(scriptName);
-                    engineBuilder.resetVariables().addVariables(variables);
-                    output = (String) engineBuilder.eval();
-                } else {
-                    output = (String) cache.init(scriptName, variables);
-                }
-            }
+            output = (String) engineBuilder.eval();
         } catch (ScriptException ex) {
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            cache.releaseEngine(scriptName, engineBuilder);
         }
         Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, output.length() > 256 ? output.substring(0, 256) : output);
         return output;
