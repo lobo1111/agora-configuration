@@ -255,6 +255,7 @@
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
+            <scriptName>dictionary-manager</scriptName>
         </dependencies>
         <security>
             <group>all</group>
