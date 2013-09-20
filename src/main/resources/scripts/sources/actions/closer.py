@@ -20,6 +20,7 @@ class Close:
         
     def setNextMonth(self):
         self._currentMonth += 1
-        self._logger.info('Setting current month as %d' % self._currentMonth)
-        entityManager.createQuery('Update Dictionary Set dict.value = "%s" Where dict.id IN (SELECT dict.id FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT")' % str(self._currentMonth)).executeUpdate()
-        self._logger.info('Next month set')
+        dict = DictionaryManager().findDictionaryInstance("PERIODS", "CURRENT")
+        dict.setValue(str(self._currentMonth))
+        entityManager.persist(dict)
+        entityManager.flush()
