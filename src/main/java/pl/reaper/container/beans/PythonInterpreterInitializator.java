@@ -1,6 +1,7 @@
 package pl.reaper.container.beans;
 
 import java.util.Properties;
+import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;
@@ -11,6 +12,7 @@ import org.python.util.PythonInterpreter;
 @Startup
 public class PythonInterpreterInitializator {
 
+    @PostConstruct
     public void init() {
         Properties properties = new Properties();
         properties.setProperty("python.path", "/usr/share/jython/Lib");
