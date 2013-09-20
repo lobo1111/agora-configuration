@@ -248,6 +248,19 @@
     
     
     <script>
+        <name>close-month</name>
+        <source>actions/closer.py</source>
+        <onInit>Close().closeMonth()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    <script>
         <name>address</name>
         <source>entities/address.py</source>
         <onInit/>

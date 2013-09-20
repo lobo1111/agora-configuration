@@ -1410,6 +1410,32 @@
         </variables>
     </template>
     <template>
+        <name>can-close-month</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    Select 
+                        count(p.id) 
+                    From 
+                        Possession p 
+                    Where 
+                        p.id not in(Select ped.id From Charging c Join c.possession ped 
+                        AND c.month IN(
+                                    SELECT 
+                                        dict.value 
+                                    FROM 
+                                        Dictionary dict 
+                                        JOIN dict.type dtype 
+                                    WHERE 
+                                        dtype.type = "PERIODS" 
+                                        AND dict.key = "CURRENT")
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>current-charge-month</name>
         <source>simple-long-response.vtl</source>
         <variables>
