@@ -3,7 +3,7 @@ class Close:
     
     def canCloseMonth(self):
         self._currentMonth = self.getCurrentMonth()
-        if self._currentMonth < 12:
+        if self._currentMonth < '12':
             return True
         else:
             return False
