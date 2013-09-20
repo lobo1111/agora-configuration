@@ -386,7 +386,17 @@
                                 charged.id 
                             FROM 
                                 Charging charging
-                                JOIN charging.possession charged)
+                                JOIN charging.possession charged
+                            WHERE
+                                charging.month IN(
+                                    SELECT
+                                        dict.value
+                                    FROM
+                                        Dictionary dict
+                                        JOIN dict.type dtype
+                                    WHERE
+                                        dtype.type = "PERIODS"
+                                        AND dict.key = "CURRENT"))
                     GROUP BY
                         community.id
                     HAVING
