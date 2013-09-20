@@ -1426,6 +1426,7 @@
             <var>
                 <name>response</name>
                 <data>
+                    {:single}
                     SELECT
                         COUNT(possession.id) as counter
                     FROM
