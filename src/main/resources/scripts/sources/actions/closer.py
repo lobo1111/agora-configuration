@@ -15,11 +15,11 @@ class Close:
         return entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
         
     def clearQueue(self):
-        entityManager.createQuery("Delete From ChargingQueue cq").executeQuery()
+        entityManager.createQuery("Delete From ChargingQueue cq").executeUpdate()
         self._logger.info('Charge queue cleared')
         
     def setNextMonth(self):
         self._currentMonth += 1
         self._logger.info('Setting current month as %s' % str(self._currentMonth))
-        entityManager.createQuery('Update Dictionary Set dict.value = "%s" Where dict.id IN (SELECT dict.id FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT")' % str(self._currentMonth)).executeQuery()
+        entityManager.createQuery('Update Dictionary Set dict.value = "%s" Where dict.id IN (SELECT dict.id FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT")' % str(self._currentMonth)).executeUpdate()
         self._logger.info('Next month set')
