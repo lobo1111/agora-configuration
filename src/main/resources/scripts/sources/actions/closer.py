@@ -2,14 +2,14 @@ class Close:
     _logger = Logger([:_scriptId])
     
     def closeMonth(self):
-        self._currentMonth = self.getCurrentMonth()
-        if int(self._currentMonth) < 12:
+        self._currentMonth = int(self.getCurrentMonth())
+        if self._currentMonth < 12:
             self._logger.info('Closing month...')
             self.clearQueue()
             self.setNextMonth()
             self._logger.info('Month closed')
         else:
-            self._logger.info("Month can't be closed - its already %s" % self._currentMonth)
+            self._logger.info("Month can't be closed - its already %d" % self._currentMonth)
         
     def getCurrentMonth(self):
         return entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
@@ -20,6 +20,6 @@ class Close:
         
     def setNextMonth(self):
         self._currentMonth += 1
-        self._logger.info('Setting current month as %s' % str(self._currentMonth))
+        self._logger.info('Setting current month as %d' % str(self._currentMonth))
         entityManager.createQuery('Update Dictionary Set dict.value = "%s" Where dict.id IN (SELECT dict.id FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT")' % str(self._currentMonth)).executeUpdate()
         self._logger.info('Next month set')
