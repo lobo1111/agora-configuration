@@ -1426,25 +1426,27 @@
             <var>
                 <name>response</name>
                 <data>
-                    Select 
-                        count(p.id) 
-                    From 
-                        Possession p 
-                    Where 
-                        p.id not in(
-                            Select 
-                                ped.id 
-                            From 
-                                Charging c 
-                                Join c.possession ped 
-                            Where c.month IN(
-                                    SELECT 
-                                        dict.value 
-                                    FROM 
-                                        Dictionary dict 
-                                        JOIN dict.type dtype 
-                                    WHERE 
-                                        dtype.type = "PERIODS" 
+                    SELECT
+                        COUNT(possession.id) as counter
+                    FROM
+                        Community community
+                        JOIN community.possessions possession
+                    WHERE
+                        possession.id NOT IN(
+                            SELECT 
+                                charged.id 
+                            FROM 
+                                Charging charging
+                                JOIN charging.possession charged
+                            WHERE
+                                charging.month IN(
+                                    SELECT
+                                        dict.value
+                                    FROM
+                                        Dictionary dict
+                                        JOIN dict.type dtype
+                                    WHERE
+                                        dtype.type = "PERIODS"
                                         AND dict.key = "CURRENT"))
                 </data>
             </var>
