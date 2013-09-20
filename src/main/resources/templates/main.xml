@@ -1421,8 +1421,13 @@
                     From 
                         Possession p 
                     Where 
-                        p.id not in(Select ped.id From Charging c Join c.possession ped 
-                        AND c.month IN(
+                        p.id not in(
+                            Select 
+                                ped.id 
+                            From 
+                                Charging c 
+                                Join c.possession ped 
+                            Where c.month IN(
                                     SELECT 
                                         dict.value 
                                     FROM 
@@ -1430,7 +1435,7 @@
                                         JOIN dict.type dtype 
                                     WHERE 
                                         dtype.type = "PERIODS" 
-                                        AND dict.key = "CURRENT")
+                                        AND dict.key = "CURRENT"))
                 </data>
             </var>
         </variables>
