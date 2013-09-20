@@ -81,7 +81,7 @@ class ChargeManager:
             charging.setTimestamp(Date())
             for possessionElement in possession.getElements():
                 charging.getChargingElements().add(self.calculate(charging, possession, possessionElement))
-            if charging.getElements().size() > 0:
+            if charging.getChargingElements().size() > 0:
                 entityManager.persist(charging)
     
     def chargeCommunity(self, community):
