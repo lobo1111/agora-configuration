@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import org.python.core.PySystemState;
 import org.python.util.PythonInterpreter;
 
 @Startup
@@ -16,6 +17,9 @@ public class PythonInterpreterInitializator {
 
     @PostConstruct
     public void init() {
+        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
+
+
 //        Properties properties = new Properties();
 //        properties.setProperty("python.path", "/usr/share/jython/Lib");
 //        PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});

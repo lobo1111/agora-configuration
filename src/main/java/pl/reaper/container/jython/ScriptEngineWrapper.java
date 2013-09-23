@@ -4,15 +4,11 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.script.ScriptException;
-import org.python.core.Py;
-import org.python.core.PyStringMap;
-import org.python.core.PySystemState;
 import org.python.util.PythonInterpreter;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
@@ -28,7 +24,6 @@ public class ScriptEngineWrapper {
     private PythonInterpreter interpreter;
 
     public ScriptEngineWrapper() {
-        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
         interpreter = new PythonInterpreter();
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
         putMetaVars();
