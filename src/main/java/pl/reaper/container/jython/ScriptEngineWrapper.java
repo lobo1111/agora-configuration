@@ -30,9 +30,10 @@ public class ScriptEngineWrapper {
         engine = new ScriptEngineManager().getEngineByName("python");
         if (engine == null) {
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.SEVERE, "Python engine not found");
+        } else {
+            Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
+            putMetaVars();
         }
-        Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
-        putMetaVars();
     }
 
     public ScriptEngineWrapper init() {
