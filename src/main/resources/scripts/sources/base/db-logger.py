@@ -1,4 +1,4 @@
-from pl.reaper.container.data import Log
+from pl.reaper.container.data.Log import Log
 
 class Logger:
   _scriptId = None
