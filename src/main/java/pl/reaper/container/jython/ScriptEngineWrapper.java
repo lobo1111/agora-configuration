@@ -125,7 +125,7 @@ public class ScriptEngineWrapper {
             scriptContent = "";
             List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
             for(Script script: scriptChain) {
-                scriptContent += script.getScript();
+                scriptContent += script.getScript() + "\n";
             }
             scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
             cache.cache(scriptName, scriptContent);
