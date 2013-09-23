@@ -11,7 +11,6 @@ import javax.script.ScriptException;
 import pl.reaper.container.data.Script;
 import pl.reaper.container.jython.DBScriptLoader;
 import pl.reaper.container.jython.ScriptEngineWrapper;
-import pl.reaper.container.jython.ScriptExecutor;
 import pl.reaper.container.jython.ScriptLoader;
 
 @Stateless
@@ -27,11 +26,11 @@ public class ScriptCompilator implements ScriptCompilatorLocal {
             engineBuilder.addVariables(variables);
             for (Script script : chain) {
                 engineBuilder.addVariable("_scriptId", script.getId());
-                Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Initializing script {0}...", script.getName());
+                Logger.getLogger(ScriptCompilator.class.getName()).log(Level.INFO, "Initializing script {0}...", script.getName());
                 engineBuilder.eval(script.getScript());
-                Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script {0} initialized.", script.getName());
+                Logger.getLogger(ScriptCompilator.class.getName()).log(Level.INFO, "Script {0} initialized.", script.getName());
             }
-            Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Executing final script...");
+            Logger.getLogger(ScriptCompilator.class.getName()).log(Level.INFO, "Executing final script...");
             return engineBuilder.eval(chain.get(chain.size() - 1).getOnInit());
         } catch (ScriptException ex) {
             Logger.getLogger(ScriptCompilator.class.getName()).log(Level.SEVERE, engineBuilder.getLastExecuted(), ex);

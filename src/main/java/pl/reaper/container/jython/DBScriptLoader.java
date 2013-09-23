@@ -30,7 +30,7 @@ public class DBScriptLoader implements ScriptLoader {
         } catch (NoResultException ex) {
             Logger.getLogger(DBScriptLoader.class.getName()).log(Level.WARNING, "Can't find script " + name, ex);
         }
-        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Script chain loaded({0})", Arrays.deepToString(chain.toArray(new Script[chain.size()])));
+        Logger.getLogger(DBScriptLoader.class.getName()).log(Level.INFO, "Script chain loaded({0})", Arrays.deepToString(chain.toArray(new Script[chain.size()])));
         return chain;
     }
 

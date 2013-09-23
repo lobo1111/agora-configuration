@@ -53,16 +53,17 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
     @Override
     public String executeScript(String scriptName, Map variables, boolean preservePrivilages) {
-        String output = "";
-        ScriptEngineWrapper engineBuilder = getScriptEngine();
-        engineBuilder.resetVariables().addVariables(variables);
         try {
-            output = (String) engineBuilder.eval();
+            String output = "";
+            ScriptEngineWrapper engineBuilder = getScriptEngine();
+            engineBuilder.resetVariables().addVariables(variables);
+            output = (String) engineBuilder.eval(scriptName);
+            Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, output.length() > 256 ? output.substring(0, 256) : output);
+            return output;
         } catch (ScriptException ex) {
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, output.length() > 256 ? output.substring(0, 256) : output);
-        return output;
+        return "";
     }
 
     @Override

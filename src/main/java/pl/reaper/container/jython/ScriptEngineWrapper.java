@@ -2,6 +2,7 @@ package pl.reaper.container.jython;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -11,6 +12,7 @@ import javax.script.ScriptException;
 import org.python.util.PythonInterpreter;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
+import pl.reaper.container.data.Script;
 
 public class ScriptEngineWrapper {
 
@@ -24,7 +26,7 @@ public class ScriptEngineWrapper {
 
     public ScriptEngineWrapper() {
         interpreter = new PythonInterpreter();
-        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Jython engine created");
+        Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
         lastExecuted = "";
         putMetaVars();
     }
@@ -54,16 +56,11 @@ public class ScriptEngineWrapper {
         return "<no output>";
     }
 
-    public Object eval(String script) throws ScriptException {
-        lastExecuted += (script = new VariableParser(script, variables).parse()) + "\n";
-        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-        interpreter.eval(script);
-        return extractResult(interpreter);
-    }
-
-    public Object eval() throws ScriptException {
-        Logger.getLogger(ScriptExecutor.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-        interpreter.eval(lastExecuted);
+    public Object eval(String scriptName) throws ScriptException {
+        String scriptContent = findScript(scriptName);
+        lastExecuted += (scriptContent = new VariableParser(scriptContent, variables).parse()) + "\n";
+        Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
+        interpreter.eval(scriptContent);
         return extractResult(interpreter);
     }
 
@@ -117,5 +114,22 @@ public class ScriptEngineWrapper {
             builder.append(key).append("=").append(variables.get(key)).append("\n");
         }
         return builder.toString();
+    }
+
+    private String findScript(String scriptName) {
+        ScriptCache cache = new ScriptCache();
+        String scriptContent = cache.getFromCache(scriptName);
+        if(scriptContent != null) {
+            return scriptContent;
+        } else {
+            scriptContent = "";
+            List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
+            for(Script script: scriptChain) {
+                scriptContent += script.getScript();
+            }
+            scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
+            cache.cache(scriptName, scriptContent);
+            return scriptContent;
+        }
     }
 }
