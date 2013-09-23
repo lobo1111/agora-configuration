@@ -17,9 +17,9 @@ public class PythonInterpreterInitializator {
 
     @PostConstruct
     public void init() {
-        Properties properties = new Properties();
-        properties.setProperty("python.path", "/usr/share/jython/Lib");
-        PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
+//        Properties properties = new Properties();
+//        properties.setProperty("python.path", "/usr/share/jython/Lib");
+//        PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
         PySystemState.add_classdir("/opt/builder/container/target/classes");
         for (File file : cacheDir.listFiles()) {
             if (file.delete()) {
