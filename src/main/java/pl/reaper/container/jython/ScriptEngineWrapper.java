@@ -1,5 +1,7 @@
 package pl.reaper.container.jython;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import org.python.util.PythonInterpreter;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
@@ -21,22 +25,21 @@ public class ScriptEngineWrapper {
     private PropertyBeanLocal propertyBean;
     private DocumentStatusBeanLocal documentStatusBean;
     private Map<String, Object> variables = new HashMap<>();
-    private PythonInterpreter interpreter;
+    private ScriptEngine engine;
 
     public ScriptEngineWrapper() {
-        interpreter = new PythonInterpreter();
+        engine = new ScriptEngineManager().getEngineByName("python");
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
         putMetaVars();
     }
 
     public ScriptEngineWrapper init() {
-        interpreter.setOut(new PrintWriter(System.out));
-        interpreter.setErr(new PrintWriter(System.out));
-        interpreter.set("entityManager", entityManager);
-        interpreter.set("oldEntityManager", oldEntityManager);
-        interpreter.set("vars", variables);
-        interpreter.set("properties", propertyBean);
-        interpreter.set("documentStatusLoader", documentStatusBean);
+        engine.getContext().setWriter(new PrintWriter(System.out));
+        engine.put("entityManager", entityManager);
+        engine.put("oldEntityManager", oldEntityManager);
+        engine.put("vars", variables);
+        engine.put("properties", propertyBean);
+        engine.put("documentStatusLoader", documentStatusBean);
         return this;
     }
 
@@ -46,18 +49,27 @@ public class ScriptEngineWrapper {
         variables.put("_uuid", UUID.randomUUID().toString());
     }
 
-    public Object extractResult(PythonInterpreter interpreter) {
-        String result = interpreter.eval("output.getResult()").asString();
-        if (result != null && !"".equals(result)) {
-            return result;
+    public Object extractResult(ScriptEngine engine) {
+        try {
+            String result = (String) engine.eval("output.getResult()");
+            if (result != null && !"".equals(result)) {
+                return result;
+            }
+        } catch (ScriptException ex) {
+            Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "<no output>";
     }
 
     public Object eval(String scriptName) throws ScriptException {
-        Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-        interpreter.execfile(findScript(scriptName));
-        return extractResult(interpreter);
+        try {
+            Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
+            engine.eval(new FileReader(findScript(scriptName)));
+            return extractResult(engine);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
     }
 
     public ScriptEngineWrapper setEntityManager(EntityManager entityManager) {
