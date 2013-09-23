@@ -10,17 +10,16 @@ import org.python.util.PythonInterpreter;
 @Startup
 @Singleton
 public class PythonInterpreterInitializator {
-    
-    private String CACHE_DIR = "/opt/container/cache/";
-    private File cacheDir = new File(CACHE_DIR);
 
     @PostConstruct
     public void init() {
+        String CACHE_DIR = "/opt/container/cache/";
+        File cacheDir = new File(CACHE_DIR);
         Properties properties = new Properties();
         properties.setProperty("python.path", "/usr/share/jython/Lib");
         PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
-        for(File file: cacheDir.listFiles()) {
-            if(file.delete()) {
+        for (File file : cacheDir.listFiles()) {
+            if (file.delete()) {
                 System.out.println("Cached file " + file.getName() + " deleted.");
             } else {
                 System.out.println("Cached file " + file.getName() + " can't be deleted.");
