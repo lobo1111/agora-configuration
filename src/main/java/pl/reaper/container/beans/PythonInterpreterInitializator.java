@@ -20,7 +20,7 @@ public class PythonInterpreterInitializator {
         Properties properties = new Properties();
         properties.setProperty("python.path", "/usr/share/jython/Lib");
         PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
-        PySystemState.add_classdir("/opt/builder/container/target/classes");
+//        PySystemState.add_classdir("/opt/builder/container/target/classes");
         for (File file : cacheDir.listFiles()) {
             if (file.delete()) {
                 System.out.println("Cached file " + file.getName() + " deleted.");
