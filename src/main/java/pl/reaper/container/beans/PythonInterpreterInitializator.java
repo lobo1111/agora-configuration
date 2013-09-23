@@ -22,11 +22,11 @@ public class PythonInterpreterInitializator {
         PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
         PySystemState.add_classdir("/opt/builder/container/target/classes");
         for (File file : cacheDir.listFiles()) {
-//            if (file.delete()) {
-//                System.out.println("Cached file " + file.getName() + " deleted.");
-//            } else {
-//                System.out.println("Cached file " + file.getName() + " can't be deleted.");
-//            }
+            if (file.delete()) {
+                System.out.println("Cached file " + file.getName() + " deleted.");
+            } else {
+                System.out.println("Cached file " + file.getName() + " can't be deleted.");
+            }
         }
     }
 }
