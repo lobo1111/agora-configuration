@@ -23,6 +23,5 @@ public class PythonInterpreterInitializator {
                 System.out.println("Cached file " + file.getName() + " can't be deleted.");
             }
         }
-        System.out.println("PythonInterpreter initialized.");
     }
 }

@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.script.ScriptException;
+import org.python.core.PySystemState;
 import org.python.util.PythonInterpreter;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
@@ -27,8 +28,11 @@ public class ScriptEngineWrapper {
     public ScriptEngineWrapper() {
         Properties properties = new Properties();
         properties.setProperty("python.path", "/usr/share/jython/Lib");
+        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
         PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
+        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
         interpreter = new PythonInterpreter();
+        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
         putMetaVars();
     }
