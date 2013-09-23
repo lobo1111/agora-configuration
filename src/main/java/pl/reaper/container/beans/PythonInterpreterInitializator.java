@@ -17,7 +17,8 @@ public class PythonInterpreterInitializator {
     @PostConstruct
     public void init() {
         Properties properties = new Properties();
-        properties.setProperty("python.path", "/usr/share/jython/Lib");
+//        properties.setProperty("python.path", "/usr/share/jython/Lib");
+        properties.setProperty("python.path", "/opt/glassfish/domains/devel/applications/Container-0.1");
         PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
         for(File file: cacheDir.listFiles()) {
             if(file.delete()) {
