@@ -4,12 +4,13 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.script.ScriptException;
+import org.python.core.Py;
+import org.python.core.PyStringMap;
 import org.python.core.PySystemState;
 import org.python.util.PythonInterpreter;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
@@ -26,13 +27,9 @@ public class ScriptEngineWrapper {
     private PythonInterpreter interpreter;
 
     public ScriptEngineWrapper() {
-        Properties properties = new Properties();
-        properties.setProperty("python.path", "/usr/share/jython/Lib");
-        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
-        PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
-        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
-        interpreter = new PythonInterpreter();
-        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
+        PySystemState sys = Py.getSystemState();
+        sys.add_classdir("/usr/java/devel/");
+        interpreter = new PythonInterpreter(new PyStringMap(), sys);
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
         putMetaVars();
     }
