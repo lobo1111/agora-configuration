@@ -13,7 +13,6 @@ import javax.persistence.EntityManager;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import org.python.util.PythonInterpreter;
 import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
 import pl.reaper.container.data.Script;
@@ -29,6 +28,9 @@ public class ScriptEngineWrapper {
 
     public ScriptEngineWrapper() {
         engine = new ScriptEngineManager().getEngineByName("python");
+        if (engine == null) {
+            Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.SEVERE, "Python engine not found");
+        }
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
         putMetaVars();
     }
