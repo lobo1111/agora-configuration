@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,9 @@ public class ScriptEngineWrapper {
     private PythonInterpreter interpreter;
 
     public ScriptEngineWrapper() {
+        Properties properties = new Properties();
+        properties.setProperty("python.path", "/usr/share/jython/Lib");
+        PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
         interpreter = new PythonInterpreter();
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
         putMetaVars();
@@ -110,10 +114,10 @@ public class ScriptEngineWrapper {
 
     private String findScript(String scriptName) {
         ScriptCache cache = new ScriptCache();
-        if(!cache.inCache(scriptName)) {
+        if (!cache.inCache(scriptName)) {
             String scriptContent = "";
             List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
-            for(Script script: scriptChain) {
+            for (Script script : scriptChain) {
                 variables.put("_scriptId", String.valueOf(script.getId()));
                 scriptContent += new VariableParser(script.getScript() + "\n", variables).parse();
             }
