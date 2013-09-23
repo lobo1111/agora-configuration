@@ -17,7 +17,7 @@ public class PythonInterpreterInitializator {
 
     @PostConstruct
     public void init() {
-        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
+        PySystemState.add_classdir("/opt/builder/container/target/classes");
 
 
 //        Properties properties = new Properties();
