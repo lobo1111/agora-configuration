@@ -28,9 +28,8 @@ public class ScriptEngineWrapper {
     private PythonInterpreter interpreter;
 
     public ScriptEngineWrapper() {
-        PySystemState sys = Py.getSystemState();
-        sys.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
-        interpreter = new PythonInterpreter(new PyStringMap(), sys);
+        PySystemState.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
+        interpreter = new PythonInterpreter();
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
         putMetaVars();
     }
