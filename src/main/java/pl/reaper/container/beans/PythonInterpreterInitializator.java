@@ -16,9 +16,9 @@ public class PythonInterpreterInitializator {
 
     @PostConstruct
     public void init() {
-        Properties properties = new Properties();
-        properties.setProperty("python.path", "/usr/share/jython/Lib");
-        PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
+//        Properties properties = new Properties();
+//        properties.setProperty("python.path", "/usr/share/jython/Lib");
+//        PythonInterpreter.initialize(System.getProperties(), properties, new String[]{});
         for (File file : cacheDir.listFiles()) {
             if (file.delete()) {
                 System.out.println("Cached file " + file.getName() + " deleted.");
