@@ -111,7 +111,7 @@ public class ScriptEngineWrapper {
     private String findScript(String scriptName) {
         ScriptCache cache = new ScriptCache();
         if (!cache.inCache(scriptName)) {
-            String scriptContent = "";
+            String scriptContent = "print dir()";
             List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
             for (Script script : scriptChain) {
                 variables.put("_scriptId", String.valueOf(script.getId()));
