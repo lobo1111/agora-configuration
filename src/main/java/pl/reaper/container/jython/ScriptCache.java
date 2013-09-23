@@ -48,7 +48,6 @@ public class ScriptCache {
         if (isCacheDirAvailable() && !inCache(scriptName)) {
             try {
                 try (FileWriter writer = new FileWriter(CACHE_DIR + scriptName + ".py")) {
-                    writer.write("import sys\nsys.add_classdir('/opt/builder/container/target/classes')\n\n");
                     writer.write(scriptContent);
                 }
             } catch (IOException ex) {
