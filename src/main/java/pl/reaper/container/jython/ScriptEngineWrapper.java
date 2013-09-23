@@ -59,9 +59,9 @@ public class ScriptEngineWrapper {
                 return result;
             }
         } catch (ScriptException ex) {
-            Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.SEVERE, null, ex);
+            return "<no output>";
         }
-        return "<no output>";
+        return "";
     }
 
     public Object eval(String scriptName) throws ScriptException {
