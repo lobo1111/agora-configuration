@@ -18,8 +18,6 @@ import pl.reaper.container.ws.wrappers.MapWrapper;
 @Stateless
 public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
-    @EJB
-    private ScriptCompilatorLocal compilator;
     @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
     private EntityManager entityManager;
     @PersistenceContext(name = "agora_old_erp", unitName = "agora_old_erp")

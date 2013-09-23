@@ -22,12 +22,10 @@ public class ScriptEngineWrapper {
     private DocumentStatusBeanLocal documentStatusBean;
     private Map<String, Object> variables = new HashMap<>();
     private PythonInterpreter interpreter;
-    private String lastExecuted;
 
     public ScriptEngineWrapper() {
         interpreter = new PythonInterpreter();
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
-        lastExecuted = "";
         putMetaVars();
     }
 
@@ -57,10 +55,8 @@ public class ScriptEngineWrapper {
     }
 
     public Object eval(String scriptName) throws ScriptException {
-        String scriptContent = findScript(scriptName);
-        lastExecuted += (scriptContent = new VariableParser(scriptContent, variables).parse()) + "\n";
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-        interpreter.eval(scriptContent);
+        interpreter.execfile(findScript(scriptName));
         return extractResult(interpreter);
     }
 
@@ -99,10 +95,6 @@ public class ScriptEngineWrapper {
         return this;
     }
 
-    public String getLastExecuted() {
-        return lastExecuted;
-    }
-
     public ScriptEngineWrapper setOldEntityManager(EntityManager oldEntityManager) {
         this.oldEntityManager = oldEntityManager;
         return this;
@@ -118,18 +110,15 @@ public class ScriptEngineWrapper {
 
     private String findScript(String scriptName) {
         ScriptCache cache = new ScriptCache();
-        String scriptContent = cache.getFromCache(scriptName);
-        if(scriptContent != null) {
-            return scriptContent;
-        } else {
-            scriptContent = "";
+        if(!cache.inCache(scriptName)) {
+            String scriptContent = "";
             List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
             for(Script script: scriptChain) {
                 scriptContent += script.getScript() + "\n";
             }
             scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
             cache.cache(scriptName, scriptContent);
-            return scriptContent;
         }
+        return "/opt/container/cache/" + scriptName + ".py";
     }
 }
