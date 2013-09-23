@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +29,7 @@ public class ScriptEngineWrapper {
 
     public ScriptEngineWrapper() {
         PySystemState sys = Py.getSystemState();
-        sys.add_classdir("/usr/java/devel/");
+        sys.add_classdir("/opt/glassfish/domains/devel/applications/Container-0.1");
         interpreter = new PythonInterpreter(new PyStringMap(), sys);
         Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
         putMetaVars();
