@@ -114,6 +114,7 @@ public class ScriptEngineWrapper {
             String scriptContent = "";
             List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
             for(Script script: scriptChain) {
+                variables.put("_scriptId", String.valueOf(script.getId()));
                 scriptContent += new VariableParser(script.getScript() + "\n", variables).parse();
             }
             scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
