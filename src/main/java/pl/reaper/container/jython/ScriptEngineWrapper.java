@@ -137,4 +137,14 @@ public class ScriptEngineWrapper {
         }
         return "/opt/container/cache/" + scriptName + ".py";
     }
+
+    public void destroy() {
+        engine.put("entityManager", null);
+        engine.put("oldEntityManager", null);
+        engine.put("vars", null);
+        engine.put("properties", null);
+        engine.put("documentStatusLoader", null);
+        engine.getContext().setWriter(null);
+        variables.clear();
+    }
 }
