@@ -55,23 +55,20 @@ public class ScriptEngineWrapper {
         variables.put("_uuid", UUID.randomUUID().toString());
     }
 
-    public Object extractResult(ScriptEngine engine) {
-        try {
-            String result = (String) engine.eval("output.getResult()");
-            if (result != null && !"".equals(result)) {
-                return result;
-            }
-        } catch (ScriptException ex) {
+    public Object extractResult(String result) {
+        if (result != null && !"".equals(result)) {
+            return result;
+
+        } else {
             return "<no output>";
         }
-        return "";
     }
 
     public Object eval(String scriptName) throws ScriptException {
         try {
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-            findScript(scriptName).eval(getBinding());
-            return extractResult(engine);
+            CompiledScript script = findScript(scriptName);
+            return extractResult((String) script.eval(getBinding()));
         } catch (ScriptException ex) {
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -136,6 +133,7 @@ public class ScriptEngineWrapper {
                 scriptContent += new VariableParser(script.getScript() + "\n", variables).parse();
             }
             scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
+            scriptContent += "\nif globals()['output'] != None: output.getResult()";
             Compilable compilingEngine = (Compilable) engine;
             compiledScript = compilingEngine.compile(scriptContent);
             ScriptCache.cache(scriptName, compiledScript);
