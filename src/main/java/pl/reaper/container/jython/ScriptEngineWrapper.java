@@ -56,15 +56,12 @@ public class ScriptEngineWrapper {
     }
 
     public Object extractResult(CompiledScript script) {
-        try {
-            String result = (String) script.getEngine().eval("output.getResult()");
-            if (result != null && !"".equals(result)) {
-                return result;
-            }
-        } catch (ScriptException ex) {
+        String result = (String) script.getEngine().get("output");
+        if (result != null && !"".equals(result)) {
+            return result;
+        } else {
             return "<no output>";
         }
-        return "";
     }
 
     public Object eval(String scriptName) throws ScriptException {
