@@ -55,10 +55,10 @@ public class ScriptEngineWrapper {
         variables.put("_uuid", UUID.randomUUID().toString());
     }
 
-    public Object extractResult(CompiledScript script) {
-        String result = (String) ((Map<String, Object>) script.getEngine().get("vars")).get("output");
-        if (result != null && !"".equals(result)) {
-            return result;
+    public Object extractResult(Bindings binding) {
+        Object output = ((Map<String, Object>) binding.get("vars")).get("output");
+        if (output != null) {
+            return (String) output;
         } else {
             return "<no output>";
         }
@@ -68,8 +68,9 @@ public class ScriptEngineWrapper {
         try {
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
             CompiledScript script = findScript(scriptName);
-            script.eval(getBinding());
-            return extractResult(script);
+            Bindings binding = getBinding();
+            script.eval(binding);
+            return extractResult(binding);
         } catch (ScriptException ex) {
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.SEVERE, null, ex);
         }
