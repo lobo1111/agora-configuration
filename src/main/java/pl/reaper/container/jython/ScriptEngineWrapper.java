@@ -1,7 +1,6 @@
 package pl.reaper.container.jython;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.script.Bindings;
-import javax.script.ScriptContext;
+import javax.script.Compilable;
+import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -38,7 +38,7 @@ public class ScriptEngineWrapper {
         }
     }
 
-    public ScriptEngineWrapper init() {
+    public Bindings getBinding() {
         Bindings binding = engine.createBindings();
         putMetaVars();
         binding.put("entityManager", entityManager);
@@ -46,8 +46,7 @@ public class ScriptEngineWrapper {
         binding.put("vars", variables);
         binding.put("properties", propertyBean);
         binding.put("documentStatusLoader", documentStatusBean);
-        engine.setBindings(binding, ScriptContext.ENGINE_SCOPE);
-        return this;
+        return binding;
     }
 
     private void putMetaVars() {
@@ -71,9 +70,9 @@ public class ScriptEngineWrapper {
     public Object eval(String scriptName) throws ScriptException {
         try {
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
-            engine.eval(new FileReader(findScript(scriptName)));
+            findScript(scriptName).eval(getBinding());
             return extractResult(engine);
-        } catch (FileNotFoundException ex) {
+        } catch (ScriptException ex) {
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
@@ -127,9 +126,9 @@ public class ScriptEngineWrapper {
         return builder.toString();
     }
 
-    private String findScript(String scriptName) {
-        ScriptCache cache = new ScriptCache();
-        if (!cache.inCache(scriptName)) {
+    private CompiledScript findScript(String scriptName) throws ScriptException {
+        CompiledScript compiledScript = ScriptCache.getFromCache(scriptName);
+        if (compiledScript == null) {
             String scriptContent = "";
             List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
             for (Script script : scriptChain) {
@@ -137,8 +136,10 @@ public class ScriptEngineWrapper {
                 scriptContent += new VariableParser(script.getScript() + "\n", variables).parse();
             }
             scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
-            cache.cache(scriptName, scriptContent);
+            Compilable compilingEngine = (Compilable) engine;
+            compiledScript = compilingEngine.compile(scriptContent);
+            ScriptCache.cache(scriptName, compiledScript);
         }
-        return "/opt/container/cache/" + scriptName + ".py";
+        return compiledScript;
     }
 }
