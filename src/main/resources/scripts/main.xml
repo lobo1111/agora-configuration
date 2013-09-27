@@ -39,7 +39,7 @@
     <script>
         <name>template-parser</name>
         <source>base/template-parser.py</source>
-        <onInit>variables.put('output', TemplateParser().parse())</onInit>
+        <onInit>vars.put('output', TemplateParser().parse())</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>

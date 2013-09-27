@@ -46,7 +46,6 @@ public class ScriptEngineWrapper {
         binding.put("vars", variables);
         binding.put("properties", propertyBean);
         binding.put("documentStatusLoader", documentStatusBean);
-        binding.put("outputAsString", new String());
         return binding;
     }
 
