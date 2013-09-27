@@ -133,7 +133,7 @@ public class ScriptEngineWrapper {
                 scriptContent += new VariableParser(script.getScript() + "\n", variables).parse();
             }
             scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
-            scriptContent += "\nif globals()['output'] != None: output.getResult()";
+            scriptContent += "\nif globals()['output'] != None: return output.getResult()";
             Compilable compilingEngine = (Compilable) engine;
             compiledScript = compilingEngine.compile(scriptContent);
             ScriptCache.cache(scriptName, compiledScript);
