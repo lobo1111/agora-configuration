@@ -15,4 +15,3 @@ class Output:
 
   def appendResult(self, result):
     self._result += result
-output = Output()
