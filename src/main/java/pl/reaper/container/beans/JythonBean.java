@@ -12,11 +12,13 @@ import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.script.ScriptException;
+import javax.ws.rs.Path;
 import pl.reaper.container.jython.ScriptEngineWrapper;
 import pl.reaper.container.ws.wrappers.MapWrapper;
 
 @WebService(endpointInterface = "pl.reaper.container.beans.JythonBeanRemote")
 @Stateless
+@Path("/JythonBeanService")
 public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
     @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
@@ -40,6 +42,7 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
     @PermitAll
     @Override
+    @Path("/JythonBean")
     public String secureScriptExecution(String scriptName, MapWrapper variables) {
         return executeScript(scriptName, variables.map, true);
     }
