@@ -57,7 +57,7 @@ public class ScriptEngineWrapper {
     }
 
     public Object extractResult(CompiledScript script) {
-        String result = (String) script.getEngine().get("outputAsString");
+        String result = (String) ((Map<String, Object>) script.getEngine().get("vars")).get("output");
         if (result != null && !"".equals(result)) {
             return result;
         } else {
