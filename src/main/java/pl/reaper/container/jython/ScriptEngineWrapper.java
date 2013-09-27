@@ -10,6 +10,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.script.Bindings;
+import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -31,18 +33,20 @@ public class ScriptEngineWrapper {
         if (engine == null) {
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.SEVERE, "Python engine not found");
         } else {
+            engine.getContext().setWriter(new PrintWriter(System.out));
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Jython engine created");
-            putMetaVars();
         }
     }
 
     public ScriptEngineWrapper init() {
-        engine.getContext().setWriter(new PrintWriter(System.out));
-        engine.put("entityManager", entityManager);
-        engine.put("oldEntityManager", oldEntityManager);
-        engine.put("vars", variables);
-        engine.put("properties", propertyBean);
-        engine.put("documentStatusLoader", documentStatusBean);
+        Bindings binding = engine.createBindings();
+        putMetaVars();
+        binding.put("entityManager", entityManager);
+        binding.put("oldEntityManager", oldEntityManager);
+        binding.put("vars", variables);
+        binding.put("properties", propertyBean);
+        binding.put("documentStatusLoader", documentStatusBean);
+        engine.setBindings(binding, ScriptContext.ENGINE_SCOPE);
         return this;
     }
 
@@ -136,15 +140,5 @@ public class ScriptEngineWrapper {
             cache.cache(scriptName, scriptContent);
         }
         return "/opt/container/cache/" + scriptName + ".py";
-    }
-
-    public void destroy() {
-        engine.put("entityManager", null);
-        engine.put("oldEntityManager", null);
-        engine.put("vars", null);
-        engine.put("properties", null);
-        engine.put("documentStatusLoader", null);
-        engine.getContext().setWriter(null);
-        variables.clear();
     }
 }

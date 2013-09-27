@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -26,6 +27,16 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     private PropertyBeanLocal propertyBean;
     @EJB
     private DocumentStatusBeanLocal documentStatusBean;
+    private ScriptEngineWrapper engineBuilder;
+
+    @PostConstruct
+    public void initScripting() {
+        engineBuilder = new ScriptEngineWrapper()
+                .setDocumentStatusBean(documentStatusBean)
+                .setEntityManager(entityManager)
+                .setOldEntityManager(oldEntityManager)
+                .setPropertyBean(propertyBean);
+    }
 
     @PermitAll
     @Override
@@ -40,12 +51,7 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     }
 
     private ScriptEngineWrapper getScriptEngine() {
-        ScriptEngineWrapper engineBuilder = new ScriptEngineWrapper()
-                .setDocumentStatusBean(documentStatusBean)
-                .setEntityManager(entityManager)
-                .setOldEntityManager(oldEntityManager)
-                .setPropertyBean(propertyBean)
-                .init();
+        engineBuilder.init();
         return engineBuilder;
     }
 
@@ -57,7 +63,6 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
             engineBuilder.resetVariables().addVariables(variables);
             output = (String) engineBuilder.eval(scriptName);
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, output.length() > 256 ? output.substring(0, 256) : output);
-            engineBuilder.destroy();
             return output;
         } catch (ScriptException ex) {
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
