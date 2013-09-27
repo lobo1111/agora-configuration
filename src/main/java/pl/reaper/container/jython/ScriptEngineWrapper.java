@@ -19,10 +19,10 @@ import pl.reaper.container.data.Script;
 
 public class ScriptEngineWrapper {
 
-//    private EntityManager entityManager;
-//    private EntityManager oldEntityManager;
-//    private PropertyBeanLocal propertyBean;
-//    private DocumentStatusBeanLocal documentStatusBean;
+    private EntityManager entityManager;
+    private EntityManager oldEntityManager;
+    private PropertyBeanLocal propertyBean;
+    private DocumentStatusBeanLocal documentStatusBean;
     private Map<String, Object> variables = new HashMap<>();
     private ScriptEngine engine;
 
@@ -38,11 +38,11 @@ public class ScriptEngineWrapper {
 
     public ScriptEngineWrapper init() {
         engine.getContext().setWriter(new PrintWriter(System.out));
-//        engine.put("entityManager", entityManager);
-//        engine.put("oldEntityManager", oldEntityManager);
+        engine.put("entityManager", entityManager);
+        engine.put("oldEntityManager", oldEntityManager);
         engine.put("vars", variables);
-//        engine.put("properties", propertyBean);
-//        engine.put("documentStatusLoader", documentStatusBean);
+        engine.put("properties", propertyBean);
+        engine.put("documentStatusLoader", documentStatusBean);
         return this;
     }
 
@@ -76,17 +76,17 @@ public class ScriptEngineWrapper {
     }
 
     public ScriptEngineWrapper setEntityManager(EntityManager entityManager) {
-//        this.entityManager = entityManager;
+        this.entityManager = entityManager;
         return this;
     }
 
     public ScriptEngineWrapper setPropertyBean(PropertyBeanLocal propertyBean) {
-//        this.propertyBean = propertyBean;
+        this.propertyBean = propertyBean;
         return this;
     }
 
     public ScriptEngineWrapper setDocumentStatusBean(DocumentStatusBeanLocal documentStatusBean) {
-//        this.documentStatusBean = documentStatusBean;
+        this.documentStatusBean = documentStatusBean;
         return this;
     }
 
@@ -111,7 +111,7 @@ public class ScriptEngineWrapper {
     }
 
     public ScriptEngineWrapper setOldEntityManager(EntityManager oldEntityManager) {
-//        this.oldEntityManager = oldEntityManager;
+        this.oldEntityManager = oldEntityManager;
         return this;
     }
 
@@ -127,12 +127,12 @@ public class ScriptEngineWrapper {
         ScriptCache cache = new ScriptCache();
         if (!cache.inCache(scriptName)) {
             String scriptContent = "";
-//            List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
-//            for (Script script : scriptChain) {
-//                variables.put("_scriptId", String.valueOf(script.getId()));
-//                scriptContent += new VariableParser(script.getScript() + "\n", variables).parse();
-//            }
-//            scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
+            List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
+            for (Script script : scriptChain) {
+                variables.put("_scriptId", String.valueOf(script.getId()));
+                scriptContent += new VariableParser(script.getScript() + "\n", variables).parse();
+            }
+            scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
             cache.cache(scriptName, scriptContent);
         }
         return "/opt/container/cache/" + scriptName + ".py";

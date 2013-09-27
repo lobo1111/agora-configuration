@@ -23,7 +23,7 @@ public class Cron implements CronLocal {
     @EJB
     JythonBeanLocal jythonBean;
 
-//    @Schedule(minute = "*", second = "0", dayOfMonth = "*", month = "*", year = "*", hour = "*", dayOfWeek = "*", info = "Script Scheduler")
+    @Schedule(minute = "*", second = "0", dayOfMonth = "*", month = "*", year = "*", hour = "*", dayOfWeek = "*", info = "Script Scheduler")
     public void cronTimer() {
         Logger.getLogger(Cron.class.getName()).log(Level.INFO, "Timer fired, checking script scheduler...");
         ScrollableCursor cursor = loadScripts();
