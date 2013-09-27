@@ -135,6 +135,7 @@ public class ScriptEngineWrapper {
                 scriptContent += new VariableParser(script.getScript() + "\n", variables).parse();
             }
             scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
+            Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, scriptContent);
             Compilable compilingEngine = (Compilable) engine;
             compiledScript = compilingEngine.compile(scriptContent);
             ScriptCache.cache(scriptName, compiledScript);
