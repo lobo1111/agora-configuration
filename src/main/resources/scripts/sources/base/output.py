@@ -1,5 +1,9 @@
 class Output:
   _result = ''
+  
+  def __init__(self):
+      global outputAsString
+      self._result = outputAsString
 
   def getResult(self):
     tmp = self._result

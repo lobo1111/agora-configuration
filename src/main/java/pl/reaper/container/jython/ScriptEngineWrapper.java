@@ -46,6 +46,7 @@ public class ScriptEngineWrapper {
         binding.put("vars", variables);
         binding.put("properties", propertyBean);
         binding.put("documentStatusLoader", documentStatusBean);
+        binding.put("outputAsString", new String());
         return binding;
     }
 
@@ -56,7 +57,7 @@ public class ScriptEngineWrapper {
     }
 
     public Object extractResult(CompiledScript script) {
-        String result = (String) script.getEngine().get("output");
+        String result = (String) script.getEngine().get("outputAsString");
         if (result != null && !"".equals(result)) {
             return result;
         } else {
