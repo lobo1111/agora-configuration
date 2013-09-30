@@ -2,17 +2,18 @@
 <chargings>
     #foreach($item in $items)
     <item>
-        <id>$!item[0].getId()</id>
-        <value>$!item[1]</value>
-        <month>$!item[0].getMonth()</month>
-        <bookingPeriodName>$!item[0].getBookingPeriod().getName()</bookingPeriodName>
-        <timestamp>$!item[0].getTimestamp().getTime()</timestamp>
-        <communityName>$!item[0].getPossession().getCommunity().getName()</communityName>
-        #if($!item[0].getPossession.getAddress().getFlatNumber() != "")
-        <possessionName>$!item[0].getPossession().getAddress().getStreet() $!item[0].getPossession().getAddress().getHouseNumber()/$!item[0].getPossession().getAddress().getFlatNumber()</possessionName>
+        <id>$!item[0]</id>
+        <month>$!item[1]</month>
+        <bookingPeriodName>$!item[2]</bookingPeriodName>
+        <timestamp>$!item[3]</timestamp>
+        <communityName>$!item[4]</communityName>
+        #if($!item[7] != "")
+        <possessionName>$!item[5] $!item[6]/$!item[7]</possessionName>
         #else
-        <possessionName>$!item[0].getPossession().getAddress().getStreet() $!item[0].getPossession().getAddress().getHouseNumber()</possessionName>
+        <possessionName>$!item[5] $!item[6]</possessionName>
         #end
+        <value>$!item[8]</value>
+        <type>$!item[9]</type>
     </item>
     #end
     <settings>

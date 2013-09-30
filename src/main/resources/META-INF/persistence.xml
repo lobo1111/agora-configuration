@@ -51,6 +51,8 @@
     <class>pl.reaper.container.data.Charging</class>
     <class>pl.reaper.container.data.ChargingElement</class>
     <class>pl.reaper.container.data.ChargingQueue</class>
+    <class>pl.reaper.container.data.PaymentRent</class>
+    <class>pl.reaper.container.data.PaymentRentDetails</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.target-server" value="WebSphere_7"/>

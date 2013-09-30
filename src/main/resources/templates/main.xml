@@ -888,19 +888,47 @@
                 <name>items</name>
                 <data>
                     {:limit}
-                    SELECT 
-                    charging,
-                    SUM(chargingElements.value)
+                    {:native}
+                    (SELECT 
+                    charging.id,
+                    charging.month,
+                    bookingPeriod.name,
+                    charging.timestamp,
+                    community.name,
+                    possessionAddress.street,
+                    possessionAddress.flat_number,
+                    possessionAddress.house_number,
+                    SUM(chargingElement.element_value),
+                    'CHARGE' 
                     FROM 
-                    Charging charging
-                    JOIN charging.chargingElements chargingElements
-                    JOIN charging.bookingPeriod bookingPeriod
-                    JOIN charging.possession possession
-                    JOIN possession.address possessionAddress
-                    JOIN possession.community community
+                    charging AS charging
+                    JOIN charging_element AS chargingElement ON (charging.id = chargingElement.charging_id)
+                    JOIN possession AS possession ON (possession.id = charging.possession_id)
+                    JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
+                    JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = charging.booking_period_id)
+                    JOIN community AS community ON (community.id = possession.community_id)
                     WHERE {:where}
-                    GROUP BY chargingElements.charging
-                    ORDER BY charging.timestamp DESC
+                    GROUP BY charging.id)
+                    UNION (
+                    SELECT
+                    paymentRent.id,
+                    paymentRent.month,
+                    bookingPeriod.name,
+                    paymentRent.timestamp,
+                    community.name,
+                    possessionAddress.street,
+                    possessionAddress.flat_number,
+                    possessionAddress.house_number,
+                    paymentRentDetails.value,
+                    'PAYMENT_RENT' 
+                    FROM payment_rent AS paymentRent
+                    JOIN payment_rent_details AS paymentRentDetails ON(paymentRent.id = paymentRentDetails.payment_rent_id)
+                    JOIN possession AS possession ON(possession.id = paymentRent.possession_id)
+                    JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
+                    JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = paymentRent.booking_period_id)
+                    JOIN community AS community ON (community.id = possession.community_id)
+                    )
+                    ORDER BY timestamp DESC
                 </data>
             </var>
             <var>
@@ -910,12 +938,21 @@
                     {:native}
                     SELECT count(*)
                     FROM (
-                        SELECT DISTINCT c.id
-                        FROM charging AS c
-                        JOIN charging_element AS ce ON (c.id = ce.charging_id)
-                        JOIN possession AS possession ON (possession.id = c.possession_id)
+                        SELECT DISTINCT charging.id
+                        FROM charging AS charging
+                        JOIN charging_element AS chargingElement ON (charging.id = chargingElement.charging_id)
+                        JOIN possession AS possession ON (possession.id = charging.possession_id)
                         JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
-                        JOIN booking_period AS bp ON(bp.id = c.booking_period_id)
+                        JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = charging.booking_period_id)
+                        JOIN community AS community ON (community.id = possession.community_id)
+                        WHERE {:where}
+                        UNION
+                        SELECT paymentRent.id
+                        FROM payment_rent AS paymentRent
+                        JOIN payment_rent_details AS paymentRentDetails ON(paymentRent.id = paymentRentDetails.payment_rent_id)
+                        JOIN possession AS possession ON(possession.id = paymentRent.possession_id)
+                        JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
+                        JOIN booking_period AS bp ON(bp.id = paymentRent.booking_period_id)
                         JOIN community AS community ON (community.id = possession.community_id)
                         WHERE {:where}
                     ) AS tmp

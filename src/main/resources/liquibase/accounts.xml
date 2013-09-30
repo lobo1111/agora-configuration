@@ -1934,4 +1934,11 @@
             ADD CONSTRAINT `payment_rent_details_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+        
+    <changeSet author='tkopacki' id='table-payment-rent-details-value-rename'>
+        <sql>  
+            ALTER TABLE `payment_rent_details` CHANGE `value` `rent_value` decimal(10, 2);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
