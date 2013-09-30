@@ -1876,4 +1876,62 @@
             ALTER TABLE `charging_element` CHANGE `key` `key_value` varchar(255);
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-rent'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `payment_rent` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `possession_id` int(11) NOT NULL,
+            `booking_period_id` int(11) NOT NULL,
+            `month` int(11) NOT NULL,
+            `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-rent-possession-id-fkey'>
+        <sql>  
+            ALTER TABLE `payment_rent`
+            ADD CONSTRAINT `payment_rent_possession_id_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-rent-booking-period-id-fkey'>
+        <sql>  
+            ALTER TABLE `payment_rent`
+            ADD CONSTRAINT `payment_rent_booking_period_id_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-rent-details'>
+        <sql>  
+            CREATE TABLE IF NOT EXISTS `payment_rent_details` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `payment_rent_id` int(11) NOT NULL,
+            `account_id` int(11) NOT NULL,
+            `value` decimal(10, 2) NOT NULL DEFAULT 0,
+            `is_auto` boolean NOT NULL DEFAULT FALSE,
+            `requestDate` date DEFAULT NULL,
+            `bookingDate` date DEFAULT NULL,
+            `title` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
+            `clientName` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-rent-details-payment-rent-id-fkey'>
+        <sql>  
+            ALTER TABLE `payment_rent_details`
+            ADD CONSTRAINT `payment_rent_details_payment_rent_id_fkey` FOREIGN KEY (`payment_rent_id`) REFERENCES `payment_rent` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-payment-rent-details-account-id-fkey'>
+        <sql>  
+            ALTER TABLE `payment_rent_details`
+            ADD CONSTRAINT `payment_rent_details_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>

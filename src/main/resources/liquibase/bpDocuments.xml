@@ -76,4 +76,24 @@
             ADD CONSTRAINT `incoming_payment_document_position_status_fkey` FOREIGN KEY (`status_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='incoming_payment_document_incoming_payment_fkey-drop'>
+        <sql> 
+            ALTER TABLE `incoming_payment_document_payment` DROP FOREIGN KEY `incoming_payment_document_incoming_payment_fkey`;
+            ALTER TABLE `incoming_payment_document_payment` DROP COLUMN `incoming_payment_document_id`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='incoming_payment_document_payment_fkey-drop'>
+        <sql> 
+            ALTER TABLE `incoming_payment_document_payment` DROP FOREIGN KEY `incoming_payment_document_payment_fkey`;
+            ALTER TABLE `incoming_payment_document_payment` DROP COLUMN `payment_id`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='incoming_payment_document_payment-drop'>
+        <sql> 
+            DROP TABLE `incoming_payment_document_payment`;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

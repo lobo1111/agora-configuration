@@ -64,13 +64,6 @@ public class IncomingPaymentDocumentPosition implements Serializable {
     @JoinColumn(name = "document_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private IncomingPaymentDocument document;
-    @ManyToMany
-    @JoinTable(
-        name = "incoming_payment_document_payment", joinColumns =
-    @JoinColumn(name = "incoming_payment_document_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "payment_id", referencedColumnName = "id"))
-    private Collection<Payment> payments = new ArrayList<>();
 
     public IncomingPaymentDocumentPosition() {
     }
@@ -165,14 +158,6 @@ public class IncomingPaymentDocumentPosition implements Serializable {
 
     public void setDocument(IncomingPaymentDocument document) {
         this.document = document;
-    }
-
-    public Collection<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Collection<Payment> payments) {
-        this.payments = payments;
     }
 
     public Dictionary getStatus() {
