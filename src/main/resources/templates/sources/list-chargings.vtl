@@ -5,7 +5,7 @@
         <id>$!item[0]</id>
         <month>$!item[1]</month>
         <bookingPeriodName>$!item[2]</bookingPeriodName>
-        <timestamp>$!item[3]</timestamp>
+        <timestamp>$!item[3].getTime()</timestamp>
         <communityName>$!item[4]</communityName>
         #if($!item[7] != "")
         <possessionName>$!item[5] $!item[6]/$!item[7]</possessionName>
