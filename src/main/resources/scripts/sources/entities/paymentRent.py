@@ -15,7 +15,7 @@ class PaymentRentManager(Container):
         paymentRent.setPossession(self.getPossession())
         paymentRent.setMonth(self.getCurrentMonth())
         paymentRent.setBookingPeriod(self.getBookingPeriod())
-        paymentRentDetails.setTile(vars.get('title'))
+        paymentRentDetails.setTitle(vars.get('title'))
         paymentRentDetails.setBookingDate(self.parseDate(vars.get('requestDate')))
         paymentRentDetails.setRequestDate(self.parseDate(vars.get('bookingDate')))
         paymentRentDetails.setClientName(vars.get('clientName'))
