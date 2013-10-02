@@ -1,5 +1,6 @@
 from pl.reaper.container.data import PaymentRent
 from pl.reaper.container.data import PaymentRentDetails
+from java.text import SimpleDateFormat
 
 class PaymentRentManager(Container):
     
@@ -13,7 +14,7 @@ class PaymentRentManager(Container):
         paymentRent.setPaymentRentDetails(paymentRentDetails)
         paymentRent.setPossession(self.getPossession())
         paymentRent.setMonth(self.getCurrentMonth())
-        paymentRent.setBookingPeriod(self.getBookingDate())
+        paymentRent.setBookingPeriod(self.getBookingPeriod())
         paymentRentDetails.setTile(vars.get('title'))
         paymentRentDetails.setBookingDate(self.parseDate(vars.get('requestDate')))
         paymentRentDetails.setRequestDate(self.parseDate(vars.get('bookingDate')))
@@ -39,3 +40,5 @@ class PaymentRentManager(Container):
     def getBookingPeriod(self):
         return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
     
+    def parseDate(self, dateAsString):
+        return SimpleDateFormat('dd-MM-yy').parse(dateAsString)
