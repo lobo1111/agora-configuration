@@ -3,6 +3,7 @@ package pl.reaper.container.data;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class PaymentRentDetails implements Serializable {
     @ManyToOne(optional = true)
     private Account account;
     @JoinColumn(name = "payment_rent_id", referencedColumnName = "id")
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private PaymentRent paymentRent;
     @Column(name = "is_auto")
     private boolean auto;

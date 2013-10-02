@@ -11,6 +11,7 @@ class PaymentRentManager(Container):
         
     def setPaymentRentData(self, paymentRent):
         paymentRentDetails = PaymentRentDetails()
+        paymentRentDetails.setPaymentRent(paymentRent)
         paymentRent.setPaymentRentDetails(paymentRentDetails)
         paymentRent.setPossession(self.getPossession())
         paymentRent.setMonth(self.getCurrentMonth())
