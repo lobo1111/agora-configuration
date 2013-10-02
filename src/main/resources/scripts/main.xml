@@ -247,6 +247,19 @@
     
     
     <script>
+        <name>payment-rent</name>
+        <source>entities/paymentRent.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    <script>
         <name>close-month</name>
         <source>actions/closer.py</source>
         <onInit>Close().closeMonth()</onInit>
@@ -589,6 +602,20 @@
         <name>add-to-charging-queue</name>
         <source>entities/chargingQueue.py</source>
         <onInit>ChargingQueueManager().addToQueue()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>create-payment-rent</name>
+        <source>entities/paymentRent.py</source>
+        <onInit>PaymentRentManager().create()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
