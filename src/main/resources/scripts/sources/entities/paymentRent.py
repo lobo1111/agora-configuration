@@ -41,4 +41,7 @@ class PaymentRentManager(Container):
         return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
     
     def parseDate(self, dateAsString):
-        return SimpleDateFormat('dd-MM-yy').parse(dateAsString)
+        try:
+            return SimpleDateFormat('dd-MM-yy').parse(dateAsString)
+        except:
+            return None
