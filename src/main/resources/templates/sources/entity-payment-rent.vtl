@@ -2,9 +2,9 @@
 <payment-rent>
     <accountLabel>$!entity.getPaymentRentDetails().getAccount().getNumber()</accountLabel>
     #if($!entity.getPossession().getFlatNumber() != "")
-        <possessionLabel>$!entity.getPossession().getStreet() $!entity.getPossession().getHouseNumber()/$!entity.getPossession().getFlatNumber()</possessionLabel>
+        <possessionLabel>$!entity.getPossession().getAddress().getStreet() $!entity.getPossession().getAddress().getHouseNumber()/$!entity.getPossession().getAddress().getFlatNumber()</possessionLabel>
     #else
-        <possessionLabel>$!entity.getPossession().getStreet() $!entity.getPossession().getHouseNumber()</possessionLabel>
+        <possessionLabel>$!entity.getPossession().getAddress().getStreet() $!entity.getPossession().getAddress().getHouseNumber()</possessionLabel>
     #end
     <bookingDate>$!entity.getPaymentRentDetails().getBookingDate().getTime()</bookingDate>
     <requestDate>$!entity.getPaymentRentDetails().getRequestDate().getTime()</requestDate>
