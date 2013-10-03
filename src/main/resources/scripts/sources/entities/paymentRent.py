@@ -22,6 +22,7 @@ class PaymentRentManager(Container):
         paymentRentDetails.setClientName(vars.get('clientName'))
         paymentRentDetails.setAccount(self.getAccount())
         paymentRentDetails.setValue(float(vars.get('value')))
+        paymentRentDetails.setAuto(False)
     
     def savePaymentRent(self, paymentRent):
         entityManager.persist(paymentRent)

@@ -7,10 +7,10 @@
         <bookingPeriodName>$!item[2]</bookingPeriodName>
         <timestamp>$!item[3].getTime()</timestamp>
         <communityName>$!item[4]</communityName>
-        #if($!item[7] != "")
-        <possessionName>$!item[5] $!item[6]/$!item[7]</possessionName>
+        #if($!item[6] != "")
+        <possessionName>$!item[5] $!item[7]/$!item[6]</possessionName>
         #else
-        <possessionName>$!item[5] $!item[6]</possessionName>
+        <possessionName>$!item[5] $!item[7]</possessionName>
         #end
         <value>$!item[8]</value>
         <type>$!item[9]</type>

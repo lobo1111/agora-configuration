@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<payment-rent>
+    <accountLabel>$!entity.getPaymentRentDetails().getAccount().getNumber()</accountLabel>
+    <bookingDate>$!entity.getPaymentRentDetails().getBookingDate()</bookingDate>
+    <requestDate>$!entity.getPaymentRentDetails().getRequestDate()</requestDate>
+    <clientName>$!entity.getPaymentRentDetails().getClientName()</clientName>
+    <month>$!entity.getMonth()</month>
+    <bookingPeriod>$!entity.getBookingPeriod().getName()</bookingPeriod>
+    <title>$!entity.getPaymentRentDetails().getTitle()</title>
+    <value>$!entity.getPaymentRentDetails().getValue()</value>
+</payment-rent>
