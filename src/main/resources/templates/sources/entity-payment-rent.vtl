@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <payment-rent>
     <accountLabel>$!entity.getPaymentRentDetails().getAccount().getNumber()</accountLabel>
-    <bookingDate>$!entity.getPaymentRentDetails().getBookingDate()</bookingDate>
-    <requestDate>$!entity.getPaymentRentDetails().getRequestDate()</requestDate>
+    #if($!entity.getPossession().getFlatNumber() != "")
+        <possessionLabel>$!entity.getPossession().getStreet() $!entity.getPossession().getHouseNumber()/$!entity.getPossession().getFlatNumber()</possessionLabel>
+    #else
+        <possessionLabel>$!entity.getPossession().getStreet() $!entity.getPossession().getHouseNumber()</possessionLabel>
+    #end
+    <bookingDate>$!entity.getPaymentRentDetails().getBookingDate().getTime()</bookingDate>
+    <requestDate>$!entity.getPaymentRentDetails().getRequestDate().getTime()</requestDate>
     <clientName>$!entity.getPaymentRentDetails().getClientName()</clientName>
     <month>$!entity.getMonth()</month>
     <bookingPeriod>$!entity.getBookingPeriod().getName()</bookingPeriod>
