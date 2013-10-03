@@ -1613,4 +1613,60 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>can-delete-charge</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                    c.id
+                    FROM
+                    Charge c
+                    JOIN c.month m
+                    WHERE
+                    c.id = {:id}
+                    AND m IN IN(
+                                SELECT
+                                    dict.value
+                                FROM
+                                    Dictionary dict
+                                    JOIN dict.type dtype
+                                WHERE
+                                    dtype.type = "PERIODS"
+                                    AND dict.key = "CURRENT")
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>can-delete-payment-rent</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                    c.id
+                    FROM
+                    PaymentRent c
+                    JOIN c.month m
+                    WHERE
+                    c.id = {:id}
+                    AND m IN IN(
+                                SELECT
+                                    dict.value
+                                FROM
+                                    Dictionary dict
+                                    JOIN dict.type dtype
+                                WHERE
+                                    dtype.type = "PERIODS"
+                                    AND dict.key = "CURRENT")
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>
