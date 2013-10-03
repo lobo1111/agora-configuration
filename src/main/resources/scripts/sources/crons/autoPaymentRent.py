@@ -56,7 +56,7 @@ class CronAutoPaymentRent(Container):
         paymentRentDetails.setTitle(document.getTitle())
         paymentRentDetails.setBookingDate(document.getBookingDate())
         paymentRentDetails.setRequestDate(document.getRequestDate())
-        paymentRentDetails.setValue(document.getIncome())
+        paymentRentDetails.setValue(document.getIncome().floatValue())
         paymentRentDetails.setAuto(True)
         entityManager.persist(paymentRent)
     

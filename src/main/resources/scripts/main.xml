@@ -1376,10 +1376,6 @@
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
             <scriptName>dictionary-manager</scriptName>
-            <scriptName>bookingPeriod</scriptName>
-            <scriptName>zpk</scriptName>
-            <scriptName>book</scriptName>
-            <scriptName>payment</scriptName>
             <scriptName>account</scriptName>
         </dependencies>
         <security>
