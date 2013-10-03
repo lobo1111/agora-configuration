@@ -1622,13 +1622,13 @@
                 <data>
                     {:single}
                     SELECT
-                    c.id
+                    count(c.id)
                     FROM
                     Charge c
                     JOIN c.month m
                     WHERE
                     c.id = {:id}
-                    AND m IN IN(
+                    AND m IN(
                                 SELECT
                                     dict.value
                                 FROM
@@ -1650,13 +1650,13 @@
                 <data>
                     {:single}
                     SELECT
-                    c.id
+                    count(c.id)
                     FROM
                     PaymentRent c
                     JOIN c.month m
                     WHERE
                     c.id = {:id}
-                    AND m IN IN(
+                    AND m IN(
                                 SELECT
                                     dict.value
                                 FROM
