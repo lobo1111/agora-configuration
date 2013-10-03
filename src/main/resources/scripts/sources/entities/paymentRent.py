@@ -66,7 +66,7 @@ class PaymentRentManager(Container):
             return None
         
     def findPaymentRentById(self, id):
-        return entityManager.createQuery('Select p From PaymentRent p Where p.id = %d' % int(id))
+        return entityManager.createQuery('Select p From PaymentRent p Where p.id = %d' % int(id)).getSingleResult()
     
     def findChargingById(self, id):
-        return entityManager.createQuery('Select p From Charging p Where p.id = %d' % int(id))
+        return entityManager.createQuery('Select p From Charging p Where p.id = %d' % int(id)).getSingleResult()
