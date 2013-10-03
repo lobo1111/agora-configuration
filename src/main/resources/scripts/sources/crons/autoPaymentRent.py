@@ -1,4 +1,5 @@
 from pl.reaper.container.data import PaymentRent
+from pl.reaper.container.data import PaymentRentDetails
 
 class CronAutoPaymentRent(Container):
     _logger = Logger([:_scriptId])
