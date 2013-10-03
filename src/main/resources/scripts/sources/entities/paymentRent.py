@@ -14,6 +14,7 @@ class PaymentRentManager(Container):
         currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
         if paymentRent.getMonth() == currentMonth and paymentRent.getBookingPeriod().getId() == currentBookingPeriod.getId():
+            entityManager.remove(paymentRent.getPaymentRentDetails())
             entityManager.remove(paymentRent)
             entityManager.flush()
             
@@ -22,6 +23,9 @@ class PaymentRentManager(Container):
         currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
         if charging.getMonth() == currentMonth and charging.getBookingPeriod().getId() == currentBookingPeriod.getId():
+            for element in charging.getChargingElements():
+                entityManager.remove(element)
+            charging.getChargingElements().clear()
             entityManager.remove(charging)
             entityManager.flush()
         
