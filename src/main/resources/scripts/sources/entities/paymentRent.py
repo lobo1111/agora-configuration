@@ -12,7 +12,7 @@ class PaymentRentManager(Container):
     def remove(self):
         paymentRent = self.findPaymentRentById(vars.get('id'))
         currentMonth = self.getCurrentMonth()
-        currentBookingPeriod = self.getCurrentBookingPeriod()
+        currentBookingPeriod = self.getBookingPeriod()
         if paymentRent.getMonth() == currentMonth and paymentRent.getCurrentBookingPeriod().getId() == currentBookingPeriod.getId():
             entityManager.remove(paymentRent)
             entityManager.flush()
@@ -20,7 +20,7 @@ class PaymentRentManager(Container):
     def removeCharging(self):
         charging = self.findChargingById(vars.get('id'))
         currentMonth = self.getCurrentMonth()
-        currentBookingPeriod = self.getCurrentBookingPeriod()
+        currentBookingPeriod = self.getBookingPeriod()
         if charging.getMonth() == currentMonth and charging.getCurrentBookingPeriod().getId() == currentBookingPeriod.getId():
             entityManager.remove(charging)
             entityManager.flush()
