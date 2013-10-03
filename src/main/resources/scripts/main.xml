@@ -627,6 +627,34 @@
     </script>
     
     <script>
+        <name>remove-payment-rent</name>
+        <source>entities/paymentRent.py</source>
+        <onInit>PaymentRentManager().remove()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>remove-charging</name>
+        <source>entities/paymentRent.py</source>
+        <onInit>PaymentRentManager().removeCharging()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-element</name>
         <source>entities/element.py</source>
         <onInit>ElementManager().create()</onInit>

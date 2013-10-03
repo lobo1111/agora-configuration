@@ -9,6 +9,23 @@ class PaymentRentManager(Container):
         self.setPaymentRentData(paymentRent)
         self.savePaymentRent(paymentRent)
         
+    def remove(self):
+        paymentRent = self.findPaymentRentById(vars.get('id'))
+        currentMonth = self.getCurrentMonth()
+        currentBookingPeriod = self.getCurrentBookingPeriod()
+        if paymentRent.getMonth() == currentMonth and paymentRent.getCurrentBookingPeriod().getId() == currentBookingPeriod.getId():
+            entityManager.remove(paymentRent)
+            entityManager.flush()
+            
+    def removeCharging(self):
+        charging = self.findChargingById(vars.get('id'))
+        currentMonth = self.getCurrentMonth()
+        currentBookingPeriod = self.getCurrentBookingPeriod()
+        if charging.getMonth() == currentMonth and charging.getCurrentBookingPeriod().getId() == currentBookingPeriod.getId():
+            entityManager.remove(charging)
+            entityManager.flush()
+        
+        
     def setPaymentRentData(self, paymentRent):
         paymentRentDetails = PaymentRentDetails()
         paymentRentDetails.setPaymentRent(paymentRent)
@@ -47,3 +64,9 @@ class PaymentRentManager(Container):
             return SimpleDateFormat('dd-MM-yy').parse(dateAsString)
         except:
             return None
+        
+    def findPaymentRentById(self, id):
+        return entityManager.createQuery('Select p From PaymentRent p Where p.id = %d' % int(id))
+    
+    def findChargingById(self, id):
+        return entityManager.createQuery('Select p From Charging p Where p.id = %d' % int(id))

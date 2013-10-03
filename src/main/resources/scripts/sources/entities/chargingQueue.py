@@ -3,6 +3,7 @@ from pl.reaper.container.data.ChargingQueue import TYPE
 
 class ChargingQueueManager:
     _logger = Logger([:_scriptId])
+        
     def addToQueue(self):
         type = self.getType(vars.get('type'))
         communityId = vars.get('communityId')
