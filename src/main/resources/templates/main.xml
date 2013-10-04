@@ -945,6 +945,7 @@
                     JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
                     JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = paymentRent.booking_period_id)
                     JOIN community AS community ON (community.id = possession.community_id)
+                    WHERE {:where}
                     )
                     ORDER BY timestamp DESC
                 </data>
