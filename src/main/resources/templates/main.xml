@@ -971,7 +971,7 @@
                         JOIN payment_rent_details AS paymentRentDetails ON(paymentRent.id = paymentRentDetails.payment_rent_id)
                         JOIN possession AS possession ON(possession.id = paymentRent.possession_id)
                         JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
-                        JOIN booking_period AS bp ON(bp.id = paymentRent.booking_period_id)
+                        JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = paymentRent.booking_period_id)
                         JOIN community AS community ON (community.id = possession.community_id)
                         WHERE {:where}
                     ) AS tmp
