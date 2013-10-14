@@ -82,6 +82,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-zpk-dictionary</name>
+        <source>entity-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Dictionary e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-payment-rent</name>
         <source>entity-payment-rent.vtl</source>
         <variables>
