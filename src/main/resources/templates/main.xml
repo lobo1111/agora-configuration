@@ -1194,7 +1194,7 @@
                         DictionaryType dictType
                         JOIN dictType.dictionaryCollection dict
                     WHERE
-                        dictType = "ZPKS"
+                        dictType.type = "ZPKS"
                     ORDER BY
                         dict.key, dict.value ASC
                 </data>
