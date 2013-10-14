@@ -1216,6 +1216,34 @@
     </script>
     
     <script>
+        <name>create-zpks-dict</name>
+        <source>entities/zpkDictionary.py</source>
+        <onInit>ZpkDictionaryManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>update-zpks-dict</name>
+        <source>entities/zpkDictionary.py</source>
+        <onInit>ZpkDictionaryManager().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-bank</name>
         <source>entities/bank.py</source>
         <onInit>BankManager().create()</onInit>
