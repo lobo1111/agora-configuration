@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<dictionary-list>
+    #foreach($row in $items)
+        <item>
+            <id>$!row.getId()</id>
+            <key>$!row.getKey()</key>
+            <label>$!row.getValue()</label>
+        </item>
+    #end
+</dictionary-list>

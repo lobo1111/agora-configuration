@@ -1181,6 +1181,26 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>list-zpks-dictionary</name>
+        <source>list-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT 
+                        dict
+                    FROM
+                        DictionaryType dictType
+                        JOIN dictType.dictionaryCollection dict
+                    WHERE
+                        dictType = "ZPKS"
+                    ORDER BY
+                        dict.key, dict.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
     <!-- ################### SIMPLE LISTS ########################## -->
     
     <template>
