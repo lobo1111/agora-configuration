@@ -1030,7 +1030,6 @@
                     LEFT OUTER JOIN zpk.community community
                     LEFT OUTER JOIN zpk.possession possession
                     LEFT OUTER JOIN zpk.obligation obligation
-                    LEFT OUTER JOIN payment.documents doc
                     WHERE {:where}
                     ORDER BY payment.createDay DESC
                 </data>
@@ -1053,7 +1052,6 @@
                     LEFT OUTER JOIN zpk.community community
                     LEFT OUTER JOIN zpk.possession possession
                     LEFT OUTER JOIN zpk.obligation obligation
-                    LEFT OUTER JOIN payment.documents doc
                     WHERE {:where}
                 </data>
             </var>

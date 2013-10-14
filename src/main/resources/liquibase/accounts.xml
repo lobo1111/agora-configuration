@@ -1831,7 +1831,7 @@
         </sql>
     </changeSet>
     
-        <changeSet author='tkopacki' id='dicitonary-periods'>
+    <changeSet author='tkopacki' id='dicitonary-periods'>
         <sql>
             INSERT INTO `dictionary_type` (`type`) VALUES
             ('PERIODS');
@@ -1941,4 +1941,12 @@
             ALTER TABLE `payment_rent_details` CHANGE `value` `rent_value` decimal(10, 2);
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='dictionary-zpks'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('ZPKS');
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
