@@ -1949,6 +1949,13 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='dictionary-zpk-default'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'X', 'typ ZPK dla utrzymania wstecznej zgodności' FROM `dictionary_type` WHERE `type` = 'ZPKS';
+        </sql>
+    </changeSet>
+    
     <changeSet author='tkopacki' id='table-zpk-sum-drop-zpk_sum_zpk_fkey'>
         <sql>  
             ALTER TABLE `zpk_sum` DROP FOREIGN KEY `zpk_sum_zpk_fkey`
@@ -1983,6 +1990,18 @@
         <sql>  
             ALTER TABLE `zpk`
             ADD CONSTRAINT `zpk_type_id_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='dictionary-zpk-type-id-set-defaults'>
+        <sql>
+            UPDATE `zpk` SET type_id = SELECT(id FROM `dictionary WHERE dictionaryKey = 'X' and type_id = (SELECT id FROM `dictionary_type` WHERE `type = 'ZPKS'`)`)
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-zpk-type-id-not-null'>
+        <sql>  
+            ALTER TABLE `zpk` CHANGE `type_id` `type_id` int(11) NOT NULL
         </sql>
     </changeSet>
 </databaseChangeLog>
