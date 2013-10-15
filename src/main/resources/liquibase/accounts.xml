@@ -1995,7 +1995,7 @@
     
     <changeSet author='tkopacki' id='dictionary-zpk-type-id-set-defaults'>
         <sql>
-            UPDATE `zpk` SET type_id = SELECT(id FROM `dictionary WHERE dictionaryKey = 'X' and type_id = (SELECT id FROM `dictionary_type` WHERE `type = 'ZPKS'`)`)
+            UPDATE `zpk` SET type_id = (SELECT id FROM `dictionary WHERE dictionaryKey = 'X' and type_id = (SELECT id FROM `dictionary_type` WHERE `type = 'ZPKS'`)`)
         </sql>
     </changeSet>
     
