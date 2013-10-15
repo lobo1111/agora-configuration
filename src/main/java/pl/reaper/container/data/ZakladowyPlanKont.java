@@ -52,8 +52,6 @@ public class ZakladowyPlanKont implements Serializable {
     private Obligation obligation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
-    private Collection<ZpkSum> zpkSums = new ArrayList<>();
     @ManyToMany
     @JoinTable(
             name = "obligation_group_zpk", joinColumns =
@@ -124,18 +122,6 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setObligationGroups(Collection<ObligationGroup> obligationGroups) {
         this.obligationGroups = obligationGroups;
-    }
-
-    public Collection<ZpkSum> getZpkSums() {
-        return zpkSums;
-    }
-
-    public void setZpkSums(Collection<ZpkSum> zpkSums) {
-        this.zpkSums = zpkSums;
-    }
-    
-    public boolean isSumAccount() {
-        return this.zpkSums.size() > 0;
     }
 
     public String longDescription() {

@@ -1949,4 +1949,40 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='table-zpk-sum-drop-zpk_sum_zpk_fkey'>
+        <sql>  
+            ALTER TABLE `zpk_sum` DROP FOREIGN KEY `zpk_sum_zpk_fkey`
+        </sql>
+    </changeSet>
+
+    <changeSet author='tkopacki' id='table-zpk-sum-drop-zpk_sum_booking_period_fkey'>
+        <sql>  
+            ALTER TABLE `zpk_sum` DROP FOREIGN KEY `zpk_sum_booking_period_fkey`
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-zpk-sum-drop'>
+        <sql>  
+            DROP TABLE `zpk_sum`
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-zpk-description-drop'>
+        <sql>  
+            ALTER TABLE `zpk` DROP COLUMN `description`
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-zpk-add-type-id'>
+        <sql>  
+            ALTER TABLE `zpk` ADD COLUMN `type_id` int(11) null
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='table-zpk-type-id-fkey'>
+        <sql>  
+            ALTER TABLE `zpk`
+            ADD CONSTRAINT `zpk_type_id_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
