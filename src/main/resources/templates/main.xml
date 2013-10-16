@@ -1437,14 +1437,14 @@
                 <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    dict.id, CONCAT(dict.dictionaryKey, " - ", dictionary.value))
+                    dict.id, CONCAT(dict.key, " - ", dictionary.value))
                     FROM 
                     Dictionary dict
                     JOIN dict.type dtype
                     WHERE
                     dtype.type = \'ZPKS\'
                     ORDER BY 
-                    dict.dictinaryKey, dict.value ASC
+                    dict.key, dict.value ASC
                 </data>
             </var>
         </variables>
