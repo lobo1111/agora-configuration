@@ -63,6 +63,7 @@ class PossessionManager(Container):
         possession.setCommunity(community)
         if possession.getId() == 0:
             community.getPossessions().add(possession)
+            entityManager.persist(community)
         
     def setPossessionAdditionalData(self, possession):
         possession.getAdditionalData().setPossession(possession)
