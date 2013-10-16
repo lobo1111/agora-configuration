@@ -30,7 +30,7 @@ class ZpkManager(Container):
         number = self.generateNumber(pool, possession.getCommunity())
         zpk = ZakladowyPlanKont()
         zpk.setNumber(number)
-        zpk.setCommunity(community)
+        zpk.setCommunity(possession.getCommunity())
         zpk.setPossession(possession)
         zpk.setType(pool)
         entityManager.persist(zpk)
