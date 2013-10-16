@@ -36,9 +36,13 @@ class ZpkManager(Container):
         zpk.setType(pool)
         vars.put('credit', '0')
         vars.put('debit', '0')
+        self.save(zpk)
         self.setAllBookingPeriods(zpk)
-        entityManager.persist(zpk)
         return zpk
+    
+    def save(self, zpk):
+        self._logger.info(zpk.longDescription())
+        entityManager.persist(zpk)
     
     def findPossessionPool(self):
         return entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = 'POSSESSION'").getSingleResult()
