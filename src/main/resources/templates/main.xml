@@ -82,6 +82,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-zpk-settings</name>
+        <source>entity-zpk-settings.vtl</source>
+        <variables>
+            <var>
+                <name>entities</name>
+                <data>
+                    SELECT 
+                    e
+                    FROM 
+                    Dictionary e
+                    JOIN e.type dtype
+                    WHERE 
+                    dtype.type = \'ZPKS_SETTINGS\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-zpk-dictionary</name>
         <source>entity-dictionary.vtl</source>
         <variables>

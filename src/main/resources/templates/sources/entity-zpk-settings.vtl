@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<zpks-settings>
+    #foreach($entity in $entities)
+        #if($entity.getKey() == "POSSESSIONS_POOL"
+            <possessionId>$entity.getId()</possessionId>
+        #end
+        #if($entity.getKey() == "ACCOUNTS_POOL"
+            <accountId>$entity.getId()</accountId>
+        #end
+    #end
+</zpks-settings>
