@@ -1440,9 +1440,9 @@
                     dict.id, CONCAT(dict.dictionaryKey, " - ", dictionary.value))
                     FROM 
                     Dictionary dict
-                    JOIN dict.type type
+                    JOIN dict.type dtype
                     WHERE
-                    type.type = \'ZPKS\'
+                    dtype.type = \'ZPKS\'
                     ORDER BY 
                     dict.dictinaryKey, dict.value ASC
                 </data>
