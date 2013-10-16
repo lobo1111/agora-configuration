@@ -16,9 +16,9 @@ class PossessionManager(Container):
         possession = Possession()
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
+        self.generateZpkNumber(possession)
         self.savePossession(possession)
         self.propagateElementsForNewPossession(possession)
-        self.generateZpkNumber(possession)
         return possession;
         
     def update(self):
