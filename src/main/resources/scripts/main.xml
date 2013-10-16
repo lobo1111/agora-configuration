@@ -613,6 +613,20 @@
     </script>
     
     <script>
+        <name>update-zpks-settings</name>
+        <source>entities/zpksSettings.py</source>
+        <onInit>ZpksSettings().update()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>create-payment-rent</name>
         <source>entities/paymentRent.py</source>
         <onInit>PaymentRentManager().create()</onInit>
