@@ -28,11 +28,13 @@ class ZpkManager(Container):
     def generateZpkForPossession(self, possession):
         pool = self.findPossessionPool()
         number = self.generateNumber(pool, possession.getCommunity())
+        self._logger.info("ZPK number generated: %s" % number)
         zpk = ZakladowyPlanKont()
         zpk.setNumber(number)
         zpk.setCommunity(possession.getCommunity())
         zpk.setPossession(possession)
         zpk.setType(pool)
+        self.setAllBookingPeriods(zpk)
         entityManager.persist(zpk)
         return zpk
     
@@ -46,12 +48,12 @@ class ZpkManager(Container):
         for i in range(0, 1000):
             if not i in zpks:
                 return self.parseNumber(i)
-        return 0
+        return '0'
             
     def parseNumber(self, i):
         if i < 10:
             return '00' + str(i)
         elif i < 100:
             return '0' + str(i)
-        return i
+        return str(i)
             
