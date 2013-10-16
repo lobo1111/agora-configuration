@@ -1442,7 +1442,7 @@
                     Dictionary dict
                     JOIN dict.type type
                     WHERE
-                    type.type = 'ZPKS'
+                    type.type = \'ZPKS\'
                     ORDER BY 
                     dict.dictinaryKey, dict.value ASC
                 </data>
