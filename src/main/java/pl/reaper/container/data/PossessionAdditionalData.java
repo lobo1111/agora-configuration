@@ -20,7 +20,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PossessionAdditionalData implements Serializable {
 
-    @Column(name = "area")
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

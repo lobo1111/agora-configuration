@@ -26,9 +26,9 @@ public class Possession implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
 
     @Column(name = "area")
-    private BigDecimal area;
+    private BigDecimal area = new BigDecimal(0);
     @Column(name = "share")
-    private BigDecimal share;
+    private BigDecimal share = new BigDecimal(0);
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +50,7 @@ public class Possession implements Serializable {
     private PossessionAdditionalData additionalData = new PossessionAdditionalData();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<ElementPossession> elements;
-    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "possession")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "possession")
     private ZakladowyPlanKont zpk = new ZakladowyPlanKont();
 
     public Possession() {
@@ -168,6 +168,7 @@ public class Possession implements Serializable {
     public String longDescription() {
         return "[area:" + area + "]"
                 + "[share:" + share + "]"
+                + "[community:" + community + "]"
                 + "[address:" + address + "]";
     }
 
