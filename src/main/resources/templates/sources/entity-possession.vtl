@@ -22,36 +22,6 @@
         <name>$!possession.getAccount().getName()</name>
         <number>$!possession.getAccount().getNumber()</number>
     </account>
-    <zpk>
-        <id>$!possession.getDefaultBooking().getId()</id>
-        <description>$!possession.getDefaultBooking().getDescription()</description>
-        <number>$!possession.getDefaultBooking().getNumber()</number>
-    </zpk>
-    <zpksOrder>
-        #foreach($order in $!possession.getAutoPayments())
-        <zpk>
-            <id>$!order.getZpk().getId()</id>
-            <description>$!order.getZpk().getDescription()</description>
-            <number>$!order.getZpk().getNumber()</number>
-            <order>$order.getOrder()</order>
-        </zpk>
-        #end
-    </zpksOrder>
-    <zpks>
-        #foreach($zpk in $!possession.getZpks())
-        <zpk>
-            <id>$!zpk.getId()</id>
-            <description>$!zpk.getDescription()</description>
-            <number>$!zpk.getNumber()</number>
-            #foreach($balance in $!zpk.getZpkBalances())
-            #if($balance.getBookingPeriod().isDefaultPeriod())
-            <credit>$balance.getCredit()</credit>
-            <debit>$balance.getDebit()</debit>
-            #end
-            #end
-        </zpk>
-        #end
-    </zpks>
     <elements>
         #foreach($entity in $!possession.getElements())
         <element>

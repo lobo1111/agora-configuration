@@ -2,46 +2,11 @@ from pl.reaper.container.data import ZakladowyPlanKont
 from pl.reaper.container.data import ZpkBalance
 from java.lang import Double
 
+import sys
+
 class ZpkManager(Container):
     _logger = Logger([:_scriptId])
-    _prefix = ''
     
-    def setPrefix(self, prefix):
-        self._prefix = prefix
-    
-    def create(self):
-        zpk = ZakladowyPlanKont()
-        self.setZpkData(zpk)
-        self.saveZpk(zpk)
-        return zpk
-
-    def remove(self):
-        zpk = self.findZpkById(vars.get('id'))
-        for balance in zpk.getZpkBalances():
-            entityManager.remove(balance)
-        entityManager.remove(zpk)
-        
-    def setZpkData(self, zpk):
-        zpk.setNumber(vars.get(self._prefix + 'number'))
-        zpk.setDescription(vars.get(self._prefix + 'description'))
-        zpk.setCommunity(self.getCommunity(zpk))
-        zpk.setPossession(self.getPossession(zpk))
-        zpk.setObligation(self.getObligation(zpk))
-        self.setAllBookingPeriods(zpk)
-        
-    def getCommunity(self, zpk):
-        self._logger.info('Loading community - id key=\'' + self._prefix + 'communityId' + '\'')
-        return CommunityManager().findCommunityById(vars.get(self._prefix + 'communityId'))
-        
-    def getPossession(self, zpk):
-        if (self._prefix + 'possessionId') in vars and vars.get(self._prefix + 'possessionId') != '0':
-            possessionManager = PossessionManager()
-            return possessionManager.findPossessionById(vars.get(self._prefix + 'possessionId'))
-        
-    def getObligation(self, zpk):
-        if (self._prefix + 'obligationId') in vars and vars.get(self._prefix + 'obligationId') != '0':
-            return entityManager.createQuery('Select o From Obligation o Where o.id = ' + str(vars.get(self._prefix + 'obligationId'))).getSingleResult()
-        
     def setAllBookingPeriods(self, zpk):
         bookingPeriodManager = BookingPeriodManager()
         for bookingPeriod in bookingPeriodManager.findAllBookingPeriods():
@@ -59,17 +24,33 @@ class ZpkManager(Container):
             balance.setStartCredit(Double.parseDouble(vars.get(self._prefix + 'credit')))
             balance.setStartDebit(Double.parseDouble(vars.get(self._prefix + 'debit')))
         return balance
-
-    def saveZpk(self, zpk):
-        self._logger.info(zpk.longDescription())
-        entityManager.persist(zpk)
-        entityManager.flush()
-        
-    def findZpkById(self, id):
-        sql = "Select zpk From ZakladowyPlanKont zpk Where zpk.id = '%s'" % id
-        return entityManager.createQuery(sql).getSingleResult()
     
-    def findBalanceByZpkAndPeriod(self, zpk, period):
-        sql = "Select balance From ZpkBalance balance Where balance.zpk.id = '%s' and balance.bookingPeriod.id = '%s'" % (zpk.getId(), period.getId())
-        return entityManager.createQuery(sql).getSingleResult()
-        
+    def generateZpkForPossession(self, possession):
+        pool = self.findPossessionPool()
+        number = self.generateNumber(pool, possession.getCommunity())
+        zpk = ZakladowyPlanKont()
+        zpk.setNumber(number)
+        zpk.setCommunity(community)
+        zpk.setPossession(possession)
+        zpk.setType(pool)
+        entityManager.persist(zpk)
+        return zpk
+    
+    def findPossessionPool(self):
+        return entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = 'POSSESSION'").getSingleResult()
+    
+    def generateNumber(self, dict, community):
+        zpks = []
+        for zpk in community.getZpks():
+            zpks.append(int(zpk.getNumber()))
+        for i in range(0, sys.maxint):
+            if not i in zpks:
+                return self.parseNumber(i)
+            
+    def parseNumber(self, i):
+        if i < 10:
+            return '00' + str(i)
+        elif i < 100:
+            return '0' + str(i)
+        return i
+            

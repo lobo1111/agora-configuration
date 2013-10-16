@@ -44,8 +44,11 @@ public class ZakladowyPlanKont implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
     private Community community;
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
+    @ManyToOne
+    private Dictionary type;
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Possession possession;
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "obligation_id", referencedColumnName = "id")
@@ -55,9 +58,9 @@ public class ZakladowyPlanKont implements Serializable {
     @ManyToMany
     @JoinTable(
             name = "obligation_group_zpk", joinColumns =
-            @JoinColumn(name = "zpk_id", referencedColumnName = "id"),
-            inverseJoinColumns =
-            @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"))
+    @JoinColumn(name = "zpk_id", referencedColumnName = "id"),
+    inverseJoinColumns =
+    @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"))
     private Collection<ObligationGroup> obligationGroups = new ArrayList<>();
 
     public Integer getId() {
@@ -122,6 +125,14 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setObligationGroups(Collection<ObligationGroup> obligationGroups) {
         this.obligationGroups = obligationGroups;
+    }
+
+    public Dictionary getType() {
+        return type;
+    }
+
+    public void setType(Dictionary type) {
+        this.type = type;
     }
 
     public String longDescription() {

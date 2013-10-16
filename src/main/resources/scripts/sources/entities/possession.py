@@ -16,18 +16,15 @@ class PossessionManager(Container):
         possession = Possession()
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
-        self.setZpkData(possession)
-        self.setAutoPaymentData(possession)
         self.savePossession(possession)
         self.propagateElementsForNewPossession(possession)
+        self.generateZpkNumber(possession)
         return possession;
         
     def update(self):
         possession = self.findPossessionById(vars.get('id'))
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
-        self.setZpkData(possession)
-        self.setAutoPaymentData(possession)
         self.savePossession(possession)
         self.setElementsData(possession)
         return possession;
@@ -37,12 +34,14 @@ class PossessionManager(Container):
         entityManager.remove(possession.getAddress())
         for owner in possession.getOwners():
             entityManager.remove(owner)
-        for zpk in possession.getZpks():
-            entityManager.remove(zpk)
         for possessionElement in possession.getElements():
             entityManager.remove(possessionElement)
         entityManager.remove(possession.getAdditionalData())
         entityManager.remove(possession)
+        
+    def generateZpkNumber(self, possession):
+        zpk = ZpkManager().generateZpkForPossession(possession)
+        possession.setZpk(zpk)
         
     def propagateElementsForNewPossession(self, possession):
         manager = ElementManager()
@@ -64,21 +63,6 @@ class PossessionManager(Container):
         if possession.getId() == 0:
             community.getPossessions().add(possession)
         
-    def setAutoPaymentData(self, possession):
-        if vars.get('account') != None and vars.get('account') != '0':
-            possession.setAccount(self.findAccountById(vars.get('account')))
-        if vars.get('defaultBooking') != None and vars.get('defaultBooking') != '0':
-            possession.setDefaultBooking(self.findZpkById(vars.get('defaultBooking')))
-        for order in possession.getAutoPayments():
-            entityManager.remove(order)
-        possession.getAutoPayments().clear()
-        for i in range(int(vars.get(self._prefix + 'zpkOrderCount'))): 
-            auto = PossessionAutoPaymentOrder()
-            auto.setPossession(possession)
-            auto.setZpk(self.findZpkById(vars.get(self._prefix + str(i) + '_order_id')))
-            auto.setOrder(int(vars.get(self._prefix + str(i) + '_order_order')))
-            possession.getAutoPayments().add(auto)
-        
     def setPossessionAdditionalData(self, possession):
         possession.getAdditionalData().setPossession(possession)
         possession.getAdditionalData().setDeclaredArea(Double.parseDouble(vars.get(self._prefix + 'declaredArea')))
@@ -87,15 +71,6 @@ class PossessionManager(Container):
         possession.getAdditionalData().setColdWater(Double.parseDouble(vars.get(self._prefix + 'coldWater')))
         possession.getAdditionalData().setPeople(Integer.parseInt(vars.get(self._prefix + 'people')))
         possession.getAdditionalData().setRooms(Integer.parseInt(vars.get(self._prefix + 'rooms')))
-        
-    def setZpkData(self, possession):
-        for i in range(int(vars.get(self._prefix + 'zpkCount'))): 
-            vars.put(self._prefix + str(i) + "_communityId", vars.get(self._prefix + 'communityId'))
-            manager = ZpkManager()
-            manager.setPrefix(self._prefix + str(i) + "_")
-            zpk = manager.create()
-            zpk.setPossession(possession)
-            possession.getZpks().add(zpk)
         
     def getAddress(self, possession):
         addressManager = AddressManager()
@@ -110,9 +85,6 @@ class PossessionManager(Container):
         self._logger.info(possession.longDescription())
         entityManager.persist(possession)
         CommunityManager().recalculateShares(possession.getCommunity().getId())
-        
-    def findZpkById(self, id):
-        return entityManager.createQuery('Select zpk From ZakladowyPlanKont zpk Where zpk.id = ' + id).getSingleResult()
         
     def findAccountById(self, id):
         return entityManager.createQuery('Select a From Account a Where a.id = ' + id).getSingleResult()

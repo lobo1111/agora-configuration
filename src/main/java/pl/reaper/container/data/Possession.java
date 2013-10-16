@@ -35,11 +35,8 @@ public class Possession implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "default_zpk_booking_id", referencedColumnName = "id")
-    @ManyToOne(optional = true)
-    private ZakladowyPlanKont defaultBooking;
     @JoinColumn(name = "account_id", referencedColumnName = "id")
-    @ManyToOne(optional = true)
+    @OneToOne(optional = true)
     private Account account;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -47,16 +44,14 @@ public class Possession implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
-    @OneToMany(mappedBy = "possession")
-    private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
-    private Collection<PossessionAutoPaymentOrder> autoPayments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<Owner> owners = new ArrayList<>();
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "possession")
     private PossessionAdditionalData additionalData = new PossessionAdditionalData();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<ElementPossession> elements;
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "possession")
+    private ZakladowyPlanKont zpk = new ZakladowyPlanKont();
 
     public Possession() {
     }
@@ -89,28 +84,12 @@ public class Possession implements Serializable {
         this.address = address;
     }
 
-    public Collection<ZakladowyPlanKont> getZpks() {
-        return zpks;
-    }
-
-    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
-        this.zpks = zpks;
-    }
-
     public Collection<Owner> getOwners() {
         return owners;
     }
 
     public void setOwners(Collection<Owner> owners) {
         this.owners = owners;
-    }
-
-    public ZakladowyPlanKont getDefaultBooking() {
-        return defaultBooking;
-    }
-
-    public void setDefaultBooking(ZakladowyPlanKont defaultBooking) {
-        this.defaultBooking = defaultBooking;
     }
 
     public Account getAccount() {
@@ -121,20 +100,20 @@ public class Possession implements Serializable {
         this.account = account;
     }
 
-    public Collection<PossessionAutoPaymentOrder> getAutoPayments() {
-        return autoPayments;
-    }
-
-    public void setAutoPayments(Collection<PossessionAutoPaymentOrder> autoPayments) {
-        this.autoPayments = autoPayments;
-    }
-
     public Collection<ElementPossession> getElements() {
         return elements;
     }
 
     public void setElements(Collection<ElementPossession> elements) {
         this.elements = elements;
+    }
+
+    public ZakladowyPlanKont getZpk() {
+        return zpk;
+    }
+
+    public void setZpk(ZakladowyPlanKont zpk) {
+        this.zpk = zpk;
     }
 
     @Override
