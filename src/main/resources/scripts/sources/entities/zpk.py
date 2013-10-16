@@ -43,9 +43,10 @@ class ZpkManager(Container):
         zpks = []
         for zpk in community.getZpks():
             zpks.append(int(zpk.getNumber()))
-        for i in range(0, sys.maxint):
+        for i in range(0, 1000):
             if not i in zpks:
                 return self.parseNumber(i)
+        return 0
             
     def parseNumber(self, i):
         if i < 10:
