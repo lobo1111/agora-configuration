@@ -1430,6 +1430,26 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-zpks-types</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dict.id, CONCAT(dict.dictionaryKey, " - ", dictionary.value))
+                    FROM 
+                    Dictionary dict
+                    JOIN dict.type type
+                    WHERE
+                    type.type = 'ZPKS'
+                    ORDER BY 
+                    dict.dictinaryKey, dict.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-communities-names</name>
         <source>simple-list.vtl</source>
         <variables>
