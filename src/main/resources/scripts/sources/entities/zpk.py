@@ -19,10 +19,10 @@ class ZpkManager(Container):
         balance = ZpkBalance()
         balance.setBookingPeriod(bookingPeriod)
         if  bookingPeriod.isDefaultPeriod():
-            balance.setCredit(Double.parseDouble(vars.get(self._prefix + 'credit')))
-            balance.setDebit(Double.parseDouble(vars.get(self._prefix + 'debit')))
-            balance.setStartCredit(Double.parseDouble(vars.get(self._prefix + 'credit')))
-            balance.setStartDebit(Double.parseDouble(vars.get(self._prefix + 'debit')))
+            balance.setCredit(Double.parseDouble(vars.get('credit')))
+            balance.setDebit(Double.parseDouble(vars.get('debit')))
+            balance.setStartCredit(Double.parseDouble(vars.get('credit')))
+            balance.setStartDebit(Double.parseDouble(vars.get('debit')))
         return balance
     
     def generateZpkForPossession(self, possession):
@@ -45,7 +45,7 @@ class ZpkManager(Container):
         zpks = []
         for zpk in community.getZpks():
             zpks.append(int(zpk.getNumber()))
-        for i in range(0, 1000):
+        for i in range(1, 1000):
             if not i in zpks:
                 return self.parseNumber(i)
         return '0'
