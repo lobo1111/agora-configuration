@@ -4,6 +4,7 @@ from pl.reaper.container.data import PossessionAutoPaymentOrder
 from java.math import BigDecimal
 from java.lang import Double
 from java.lang import Integer
+from javax.validation import ConstraintViolationException
 
 class PossessionManager(Container):
     _logger = Logger([:_scriptId])
@@ -84,9 +85,17 @@ class PossessionManager(Container):
         return communityManager.findCommunityById(vars.get(self._prefix + 'communityId'))
         
     def savePossession(self, possession):
-        self._logger.info(possession.longDescription())
-        entityManager.persist(possession)
-        CommunityManager().recalculateShares(possession.getCommunity().getId())
+        try:
+            self._logger.info(possession.longDescription())
+            entityManager.persist(possession)
+            CommunityManager().recalculateShares(possession.getCommunity().getId())
+        except ConstraintViolationException as e:
+            for violation in e.getConstraintViolations():
+                self._logger.info("ConstraintViolationException")
+                self._logger.info(violation.getRootBean())
+                self._logger.info(violation.getMessage())
+                self._logger.info(violation.getInvalidValue())
+            
         
     def findAccountById(self, id):
         return entityManager.createQuery('Select a From Account a Where a.id = ' + id).getSingleResult()
