@@ -89,7 +89,7 @@ class PossessionManager(Container):
             self._logger.info(possession.longDescription())
             entityManager.persist(possession)
             CommunityManager().recalculateShares(possession.getCommunity().getId())
-        except ConstraintViolationException as e:
+        except ConstraintViolationException, e:
             for violation in e.getConstraintViolations():
                 self._logger.info("ConstraintViolationException")
                 self._logger.info(violation.getRootBean())
