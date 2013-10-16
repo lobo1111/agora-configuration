@@ -50,7 +50,8 @@ class ZpkManager(Container):
     def generateNumber(self, dict, community):
         zpks = []
         for zpk in community.getZpks():
-            zpks.append(int(zpk.getNumber()))
+            if(zpk.getType().getId() == dict.getId()):
+                zpks.append(int(zpk.getNumber()))
         for i in range(1, 1000):
             if not i in zpks:
                 return self.parseNumber(i)

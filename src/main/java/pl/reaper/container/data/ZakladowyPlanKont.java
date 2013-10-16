@@ -123,9 +123,9 @@ public class ZakladowyPlanKont implements Serializable {
 
     public String longDescription() {
         return "[number:" + number + "]"
-                + "[type:" + type.getKey() + "]"
-                + "[community:" + community.getId() + "]"
-                + "[possession:" + possession.getId() + "]"
-                + "[obligation:" + obligation.getId() + "]";
+                + "[type:" + type + "]"
+                + "[community:" + community + "]"
+                + "[possession:" + possession + "]"
+                + "[obligation:" + obligation + "]";
     }
 }
