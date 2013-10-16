@@ -37,10 +37,6 @@ public class ZakladowyPlanKont implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "number")
     private String number;
-    @Basic(optional = true)
-    @Size(min = 0, max = 255)
-    @Column(name = "description")
-    private String description;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
     private Community community;
@@ -77,14 +73,6 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Community getCommunity() {
@@ -136,7 +124,6 @@ public class ZakladowyPlanKont implements Serializable {
     }
 
     public String longDescription() {
-        return "[number:" + number + "]"
-                + "[description:" + description + "]";
+        return "[number:" + number + "]";
     }
 }
