@@ -1,3 +1,5 @@
+from pl.reaper.container.data import Dictionary
+
 class ZpksSettings:
     def update(self):
         possessionId = vars.get('possessionId')
