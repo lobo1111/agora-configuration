@@ -31,7 +31,6 @@ class ZpkManager(Container):
         zpk = ZakladowyPlanKont()
         zpk.setNumber(number)
         zpk.setCommunity(possession.getCommunity())
-        possession.getCommunity().getZpks().add(zpk)
         zpk.setPossession(possession)
         zpk.setType(pool)
         vars.put('credit', '0')

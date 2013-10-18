@@ -43,6 +43,7 @@ class PossessionManager(Container):
     def generateZpkNumber(self, possession):
         zpk = ZpkManager().generateZpkForPossession(possession)
         possession.setZpk(zpk)
+        possession.getCommunity().getZpks().add(zpk)
         
     def propagateElementsForNewPossession(self, possession):
         manager = ElementManager()

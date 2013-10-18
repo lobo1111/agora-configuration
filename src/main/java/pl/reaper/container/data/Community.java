@@ -52,7 +52,7 @@ public class Community implements Serializable {
     private Date outDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
     private Collection<Possession> possessions = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
     private Collection<PaymentScheduler> paymentSchedulers = new ArrayList<>();

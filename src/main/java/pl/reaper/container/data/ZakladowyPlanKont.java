@@ -36,7 +36,7 @@ public class ZakladowyPlanKont implements Serializable {
     @Column(name = "number")
     private String number;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Community community;
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne
