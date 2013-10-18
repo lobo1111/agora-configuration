@@ -50,8 +50,10 @@ class ZpkManager(Container):
         for zpk in community.getZpks():
             if(zpk.getType().getId() == dict.getId()):
                 zpks.append(int(zpk.getNumber()))
+        self._logger.info('Numbers already taken in the pool')
         for i in range(1, 1000):
             if not i in zpks:
+                self._logger.info('Number %d looks free' % i)
                 return self.parseNumber(i)
         return '0'
             
