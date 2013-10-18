@@ -41,6 +41,9 @@ public class PossessionAdditionalData implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "possession_id")
     private Possession possession;
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @OneToOne(optional = true)
+    private Account account;
 
     public Integer getId() {
         return id;
@@ -48,6 +51,14 @@ public class PossessionAdditionalData implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public double getDeclaredArea() {

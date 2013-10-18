@@ -35,9 +35,6 @@ public class Possession implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
-    @OneToOne(optional = true)
-    private Account account;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Community community;
@@ -90,14 +87,6 @@ public class Possession implements Serializable {
 
     public void setOwners(Collection<Owner> owners) {
         this.owners = owners;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public Collection<ElementPossession> getElements() {

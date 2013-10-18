@@ -2018,4 +2018,49 @@
             ('ZPKS_SETTINGS');
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-possession-additional-data-add-column-account-id'>
+        <sql>  
+            ALTER TABLE `possession_additional_data`
+            ADD COLUMN `account_id` int(11) NULL;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='possession-additional-data-migrate-account-id'>
+        <sql>  
+            UPDATE `possession_additional_data` AS pad, `possession` AS p SET pad.account_id = p.account_id
+            WHERE pad.possession_id = p.id
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='possession-fkey-remove-account-id'>
+        <sql>
+            ALTER TABLE `possession` DROP FOREIGN KEY `possession_account_fkey`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='possession-fkey-remove-default-zpk-id'>
+        <sql>
+            ALTER TABLE `possession` DROP FOREIGN KEY `possesison_default_zpk_fkey`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='possession-fkey-remove-account-id'>
+        <sql>
+            ALTER TABLE `possession` DROP `account_id`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='possession-fkey-remove-default-zpk-id'>
+        <sql>
+            ALTER TABLE `possession` DROP `default_zpk_booking_id`
+        </sql>
+    </changeSet>
+    
+        <changeSet author='tkopacki' id='table-possession-additional-data-add-account-id-fkey'>
+        <sql>  
+            ALTER TABLE `possession_additional_data`
+            ADD CONSTRAINT `possession_additional_data_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
