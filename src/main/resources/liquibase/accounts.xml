@@ -2045,13 +2045,13 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='possession-fkey-remove-account-id'>
+    <changeSet author='tkopacki' id='possession-drop-account-id'>
         <sql>
             ALTER TABLE `possession` DROP `account_id`;
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='possession-fkey-remove-default-zpk-id'>
+    <changeSet author='tkopacki' id='possession-drop-default-zpk-id'>
         <sql>
             ALTER TABLE `possession` DROP `default_zpk_booking_id`
         </sql>
