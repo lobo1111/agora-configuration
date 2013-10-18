@@ -13,7 +13,6 @@ class ZpkManager(Container):
             zpkBalance = self.createBalanceForPeriod(bookingPeriod)
             zpkBalance.setZpk(zpk)
             zpk.getZpkBalances().add(zpkBalance)
-            entityManager.persist(zpkBalance)
             
     def createBalanceForPeriod(self, bookingPeriod):
         balance = ZpkBalance()
@@ -36,7 +35,6 @@ class ZpkManager(Container):
         zpk.setType(pool)
         vars.put('credit', '0')
         vars.put('debit', '0')
-        self.save(zpk)
         self.setAllBookingPeriods(zpk)
         return zpk
     

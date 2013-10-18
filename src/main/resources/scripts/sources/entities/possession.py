@@ -17,8 +17,8 @@ class PossessionManager(Container):
         possession = Possession()
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
-        self.savePossession(possession)
         self.generateZpkNumber(possession)
+        self.savePossession(possession)
         self.propagateElementsForNewPossession(possession)
         return possession;
         
@@ -43,7 +43,6 @@ class PossessionManager(Container):
     def generateZpkNumber(self, possession):
         zpk = ZpkManager().generateZpkForPossession(possession)
         possession.setZpk(zpk)
-        entityManager.persist(possession)
         
     def propagateElementsForNewPossession(self, possession):
         manager = ElementManager()
