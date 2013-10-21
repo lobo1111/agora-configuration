@@ -49,6 +49,9 @@ public class Account implements Serializable {
     @JoinColumn(name = "parrent_account_id", referencedColumnName = "id")
     @ManyToOne
     private Account parrentAccount;
+    @JoinColumn(name = "community_id", referencedColumnName = "id")
+    @ManyToOne
+    private Community community;
 
     public Account() {
     }
@@ -118,6 +121,14 @@ public class Account implements Serializable {
 
     public void setBank(Bank bank) {
         this.bank = bank;
+    }
+
+    public Community getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Community community) {
+        this.community = community;
     }
 
     @Override

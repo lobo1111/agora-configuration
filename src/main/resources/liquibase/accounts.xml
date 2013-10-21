@@ -2057,10 +2057,24 @@
         </sql>
     </changeSet>
     
-        <changeSet author='tkopacki' id='table-possession-additional-data-add-account-id-fkey'>
+    <changeSet author='tkopacki' id='table-possession-additional-data-add-account-id-fkey'>
         <sql>  
             ALTER TABLE `possession_additional_data`
             ADD CONSTRAINT `possession_additional_data_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+            
+    <changeSet author='tkopacki' id='table-account-add-community-id'>
+        <sql>  
+            ALTER TABLE `account` ADD COLUMN `community_id` int(11) null
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-account-add-community-id-fkey'>
+        <sql>  
+            ALTER TABLE `account`
+            ADD CONSTRAINT `account_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
 </databaseChangeLog>
