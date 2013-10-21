@@ -18,9 +18,9 @@
         <city>$!possession.getAddress().getCity()</city>
     </address>
     <account>
-        <id>$!possession.getAccount().getId()</id>
-        <name>$!possession.getAccount().getName()</name>
-        <number>$!possession.getAccount().getNumber()</number>
+        <id>$!possession.getAdditionalData().getAccount().getId()</id>
+        <name>$!possession.getAdditionalData().getAccount().getName()</name>
+        <number>$!possession.getAdditionalData().getAccount().getNumber()</number>
     </account>
     <elements>
         #foreach($entity in $!possession.getElements())
