@@ -17,6 +17,7 @@ class AccountManager(Container):
         account.setName(vars.get('accountName'))
         account.setNumber(vars.get('accountNumber'))
         account.setType(self.getType())
+        account.setCommunity(self.findCommunityById('communityId'))
         if vars.get('parentAccountId') != None and vars.get('parentAccountId') != '0':
             account.setParrentAccount(self.getParent())
         account.setBank(self.getBank())
@@ -41,6 +42,9 @@ class AccountManager(Container):
 
     def findAccountById(self, id):
         return entityManager.createQuery('Select account From Account account Where account.id = ' + str(id)).getSingleResult()
+
+    def findCommunityById(self, id):
+        return entityManager.createQuery('Select c From Community c Where c.id = ' + str(id)).getSingleResult()
 
     def findAccountByNumber(self, number):
         sql = "Select account From Account account Where account.number = '%s'" % str(number)
