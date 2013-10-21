@@ -2063,7 +2063,6 @@
             ADD CONSTRAINT `possession_additional_data_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
-    
             
     <changeSet author='tkopacki' id='table-account-add-community-id'>
         <sql>  
@@ -2075,6 +2074,32 @@
         <sql>  
             ALTER TABLE `account`
             ADD CONSTRAINT `account_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+            
+    <changeSet author='tkopacki' id='table-community-add-default-account-id'>
+        <sql>  
+            ALTER TABLE `community` ADD COLUMN `default_account_id` int(11) null
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-community-add-default-account-id-fkey'>
+        <sql>  
+            ALTER TABLE `community`
+            ADD CONSTRAINT `community_default_account_id_fkey` FOREIGN KEY (`default_account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+            
+    <changeSet author='tkopacki' id='table-community-add-repair-fund-account-id'>
+        <sql>  
+            ALTER TABLE `community` ADD COLUMN `repair_fund_account_id` int(11) null
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-community-add-repair-fund-account-id-fkey'>
+        <sql>  
+            ALTER TABLE `community`
+            ADD CONSTRAINT `community_repair_fund_account_id_fkey` FOREIGN KEY (`repair_fund_account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
 </databaseChangeLog>

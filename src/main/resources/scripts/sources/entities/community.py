@@ -12,7 +12,6 @@ class CommunityManager(Container):
     def create(self):
         community = Community()
         self.setCommunityData(community)
-        self.setZpkData(community)
         self.saveCommunity(community)
         self.addDefaultElements(community)
         self.setObligationData(community)
@@ -20,13 +19,20 @@ class CommunityManager(Container):
     def update(self):
         community = self.findCommunity()
         self.setCommunityData(community)
-        self.setZpkData(community)
         self.saveCommunity(community)
         self.setElementsData(community)
         
     def setCommunityData(self, community):
         community.setName(vars.get('name'))
         community.setCompany(self.getCompany(community))
+        if vars.get('hasDefaultAccount') == 'true':
+            community.setDefaultAccount(self.findAccountById(vars.get('defaultAccountId')))
+        else:
+            community.setDefaultAccount(None)
+        if vars.get('hasRepairFundAccount') == 'true':
+            community.setRepairFundAccount(self.findAccountById(vars.get('repairFundAccountId')))
+        else:
+            community.setRepairFundAccount(None)
         
     def setElementsData(self, community):
         for i in range(int(vars.get(self._prefix + 'elementsCount'))): 
@@ -49,15 +55,6 @@ class CommunityManager(Container):
         entityManager.persist(community)
         entityManager.flush()
         
-    def setZpkData(self, community):
-        for i in range(int(vars.get(self._prefix + 'zpkCount'))): 
-            vars.put(self._prefix + str(i) + "_communityId", vars.get(self._prefix + 'id'))
-            manager = ZpkManager()
-            manager.setPrefix(self._prefix + str(i) + "_")
-            zpk = manager.create()
-            zpk.setCommunity(community)
-            community.getZpks().add(zpk)
-
     def setObligationData(self, community):
         for i in range(int(vars.get(self._prefix + 'obligationsCount'))): 
             prefix = self._prefix + str(i)
@@ -77,6 +74,9 @@ class CommunityManager(Container):
             return entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
         except:
             self._logger.error('Can\'t load community. Tried to load by id stored as ' + str(id))
+
+    def findAccountById(self, id):
+        return entityManager.createQuery('Select a From Account a Where a.id = ' + str(id)).getSingleResult()
 
     def recalculateShares(self, communityId):
         community = self.findCommunityById(communityId)

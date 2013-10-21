@@ -60,6 +60,12 @@ public class Community implements Serializable {
     private Collection<Obligation> obligations = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<ElementCommunity> elements = new ArrayList<>();
+    @JoinColumn(name = "default_account_id", referencedColumnName = "id")
+    @ManyToOne
+    private Account defaultAccount;
+    @JoinColumn(name = "repair_fund_account_id", referencedColumnName = "id")
+    @ManyToOne
+    private Account repairFundAccount;
 
     public Community() {
     }
@@ -144,6 +150,22 @@ public class Community implements Serializable {
 
     public void setElements(Collection<ElementCommunity> elements) {
         this.elements = elements;
+    }
+
+    public Account getDefaultAccount() {
+        return defaultAccount;
+    }
+
+    public void setDefaultAccount(Account defaultAccount) {
+        this.defaultAccount = defaultAccount;
+    }
+
+    public Account getRepairFundAccount() {
+        return repairFundAccount;
+    }
+
+    public void setRepairFundAccount(Account repairFundAccount) {
+        this.repairFundAccount = repairFundAccount;
     }
 
     @Override

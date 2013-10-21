@@ -20,22 +20,6 @@
             <city>$!community.getCompany().getAddress().getCity()</city>
         </address>
     </company>
-    <zpks>
-        #foreach($zpk in $!community.getZpks())
-        <zpk>
-            <id>$!zpk.getId()</id>
-            <description>$!zpk.getDescription()</description>
-            <number>$!zpk.getNumber()</number>
-            <isSum>$!zpk.isSumAccount()</isSum>
-            #foreach($balance in $!zpk.getZpkBalances())
-                #if($balance.getBookingPeriod().isDefaultPeriod())
-                    <credit>$balance.getCredit()</credit>
-                    <debit>$balance.getDebit()</debit>
-            #end
-            #end
-        </zpk>
-        #end
-    </zpks>
     <elements>
         #foreach($entity in $!community.getElements())
         <element>
@@ -52,6 +36,10 @@
         </element>
         #end
     </elements>
+    <defaultAccountId>$!community.getDefaultAccount().getId()</defaultAccountId>
+    <defaultAccountNumber>$!community.getDefaultAccount().getNumber()</defaultAccountNumber>
+    <repairFundAccountId>$!community.getRepairFundAccount().getId()</repairFundAccountId>
+    <repairFundAccountNumber>$!community.getRepairFundAccount().getNumber()</repairFundAccountNumber>
 </community>
 
 
