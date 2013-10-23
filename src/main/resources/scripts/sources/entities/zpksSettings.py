@@ -33,7 +33,7 @@ class ZpksSettings:
             dict.setType(self.findSettingsType())
             return dict
         
-    def findAccountDict(self):
+    def findRepairFundAccountDict(self):
         try:
             return self.findDict("REPAIR_FUND_ACCOUNT")
         except:
