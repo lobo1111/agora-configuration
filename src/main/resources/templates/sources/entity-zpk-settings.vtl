@@ -7,5 +7,8 @@
         #if($entity.getKey() == "ACCOUNT")
             <accountId>$entity.getValue()</accountId>
         #end
+        #if($entity.getKey() == "REPAIR_FUND_ACCOUNT")
+            <accountId>$entity.getValue()</accountId>
+        #end
     #end
 </zpks-settings>

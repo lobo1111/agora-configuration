@@ -2102,4 +2102,12 @@
             ADD CONSTRAINT `community_repair_fund_account_id_fkey` FOREIGN KEY (`repair_fund_account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='account-type-rent-to-virtual'>
+        <sql>  
+            UPDATE `dictionary` AS d, `dictionary_type` AS dt 
+            SET d.`dictionaryKey` = 'VIRTUAL', d.`value` = 'Konto indywidualne' 
+            WHERE d.type_id = dt.id AND dt.type = 'ACCOUNT_TYPE' AND d.dictionaryKey = 'RENT'
+        </sql>
+    </changeSet>
 </databaseChangeLog>

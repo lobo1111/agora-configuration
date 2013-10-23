@@ -10,6 +10,10 @@ class ZpksSettings:
         accountDict = self.findAccountDict()
         accountDict.setValue(accountId)
         entityManager.persist(accountDict)
+        repairFundAccountId = vars.get('repairFundAccountId')
+        repairFundAccountDict = self.findRepairFundAccountDict()
+        repairFundAccountDict.setValue(repairFundAccountId)
+        entityManager.persist(repairFundAccountDict)
         
     def findPossessionDict(self):
         try:
@@ -26,6 +30,15 @@ class ZpksSettings:
         except:
             dict = Dictionary()
             dict.setKey("ACCOUNT")
+            dict.setType(self.findSettingsType())
+            return dict
+        
+    def findAccountDict(self):
+        try:
+            return self.findDict("REPAIR_FUND_ACCOUNT")
+        except:
+            dict = Dictionary()
+            dict.setKey("REPAIR_FUND_ACCOUNT")
             dict.setType(self.findSettingsType())
             return dict
     
