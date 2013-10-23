@@ -25,7 +25,7 @@ class ZpkManager(Container):
         return balance
     
     def generateZpkForPossession(self, possession):
-        pool = self.findPossessionPool()
+        pool = self.findPool("POSSESSION")
         number = self.generateNumber(pool, possession.getCommunity())
         self._logger.info("ZPK number generated: %s" % number)
         zpk = ZakladowyPlanKont()
@@ -38,12 +38,26 @@ class ZpkManager(Container):
         self.setAllBookingPeriods(zpk)
         return zpk
     
+    def generateZpkForAccount(self, account):
+        pool = self.findPool(account.getType().getKey())
+        number = self.generateNumber(pool, account.getCommunity())
+        self._logger.info("ZPK number generated: %s" % number)
+        zpk = ZakladowyPlanKont()
+        zpk.setNumber(number)
+        zpk.setCommunity(possession.getCommunity())
+        zpk.setAccount(account)
+        zpk.setType(pool)
+        vars.put('credit', '0')
+        vars.put('debit', '0')
+        self.setAllBookingPeriods(zpk)
+        return zpk
+    
     def save(self, zpk):
         self._logger.info(zpk.longDescription())
         entityManager.persist(zpk)
     
-    def findPossessionPool(self):
-        return entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = 'POSSESSION'").getSingleResult()
+    def findPool(self, poolName):
+        return entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = '%s'" % poolName).getSingleResult()
     
     def generateNumber(self, dict, community):
         zpks = []

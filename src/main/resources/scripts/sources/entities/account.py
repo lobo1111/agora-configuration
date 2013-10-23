@@ -6,6 +6,7 @@ class AccountManager(Container):
     def create(self):
         account = Account()
         self.setAccountData(account)
+        self.createZpk(account)
         self.saveAccount(account)
         
     def update(self):
@@ -21,6 +22,12 @@ class AccountManager(Container):
         if vars.get('parentAccountId') != None and vars.get('parentAccountId') != '0':
             account.setParrentAccount(self.getParent())
         account.setBank(self.getBank())
+        
+    def createZpk(self, account):
+        if account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
+            zpk = ZpkManager().generateZpkForAccount(account)
+            account.setZpk(zpk)
+            account.getCommunity().getZpks().add(zpk)
         
     def getType(self):
         return DictionaryManager().getDictionaryInstance(vars.get('accountTypeId'))

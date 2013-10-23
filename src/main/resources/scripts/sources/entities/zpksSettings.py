@@ -3,8 +3,8 @@ from pl.reaper.container.data import Dictionary
 class ZpksSettings:
     def update(self):
         self.persistDict('possessionId', 'POSSESSION')
-        self.persistDict('accountId', 'ACCOUNT')
-        self.persistDict('repairFundAccountId', 'REPAIR_FUND_ACCOUNT')
+        self.persistDict('accountId', 'DEFAULT')
+        self.persistDict('repairFundAccountId', 'REPAIR_FUND')
         
     def persistDict(self, idVariableName, dictName):
         id = vars.get(idVariableName)
