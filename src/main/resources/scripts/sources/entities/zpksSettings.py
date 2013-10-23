@@ -2,43 +2,22 @@ from pl.reaper.container.data import Dictionary
 
 class ZpksSettings:
     def update(self):
-        possessionId = vars.get('possessionId')
-        possessionDict = self.findPossessionDict()
-        possessionDict.setValue(possessionId)
-        entityManager.persist(possessionDict)
-        accountId = vars.get('accountId')
-        accountDict = self.findAccountDict()
-        accountDict.setValue(accountId)
-        entityManager.persist(accountDict)
-        repairFundAccountId = vars.get('repairFundAccountId')
-        repairFundAccountDict = self.findRepairFundAccountDict()
-        repairFundAccountDict.setValue(repairFundAccountId)
-        entityManager.persist(repairFundAccountDict)
+        self.persistDict('possessionId', 'POSSESSION')
+        self.persistDict('accountId', 'ACCOUNT')
+        self.persistDict('repairFundAccountId', 'REPAIR_FUND_ACCOUNT')
         
-    def findPossessionDict(self):
+    def persistDict(self, idVariableName, dictName):
+        id = vars.get(idVariableName)
+        dict = self.findOrCreateDict(dictName)
+        dict.setValue(id)
+        entityManager.persist(dict)
+        
+    def findOrCreateDict(self, name):
         try:
-            return self.findDict("POSSESSION")
+            return self.findDict(name)
         except:
             dict = Dictionary()
-            dict.setKey("POSSESSION")
-            dict.setType(self.findSettingsType())
-            return dict
-        
-    def findAccountDict(self):
-        try:
-            return self.findDict("ACCOUNT")
-        except:
-            dict = Dictionary()
-            dict.setKey("ACCOUNT")
-            dict.setType(self.findSettingsType())
-            return dict
-        
-    def findRepairFundAccountDict(self):
-        try:
-            return self.findDict("REPAIR_FUND_ACCOUNT")
-        except:
-            dict = Dictionary()
-            dict.setKey("REPAIR_FUND_ACCOUNT")
+            dict.setKey(name)
             dict.setType(self.findSettingsType())
             return dict
     
