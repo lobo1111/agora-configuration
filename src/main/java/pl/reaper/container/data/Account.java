@@ -3,6 +3,7 @@ package pl.reaper.container.data;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -52,6 +54,8 @@ public class Account implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
     private Community community;
+    @OneToOne(mappedBy = "account", cascade = CascadeType.PERSIST)
+    private ZakladowyPlanKont zpk;
 
     public Account() {
     }
@@ -96,6 +100,14 @@ public class Account implements Serializable {
 
     public void setType(Dictionary type) {
         this.type = type;
+    }
+
+    public ZakladowyPlanKont getZpk() {
+        return zpk;
+    }
+
+    public void setZpk(ZakladowyPlanKont zpk) {
+        this.zpk = zpk;
     }
 
     @XmlTransient

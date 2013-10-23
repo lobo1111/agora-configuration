@@ -47,6 +47,9 @@ public class ZakladowyPlanKont implements Serializable {
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "obligation_id", referencedColumnName = "id")
     private Obligation obligation;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    private Account account;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
     @ManyToMany
@@ -95,6 +98,14 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setObligation(Obligation obligation) {
         this.obligation = obligation;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Collection<ZpkBalance> getZpkBalances() {
