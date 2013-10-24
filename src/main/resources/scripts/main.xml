@@ -1295,6 +1295,7 @@
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
             <scriptName>bank</scriptName>
+            <scriptName>zpk</scriptName>
             <scriptName>dictionary-manager</scriptName>
         </dependencies>
         <security>
