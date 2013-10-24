@@ -44,7 +44,7 @@ class ZpkManager(Container):
         self._logger.info("ZPK number generated: %s" % number)
         zpk = ZakladowyPlanKont()
         zpk.setNumber(number)
-        zpk.setCommunity(possession.getCommunity())
+        zpk.setCommunity(account.getCommunity())
         zpk.setAccount(account)
         zpk.setType(pool)
         vars.put('credit', '0')
