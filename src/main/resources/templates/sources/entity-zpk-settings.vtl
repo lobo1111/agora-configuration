@@ -4,11 +4,26 @@
         #if($entity.getKey() == "POSSESSION")
             <possessionId>$entity.getValue()</possessionId>
         #end
+        #if($entity.getKey() == "POSSESSION_REPAIR_FUND")
+            <possessionRepairId>$entity.getValue()</possessionRepairId>
+        #end
         #if($entity.getKey() == "DEFAULT")
             <accountId>$entity.getValue()</accountId>
         #end
         #if($entity.getKey() == "REPAIR_FUND")
             <repairFundAccountId>$entity.getValue()</repairFundAccountId>
+        #end
+        #if($entity.getKey() == "CONTRACTOR")
+            <contractorId>$entity.getValue()</contractorId>
+        #end
+        #if($entity.getKey() == "CONTRACTOR_COST")
+            <contractorCostId>$entity.getValue()</contractorCostId>
+        #end
+        #if($entity.getKey() == "CHARGING_RENT")
+            <chargingRentId>$entity.getValue()</chargingRentId>
+        #end
+        #if($entity.getKey() == "CHARGING_REPAIR_FUND")
+            <chargingRepairFundId>$entity.getValue()</chargingRepairFundId>
         #end
     #end
 </zpks-settings>
