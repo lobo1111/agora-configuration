@@ -9,6 +9,7 @@ class ObligationManager(Container):
     def create(self):
         obligation = Obligation()
         self.setData(obligation)
+        self.generateZpkNumber(obligation)
         entityManager.persist(obligation)
         entityManager.flush()
         return obligation
@@ -33,6 +34,15 @@ class ObligationManager(Container):
         else:
             obligation.setObligationGroup(None)
         obligation.setZpk(self.createZpk(obligation))
+
+    def generateZpkNumber(self, obligation):
+        manager = ZpkManager()
+        zpkContractor = manager.generateZpkForCommunity(obligation.getCommunity(), "CONTRACTOR")
+        zpkContractor.setObligation(obligation)
+        obligation.getZpks().add(zpkContractor)
+        zpkCost = manager.generateZpkForCommunity(obligation.getCommunity(), "CONTRACTOR_COST")
+        zpkCost.setObligation(obligation)
+        obligation.getZpks().add(zpkCost)
 
     def getContractor(self, obligation):
         companyManager = CompanyManager()

@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,8 +42,8 @@ public class Obligation implements Serializable {
     private Company contractor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "obligation")
     private Collection<ObligationLog> obligationLogs = new ArrayList<>();
-    @OneToOne(mappedBy = "obligation", cascade = CascadeType.PERSIST)
-    private ZakladowyPlanKont zpk;
+    @OneToMany(mappedBy = "obligation", cascade = CascadeType.PERSIST)
+    private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
     @JoinColumn(name = "obligation_group_id", referencedColumnName = "id")
     @ManyToOne
     private ObligationGroup obligationGroup;
@@ -97,11 +96,11 @@ public class Obligation implements Serializable {
         this.obligationGroup = obligationGroup;
     }
 
-    public ZakladowyPlanKont getZpk() {
-        return zpk;
+    public Collection<ZakladowyPlanKont> getZpks() {
+        return zpks;
     }
 
-    public void setZpk(ZakladowyPlanKont zpk) {
-        this.zpk = zpk;
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
+        this.zpks = zpks;
     }
 }

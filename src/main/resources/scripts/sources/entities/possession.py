@@ -41,10 +41,14 @@ class PossessionManager(Container):
         entityManager.remove(possession)
         
     def generateZpkNumber(self, possession):
-        zpk = ZpkManager().generateZpkForPossession(possession)
-        possession.setZpk(zpk)
-        possession.getCommunity().getZpks().add(zpk)
-        
+        manager = ZpkManager()
+        zpkRent = manager.generateZpkForCommunity(possession.getCommunity(), "POSSESSION")
+        zpkRent.setPossession(possession)
+        possession.setZpk(zpkRent)
+        zpkRepairFund = manager.generateZpkForCommunity(possession.getCommunity(), "POSSESSION_REPAIR_FUND")
+        zpkRepairFund.setPossession(possession)
+        possession.setZpk(zpkRepairFund)
+
     def propagateElementsForNewPossession(self, possession):
         manager = ElementManager()
         manager.propagateElementsForNewPossession(possession)

@@ -25,9 +25,9 @@ class AccountManager(Container):
         
     def createZpk(self, account):
         if account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
-            zpk = ZpkManager().generateZpkForAccount(account)
+            zpk = ZpkManager().generateZpkForCommunity(account.getCommunity(), account.getType().getKey())
+            zpk.setAccount(account)
             account.setZpk(zpk)
-            account.getCommunity().getZpks().add(zpk)
         
     def getType(self):
         return DictionaryManager().getDictionaryInstance(vars.get('accountTypeId'))

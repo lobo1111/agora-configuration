@@ -24,31 +24,17 @@ class ZpkManager(Container):
             balance.setStartDebit(Double.parseDouble(vars.get('debit')))
         return balance
     
-    def generateZpkForPossession(self, possession):
-        pool = self.findPool("POSSESSION")
-        number = self.generateNumber(pool, possession.getCommunity())
+    def generateZpkForCommunity(self, community, poolKey, credit = '0', debit = '0'):
+        pool = self.findPool(poolKey)
+        number = self.generateNumber(pool, community)
         self._logger.info("ZPK number generated: %s" % number)
         zpk = ZakladowyPlanKont()
         zpk.setNumber(number)
-        zpk.setCommunity(possession.getCommunity())
-        zpk.setPossession(possession)
+        zpk.setCommunity(community)
+        community.getZpks().add(zpk)
         zpk.setType(pool)
-        vars.put('credit', '0')
-        vars.put('debit', '0')
-        self.setAllBookingPeriods(zpk)
-        return zpk
-    
-    def generateZpkForAccount(self, account):
-        pool = self.findPool(account.getType().getKey())
-        number = self.generateNumber(pool, account.getCommunity())
-        self._logger.info("ZPK number generated: %s" % number)
-        zpk = ZakladowyPlanKont()
-        zpk.setNumber(number)
-        zpk.setCommunity(account.getCommunity())
-        zpk.setAccount(account)
-        zpk.setType(pool)
-        vars.put('credit', '0')
-        vars.put('debit', '0')
+        vars.put('credit', credit)
+        vars.put('debit', debit)
         self.setAllBookingPeriods(zpk)
         return zpk
     

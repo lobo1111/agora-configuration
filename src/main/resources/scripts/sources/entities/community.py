@@ -12,6 +12,7 @@ class CommunityManager(Container):
     def create(self):
         community = Community()
         self.setCommunityData(community)
+        self.generateZpkNumber(community)
         self.saveCommunity(community)
         self.addDefaultElements(community)
         self.setObligationData(community)
@@ -33,6 +34,13 @@ class CommunityManager(Container):
             community.setRepairFundAccount(self.findAccountById(vars.get('repairFundAccountId')))
         else:
             community.setRepairFundAccount(None)
+
+    def generateZpkNumber(self, community):
+        manager = ZpkManager()
+        zpkRent = manager.generateZpkForCommunity(community, "CHARGING_RENT")
+        community.getZpks().add(zpkRent)
+        zpkRepairFund = manager.generateZpkForCommunity(community, "CHARGING_REPAIR_FUND")
+        community.getZpks().add(zpkRepairFund)
         
     def setElementsData(self, community):
         for i in range(int(vars.get(self._prefix + 'elementsCount'))): 
