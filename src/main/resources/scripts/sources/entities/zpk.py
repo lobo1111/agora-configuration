@@ -43,11 +43,11 @@ class ZpkManager(Container):
         self._logger.info(zpk.longDescription())
         entityManager.persist(zpk)
 
-    def findPoolId(self, poolId):
+    def findPool(self, poolId):
         sql = "SELECT d FROM Dictionary d WHERE d.id = %s" % str(poolId)
         return entityManager.createQuery(sql).getSingleResult()
     
-    def findPool(self, poolName):
+    def findPoolId(self, poolName):
         return entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = '%s'" % poolName).getSingleResult()
     
     def generateNumber(self, dict, community):
