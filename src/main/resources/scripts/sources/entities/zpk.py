@@ -44,7 +44,7 @@ class ZpkManager(Container):
         entityManager.persist(zpk)
 
     def findPoolId(self, poolId):
-        sql = "SELECT dict FROM Dictionary d WHERE d.id = %s" % str(poolId)
+        sql = "SELECT d FROM Dictionary d WHERE d.id = %s" % str(poolId)
         return entityManager.createQuery(sql).getSingleResult()
     
     def findPool(self, poolName):
