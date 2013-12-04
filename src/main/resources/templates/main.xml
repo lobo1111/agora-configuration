@@ -713,7 +713,7 @@
                     JOIN zpk.community community
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
-                    JOIN zpk.getType() pool
+                    JOIN zpk.type pool
                     LEFT OUTER JOIN zpk.possession possession
                     LEFT OUTER JOIN zpk.obligation obligation
                     WHERE {:where} AND
