@@ -713,12 +713,13 @@
                     JOIN zpk.community community
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
+                    JOIN zpk.getType() pool
                     LEFT OUTER JOIN zpk.possession possession
                     LEFT OUTER JOIN zpk.obligation obligation
                     WHERE {:where} AND
                     period.defaultPeriod = true
                     ORDER BY
-                    community.name, zpk.number ASC
+                    community.name, pool.key, zpk.number ASC
                 </data>
             </var>
             <var>
