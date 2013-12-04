@@ -3,7 +3,7 @@
     #foreach($row in $zpks)
     <item>
         <zpkId>$!row.getId()</zpkId>
-        <number>$!row.getType().getValue()-$!row.getNumber()</number>
+        <number>$!row.getType().getKey()-$!row.getNumber()</number>
         #if($!row.getAccount())
             <description>$!row.getAccount().getNumber()</description>
         #end
