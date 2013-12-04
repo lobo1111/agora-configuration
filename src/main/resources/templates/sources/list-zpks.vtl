@@ -4,7 +4,15 @@
     <item>
         <zpkId>$!row.getId()</zpkId>
         <number>$!row.getNumber()</number>
-        <description>$!row.getDescription()</description>
+        #if($!row.getAccount())
+            <description>$!row.getAccount().getNumber()</description>
+        #end
+        #if($!row.getPossession())
+            <description>$!row.getPossession().getFullAddress()</description>
+        #end
+        #if($!row.getObligation())
+            <description>$!row.getObligation().getName()</description>
+        #end
         #foreach($balance in $row.getZpkBalances())
         #if($balance.getBookingPeriod().isDefaultPeriod())
         <credit>$balance.getCredit()</credit>
