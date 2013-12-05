@@ -613,6 +613,20 @@
     </script>
     
     <script>
+        <name>create-zpk</name>
+        <source>entities/zpk.py</source>
+        <onInit>ZpkManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>update-zpks-settings</name>
         <source>entities/zpksSettings.py</source>
         <onInit>ZpksSettings().update()</onInit>

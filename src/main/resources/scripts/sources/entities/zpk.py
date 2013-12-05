@@ -6,6 +6,20 @@ import sys
 
 class ZpkManager(Container):
     _logger = Logger([:_scriptId])
+
+    def create(self):
+        pool = self.findPool(vars.get('poolId'))
+        community = self.findCommunityById(vars.get('communityId'))
+        number = self.generateNumber(pool, community)
+        zpk = ZakladowyPlanKont()
+        zpk.setNumber(number)
+        zpk.setCommunity(community)
+        community.getZpks().add(zpk)
+        zpk.setType(pool)
+        vars.put('credit', credit)
+        vars.put('debit', debit)
+        self.setAllBookingPeriods(zpk)
+        return zpk
     
     def setAllBookingPeriods(self, zpk):
         bookingPeriodManager = BookingPeriodManager()
@@ -50,6 +64,10 @@ class ZpkManager(Container):
     def findPoolId(self, poolName):
         return entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = '%s'" % poolName).getSingleResult()
     
+    def findCommunityById(self, communityId):
+        sql = "SELECT c FROM Community c WHERE c.id = %s" % str(communityId)
+        return entityManager.createQuery(sql).getSingleResult()
+
     def generateNumber(self, dict, community):
         zpks = []
         for zpk in community.getZpks():
