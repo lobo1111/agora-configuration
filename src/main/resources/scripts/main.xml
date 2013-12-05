@@ -620,6 +620,7 @@
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
+            <scriptName>zpk</scriptName>
         </dependencies>
         <security>
             <group>all</group>
