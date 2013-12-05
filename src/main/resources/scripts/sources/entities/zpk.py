@@ -16,8 +16,8 @@ class ZpkManager(Container):
         zpk.setCommunity(community)
         community.getZpks().add(zpk)
         zpk.setType(pool)
-        vars.put('credit', credit)
-        vars.put('debit', debit)
+        vars.put('credit', '0')
+        vars.put('debit', '0')
         self.setAllBookingPeriods(zpk)
         return zpk
     
