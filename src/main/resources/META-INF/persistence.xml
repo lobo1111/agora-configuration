@@ -52,6 +52,7 @@
     <class>pl.reaper.container.data.ChargingQueue</class>
     <class>pl.reaper.container.data.PaymentRent</class>
     <class>pl.reaper.container.data.PaymentRentDetails</class>
+    <class>pl.reaper.container.data.InternalDocumentDefinition</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.target-server" value="WebSphere_7"/>

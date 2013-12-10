@@ -2123,4 +2123,38 @@
             ADD CONSTRAINT `zpk_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='internal-document-definition-table'>
+        <sql> 
+            CREATE TABLE IF NOT EXISTS `internal_document_definition` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `community_id` int(11) COLLATE utf8_polish_ci NOT NULL,
+            `credit_zpk_id` int(11) COLLATE utf8_polish_ci NOT NULL,
+            `debit_zpk_id` int(11) COLLATE utf8_polish_ci NOT NULL,
+            `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-internal-document-definition-community-id-fkey'>
+        <sql>  
+            ALTER TABLE `internal_document_definition`
+            ADD CONSTRAINT `community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-internal-document-definition-credit-zpk-id-fkey'>
+        <sql>  
+            ALTER TABLE `internal_document_definition`
+            ADD CONSTRAINT `credit_zpk_id_fkey` FOREIGN KEY (`credit_zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-internal-document-definition-debit-zpk-id-fkey'>
+        <sql>  
+            ALTER TABLE `internal_document_definition`
+            ADD CONSTRAINT `debit_zpk_id_fkey` FOREIGN KEY (`debit_zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
+        </sql>
+    </changeSet>
 </databaseChangeLog>
