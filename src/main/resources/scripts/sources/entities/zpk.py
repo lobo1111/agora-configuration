@@ -68,10 +68,6 @@ class ZpkManager(Container):
         sql = "SELECT c FROM Community c WHERE c.id = %s" % str(communityId)
         return entityManager.createQuery(sql).getSingleResult()
 
-    def findZpkById(self, id):
-        sql = "SELECT c FROM ZakladowyPlanKont c WHERE c.id = %s" % str(id)
-        return entityManager.createQuery(sql).getSingleResult()
-
     def generateNumber(self, dict, community):
         zpks = []
         for zpk in community.getZpks():
