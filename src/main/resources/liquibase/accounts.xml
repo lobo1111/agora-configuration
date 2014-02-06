@@ -2157,4 +2157,29 @@
             ADD CONSTRAINT `debit_zpk_id_fkey` FOREIGN KEY (`debit_zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;            
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='table-internal-document-definition-community-id-fkey-drop'>
+        <sql>
+            ALTER TABLE `internal_document_definition` DROP FOREIGN KEY `community_id_fkey`;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-internal-document-definition-credit-zpk-id-fkey-drop'>
+        <sql>
+            ALTER TABLE `internal_document_definition` DROP FOREIGN KEY `credit_zpk_id_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-internal-document-definition-debit-zpk-id-fkey-drop'>
+        <sql>
+            ALTER TABLE `internal_document_definition` DROP FOREIGN KEY `debit_zpk_id_fkey`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='table-internal-document-definition-drop'>
+        <sql>
+            DROP TABLE `internal_document_definition`;
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
