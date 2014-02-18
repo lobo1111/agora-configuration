@@ -562,7 +562,7 @@
     <script>
         <name>create-contractor</name>
         <source>entities/contractor.py</source>
-        <onInit>ObligationManager().create()</onInit>
+        <onInit>ContractorManager().create()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
@@ -579,7 +579,7 @@
     <script>
         <name>update-contractor</name>
         <source>entities/contractor.py</source>
-        <onInit>ObligationManager().update()</onInit>
+        <onInit>ContractorManager().update()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
@@ -596,7 +596,7 @@
     <script>
         <name>remove-contractor</name>
         <source>entities/contractor.py</source>
-        <onInit>ObligationManager().remove()</onInit>
+        <onInit>ContractorManager().remove()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>

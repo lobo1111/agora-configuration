@@ -1,13 +1,13 @@
-from pl.reaper.container.data import Obligation
+from pl.reaper.container.data import Contractor
 
-class ObligationManager(Container):
+class ContractorManager(Container):
     _prefix = ''
     
     def setPrefix(self, prefix):
         self._prefix = prefix
 
     def create(self):
-        obligation = Obligation()
+        obligation = Contractor()
         self.setData(obligation)
         self.generateZpkNumber(obligation)
         entityManager.persist(obligation)
@@ -15,13 +15,13 @@ class ObligationManager(Container):
         return obligation
         
     def update(self):
-        obligation = self.findObligationById(vars.get(self._prefix + 'id'))
+        obligation = self.findContractorById(vars.get(self._prefix + 'id'))
         self.setData(obligation)
         entityManager.persist(obligation)
         return obligation
 
     def remove(self):
-        obligation = self.findObligationById(vars.get(self._prefix + 'id'))
+        obligation = self.findContractorById(vars.get(self._prefix + 'id'))
         entityManager.remove(obligation.getZpk())
         entityManager.remove(obligation)
         
@@ -33,10 +33,10 @@ class ObligationManager(Container):
     def generateZpkNumber(self, obligation):
         manager = ZpkManager()
         zpkContractor = manager.generateZpkForCommunity(obligation.getCommunity(), "CONTRACTOR")
-        zpkContractor.setObligation(obligation)
+        zpkContractor.setContractor(obligation)
         obligation.getZpks().add(zpkContractor)
         zpkCost = manager.generateZpkForCommunity(obligation.getCommunity(), "CONTRACTOR_COST")
-        zpkCost.setObligation(obligation)
+        zpkCost.setContractor(obligation)
         obligation.getZpks().add(zpkCost)
 
     def getContractor(self, obligation):
@@ -47,8 +47,8 @@ class ObligationManager(Container):
         else:
             return companyManager.create()
         
-    def findObligationById(self, id):
-        return entityManager.createQuery('Select o From Obligation o Where o.id = ' + str(id)).getSingleResult()
+    def findContractorById(self, id):
+        return entityManager.createQuery('Select o From Contractor o Where o.id = ' + str(id)).getSingleResult()
     
     def findCommunity(self, id):
         return CommunityManager().findCommunityById(id)

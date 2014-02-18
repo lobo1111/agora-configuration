@@ -15,7 +15,7 @@ class CommunityManager(Container):
         self.generateZpkNumber(community)
         self.saveCommunity(community)
         self.addDefaultElements(community)
-        self.setObligationData(community)
+        self.setContractorData(community)
         
     def update(self):
         community = self.findCommunity()
@@ -63,11 +63,11 @@ class CommunityManager(Container):
         entityManager.persist(community)
         entityManager.flush()
         
-    def setObligationData(self, community):
+    def setContractorData(self, community):
         for i in range(int(vars.get(self._prefix + 'obligationsCount'))): 
             prefix = self._prefix + str(i)
             vars.put(prefix + 'communityId', str(community.getId()))
-            obligationManager = ObligationManager()
+            obligationManager = ContractorManager()
             obligationManager.setPrefix(prefix)
             obligation = obligationManager.create()
             community.getZpks().add(obligation.getZpk())
