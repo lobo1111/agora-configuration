@@ -651,7 +651,7 @@
         <sql>       
             ALTER TABLE `contractor`
             ADD CONSTRAINT `contractor_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            ADD CONSTRAINT `contractor_contractor_id_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `contractor_contractor_id_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     
