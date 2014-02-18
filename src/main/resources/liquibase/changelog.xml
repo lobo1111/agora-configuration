@@ -284,7 +284,7 @@
             `company_id` int(11) NOT NULL,
             PRIMARY KEY (`id`),
             KEY `contractor_community_fkey` (`community_id`),
-            KEY `contractor_company_id_fkey` (`company_id`),
+            KEY `contractor_company_id_fkey` (`company_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=13 ;
         </sql>
     </changeSet>
