@@ -47,9 +47,6 @@ public class Community implements Serializable {
     @Column(name = "in_date")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date inDate;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name = "out_date")
-    private Date outDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
     private Collection<Possession> possessions = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
@@ -99,14 +96,6 @@ public class Community implements Serializable {
 
     public void setInDate(Date inDate) {
         this.inDate = inDate;
-    }
-
-    public Date getOutDate() {
-        return outDate;
-    }
-
-    public void setOutDate(Date outDate) {
-        this.outDate = outDate;
     }
 
     @XmlTransient
