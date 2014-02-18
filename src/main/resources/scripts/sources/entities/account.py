@@ -11,13 +11,11 @@ class AccountManager(Container):
         
     def update(self):
         account = self.findAccount()
-        self.setAccountData(account)
         self.saveAccount(account)
         
     def setAccountData(self, account):
         account.setName(vars.get('accountName'))
         account.setNumber(vars.get('accountNumber'))
-        account.setType(self.getType())
         account.setCommunity(self.findCommunityById(vars.get('communityId')))
         if vars.get('parentAccountId') != None and vars.get('parentAccountId') != '0':
             account.setParrentAccount(self.getParent())
@@ -29,9 +27,6 @@ class AccountManager(Container):
             zpk.setAccount(account)
             account.setZpk(zpk)
         
-    def getType(self):
-        return DictionaryManager().getDictionaryInstance(vars.get('accountTypeId'))
-    
     def getParent(self):
         return self.findAccountById(vars.get('parentAccountId'))
     
