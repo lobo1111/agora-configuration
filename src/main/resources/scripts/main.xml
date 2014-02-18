@@ -116,135 +116,8 @@
             <group>incoming-documents-bp</group>
         </security>
     </script>
-    
-    <script>
-        <name>import-access-db-structure</name>
-        <source>loaders/import-access-db-structure.py</source>
-        <onInit>MSAccessStructureReader()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-        </dependencies>
-        <security>
-            <group>access-structure-manager</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>import-access-db-data</name>
-        <source>loaders/import-access-db-data.py</source>
-        <onInit>MSAccessDataReader()</onInit>
-        <scheduler>
-            <name>import-access-db-data</name>
-            <enabled>false</enabled>
-            <fireAt>*/5 * * * *</fireAt>
-        </scheduler>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-        </dependencies>
-        <security>
-            <group>access-data-manager</group>
-        </security>
-    </script>
-
-    <!-- SYNC -->
-    <script>
-        <name>sync-superclass</name>
-        <source>sync/sync-superclass.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-        </dependencies>
-        <security>
-            <group>access-sync</group>
-        </security>
-    </script>
-            
-    <script>
-        <name>sync-communities</name>
-        <source>sync/sync-communities.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>sync-superclass</scriptName>
-        </dependencies>
-        <security>
-            <group>access-sync</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>sync-possessions</name>
-        <source>sync/sync-possessions.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>sync-superclass</scriptName>
-        </dependencies>
-        <security>
-            <group>access-sync</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>sync-people</name>
-        <source>sync/sync-people.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>sync-superclass</scriptName>
-        </dependencies>
-        <security>
-            <group>access-sync</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>sync-companies</name>
-        <source>sync/sync-companies.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>sync-superclass</scriptName>
-        </dependencies>
-        <security>
-            <group>access-sync</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>sync-access-to-db</name>
-        <source>sync/sync-access-to-db.py</source>
-        <onInit>SyncAccessToDb()</onInit>
-        <scheduler>
-            <name>sync-access-to-db</name>
-            <enabled>false</enabled>
-            <fireAt>*/5 * * * *</fireAt>
-        </scheduler>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>sync-communities</scriptName>
-            <scriptName>sync-possessions</scriptName>
-            <scriptName>sync-people</scriptName>
-            <scriptName>sync-companies</scriptName>
-        </dependencies>
-        <security>
-            <group>access-sync</group>
-        </security>
-    </script>
-    
-   
+     
     <!-- ENTITIES -->
-    
-    
     
     <script>
         <name>payment-rent</name>
@@ -426,24 +299,7 @@
             <group>all</group>
         </security>
     </script>
-    
-    <script>
-        <name>book</name>
-        <source>entities/book.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>dictionary-manager</scriptName>
-            <scriptName>zpk</scriptName>
-            <scriptName>bookingPeriod</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-       
+          
     <script>
         <name>obligation-group</name>
         <source>entities/obligationGroup.py</source>
@@ -491,64 +347,6 @@
             <scriptName>person</scriptName>
             <scriptName>address</scriptName>
             <scriptName>possession</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-        
-    <script>
-        <name>payment</name>
-        <source>entities/payment.py</source>
-        <onInit>PaymentManager().create()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>dictionary-manager</scriptName>
-            <scriptName>account</scriptName>
-            <scriptName>book</scriptName>
-            <scriptName>zpk</scriptName>
-            <scriptName>obligation</scriptName>
-            <scriptName>possession</scriptName>
-            <scriptName>community</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-        
-    <script>
-        <name>payment-scheduler</name>
-        <source>entities/paymentScheduler.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>payment</scriptName>
-            <scriptName>community</scriptName>
-            <scriptName>dictionary-manager</scriptName>
-            <scriptName>account</scriptName>
-            <scriptName>book</scriptName>
-            <scriptName>zpk</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>settlement</name>
-        <source>actions/settlement.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>obligation-group</scriptName>
-            <scriptName>payment</scriptName>
-            <scriptName>dictionary-manager</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -738,58 +536,6 @@
             <group>all</group>
         </security>
     </script>
-    
-    <script>
-        <name>create-auto-payment-entity</name>
-        <source>crons/autoPayments.py</source>
-        <onInit>CronAutoPayment().processPayment()</onInit>
-        <scheduler />
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>dictionary-manager</scriptName>
-            <scriptName>bookingPeriod</scriptName>
-            <scriptName>zpk</scriptName>
-            <scriptName>book</scriptName>
-            <scriptName>payment</scriptName>
-            <scriptName>account</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>report</name>
-        <source>entities/report.py</source>
-        <onInit>ReportManager().createReport()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>output</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>settle-create-payments</name>
-        <source>actions/settlement.py</source>
-        <onInit>SettleManager().settle()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>obligation-group</scriptName>
-            <scriptName>payment</scriptName>
-            <scriptName>dictionary-manager</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
         
    <script>
         <name>create-owner</name>
@@ -931,38 +677,6 @@
     </script>
     
     <script>
-        <name>create-payment-scheduler</name>
-        <source>entities/paymentScheduler.py</source>
-        <onInit>PaymentSchedulerManager().create()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>payment</scriptName>
-            <scriptName>community</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>update-payment-scheduler</name>
-        <source>entities/paymentScheduler.py</source>
-        <onInit>PaymentSchedulerManager().update()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>payment</scriptName>
-            <scriptName>community</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
         <name>remove-zpk</name>
         <source>entities/zpk.py</source>
         <onInit>ZpkManager().remove()</onInit>
@@ -970,78 +684,6 @@
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>create-zpk-sum</name>
-        <source>entities/zpk.py</source>
-        <onInit>ZpkManager().createSum()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>community</scriptName>
-            <scriptName>book</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>create-payment</name>
-        <source>entities/payment.py</source>
-        <onInit>PaymentManager().create()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>dictionary-manager</scriptName>
-            <scriptName>account</scriptName>
-            <scriptName>book</scriptName>
-            <scriptName>zpk</scriptName>
-            <scriptName>obligation</scriptName>
-            <scriptName>possession</scriptName>
-            <scriptName>community</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>book-payment</name>
-        <source>entities/payment.py</source>
-        <onInit>PaymentManager().bookStoredPayment()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>dictionary-manager</scriptName>
-            <scriptName>account</scriptName>
-            <scriptName>book</scriptName>
-            <scriptName>zpk</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    <script>
-        <name>cancel-payment</name>
-        <source>entities/payment.py</source>
-        <onInit>PaymentManager().cancelStoredPayment()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>dictionary-manager</scriptName>
-            <scriptName>account</scriptName>
-            <scriptName>book</scriptName>
-            <scriptName>zpk</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -1401,26 +1043,7 @@
             <group>all</group>
         </security>
     </script>
-    <script>
-        <name>create-payments</name>
-        <source>crons/payments.py</source>
-        <onInit>CronPayment()</onInit>
-        <scheduler>
-            <name>create-payments</name>
-            <enabled>false</enabled>
-            <fireAt>* * * * *</fireAt>
-        </scheduler>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>bookingPeriod</scriptName>
-            <scriptName>dictionary-manager</scriptName>
-            <scriptName>book</scriptName>
-        </dependencies>
-        <security>
-            <group>access-sync</group>
-        </security>
-    </script>
+
     <script>
         <name>bind-documents-to-payments</name>
         <source>crons/autoPaymentRent.py</source>

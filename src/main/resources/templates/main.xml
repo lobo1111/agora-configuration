@@ -2,86 +2,6 @@
 <templates>
     <!-- ENTITIES -->
     <template>
-        <name>entity-settlement</name>
-        <source>entity-settlement.vtl</source>
-        <variables>
-            <var>
-                <name>obligationGroup</name>
-                <data>
-                    {:single}
-                    SELECT
-                    og
-                    FROM
-                    ObligationGroup og
-                    WHERE
-                    og.id = {:id}
-                </data>
-            </var>
-            <var>
-                <name>possessions</name>
-                <data>
-                    SELECT
-                    zpk
-                    FROM
-                    ObligationGroup og
-                    JOIN og.zpks zpk
-                    JOIN zpk.zpkBalances balance
-                    JOIN balance.bookingPeriod period
-                    WHERE
-                    period.defaultPeriod = true
-                    AND og.id = {:id}
-                </data>
-            </var>
-            <var>
-                <name>obligations</name>
-                <data>
-                    SELECT
-                    obligation
-                    FROM
-                    Obligation obligation
-                    JOIN obligation.obligationGroup og
-                    JOIN obligation.zpk zpk
-                    JOIN zpk.zpkBalances balance
-                    JOIN balance.bookingPeriod period
-                    WHERE
-                    period.defaultPeriod = true
-                    AND og.id = {:id}
-                </data>
-            </var>
-            <var>
-                <name>logs</name>
-                <data>
-                    SELECT
-                    log
-                    FROM
-                    SettlementLog log
-                    JOIN log.obligationGroup og
-                    WHERE
-                    og.id = {:id}
-                    ORDER BY log.timestamp DESC
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>entity-report</name>
-        <source>entity-report.vtl</source>
-        <variables>
-            <var>
-                <name>report</name>
-                <data>
-                    {:single}
-                    SELECT 
-                    report
-                    FROM 
-                    Report report
-                    WHERE 
-                    report.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
         <name>entity-zpk-settings</name>
         <source>entity-zpk-settings.vtl</source>
         <variables>
@@ -244,42 +164,6 @@
         </variables>
     </template>
     <template>
-        <name>entity-payment-scheduler</name>
-        <source>entity-payment-scheduler.vtl</source>
-        <variables>
-            <var>
-                <name>ps</name>
-                <data>
-                    {:single}
-                    SELECT 
-                    ps
-                    FROM 
-                    PaymentScheduler ps
-                    WHERE 
-                    ps.id = {:id}
-                </data>
-            </var>
-            <var>
-                <name>free</name>
-                <data>
-                    SELECT 
-                    free
-                    FROM 
-                    PaymentScheduler ps
-                    JOIN ps.community c
-                    JOIN c.zpks free
-                    WHERE 
-                    ps.id = {:id}
-                    AND free.id NOT IN(
-                    SELECT 
-                    bounded.id
-                    FROM 
-                    ps.zpks bounded)
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
         <name>entity-zpk</name>
         <source>entity-zpk.vtl</source>
         <variables>
@@ -296,38 +180,6 @@
                     WHERE 
                     zpk.id = {:id}
                     AND period.id = {:bookingPeriod}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>entity-zpk-sum</name>
-        <source>entity-zpk-sum.vtl</source>
-        <variables>
-            <var>
-                <name>zpk</name>
-                <data>
-                    {:single}
-                    SELECT
-                    zpk.number,
-                    zpk.description,
-                    SUM(balance.credit),
-                    SUM(balance.debit),
-                    community.id,
-                    community.name
-                    FROM
-                    ZakladowyPlanKont zpk
-                    JOIN zpk.zpkSums zpkSum
-                    JOIN zpkSum.bookingPeriod basePeriod
-                    JOIN zpk.community community
-                    JOIN community.zpks zpkToCount
-                    JOIN zpkToCount.zpkBalances balance
-                    JOIN balance.bookingPeriod bookingPeriod
-                    WHERE
-                    zpk.id = {:id}
-                    AND bookingPeriod.defaultPeriod = true
-                    AND basePeriod.defaultPeriod = true
-                    AND zpkToCount.number LIKE CONCAT(zpkSum.numberPrefix, \'%\')
                 </data>
             </var>
         </variables>
@@ -457,143 +309,6 @@
                         counter > 0
                     ORDER BY
                         community.name ASC
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>list-settlements</name>
-        <source>list-settlements.vtl</source>
-        <variables>
-            <var>
-                <name>settlements</name>
-                <data>
-                    {:native}
-                    {:limit}
-                    SELECT
-                    og.id,
-                    og.name,
-                    c.name,
-                    sum1.c,
-                    sum1.d,
-                    sum2.oc,
-                    sum2.od
-                    FROM
-                    obligation_group AS og
-                    JOIN community AS c ON(og.community_id = c.id)
-                    JOIN 
-                    (SELECT
-                    og.id AS id,
-                    og.name,
-                    SUM(zb.credit) AS c,
-                    SUM(zb.debit) AS d
-                    FROM
-                    obligation_group AS og
-                    JOIN obligation_group_zpk AS ogz ON(og.id = ogz.obligation_group_id)
-                    JOIN zpk AS z ON(z.id = ogz.zpk_id)
-                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
-                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
-                    WHERE
-                    bp.default_period = 1
-                    GROUP BY 
-                    og.id, og.name) AS sum1 ON(og.id = sum1.id)
-                    JOIN
-                    (SELECT
-                    og.id AS id,
-                    og.name,
-                    SUM(zb.credit) AS oc,
-                    SUM(zb.debit) AS od
-                    FROM
-                    obligation_group AS og
-                    JOIN obligation AS o ON(o.obligation_group_id = og.id)
-                    JOIN zpk AS z ON(z.obligation_id = o.id)
-                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
-                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
-                    WHERE
-                    bp.default_period = 1
-                    GROUP BY 
-                    og.id, og.name) AS sum2 ON(og.id = sum2.id)
-                    WHERE {:where}
-                    ORDER BY c.name, og.name ASC
-                </data>
-            </var>
-            <var>
-                <name>countRows</name>
-                <data>
-                    {:native}
-                    {:single}
-                    SELECT
-                    count(og.id)
-                    FROM
-                    obligation_group AS og
-                    JOIN community AS c ON(og.community_id = c.id)
-                    JOIN 
-                    (SELECT
-                    og.id AS id,
-                    og.name,
-                    SUM(zb.credit) AS c,
-                    SUM(zb.debit) AS d
-                    FROM
-                    obligation_group AS og
-                    JOIN obligation_group_zpk AS ogz ON(og.id = ogz.obligation_group_id)
-                    JOIN zpk AS z ON(z.id = ogz.zpk_id)
-                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
-                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
-                    WHERE
-                    bp.default_period = 1
-                    GROUP BY 
-                    og.id, og.name) AS sum1 ON(og.id = sum1.id)
-                    JOIN
-                    (SELECT
-                    og.id AS id,
-                    og.name,
-                    SUM(zb.credit) AS oc,
-                    SUM(zb.debit) AS od
-                    FROM
-                    obligation_group AS og
-                    JOIN obligation AS o ON(o.obligation_group_id = og.id)
-                    JOIN zpk AS z ON(z.obligation_id = o.id)
-                    JOIN zpk_balance AS zb ON(z.id = zb.zpk_id)
-                    JOIN booking_period AS bp ON(zb.booking_period_id = bp.id)
-                    WHERE
-                    bp.default_period = 1
-                    GROUP BY 
-                    og.id, og.name) AS sum2 ON(og.id = sum2.id)
-                    WHERE {:where}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>list-payments-scheduler</name>
-        <source>list-payments-scheduler.vtl</source>
-        <variables>
-            <var>
-                <name>schedulers</name>
-                <data>
-                    {:limit}
-                    SELECT
-                    paymentScheduler
-                    FROM
-                    PaymentScheduler paymentScheduler
-                    JOIN paymentScheduler.paymentSchedulerTemplates template
-                    JOIN paymentScheduler.community community
-                    WHERE {:where}
-                    ORDER BY
-                    paymentScheduler.name ASC
-                </data>
-            </var>
-            <var>
-                <name>countRows</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(paymentScheduler.id)
-                    FROM
-                    PaymentScheduler paymentScheduler
-                    JOIN paymentScheduler.paymentSchedulerTemplates template
-                    JOIN paymentScheduler.community community
-                    WHERE {:where}
                 </data>
             </var>
         </variables>
@@ -1046,55 +761,6 @@
         </variables>
     </template>
     <template>
-        <name>list-payments</name>
-        <source>list-payments.vtl</source>
-        <variables>
-            <var>
-                <name>payments</name>
-                <data>
-                    {:limit}
-                    SELECT 
-                    payment
-                    FROM 
-                    Payment payment
-                    JOIN payment.status paymentStatus
-                    JOIN payment.type paymentType
-                    LEFT OUTER JOIN payment.account account
-                    LEFT OUTER JOIN account.bank bank
-                    LEFT OUTER JOIN payment.zpkBalance balance
-                    LEFT OUTER JOIN balance.bookingPeriod period
-                    LEFT OUTER JOIN balance.zpk zpk
-                    LEFT OUTER JOIN zpk.community community
-                    LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.obligation obligation
-                    WHERE {:where}
-                    ORDER BY payment.createDay DESC
-                </data>
-            </var>
-            <var>
-                <name>countRows</name>
-                <data>
-                    {:single}
-                    SELECT 
-                    count(payment.id)
-                    FROM 
-                    Payment payment
-                    JOIN payment.status paymentStatus
-                    JOIN payment.type paymentType
-                    LEFT OUTER JOIN payment.account account
-                    LEFT OUTER JOIN account.bank bank
-                    LEFT OUTER JOIN payment.zpkBalance balance
-                    LEFT OUTER JOIN balance.bookingPeriod period
-                    LEFT OUTER JOIN balance.zpk zpk
-                    LEFT OUTER JOIN zpk.community community
-                    LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.obligation obligation
-                    WHERE {:where}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
         <name>list-owners</name>
         <source>list-owners.vtl</source>
         <variables>
@@ -1196,28 +862,6 @@
             </var>
         </variables>
     </template>
-    
-    <template>
-        <name>list-report-filters</name>
-        <source>list-report-filters.vtl</source>
-        <variables>
-            <var>
-                <name>filters</name>
-                <data>
-                    SELECT 
-                        filter
-                    FROM
-                        ReportFilter filter
-                        JOIN filter.report report
-                        JOIN filter.group filterGroup
-                    WHERE
-                        {:where}
-                    ORDER BY
-                        filterGroup.groupOrder, filter.filterOrder ASC
-                </data>
-            </var>
-        </variables>
-    </template>
     <template>
         <name>list-zpks-dictionary</name>
         <source>list-dictionary.vtl</source>
@@ -1279,46 +923,6 @@
         </variables>
     </template>
     <template>
-        <name>list-possession-zpks</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    zpk.id, 
-                    zpk.number) 
-                    FROM
-                    Possession possession
-                    JOIN possession.zpks zpk
-                    WHERE
-                    possession.id = {:id}
-                    ORDER BY zpk.number ASC
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>list-community-zpks</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    zpk.id, 
-                    CONCAT(zpk.number, " - ", zpk.description))
-                    FROM
-                    Community community
-                    JOIN community.zpks zpk
-                    WHERE
-                    community.id = {:id}
-                    ORDER BY zpk.number ASC
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
         <name>simple-list-elements-types</name>
         <source>simple-list.vtl</source>
         <variables>
@@ -1331,45 +935,6 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ELEMENTS\'
-                    ORDER BY 
-                    dic.value ASC
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>simple-list-payments-types</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    dic.id, dic.value)
-                    FROM 
-                    Dictionary dic
-                    WHERE 
-                    dic.type.type = \'PAYMENT_TYPE\'
-                    AND dic.key != \'AUTO\'
-                    ORDER BY 
-                    dic.value ASC
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>simple-list-payments-statuses</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    dic.id, dic.value)
-                    FROM 
-                    Dictionary dic
-                    WHERE 
-                    dic.type.type = \'PAYMENT_STATUS\'
                     ORDER BY 
                     dic.value ASC
                 </data>
@@ -1507,50 +1072,7 @@
             </var>
         </variables>
     </template>
-    <template>
-        <name>simple-list-reports</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    report.id, report.name)
-                    FROM 
-                    Report report
-                    ORDER BY 
-                    report.name ASC
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>simple-list-payment-scheduler-free-zpks</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    zpk.id, CONCAT(zpk.number, " - ", zpk.description))
-                    FROM 
-                    ZakladowyPlanKont zpk
-                    JOIN zpk.community c
-                    LEFT OUTER JOIN c.paymentSchedulers ps
-                    WHERE c.id = {:cid}
-                    AND zpk.possession IS NOT NULL
-                    AND zpk.id NOT IN(
-                    SELECT 
-                    bounded.id
-                    FROM 
-                    ps.zpks bounded
-                    WHERE
-                    ps.id = {:psid})
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
+      <template>
         <name>can-close-month</name>
         <source>simple-long-response.vtl</source>
         <variables>
