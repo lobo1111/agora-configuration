@@ -34,9 +34,11 @@
             `parrent_account_id` int(11) DEFAULT NULL,
             `bank_id` int(11) NOT NULL,
             `community_id` int(11) DEFAULT NULL,
+            `type_id` int(11) NOT NULL,
             PRIMARY KEY (`id`),
             KEY `account_parent_account_fkey` (`parrent_account_id`),
             KEY `bank_id_fkey` (`bank_id`),
+            KEY `account_type_fkey` (`type_id`),
             KEY `account_community_id_fkey` (`community_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=15 ;
         </sql>
@@ -538,10 +540,12 @@
             `possession_id` int(11) DEFAULT NULL,
             `contractor_id` int(11) DEFAULT NULL,
             `account_id` int(11) DEFAULT NULL,
+            `type_id` int(11) NOT NULL,
             PRIMARY KEY (`id`),
             KEY `zpk_community_fkey` (`community_id`),
             KEY `zpk_possession_fkey` (`possession_id`),
             KEY `zpk_contractor_fkey` (`contractor_id`),
+            KEY `zpk_type_fkey` (`type_id`),
             KEY `zpk_account_id_fkey` (`account_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=60 ;
         </sql>
@@ -570,6 +574,7 @@
             ALTER TABLE `account`
             ADD CONSTRAINT `account_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `account_parent_account_fkey` FOREIGN KEY (`parrent_account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `account_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `bank_id_fkey` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
@@ -774,7 +779,8 @@
             ADD CONSTRAINT `zpk_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `zpk_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `zpk_contractor_fkey` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            ADD CONSTRAINT `zpk_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `zpk_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `zpk_type_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     
@@ -855,20 +861,6 @@
         <sql>
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT id, 'CURRENT', '1' FROM `dictionary_type` WHERE `type` = 'PERIODS';
-        </sql>
-    </changeSet>
-    
-    <changeSet author='tkopacki' id='dictionary-zpks'>
-        <sql>
-            INSERT INTO `dictionary_type` (`type`) VALUES
-            ('ZPKS');
-        </sql>
-    </changeSet>
-    
-    <changeSet author='tkopacki' id='dictionary-zpks-settings'>
-        <sql>
-            INSERT INTO `dictionary_type` (`type`) VALUES
-            ('ZPKS_SETTINGS');
         </sql>
     </changeSet>
     
@@ -1049,9 +1041,43 @@
     <changeSet id="accounts-types" author="tkopacki"> 
         <sql> 
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
-                SELECT id, 'DEFAULT', 'Konto ogólne' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
+            SELECT id, 'DEFAULT', 'Konto ogólne' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
-                SELECT id, 'REPAIR_FUND', 'Fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
+            SELECT id, 'REPAIR_FUND', 'Fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
         </sql> 
+    </changeSet>
+    <changeSet author='tkopacki' id='dictionary-zpks'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('ZPKS');
+        </sql>
+    </changeSet>
+    
+    <changeSet id="zpk-pools" author="tkopacki"> 
+        <sql> 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, '201', 'Czynsze' FROM `dictionary_type` WHERE `type` = 'ZPKS'; 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, '202', 'Fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'ZPKS'; 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, '203', 'Kontrahenci' FROM `dictionary_type` WHERE `type` = 'ZPKS'; 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, '501', 'Kontrahenci - koszty' FROM `dictionary_type` WHERE `type` = 'ZPKS'; 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, '701', 'Wspólnota' FROM `dictionary_type` WHERE `type` = 'ZPKS'; 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, '801', 'Wspólnota' FROM `dictionary_type` WHERE `type` = 'ZPKS'; 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, '131', 'Konto ogólne' FROM `dictionary_type` WHERE `type` = 'ZPKS'; 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, '132', 'Konto na fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'ZPKS'; 
+        </sql> 
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='dictionary-zpks-settings'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('ZPKS_SETTINGS');
+        </sql>
     </changeSet>
 </databaseChangeLog> 
