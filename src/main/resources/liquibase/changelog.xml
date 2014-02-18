@@ -788,7 +788,7 @@
     
     <changeSet author='tkopacki' id='zpk-default-booking-period'>
         <sql> 
-            INSERT INTO `booking_period`(`default`, `name`, `active`) VALUES(true, 'domyślny', true);
+            INSERT INTO `booking_period`(`default_period`, `name`, `active`) VALUES(true, 'domyślny', true);
         </sql>
     </changeSet>
     
