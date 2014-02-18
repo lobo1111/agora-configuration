@@ -128,11 +128,11 @@
         </variables>
     </template>
     <template>
-        <name>entity-obligation</name>
-        <source>entity-obligation.vtl</source>
+        <name>entity-contractor</name>
+        <source>entity-contractor.vtl</source>
         <variables>
             <var>
-                <name>obligation</name>
+                <name>contractor</name>
                 <data>
                     {:single}
                     SELECT 
@@ -146,8 +146,8 @@
         </variables>
     </template>
     <template>
-        <name>entity-obligation-group</name>
-        <source>entity-obligation-group.vtl</source>
+        <name>entity-contractor-group</name>
+        <source>entity-contractor-group.vtl</source>
         <variables>
             <var>
                 <name>row</name>
@@ -314,89 +314,22 @@
         </variables>
     </template>
     <template>
-        <name>list-obligations</name>
-        <source>list-obligations.vtl</source>
-        <variables>
-            <var>
-                <name>obligations</name>
-                <data>
-                    {:limit}
-                    SELECT
-                    obligation
-                    FROM
-                    Obligation obligation
-                    JOIN obligation.contractor company
-                    JOIN obligation.community community
-                    LEFT OUTER JOIN obligation.obligationGroup obligationGroup
-                    WHERE {:where}
-                    ORDER BY
-                    community.name, obligation.name ASC
-                </data>
-            </var>
-            <var>
-                <name>countRows</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(obligation.id)
-                    FROM
-                    Obligation obligation
-                    JOIN obligation.contractor company
-                    LEFT OUTER JOIN obligation.obligationGroup obligationGroup
-                    JOIN obligation.community community
-                    WHERE {:where}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>list-obligations-groups</name>
-        <source>list-obligations-groups.vtl</source>
-        <variables>
-            <var>
-                <name>groups</name>
-                <data>
-                    {:limit}
-                    SELECT
-                    og
-                    FROM
-                    ObligationGroup og
-                    JOIN og.community community
-                    WHERE {:where}
-                    ORDER BY
-                    community.name, og.name ASC
-                </data>
-            </var>
-            <var>
-                <name>countRows</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(og.id)
-                    FROM
-                    ObligationGroup og
-                    JOIN og.community community
-                    WHERE {:where}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>list-community-default-contractors</name>
-        <source>list-community-default-contractors.vtl</source>
+        <name>list-contractors</name>
+        <source>list-contractors.vtl</source>
         <variables>
             <var>
                 <name>contractors</name>
                 <data>
                     {:limit}
                     SELECT
-                    c
+                    contractor
                     FROM
-                    CommunityDefaultContractor c
-                    JOIN c.company company
+                    Obligation contractor
+                    JOIN contractor.contractor company
+                    JOIN contractor.community community
                     WHERE {:where}
                     ORDER BY
-                    company.name ASC
+                    community.name, contractor.name ASC
                 </data>
             </var>
             <var>
@@ -404,10 +337,11 @@
                 <data>
                     {:single}
                     SELECT
-                    count(c.id)
+                    count(contractor.id)
                     FROM
-                    CommunityDefaultContractor c
-                    JOIN c.company company
+                    Obligation contractor
+                    JOIN contractor.contractor company
+                    JOIN contractor.community community
                     WHERE {:where}
                 </data>
             </var>
@@ -430,7 +364,7 @@
                     JOIN balance.bookingPeriod period
                     JOIN zpk.type pool
                     LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.obligation obligation
+                    LEFT OUTER JOIN zpk.contractor contractor
                     WHERE {:where} AND
                     period.defaultPeriod = true
                     ORDER BY
@@ -449,7 +383,7 @@
                     JOIN zpk.zpkBalances balance
                     JOIN balance.bookingPeriod period
                     LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.obligation obligation
+                    LEFT OUTER JOIN zpk.contractor contractor
                     WHERE {:where} AND
                     period.defaultPeriod = true
                 </data>
@@ -809,7 +743,7 @@
                     FROM 
                     Company company
                     JOIN company.address address
-                    LEFT OUTER JOIN company.obligations obligation
+                    LEFT OUTER JOIN company.contractors contractor
                     LEFT OUTER JOIN company.owners owner
                     LEFT OUTER JOIN owner.possession possession
                     WHERE {:where}
@@ -824,7 +758,7 @@
                     FROM
                     Company company
                     JOIN company.address address
-                    LEFT OUTER JOIN company.obligations obligation
+                    LEFT OUTER JOIN company.contractors contractor
                     LEFT OUTER JOIN company.owners owner
                     LEFT OUTER JOIN owner.possession possession
                     WHERE {:where}
@@ -1050,28 +984,6 @@
             </var>
         </variables>
     </template>
-    <template>
-        <name>simple-list-communities-obligations</name>
-        <source>simple-list.vtl</source>
-        <variables>
-            <var>
-                <name>list</name>
-                <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    obligation.id, obligation.name)
-                    FROM 
-                    Obligation obligation 
-                    LEFT OUTER JOIN obligation.obligationGroup obligationGroup
-                    JOIN obligation.community community
-                    WHERE
-                    community.id = {:id}
-                    AND obligationGroup IS NULL OR obligationGroup.id = {:ogid}
-                    ORDER BY 
-                    obligation.name ASC
-                </data>
-            </var>
-        </variables>
-    </template>
       <template>
         <name>can-close-month</name>
         <source>simple-long-response.vtl</source>
@@ -1122,147 +1034,6 @@
                     WHERE
                         dtype.type = "PERIODS"
                         AND dict.key = "CURRENT"
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>can-delete-obligation</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(payment.id)
-                    FROM
-                    Payment payment
-                    JOIN payment.obligation obligation
-                    WHERE
-                    obligation.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>can-delete-possession</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(payment.id)
-                    FROM
-                    Payment payment
-                    JOIN payment.possession possession
-                    WHERE
-                    possession.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>can-delete-zpk</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(zpk.id)
-                    FROM
-                    ZakladowyPlanKont zpk
-                    LEFT OUTER JOIN zpk.obligation obligation
-                    LEFT OUTER JOIN zpk.zpkBalances balance
-                    LEFT OUTER JOIN balance.payments payment
-                    LEFT OUTER JOIN zpk.obligationGroups obligationGroup
-                    WHERE
-                    zpk.id = {:id}
-                    AND (payment.id IS NOT NULL 
-                    OR obligation.id IS NOT NULL
-                    OR obligationGroup.id IS NOT NULL)
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>can-delete-element</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(e.id)
-                    FROM
-                    Element e
-                    LEFT OUTER JOIN e.communityElements ce
-                    LEFT OUTER JOIN e.possessionElements pe
-                    WHERE
-                    e.id = {:id}
-                    AND (ce.id IS NOT NULL 
-                    OR pe.id IS NOT NULL)
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>can-delete-charge</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(c.id)
-                    FROM
-                    Charging c
-                    JOIN c.month m
-                    WHERE
-                    c.id = {:id}
-                    AND m IN(
-                                SELECT
-                                    dict.value
-                                FROM
-                                    Dictionary dict
-                                    JOIN dict.type dtype
-                                WHERE
-                                    dtype.type = "PERIODS"
-                                    AND dict.key = "CURRENT")
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>can-delete-payment-rent</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                    count(c.id)
-                    FROM
-                    PaymentRent c
-                    JOIN c.month m
-                    WHERE
-                    c.id = {:id}
-                    AND m IN(
-                                SELECT
-                                    dict.value
-                                FROM
-                                    Dictionary dict
-                                    JOIN dict.type dtype
-                                WHERE
-                                    dtype.type = "PERIODS"
-                                    AND dict.key = "CURRENT")
                 </data>
             </var>
         </variables>

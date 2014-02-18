@@ -29,10 +29,6 @@ class ObligationManager(Container):
         obligation.setContractor(self.getContractor(obligation))
         obligation.setName(obligation.getContractor().getName())
         obligation.setCommunity(self.findCommunity(vars.get(self._prefix + 'communityId')))
-        if vars.get(self._prefix + 'obligationGroupId') > '0':
-            obligation.setObligationGroup(self.findObligationGroup(vars.get(self._prefix + 'obligationGroupId')))
-        else:
-            obligation.setObligationGroup(None)
 
     def generateZpkNumber(self, obligation):
         manager = ZpkManager()
@@ -57,5 +53,3 @@ class ObligationManager(Container):
     def findCommunity(self, id):
         return CommunityManager().findCommunityById(id)
     
-    def findObligationGroup(self, id):
-        return ObligationGroupManager().findObligationGroupById(id)

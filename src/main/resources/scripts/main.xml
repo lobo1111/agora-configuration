@@ -300,26 +300,9 @@
         </security>
     </script>
           
-    <script>
-        <name>obligation-group</name>
-        <source>entities/obligationGroup.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>company</scriptName>
-            <scriptName>community</scriptName>
-            <scriptName>zpk</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script> 
-     
    <script>
-        <name>obligation</name>
-        <source>entities/obligation.py</source>
+        <name>contractor</name>
+        <source>entities/contractor.py</source>
         <onInit/>
         <scheduler/>
         <dependencies>
@@ -328,7 +311,6 @@
             <scriptName>company</scriptName>
             <scriptName>community</scriptName>
             <scriptName>zpk</scriptName>
-            <scriptName>obligation-group</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -593,8 +575,8 @@
     </script>
     
     <script>
-        <name>create-obligation</name>
-        <source>entities/obligation.py</source>
+        <name>create-contractor</name>
+        <source>entities/contractor.py</source>
         <onInit>ObligationManager().create()</onInit>
         <scheduler/>
         <dependencies>
@@ -603,7 +585,6 @@
             <scriptName>company</scriptName>
             <scriptName>community</scriptName>
             <scriptName>zpk</scriptName>
-            <scriptName>obligation-group</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -611,8 +592,8 @@
     </script>
     
     <script>
-        <name>update-obligation</name>
-        <source>entities/obligation.py</source>
+        <name>update-contractor</name>
+        <source>entities/contractor.py</source>
         <onInit>ObligationManager().update()</onInit>
         <scheduler/>
         <dependencies>
@@ -621,7 +602,6 @@
             <scriptName>company</scriptName>
             <scriptName>community</scriptName>
             <scriptName>zpk</scriptName>
-            <scriptName>obligation-group</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -629,47 +609,13 @@
     </script>
     
     <script>
-        <name>remove-obligation</name>
-        <source>entities/obligation.py</source>
+        <name>remove-contractor</name>
+        <source>entities/contractor.py</source>
         <onInit>ObligationManager().remove()</onInit>
         <scheduler/>
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>create-obligation-group</name>
-        <source>entities/obligationGroup.py</source>
-        <onInit>ObligationGroupManager().create()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>company</scriptName>
-            <scriptName>community</scriptName>
-            <scriptName>zpk</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>update-obligation-group</name>
-        <source>entities/obligationGroup.py</source>
-        <onInit>ObligationGroupManager().update()</onInit>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
-            <scriptName>company</scriptName>
-            <scriptName>community</scriptName>
-            <scriptName>zpk</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -861,7 +807,7 @@
             <scriptName>container</scriptName>
             <scriptName>company</scriptName>
             <scriptName>zpk</scriptName>
-            <scriptName>obligation</scriptName>
+            <scriptName>contractor</scriptName>
             <scriptName>element</scriptName>
         </dependencies>
         <security>

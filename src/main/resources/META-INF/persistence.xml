@@ -1,74 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="agora_erp" transaction-type="JTA">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>jdbc/agora-erp</jta-data-source>
-    <class>pl.reaper.container.data.Account</class>
-    <class>pl.reaper.container.data.Address</class>
-    <class>pl.reaper.container.data.Bank</class>
-    <class>pl.reaper.container.data.Category</class>
-    <class>pl.reaper.container.data.CategoryItem</class>
-    <class>pl.reaper.container.data.Community</class>
-    <class>pl.reaper.container.data.Company</class>
-    <class>pl.reaper.container.data.Dictionary</class>
-    <class>pl.reaper.container.data.DictionaryType</class>
-    <class>pl.reaper.container.data.IncomingPaymentDocument</class>
-    <class>pl.reaper.container.data.IncomingPaymentDocumentPosition</class>
-    <class>pl.reaper.container.data.Log</class>
-    <class>pl.reaper.container.data.Payment</class>
-    <class>pl.reaper.container.data.Person</class>
-    <class>pl.reaper.container.data.Possession</class>
-    <class>pl.reaper.container.data.Script</class>
-    <class>pl.reaper.container.data.ScriptScheduler</class>
-    <class>pl.reaper.container.data.Template</class>
-    <class>pl.reaper.container.data.TemplateVariable</class>
-    <class>pl.reaper.container.data.User</class>
-    <class>pl.reaper.container.data.UserGroup</class>
-    <class>pl.reaper.container.data.ZakladowyPlanKont</class>
-    <class>pl.reaper.container.data.ZpkBalance</class>
-    <class>pl.reaper.container.data.BookingPeriod</class>
-    <class>pl.reaper.container.data.PaymentScheduler</class>
-    <class>pl.reaper.container.data.PaymentSchedulerLog</class>
-    <class>pl.reaper.container.data.PaymentSchedulerTemplate</class>
-    <class>pl.reaper.container.data.Obligation</class>
-    <class>pl.reaper.container.data.ObligationGroup</class>
-    <class>pl.reaper.container.data.ObligationLog</class>
-    <class>pl.reaper.container.data.SettlementLog</class>
-    <class>pl.reaper.container.data.Owner</class>
-    <class>pl.reaper.container.data.PossessionAdditionalData</class>
-    <class>pl.reaper.container.data.Report</class>
-    <class>pl.reaper.container.data.ReportSectionAttribute</class>
-    <class>pl.reaper.container.data.ReportSection</class>
-    <class>pl.reaper.container.data.ReportFilter</class>
-    <class>pl.reaper.container.data.ReportFilterGroup</class>
-    <class>pl.reaper.container.data.PaymentAlgorithm</class>
-    <class>pl.reaper.container.data.PossessionAutoPaymentOrder</class>
-    <class>pl.reaper.container.data.CommunityDefaultContractor</class>
-    <class>pl.reaper.container.data.Element</class>
-    <class>pl.reaper.container.data.ElementCommunity</class>
-    <class>pl.reaper.container.data.ElementPossession</class>
-    <class>pl.reaper.container.data.Charging</class>
-    <class>pl.reaper.container.data.ChargingElement</class>
-    <class>pl.reaper.container.data.ChargingQueue</class>
-    <class>pl.reaper.container.data.PaymentRent</class>
-    <class>pl.reaper.container.data.PaymentRentDetails</class>
-    <class>pl.reaper.container.data.InternalDocumentDefinition</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <properties>
-      <property name="eclipselink.target-server" value="WebSphere_7"/>
-      <property name="javax.persistence.sharedCache.mode" value="NONE"/>
-      <!--<property name="openjpa.Compatibility" value="QuotedNumbersInQueries=true"/>-->
-    </properties>
-  </persistence-unit>
-  <persistence-unit name="agora_old_erp" transaction-type="JTA">
-    <jta-data-source>jdbc/agora-old-erp</jta-data-source>
-    <class>pl.reaper.container.data.old.Mieszkania</class>
-    <class>pl.reaper.container.data.old.Platnicy</class>
-    <class>pl.reaper.container.data.old.Ulice</class>
-    <class>pl.reaper.container.data.old.Wspolne</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <properties>
-      <property name="javax.persistence.sharedCache.mode" value="NONE"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="agora_erp" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/agora-erp</jta-data-source>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="eclipselink.target-server" value="WebSphere_7"/>
+            <property name="javax.persistence.sharedCache.mode" value="NONE"/>
+            <!--<property name="openjpa.Compatibility" value="QuotedNumbersInQueries=true"/>-->
+        </properties>
+    </persistence-unit>
 </persistence>

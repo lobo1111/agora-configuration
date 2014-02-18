@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<contractor>
+    #foreach($row in $contractor)
+    <item>
+        <obligationId>$!row.getId()</obligationId>
+        <companyId>$!row.getContractor().getId()</companyId>
+        <companyName>$!row.getContractor().getName()</companyName>
+        <communityId>$!row.getCommunity().getId()</communityId>
+        <communityName>$!row.getCommunity().getName()</communityName>
+    </item>
+    #end
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
+</contractor>
