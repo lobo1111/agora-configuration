@@ -46,7 +46,10 @@ class AccountManager(Container):
         return entityManager.createQuery('Select account From Account account Where account.id = ' + str(id)).getSingleResult()
 
     def findCommunityById(self, id):
-        return entityManager.createQuery('Select c From Community c Where c.id = ' + str(id)).getSingleResult()
+        try:
+            return entityManager.createQuery('Select c From Community c Where c.id = ' + str(id)).getSingleResult()
+        except:
+            return None
 
     def findAccountByNumber(self, number):
         sql = "Select account From Account account Where account.number = '%s'" % str(number)
