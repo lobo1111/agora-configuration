@@ -1039,4 +1039,19 @@
             (1, 'lobo', 'administrators');
         </sql>
     </changeSet>
+    
+    <changeSet id="dictionary-account-type" author="tkopacki"> 
+        <sql> 
+            INSERT INTO `dictionary_type` (`type`) VALUES ('ACCOUNT_TYPE'); 
+        </sql> 
+    </changeSet> 
+    
+    <changeSet id="accounts-types" author="tkopacki"> 
+        <sql> 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+                SELECT id, 'DEFAULT', 'Konto ogólne' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+                SELECT id, 'REPAIR_FUND', 'Fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
+        </sql> 
+    </changeSet>
 </databaseChangeLog> 
