@@ -1,6 +1,5 @@
 from pl.reaper.container.data import Person
 from pl.reaper.container.data import Possession
-from pl.reaper.container.data import PossessionAutoPaymentOrder
 from java.math import BigDecimal
 from java.lang import Double
 from java.lang import Integer
