@@ -22,7 +22,6 @@ import pl.reaper.container.data.Script;
 public class ScriptEngineWrapper {
 
     private EntityManager entityManager;
-    private EntityManager oldEntityManager;
     private PropertyBeanLocal propertyBean;
     private DocumentStatusBeanLocal documentStatusBean;
     private Map<String, Object> variables = new HashMap<>();
@@ -42,7 +41,6 @@ public class ScriptEngineWrapper {
         Bindings binding = engine.createBindings();
         putMetaVars();
         binding.put("entityManager", entityManager);
-        binding.put("oldEntityManager", oldEntityManager);
         binding.put("vars", variables);
         binding.put("properties", propertyBean);
         binding.put("documentStatusLoader", documentStatusBean);
@@ -109,11 +107,6 @@ public class ScriptEngineWrapper {
         if (key != null) {
             variables.put(key, value);
         }
-        return this;
-    }
-
-    public ScriptEngineWrapper setOldEntityManager(EntityManager oldEntityManager) {
-        this.oldEntityManager = oldEntityManager;
         return this;
     }
 

@@ -23,8 +23,6 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
     @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
     private EntityManager entityManager;
-    @PersistenceContext(name = "agora_old_erp", unitName = "agora_old_erp")
-    private EntityManager oldEntityManager;
     @EJB
     private PropertyBeanLocal propertyBean;
     @EJB
@@ -36,7 +34,6 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
         engineBuilder = new ScriptEngineWrapper()
                 .setDocumentStatusBean(documentStatusBean)
                 .setEntityManager(entityManager)
-                .setOldEntityManager(oldEntityManager)
                 .setPropertyBean(propertyBean);
     }
 
