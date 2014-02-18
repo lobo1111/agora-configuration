@@ -46,19 +46,12 @@ public class ZakladowyPlanKont implements Serializable {
     private Possession possession;
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "obligation_id", referencedColumnName = "id")
-    private Obligation obligation;
+    private Contractor obligation;
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zpk")
     private Collection<ZpkBalance> zpkBalances = new ArrayList<>();
-    @ManyToMany
-    @JoinTable(
-            name = "obligation_group_zpk", joinColumns =
-    @JoinColumn(name = "zpk_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "obligation_group_id", referencedColumnName = "id"))
-    private Collection<ObligationGroup> obligationGroups = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -92,11 +85,11 @@ public class ZakladowyPlanKont implements Serializable {
         this.possession = possession;
     }
 
-    public Obligation getObligation() {
+    public Contractor getObligation() {
         return obligation;
     }
 
-    public void setObligation(Obligation obligation) {
+    public void setObligation(Contractor obligation) {
         this.obligation = obligation;
     }
 
@@ -114,14 +107,6 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setZpkBalances(Collection<ZpkBalance> zpkBalances) {
         this.zpkBalances = zpkBalances;
-    }
-
-    public Collection<ObligationGroup> getObligationGroups() {
-        return obligationGroups;
-    }
-
-    public void setObligationGroups(Collection<ObligationGroup> obligationGroups) {
-        this.obligationGroups = obligationGroups;
     }
 
     public Dictionary getType() {

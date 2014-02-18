@@ -55,7 +55,7 @@ public class Community implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
-    private Collection<Obligation> obligations = new ArrayList<>();
+    private Collection<Contractor> obligations = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<ElementCommunity> elements = new ArrayList<>();
     @JoinColumn(name = "default_account_id", referencedColumnName = "id")
@@ -126,11 +126,11 @@ public class Community implements Serializable {
         this.zpks = zpks;
     }
 
-    public Collection<Obligation> getObligations() {
+    public Collection<Contractor> getObligations() {
         return obligations;
     }
 
-    public void setObligations(Collection<Obligation> obligations) {
+    public void setObligations(Collection<Contractor> obligations) {
         this.obligations = obligations;
     }
 
