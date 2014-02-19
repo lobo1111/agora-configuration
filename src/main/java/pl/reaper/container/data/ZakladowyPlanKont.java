@@ -45,8 +45,8 @@ public class ZakladowyPlanKont implements Serializable {
     @OneToOne(cascade = CascadeType.PERSIST)
     private Possession possession;
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "obligation_id", referencedColumnName = "id")
-    private Contractor obligation;
+    @JoinColumn(name = "contractor_id", referencedColumnName = "id")
+    private Contractor contractor;
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
@@ -85,12 +85,12 @@ public class ZakladowyPlanKont implements Serializable {
         this.possession = possession;
     }
 
-    public Contractor getObligation() {
-        return obligation;
+    public Contractor getContractor() {
+        return contractor;
     }
 
-    public void setObligation(Contractor obligation) {
-        this.obligation = obligation;
+    public void setContractor(Contractor contractor) {
+        this.contractor = contractor;
     }
 
     public Account getAccount() {
@@ -122,6 +122,6 @@ public class ZakladowyPlanKont implements Serializable {
                 + "[type:" + type + "]"
                 + "[community:" + community + "]"
                 + "[possession:" + possession + "]"
-                + "[obligation:" + obligation + "]";
+                + "[obligation:" + contractor + "]";
     }
 }
