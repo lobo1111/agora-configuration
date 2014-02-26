@@ -3,6 +3,7 @@ package pl.reaper.container.data;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,6 +39,8 @@ public class Contractor implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne
     private Company company;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "contractor")
+    private ZakladowyPlanKont zpk = new ZakladowyPlanKont();
 
     public Integer getId() {
         return id;
@@ -68,6 +72,14 @@ public class Contractor implements Serializable {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public ZakladowyPlanKont getZpk() {
+        return zpk;
+    }
+
+    public void setZpk(ZakladowyPlanKont zpk) {
+        this.zpk = zpk;
     }
 
 }
