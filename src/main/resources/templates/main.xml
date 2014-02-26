@@ -796,6 +796,27 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>list-zpks-summary</name>
+        <source>list-zpks-summary.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT 
+                        zpk
+                    FROM
+                        ZakladowyPlanKont zpk
+                        JOIN zpk.community community
+                        JOIN zpk.type type
+                    WHERE
+                        community = {:communityId}
+                    ORDER BY
+                        type.key, zpk.number ASC
+                </data>
+            </var>
+        </variables>
+    </template>
     <!-- ################### SIMPLE LISTS ########################## -->
     
     <template>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<zpksSummary>
+#foreach($item in $items)
+    <item>
+        <number>$!item.getType().getKey()-$!item.getNumber()</number>
+        #foreach($balance in $item.getZpkBalances())
+            #if($balance.getBookingPeriod().isDefaultPeriod())
+                #if($balance.getCredit() > $balance.getDebit())
+                    <credit>$balance.getCredit() - $balance.getDebit()</credit>
+                    <debit></debit>
+                #else
+                    <credit></credit>
+                    <debit>$balance.getDebit() - $balance.getCredit()</debit>
+                #end
+            #end
+        #end
+    </item>
+#end
+    <settings>
+        <maxResults>-1</maxResults>
+    </settings>
+</zpksSummary>
