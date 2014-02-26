@@ -810,7 +810,7 @@
                         JOIN zpk.community community
                         JOIN zpk.type type
                     WHERE
-                        community = {:communityId}
+                        {:where}
                     ORDER BY
                         type.key, zpk.number ASC
                 </data>
