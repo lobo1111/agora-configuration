@@ -47,8 +47,8 @@ public class Possession implements Serializable {
     private PossessionAdditionalData additionalData = new PossessionAdditionalData();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<ElementPossession> elements;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "possession")
-    private ZakladowyPlanKont zpk = new ZakladowyPlanKont();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
+    private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
 
     public Possession() {
     }
@@ -97,12 +97,12 @@ public class Possession implements Serializable {
         this.elements = elements;
     }
 
-    public ZakladowyPlanKont getZpk() {
-        return zpk;
+    public Collection<ZakladowyPlanKont> getZpks() {
+        return zpks;
     }
 
-    public void setZpk(ZakladowyPlanKont zpk) {
-        this.zpk = zpk;
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
+        this.zpks = zpks;
     }
 
     @Override

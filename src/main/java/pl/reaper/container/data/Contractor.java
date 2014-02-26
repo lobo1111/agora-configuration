@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -39,8 +41,8 @@ public class Contractor implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne
     private Company company;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "contractor")
-    private ZakladowyPlanKont zpk = new ZakladowyPlanKont();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "contractor")
+    private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -74,12 +76,12 @@ public class Contractor implements Serializable {
         this.company = company;
     }
 
-    public ZakladowyPlanKont getZpk() {
-        return zpk;
+    public Collection<ZakladowyPlanKont> getZpks() {
+        return zpks;
     }
 
-    public void setZpk(ZakladowyPlanKont zpk) {
-        this.zpk = zpk;
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
+        this.zpks = zpks;
     }
 
 }
