@@ -3,20 +3,9 @@
         <id>$!contractor.getId()</id>
         <name>$!contractor.getName()</name>
         <company>
-            <id>$!contractor.getContractor().getId()</id>
-            <name>$!contractor.getContractor().getName()</name>
+            <id>$!contractor.getCompany().getId()</id>
+            <name>$!contractor.getCompany().getName()</name>
         </company>
-        <zpk>
-            <id>$!contractor.getZpk().getId()</id>
-            <description>$!contractor.getZpk().getDescription()</description>
-            <number>$!contractor.getZpk().getNumber()</number>
-            #foreach($balance in $!contractor.getZpk().getZpkBalances())
-                #if($balance.getBookingPeriod().isDefaultPeriod())
-                    <credit>$balance.getCredit()</credit>
-                    <debit>$balance.getDebit()</debit>
-            #end
-            #end
-        </zpk>
         <community>
             <id>$!contractor.getCommunity().getId()</id>
         </community>
