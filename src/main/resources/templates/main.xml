@@ -808,11 +808,11 @@
                     FROM
                         ZakladowyPlanKont zpk
                         JOIN zpk.community community
-                        JOIN zpk.type type
+                        JOIN zpk.type ztype
                     WHERE
                         {:where}
                     ORDER BY
-                        type.key, zpk.number ASC
+                        ztype.key, zpk.number ASC
                 </data>
             </var>
         </variables>
