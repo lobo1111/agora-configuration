@@ -307,7 +307,7 @@
                     contractor
                     FROM
                     Contractor contractor
-                    JOIN contractor.contractor company
+                    JOIN contractor.company company
                     JOIN contractor.community community
                     WHERE {:where}
                     ORDER BY
@@ -322,7 +322,7 @@
                     count(contractor.id)
                     FROM
                     Contractor contractor
-                    JOIN contractor.contractor company
+                    JOIN contractor.company company
                     JOIN contractor.community community
                     WHERE {:where}
                 </data>
