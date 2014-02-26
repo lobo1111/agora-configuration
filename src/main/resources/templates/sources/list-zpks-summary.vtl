@@ -5,13 +5,8 @@
         <number>$!item.getType().getKey()-$!item.getNumber()</number>
         #foreach($balance in $item.getZpkBalances())
             #if($balance.getBookingPeriod().isDefaultPeriod())
-                #if($balance.getCredit() > $balance.getDebit())
-                    <credit>$balance.getCredit() - $balance.getDebit()</credit>
-                    <debit></debit>
-                #else
-                    <credit></credit>
-                    <debit>$balance.getDebit() - $balance.getCredit()</debit>
-                #end
+                <credit>$balance.calculateCredit()</credit>
+                <debit>$balance.calculateDebit()</debit>
             #end
         #end
     </item>
