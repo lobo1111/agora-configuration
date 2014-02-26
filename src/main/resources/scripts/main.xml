@@ -237,6 +237,20 @@
     </script>
     
     <script>
+        <name>element</name>
+        <source>entities/element.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
         <name>possession</name>
         <source>entities/possession.py</source>
         <onInit/>
@@ -246,6 +260,7 @@
             <scriptName>container</scriptName>
             <scriptName>address</scriptName>
             <scriptName>community</scriptName>
+            <scriptName>element</scriptName>
         </dependencies>
         <security>
             <group>all</group>
@@ -314,20 +329,6 @@
             <scriptName>person</scriptName>
             <scriptName>address</scriptName>
             <scriptName>possession</scriptName>
-        </dependencies>
-        <security>
-            <group>all</group>
-        </security>
-    </script>
-    
-    <script>
-        <name>element</name>
-        <source>entities/element.py</source>
-        <onInit/>
-        <scheduler/>
-        <dependencies>
-            <scriptName>db-logger</scriptName>
-            <scriptName>container</scriptName>
         </dependencies>
         <security>
             <group>all</group>
