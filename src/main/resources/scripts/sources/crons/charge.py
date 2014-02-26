@@ -84,6 +84,8 @@ class ChargeManager:
                 charging.getChargingElements().add(self.calculate(charging, possession, possessionElement))
             if charging.getChargingElements().size() > 0:
                 entityManager.persist(charging)
+        else:
+            self._logger.info('Looks like possession %s is already charged, omitting...' % str(possession.getId()))
     
     def chargeCommunity(self, community):
         for possession in community.getPossessions():
