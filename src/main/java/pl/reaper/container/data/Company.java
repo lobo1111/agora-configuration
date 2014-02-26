@@ -62,7 +62,7 @@ public class Company implements Serializable {
     private Address address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private Collection<Owner> owners;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "contractor")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private Collection<Contractor> contractors;
 
     public Company() {

@@ -34,9 +34,9 @@ public class Contractor implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
     private Community community;
-    @JoinColumn(name = "contractor_id", referencedColumnName = "id")
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne
-    private Company contractor;
+    private Company company;
 
     public Integer getId() {
         return id;
@@ -62,12 +62,12 @@ public class Contractor implements Serializable {
         this.community = community;
     }
 
-    public Company getContractor() {
-        return contractor;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setContractor(Company contractor) {
-        this.contractor = contractor;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
 }
