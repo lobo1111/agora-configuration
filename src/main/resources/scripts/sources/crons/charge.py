@@ -49,6 +49,7 @@ class ChargeManager:
         self._logger.info('Processing charge requests...')
         self._queue = ChargingQueueManager()
         self._currentMonth = self.getCurrentMonth()
+        self._logger.info('Charging month: %s' % str(self._currentMonth))
         self._bookingPeriod = self.getBookingPeriod()
         item = self._queue.popFromQueue()
         while not item is None:
@@ -90,6 +91,7 @@ class ChargeManager:
             
     def chargeAllUncharged(self):
         for possession in self.findAllUncharged():
+            self._logger.info('Charging possession %s' % str(possession.getId()))
             self.chargePossession(possession, False)
             
     def getBookingPeriod(self):
