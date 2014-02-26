@@ -138,7 +138,7 @@
                     SELECT 
                     o
                     FROM 
-                    Obligation o
+                    Contractor o
                     WHERE 
                     o.id = {:id}
                 </data>
@@ -306,7 +306,7 @@
                     SELECT
                     contractor
                     FROM
-                    Obligation contractor
+                    Contractor contractor
                     JOIN contractor.contractor company
                     JOIN contractor.community community
                     WHERE {:where}
@@ -321,7 +321,7 @@
                     SELECT
                     count(contractor.id)
                     FROM
-                    Obligation contractor
+                    Contractor contractor
                     JOIN contractor.contractor company
                     JOIN contractor.community community
                     WHERE {:where}
