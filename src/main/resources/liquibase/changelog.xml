@@ -1080,4 +1080,34 @@
             ('ZPKS_SETTINGS');
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='internal-payment-table'>
+        <sql>        
+            CREATE TABLE `internal_payment` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `booking_period_id` int(11) NOT NULL,
+            `created_date` date NOT NULL,
+            `booked_date` date DEFAULT NULL,
+            `credit_zpk_id` int(11) NOT NULL,
+            `debit_zpk_id` int(11) NOT NULL,
+            `booked` tinyint(1) NOT NULL DEFAULT '0',
+            `credit` decimal(10,2) NOT NULL DEFAULT '0.00',
+            `debit` decimal(10,2) NOT NULL DEFAULT '0.00',
+            `comment` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `internal_payment_booking_period_id_fkey` (`booking_period_id`),
+            KEY `internal_payment_credit_zpk_id_id_fkey` (`credit_zpk_id`),
+            KEY `internal_payment_debit_zpk_id_id_fkey` (`debit_zpk_id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=4 ;
+        </sql>
+    </changeSet>
+    
+        <changeSet author='tkopacki' id='internal-payment-fkeys'>
+        <sql>                   
+            ALTER TABLE `internal_payment`
+            ADD CONSTRAINT `internal_payment_booking_period_id_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `internal_payment_credit_zpk_id_id_fkey` FOREIGN KEY (`credit_zpk_id`), REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+            ADD CONSTRAINT `internal_payment_debit_zpk_id_id_fkey` FOREIGN KEY (`debit_zpk_id`), REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
