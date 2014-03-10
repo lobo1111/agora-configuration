@@ -1102,11 +1102,21 @@
         </sql>
     </changeSet>
     
-        <changeSet author='tkopacki' id='internal-payment-fkeys'>
+        <changeSet author='tkopacki' id='internal-payment-fkey-1'>
         <sql>                   
             ALTER TABLE `internal_payment`
-            ADD CONSTRAINT `internal_payment_booking_period_id_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            ADD CONSTRAINT `internal_payment_credit_zpk_id_id_fkey` FOREIGN KEY (`credit_zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+            ADD CONSTRAINT `internal_payment_booking_period_id_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+        <changeSet author='tkopacki' id='internal-payment-fkey-2'>
+        <sql>                   
+            ALTER TABLE `internal_payment`
+            ADD CONSTRAINT `internal_payment_credit_zpk_id_id_fkey` FOREIGN KEY (`credit_zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+        <changeSet author='tkopacki' id='internal-payment-fkey-3'>
+        <sql>                   
+            ALTER TABLE `internal_payment`
             ADD CONSTRAINT `internal_payment_debit_zpk_id_id_fkey` FOREIGN KEY (`debit_zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
