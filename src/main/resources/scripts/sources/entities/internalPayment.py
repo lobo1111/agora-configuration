@@ -8,7 +8,7 @@ class InternalPaymentManager:
         payment.setCreatedDate(Date())
         payment.setBookedDate(None)
         payment.setCreditZpk(self.findZpkById(vars.get('creditZpkId')))
-        payment.setDebitZpk(self.findZpkById(vars.get('creditZpkId')))
+        payment.setDebitZpk(self.findZpkById(vars.get('debitZpkId')))
         payment.setBooked(False)
         payment.setAmount(float(vars.get('amount')))
         payment.setComment(vars.get('comment'))
