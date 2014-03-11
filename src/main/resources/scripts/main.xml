@@ -120,6 +120,19 @@
     <!-- ENTITIES -->
     
     <script>
+        <name>internal-payment</name>
+        <source>entities/internalPayment.py</source>
+        <onInit/>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    <script>
         <name>payment-rent</name>
         <source>entities/paymentRent.py</source>
         <onInit/>
@@ -377,6 +390,62 @@
             <group>all</group>
         </security>
     </script>
+    
+    <script>
+        <name>create-internal-payment</name>
+        <source>entities/internalPayment.py</source>
+        <onInit>InternalPaymentManager().create()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    <script>
+        <name>can-cancel-internal-payment</name>
+        <source>entities/internalPayment.py</source>
+        <onInit>InternalPaymentManager().canCancel()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>cancel-internal-payment</name>
+        <source>entities/internalPayment.py</source>
+        <onInit>InternalPaymentManager().cancel()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
+    <script>
+        <name>book-internal-payment</name>
+        <source>entities/internalPayment.py</source>
+        <onInit>InternalPaymentManager().book()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    
     
     <script>
         <name>create-zpk</name>
