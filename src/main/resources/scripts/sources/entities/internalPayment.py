@@ -5,7 +5,7 @@ class InternalPaymentManager:
     def create(self):
         payment = InternalPayment()
         payment.setBookingPeriod(self.findDefaultBookingPeriod())
-        payment.setCreateDate(self.parseDate(vars.get('createDate')))
+        payment.setCreateDate(Date())
         payment.setBookedDate(None)
         payment.setCreditZpk(self.findZpkById(vars.get('creditZpkId')))
         payment.setDebitZpk(self.findZpkById(vars.get('creditZpkId')))
@@ -33,12 +33,6 @@ class InternalPaymentManager:
             payment = self.findPaymentById(vars.get('paymentId'))
             entityManager.remove(payment)
     
-    def parseDate(self, date):
-        try:
-            return SimpleDateFormat('dd-MM-yy').parse(date)
-        except:
-            return None
-        
     def findDefaultBookingPeriod(self):
         return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
     
