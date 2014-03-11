@@ -3,6 +3,7 @@
     #foreach($row in $payments)
     <item>
         <paymentId>$!row.getId()</paymentId>
+        <community>$!row.getCreditZpk().getCommunity().getName()</community>
         <bookingPeriodName>$!row.getBookingPeriod().getName()</bookingPeriodName>
         <createdDate>$!row.getCreatedDate()</createdDate>
         <bookedDate>$!row.getBookedDate()</bookedDate>
