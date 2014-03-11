@@ -5,8 +5,8 @@
         <paymentId>$!row.getId()</paymentId>
         <community>$!row.getCreditZpk().getCommunity().getName()</community>
         <bookingPeriodName>$!row.getBookingPeriod().getName()</bookingPeriodName>
-        <createdDate>$!row.getCreatedDate()</createdDate>
-        <bookedDate>$!row.getBookedDate()</bookedDate>
+        <createdDate>$!row.getCreatedDate().getTime()</createdDate>
+        <bookedDate>$!row.getBookedDate().getTime()</bookedDate>
         <creditZpkNumber>$!row.getCreditZpk().getType().getKey()-$!row.getCreditZpk().getNumber()</creditZpkNumber>
         <debitZpkNumber>$!row.getDebitZpk().getType().getKey()-$!row.getDebitZpk().getNumber()</debitZpkNumber>
         <amount>$!row.getAmount()</amount>
