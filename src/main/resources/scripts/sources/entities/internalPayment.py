@@ -10,8 +10,7 @@ class InternalPaymentManager:
         payment.setCreditZpk(self.findZpkById(vars.get('creditZpkId')))
         payment.setDebitZpk(self.findZpkById(vars.get('creditZpkId')))
         payment.setBooked(False)
-        payment.setCredit(float(vars.get('credit')))
-        payment.setDebit(float(vars.get('debit')))
+        payment.setAmount(float(vars.get('amount')))
         payment.setComment(vars.get('comment'))
         entityManager.persist(payment)
         return payment
@@ -19,8 +18,8 @@ class InternalPaymentManager:
     def book(self):
         payment = self.findPaymentById(vars.get('paymentId'))
         if not payment.isBooked() == False:
-            self.increaseDebit(self.getCurrentBalance(payment.getDebitZpk()), payment.getDebit())
-            self.increaseCredit(self.getCurrentBalance(payment.getCreditZpk()), payment.getCredit())
+            self.increaseDebit(self.getCurrentBalance(payment.getDebitZpk()), payment.getAmount())
+            self.increaseCredit(self.getCurrentBalance(payment.getCreditZpk()), payment.getAmount())
             self.setBookedDate(Date())
             self.setBooked(True)
             entityManager.persist(payment)

@@ -43,10 +43,8 @@ public class InternalPayment implements Serializable {
     private ZakladowyPlanKont debitZpk;
     @Column(name = "booked")
     private boolean booked;
-    @Column(name = "credit")
-    private double credit;
-    @Column(name = "debit")
-    private double debit;
+    @Column(name = "amount")
+    private double amount;
     @Column(name = "comment")
     private String comment;
 
@@ -106,20 +104,12 @@ public class InternalPayment implements Serializable {
         this.booked = booked;
     }
 
-    public double getCredit() {
-        return credit;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setCredit(double credit) {
-        this.credit = credit;
-    }
-
-    public double getDebit() {
-        return debit;
-    }
-
-    public void setDebit(double debit) {
-        this.debit = debit;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public String getComment() {

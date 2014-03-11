@@ -9,8 +9,7 @@
         <bookedDate>$!row.getBookedDate()</bookedDate>
         <creditZpkNumber>$!row.getCreditZpk().getType().getKey()-$!row.getCreditZpk().getNumber()</creditZpkNumber>
         <debitZpkNumber>$!row.getDebitZpk().getType().getKey()-$!row.getDebitZpk().getNumber()</debitZpkNumber>
-        <credit>$!row.getCredit()</credit>
-        <debit>$!row.getDebit()</debit>
+        <amount>$!row.getAmount()</amount>
         <comment>$!row.getComment()</comment>
     </item>
     #end
