@@ -5,7 +5,7 @@ class InternalPaymentManager:
     def create(self):
         payment = InternalPayment()
         payment.setBookingPeriod(self.findDefaultBookingPeriod())
-        payment.setCreateDate(Date())
+        payment.setCreatedDate(Date())
         payment.setBookedDate(None)
         payment.setCreditZpk(self.findZpkById(vars.get('creditZpkId')))
         payment.setDebitZpk(self.findZpkById(vars.get('creditZpkId')))
