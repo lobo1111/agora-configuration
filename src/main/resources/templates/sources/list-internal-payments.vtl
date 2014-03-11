@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<internal-payments>
+    #foreach($row in $payments)
+    <item>
+        <paymentId>$!row.getId()</paymentId>
+        <bookingPeriodName>$!row.getBookingPeriod().getName()</bookingPeriodName>
+        <createdDate>$!row.getCreatedDate()</createdDate>
+        <bookedDate>$!row.getBookedDate()</bookedDate>
+        <creditZpkNumber>$!row.getCreditZpk().getType().getKey()-$!row.getCreditZpk().getNumber()</creditZpkNumber>
+        <debitZpkNumber>$!row.getDebitZpk().getType().getKey()-$!row.getDebitZpk().getNumber()</debitZpkNumber>
+        <credit>$!row.getCredit()</credit>
+        <debit>$!row.getDebit()</debit>
+        <comment>$!row.getComment()</comment>
+    </item>
+    #end
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
+</internal-payments>

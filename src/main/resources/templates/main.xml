@@ -711,6 +711,42 @@
         </variables>
     </template>
     <template>
+        <name>list-internal-payments</name>
+        <source>list-internal-payments.vtl</source>
+        <variables>
+            <var>
+                <name>payments</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    payment
+                    FROM 
+                    InternalPayment payment
+                    JOIN payment.creditZpk cZpk
+                    JOIN payment.debitZpk dZpk
+                    JOIN payment.bookingPeriod bookingPeriod
+                    JOIN cZpk.community community
+                    WHERE {:where}
+                    ORDER BY payment.createdDate DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(payment.id)
+                    FROM 
+                    InternalPayment payment
+                    JOIN payment.creditZpk cZpk
+                    JOIN payment.debitZpk dZpk
+                    JOIN payment.bookingPeriod bookingPeriod
+                    JOIN cZpk.community community
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-companies</name>
         <source>list-companies.vtl</source>
         <variables>
