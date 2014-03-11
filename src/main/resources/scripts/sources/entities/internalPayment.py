@@ -37,7 +37,7 @@ class InternalPaymentManager:
         return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
     
     def findZpkById(self, id):
-        return entityManager.createQuery('Select zpk From ZakładowyPlanKont zpk Where zpk.id = %s' % id).getSingleResult()
+        return entityManager.createQuery('Select zpk From ZakladowyPlanKont zpk Where zpk.id = %s' % id).getSingleResult()
     
     def findPaymentById(self, id):
         return entityManager.createQuery('Select payment From InternalPayment payment Where payment.id = %s' % id).getSingleResult()
