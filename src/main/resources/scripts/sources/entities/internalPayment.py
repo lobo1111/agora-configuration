@@ -17,7 +17,7 @@ class InternalPaymentManager:
     
     def book(self):
         payment = self.findPaymentById(vars.get('paymentId'))
-        if not payment.isBooked() == False:
+        if not payment.isBooked():
             self.increaseDebit(self.getCurrentBalance(payment.getDebitZpk()), payment.getAmount())
             self.increaseCredit(self.getCurrentBalance(payment.getCreditZpk()), payment.getAmount())
             self.setBookedDate(Date())
