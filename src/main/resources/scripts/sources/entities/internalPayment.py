@@ -20,8 +20,8 @@ class InternalPaymentManager:
         if not payment.isBooked():
             self.increaseDebit(self.getCurrentBalance(payment.getDebitZpk()), payment.getAmount())
             self.increaseCredit(self.getCurrentBalance(payment.getCreditZpk()), payment.getAmount())
-            self.setBookedDate(Date())
-            self.setBooked(True)
+            payment.setBookedDate(Date())
+            payment.setBooked(True)
             entityManager.persist(payment)
     
     def canCancel(self):
