@@ -51,6 +51,6 @@ class InternalPaymentManager:
     def getCurrentBalance(self, zpk):
         currentBookingPeriod = self.findDefaultBookingPeriod()
         for balance in zpk.getZpkBalances():
-            if balance.getBookingPeriod.equals(currentBookingPeriod):
+            if balance.getBookingPeriod().equals(currentBookingPeriod):
                 return balance
         return None
