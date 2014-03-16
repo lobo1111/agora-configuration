@@ -27,4 +27,4 @@ class Close:
         entityManager.flush()
         
     def bookAll(self):
-        ChargingBooker().bookAllChargings
+        ChargingBooker().bookAllChargings()
