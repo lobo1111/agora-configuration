@@ -23,11 +23,15 @@ class ChargingBooker:
         for zpk in zpks:
             if zpk.getType().getKey() == "DEFAULT":
                 return zpk
+        self._logger.info("zpk rent not found !")
+        self._logger.info(zpks)
     
     def getZpkRepairFund(self, zpks):
         for zpk in zpks:
             if zpk.getType().getKey() == "REPAIR_FUND":
                 return zpk
+        self._logger.info("zpk repair fund not found !")
+        self._logger.info(zpks)
     
     def calculateRent(self, elements):
         value = 0.0
