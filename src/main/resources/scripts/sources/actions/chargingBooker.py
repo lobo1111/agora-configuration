@@ -24,7 +24,7 @@ class ChargingBooker:
         vars.put('comment', 'Wystawiono automatycznie na podstawie naliczeń')
         manager = InternalPaymentManager()
         payment = manager.create()
-        self._logger.info("Internal payment created %d" % payment.getId())
+        self._logger.info("Internal payment created %s, amount=%s" % (str(payment.getId()), str(payment.getAmount())))
         vars.put('paymentId', str(payment.getId()))
         manager.book()
         vars.put('creditZpkId', str(zpkRepairFundCommunity.getId()))
@@ -33,7 +33,7 @@ class ChargingBooker:
         vars.put('comment', 'Wystawiono automatycznie na podstawie naliczeń')
         manager = InternalPaymentManager()
         payment = manager.create()
-        self._logger.info("Internal payment created %d" % payment.getId())
+        self._logger.info("Internal payment created %s, amount=%s" % (str(payment.getId()), str(payment.getAmount())))
         vars.put('paymentId', str(payment.getId()))
         manager.book()
         
