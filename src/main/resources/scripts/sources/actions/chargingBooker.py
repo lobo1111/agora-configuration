@@ -33,14 +33,14 @@ class ChargingBooker:
         value = 0.0
         for element in elements:
             if not element.getKey().startswith("R"):
-                value += element.getElementValue()
+                value += element.getValue()
         return value
     
     def calculateRepairFund(self, elements):
         value = 0.0
         for element in elements:
             if not element.getKey().startswith("R"):
-                value += element.getElementValue()
+                value += element.getValue()
         return value
     
     def bookAmount(self, creditZpk, zpk, amount):
