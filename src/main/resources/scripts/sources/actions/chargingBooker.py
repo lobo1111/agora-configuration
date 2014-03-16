@@ -20,15 +20,17 @@ class ChargingBooker:
         self.bookAmount(self.findRepairFundCreditZpk(possession.getCommunity()), zpkRepairFund, repairFundAmount)
         
     def getZpkRent(self, zpks):
+        type = self.findRentTypePossession()
         for zpk in zpks:
-            if zpk.getType().getKey() == "POSSESSION":
+            if zpk.getType().getKey() == type.getKey():
                 return zpk
         self._logger.info("zpk rent not found !")
         self._logger.info(zpks)
     
     def getZpkRepairFund(self, zpks):
+        type = self.findRepairFundTypePossession()
         for zpk in zpks:
-            if zpk.getType().getKey() == "POSSESSION_REPAIR_FUND":
+            if zpk.getType().getKey() == type.getKey():
                 return zpk
         self._logger.info("zpk repair fund not found !")
         self._logger.info(zpks)
@@ -76,10 +78,17 @@ class ChargingBooker:
         settings = str(entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'CHARGING_RENT'").getSingleResult())
         return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % settings).getSingleResult()
     
+    def findRentTypePossession(self):
+        settings = str(entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'POSSESSION'").getSingleResult())
+        return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % settings).getSingleResult()
+    
     def findRepairFundType(self):
         settings = str(entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'CHARGING_REPAIR_FUND'").getSingleResult())
         return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % settings).getSingleResult()
    
+   def findRepairFundTypePossession(self):
+        settings = str(entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'POSSESSION_REPAIR_FUND'").getSingleResult())
+        return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % settings).getSingleResult()
     
     
     
