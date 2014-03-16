@@ -2,9 +2,9 @@ class ChargingBooker:
     _logger = Logger([:_scriptId])
     
     def bookAllChargings(self):
-        chargins = self.collectChargings()
+        chargings = self.collectChargings()
         self._logger.info("Collected %d chargings to book" % chargings.size())
-        for charge in chargins:
+        for charge in chargings:
             self.bookCharging(charge)
             
     def collectChargings(self):
