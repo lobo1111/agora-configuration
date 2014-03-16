@@ -1064,7 +1064,7 @@
                 <data>
                     {:single}
                     SELECT
-                        COUNT(payments.id) as counter
+                        COUNT(payment.id) as counter
                     FROM
                         InternalPayment payment
                     WHERE
