@@ -1021,8 +1021,8 @@
             </var>
         </variables>
     </template>
-      <template>
-        <name>can-close-month</name>
+    <template>
+        <name>can-close-month-chargings</name>
         <source>simple-long-response.vtl</source>
         <variables>
             <var>
@@ -1051,6 +1051,24 @@
                                     WHERE
                                         dtype.type = "PERIODS"
                                         AND dict.key = "CURRENT"))
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>can-close-month-book</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        COUNT(payments.id) as counter
+                    FROM
+                        InternalPayment payment
+                    WHERE
+                        payment.booked = false
                 </data>
             </var>
         </variables>

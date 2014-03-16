@@ -6,6 +6,7 @@ class Close:
         if self._currentMonth < 12:
             self._logger.info('Closing month...')
             self.clearQueue()
+            self.bookAll()
             self.setNextMonth()
             self._logger.info('Month closed')
         else:
@@ -24,3 +25,6 @@ class Close:
         dict.setValue(str(self._currentMonth))
         entityManager.persist(dict)
         entityManager.flush()
+        
+    def bookAll(self):
+        ChargingBooker().bookAllChargings
