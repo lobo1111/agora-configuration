@@ -35,6 +35,20 @@ class ChargingBooker:
         vars.set('paymentId', str(payment.getId()))
         manager.book()
         
+    def calculateRent(self, elements):
+        value = 0.0
+        for element in elements:
+            if not element.getKey().startswith("R"):
+                value += element.getValue()
+        return value
+    
+    def calculateRepairFund(self, elements):
+        value = 0.0
+        for element in elements:
+            if element.getKey().startswith("R"):
+                value += element.getValue()
+        return value
+        
     def getZpkRent(self, zpks):
         type = self.findRentTypePossession()
         for zpk in zpks:
