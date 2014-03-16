@@ -12,12 +12,28 @@ class ChargingBooker:
     
     def bookCharging(self, charge):
         possession = charge.getPossession()
-        zpkRent = self.getZpkRent(possession.getZpks())
-        zpkRepairFund = self.getZpkRepairFund(possession.getZpks())
+        zpkRentPossession = self.getZpkRent(possession.getZpks())
+        zpkRepairFundPossession = self.getZpkRepairFund(possession.getZpks())
         rentAmount = self.calculateRent(charge.getChargingElements())
         repairFundAmount = self.calculateRepairFund(charge.getChargingElements())
-        self.bookAmount(self.findRentCreditZpk(possession.getCommunity()), zpkRent, rentAmount)
-        self.bookAmount(self.findRepairFundCreditZpk(possession.getCommunity()), zpkRepairFund, repairFundAmount)
+        zpkRentCommunity = self.findRentCreditZpk(possession.getCommunity())
+        zpkRepairFundCommunity = self.findRepairFundCreditZpk(possession.getCommunity())
+        vars.set('creditZpkId', str(zpkRentCommunity.getId()))
+        vars.set('debitZpkId', str(zpkRentPossession.getId()))
+        vars.set('amount', str(rentAmount))
+        vars.set('comment', 'Wystawiono automatycznie na podstawie naliczeń')
+        manager = InternalPaymentManager()
+        payment = manager.create()
+        vars.set('paymentId', str(payment.getId()))
+        manager.book()
+        vars.set('creditZpkId', str(zpkRepairFundCommunity.getId()))
+        vars.set('debitZpkId', str(zpkRepairFundPossession.getId()))
+        vars.set('amount', str(repairFundAmount))
+        vars.set('comment', 'Wystawiono automatycznie na podstawie naliczeń')
+        manager = InternalPaymentManager()
+        payment = manager.create()
+        vars.set('paymentId', str(payment.getId()))
+        manager.book()
         
     def getZpkRent(self, zpks):
         type = self.findRentTypePossession()
@@ -34,33 +50,6 @@ class ChargingBooker:
                 return zpk
         self._logger.info("zpk repair fund not found !")
         self._logger.info(zpks)
-    
-    def calculateRent(self, elements):
-        value = 0.0
-        for element in elements:
-            if not element.getKey().startswith("R"):
-                value += element.getValue()
-        return value
-    
-    def calculateRepairFund(self, elements):
-        value = 0.0
-        for element in elements:
-            if not element.getKey().startswith("R"):
-                value += element.getValue()
-        return value
-    
-    def bookAmount(self, creditZpk, zpk, amount):
-        balance = self.getCurrentBalance(zpk)
-        balance.setDebit(balance.getDebit() + amount)
-        creditBalance = self.getCurrentBalance(creditZpk)
-        creditBalance.setCredit(creditBalance.getCredit() + amount)
-        entityManager.persist(balance)
-        entityManager.persist(creditBalance)
-        
-    def getCurrentBalance(self, zpk):
-        for balance in zpk.getZpkBalances():
-            if balance.getBookingPeriod().isDefaultPeriod():
-                return balance
     
     def findRentCreditZpk(self, community):
         type = self.findRentType()

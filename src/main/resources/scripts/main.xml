@@ -153,6 +153,7 @@
         <dependencies>
             <scriptName>db-logger</scriptName>
             <scriptName>container</scriptName>
+            <scriptName>internal-payment</scriptName>
         </dependencies>
         <security>
             <group>all</group>
