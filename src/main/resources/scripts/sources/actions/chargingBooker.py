@@ -69,10 +69,10 @@ class ChargingBooker:
                 return zpk
             
     def findRentType(self):
-        return entityManager.createQuery("Select d From	Dictionary d Where d.id IN (Select Cast(d.value, Int(11)) From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'CHARGING_RENT')").getSingleResult()
+        return entityManager.createQuery("Select d From	Dictionary d Where d.id IN (Select Cast(d.value, Integer) From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'CHARGING_RENT')").getSingleResult()
     
     def findRepairFundType(self):
-        return entityManager.createQuery("Select d From	Dictionary d Where d.id IN (Select Cast(d.value, Int(11)) From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'CHARGING_REPAIR_FUND')").getSingleResult()
+        return entityManager.createQuery("Select d From	Dictionary d Where d.id IN (Select Cast(d.value, Integer) From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'CHARGING_REPAIR_FUND')").getSingleResult()
    
     
     
