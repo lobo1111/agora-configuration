@@ -54,7 +54,7 @@ class ChargingBooker:
         return self.findCreditZpk(zpks, 'POSSESSION_REPAIR_FUND')
     
     def findRentCreditZpk(self, community):
-        return self.findCreditZpk(community.getDefaultAccount().getZpks(), 'CHARGING_RENT')
+        return self.findCreditZpk(community.getZpks(), 'CHARGING_RENT')
     
     def findRepairFundCreditZpk(self, community):
         if community.getRepairAccount() != None:
@@ -71,7 +71,8 @@ class ChargingBooker:
                 return self.findCreditZpk(community.getDefaultAccount().getZpks(), 'CHARGING_REPAIR_FUND')
             
     def findCreditZpk(self, zpks, typeKey):
-        return [zpk for zpk in zpks if zpk.getType().getKey() == self.findZpkType(typeKey).getKey()][0]
+        zpkTypeKey = self.findZpkType(typeKey).getKey()
+        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkTypeKey][0]
             
     def findZpkType(self, typeKey):
         return self.findDictionary(str(self.findZpkSettingId(typeKey)))
