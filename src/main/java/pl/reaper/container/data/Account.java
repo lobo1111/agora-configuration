@@ -54,8 +54,8 @@ public class Account implements Serializable {
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne
     private Community community;
-    @OneToOne(mappedBy = "account", cascade = CascadeType.PERSIST)
-    private ZakladowyPlanKont zpk;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
+    private Collection<ZakladowyPlanKont> zpks;
 
     public Account() {
     }
@@ -102,12 +102,12 @@ public class Account implements Serializable {
         this.type = type;
     }
 
-    public ZakladowyPlanKont getZpk() {
-        return zpk;
+    public Collection<ZakladowyPlanKont> getZpks() {
+        return zpks;
     }
 
-    public void setZpk(ZakladowyPlanKont zpk) {
-        this.zpk = zpk;
+    public void setZpks(Collection<ZakladowyPlanKont> zpks) {
+        this.zpks = zpks;
     }
 
     @XmlTransient
