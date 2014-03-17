@@ -57,25 +57,14 @@ class ChargingBooker:
         return self.findCreditZpk(community.getZpks(), 'CHARGING_RENT')
     
     def findRepairFundCreditZpk(self, community):
-        if community.getRepairFundAccount() != None:
-            return community.getRepairFundAccount().getZpks().get(0)
-        else:
-            if community.getDefaultAccount().getZpks().size() == 1:
-                zpk = ZpkManager().generateZpkForCommunity(community, 'REPAIR_FUND')
-                zpk.setAccount(community.getDefaultAccount())
-                community.getDefaultAccount().getZpks().add(zpk)
-                entityManager.persist(zpk)
-                entityManager.flush()
-                return zpk
-            else:
-                return self.findCreditZpk(community.getDefaultAccount().getZpks(), 'CHARGING_REPAIR_FUND')
+        return self.findCreditZpk(community.getZpks(), 'CHARGING_REPAIR_FUND')
             
     def findCreditZpk(self, zpks, typeKey):
-        zpkTypeKey = self.findZpkType(typeKey).getKey()
-        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkTypeKey][0]
+        return [zpk for zpk in zpks if zpk.getType().getKey() == self.findZpkType(typeKey).getKey()][0]
             
     def findZpkType(self, typeKey):
-        return self.findDictionary(str(self.findZpkSettingId(typeKey)))
+        zpkTypeKey = self.findZpkType(typeKey).getKey()
+        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkTypeKey][0]
     
     def findDictionary(self, id):
         return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % str(id)).getSingleResult()
