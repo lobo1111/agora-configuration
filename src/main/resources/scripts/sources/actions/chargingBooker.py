@@ -45,7 +45,7 @@ class ChargingBooker:
         return self.calculate(elements, True)
     
     def calculate(self, elements, repairFund):
-        return [sum(element.getValue()) for element in elements if (element.getGroup().getKey() == 'REPAIR_FUND') == repairFund]
+        return sum([element.getValue() for element in elements if (element.getGroup().getKey() == 'REPAIR_FUND') == repairFund])
         
     def getZpkRent(self, zpks):
         return self.findCreditZpk(zpks, 'POSSESSION')
