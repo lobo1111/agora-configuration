@@ -2,17 +2,24 @@ from pl.reaper.container.data import InternalPayment
 from java.util import Date
 
 class InternalPaymentManager:
+    _logger = Logger([:_scriptId])
+    
     def create(self):
+        self._logger.info("Creating payment...")
         payment = InternalPayment()
         payment.setBookingPeriod(self.findDefaultBookingPeriod())
         payment.setCreatedDate(Date())
         payment.setBookedDate(None)
         payment.setCreditZpk(self.findZpkById(vars.get('creditZpkId')))
+        self._logger.info("Credit zpk number - %s-%s" % (payment.getCreditZpk().getType().getKey(), payment.getCreditZpk().getNumber()))
         payment.setDebitZpk(self.findZpkById(vars.get('debitZpkId')))
+        self._logger.info("Debit zpk number - %s-%s" % (payment.getDebitZpk().getType().getKey(), payment.getDebitZpk().getNumber()))
         payment.setBooked(False)
         payment.setAmount(float(vars.get('amount')))
+        self._logger.info("Amount - %s" % (payment.getAmount()))
         payment.setComment(vars.get('comment'))
         entityManager.persist(payment)
+        self._logger.info("Payment created")
         return payment
     
     def book(self):

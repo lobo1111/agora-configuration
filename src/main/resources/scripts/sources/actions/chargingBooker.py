@@ -2,26 +2,35 @@ class ChargingBooker:
     _logger = Logger([:_scriptId])
     
     def bookAllChargings(self):
-        chargings = self.collectChargings()
-        self._logger.info("Collected %d chargings to book" % chargings.size())
-        for charge in chargings:
-            self.bookCharging(charge)
+        self._logger.info("Charging Booker starts...")
+        [self.bookCharging(charge) for charge in self.collectChargings()]
+        self._logger.info("All chargings booked")
             
     def collectChargings(self):
         return entityManager.createQuery('Select c From Charging c Join c.bookingPeriod p Where c.month In (SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT") and p.defaultPeriod = True').getResultList()
     
     def bookCharging(self, charge):
+        self.createPaymentForRent(charge)
+        self.createPaymentForRepairFund(charge)
+
+    def createPaymentForRent(self, charge):
         possession = charge.getPossession()
         zpkRentPossession = self.getZpkRent(possession.getZpks())
-        zpkRepairFundPossession = self.getZpkRepairFund(possession.getZpks())
         rentAmount = self.calculateRent(charge.getChargingElements())
-        repairFundAmount = self.calculateRepairFund(charge.getChargingElements())
         zpkRentCommunity = self.findRentCreditZpk(possession.getCommunity())
+        self.createAndBookPayment(zpkRentCommunity, zpkRentPossession, rentAmount)
+        
+    def createPaymentForRepairFund(self, charge):
+        possession = charge.getPossession()
+        zpkRepairFundPossession = self.getZpkRepairFund(possession.getZpks())
+        repairFundAmount = self.calculateRepairFund(charge.getChargingElements())
         zpkRepairFundCommunity = self.findRepairFundCreditZpk(possession.getCommunity())
-
-        vars.put('creditZpkId', str(zpkRentCommunity.getId()))
-        vars.put('debitZpkId', str(zpkRentPossession.getId()))
-        vars.put('amount', str(rentAmount))
+        self.createAndBookPayment(zpkRepairFundCommunity, zpkRepairFundPossession, repairFundAmount)
+        
+    def createAndBookPayment(self, creditZpk, debitZpk, amount):
+        vars.put('creditZpkId', str(creditZpk.getId()))
+        vars.put('debitZpkId', str(debitZpk.getId()))
+        vars.put('amount', str(amount))
         vars.put('comment', 'Wystawiono automatycznie')
         manager = InternalPaymentManager()
         payment = manager.create()
@@ -29,72 +38,35 @@ class ChargingBooker:
         vars.put('paymentId', str(payment.getId()))
         manager.book()
         
-        vars.put('creditZpkId', str(zpkRepairFundCommunity.getId()))
-        vars.put('debitZpkId', str(zpkRepairFundPossession.getId()))
-        vars.put('amount', str(repairFundAmount))
-        vars.put('comment', 'Wystawiono automatycznie')
-        payment = manager.create()
-        entityManager.flush()
-        vars.put('paymentId', str(payment.getId()))
-        manager.book()
-        
     def calculateRent(self, elements):
-        value = 0.0
-        for element in elements:
-            if not element.getKey().startswith("R"):
-                value += element.getValue()
-        return value
+        return self.calculate(elements, False)
     
     def calculateRepairFund(self, elements):
-        value = 0.0
-        for element in elements:
-            if element.getKey().startswith("R"):
-                value += element.getValue()
-        return value
+        return self.calculate(elements, True)
+    
+    def calculate(self, elements, repairFund):
+        return [sum(element.getValue()) for element in elements if (element.getGroup().getKey() == 'REPAIR_FUND') == repairFund]
         
     def getZpkRent(self, zpks):
-        type = self.findRentTypePossession()
-        for zpk in zpks:
-            if zpk.getType().getKey() == type.getKey():
-                return zpk
-        self._logger.info("zpk rent not found !")
-        self._logger.info(zpks)
+        return self.findCreditZpk(zpks, 'POSSESSION')
     
     def getZpkRepairFund(self, zpks):
-        type = self.findRepairFundTypePossession()
-        for zpk in zpks:
-            if zpk.getType().getKey() == type.getKey():
-                return zpk
-        self._logger.info("zpk repair fund not found !")
-        self._logger.info(zpks)
+        return self.findCreditZpk(zpks, 'POSSESSION_REPAIR_FUND')
     
     def findRentCreditZpk(self, community):
-        type = self.findRentType()
-        for zpk in community.getZpks():
-            if zpk.getType().getKey() == type.getKey():
-                return zpk
+        return self.findCreditZpk(community.getZpks(), 'CHARGING_RENT')
     
     def findRepairFundCreditZpk(self, community):
-        type = self.findRepairFundType()
-        for zpk in community.getZpks():
-            if zpk.getType().getKey() == type.getKey():
-                return zpk
+        return self.findCreditZpk(community.getZpks(), 'CHARGING_REPAIR_FUND')
             
-    def findRentType(self):
-        settings = str(entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'CHARGING_RENT'").getSingleResult())
-        return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % settings).getSingleResult()
+    def findCreditZpk(self, zpks, typeKey):
+        return find(lambda zpk: zpk.getType().getKey() == self.findZpkType(typeKey).getKey(), zpks)
+            
+    def findZpkType(self, typeKey):
+        return self.findZpkSettingId(typeKey)
     
-    def findRentTypePossession(self):
-        settings = str(entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'POSSESSION'").getSingleResult())
-        return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % settings).getSingleResult()
+    def findDictionary(self, id):
+        return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % str(id)).getSingleResult()
     
-    def findRepairFundType(self):
-        settings = str(entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'CHARGING_REPAIR_FUND'").getSingleResult())
-        return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % settings).getSingleResult()
-   
-    def findRepairFundTypePossession(self):
-        settings = str(entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = 'POSSESSION_REPAIR_FUND'").getSingleResult())
-        return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % settings).getSingleResult()
-    
-    
-    
+    def findZpkSettingId(self, typeKey):
+        return entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = '%s'" % typeKey).getSingleResult()
