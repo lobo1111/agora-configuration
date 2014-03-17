@@ -57,7 +57,7 @@ class ChargingBooker:
         return self.findCreditZpk(community.getZpks(), 'CHARGING_RENT')
     
     def findRepairFundCreditZpk(self, community):
-        if community.getRepairAccount() != None:
+        if community.getRepairFundAccount() != None:
             return community.getRepairFundAccount().getZpks().get(0)
         else:
             if community.getDefaultAccount().getZpks().size() == 1:
