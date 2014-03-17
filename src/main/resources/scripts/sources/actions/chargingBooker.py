@@ -58,7 +58,7 @@ class ChargingBooker:
     
     def findRepairFundCreditZpk(self, community):
         if community.getRepairAccount() != None:
-            return community.getRepairAccount().getZpks().get(0)
+            return community.getRepairFundAccount().getZpks().get(0)
         else:
             if community.getDefaultAccount().getZpks().size() == 1:
                 zpk = ZpkManager().generateZpkForCommunity(community, 'REPAIR_FUND')

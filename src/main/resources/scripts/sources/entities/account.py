@@ -30,7 +30,7 @@ class AccountManager(Container):
             account.getZpks().add(zpk)
             if account.getType().getKey() == 'DEFAULT' and account.getCommunity().getDefaultAccount() == None:
                 account.getCommunity().setDefaultAccount(account)
-            elif account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairAccount() == None:
+            elif account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
                 account.getCommunity().setRepairFundAccount(account)
         
     def getType(self):
