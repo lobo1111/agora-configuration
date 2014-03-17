@@ -63,7 +63,7 @@ class ChargingBooker:
         return [zpk for zpk in zpks if zpk.getType().getKey() == self.findZpkType(typeKey).getKey()][0]
             
     def findZpkType(self, typeKey):
-        return self.findZpkSettingId(typeKey)
+        return self.findDictionary(str(self.findZpkSettingId(typeKey)))
     
     def findDictionary(self, id):
         return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % str(id)).getSingleResult()
