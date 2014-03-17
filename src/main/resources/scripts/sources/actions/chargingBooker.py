@@ -60,7 +60,7 @@ class ChargingBooker:
         return self.findCreditZpk(community.getZpks(), 'CHARGING_REPAIR_FUND')
             
     def findCreditZpk(self, zpks, typeKey):
-        return next(lambda zpk: zpk.getType().getKey() == self.findZpkType(typeKey).getKey(), zpks)
+        return [zpk for zpk in zpks if zpk.getType().getKey() == self.findZpkType(typeKey).getKey()][0]
             
     def findZpkType(self, typeKey):
         return self.findZpkSettingId(typeKey)
