@@ -43,10 +43,10 @@ class PossessionManager(Container):
         manager = ZpkManager()
         zpkRent = manager.generateZpkForCommunity(possession.getCommunity(), "POSSESSION")
         zpkRent.setPossession(possession)
-        possession.setZpk(zpkRent)
+        possession.getZpks().add(zpkRent)
         zpkRepairFund = manager.generateZpkForCommunity(possession.getCommunity(), "POSSESSION_REPAIR_FUND")
         zpkRepairFund.setPossession(possession)
-        possession.setZpk(zpkRepairFund)
+        possession.getZpks().add(zpkRepairFund)
 
     def propagateElementsForNewPossession(self, possession):
         manager = ElementManager()
