@@ -17,20 +17,20 @@ class PaymentBooker:
                 
     def bookSimplePayment(self, payment):
         possession = payment.getPossession()
-        type = payment.getAccount().getType().getKey()
+        type = payment.getPaymentDetails().getAccount().getType().getKey()
         if type == 'RENT':
             zpkCreditAccount = self.findZpkPossessionRent(possession)
         elif type == 'REPAIR_FUND':
             zpkCreditAccount = self.findZpkPossessionRepairFund(possession)
-        zpkDebitAccount = payment.getAccount().getZpks().get(0)
+        zpkDebitAccount = payment.getPaymentDetails().getAccount().getZpks().get(0)
         self.createAndBookPayment(zpkCreditAccount, zpkDebitAccount, payment.getPaymentDetails().getAmount())
         
     def bookMultiPayment(self, payment):
         possession = payment.getPossession()
         zpkPossessionRent = self.findZpkPossessionRent(possession.getZpks())
         zpkPossessionRepairFund = self.findZpkPossessionRepairFund(possession.getZpks())
-        zpkCommunityRentAccount = self.findZpkCommunityRentAccount(payment.getAccount().getZpks())
-        zpkCommunityRepairFundAccount = self.findZpkCommunityRepairFundAccount(payment.getAccount().getZpks())
+        zpkCommunityRentAccount = self.findZpkCommunityRentAccount(payment.getPaymentDetails().getAccount().getZpks())
+        zpkCommunityRepairFundAccount = self.findZpkCommunityRepairFundAccount(payment.getPaymentDetails().getAccount().getZpks())
         amount = payment.getPaymentDetails().getAmount()
         (rentAmount, repairFundAmount) = self.calculateAmounts(zpkPossessionRent, zpkPossessionRepairFund, amount)
         self.createAndBookPayment(zpkPossessionRent, zpkCommunityRentAccount, rentAmount)
@@ -49,7 +49,7 @@ class PaymentBooker:
         manager.book()
         
     def isSimplePayment(self, payment):
-        return payment.getAccount().getType().getKey() in ['RENT', 'REPAIR_FUND']
+        return payment.getPaymentDetails().getAccount().getType().getKey() in ['RENT', 'REPAIR_FUND']
     
     def findZpkPossessionRent(self, zpks):
         return self.findZpk(zpks, 'POSSESSION')
