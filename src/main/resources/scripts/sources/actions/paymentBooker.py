@@ -19,9 +19,9 @@ class PaymentBooker:
         possession = payment.getPossession()
         type = payment.getPaymentRentDetails().getAccount().getType().getKey()
         if type == 'RENT':
-            zpkCreditAccount = self.findZpkPossessionRent(possessionpossession.getZpks())
+            zpkCreditAccount = self.findZpkPossessionRent(possession.getZpks())
         elif type == 'REPAIR_FUND':
-            zpkCreditAccount = self.findZpkPossessionRepairFund(possessionpossession.getZpks())
+            zpkCreditAccount = self.findZpkPossessionRepairFund(possession.getZpks())
         zpkDebitAccount = payment.getPaymentRentDetails().getAccount().getZpks().get(0)
         self.createAndBookPayment(zpkCreditAccount, zpkDebitAccount, payment.getPaymentRentDetails().getAmount())
         
