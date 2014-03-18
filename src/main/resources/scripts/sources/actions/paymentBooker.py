@@ -23,7 +23,7 @@ class PaymentBooker:
         elif type == 'REPAIR_FUND':
             zpkCreditAccount = self.findZpkPossessionRepairFund(possession.getZpks())
         zpkDebitAccount = payment.getPaymentRentDetails().getAccount().getZpks().get(0)
-        self.createAndBookPayment(zpkCreditAccount, zpkDebitAccount, payment.getPaymentRentDetails().getAmount())
+        self.createAndBookPayment(zpkCreditAccount, zpkDebitAccount, payment.getPaymentRentDetails().getValue())
         
     def bookMultiPayment(self, payment):
         possession = payment.getPossession()
@@ -31,7 +31,7 @@ class PaymentBooker:
         zpkPossessionRepairFund = self.findZpkPossessionRepairFund(possession.getZpks())
         zpkCommunityRentAccount = self.findZpkCommunityRentAccount(payment.getPaymentRentDetails().getAccount().getZpks())
         zpkCommunityRepairFundAccount = self.findZpkCommunityRepairFundAccount(payment.getPaymentRentDetails().getAccount().getZpks())
-        amount = payment.getPaymentRentDetails().getAmount()
+        amount = payment.getPaymentRentDetails().getValue()
         (rentAmount, repairFundAmount) = self.calculateAmounts(zpkPossessionRent, zpkPossessionRepairFund, amount)
         self.createAndBookPayment(zpkPossessionRent, zpkCommunityRentAccount, rentAmount)
         if repairFundAmount > 0:
