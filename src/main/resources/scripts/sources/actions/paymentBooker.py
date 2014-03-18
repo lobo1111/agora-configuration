@@ -17,21 +17,21 @@ class PaymentBooker:
                 
     def bookSimplePayment(self, payment):
         possession = payment.getPossession()
-        type = payment.getPaymentDetails().getAccount().getType().getKey()
+        type = payment.getPaymentRentDetails().getAccount().getType().getKey()
         if type == 'RENT':
             zpkCreditAccount = self.findZpkPossessionRent(possession)
         elif type == 'REPAIR_FUND':
             zpkCreditAccount = self.findZpkPossessionRepairFund(possession)
-        zpkDebitAccount = payment.getPaymentDetails().getAccount().getZpks().get(0)
-        self.createAndBookPayment(zpkCreditAccount, zpkDebitAccount, payment.getPaymentDetails().getAmount())
+        zpkDebitAccount = payment.getPaymentRentDetails().getAccount().getZpks().get(0)
+        self.createAndBookPayment(zpkCreditAccount, zpkDebitAccount, payment.getPaymentRentDetails().getAmount())
         
     def bookMultiPayment(self, payment):
         possession = payment.getPossession()
         zpkPossessionRent = self.findZpkPossessionRent(possession.getZpks())
         zpkPossessionRepairFund = self.findZpkPossessionRepairFund(possession.getZpks())
-        zpkCommunityRentAccount = self.findZpkCommunityRentAccount(payment.getPaymentDetails().getAccount().getZpks())
-        zpkCommunityRepairFundAccount = self.findZpkCommunityRepairFundAccount(payment.getPaymentDetails().getAccount().getZpks())
-        amount = payment.getPaymentDetails().getAmount()
+        zpkCommunityRentAccount = self.findZpkCommunityRentAccount(payment.getPaymentRentDetails().getAccount().getZpks())
+        zpkCommunityRepairFundAccount = self.findZpkCommunityRepairFundAccount(payment.getPaymentRentDetails().getAccount().getZpks())
+        amount = payment.getPaymentRentDetails().getAmount()
         (rentAmount, repairFundAmount) = self.calculateAmounts(zpkPossessionRent, zpkPossessionRepairFund, amount)
         self.createAndBookPayment(zpkPossessionRent, zpkCommunityRentAccount, rentAmount)
         if repairFundAmount > 0:
@@ -49,7 +49,7 @@ class PaymentBooker:
         manager.book()
         
     def isSimplePayment(self, payment):
-        return payment.getPaymentDetails().getAccount().getType().getKey() in ['RENT', 'REPAIR_FUND']
+        return payment.getPaymentRentDetails().getAccount().getType().getKey() in ['RENT', 'REPAIR_FUND']
     
     def findZpkPossessionRent(self, zpks):
         return self.findZpk(zpks, 'POSSESSION')
