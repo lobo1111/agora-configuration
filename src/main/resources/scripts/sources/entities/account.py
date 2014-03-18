@@ -26,7 +26,7 @@ class AccountManager(Container):
     def createZpk(self, account):
         zpkManager = ZpkManager()
         if account.getType().getKey() in ['DEFAULT', 'RENT']:
-            zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'DEFAULT')
+            zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'RENT')
             zpk.setAccount(account)
             account.getZpks().add(zpk)
             if account.getCommunity().getDefaultAccount() == None:
