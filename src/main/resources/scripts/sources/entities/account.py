@@ -31,12 +31,14 @@ class AccountManager(Container):
             account.getZpks().add(zpk)
             if account.getCommunity().getDefaultAccount() == None:
                 account.getCommunity().setDefaultAccount(account)
+                entityManager.persist(account.getCommunity())
         elif account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
             zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
             zpk.setAccount(account)
             account.getZpks().add(zpk)
             if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
                 account.getCommunity().setRepairFundAccount(account)
+                entityManager.persist(account.getCommunity())
         
     def getType(self):
         return DictionaryManager().getDictionaryInstance(vars.get('accountTypeId'))
