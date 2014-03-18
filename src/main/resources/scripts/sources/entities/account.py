@@ -24,13 +24,18 @@ class AccountManager(Container):
         account.setBank(self.getBank())
         
     def createZpk(self, account):
-        if account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
-            zpk = ZpkManager().generateZpkForCommunity(account.getCommunity(), account.getType().getKey())
+        zpkManager = ZpkManager()
+        if account.getType().getKey() in ['DEFAULT', 'RENT']:
+            zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'DEFAULT')
             zpk.setAccount(account)
             account.getZpks().add(zpk)
-            if account.getType().getKey() == 'DEFAULT' and account.getCommunity().getDefaultAccount() == None:
+            if account.getCommunity().getDefaultAccount() == None:
                 account.getCommunity().setDefaultAccount(account)
-            elif account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
+        elif account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
+            zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
+            zpk.setAccount(account)
+            account.getZpks().add(zpk)
+            if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
                 account.getCommunity().setRepairFundAccount(account)
         
     def getType(self):

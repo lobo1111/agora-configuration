@@ -1074,6 +1074,28 @@
         </variables>
     </template>
     <template>
+        <name>can-close-month-accounts</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    Select 
+                        count(c.id)
+                    From 
+                        Community c
+                        Join c.defaultAccount ra 
+                        Join ra.type rat
+                        Join c.repairFundAccount rfa 
+                    Where 
+                        rfa Is Null 
+                        and rat.key = 'RENT'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>current-charge-month</name>
         <source>simple-long-response.vtl</source>
         <variables>

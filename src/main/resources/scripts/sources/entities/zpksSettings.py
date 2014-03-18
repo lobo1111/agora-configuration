@@ -4,7 +4,7 @@ class ZpksSettings:
     def update(self):
         self.persistDict('possessionId', 'POSSESSION')
         self.persistDict('possessionRepairId', 'POSSESSION_REPAIR_FUND')
-        self.persistDict('accountId', 'DEFAULT')
+        self.persistDict('accountId', 'RENT')
         self.persistDict('repairFundAccountId', 'REPAIR_FUND')
         self.persistDict('contractorId', 'CONTRACTOR')
         self.persistDict('contractorCostId', 'CONTRACTOR_COST')

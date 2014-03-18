@@ -48,23 +48,23 @@ class ChargingBooker:
         return sum([element.getValue() for element in elements if (element.getGroup().getKey() == 'REPAIR_FUND') == repairFund])
         
     def getZpkRent(self, zpks):
-        return self.findCreditZpk(zpks, 'POSSESSION')
+        return self.findZpk(zpks, 'POSSESSION')
     
     def getZpkRepairFund(self, zpks):
-        return self.findCreditZpk(zpks, 'POSSESSION_REPAIR_FUND')
+        return self.findZpk(zpks, 'POSSESSION_REPAIR_FUND')
     
     def findRentCreditZpk(self, community):
-        return self.findCreditZpk(community.getZpks(), 'CHARGING_RENT')
+        return self.findZpk(community.getZpks(), 'CHARGING_RENT')
     
     def findRepairFundCreditZpk(self, community):
-        return self.findCreditZpk(community.getZpks(), 'CHARGING_REPAIR_FUND')
+        return self.findZpk(community.getZpks(), 'CHARGING_REPAIR_FUND')
             
-    def findCreditZpk(self, zpks, typeKey):
-        return [zpk for zpk in zpks if zpk.getType().getKey() == self.findZpkType(typeKey).getKey()][0]
+    def findZpk(self, zpks, typeKey):
+        zpkType = self.findZpkType(typeKey)
+        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkType.getKey()][0]
             
     def findZpkType(self, typeKey):
-        zpkTypeKey = self.findZpkType(typeKey).getKey()
-        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkTypeKey][0]
+        return self.findDictionary(str(self.findZpkSettingId(typeKey)))
     
     def findDictionary(self, id):
         return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % str(id)).getSingleResult()

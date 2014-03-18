@@ -28,3 +28,4 @@ class Close:
         
     def bookAll(self):
         ChargingBooker().bookAllChargings()
+        PaymentBooker().bookAllPayments()

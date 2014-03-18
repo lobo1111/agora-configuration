@@ -1046,6 +1046,19 @@
             SELECT id, 'REPAIR_FUND', 'Fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
         </sql> 
     </changeSet>
+    <changeSet id="accounts-types-update-1" author="tkopacki"> 
+        <sql> 
+            UPDATE `dictionary` 
+            SET `dictionaryKey` = 'RENT' 
+            WHERE `dictionaryKey` = 'DEFAULT' AND type IN (SELECT id FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE')
+        </sql> 
+    </changeSet>
+    <changeSet id="accounts-types-2" author="tkopacki"> 
+        <sql> 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, 'RENT', 'Konto czynszowe' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
+        </sql> 
+    </changeSet>
     <changeSet author='tkopacki' id='dictionary-zpks'>
         <sql>
             INSERT INTO `dictionary_type` (`type`) VALUES

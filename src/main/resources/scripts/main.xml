@@ -160,6 +160,20 @@
         </security>
     </script>
     <script>
+        <name>payment-booker</name>
+        <source>actions/paymentBooker.py</source>
+        <onInit />
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>internal-payment</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
+    <script>
         <name>close-month</name>
         <source>actions/closer.py</source>
         <onInit>Close().closeMonth()</onInit>
@@ -169,6 +183,7 @@
             <scriptName>container</scriptName>
             <scriptName>dictionary-manager</scriptName>
             <scriptName>charging-booker</scriptName>
+            <scriptName>payment-booker</scriptName>
         </dependencies>
         <security>
             <group>all</group>

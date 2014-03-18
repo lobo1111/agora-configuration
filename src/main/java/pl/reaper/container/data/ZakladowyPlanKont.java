@@ -102,6 +102,15 @@ public class ZakladowyPlanKont implements Serializable {
     public Collection<ZpkBalance> getZpkBalances() {
         return zpkBalances;
     }
+    
+    public ZpkBalance getCurrentBalance() {
+        for(ZpkBalance balance: zpkBalances) {
+            if(balance.getBookingPeriod().isDefaultPeriod()) {
+                return balance;
+            }
+        }
+        return null;
+    }
 
     public void setZpkBalances(Collection<ZpkBalance> zpkBalances) {
         this.zpkBalances = zpkBalances;
