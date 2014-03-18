@@ -1090,7 +1090,7 @@
                         Join c.repairFundAccount rfa 
                     Where 
                         rfa Is Null 
-                        and rat.key = 'RENT'
+                        and rat.key = \'RENT\'
                 </data>
             </var>
         </variables>
