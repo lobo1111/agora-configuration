@@ -32,7 +32,7 @@ class AccountManager(Container):
             if account.getCommunity().getDefaultAccount() == None:
                 account.getCommunity().setDefaultAccount(account)
                 entityManager.persist(account.getCommunity())
-        elif account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
+        if account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
             zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
             zpk.setAccount(account)
             account.getZpks().add(zpk)
