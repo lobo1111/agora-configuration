@@ -67,7 +67,7 @@ class PaymentBooker:
     def calculateAmounts(self, zpkPossessionRent, zpksPossessionRepairFund, amount):
         self._logger.info("Calculating amount %s" % str(amount))
         toPayOnRent = self.calculateToPay(zpkPossessionRent.getCurrentBalance().getCredit(), zpkPossessionRent.getCurrentBalance().getDebit())
-        toPayOnRepairFund = self.calculateToPay(zpksPossessionRepairFund.getCurrentBalance().getCredit(), zpkPossessionRent.getCurrentBalance().getDebit())
+        toPayOnRepairFund = self.calculateToPay(zpksPossessionRepairFund.getCurrentBalance().getCredit(), zpksPossessionRepairFund.getCurrentBalance().getDebit())
         self._logger.info("To pay on rent %s" % str(toPayOnRent))
         self._logger.info("To pay on repair fund %s" % str(toPayOnRepairFund))
         repairFundAmount = 0.0
