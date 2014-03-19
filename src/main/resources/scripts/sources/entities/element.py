@@ -138,6 +138,7 @@ class ElementManager(Container):
         try:
             return entityManager.createQuery('Select element From ElementCommunity element join element.element parent join element.community community Where parent.id = %s and community.id = %s' % (str(elementId), str(communityId))).getSingleResult()
         except:
+            self._logger.info('Community(%s) element(%s) not found' % (communityId, elementId))
             return None
     
     def findPossessionElement(self, elementId, possessionId):
