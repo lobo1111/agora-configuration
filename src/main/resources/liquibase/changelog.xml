@@ -1138,10 +1138,10 @@
     <changeSet id="default-elements-insert-1" author="tkopacki"> 
         <sql> 
             INSERT INTO `element` (`group_id`, `key_value`, `name`, `global_value`, `default_element`, `algorithm`) 
-            SELECT d.id, 'S01', 'Sprzątanie', '1200.00', 1, '#{element.globalValue} * #{possessionData.share} / 100.0' 
+            SELECT d.id, 'S01', 'Sprzątanie', '1200.00', 1, '#{element.globalValue} * #{possession.share} / 100.0' 
             FROM dictionary AS d JOIN dictionary_type AS dtype WHERE d.type_id = dtype.id AND d.dictionaryKey = 'RENT' and dtype.type = 'ELEMENTS';
             INSERT INTO `element` (`group_id`, `key_value`, `name`, `global_value`, `default_element`, `algorithm`) 
-            SELECT d.id, 'R01', 'Fundusz remontowy', '3500.00', 1, '#{element.globalValue} * #{possessionData.share} / 100.0' 
+            SELECT d.id, 'R01', 'Fundusz remontowy', '3500.00', 1, '#{element.globalValue} * #{possession.share} / 100.0' 
             FROM dictionary AS d JOIN dictionary_type AS dtype WHERE d.type_id = dtype.id AND d.dictionaryKey = 'REPAIR_FUND' and dtype.type = 'ELEMENTS';
             INSERT INTO `element` (`group_id`, `key_value`, `name`, `global_value`, `default_element`, `algorithm`) 
             SELECT d.id, 'Z01', 'Woda zimna', '2.50', 1, '#{element.globalValue} * #{possessionData.coldWater}' 
