@@ -66,7 +66,8 @@ class PaymentBooker:
     def calculateAmounts(self, zpkPossessionRent, zpksPossessionRepairFund, amount):
         toPayOnRent = zpkPossessionRent.getCurrentBalance().getCredit() - zpkPossessionRent.getCurrentBalance().getDebit()
         toPayOnRepairFund = zpksPossessionRepairFund.getCurrentBalance().getCredit() - zpkPossessionRent.getCurrentBalance().getDebit()
-        rentAmount = repairFundAmmount = 0.0
+        repairFundAmmount = 0.0
+        rentAmount = 0.0
         rentAmount = min(toPayOnRent, amount)
         amount -= min(toPayOnRent, amount)
         if amount >= toPayOnRepairFund:
