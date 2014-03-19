@@ -61,6 +61,7 @@ class ElementManager(Container):
             createElementForPossessions = True
             communityElement.setElement(self.findElementById(elementId))
             communityElement.setCommunity(community)
+            community.getElements().add(communityElement)
         if vars.get('override') == 'true':
             communityElement.setOverrideParentValue(True)
         else:
@@ -73,7 +74,6 @@ class ElementManager(Container):
             self.setElementForPossessions(community, communityElement)
             vars.put('override', tmpOverride)
             vars.put('overrideValue', tmpOverrideValue)
-        community.getElements().add(communityElement)
         entityManager.persist(community)
         self.saveElement(communityElement)
         

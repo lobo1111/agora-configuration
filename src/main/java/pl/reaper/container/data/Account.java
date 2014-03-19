@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -55,7 +56,7 @@ public class Account implements Serializable {
     @ManyToOne
     private Community community;
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
-    private Collection<ZakladowyPlanKont> zpks;
+    private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
 
     public Account() {
     }
