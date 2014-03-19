@@ -10,6 +10,7 @@ class PaymentBooker:
         return entityManager.createQuery('Select c From PaymentRent c Join c.bookingPeriod p Where c.month In (SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT") and p.defaultPeriod = True').getResultList()
     
     def bookPayment(self, payment):
+        self._logger.info("Booking payment %d" % payment.getId())
         if self.isSimplePayment(payment):
             self.bookSimplePayment(payment)
         else:
@@ -64,8 +65,11 @@ class PaymentBooker:
         return self.findZpk(zpks, 'REPAIR_FUND')
     
     def calculateAmounts(self, zpkPossessionRent, zpksPossessionRepairFund, amount):
+        self._logger.info("Calculating amount %s" % str(amount))
         toPayOnRent = zpkPossessionRent.getCurrentBalance().getCredit() - zpkPossessionRent.getCurrentBalance().getDebit()
         toPayOnRepairFund = zpksPossessionRepairFund.getCurrentBalance().getCredit() - zpkPossessionRent.getCurrentBalance().getDebit()
+        self._logger.info("To pay on rent %s" % str(toPayOnRent))
+        self._logger.info("To pay on repair fund %s" % str(toPayOnRepairFund))
         repairFundAmount = 0.0
         rentAmount = 0.0
         rentAmount = min(toPayOnRent, amount)
@@ -74,6 +78,8 @@ class PaymentBooker:
             repairFundAmount = toPayOnRepairFund
             amount -= toPayOnRepairFund
         rentAmount += amount
+        self._logger.info("Will pay on rent %s" % str(rentAmount))
+        self._logger.info("Will pay on repair fund %s" % str(repairFundAmount))
         return rentAmount, repairFundAmount
     
     def findZpk(self, zpks, typeKey):
