@@ -66,6 +66,7 @@ class PossessionManager(Container):
         community = self.getCommunity(possession)
         possession.setCommunity(community)
         if possession.getId() == 0:
+            self._logger.info('New possession added to community')
             community.getPossessions().add(possession)
             entityManager.persist(community)
         
@@ -88,16 +89,9 @@ class PossessionManager(Container):
         return communityManager.findCommunityById(vars.get(self._prefix + 'communityId'))
         
     def savePossession(self, possession):
-        try:
-            self._logger.info(possession.longDescription())
-            entityManager.persist(possession)
-            CommunityManager().recalculateShares(possession.getCommunity().getId())
-        except ConstraintViolationException, e:
-            for violation in e.getConstraintViolations():
-                self._logger.info("ConstraintViolationException")
-                self._logger.info(violation.getRootBean())
-                self._logger.info(violation.getMessage())
-                self._logger.info(violation.getInvalidValue())
+        self._logger.info(possession.longDescription())
+        entityManager.persist(possession)
+        CommunityManager().recalculateShares(possession.getCommunity().getId())
             
         
     def findAccountById(self, id):

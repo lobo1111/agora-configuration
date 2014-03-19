@@ -89,7 +89,9 @@ class CommunityManager(Container):
     def recalculateShares(self, communityId):
         community = self.findCommunityById(communityId)
         area = 0
-        for possession in community.getPossessions():
+        possessions = community.getPossessions()
+        self._logger.info('Recalculating shares on community(%s), found %s possession(s)' % (community.getId(), possessions.size()))
+        for possession in possessions:
             area += possession.getArea().floatValue()
         self._logger.info('Area recalculated(%s) on community %s' % (str(area), community.getName()))
         community.setArea(BigDecimal(area))

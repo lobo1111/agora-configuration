@@ -98,6 +98,7 @@ class ElementManager(Container):
             possessionElement.setElementCommunity(elementCommunity)
             possessionElement.setElement(self.findElementById(elementId))
             possessionElement.setPossession(possession)
+            possession.getElements().add(possessionElement)
         if not elementCommunity is None:
             possessionElement.setElementCommunity(elementCommunity)
         if override:
@@ -106,7 +107,6 @@ class ElementManager(Container):
             else:
                 possessionElement.setOverrideParentValue(False)
             possessionElement.setGlobalValue(float(vars.get('overrideValue')))
-        possession.getElements().add(possessionElement)
         entityManager.persist(possession)
         self.saveElement(possessionElement)
             
