@@ -66,8 +66,8 @@ class PaymentBooker:
     
     def calculateAmounts(self, zpkPossessionRent, zpksPossessionRepairFund, amount):
         self._logger.info("Calculating amount %s" % str(amount))
-        toPayOnRent = zpkPossessionRent.getCurrentBalance().getCredit() - zpkPossessionRent.getCurrentBalance().getDebit()
-        toPayOnRepairFund = zpksPossessionRepairFund.getCurrentBalance().getCredit() - zpkPossessionRent.getCurrentBalance().getDebit()
+        toPayOnRent = self.calculateToPay(zpkPossessionRent.getCurrentBalance().getCredit(), zpkPossessionRent.getCurrentBalance().getDebit())
+        toPayOnRepairFund = self.calculateToPay(zpksPossessionRepairFund.getCurrentBalance().getCredit(), zpkPossessionRent.getCurrentBalance().getDebit())
         self._logger.info("To pay on rent %s" % str(toPayOnRent))
         self._logger.info("To pay on repair fund %s" % str(toPayOnRepairFund))
         repairFundAmount = 0.0
@@ -81,6 +81,12 @@ class PaymentBooker:
         self._logger.info("Will pay on rent %s" % str(rentAmount))
         self._logger.info("Will pay on repair fund %s" % str(repairFundAmount))
         return rentAmount, repairFundAmount
+    
+    def calculateToPay(self, credit, debit):
+        if credit >= debit:
+            return 0.0
+        else:
+            return debit - credit
     
     def findZpk(self, zpks, typeKey):
         zpkType = self.findZpkType(typeKey)
