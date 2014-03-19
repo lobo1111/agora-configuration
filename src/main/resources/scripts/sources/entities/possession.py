@@ -65,12 +65,10 @@ class PossessionManager(Container):
         possession.setAddress(self.getAddress(possession))
         community = self.getCommunity(possession)
         possession.setCommunity(community)
-        if possession.getId() == 0:
+        if possession.getId() == None or possession.getId() == 0:
             self._logger.info('New possession added to community')
             community.getPossessions().add(possession)
             entityManager.persist(community)
-        else:
-            self._logger.info("Possession(%d) already exists, won't add it againg into community" % possession.getId())
         
     def setPossessionAdditionalData(self, possession):
         possession.getAdditionalData().setPossession(possession)
