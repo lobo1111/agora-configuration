@@ -57,6 +57,8 @@ public class Company implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "name")
     private String name;
+    @Column(name = "default_contractor")
+    private boolean defaultContractor;
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
@@ -181,6 +183,14 @@ public class Company implements Serializable {
 
     public void setContractors(Collection<Contractor> contractors) {
         this.contractors = contractors;
+    }
+
+    public boolean isDefaultContractor() {
+        return defaultContractor;
+    }
+
+    public void setDefaultContractor(boolean defaultContractor) {
+        this.defaultContractor = defaultContractor;
     }
 
     @Override

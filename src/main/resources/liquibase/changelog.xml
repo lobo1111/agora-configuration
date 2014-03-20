@@ -1148,4 +1148,10 @@
             FROM dictionary AS d JOIN dictionary_type AS dtype WHERE d.type_id = dtype.id AND d.dictionaryKey = 'UTILITIES' and dtype.type = 'ELEMENTS';
         </sql> 
     </changeSet>
+    
+    <changeSet id="company-default-contractor-column-add" author="tkopacki">
+        <sql>
+            ALTER TABLE `company` ADD COLUMN default_contractor tinyint(1) DEFAULT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

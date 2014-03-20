@@ -6,6 +6,11 @@
         <name>$!company.getName()</name>
         <nip>$!company.getNip()</nip>
         <regon>$!company.getRegon()</regon>
+        #if($!company.isDefaultContractor())
+            <defaultContractor>Tak</defaultContractor>
+        #else
+            <defaultContractor>Nie</defaultContractor>
+        #fi
     </item>
     #end
     <settings>
