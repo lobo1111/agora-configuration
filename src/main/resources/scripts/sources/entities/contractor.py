@@ -42,7 +42,7 @@ class ContractorManager(Container):
     def getCompany(self, obligation):
         companyManager = CompanyManager()
         companyManager.setPrefix(self._prefix)
-        if vars.get(self._prefix + 'exsitingCompany') == 'true' and obligation.getCompany() != None and obligation.getCompany().getId() > 0:
+        if vars.get(self._prefix + 'exsitingCompany') == 'true':
             return companyManager.findCompanyById(vars.get(self._prefix + 'obligationCompanyId'))
         else:
             return companyManager.create()
