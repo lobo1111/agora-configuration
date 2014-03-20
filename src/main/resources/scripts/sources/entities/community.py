@@ -70,7 +70,7 @@ class CommunityManager(Container):
             vars.put('obligationCompanyId', str(company.getId()))
             obligationManager = ContractorManager()
             obligation = obligationManager.create()
-            community.getZpks().add(obligation.getZpk())
+            community.getZpks().addAll(obligation.getZpks())
         self.saveCommunity(community)
             
     def findCommunity(self):
