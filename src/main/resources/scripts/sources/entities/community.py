@@ -64,18 +64,21 @@ class CommunityManager(Container):
         entityManager.flush()
         
     def setContractorData(self, community):
-        for i in range(int(vars.get(self._prefix + 'obligationsCount'))): 
-            prefix = self._prefix + str(i)
-            vars.put(prefix + 'communityId', str(community.getId()))
+        vars.put('communityId', str(community.getId()))
+        vars.put('exsitingCompany', 'true')
+        for company in self.findDefaultCompanies():
+            vars.put('obligationCompanyId', str(company.getId()))
             obligationManager = ContractorManager()
-            obligationManager.setPrefix(prefix)
             obligation = obligationManager.create()
             community.getZpks().add(obligation.getZpk())
-            self.saveCommunity(community)
+        self.saveCommunity(community)
             
     def findCommunity(self):
         id = vars.get('id')
         return self.findCommunityById(id)
+
+    def findDefaultCompanies(self, id):
+        return entityManager.createQuery('Select company From Company company Where company.defaultContractor = 1').getResultList()
 
     def findCommunityById(self, id):
         try:
