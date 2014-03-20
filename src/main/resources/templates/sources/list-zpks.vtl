@@ -10,8 +10,8 @@
         #if($!row.getPossession())
             <description>$!row.getPossession().getFullAddress()</description>
         #end
-        #if($!row.getObligation())
-            <description>$!row.getObligation().getName()</description>
+        #if($!row.getContractor())
+            <description>$!row.getContractor().getName()</description>
         #end
         #foreach($balance in $row.getZpkBalances())
         #if($balance.getBookingPeriod().isDefaultPeriod())
