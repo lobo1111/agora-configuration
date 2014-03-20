@@ -18,6 +18,11 @@ class CompanyManager(Container):
         self.setCompanyData(company)
         self.saveCompany(company)
         return company
+    
+    def toggleDefault(self):
+        company = self.findCompanyById(vars.get(self._prefix + 'id'))
+        company.setDefaultContractor(not company.isDefaultContractor())
+        self.saveCompany(company)
         
     def setCompanyData(self, company):
         company.setName(vars.get(self._prefix + 'name'))

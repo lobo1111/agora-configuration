@@ -836,6 +836,20 @@
             <group>all</group>
         </security>
     </script>
+    <script>
+        <name>company-toggle-default</name>
+        <source>entities/company.py</source>
+        <onInit>CompanyManager().toggleDefault()</onInit>
+        <scheduler/>
+        <dependencies>
+            <scriptName>db-logger</scriptName>
+            <scriptName>container</scriptName>
+            <scriptName>address</scriptName>
+        </dependencies>
+        <security>
+            <group>all</group>
+        </security>
+    </script>
     
     <script>
         <name>create-community</name>
