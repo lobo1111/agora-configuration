@@ -77,7 +77,7 @@ class CommunityManager(Container):
         id = vars.get('id')
         return self.findCommunityById(id)
 
-    def findDefaultCompanies(self, id):
+    def findDefaultCompanies(self):
         return entityManager.createQuery('Select company From Company company Where company.defaultContractor = 1').getResultList()
 
     def findCommunityById(self, id):
