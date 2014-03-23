@@ -1056,7 +1056,7 @@
     <changeSet id="accounts-types-3" author="tkopacki"> 
         <sql> 
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
-            SELECT id, 'INDIVIDUAL', 'Konto czynszowe' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
+            SELECT id, 'INDIVIDUAL', 'Konto indywidualne' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
         </sql> 
     </changeSet>
     <changeSet author='tkopacki' id='dictionary-zpks'>

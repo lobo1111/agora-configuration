@@ -480,7 +480,7 @@
                     FROM 
                     Account account
                     JOIN account.community community
-                    JOIN account.type dtype
+                    JOIN account.type accountType
                     JOIN account.bank bank
                     LEFT OUTER JOIN account.parrentAccount parentAccount
                     WHERE {:where}
