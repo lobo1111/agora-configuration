@@ -18,20 +18,22 @@ class PaymentBooker:
                 
     def bookSimplePayment(self, payment):
         possession = payment.getPossession()
-        type = payment.getPaymentRentDetails().getAccount().getType().getKey()
+        account = self.getAccount(payment)
+        type = account.getType().getKey()
         if type == 'RENT':
             zpkCreditAccount = self.findZpkPossessionRent(possession.getZpks())
         elif type == 'REPAIR_FUND':
             zpkCreditAccount = self.findZpkPossessionRepairFund(possession.getZpks())
-        zpkDebitAccount = payment.getPaymentRentDetails().getAccount().getZpks().get(0)
+        zpkDebitAccount = account.getZpks().get(0)
         self.createAndBookPayment(zpkCreditAccount, zpkDebitAccount, payment.getPaymentRentDetails().getValue())
         
     def bookMultiPayment(self, payment):
+        account = self.getAccount(payment)
         possession = payment.getPossession()
         zpkPossessionRent = self.findZpkPossessionRent(possession.getZpks())
         zpkPossessionRepairFund = self.findZpkPossessionRepairFund(possession.getZpks())
-        zpkCommunityRentAccount = self.findZpkCommunityRentAccount(payment.getPaymentRentDetails().getAccount().getZpks())
-        zpkCommunityRepairFundAccount = self.findZpkCommunityRepairFundAccount(payment.getPaymentRentDetails().getAccount().getZpks())
+        zpkCommunityRentAccount = self.findZpkCommunityRentAccount(account.getZpks())
+        zpkCommunityRepairFundAccount = self.findZpkCommunityRepairFundAccount(account.getZpks())
         amount = payment.getPaymentRentDetails().getValue()
         (rentAmount, repairFundAmount) = self.calculateAmounts(zpkPossessionRent, zpkPossessionRepairFund, amount)
         self.createAndBookPayment(zpkPossessionRent, zpkCommunityRentAccount, rentAmount)
@@ -50,7 +52,8 @@ class PaymentBooker:
         manager.book()
         
     def isSimplePayment(self, payment):
-        return payment.getPaymentRentDetails().getAccount().getType().getKey() in ['RENT', 'REPAIR_FUND']
+        account = self.getAccount(payment)
+        return account.getType().getKey() in ['RENT', 'REPAIR_FUND']
     
     def findZpkPossessionRent(self, zpks):
         return self.findZpk(zpks, 'POSSESSION')
@@ -63,6 +66,13 @@ class PaymentBooker:
     
     def findZpkCommunityRepairFundAccount(self, zpks):
         return self.findZpk(zpks, 'REPAIR_FUND')
+    
+    def getAccount(self, payment):
+        account = payment.getPaymentRentDetails().getAccount()
+        if account.getType().getKey() == 'INDIVIDUAL':
+            return account.getParent()
+        else:
+            return account
     
     def calculateAmounts(self, zpkPossessionRent, zpksPossessionRepairFund, amount):
         self._logger.info("Calculating amount %s" % str(amount))

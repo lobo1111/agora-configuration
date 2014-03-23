@@ -1053,6 +1053,12 @@
             SELECT id, 'RENT', 'Konto czynszowe' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
         </sql> 
     </changeSet>
+    <changeSet id="accounts-types-2" author="tkopacki"> 
+        <sql> 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, 'INDIVIDUAL', 'Konto czynszowe' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
+        </sql> 
+    </changeSet>
     <changeSet author='tkopacki' id='dictionary-zpks'>
         <sql>
             INSERT INTO `dictionary_type` (`type`) VALUES

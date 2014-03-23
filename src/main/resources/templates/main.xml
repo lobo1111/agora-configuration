@@ -479,6 +479,8 @@
                     account
                     FROM 
                     Account account
+                    JOIN account.community community
+                    JOIN account.type dtype
                     JOIN account.bank bank
                     LEFT OUTER JOIN account.parrentAccount parentAccount
                     WHERE {:where}
@@ -493,6 +495,8 @@
                     count(account.id)
                     FROM 
                     Account account
+                    JOIN account.community community
+                    JOIN account.type dtype
                     JOIN account.bank bank
                     JOIN account.parrentAccount parentAccount
                     WHERE {:where}
