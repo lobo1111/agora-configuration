@@ -1025,10 +1025,10 @@
             (1, 'Tomasz', 'Kopacki', '86041405116', '664 007 904', NULL, NULL, 'tomasz@kopacki.eu', 1);
             
             INSERT INTO `user` (`id`, `login`, `password`, `person_id`) VALUES
-            (1, 'lobo', '3e30da3972953c020ac40149f6ef4d25d1c28c8b9ea58e68bdd236716cdc932e', 1);
+            (1, 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 1);
             
             INSERT INTO `user_group` (`id`, `user`, `name`) VALUES
-            (1, 'lobo', 'administrators');
+            (1, 'test', 'administrators');
         </sql>
     </changeSet>
     
