@@ -15,7 +15,8 @@ class Logger:
     log.setMessage(unicode(message, errors = 'replace')[0:1023])
     log.setUuid(vars.get('_uuid'))
     print '[JYTHON][%s][%s][%s]' % (vars.get('_uuid'), level, message)
-    entityManager.persist(log)
+    if level in ['WARNING', 'ERROR']:
+        entityManager.persist(log)
 
   def info(self, message):
     self.appendLog('INFO', message)
