@@ -432,7 +432,7 @@
             `enabled` tinyint(1) NOT NULL,
             `schedule` varchar(45) COLLATE utf8_polish_ci NOT NULL,
             PRIMARY KEY (`id`),
-            UNIQUE KEY `name_UNIQUE` (`name`),
+            UNIQUE KEY `name_UNIQUE` (`name`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1052 ;
         </sql>
     </changeSet>
