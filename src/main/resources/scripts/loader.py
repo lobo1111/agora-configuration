@@ -43,9 +43,9 @@ class ScriptLoader:
     def loadSchedulers(self):
         self._dbManager.deleteAllSchedulers()
         for scheduler in self._xml.findall('scheduler'):
-            script = script.find('script')
-            enabled = script.find('enabled')
-            fireAt = script.find('fireAt')
+            script = scheduler.find('script')
+            enabled = scheduler.find('enabled')
+            fireAt = scheduler.find('fireAt')
             self.saveScheduler(self.getText(script), self.getText(enabled), self.getText(fireAt))
             
     def saveScheduler(self, name, enabled, fireAt):
