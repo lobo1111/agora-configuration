@@ -69,7 +69,9 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
     private Iterable<String> findAllScripts() {
         String instanceRoot = System.getProperty("com.sun.aas.instanceRoot");
         List<String> files = new ArrayList<>();
-        Path path = FileSystems.getDefault().getPath(instanceRoot + File.separator + "container" + File.separator + "scripts");
+        String fullPath = instanceRoot + File.separator + "container" + File.separator + "scripts";
+        Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Looking for scripts in : {0}", fullPath);
+        Path path = FileSystems.getDefault().getPath(fullPath);
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(path, "*.py")) {
             for (Path file : ds) {
                 files.add(file.toFile().getAbsolutePath());
