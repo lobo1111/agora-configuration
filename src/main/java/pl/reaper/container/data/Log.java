@@ -41,8 +41,6 @@ public class Log implements Serializable {
     @Column(name = "timestamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp = new Date();
-    @Column(name = "script_id")
-    private int scriptId;
     @Column(name = "thread_id")
     private long threadId;
     @Column(name = "thread_name")
@@ -57,9 +55,8 @@ public class Log implements Serializable {
         this.id = id;
     }
 
-    public Log(Integer id, int scriptId, String level, String message, Date timestamp) {
+    public Log(Integer id, String level, String message, Date timestamp) {
         this.id = id;
-        this.scriptId = scriptId;
         this.level = level;
         this.message = message;
         this.timestamp = timestamp;
@@ -71,14 +68,6 @@ public class Log implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getScriptId() {
-        return scriptId;
-    }
-
-    public void setScriptId(int scriptId) {
-        this.scriptId = scriptId;
     }
 
     public String getLevel() {

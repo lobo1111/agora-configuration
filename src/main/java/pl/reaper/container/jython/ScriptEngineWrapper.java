@@ -15,17 +15,16 @@ import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import pl.reaper.container.beans.DocumentStatusBeanLocal;
 import pl.reaper.container.beans.PropertyBeanLocal;
-import pl.reaper.container.data.Script;
+import pl.reaper.container.beans.ScriptsLoaderLocal;
 
 public class ScriptEngineWrapper {
 
     private EntityManager entityManager;
     private PropertyBeanLocal propertyBean;
-    private DocumentStatusBeanLocal documentStatusBean;
     private Map<String, Object> variables = new HashMap<>();
     private ScriptEngine engine;
+    private ScriptsLoaderLocal loader;
 
     public ScriptEngineWrapper() {
         engine = new ScriptEngineManager().getEngineByName("python");
@@ -43,7 +42,6 @@ public class ScriptEngineWrapper {
         binding.put("entityManager", entityManager);
         binding.put("vars", variables);
         binding.put("properties", propertyBean);
-        binding.put("documentStatusLoader", documentStatusBean);
         return binding;
     }
 
@@ -75,6 +73,11 @@ public class ScriptEngineWrapper {
         return "";
     }
 
+    public ScriptEngineWrapper setLoader(ScriptsLoaderLocal loader) {
+        this.loader = loader;
+        return this;
+    }
+
     public ScriptEngineWrapper setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
         return this;
@@ -82,11 +85,6 @@ public class ScriptEngineWrapper {
 
     public ScriptEngineWrapper setPropertyBean(PropertyBeanLocal propertyBean) {
         this.propertyBean = propertyBean;
-        return this;
-    }
-
-    public ScriptEngineWrapper setDocumentStatusBean(DocumentStatusBeanLocal documentStatusBean) {
-        this.documentStatusBean = documentStatusBean;
         return this;
     }
 
@@ -119,20 +117,6 @@ public class ScriptEngineWrapper {
     }
 
     private CompiledScript findScript(String scriptName) throws ScriptException {
-        CompiledScript compiledScript = ScriptCache.getFromCache(scriptName);
-        if (compiledScript == null) {
-            String scriptContent = "";
-            List<Script> scriptChain = new DBScriptLoader(entityManager).loadScriptChain(scriptName);
-            for (Script script : scriptChain) {
-                variables.put("_scriptId", String.valueOf(script.getId()));
-                scriptContent += new VariableParser(script.getScript() + "\n", variables).parse();
-            }
-            scriptContent += scriptChain.get(scriptChain.size() - 1).getOnInit();
-            Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, scriptContent);
-            Compilable compilingEngine = (Compilable) engine;
-            compiledScript = compilingEngine.compile(scriptContent);
-            ScriptCache.cache(scriptName, compiledScript);
-        }
-        return compiledScript;
+        return loader.getScript(scriptName);
     }
 }

@@ -6,6 +6,6 @@ import javax.ejb.Local;
 @Local
 public interface JythonBeanLocal {
 
-    public String executeScript(String scriptName, Map variables, boolean preservePrivilages);
+    public String executeScript(String scriptName, Map variables);
     
 }

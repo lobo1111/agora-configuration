@@ -26,32 +26,32 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     @EJB
     private PropertyBeanLocal propertyBean;
     @EJB
-    private DocumentStatusBeanLocal documentStatusBean;
+    private ScriptsLoaderLocal loaderBean;
     private ScriptEngineWrapper engineBuilder;
 
     @PostConstruct
     public void initScripting() {
         engineBuilder = new ScriptEngineWrapper()
-                .setDocumentStatusBean(documentStatusBean)
                 .setEntityManager(entityManager)
-                .setPropertyBean(propertyBean);
+                .setPropertyBean(propertyBean)
+                .setLoader(loaderBean);
     }
 
     @PermitAll
     @Override
     @Path("/JythonBean")
     public String secureScriptExecution(String scriptName, MapWrapper variables) {
-        return executeScript(scriptName, variables.map, true);
+        return executeScript(scriptName, variables.map);
     }
 
     @PermitAll
     @Override
     public String simpleSecureScriptExecution(String scriptName) {
-        return executeScript(scriptName, new HashMap<String, String>(), true);
+        return executeScript(scriptName, new HashMap<String, String>());
     }
 
     @Override
-    public String executeScript(String scriptName, Map variables, boolean preservePrivilages) {
+    public String executeScript(String scriptName, Map variables) {
         try {
             String output = "";
             engineBuilder.resetVariables().addVariables(variables);

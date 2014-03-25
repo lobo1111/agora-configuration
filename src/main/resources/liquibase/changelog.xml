@@ -284,7 +284,6 @@
         <sql>        
             CREATE TABLE `log` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
-            `script_id` int(11) NOT NULL,
             `level` varchar(64) COLLATE utf8_polish_ci NOT NULL,
             `message` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
             `thread_id` int(11) NOT NULL,
@@ -292,7 +291,6 @@
             `uuid` varchar(255) COLLATE utf8_polish_ci NOT NULL,
             `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
-            KEY `log_script_fkey` (`script_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1520610 ;
         </sql>
     </changeSet>
@@ -426,57 +424,16 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='script-table'>
-        <sql>        
-            CREATE TABLE `script` (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
-            `script` text COLLATE utf8_polish_ci,
-            `on_init` text COLLATE utf8_polish_ci,
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `name_UNIQUE` (`name`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=92 ;
-        </sql>
-    </changeSet>
-    
-    <changeSet author='tkopacki' id='script-dependency-table'>
-        <sql>        
-            CREATE TABLE `script_dependency` (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `script_id` int(11) NOT NULL,
-            `dependency` int(11) NOT NULL,
-            PRIMARY KEY (`id`),
-            KEY `script_dependency_script_fkey` (`script_id`),
-            KEY `script_dependency_dependency_fkey` (`dependency`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=47239 ;
-        </sql>
-    </changeSet>
-    
     <changeSet author='tkopacki' id='script-scheduler-table'>
         <sql>        
             CREATE TABLE `script_scheduler` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `name` varchar(45) COLLATE utf8_polish_ci NOT NULL,
-            `id_script` int(11) NOT NULL,
             `enabled` tinyint(1) NOT NULL,
             `schedule` varchar(45) COLLATE utf8_polish_ci NOT NULL,
             PRIMARY KEY (`id`),
             UNIQUE KEY `name_UNIQUE` (`name`),
-            KEY `scheduler_script_fkey` (`id_script`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1052 ;
-        </sql>
-    </changeSet>
-    
-    <changeSet author='tkopacki' id='script-security-table'>
-        <sql>        
-            CREATE TABLE `script_security` (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `script_id` int(11) NOT NULL,
-            `dictionary_id` int(11) NOT NULL,
-            PRIMARY KEY (`id`),
-            KEY `script_security_script_fkey` (`script_id`),
-            KEY `script_security_dictionary_fkey` (`dictionary_id`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=13086 ;
         </sql>
     </changeSet>
     
@@ -665,13 +622,6 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='log-fkeys'>
-        <sql>       
-            ALTER TABLE `log`
-            ADD CONSTRAINT `log_script_fkey` FOREIGN KEY (`script_id`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-        </sql>
-    </changeSet>
-
     <changeSet author='tkopacki' id='contractor-fkeys'>
         <sql>       
             ALTER TABLE `contractor`
@@ -726,29 +676,6 @@
             ALTER TABLE `possession_additional_data`
             ADD CONSTRAINT `possession_additional_data_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
             ADD CONSTRAINT `possession_additional_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-        </sql>
-    </changeSet>
-    
-    <changeSet author='tkopacki' id='script-dependency-fkeys'>
-        <sql>       
-            ALTER TABLE `script_dependency`
-            ADD CONSTRAINT `script_dependency_dependency_fkey` FOREIGN KEY (`dependency`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            ADD CONSTRAINT `script_dependency_script_fkey` FOREIGN KEY (`script_id`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-        </sql>
-    </changeSet>
-    
-    <changeSet author='tkopacki' id='script-scheduler-fkeys'>
-        <sql>       
-            ALTER TABLE `script_scheduler`
-            ADD CONSTRAINT `scheduler_script_fkey` FOREIGN KEY (`id_script`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-        </sql>
-    </changeSet>
-    
-    <changeSet author='tkopacki' id='script-security-fkeys'>
-        <sql>       
-            ALTER TABLE `script_security`
-            ADD CONSTRAINT `script_security_dictionary_fkey` FOREIGN KEY (`dictionary_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-            ADD CONSTRAINT `script_security_script_fkey` FOREIGN KEY (`script_id`) REFERENCES `script` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
     

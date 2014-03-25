@@ -38,9 +38,6 @@ public class ScriptScheduler implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "schedule")
     private String schedule;
-    @JoinColumn(name = "id_script", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Script script;
 
     public ScriptScheduler() {
     }
@@ -86,14 +83,6 @@ public class ScriptScheduler implements Serializable {
 
     public void setSchedule(String schedule) {
         this.schedule = schedule;
-    }
-
-    public Script getScript() {
-        return script;
-    }
-
-    public void setScript(Script script) {
-        this.script = script;
     }
 
     @Override
