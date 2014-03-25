@@ -39,11 +39,11 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
     public void init() {
         ScriptEngine engine = createEngine();
         Compilable compilingEngine = (Compilable) engine;
-        for (String path : findAllScripts()) {
+        for (File file : findAllScripts()) {
             try {
-                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Compiling script: {0}", path);
-                String name = path.substring(path.lastIndexOf(File.separator + 1), path.length() - 3);
-                CompiledScript script = compilingEngine.compile(new FileReader(new File(path)));
+                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Compiling script: {0}", file.getAbsolutePath());
+                String name = file.getName().substring(0, file.getName().length() - 3);
+                CompiledScript script = compilingEngine.compile(new FileReader(file));
                 scripts.put(name, script);
                 Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Script compiled: {0}", name);
             } catch (FileNotFoundException | ScriptException ex) {
@@ -67,15 +67,15 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
         }
     }
 
-    private Iterable<String> findAllScripts() {
+    private Iterable<File> findAllScripts() {
         String instanceRoot = System.getProperty("com.sun.aas.instanceRoot");
-        List<String> files = new ArrayList<>();
+        List<File> files = new ArrayList<>();
         String fullPath = instanceRoot + File.separator + "container" + File.separator + "scripts";
         Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Looking for scripts in : {0}", fullPath);
         Path path = FileSystems.getDefault().getPath(fullPath);
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(path, "*.py")) {
             for (Path file : ds) {
-                files.add(file.toFile().getAbsolutePath());
+                files.add(file.toFile());
             }
         } catch (IOException ex) {
             Logger.getLogger(ScriptsLoader.class.getName()).log(Level.SEVERE, null, ex);
