@@ -70,5 +70,5 @@ class ScriptDeployer:
         os.system("cp -Rf %s/* %s/" % (self._config.get('paths', 'scripts'), self._config.get('paths', dest)))
         
 loader = ScriptLoader(sys.argv[1])
-loader.loadScripts()
+loader.loadSchedulers()
 ScriptDeployer().deployScripts(sys.argv[2]) 
