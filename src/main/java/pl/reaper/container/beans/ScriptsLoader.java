@@ -29,6 +29,7 @@ import javax.script.ScriptException;
 import org.python.core.Py;
 import org.python.core.PySystemState;
 
+@Startup
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class ScriptsLoader implements ScriptsLoaderLocal {
@@ -37,33 +38,28 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
     private final String instanceRoot = System.getProperty("com.sun.aas.instanceRoot");
     private final String scriptsPath = instanceRoot + File.separator + "container" + File.separator + "scripts";
 
-//    @Override
-//    public void init() {
-//        ScriptEngine engine = createEngine();
-//        Compilable compilingEngine = (Compilable) engine;
-//        for (File file : findAllScripts()) {
-//            try {
-//                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Compiling script: {0}", file.getAbsolutePath());
-//                String name = file.getAbsolutePath().substring(scriptsPath.length() + 1, file.getAbsolutePath().length() - 3);
-//                CompiledScript script = compilingEngine.compile(new FileReader(file));
-//                scripts.put(name, script);
-//                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Script compiled: {0}", name);
-//            } catch (FileNotFoundException | ScriptException ex) {
-//                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
+    @PostConstruct
+    @Override
+    public void init() {
+        ScriptEngine engine = createEngine();
+        Compilable compilingEngine = (Compilable) engine;
+        for (File file : findAllScripts()) {
+            try {
+                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Compiling script: {0}", file.getAbsolutePath());
+                String name = file.getAbsolutePath().substring(scriptsPath.length() + 1, file.getAbsolutePath().length() - 3);
+                CompiledScript script = compilingEngine.compile(new FileReader(file));
+                scripts.put(name, script);
+                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Script compiled: {0}", name);
+            } catch (FileNotFoundException | ScriptException ex) {
+                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     @Lock(LockType.READ)
     @Override
     public CompiledScript getScript(String name) throws Exception {
-        if (scripts.containsKey(name)) {
-            return scripts.get(name);
-        } else {
-            CompiledScript script = findAndCompile(name);
-            scripts.put(name, script);
-            return script;
-        }
+        return scripts.get(name);
     }
 
     private ScriptEngine createEngine() {
@@ -78,30 +74,17 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
         }
     }
 
-//    private Iterable<File> findAllScripts() {
-//        List<File> files = new ArrayList<>();
-//        Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Looking for scripts in : {0}", scriptsPath);
-//        Path path = FileSystems.getDefault().getPath(scriptsPath);
-//        try (DirectoryStream<Path> ds = Files.newDirectoryStream(path, "*.py")) {
-//            for (Path file : ds) {
-//                files.add(file.toFile());
-//            }
-//        } catch (IOException ex) {
-//            Logger.getLogger(ScriptsLoader.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return files;
-//    }
-
-    @Lock(LockType.WRITE)
-    private CompiledScript findAndCompile(String name) throws Exception {
-        File script = new File(scriptsPath + File.separator + name + ".py");
-        if (script.exists()) {
-            Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Compiling script: {0}", name);
-            ScriptEngine engine = createEngine();
-            Compilable compilingEngine = (Compilable) engine;
-            return compilingEngine.compile(new FileReader(script));
-        } else {
-            throw new Exception("Script " + name + " not found !");
+    private Iterable<File> findAllScripts() {
+        List<File> files = new ArrayList<>();
+        Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Looking for scripts in : {0}", scriptsPath);
+        Path path = FileSystems.getDefault().getPath(scriptsPath);
+        try (DirectoryStream<Path> ds = Files.newDirectoryStream(path, "*.py")) {
+            for (Path file : ds) {
+                files.add(file.toFile());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ScriptsLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return files;
     }
 }
