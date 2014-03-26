@@ -1,7 +1,6 @@
 from pl.reaper.container.data import Contractor
 from base.Container import Container
 from entities.Company import CompanyManager
-from entities.Community import CommunityManager
 from entities.Zpk import ZpkManager
 
 class ContractorManager(Container):
@@ -59,6 +58,7 @@ class ContractorManager(Container):
         return self._entityManager.createQuery('Select o From Contractor o Where o.id = ' + str(id)).getSingleResult()
     
     def findCommunity(self, id):
+        from entities.Community import CommunityManager
         manager = CommunityManager()
         manager.setEntityManager(self._entityManager)
         manager.setSvars(self._svars)
