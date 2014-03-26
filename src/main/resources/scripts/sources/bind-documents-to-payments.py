@@ -1,4 +1,6 @@
 from crons.AutoPaymentRent import CronAutoPaymentRent
 
 global svars 
-CronAutoPaymentRent(svars).processDocuments()
+cronAutoPaymentRent = CronAutoPaymentRent()
+CronAutoPaymentRent.setSvars(svars)
+CronAutoPaymentRent.processDocuments()
