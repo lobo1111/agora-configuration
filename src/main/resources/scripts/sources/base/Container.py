@@ -1,5 +1,5 @@
 from base.Logger import Logger
-
+print globals()
 class Container:
     _logger = Logger()
     
