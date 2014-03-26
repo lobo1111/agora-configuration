@@ -26,6 +26,8 @@ import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import org.python.core.Py;
+import org.python.core.PySystemState;
 
 @Startup
 @Singleton
@@ -33,6 +35,8 @@ import javax.script.ScriptException;
 public class ScriptsLoader implements ScriptsLoaderLocal {
 
     private Map<String, CompiledScript> scripts = new HashMap<>();
+    private final String instanceRoot = System.getProperty("com.sun.aas.instanceRoot");
+    private final String scriptsPath = instanceRoot + File.separator + "container" + File.separator + "scripts";
 
     @PostConstruct
     @Override
@@ -42,7 +46,7 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
         for (File file : findAllScripts()) {
             try {
                 Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Compiling script: {0}", file.getAbsolutePath());
-                String name = file.getName().substring(0, file.getName().length() - 3);
+                String name = file.getAbsolutePath().substring(scriptsPath.length() + 1, file.getName().length() - 3);
                 CompiledScript script = compilingEngine.compile(new FileReader(file));
                 scripts.put(name, script);
                 Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Script compiled: {0}", name);
@@ -59,6 +63,9 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
     }
 
     private ScriptEngine createEngine() {
+        PySystemState engineSys = new PySystemState();
+        engineSys.path.append(Py.newString(scriptsPath));
+        Py.setSystemState(engineSys);
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("python");
         if (engine == null) {
             throw new IllegalStateException("Python engine not found. Make sure jython jar is loaded.");
@@ -68,11 +75,9 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
     }
 
     private Iterable<File> findAllScripts() {
-        String instanceRoot = System.getProperty("com.sun.aas.instanceRoot");
         List<File> files = new ArrayList<>();
-        String fullPath = instanceRoot + File.separator + "container" + File.separator + "scripts";
-        Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Looking for scripts in : {0}", fullPath);
-        Path path = FileSystems.getDefault().getPath(fullPath);
+        Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Looking for scripts in : {0}", scriptsPath);
+        Path path = FileSystems.getDefault().getPath(scriptsPath);
         try (DirectoryStream<Path> ds = Files.newDirectoryStream(path, "*.py")) {
             for (Path file : ds) {
                 files.add(file.toFile());
