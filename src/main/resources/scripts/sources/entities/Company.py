@@ -15,28 +15,28 @@ class CompanyManager(Container):
         return company
         
     def update(self):
-        global svars
-        company = self.findCompanyById(svars.get(self._prefix + 'id'))
+        
+        company = self.findCompanyById(self._svars.get(self._prefix + 'id'))
         self.setCompanyData(company)
         self.saveCompany(company)
         return company
     
     def toggleDefault(self):
-        global svars
-        company = self.findCompanyById(svars.get(self._prefix + 'id'))
+        
+        company = self.findCompanyById(self._svars.get(self._prefix + 'id'))
         company.setDefaultContractor(not company.isDefaultContractor())
         self.saveCompany(company)
         
     def setCompanyData(self, company):
-        global svars
-        company.setName(svars.get(self._prefix + 'name'))
-        company.setNip(svars.get(self._prefix + 'nip'))
-        company.setRegon(svars.get(self._prefix + 'regon'))
-        company.setEmail(svars.get(self._prefix + 'email'))
-        company.setWww(svars.get('www'))
-        company.setPhoneNumber1(svars.get(self._prefix + 'phoneNumber1'))
-        company.setPhoneNumber2(svars.get(self._prefix + 'phoneNumber2'))
-        company.setPhoneNumber3(svars.get(self._prefix + 'phoneNumber3'))
+        
+        company.setName(self._svars.get(self._prefix + 'name'))
+        company.setNip(self._svars.get(self._prefix + 'nip'))
+        company.setRegon(self._svars.get(self._prefix + 'regon'))
+        company.setEmail(self._svars.get(self._prefix + 'email'))
+        company.setWww(self._svars.get('www'))
+        company.setPhoneNumber1(self._svars.get(self._prefix + 'phoneNumber1'))
+        company.setPhoneNumber2(self._svars.get(self._prefix + 'phoneNumber2'))
+        company.setPhoneNumber3(self._svars.get(self._prefix + 'phoneNumber3'))
         company.setAddress(self.getAddress(company))
         
     def getAddress(self, person):

@@ -5,10 +5,10 @@ from base.Container import Container
 class ChargingQueueManager(Container):
         
     def addToQueue(self):
-        global svars
-        type = self.getType(svars.get('type'))
-        communityId = svars.get('communityId')
-        possessionId = svars.get('possessionId')
+        
+        type = self.getType(self._svars.get('type'))
+        communityId = self._svars.get('communityId')
+        possessionId = self._svars.get('possessionId')
         cq = ChargingQueue()
         if not communityId is None and communityId != '0':
             cq.setCommunity(self.findCommunityById(communityId))

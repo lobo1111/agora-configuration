@@ -25,15 +25,15 @@ class CommunityManager(Container):
         self.setElementsData(community)
         
     def setCommunityData(self, community):
-        global svars
-        community.setName(svars.get('name'))
+        
+        community.setName(self._svars.get('name'))
         community.setCompany(self.getCompany(community))
-        if svars.get('hasDefaultAccount') == 'true':
-            community.setDefaultAccount(self.findAccountById(svars.get('defaultAccountId')))
+        if self._svars.get('hasDefaultAccount') == 'true':
+            community.setDefaultAccount(self.findAccountById(self._svars.get('defaultAccountId')))
         else:
             community.setDefaultAccount(None)
-        if svars.get('hasRepairFundAccount') == 'true':
-            community.setRepairFundAccount(self.findAccountById(svars.get('repairFundAccountId')))
+        if self._svars.get('hasRepairFundAccount') == 'true':
+            community.setRepairFundAccount(self.findAccountById(self._svars.get('repairFundAccountId')))
         else:
             community.setRepairFundAccount(None)
 
@@ -45,11 +45,11 @@ class CommunityManager(Container):
         community.getZpks().add(zpkRepairFund)
         
     def setElementsData(self, community):
-        global svars
-        for i in range(int(svars.get(self._prefix + 'elementsCount'))): 
-            svars.put("elementId", svars.get(self._prefix + str(i) + "_elementId"))
-            svars.put("override", svars.get(self._prefix + str(i) + "_override"))
-            svars.put("overrideValue", svars.get(self._prefix + str(i) + "_overrideValue"))
+        
+        for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
+            self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
+            self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
+            self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             manager = ElementManager()
             manager.CreateOrUpdateCommunityElement(community)
             
@@ -67,19 +67,19 @@ class CommunityManager(Container):
         entityManager.flush()
         
     def setContractorData(self, community):
-        global svars
-        svars.put('communityId', str(community.getId()))
-        svars.put('exsitingCompany', 'true')
+        
+        self._svars.put('communityId', str(community.getId()))
+        self._svars.put('exsitingCompany', 'true')
         for company in self.findDefaultCompanies():
-            svars.put('obligationCompanyId', str(company.getId()))
+            self._svars.put('obligationCompanyId', str(company.getId()))
             obligationManager = ContractorManager()
             obligation = obligationManager.create()
             community.getZpks().addAll(obligation.getZpks())
         self.saveCommunity(community)
             
     def findCommunity(self):
-        global svars
-        id = svars.get('id')
+        
+        id = self._svars.get('id')
         return self.findCommunityById(id)
 
     def findDefaultCompanies(self):

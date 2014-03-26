@@ -7,17 +7,17 @@ from entities.BookingPeriod import BookingPeriodManager
 class ZpkManager(Container):
 
     def create(self):
-        global svars
-        pool = self.findPool(svars.get('poolId'))
-        community = self.findCommunityById(svars.get('communityId'))
+        
+        pool = self.findPool(self._svars.get('poolId'))
+        community = self.findCommunityById(self._svars.get('communityId'))
         number = self.generateNumber(pool, community)
         zpk = ZakladowyPlanKont()
         zpk.setNumber(number)
         zpk.setCommunity(community)
         community.getZpks().add(zpk)
         zpk.setType(pool)
-        svars.put('credit', '0')
-        svars.put('debit', '0')
+        self._svars.put('credit', '0')
+        self._svars.put('debit', '0')
         self.setAllBookingPeriods(zpk)
         return zpk
     
@@ -29,18 +29,18 @@ class ZpkManager(Container):
             zpk.getZpkBalances().add(zpkBalance)
             
     def createBalanceForPeriod(self, bookingPeriod):
-        global svars
+        
         balance = ZpkBalance()
         balance.setBookingPeriod(bookingPeriod)
         if bookingPeriod.isDefaultPeriod():
-            balance.setCredit(Double.parseDouble(svars.get('credit')))
-            balance.setDebit(Double.parseDouble(svars.get('debit')))
-            balance.setStartCredit(Double.parseDouble(svars.get('credit')))
-            balance.setStartDebit(Double.parseDouble(svars.get('debit')))
+            balance.setCredit(Double.parseDouble(self._svars.get('credit')))
+            balance.setDebit(Double.parseDouble(self._svars.get('debit')))
+            balance.setStartCredit(Double.parseDouble(self._svars.get('credit')))
+            balance.setStartDebit(Double.parseDouble(self._svars.get('debit')))
         return balance
     
     def generateZpkForCommunity(self, community, poolKey, credit = '0', debit = '0'):
-        global svars
+        
         poolId = self.findPoolId(poolKey)
         pool = self.findPool(poolId.getValue())
         number = self.generateNumber(pool, community)
@@ -50,8 +50,8 @@ class ZpkManager(Container):
         zpk.setCommunity(community)
         community.getZpks().add(zpk)
         zpk.setType(pool)
-        svars.put('credit', credit)
-        svars.put('debit', debit)
+        self._svars.put('credit', credit)
+        self._svars.put('debit', debit)
         self.setAllBookingPeriods(zpk)
         return zpk
     

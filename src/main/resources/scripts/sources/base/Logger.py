@@ -3,14 +3,14 @@ from pl.reaper.container.data import Log
 class Logger:
 
   def appendLog(self, level, message):
-    global svars
+    
     log = Log()
-    log.setThreadId(svars.get('_threadId'))
-    log.setThreadName(svars.get('_threadName'))
+    log.setThreadId(self._svars.get('_threadId'))
+    log.setThreadName(self._svars.get('_threadName'))
     log.setLevel(level)
     log.setMessage(unicode(message, errors = 'replace')[0:1023])
-    log.setUuid(svars.get('_uuid'))
-    print '[JYTHON][%s][%s][%s]' % (svars.get('_uuid'), level, message)
+    log.setUuid(self._svars.get('_uuid'))
+    print '[JYTHON][%s][%s][%s]' % (self._svars.get('_uuid'), level, message)
     if level in ['WARNING', 'ERROR']:
         entityManager.persist(log)
 

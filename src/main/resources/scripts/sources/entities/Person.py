@@ -11,22 +11,22 @@ class PersonManager(Container):
         return person
         
     def update(self):
-        global svars
-        person = self.findPersonById(svars.get('id'))
+        
+        person = self.findPersonById(self._svars.get('id'))
         self.setPersonData(person)
         self.savePerson(person)
         return person
         
     def setPersonData(self, person):
-        global svars
-        person.setFirstName(svars.get('firstName'))
-        person.setLastName(svars.get('lastName'))
-        person.setNip(svars.get('nip'))
-        person.setPesel(svars.get('pesel'))
-        person.setEmail(svars.get('email'))
-        person.setPhoneNumber1(svars.get('phoneNumber1'))
-        person.setPhoneNumber2(svars.get('phoneNumber2'))
-        person.setPhoneNumber3(svars.get('phoneNumber3'))
+        
+        person.setFirstName(self._svars.get('firstName'))
+        person.setLastName(self._svars.get('lastName'))
+        person.setNip(self._svars.get('nip'))
+        person.setPesel(self._svars.get('pesel'))
+        person.setEmail(self._svars.get('email'))
+        person.setPhoneNumber1(self._svars.get('phoneNumber1'))
+        person.setPhoneNumber2(self._svars.get('phoneNumber2'))
+        person.setPhoneNumber3(self._svars.get('phoneNumber3'))
         person.setAddress(self.getAddress(person))
         
     def getAddress(self, person):

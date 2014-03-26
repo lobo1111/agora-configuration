@@ -12,8 +12,8 @@ class ZpksSettings:
         self.persistDict('chargingRepairFundId', 'CHARGING_REPAIR_FUND')
         
     def persistDict(self, idVariableName, dictName):
-        global svars
-        id = svars.get(idVariableName)
+        
+        id = self._svars.get(idVariableName)
         dict = self.findOrCreateDict(dictName)
         dict.setValue(id)
         entityManager.persist(dict)

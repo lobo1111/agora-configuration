@@ -8,7 +8,7 @@ from entities.Possession import PossessionManager
 class OwnerManager(Container):
     
     def create(self):
-        global svars
+        
         subject = self.getSubject()
         for possession in self.getPossessions():
             owner = Owner()
@@ -17,19 +17,19 @@ class OwnerManager(Container):
             additionalAddress = self.getAdditionalAddress()
             self.setAdditionalAddress(owner, additionalAddress)
             self.saveOwner(owner)
-        if svars.get('newPossession') == 'true':
+        if self._svars.get('newPossession') == 'true':
             self.createPossession(subject)
             
     def update(self):
-        global svars
-        owner = self.findOwnerById(svars.get('id'))
+        
+        owner = self.findOwnerById(self._svars.get('id'))
         additionalAddress = self.getAdditionalAddress()
         self.setAdditionalAddress(owner, additionalAddress)
         self.saveOwner(owner)
         
     def delete(self):
-        global svars
-        owner = self.findOwnerById(svars.get('id'))
+        
+        owner = self.findOwnerById(self._svars.get('id'))
         entityManager.remove(owner)
 
     def createPossession(self, subject):
@@ -44,37 +44,37 @@ class OwnerManager(Container):
         self.saveOwner(owner)
             
     def getPossessions(self):
-        global svars
+        
         possessions = []
-        for i in range(int(svars.get('possessionsCount'))):
-            possessionId = svars.get('possession' + str(i))
+        for i in range(int(self._svars.get('possessionsCount'))):
+            possessionId = self._svars.get('possession' + str(i))
             possessions.append(PossessionManager().findPossessionById(possessionId))
         return possessions
         
     def getSubject(self):
-        global svars
-        if svars.get('personSubject') == 'true':
-            if svars.get('newSubject') == 'true':
+        
+        if self._svars.get('personSubject') == 'true':
+            if self._svars.get('newSubject') == 'true':
                 return PersonManager().create()
             else:
-                return PersonManager().findPersonById(svars.get('personId'))
+                return PersonManager().findPersonById(self._svars.get('personId'))
         else:
-            if svars.get('newSubject') == 'true':
+            if self._svars.get('newSubject') == 'true':
                 return CompanyManager().create()
             else:
-                return CompanyManager().findCompanyById(svars.get('companyId'))
+                return CompanyManager().findCompanyById(self._svars.get('companyId'))
         
     def setSubject(self, owner, subject):
-        global svars
-        if svars.get('personSubject') == 'true':
+        
+        if self._svars.get('personSubject') == 'true':
             owner.setPerson(subject)
         else:
             owner.setCompany(subject)
         subject.getOwners().add(owner)
             
     def getAdditionalAddress(self):
-        global svars
-        if svars.get('additionalAddress') == 'true':
+        
+        if self._svars.get('additionalAddress') == 'true':
             addressManager = AddressManager()
             addressManager.setPrefix('additionalAddress_')
             return addressManager.getAddress(Owner())
@@ -82,8 +82,8 @@ class OwnerManager(Container):
             return None
         
     def setAdditionalAddress(self, owner, additionalAddress):
-        global svars
-        if svars.get('additionalAddress') == 'true':
+        
+        if self._svars.get('additionalAddress') == 'true':
             owner.setAddress(additionalAddress)
         else:
             owner.setAddress(None)

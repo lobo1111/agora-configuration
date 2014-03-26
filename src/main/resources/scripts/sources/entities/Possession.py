@@ -23,8 +23,8 @@ class PossessionManager(Container):
         return possession;
         
     def update(self):
-        global svars
-        possession = self.findPossessionById(svars.get('id'))
+        
+        possession = self.findPossessionById(self._svars.get('id'))
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
         self.savePossession(possession)
@@ -32,8 +32,8 @@ class PossessionManager(Container):
         return possession;
         
     def remove(self):
-        global svars
-        possession = self.findPossessionById(svars.get('id'))
+        
+        possession = self.findPossessionById(self._svars.get('id'))
         entityManager.remove(possession.getAddress())
         for owner in possession.getOwners():
             entityManager.remove(owner)
@@ -56,16 +56,16 @@ class PossessionManager(Container):
         manager.propagateElementsForNewPossession(possession)
         
     def setElementsData(self, possession):
-        global svars
-        for i in range(int(svars.get(self._prefix + 'elementsCount'))): 
-            svars.put("elementId", svars.get(self._prefix + str(i) + "_elementId"))
-            svars.put("override", svars.get(self._prefix + str(i) + "_override"))
-            svars.put("overrideValue", svars.get(self._prefix + str(i) + "_overrideValue"))
+        
+        for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
+            self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
+            self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
+            self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             manager = ElementManager()
             manager.CreateOrUpdatePossessionElement(possession)
         
     def setPossessionData(self, possession):
-        possession.setArea(BigDecimal(svars.get(self._prefix + 'possessionArea')))
+        possession.setArea(BigDecimal(self._svars.get(self._prefix + 'possessionArea')))
         possession.setAddress(self.getAddress(possession))
         community = self.getCommunity(possession)
         possession.setCommunity(community)
@@ -75,14 +75,14 @@ class PossessionManager(Container):
             entityManager.persist(community)
         
     def setPossessionAdditionalData(self, possession):
-        global svars
+        
         possession.getAdditionalData().setPossession(possession)
-        possession.getAdditionalData().setDeclaredArea(Double.parseDouble(svars.get(self._prefix + 'declaredArea')))
-        possession.getAdditionalData().setDeclaredShare(Double.parseDouble(svars.get(self._prefix + 'declaredShare')))
-        possession.getAdditionalData().setHotWater(Double.parseDouble(svars.get(self._prefix + 'hotWater')))
-        possession.getAdditionalData().setColdWater(Double.parseDouble(svars.get(self._prefix + 'coldWater')))
-        possession.getAdditionalData().setPeople(Integer.parseInt(svars.get(self._prefix + 'people')))
-        possession.getAdditionalData().setRooms(Integer.parseInt(svars.get(self._prefix + 'rooms')))
+        possession.getAdditionalData().setDeclaredArea(Double.parseDouble(self._svars.get(self._prefix + 'declaredArea')))
+        possession.getAdditionalData().setDeclaredShare(Double.parseDouble(self._svars.get(self._prefix + 'declaredShare')))
+        possession.getAdditionalData().setHotWater(Double.parseDouble(self._svars.get(self._prefix + 'hotWater')))
+        possession.getAdditionalData().setColdWater(Double.parseDouble(self._svars.get(self._prefix + 'coldWater')))
+        possession.getAdditionalData().setPeople(Integer.parseInt(self._svars.get(self._prefix + 'people')))
+        possession.getAdditionalData().setRooms(Integer.parseInt(self._svars.get(self._prefix + 'rooms')))
         
     def getAddress(self, possession):
         addressManager = AddressManager()
@@ -90,9 +90,9 @@ class PossessionManager(Container):
         return addressManager.getAddress(possession)
 
     def getCommunity(self, possession):
-        global svars
+        
         communityManager = CommunityManager()
-        return communityManager.findCommunityById(svars.get(self._prefix + 'communityId'))
+        return communityManager.findCommunityById(self._svars.get(self._prefix + 'communityId'))
         
     def savePossession(self, possession):
         self._logger.info(possession.longDescription())

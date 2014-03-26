@@ -43,15 +43,15 @@ class PaymentBooker(Container):
             self.createAndBookPayment(zpkPossessionRepairFund, zpkCommunityRepairFundAccount, repairFundAmount)
         
     def createAndBookPayment(self, creditZpk, debitZpk, amount):
-        global svars
-        svars.put('creditZpkId', str(creditZpk.getId()))
-        svars.put('debitZpkId', str(debitZpk.getId()))
-        svars.put('amount', str(amount))
-        svars.put('comment', 'Wystawiono automatycznie')
+        
+        self._svars.put('creditZpkId', str(creditZpk.getId()))
+        self._svars.put('debitZpkId', str(debitZpk.getId()))
+        self._svars.put('amount', str(amount))
+        self._svars.put('comment', 'Wystawiono automatycznie')
         manager = InternalPaymentManager()
         payment = manager.create()
         entityManager.flush()
-        svars.put('paymentId', str(payment.getId()))
+        self._svars.put('paymentId', str(payment.getId()))
         manager.book()
         
     def isSimplePayment(self, payment):

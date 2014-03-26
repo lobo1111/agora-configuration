@@ -5,27 +5,27 @@ from base.Container import Container
 class InternalPaymentManager(Container):
     
     def create(self):
-        global svars
+        
         self._logger.info("Creating payment...")
         payment = InternalPayment()
         payment.setBookingPeriod(self.findDefaultBookingPeriod())
         payment.setCreatedDate(Date())
         payment.setBookedDate(None)
-        payment.setCreditZpk(self.findZpkById(svars.get('creditZpkId')))
+        payment.setCreditZpk(self.findZpkById(self._svars.get('creditZpkId')))
         self._logger.info("Credit zpk number - %s-%s" % (payment.getCreditZpk().getType().getKey(), payment.getCreditZpk().getNumber()))
-        payment.setDebitZpk(self.findZpkById(svars.get('debitZpkId')))
+        payment.setDebitZpk(self.findZpkById(self._svars.get('debitZpkId')))
         self._logger.info("Debit zpk number - %s-%s" % (payment.getDebitZpk().getType().getKey(), payment.getDebitZpk().getNumber()))
         payment.setBooked(False)
-        payment.setAmount(float(svars.get('amount')))
+        payment.setAmount(float(self._svars.get('amount')))
         self._logger.info("Amount - %s" % (payment.getAmount()))
-        payment.setComment(svars.get('comment'))
+        payment.setComment(self._svars.get('comment'))
         entityManager.persist(payment)
         self._logger.info("Payment created")
         return payment
     
     def book(self):
-        global svars
-        payment = self.findPaymentById(svars.get('paymentId'))
+        
+        payment = self.findPaymentById(self._svars.get('paymentId'))
         if not payment.isBooked():
             self.increaseDebit(self.getCurrentBalance(payment.getDebitZpk()), payment.getAmount())
             self.increaseCredit(self.getCurrentBalance(payment.getCreditZpk()), payment.getAmount())
@@ -34,14 +34,14 @@ class InternalPaymentManager(Container):
             entityManager.persist(payment)
     
     def canCancel(self):
-        global svars
-        payment = self.findPaymentById(svars.get('paymentId'))
+        
+        payment = self.findPaymentById(self._svars.get('paymentId'))
         return not payment.isBooked()
     
     def cancel(self):
-        global svars
+        
         if self.canCancel():
-            payment = self.findPaymentById(svars.get('paymentId'))
+            payment = self.findPaymentById(self._svars.get('paymentId'))
             entityManager.remove(payment)
     
     def findDefaultBookingPeriod(self):

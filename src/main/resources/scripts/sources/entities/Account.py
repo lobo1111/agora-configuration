@@ -17,12 +17,12 @@ class AccountManager(Container):
         self.saveAccount(account)
         
     def setAccountData(self, account):
-        global svars
-        account.setName(svars.get('accountName'))
-        account.setNumber(svars.get('accountNumber'))
+        
+        account.setName(self._svars.get('accountName'))
+        account.setNumber(self._svars.get('accountNumber'))
         account.setType(self.getType())
-        account.setCommunity(self.findCommunityById(svars.get('communityId')))
-        if svars.get('parentAccountId') != None and svars.get('parentAccountId') != '0':
+        account.setCommunity(self.findCommunityById(self._svars.get('communityId')))
+        if self._svars.get('parentAccountId') != None and self._svars.get('parentAccountId') != '0':
             account.setParrentAccount(self.getParent())
         account.setBank(self.getBank())
         
@@ -44,16 +44,16 @@ class AccountManager(Container):
                 entityManager.persist(account.getCommunity())
         
     def getType(self):
-        global svars
-        return DictionaryManager().getDictionaryInstance(svars.get('accountTypeId'))
+        
+        return DictionaryManager().getDictionaryInstance(self._svars.get('accountTypeId'))
     
     def getParent(self):
-        global svars
-        return self.findAccountById(svars.get('parentAccountId'))
+        
+        return self.findAccountById(self._svars.get('parentAccountId'))
     
     def getBank(self):
-        global svars
-        return BankManager().findBankById(svars.get('bankId'))
+        
+        return BankManager().findBankById(self._svars.get('bankId'))
         
     def saveAccount(self, account):
         self._logger.info(account.longDescription())
@@ -61,8 +61,8 @@ class AccountManager(Container):
         entityManager.flush()
 
     def findAccount(self):
-        global svars
-        id = svars.get('id')
+        
+        id = self._svars.get('id')
         return self.findAccountById(id)
 
     def findAccountById(self, id):
