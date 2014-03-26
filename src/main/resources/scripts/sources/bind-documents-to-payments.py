@@ -1,3 +1,3 @@
 from crons.AutoPaymentRent import CronAutoPaymentRent
-
-CronAutoPaymentRent().processDocuments()
+print globals()
+#CronAutoPaymentRent().processDocuments()
