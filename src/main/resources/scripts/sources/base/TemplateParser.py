@@ -62,12 +62,12 @@ class TemplateParser(Container):
 
     
     def insertLimit(self, query):
-        if vars.get('limit') != None:
-            self._logger.info('Inserting limit %s' % vars.get('limit'))
-            query.setMaxResults(int(vars.get('limit')))
-        if vars.get('offset') != None:
-            self._logger.info('Inserting offset %s' % vars.get('offset'))
-            query.setFirstResult(int(vars.get('offset')))
+        if svars.get('limit') != None:
+            self._logger.info('Inserting limit %s' % svars.get('limit'))
+            query.setMaxResults(int(svars.get('limit')))
+        if svars.get('offset') != None:
+            self._logger.info('Inserting offset %s' % svars.get('offset'))
+            query.setFirstResult(int(svars.get('offset')))
         return query
     
     def insertVariables(self, data):
@@ -79,8 +79,8 @@ class TemplateParser(Container):
             if self.isSpecialVariable(var[2:-1]):
                 data = self.handleSpecialVariable(data, var[2:-1])
             else:
-                self._logger.info('Inserting variable %s=%s' % (var, vars.get(var[2:-1])))
-                data = data.replace(var, (vars.get(var[2:-1])))
+                self._logger.info('Inserting variable %s=%s' % (var, svars.get(var[2:-1])))
+                data = data.replace(var, (svars.get(var[2:-1])))
         return data
     
     def isSpecialVariable(self, variable):
@@ -106,7 +106,7 @@ class TemplateParser(Container):
         return data
 
     def __init__(self):
-        self._templateName = vars.get('templateName')
+        self._templateName = svars.get('templateName')
     
     def parse(self):
         self._logger.info('Parsing template %s' % self._templateName)

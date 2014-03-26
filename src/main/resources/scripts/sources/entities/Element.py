@@ -18,7 +18,7 @@ class ElementManager(Container):
         return element
         
     def update(self):
-        element = self.findElementById(vars.get(self._prefix + 'id'))
+        element = self.findElementById(svars.get(self._prefix + 'id'))
         self.setElementData(element)
         self.saveElement(element)
         return element
@@ -26,16 +26,16 @@ class ElementManager(Container):
     def addDefaultElements(self, community):
         for element in self.findDefaultElements():
             self._logger.info('Adding default community element - %d' % element.getId())
-            vars.put("elementId", element.getId())
+            svars.put("elementId", element.getId())
             self.CreateOrUpdateCommunityElement(community)
     
     def remove(self):
-        element = self.findElementById(vars.get('id'))
+        element = self.findElementById(svars.get('id'))
         entityManager.remove(element)
         
     def removeSubElement(self):
-        if vars.get('subType') == "COMMUNITY":
-            element = self.findSubElementCommunity(vars.get('subId'))
+        if svars.get('subType') == "COMMUNITY":
+            element = self.findSubElementCommunity(svars.get('subId'))
             self._logger.info('Removing community element - %d' % element.getId())
             for possessionElement in element.getPossessionsElements():
                 if not possessionElement.isOverrideParentValue():
@@ -46,13 +46,13 @@ class ElementManager(Container):
                     self.saveElement(possessionElement)
                     self._logger.info('Possession element not removued due to override flag set - %d' % possessionElement.getId())
             entityManager.remove(element)
-        elif vars.get('subType') == "POSSESSION":
-            element = self.findSubElementPossession(vars.get('subId'))
+        elif svars.get('subType') == "POSSESSION":
+            element = self.findSubElementPossession(svars.get('subId'))
             self._logger.info('Removing possession element - %d' % element.getId())
             entityManager.remove(element)
         
     def CreateOrUpdateCommunityElement(self, community):
-        elementId = vars.get("elementId")
+        elementId = svars.get("elementId")
         communityId = community.getId()
         communityElement = self.findCommunityElement(elementId, communityId)
         createElementForPossessions = False
@@ -62,35 +62,35 @@ class ElementManager(Container):
             communityElement.setElement(self.findElementById(elementId))
             communityElement.setCommunity(community)
             community.getElements().add(communityElement)
-        if vars.get('override') == 'true':
+        if svars.get('override') == 'true':
             communityElement.setOverrideParentValue(True)
         else:
             communityElement.setOverrideParentValue(False)
-        if not vars.get("overrideValue") is None and not vars.get("overrideValue") == '':
-            communityElement.setGlobalValue(float(vars.get("overrideValue")))
+        if not svars.get("overrideValue") is None and not svars.get("overrideValue") == '':
+            communityElement.setGlobalValue(float(svars.get("overrideValue")))
         if createElementForPossessions:
-            tmpOverride = vars.get('override')
-            tmpOverrideValue = vars.get("overrideValue")
+            tmpOverride = svars.get('override')
+            tmpOverrideValue = svars.get("overrideValue")
             self.setElementForPossessions(community, communityElement)
-            vars.put('override', tmpOverride)
-            vars.put('overrideValue', tmpOverrideValue)
+            svars.put('override', tmpOverride)
+            svars.put('overrideValue', tmpOverrideValue)
         entityManager.persist(community)
         self.saveElement(communityElement)
         
     def setElementForPossessions(self, community, communityElement):
         for possession in community.getPossessions():
-            vars.put("overrideValue", "0")
-            vars.put("override", "false")
+            svars.put("overrideValue", "0")
+            svars.put("override", "false")
             self.CreateOrUpdatePossessionElement(possession, communityElement, False)
             
     def propagateElementsForNewPossession(self, possession):
         for communityElement in possession.getCommunity().getElements():
             self._logger.info('Propagating element for new possession - %d' % communityElement.getElement().getId())
-            vars.put("elementId", str(communityElement.getElement().getId()))
+            svars.put("elementId", str(communityElement.getElement().getId()))
             self.CreateOrUpdatePossessionElement(possession, communityElement, False)
             
     def CreateOrUpdatePossessionElement(self, possession, elementCommunity = None, override = True):
-        elementId = vars.get("elementId")
+        elementId = svars.get("elementId")
         possessionId = possession.getId()
         possessionElement = self.findPossessionElement(elementId, possessionId)
         if possessionElement is None:
@@ -102,24 +102,24 @@ class ElementManager(Container):
         if not elementCommunity is None:
             possessionElement.setElementCommunity(elementCommunity)
         if override:
-            if vars.get('override') == 'true':
+            if svars.get('override') == 'true':
                 possessionElement.setOverrideParentValue(True)
             else:
                 possessionElement.setOverrideParentValue(False)
-            possessionElement.setGlobalValue(float(vars.get('overrideValue')))
+            possessionElement.setGlobalValue(float(svars.get('overrideValue')))
         entityManager.persist(possession)
         self.saveElement(possessionElement)
             
     def setElementData(self, element):
-        element.setName(vars.get(self._prefix + 'name'))
-        element.setKey(vars.get(self._prefix + 'key'))
-        element.setGlobalValue(BigDecimal(vars.get(self._prefix + 'value')).floatValue())
-        element.setGroup(self.findGroupById(vars.get(self._prefix + 'groupId')))
-        if vars.get(self._prefix + 'defaultValue') == 'true':
+        element.setName(svars.get(self._prefix + 'name'))
+        element.setKey(svars.get(self._prefix + 'key'))
+        element.setGlobalValue(BigDecimal(svars.get(self._prefix + 'value')).floatValue())
+        element.setGroup(self.findGroupById(svars.get(self._prefix + 'groupId')))
+        if svars.get(self._prefix + 'defaultValue') == 'true':
             element.setDefaultElement(True)
         else:
             element.setDefaultElement(False)
-        element.setAlgorithm(vars.get(self._prefix + 'algorithm'))
+        element.setAlgorithm(svars.get(self._prefix + 'algorithm'))
         
     def saveElement(self, element):
         entityManager.persist(element)

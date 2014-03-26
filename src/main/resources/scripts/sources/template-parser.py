@@ -1,3 +1,3 @@
 from base.TemplateParser import TemplateParser
 
-vars.put('output', TemplateParser().parse())
+svars.put('output', TemplateParser().parse())

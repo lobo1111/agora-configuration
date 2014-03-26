@@ -30,14 +30,14 @@ class ChargingBooker(Container):
         self.createAndBookPayment(zpkRepairFundCommunity, zpkRepairFundPossession, repairFundAmount)
         
     def createAndBookPayment(self, creditZpk, debitZpk, amount):
-        vars.put('creditZpkId', str(creditZpk.getId()))
-        vars.put('debitZpkId', str(debitZpk.getId()))
-        vars.put('amount', str(amount))
-        vars.put('comment', 'Wystawiono automatycznie')
+        svars.put('creditZpkId', str(creditZpk.getId()))
+        svars.put('debitZpkId', str(debitZpk.getId()))
+        svars.put('amount', str(amount))
+        svars.put('comment', 'Wystawiono automatycznie')
         manager = InternalPaymentManager()
         payment = manager.create()
         entityManager.flush()
-        vars.put('paymentId', str(payment.getId()))
+        svars.put('paymentId', str(payment.getId()))
         manager.book()
         
     def calculateRent(self, elements):

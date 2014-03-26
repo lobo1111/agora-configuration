@@ -19,20 +19,20 @@ class ContractorManager(Container):
         return obligation
         
     def update(self):
-        obligation = self.findContractorById(vars.get(self._prefix + 'id'))
+        obligation = self.findContractorById(svars.get(self._prefix + 'id'))
         self.setData(obligation)
         entityManager.persist(obligation)
         return obligation
 
     def remove(self):
-        obligation = self.findContractorById(vars.get(self._prefix + 'id'))
+        obligation = self.findContractorById(svars.get(self._prefix + 'id'))
         entityManager.remove(obligation.getZpk())
         entityManager.remove(obligation)
         
     def setData(self, obligation):
         obligation.setCompany(self.getCompany(obligation))
         obligation.setName(obligation.getCompany().getName())
-        obligation.setCommunity(self.findCommunity(vars.get(self._prefix + 'communityId')))
+        obligation.setCommunity(self.findCommunity(svars.get(self._prefix + 'communityId')))
 
     def generateZpkNumber(self, obligation):
         manager = ZpkManager()
@@ -46,8 +46,8 @@ class ContractorManager(Container):
     def getCompany(self, obligation):
         companyManager = CompanyManager()
         companyManager.setPrefix(self._prefix)
-        if vars.get(self._prefix + 'exsitingCompany') == 'true':
-            return companyManager.findCompanyById(vars.get(self._prefix + 'obligationCompanyId'))
+        if svars.get(self._prefix + 'exsitingCompany') == 'true':
+            return companyManager.findCompanyById(svars.get(self._prefix + 'obligationCompanyId'))
         else:
             return companyManager.create()
         

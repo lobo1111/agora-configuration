@@ -8,7 +8,7 @@ class ZpkDictionaryManager(Container):
         self.save(entity)
     
     def update(self):
-        entity = self.findById(vars.get('id'))
+        entity = self.findById(svars.get('id'))
         self.setData(entity)
         self.save(entity)
     
@@ -17,8 +17,8 @@ class ZpkDictionaryManager(Container):
     
     def setData(self, entity):
         entity.setType(self.findZpkDictType())
-        entity.setKey(vars.get('dictKey'))
-        entity.setValue(vars.get('dictValue'))
+        entity.setKey(svars.get('dictKey'))
+        entity.setValue(svars.get('dictValue'))
     
     def findById(self, id):
         return entityManager.createQuery("Select e From Dictionary e Where e.id = %s" % id).getSingleResult()

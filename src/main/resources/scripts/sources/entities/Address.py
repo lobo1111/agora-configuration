@@ -14,11 +14,11 @@ class AddressManager(Container):
         return address
     
     def setAddressData(self, address):
-        address.setStreet(vars.get(self._prefix + 'street'))
-        address.setHouseNumber(vars.get(self._prefix + 'houseNumber'))
-        address.setFlatNumber(vars.get(self._prefix + 'flatNumber'))
-        address.setPostalCode(vars.get(self._prefix + 'postalCode'))
-        address.setCity(vars.get(self._prefix + 'city'))
+        address.setStreet(svars.get(self._prefix + 'street'))
+        address.setHouseNumber(svars.get(self._prefix + 'houseNumber'))
+        address.setFlatNumber(svars.get(self._prefix + 'flatNumber'))
+        address.setPostalCode(svars.get(self._prefix + 'postalCode'))
+        address.setCity(svars.get(self._prefix + 'city'))
         
     def getOrCreateAddress(self, entity):
         if entity.getAddress() is not None:

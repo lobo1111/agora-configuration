@@ -15,8 +15,8 @@ class BankManager(Container):
         self.saveBank(bank)
         
     def setBankData(self, bank):
-        bank.setName(vars.get('bankName'))
-        bank.setKey(vars.get('bankKey'))
+        bank.setName(svars.get('bankName'))
+        bank.setKey(svars.get('bankKey'))
         bank.setCompany(self.getCompany(bank))
         
     def getCompany(self, bank):
@@ -29,7 +29,7 @@ class BankManager(Container):
         entityManager.flush()
 
     def findBank(self):
-        id = vars.get('id')
+        id = svars.get('id')
         return self.findBankById(id)
 
     def findBankById(self, id):

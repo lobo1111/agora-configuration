@@ -17,11 +17,11 @@ class AccountManager(Container):
         self.saveAccount(account)
         
     def setAccountData(self, account):
-        account.setName(vars.get('accountName'))
-        account.setNumber(vars.get('accountNumber'))
+        account.setName(svars.get('accountName'))
+        account.setNumber(svars.get('accountNumber'))
         account.setType(self.getType())
-        account.setCommunity(self.findCommunityById(vars.get('communityId')))
-        if vars.get('parentAccountId') != None and vars.get('parentAccountId') != '0':
+        account.setCommunity(self.findCommunityById(svars.get('communityId')))
+        if svars.get('parentAccountId') != None and svars.get('parentAccountId') != '0':
             account.setParrentAccount(self.getParent())
         account.setBank(self.getBank())
         
@@ -43,13 +43,13 @@ class AccountManager(Container):
                 entityManager.persist(account.getCommunity())
         
     def getType(self):
-        return DictionaryManager().getDictionaryInstance(vars.get('accountTypeId'))
+        return DictionaryManager().getDictionaryInstance(svars.get('accountTypeId'))
     
     def getParent(self):
-        return self.findAccountById(vars.get('parentAccountId'))
+        return self.findAccountById(svars.get('parentAccountId'))
     
     def getBank(self):
-        return BankManager().findBankById(vars.get('bankId'))
+        return BankManager().findBankById(svars.get('bankId'))
         
     def saveAccount(self, account):
         self._logger.info(account.longDescription())
@@ -57,7 +57,7 @@ class AccountManager(Container):
         entityManager.flush()
 
     def findAccount(self):
-        id = vars.get('id')
+        id = svars.get('id')
         return self.findAccountById(id)
 
     def findAccountById(self, id):

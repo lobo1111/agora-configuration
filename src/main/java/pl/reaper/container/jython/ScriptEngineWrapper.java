@@ -40,7 +40,7 @@ public class ScriptEngineWrapper {
         Bindings binding = engine.createBindings();
         putMetaVars();
         binding.put("entityManager", entityManager);
-        binding.put("vars", variables);
+        binding.put("svars", variables);
         binding.put("properties", propertyBean);
         return binding;
     }

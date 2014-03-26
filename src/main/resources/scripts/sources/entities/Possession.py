@@ -23,7 +23,7 @@ class PossessionManager(Container):
         return possession;
         
     def update(self):
-        possession = self.findPossessionById(vars.get('id'))
+        possession = self.findPossessionById(svars.get('id'))
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
         self.savePossession(possession)
@@ -31,7 +31,7 @@ class PossessionManager(Container):
         return possession;
         
     def remove(self):
-        possession = self.findPossessionById(vars.get('id'))
+        possession = self.findPossessionById(svars.get('id'))
         entityManager.remove(possession.getAddress())
         for owner in possession.getOwners():
             entityManager.remove(owner)
@@ -54,15 +54,15 @@ class PossessionManager(Container):
         manager.propagateElementsForNewPossession(possession)
         
     def setElementsData(self, possession):
-        for i in range(int(vars.get(self._prefix + 'elementsCount'))): 
-            vars.put("elementId", vars.get(self._prefix + str(i) + "_elementId"))
-            vars.put("override", vars.get(self._prefix + str(i) + "_override"))
-            vars.put("overrideValue", vars.get(self._prefix + str(i) + "_overrideValue"))
+        for i in range(int(svars.get(self._prefix + 'elementsCount'))): 
+            svars.put("elementId", svars.get(self._prefix + str(i) + "_elementId"))
+            svars.put("override", svars.get(self._prefix + str(i) + "_override"))
+            svars.put("overrideValue", svars.get(self._prefix + str(i) + "_overrideValue"))
             manager = ElementManager()
             manager.CreateOrUpdatePossessionElement(possession)
         
     def setPossessionData(self, possession):
-        possession.setArea(BigDecimal(vars.get(self._prefix + 'possessionArea')))
+        possession.setArea(BigDecimal(svars.get(self._prefix + 'possessionArea')))
         possession.setAddress(self.getAddress(possession))
         community = self.getCommunity(possession)
         possession.setCommunity(community)
@@ -73,12 +73,12 @@ class PossessionManager(Container):
         
     def setPossessionAdditionalData(self, possession):
         possession.getAdditionalData().setPossession(possession)
-        possession.getAdditionalData().setDeclaredArea(Double.parseDouble(vars.get(self._prefix + 'declaredArea')))
-        possession.getAdditionalData().setDeclaredShare(Double.parseDouble(vars.get(self._prefix + 'declaredShare')))
-        possession.getAdditionalData().setHotWater(Double.parseDouble(vars.get(self._prefix + 'hotWater')))
-        possession.getAdditionalData().setColdWater(Double.parseDouble(vars.get(self._prefix + 'coldWater')))
-        possession.getAdditionalData().setPeople(Integer.parseInt(vars.get(self._prefix + 'people')))
-        possession.getAdditionalData().setRooms(Integer.parseInt(vars.get(self._prefix + 'rooms')))
+        possession.getAdditionalData().setDeclaredArea(Double.parseDouble(svars.get(self._prefix + 'declaredArea')))
+        possession.getAdditionalData().setDeclaredShare(Double.parseDouble(svars.get(self._prefix + 'declaredShare')))
+        possession.getAdditionalData().setHotWater(Double.parseDouble(svars.get(self._prefix + 'hotWater')))
+        possession.getAdditionalData().setColdWater(Double.parseDouble(svars.get(self._prefix + 'coldWater')))
+        possession.getAdditionalData().setPeople(Integer.parseInt(svars.get(self._prefix + 'people')))
+        possession.getAdditionalData().setRooms(Integer.parseInt(svars.get(self._prefix + 'rooms')))
         
     def getAddress(self, possession):
         addressManager = AddressManager()
@@ -87,7 +87,7 @@ class PossessionManager(Container):
 
     def getCommunity(self, possession):
         communityManager = CommunityManager()
-        return communityManager.findCommunityById(vars.get(self._prefix + 'communityId'))
+        return communityManager.findCommunityById(svars.get(self._prefix + 'communityId'))
         
     def savePossession(self, possession):
         self._logger.info(possession.longDescription())

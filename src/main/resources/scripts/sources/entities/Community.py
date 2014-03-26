@@ -25,14 +25,14 @@ class CommunityManager(Container):
         self.setElementsData(community)
         
     def setCommunityData(self, community):
-        community.setName(vars.get('name'))
+        community.setName(svars.get('name'))
         community.setCompany(self.getCompany(community))
-        if vars.get('hasDefaultAccount') == 'true':
-            community.setDefaultAccount(self.findAccountById(vars.get('defaultAccountId')))
+        if svars.get('hasDefaultAccount') == 'true':
+            community.setDefaultAccount(self.findAccountById(svars.get('defaultAccountId')))
         else:
             community.setDefaultAccount(None)
-        if vars.get('hasRepairFundAccount') == 'true':
-            community.setRepairFundAccount(self.findAccountById(vars.get('repairFundAccountId')))
+        if svars.get('hasRepairFundAccount') == 'true':
+            community.setRepairFundAccount(self.findAccountById(svars.get('repairFundAccountId')))
         else:
             community.setRepairFundAccount(None)
 
@@ -44,10 +44,10 @@ class CommunityManager(Container):
         community.getZpks().add(zpkRepairFund)
         
     def setElementsData(self, community):
-        for i in range(int(vars.get(self._prefix + 'elementsCount'))): 
-            vars.put("elementId", vars.get(self._prefix + str(i) + "_elementId"))
-            vars.put("override", vars.get(self._prefix + str(i) + "_override"))
-            vars.put("overrideValue", vars.get(self._prefix + str(i) + "_overrideValue"))
+        for i in range(int(svars.get(self._prefix + 'elementsCount'))): 
+            svars.put("elementId", svars.get(self._prefix + str(i) + "_elementId"))
+            svars.put("override", svars.get(self._prefix + str(i) + "_override"))
+            svars.put("overrideValue", svars.get(self._prefix + str(i) + "_overrideValue"))
             manager = ElementManager()
             manager.CreateOrUpdateCommunityElement(community)
             
@@ -65,17 +65,17 @@ class CommunityManager(Container):
         entityManager.flush()
         
     def setContractorData(self, community):
-        vars.put('communityId', str(community.getId()))
-        vars.put('exsitingCompany', 'true')
+        svars.put('communityId', str(community.getId()))
+        svars.put('exsitingCompany', 'true')
         for company in self.findDefaultCompanies():
-            vars.put('obligationCompanyId', str(company.getId()))
+            svars.put('obligationCompanyId', str(company.getId()))
             obligationManager = ContractorManager()
             obligation = obligationManager.create()
             community.getZpks().addAll(obligation.getZpks())
         self.saveCommunity(community)
             
     def findCommunity(self):
-        id = vars.get('id')
+        id = svars.get('id')
         return self.findCommunityById(id)
 
     def findDefaultCompanies(self):

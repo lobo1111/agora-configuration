@@ -7,16 +7,16 @@ from entities.BookingPeriod import BookingPeriodManager
 class ZpkManager(Container):
 
     def create(self):
-        pool = self.findPool(vars.get('poolId'))
-        community = self.findCommunityById(vars.get('communityId'))
+        pool = self.findPool(svars.get('poolId'))
+        community = self.findCommunityById(svars.get('communityId'))
         number = self.generateNumber(pool, community)
         zpk = ZakladowyPlanKont()
         zpk.setNumber(number)
         zpk.setCommunity(community)
         community.getZpks().add(zpk)
         zpk.setType(pool)
-        vars.put('credit', '0')
-        vars.put('debit', '0')
+        svars.put('credit', '0')
+        svars.put('debit', '0')
         self.setAllBookingPeriods(zpk)
         return zpk
     
@@ -31,10 +31,10 @@ class ZpkManager(Container):
         balance = ZpkBalance()
         balance.setBookingPeriod(bookingPeriod)
         if bookingPeriod.isDefaultPeriod():
-            balance.setCredit(Double.parseDouble(vars.get('credit')))
-            balance.setDebit(Double.parseDouble(vars.get('debit')))
-            balance.setStartCredit(Double.parseDouble(vars.get('credit')))
-            balance.setStartDebit(Double.parseDouble(vars.get('debit')))
+            balance.setCredit(Double.parseDouble(svars.get('credit')))
+            balance.setDebit(Double.parseDouble(svars.get('debit')))
+            balance.setStartCredit(Double.parseDouble(svars.get('credit')))
+            balance.setStartDebit(Double.parseDouble(svars.get('debit')))
         return balance
     
     def generateZpkForCommunity(self, community, poolKey, credit = '0', debit = '0'):
@@ -47,8 +47,8 @@ class ZpkManager(Container):
         zpk.setCommunity(community)
         community.getZpks().add(zpk)
         zpk.setType(pool)
-        vars.put('credit', credit)
-        vars.put('debit', debit)
+        svars.put('credit', credit)
+        svars.put('debit', debit)
         self.setAllBookingPeriods(zpk)
         return zpk
     

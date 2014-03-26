@@ -10,7 +10,7 @@ class PaymentRentManager(Container):
         self.savePaymentRent(paymentRent)
         
     def remove(self):
-        paymentRent = self.findPaymentRentById(vars.get('id'))
+        paymentRent = self.findPaymentRentById(svars.get('id'))
         currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
         if paymentRent.getMonth() == currentMonth and paymentRent.getBookingPeriod().getId() == currentBookingPeriod.getId():
@@ -19,7 +19,7 @@ class PaymentRentManager(Container):
             entityManager.flush()
             
     def removeCharging(self):
-        charging = self.findChargingById(vars.get('id'))
+        charging = self.findChargingById(svars.get('id'))
         currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
         if charging.getMonth() == currentMonth and charging.getBookingPeriod().getId() == currentBookingPeriod.getId():
@@ -37,12 +37,12 @@ class PaymentRentManager(Container):
         paymentRent.setPossession(self.getPossession())
         paymentRent.setMonth(self.getCurrentMonth())
         paymentRent.setBookingPeriod(self.getBookingPeriod())
-        paymentRentDetails.setTitle(vars.get('title'))
-        paymentRentDetails.setBookingDate(self.parseDate(vars.get('bookingDate')))
-        paymentRentDetails.setRequestDate(self.parseDate(vars.get('requestDate')))
-        paymentRentDetails.setClientName(vars.get('clientName'))
+        paymentRentDetails.setTitle(svars.get('title'))
+        paymentRentDetails.setBookingDate(self.parseDate(svars.get('bookingDate')))
+        paymentRentDetails.setRequestDate(self.parseDate(svars.get('requestDate')))
+        paymentRentDetails.setClientName(svars.get('clientName'))
         paymentRentDetails.setAccount(self.getAccount())
-        paymentRentDetails.setValue(float(vars.get('value')))
+        paymentRentDetails.setValue(float(svars.get('value')))
         paymentRentDetails.setAuto(False)
     
     def savePaymentRent(self, paymentRent):
@@ -50,11 +50,11 @@ class PaymentRentManager(Container):
         entityManager.flush()
 
     def getPossession(self):
-        possessionId = int(vars.get('possessionId'))
+        possessionId = int(svars.get('possessionId'))
         return entityManager.createQuery('Select p From Possession p Where p.id = %d' % possessionId).getSingleResult()
     
     def getAccount(self):
-        accountId = int(vars.get('accountId'))
+        accountId = int(svars.get('accountId'))
         return entityManager.createQuery('Select a From Account a Where a.id = %d' % accountId).getSingleResult()
     
     def getCurrentMonth(self):
