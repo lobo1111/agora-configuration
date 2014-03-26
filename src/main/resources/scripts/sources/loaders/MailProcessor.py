@@ -2,7 +2,7 @@ import email
 import imaplib
 import os
 import uuid
-from base import Container
+from base.Container import Container
 
 class MailProcessor(Container):
 
