@@ -3,6 +3,8 @@ from pl.reaper.container.data import Log
 class Logger:
 
   def appendLog(self, level, message):
+    global vars
+    print vars
     log = Log()
     log.setThreadId(vars.get('_threadId'))
     log.setThreadName(vars.get('_threadName'))
