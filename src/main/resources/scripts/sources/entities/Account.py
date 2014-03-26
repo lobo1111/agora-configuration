@@ -18,7 +18,6 @@ class AccountManager(Container):
         self.saveAccount(account)
         
     def setAccountData(self, account):
-        
         account.setName(self._svars.get('accountName'))
         account.setNumber(self._svars.get('accountNumber'))
         account.setType(self.getType())

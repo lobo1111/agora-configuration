@@ -7,6 +7,7 @@ from entities.Address import AddressManager
 from entities.Community import CommunityManager
 from entities.Element import ElementManager
 from entities.Zpk import ZpkManager
+from entities.Account import AccountManager
 
 class PossessionManager(Container):
     _prefix = ''
@@ -24,7 +25,6 @@ class PossessionManager(Container):
         return possession;
         
     def update(self):
-        
         possession = self.findPossessionById(self._svars.get('id'))
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
@@ -33,7 +33,6 @@ class PossessionManager(Container):
         return possession;
         
     def remove(self):
-        
         possession = self.findPossessionById(self._svars.get('id'))
         self._entityManager.remove(possession.getAddress())
         for owner in possession.getOwners():
@@ -61,7 +60,6 @@ class PossessionManager(Container):
         manager.propagateElementsForNewPossession(possession)
         
     def setElementsData(self, possession):
-        
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
@@ -82,7 +80,6 @@ class PossessionManager(Container):
             self._entityManager.persist(community)
         
     def setPossessionAdditionalData(self, possession):
-        
         possession.getAdditionalData().setPossession(possession)
         possession.getAdditionalData().setDeclaredArea(Double.parseDouble(self._svars.get(self._prefix + 'declaredArea')))
         possession.getAdditionalData().setDeclaredShare(Double.parseDouble(self._svars.get(self._prefix + 'declaredShare')))
@@ -90,6 +87,11 @@ class PossessionManager(Container):
         possession.getAdditionalData().setColdWater(Double.parseDouble(self._svars.get(self._prefix + 'coldWater')))
         possession.getAdditionalData().setPeople(Integer.parseInt(self._svars.get(self._prefix + 'people')))
         possession.getAdditionalData().setRooms(Integer.parseInt(self._svars.get(self._prefix + 'rooms')))
+        manager = AccountManager()
+        manager.setEntityManager(self._entityManager)
+        manager.setSvars(self._svars)
+        account = manager.findAccountById(self._svars.get(self._prefix + 'account'))
+        possession.getAdditionalData().setAccount(account)
         
     def getAddress(self, possession):
         addressManager = AddressManager()
