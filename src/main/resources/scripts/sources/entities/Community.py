@@ -3,6 +3,7 @@ from java.math import BigDecimal
 from java.math import RoundingMode
 from base.Container import Container
 from entities.Company import CompanyManager
+from entities.Zpk import ZpkManager
 
 class CommunityManager(Container):
     _prefix = ''
@@ -39,6 +40,8 @@ class CommunityManager(Container):
 
     def generateZpkNumber(self, community):
         manager = ZpkManager()
+        manager.setEntityManager(self._entityManager)
+        manager.setSvars(self._svars)
         zpkRent = manager.generateZpkForCommunity(community, "CHARGING_RENT")
         community.getZpks().add(zpkRent)
         zpkRepairFund = manager.generateZpkForCommunity(community, "CHARGING_REPAIR_FUND")

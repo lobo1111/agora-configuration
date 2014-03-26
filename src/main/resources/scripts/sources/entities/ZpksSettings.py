@@ -24,7 +24,6 @@ class ZpksSettings(Container):
         except:
             dict = Dictionary()
             dict.setKey(name)
-            print self.findSettingsType()
             dict.setType(self.findSettingsType())
             return dict
     
