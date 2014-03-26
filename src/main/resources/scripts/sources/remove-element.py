@@ -1,3 +1,8 @@
 from entities.Element import ElementManager
 
-ElementManager().remove()
+global svars, entityManager, properties
+manager = ElementManager()
+manager.setSvars(svars)
+manager.setEntityManager(entityManager)
+manager.setProperties(properties)
+manager.remove()

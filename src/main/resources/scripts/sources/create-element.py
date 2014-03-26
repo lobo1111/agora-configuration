@@ -1,3 +1,8 @@
 from entities.Element import ElementManager
 
-ElementManager().create()
+global svars, entityManager, properties
+elementManager = ElementManager()
+elementManager.setSvars(svars)
+elementManager.setEntityManager(entityManager)
+elementManager.setProperties(properties)
+elementManager.create()

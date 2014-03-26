@@ -2,17 +2,17 @@
 <schedulers>
     <scheduler>
         <script>check-email</script>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
     <scheduler>
         <script>file-watchdog</script>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
     <scheduler>                     
         <script>charge-all</script>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
     <scheduler>

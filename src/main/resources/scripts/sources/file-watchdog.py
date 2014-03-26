@@ -1,3 +1,8 @@
 from loaders.FileWatchdog import FileWatchdog
 
-FileWatchdog().processFiles()
+global svars, entityManager, properties
+manager = FileWatchdog()
+manager.setSvars(svars)
+manager.setEntityManager(entityManager)
+manager.setProperties(properties)
+manager.processFiles()

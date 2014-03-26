@@ -1,3 +1,8 @@
 from entities.Community import CommunityManager
 
-CommunityManager().create()
+global svars, entityManager, properties
+communityManager = CommunityManager()
+communityManager.setSvars(svars)
+communityManager.setEntityManager(entityManager)
+communityManager.setProperties(properties)
+communityManager.create()

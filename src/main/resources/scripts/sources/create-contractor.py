@@ -1,3 +1,8 @@
 from entities.Contractor import ContractorManager
 
-ContractorManager().create()
+global svars, entityManager, properties
+contractorManager = ContractorManager()
+contractorManager.setSvars(svars)
+contractorManager.setEntityManager(entityManager)
+contractorManager.setProperties(properties)
+contractorManager.create()

@@ -19,9 +19,9 @@ class MailProcessor(Container):
         self.__connection.logout()
 
     def initConnection(self):
-        host = properties.getProperty('emailHost')
-        user = properties.getProperty('emailUser')
-        password = properties.getProperty('emailPassword')
+        host = self._properties.getProperty('emailHost')
+        user = self._properties.getProperty('emailUser')
+        password = self._properties.getProperty('emailPassword')
         self.__connection = imaplib.IMAP4_SSL(host)
         response, message = self.__connection.login(user, password)
         if response == 'OK':
@@ -32,7 +32,7 @@ class MailProcessor(Container):
             return False
 
     def getNewMails(self):
-        newMailDir = properties.getProperty('emailNew')
+        newMailDir = self._properties.getProperty('emailNew')
         response, message = self.__connection.select(newMailDir)
         if response == 'OK':
             response, mails = self.__connection.search(None, '*')
@@ -58,7 +58,7 @@ class MailProcessor(Container):
            logger.warning('Can\'t fetch mail: ' + response + ':' + message)
 
     def moveEmailToProcessed(self, mailid):
-        processedDir = properties.getProperty('emailProcessed')
+        processedDir = self._properties.getProperty('emailProcessed')
         response, message = self.__connection.copy(mailid, processedDir)
         if response == 'OK':
             response, message = self.__connection.store(mailid, '+FLAGS.SILENT', '(\\Deleted)')
@@ -80,7 +80,7 @@ class MailProcessor(Container):
 
     def saveFile(self, filename, data):
         uniqueFilename = '[' + str(uuid.uuid4()) + ']' + filename
-        dir = properties.getProperty('xmlNewXMLs')
+        dir = self._properties.getProperty('xmlNewXMLs')
         destination = os.path.join(dir, uniqueFilename)
         if not os.path.isfile(destination):
             file = open(destination, 'wb')

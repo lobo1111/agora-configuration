@@ -1,3 +1,8 @@
 from crons.Charger import ChargeManager
 
-ChargeManager().chargeAll()
+global svars, entityManager, properties
+chargeManager = ChargeManager()
+chargeManager.setSvars(svars)
+chargeManager.setEntityManager(entityManager)
+chargeManager.setProperties(properties)
+chargeManager.chargeAll()

@@ -5,10 +5,10 @@ import xml.sax
 from base.Container import Container
 
 class FileWatchdog(Container):
-  _newXMLs = properties.getProperty("xmlNewXMLs")
-  _processedXMLs = properties.getProperty("xmlProcessedXMLs")
-  _nonXMLDir = properties.getProperty("xmlNonXML")
-  _errorXMLs = properties.getProperty("xmlErrorXMLs")
+  _newXMLs = self._properties.getProperty("xmlNewXMLs")
+  _processedXMLs = self._properties.getProperty("xmlProcessedXMLs")
+  _nonXMLDir = self._properties.getProperty("xmlNonXML")
+  _errorXMLs = self._properties.getProperty("xmlErrorXMLs")
   
   def moveFile(self, source, destination):
     self._logger.info('moving ' + source + ' to ' + destination)

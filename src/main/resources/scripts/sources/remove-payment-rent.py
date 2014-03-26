@@ -1,3 +1,8 @@
 from entities.PaymentRent import PaymentRentManager
 
-PaymentRentManager().remove()
+global svars, entityManager, properties
+manager = PaymentRentManager()
+manager.setSvars(svars)
+manager.setEntityManager(entityManager)
+manager.setProperties(properties)
+manager.remove()

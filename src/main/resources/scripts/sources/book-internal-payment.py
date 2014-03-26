@@ -1,3 +1,8 @@
 from entities.InternalPayment import InternalPaymentManager
 
-InternalPaymentManager().book()
+global svars, entityManager, properties
+internalPaymentManager = InternalPaymentManager()
+internalPaymentManager.setSvars(svars)
+internalPaymentManager.setEntityManager(entityManager)
+internalPaymentManager.setProperties(properties)
+internalPaymentManager.book()

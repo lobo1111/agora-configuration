@@ -1,3 +1,8 @@
 from entities.Account import AccountManager
 
-AccountManager().create()
+global svars, entityManager, properties
+accountManager = AccountManager()
+accountManager.setSvars(svars)
+accountManager.setEntityManager(entityManager)
+accountManager.setProperties(properties)
+accountManager.create()

@@ -1,3 +1,8 @@
 from entities.ZpkDitctionary import ZpkDictionaryManager
 
-ZpkDictionaryManager().create()
+global svars, entityManager, properties
+manager = ZpkDictionaryManager()
+manager.setSvars(svars)
+manager.setEntityManager(entityManager)
+manager.setProperties(properties)
+manager.create()
