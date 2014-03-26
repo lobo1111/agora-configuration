@@ -2,6 +2,7 @@ from pl.reaper.container.data import Account
 from base.Container import Container
 from entities.Bank import BankManager
 from entities.Dictionary import DictionaryManager
+from entities.Zpk import ZpkManager
 
 class AccountManager(Container):
     
@@ -28,6 +29,8 @@ class AccountManager(Container):
         
     def createZpk(self, account):
         zpkManager = ZpkManager()
+        zpkManager.setEntityManager(self._entityManager)
+        zpkManager.setSvars(self._svars)
         if account.getType().getKey() in ['DEFAULT', 'RENT']:
             zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'RENT')
             zpk.setAccount(account)
@@ -50,7 +53,6 @@ class AccountManager(Container):
         return manager.getDictionaryInstance(self._svars.get('accountTypeId'))
     
     def getParent(self):
-        
         return self.findAccountById(self._svars.get('parentAccountId'))
     
     def getBank(self):
