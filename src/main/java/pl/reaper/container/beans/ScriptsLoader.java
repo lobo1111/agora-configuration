@@ -46,7 +46,9 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
         for (File file : findAllScripts()) {
             try {
                 Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Compiling script: {0}", file.getAbsolutePath());
-                String name = file.getAbsolutePath().substring(scriptsPath.length() + 1, file.getName().length() - 3);
+                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "scriptsPath.length(): " + scriptsPath.length());
+                Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "file.getAbsolutePath().length(): " + file.getAbsolutePath().length());
+                String name = file.getAbsolutePath().substring(scriptsPath.length() + 1, file.getAbsolutePath().length() - 3);
                 CompiledScript script = compilingEngine.compile(new FileReader(file));
                 scripts.put(name, script);
                 Logger.getLogger(ScriptsLoader.class.getName()).log(Level.INFO, "Script compiled: {0}", name);
