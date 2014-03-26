@@ -5,4 +5,5 @@ class Container:
     
     def setSvars(self, svars):
         self._svars = svars
+        self._logger.setSvars(svars)
         self._logger.info(self._svars)
