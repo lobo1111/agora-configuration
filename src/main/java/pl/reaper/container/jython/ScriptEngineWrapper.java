@@ -57,7 +57,7 @@ public class ScriptEngineWrapper {
         }
     }
 
-    public Object eval(String scriptName) throws ScriptException {
+    public Object eval(String scriptName) throws ScriptException, Exception {
         try {
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
             CompiledScript script = findScript(scriptName);
@@ -113,7 +113,7 @@ public class ScriptEngineWrapper {
         return builder.toString();
     }
 
-    private CompiledScript findScript(String scriptName) throws ScriptException {
+    private CompiledScript findScript(String scriptName) throws ScriptException, Exception {
         return loader.getScript(scriptName);
     }
 }
