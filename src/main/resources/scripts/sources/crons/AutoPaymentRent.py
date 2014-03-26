@@ -6,11 +6,6 @@ from entities.Account import AccountManager
 
 class CronAutoPaymentRent(Container):
     
-    def __init__(self):
-        self._dictManager = DictionaryManager()
-        self._dictManager.setSvars(self._svars)
-        self._dictManager.setEntityManager(self._entityManager)
-    
     def processDocuments(self):
         self._logger.info('Cron auto payment started...')
         self._documents = self.getDocuments()
@@ -40,10 +35,16 @@ class CronAutoPaymentRent(Container):
             return None;
         
     def setAsUnknown(self, document):
+        self._dictManager = DictionaryManager()
+        self._dictManager.setSvars(self._svars)
+        self._dictManager.setEntityManager(self._entityManager)
         status = self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'UNKNOWN')
         document.setStatus(status)
     
     def setAsProcessed(self, document):
+        self._dictManager = DictionaryManager()
+        self._dictManager.setSvars(self._svars)
+        self._dictManager.setEntityManager(self._entityManager)
         status = self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'PROCESSED')
         document.setStatus(status)
         

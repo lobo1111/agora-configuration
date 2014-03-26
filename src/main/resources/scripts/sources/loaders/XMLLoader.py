@@ -9,11 +9,6 @@ from entities.Dictionary import DictionaryManager
 
 class XMLLoader(Container):
 
-  def __init__(self):
-    self._dictManager = DictionaryManager()
-    self._dictManager.setEntityManager(self._entityManager)
-    self._dictManager.setSvars(self._svars)
-
   def process(self, content):
     self._logger.info('Processing XML...')
     xml = self.initXML(content)
@@ -62,6 +57,9 @@ class XMLLoader(Container):
       self.saveDocument(position)
       
   def getStatus(self):
+    self._dictManager = DictionaryManager()
+    self._dictManager.setEntityManager(self._entityManager)
+    self._dictManager.setSvars(self._svars)
     return self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'NEW')
 
   def parseDate(self, dateAsString):
