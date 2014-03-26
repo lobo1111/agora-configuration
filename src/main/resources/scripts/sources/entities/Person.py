@@ -11,14 +11,12 @@ class PersonManager(Container):
         return person
         
     def update(self):
-        
         person = self.findPersonById(self._svars.get('id'))
         self.setPersonData(person)
         self.savePerson(person)
         return person
         
     def setPersonData(self, person):
-        
         person.setFirstName(self._svars.get('firstName'))
         person.setLastName(self._svars.get('lastName'))
         person.setNip(self._svars.get('nip'))
@@ -31,6 +29,7 @@ class PersonManager(Container):
         
     def getAddress(self, person):
         addressManager = AddressManager()
+        addressManager.setEntityManager(self._entityManager)
         return addressManager.getAddress(person)
         
     def savePerson(self, person):

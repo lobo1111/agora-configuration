@@ -8,6 +8,7 @@ class CronAutoPaymentRent(Container):
     
     def __init__(self):
         self._dictManager = DictionaryManager()
+        self._dictManager.setEntityManager(self._entityManager)
     
     def processDocuments(self):
         self._logger.info('Cron auto payment started...')
@@ -63,7 +64,9 @@ class CronAutoPaymentRent(Container):
         self._entityManager.persist(paymentRent)
     
     def findAccountByNumber(self, number):
-        return AccountManager().findAccountByNumber(number)
+        account = AccountManager()
+        account.setEntityManager(self._entityManager)
+        return account.findAccountByNumber(number)
     
     def getCurrentMonth(self):
         return self._entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()

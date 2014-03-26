@@ -34,6 +34,7 @@ class OwnerManager(Container):
 
     def createPossession(self, subject):
         possessionManager = PossessionManager()
+        possessionManager.setEntityManager(self._entityManager)
         possessionManager.setPrefix('newPossession_')
         possession = possessionManager.create()
         owner = Owner()
@@ -54,15 +55,19 @@ class OwnerManager(Container):
     def getSubject(self):
         
         if self._svars.get('personSubject') == 'true':
+            manager = PersonManager()
+            manager.setEntityManager(self._entityManager)
             if self._svars.get('newSubject') == 'true':
-                return PersonManager().create()
+                return manager.create()
             else:
-                return PersonManager().findPersonById(self._svars.get('personId'))
+                return manager.findPersonById(self._svars.get('personId'))
         else:
+            manager = CompanyManager()
+            manager.setEntityManager(self._entityManager)
             if self._svars.get('newSubject') == 'true':
-                return CompanyManager().create()
+                return manager.create()
             else:
-                return CompanyManager().findCompanyById(self._svars.get('companyId'))
+                return manager.findCompanyById(self._svars.get('companyId'))
         
     def setSubject(self, owner, subject):
         
@@ -76,6 +81,7 @@ class OwnerManager(Container):
         
         if self._svars.get('additionalAddress') == 'true':
             addressManager = AddressManager()
+            addressManager.setEntityManager(self._entityManager)
             addressManager.setPrefix('additionalAddress_')
             return addressManager.getAddress(Owner())
         else:

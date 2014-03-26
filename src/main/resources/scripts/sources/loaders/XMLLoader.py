@@ -11,6 +11,7 @@ class XMLLoader(Container):
 
   def __init__(self):
     self._dictManager = DictionaryManager()
+    self._dictManager.setEntityManager(self._entityManager)
 
   def process(self, content):
     self._logger.info('Processing XML...')

@@ -41,6 +41,7 @@ class CompanyManager(Container):
         
     def getAddress(self, person):
         addressManager = AddressManager()
+        addressManager.setEntityManager(self._entityManager)
         addressManager.setPrefix(self._prefix)
         return addressManager.getAddress(person)
     

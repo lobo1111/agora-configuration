@@ -39,6 +39,7 @@ class ContractorManager(Container):
 
     def generateZpkNumber(self, obligation):
         manager = ZpkManager()
+        manager.setEntityManager(self._entityManager)
         zpkContractor = manager.generateZpkForCommunity(obligation.getCommunity(), "CONTRACTOR")
         zpkContractor.setContractor(obligation)
         obligation.getZpks().add(zpkContractor)
@@ -47,8 +48,8 @@ class ContractorManager(Container):
         obligation.getZpks().add(zpkCost)
 
     def getCompany(self, obligation):
-        
         companyManager = CompanyManager()
+        companyManager.setEntityManager(self._entityManager)
         companyManager.setPrefix(self._prefix)
         if self._svars.get(self._prefix + 'exsitingCompany') == 'true':
             return companyManager.findCompanyById(self._svars.get(self._prefix + 'obligationCompanyId'))
@@ -59,5 +60,7 @@ class ContractorManager(Container):
         return self._entityManager.createQuery('Select o From Contractor o Where o.id = ' + str(id)).getSingleResult()
     
     def findCommunity(self, id):
-        return CommunityManager().findCommunityById(id)
+        manager = CommunityManager()
+        manager.setEntityManager(self._entityManager)
+        return manager.findCommunityById(id)
     

@@ -44,8 +44,9 @@ class AccountManager(Container):
                 self._entityManager.persist(account.getCommunity())
         
     def getType(self):
-        
-        return DictionaryManager().getDictionaryInstance(self._svars.get('accountTypeId'))
+        manager = DictionaryManager()
+        manager.setEntityManager(self._entityManager)
+        return manager.getDictionaryInstance(self._svars.get('accountTypeId'))
     
     def getParent(self):
         

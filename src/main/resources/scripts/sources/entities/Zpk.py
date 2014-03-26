@@ -23,6 +23,7 @@ class ZpkManager(Container):
     
     def setAllBookingPeriods(self, zpk):
         bookingPeriodManager = BookingPeriodManager()
+        bookingPeriodManager.setEntityManager(self._entityManager)
         for bookingPeriod in bookingPeriodManager.findAllBookingPeriods():
             zpkBalance = self.createBalanceForPeriod(bookingPeriod)
             zpkBalance.setZpk(zpk)

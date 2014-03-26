@@ -22,6 +22,7 @@ class BankManager(Container):
         
     def getCompany(self, bank):
         companyManager = CompanyManager()
+        companyManager.setEntityManager(self._entityManager)
         return companyManager.getCompany(bank)
         
     def saveBank(self, bank):

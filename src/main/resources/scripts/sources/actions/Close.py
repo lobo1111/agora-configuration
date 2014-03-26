@@ -25,11 +25,17 @@ class Close(Container):
         
     def setNextMonth(self):
         self._currentMonth += 1
-        dict = DictionaryManager().findDictionaryInstance("PERIODS", "CURRENT")
+        manager = DictionaryManager()
+        manager.setEntityManager(self._entityManager)
+        dict = manager.findDictionaryInstance("PERIODS", "CURRENT")
         dict.setValue(str(self._currentMonth))
         self._entityManager.persist(dict)
         self._entityManager.flush()
         
     def bookAll(self):
-        ChargingBooker().bookAllChargings()
-        PaymentBooker().bookAllPayments()
+        cBooker = ChargingBooker()
+        cBooker.setEntityManager(self._entityManager)
+        cBooker.bookAllChargings()
+        pBooker = PaymentBooker()
+        pBooker.setEntityManager(self._entityManager)
+        pBooker.bookAllPayments()

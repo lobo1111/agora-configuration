@@ -59,6 +59,7 @@ class CommunityManager(Container):
         
     def getCompany(self, community):
         companyManager = CompanyManager()
+        companyManager.setEntityManager(self._entityManager)
         return companyManager.getCompany(community)
         
     def saveCommunity(self, community):

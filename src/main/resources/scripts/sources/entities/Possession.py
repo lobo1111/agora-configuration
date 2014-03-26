@@ -53,6 +53,7 @@ class PossessionManager(Container):
 
     def propagateElementsForNewPossession(self, possession):
         manager = ElementManager()
+        manager.setEntityManager(self._entityManager)
         manager.propagateElementsForNewPossession(possession)
         
     def setElementsData(self, possession):
@@ -62,6 +63,7 @@ class PossessionManager(Container):
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             manager = ElementManager()
+            manager.setEntityManager(self._entityManager)
             manager.CreateOrUpdatePossessionElement(possession)
         
     def setPossessionData(self, possession):
@@ -86,18 +88,21 @@ class PossessionManager(Container):
         
     def getAddress(self, possession):
         addressManager = AddressManager()
+        addressManager.setEntityManager(self._entityManager)
         addressManager.setPrefix(self._prefix)
         return addressManager.getAddress(possession)
 
     def getCommunity(self, possession):
-        
         communityManager = CommunityManager()
+        communityManager.setEntityManager(self._entityManager)
         return communityManager.findCommunityById(self._svars.get(self._prefix + 'communityId'))
         
     def savePossession(self, possession):
         self._logger.info(possession.longDescription())
         self._entityManager.persist(possession)
-        CommunityManager().recalculateShares(possession.getCommunity().getId())
+        communityManager = CommunityManager()
+        communityManager.setEntityManager(self._entityManager)
+        communityManager.recalculateShares(possession.getCommunity().getId())
             
         
     def findAccountById(self, id):
