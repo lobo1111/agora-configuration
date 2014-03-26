@@ -4,6 +4,7 @@ from java.math import RoundingMode
 from base.Container import Container
 from entities.Company import CompanyManager
 from entities.Zpk import ZpkManager
+from entities.Element import ElementManager
 
 class CommunityManager(Container):
     _prefix = ''
@@ -48,16 +49,19 @@ class CommunityManager(Container):
         community.getZpks().add(zpkRepairFund)
         
     def setElementsData(self, community):
-        
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             manager = ElementManager()
+            manager.setEntityManager(self._entityManager)
+            manager.setSvars(self._svars)
             manager.CreateOrUpdateCommunityElement(community)
             
     def addDefaultElements(self, community):
         manager = ElementManager()
+        manager.setEntityManager(self._entityManager)
+        manager.setSvars(self._svars)
         manager.addDefaultElements(community)
         
     def getCompany(self, community):
