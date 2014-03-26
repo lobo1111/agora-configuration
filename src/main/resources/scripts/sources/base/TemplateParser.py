@@ -107,11 +107,8 @@ class TemplateParser(Container):
         data = data.replace('{:%s}' % variable, '')
         return data
 
-    def __init__(self):
-        
-        self._templateName = self._svars.get('templateName')
-    
     def parse(self):
+        self._templateName = self._svars.get('templateName')
         self._logger.info('Parsing template %s' % self._templateName)
         template = self.find(self._templateName)
         evaluated = self.evaluate(template)
