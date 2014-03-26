@@ -1,6 +1,6 @@
 from pl.reaper.container.data import Dictionary
 
-class ZpksSettings:
+class ZpksSettings(Container):
     def update(self):
         self.persistDict('possessionId', 'POSSESSION')
         self.persistDict('possessionRepairId', 'POSSESSION_REPAIR_FUND')
