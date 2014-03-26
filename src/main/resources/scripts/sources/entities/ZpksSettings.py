@@ -13,7 +13,6 @@ class ZpksSettings(Container):
         self.persistDict('chargingRepairFundId', 'CHARGING_REPAIR_FUND')
         
     def persistDict(self, idVariableName, dictName):
-        
         id = self._svars.get(idVariableName)
         dict = self.findOrCreateDict(dictName)
         dict.setValue(id)
@@ -25,6 +24,7 @@ class ZpksSettings(Container):
         except:
             dict = Dictionary()
             dict.setKey(name)
+            print self.findSettingsType()
             dict.setType(self.findSettingsType())
             return dict
     
