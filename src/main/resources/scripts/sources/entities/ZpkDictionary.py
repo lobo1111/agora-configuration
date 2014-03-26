@@ -8,6 +8,7 @@ class ZpkDictionaryManager(Container):
         self.save(entity)
     
     def update(self):
+        global svars
         entity = self.findById(svars.get('id'))
         self.setData(entity)
         self.save(entity)
@@ -16,6 +17,7 @@ class ZpkDictionaryManager(Container):
         entityManager.persist(entity)
     
     def setData(self, entity):
+        global svars
         entity.setType(self.findZpkDictType())
         entity.setKey(svars.get('dictKey'))
         entity.setValue(svars.get('dictValue'))

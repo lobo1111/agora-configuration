@@ -23,6 +23,7 @@ class PossessionManager(Container):
         return possession;
         
     def update(self):
+        global svars
         possession = self.findPossessionById(svars.get('id'))
         self.setPossessionData(possession)
         self.setPossessionAdditionalData(possession)
@@ -31,6 +32,7 @@ class PossessionManager(Container):
         return possession;
         
     def remove(self):
+        global svars
         possession = self.findPossessionById(svars.get('id'))
         entityManager.remove(possession.getAddress())
         for owner in possession.getOwners():
@@ -54,6 +56,7 @@ class PossessionManager(Container):
         manager.propagateElementsForNewPossession(possession)
         
     def setElementsData(self, possession):
+        global svars
         for i in range(int(svars.get(self._prefix + 'elementsCount'))): 
             svars.put("elementId", svars.get(self._prefix + str(i) + "_elementId"))
             svars.put("override", svars.get(self._prefix + str(i) + "_override"))
@@ -72,6 +75,7 @@ class PossessionManager(Container):
             entityManager.persist(community)
         
     def setPossessionAdditionalData(self, possession):
+        global svars
         possession.getAdditionalData().setPossession(possession)
         possession.getAdditionalData().setDeclaredArea(Double.parseDouble(svars.get(self._prefix + 'declaredArea')))
         possession.getAdditionalData().setDeclaredShare(Double.parseDouble(svars.get(self._prefix + 'declaredShare')))
@@ -86,6 +90,7 @@ class PossessionManager(Container):
         return addressManager.getAddress(possession)
 
     def getCommunity(self, possession):
+        global svars
         communityManager = CommunityManager()
         return communityManager.findCommunityById(svars.get(self._prefix + 'communityId'))
         

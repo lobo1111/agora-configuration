@@ -17,6 +17,7 @@ class AccountManager(Container):
         self.saveAccount(account)
         
     def setAccountData(self, account):
+        global svars
         account.setName(svars.get('accountName'))
         account.setNumber(svars.get('accountNumber'))
         account.setType(self.getType())
@@ -43,12 +44,15 @@ class AccountManager(Container):
                 entityManager.persist(account.getCommunity())
         
     def getType(self):
+        global svars
         return DictionaryManager().getDictionaryInstance(svars.get('accountTypeId'))
     
     def getParent(self):
+        global svars
         return self.findAccountById(svars.get('parentAccountId'))
     
     def getBank(self):
+        global svars
         return BankManager().findBankById(svars.get('bankId'))
         
     def saveAccount(self, account):
@@ -57,6 +61,7 @@ class AccountManager(Container):
         entityManager.flush()
 
     def findAccount(self):
+        global svars
         id = svars.get('id')
         return self.findAccountById(id)
 

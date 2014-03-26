@@ -18,22 +18,26 @@ class ElementManager(Container):
         return element
         
     def update(self):
+        global svars
         element = self.findElementById(svars.get(self._prefix + 'id'))
         self.setElementData(element)
         self.saveElement(element)
         return element
     
     def addDefaultElements(self, community):
+        global svars
         for element in self.findDefaultElements():
             self._logger.info('Adding default community element - %d' % element.getId())
             svars.put("elementId", element.getId())
             self.CreateOrUpdateCommunityElement(community)
     
     def remove(self):
+        global svars
         element = self.findElementById(svars.get('id'))
         entityManager.remove(element)
         
     def removeSubElement(self):
+        global svars
         if svars.get('subType') == "COMMUNITY":
             element = self.findSubElementCommunity(svars.get('subId'))
             self._logger.info('Removing community element - %d' % element.getId())
@@ -52,6 +56,7 @@ class ElementManager(Container):
             entityManager.remove(element)
         
     def CreateOrUpdateCommunityElement(self, community):
+        global svars
         elementId = svars.get("elementId")
         communityId = community.getId()
         communityElement = self.findCommunityElement(elementId, communityId)
@@ -78,18 +83,21 @@ class ElementManager(Container):
         self.saveElement(communityElement)
         
     def setElementForPossessions(self, community, communityElement):
+        global svars
         for possession in community.getPossessions():
             svars.put("overrideValue", "0")
             svars.put("override", "false")
             self.CreateOrUpdatePossessionElement(possession, communityElement, False)
             
     def propagateElementsForNewPossession(self, possession):
+        global svars
         for communityElement in possession.getCommunity().getElements():
             self._logger.info('Propagating element for new possession - %d' % communityElement.getElement().getId())
             svars.put("elementId", str(communityElement.getElement().getId()))
             self.CreateOrUpdatePossessionElement(possession, communityElement, False)
             
     def CreateOrUpdatePossessionElement(self, possession, elementCommunity = None, override = True):
+        global svars
         elementId = svars.get("elementId")
         possessionId = possession.getId()
         possessionElement = self.findPossessionElement(elementId, possessionId)
@@ -111,6 +119,7 @@ class ElementManager(Container):
         self.saveElement(possessionElement)
             
     def setElementData(self, element):
+        global svars
         element.setName(svars.get(self._prefix + 'name'))
         element.setKey(svars.get(self._prefix + 'key'))
         element.setGlobalValue(BigDecimal(svars.get(self._prefix + 'value')).floatValue())

@@ -25,6 +25,7 @@ class CommunityManager(Container):
         self.setElementsData(community)
         
     def setCommunityData(self, community):
+        global svars
         community.setName(svars.get('name'))
         community.setCompany(self.getCompany(community))
         if svars.get('hasDefaultAccount') == 'true':
@@ -44,6 +45,7 @@ class CommunityManager(Container):
         community.getZpks().add(zpkRepairFund)
         
     def setElementsData(self, community):
+        global svars
         for i in range(int(svars.get(self._prefix + 'elementsCount'))): 
             svars.put("elementId", svars.get(self._prefix + str(i) + "_elementId"))
             svars.put("override", svars.get(self._prefix + str(i) + "_override"))
@@ -65,6 +67,7 @@ class CommunityManager(Container):
         entityManager.flush()
         
     def setContractorData(self, community):
+        global svars
         svars.put('communityId', str(community.getId()))
         svars.put('exsitingCompany', 'true')
         for company in self.findDefaultCompanies():
@@ -75,6 +78,7 @@ class CommunityManager(Container):
         self.saveCommunity(community)
             
     def findCommunity(self):
+        global svars
         id = svars.get('id')
         return self.findCommunityById(id)
 

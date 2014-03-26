@@ -5,6 +5,7 @@ from base.Container import Container
 class InternalPaymentManager(Container):
     
     def create(self):
+        global svars
         self._logger.info("Creating payment...")
         payment = InternalPayment()
         payment.setBookingPeriod(self.findDefaultBookingPeriod())
@@ -23,6 +24,7 @@ class InternalPaymentManager(Container):
         return payment
     
     def book(self):
+        global svars
         payment = self.findPaymentById(svars.get('paymentId'))
         if not payment.isBooked():
             self.increaseDebit(self.getCurrentBalance(payment.getDebitZpk()), payment.getAmount())
@@ -32,10 +34,12 @@ class InternalPaymentManager(Container):
             entityManager.persist(payment)
     
     def canCancel(self):
+        global svars
         payment = self.findPaymentById(svars.get('paymentId'))
         return not payment.isBooked()
     
     def cancel(self):
+        global svars
         if self.canCancel():
             payment = self.findPaymentById(svars.get('paymentId'))
             entityManager.remove(payment)

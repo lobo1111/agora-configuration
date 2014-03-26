@@ -15,17 +15,20 @@ class CompanyManager(Container):
         return company
         
     def update(self):
+        global svars
         company = self.findCompanyById(svars.get(self._prefix + 'id'))
         self.setCompanyData(company)
         self.saveCompany(company)
         return company
     
     def toggleDefault(self):
+        global svars
         company = self.findCompanyById(svars.get(self._prefix + 'id'))
         company.setDefaultContractor(not company.isDefaultContractor())
         self.saveCompany(company)
         
     def setCompanyData(self, company):
+        global svars
         company.setName(svars.get(self._prefix + 'name'))
         company.setNip(svars.get(self._prefix + 'nip'))
         company.setRegon(svars.get(self._prefix + 'regon'))

@@ -62,6 +62,7 @@ class TemplateParser(Container):
 
     
     def insertLimit(self, query):
+        global svars
         if svars.get('limit') != None:
             self._logger.info('Inserting limit %s' % svars.get('limit'))
             query.setMaxResults(int(svars.get('limit')))
@@ -71,6 +72,7 @@ class TemplateParser(Container):
         return query
     
     def insertVariables(self, data):
+        global svars
         r = l = -1
         while data.find("{:") != -1:
             l = data.find("{:")
@@ -106,6 +108,7 @@ class TemplateParser(Container):
         return data
 
     def __init__(self):
+        global svars
         self._templateName = svars.get('templateName')
     
     def parse(self):

@@ -11,12 +11,14 @@ class PersonManager(Container):
         return person
         
     def update(self):
+        global svars
         person = self.findPersonById(svars.get('id'))
         self.setPersonData(person)
         self.savePerson(person)
         return person
         
     def setPersonData(self, person):
+        global svars
         person.setFirstName(svars.get('firstName'))
         person.setLastName(svars.get('lastName'))
         person.setNip(svars.get('nip'))

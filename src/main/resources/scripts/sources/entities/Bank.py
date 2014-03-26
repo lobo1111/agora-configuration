@@ -15,6 +15,7 @@ class BankManager(Container):
         self.saveBank(bank)
         
     def setBankData(self, bank):
+        global svars
         bank.setName(svars.get('bankName'))
         bank.setKey(svars.get('bankKey'))
         bank.setCompany(self.getCompany(bank))
@@ -29,6 +30,7 @@ class BankManager(Container):
         entityManager.flush()
 
     def findBank(self):
+        global svars
         id = svars.get('id')
         return self.findBankById(id)
 

@@ -5,6 +5,7 @@ from base.Container import Container
 class ChargingQueueManager(Container):
         
     def addToQueue(self):
+        global svars
         type = self.getType(svars.get('type'))
         communityId = svars.get('communityId')
         possessionId = svars.get('possessionId')

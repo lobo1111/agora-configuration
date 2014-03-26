@@ -8,6 +8,7 @@ from entities.Possession import PossessionManager
 class OwnerManager(Container):
     
     def create(self):
+        global svars
         subject = self.getSubject()
         for possession in self.getPossessions():
             owner = Owner()
@@ -20,12 +21,14 @@ class OwnerManager(Container):
             self.createPossession(subject)
             
     def update(self):
+        global svars
         owner = self.findOwnerById(svars.get('id'))
         additionalAddress = self.getAdditionalAddress()
         self.setAdditionalAddress(owner, additionalAddress)
         self.saveOwner(owner)
         
     def delete(self):
+        global svars
         owner = self.findOwnerById(svars.get('id'))
         entityManager.remove(owner)
 
@@ -41,6 +44,7 @@ class OwnerManager(Container):
         self.saveOwner(owner)
             
     def getPossessions(self):
+        global svars
         possessions = []
         for i in range(int(svars.get('possessionsCount'))):
             possessionId = svars.get('possession' + str(i))
@@ -48,6 +52,7 @@ class OwnerManager(Container):
         return possessions
         
     def getSubject(self):
+        global svars
         if svars.get('personSubject') == 'true':
             if svars.get('newSubject') == 'true':
                 return PersonManager().create()
@@ -60,6 +65,7 @@ class OwnerManager(Container):
                 return CompanyManager().findCompanyById(svars.get('companyId'))
         
     def setSubject(self, owner, subject):
+        global svars
         if svars.get('personSubject') == 'true':
             owner.setPerson(subject)
         else:
@@ -67,6 +73,7 @@ class OwnerManager(Container):
         subject.getOwners().add(owner)
             
     def getAdditionalAddress(self):
+        global svars
         if svars.get('additionalAddress') == 'true':
             addressManager = AddressManager()
             addressManager.setPrefix('additionalAddress_')
@@ -75,6 +82,7 @@ class OwnerManager(Container):
             return None
         
     def setAdditionalAddress(self, owner, additionalAddress):
+        global svars
         if svars.get('additionalAddress') == 'true':
             owner.setAddress(additionalAddress)
         else:

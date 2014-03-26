@@ -10,6 +10,7 @@ class PaymentRentManager(Container):
         self.savePaymentRent(paymentRent)
         
     def remove(self):
+        global svars
         paymentRent = self.findPaymentRentById(svars.get('id'))
         currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
@@ -19,6 +20,7 @@ class PaymentRentManager(Container):
             entityManager.flush()
             
     def removeCharging(self):
+        global svars
         charging = self.findChargingById(svars.get('id'))
         currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
@@ -31,6 +33,7 @@ class PaymentRentManager(Container):
         
         
     def setPaymentRentData(self, paymentRent):
+        global svars
         paymentRentDetails = PaymentRentDetails()
         paymentRentDetails.setPaymentRent(paymentRent)
         paymentRent.setPaymentRentDetails(paymentRentDetails)
@@ -50,10 +53,12 @@ class PaymentRentManager(Container):
         entityManager.flush()
 
     def getPossession(self):
+        global svars
         possessionId = int(svars.get('possessionId'))
         return entityManager.createQuery('Select p From Possession p Where p.id = %d' % possessionId).getSingleResult()
     
     def getAccount(self):
+        global svars
         accountId = int(svars.get('accountId'))
         return entityManager.createQuery('Select a From Account a Where a.id = %d' % accountId).getSingleResult()
     
