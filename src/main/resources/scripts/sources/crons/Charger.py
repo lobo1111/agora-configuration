@@ -48,6 +48,7 @@ class ChargeManager(Container):
         self._logger.info('Processing charge requests...')
         self._queue = ChargingQueueManager()
         self._queue.setEntityManager(self._entityManager)
+        self._queue.setSvars(self._svars)
         self._currentMonth = self.getCurrentMonth()
         self._logger.info('Charging month: %s' % str(self._currentMonth))
         self._bookingPeriod = self.getBookingPeriod()

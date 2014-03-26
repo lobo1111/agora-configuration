@@ -8,6 +8,7 @@ class CronAutoPaymentRent(Container):
     
     def __init__(self):
         self._dictManager = DictionaryManager()
+        self._dictManager.setSvars(self._svars)
         self._dictManager.setEntityManager(self._entityManager)
     
     def processDocuments(self):
@@ -66,6 +67,7 @@ class CronAutoPaymentRent(Container):
     def findAccountByNumber(self, number):
         account = AccountManager()
         account.setEntityManager(self._entityManager)
+        account.setSvars(self._svars)
         return account.findAccountByNumber(number)
     
     def getCurrentMonth(self):

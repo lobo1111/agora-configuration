@@ -50,6 +50,7 @@ class PaymentBooker(Container):
         self._svars.put('comment', 'Wystawiono automatycznie')
         manager = InternalPaymentManager()
         manager.setEntityManager(self._entityManager)
+        manager.setSvars(self._svars)
         payment = manager.create()
         self._entityManager.flush()
         self._svars.put('paymentId', str(payment.getId()))

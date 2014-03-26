@@ -46,6 +46,7 @@ class AccountManager(Container):
     def getType(self):
         manager = DictionaryManager()
         manager.setEntityManager(self._entityManager)
+        manager.setSvars(self._svars)
         return manager.getDictionaryInstance(self._svars.get('accountTypeId'))
     
     def getParent(self):
@@ -53,8 +54,10 @@ class AccountManager(Container):
         return self.findAccountById(self._svars.get('parentAccountId'))
     
     def getBank(self):
-        
-        return BankManager().findBankById(self._svars.get('bankId'))
+        manager = BankManager()
+        manager.setEntityManager(self._entityManager)
+        manager.setSvars(self._svars)
+        return manager.findBankById(self._svars.get('bankId'))
         
     def saveAccount(self, account):
         self._logger.info(account.longDescription())
@@ -62,7 +65,6 @@ class AccountManager(Container):
         self._entityManager.flush()
 
     def findAccount(self):
-        
         id = self._svars.get('id')
         return self.findAccountById(id)
 

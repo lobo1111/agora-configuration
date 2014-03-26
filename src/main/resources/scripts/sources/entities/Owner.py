@@ -34,6 +34,7 @@ class OwnerManager(Container):
 
     def createPossession(self, subject):
         possessionManager = PossessionManager()
+        possessionManager.setSvars(self._svars)
         possessionManager.setEntityManager(self._entityManager)
         possessionManager.setPrefix('newPossession_')
         possession = possessionManager.create()
@@ -49,13 +50,17 @@ class OwnerManager(Container):
         possessions = []
         for i in range(int(self._svars.get('possessionsCount'))):
             possessionId = self._svars.get('possession' + str(i))
-            possessions.append(PossessionManager().findPossessionById(possessionId))
+            possessionManager = PossessionManager()
+            possessionManager.setSvars(self._svars)
+            possessionManager.setEntityManager(self._entityManager)
+            possessions.append(possessionManager.findPossessionById(possessionId))
         return possessions
         
     def getSubject(self):
         
         if self._svars.get('personSubject') == 'true':
             manager = PersonManager()
+            manager.setSvars(self._svars)
             manager.setEntityManager(self._entityManager)
             if self._svars.get('newSubject') == 'true':
                 return manager.create()
@@ -63,6 +68,7 @@ class OwnerManager(Container):
                 return manager.findPersonById(self._svars.get('personId'))
         else:
             manager = CompanyManager()
+            manager.setSvars(self._svars)
             manager.setEntityManager(self._entityManager)
             if self._svars.get('newSubject') == 'true':
                 return manager.create()
@@ -81,6 +87,7 @@ class OwnerManager(Container):
         
         if self._svars.get('additionalAddress') == 'true':
             addressManager = AddressManager()
+            addressManager.setSvars(self._svars)
             addressManager.setEntityManager(self._entityManager)
             addressManager.setPrefix('additionalAddress_')
             return addressManager.getAddress(Owner())
@@ -95,7 +102,10 @@ class OwnerManager(Container):
             owner.setAddress(None)
             
     def getAddress(self, owner):
-        return AddressManager().getAddress(owner)
+        addressManager = AddressManager()
+        addressManager.setSvars(self._svars)
+        addressManager.setEntityManager(self._entityManager)
+        return addressManager.getAddress(owner)
         
     def saveOwner(self, owner):
         self._logger.info(owner.longDescription())

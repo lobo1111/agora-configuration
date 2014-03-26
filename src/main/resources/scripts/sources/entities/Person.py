@@ -30,6 +30,7 @@ class PersonManager(Container):
     def getAddress(self, person):
         addressManager = AddressManager()
         addressManager.setEntityManager(self._entityManager)
+        addressManager.setSvars(self._svars)
         return addressManager.getAddress(person)
         
     def savePerson(self, person):
