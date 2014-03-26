@@ -6,6 +6,7 @@ from base.Container import Container
 from entities.Address import AddressManager
 from entities.Community import CommunityManager
 from entities.Element import ElementManager
+from entities.Zpk import ZpkManager
 
 class PossessionManager(Container):
     _prefix = ''
@@ -44,6 +45,8 @@ class PossessionManager(Container):
         
     def generateZpkNumber(self, possession):
         manager = ZpkManager()
+        manager.setEntityManager(self._entityManager)
+        manager.setSvars(self._svars)
         zpkRent = manager.generateZpkForCommunity(possession.getCommunity(), "POSSESSION")
         zpkRent.setPossession(possession)
         possession.getZpks().add(zpkRent)
