@@ -14,7 +14,7 @@ class TemplateParser(Container):
     def find(self, name):
         try:
             query = 'SELECT t FROM Template t WHERE t.name = :name'
-            query = entityManager.createQuery(query)
+            query = self._entityManager.createQuery(query)
             query.setParameter('name', name)
             return query.getSingleResult()
         except:
@@ -37,10 +37,10 @@ class TemplateParser(Container):
         self._logger.info('Executing query [%s]' % data)
         query = None
         if self._native:
-            query = entityManager.createNativeQuery(data)
+            query = self._entityManager.createNativeQuery(data)
             self._native = False
         else:
-            query = entityManager.createQuery(data)
+            query = self._entityManager.createQuery(data)
         if self._insertLimit:
             query = self.insertLimit(query)
             self._insertLimit = False

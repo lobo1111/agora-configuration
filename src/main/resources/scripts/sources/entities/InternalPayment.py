@@ -19,7 +19,7 @@ class InternalPaymentManager(Container):
         payment.setAmount(float(self._svars.get('amount')))
         self._logger.info("Amount - %s" % (payment.getAmount()))
         payment.setComment(self._svars.get('comment'))
-        entityManager.persist(payment)
+        self._entityManager.persist(payment)
         self._logger.info("Payment created")
         return payment
     
@@ -31,7 +31,7 @@ class InternalPaymentManager(Container):
             self.increaseCredit(self.getCurrentBalance(payment.getCreditZpk()), payment.getAmount())
             payment.setBookedDate(Date())
             payment.setBooked(True)
-            entityManager.persist(payment)
+            self._entityManager.persist(payment)
     
     def canCancel(self):
         
@@ -42,16 +42,16 @@ class InternalPaymentManager(Container):
         
         if self.canCancel():
             payment = self.findPaymentById(self._svars.get('paymentId'))
-            entityManager.remove(payment)
+            self._entityManager.remove(payment)
     
     def findDefaultBookingPeriod(self):
-        return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
+        return self._entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
     
     def findZpkById(self, id):
-        return entityManager.createQuery('Select zpk From ZakladowyPlanKont zpk Where zpk.id = %s' % id).getSingleResult()
+        return self._entityManager.createQuery('Select zpk From ZakladowyPlanKont zpk Where zpk.id = %s' % id).getSingleResult()
     
     def findPaymentById(self, id):
-        return entityManager.createQuery('Select payment From InternalPayment payment Where payment.id = %s' % id).getSingleResult()
+        return self._entityManager.createQuery('Select payment From InternalPayment payment Where payment.id = %s' % id).getSingleResult()
     
     def increaseDebit(self, balance, amount):
         balance.setDebit(balance.getDebit() + amount)

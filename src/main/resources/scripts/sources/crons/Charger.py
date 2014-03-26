@@ -59,7 +59,7 @@ class ChargeManager(Container):
             
     def alreadyCharged(self, possession):
         try:
-            entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId()) + " and c.month = %s)" % self._currentMonth).getSingleResult()
+            self._entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId()) + " and c.month = %s)" % self._currentMonth).getSingleResult()
             return True
         except:
             return False
@@ -82,7 +82,7 @@ class ChargeManager(Container):
             for possessionElement in possession.getElements():
                 charging.getChargingElements().add(self.calculate(charging, possession, possessionElement))
             if charging.getChargingElements().size() > 0:
-                entityManager.persist(charging)
+                self._entityManager.persist(charging)
         else:
             self._logger.info('Looks like possession %s is already charged, omitting...' % str(possession.getId()))
     
@@ -96,7 +96,7 @@ class ChargeManager(Container):
             self.chargePossession(possession, False)
             
     def getBookingPeriod(self):
-        return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
+        return self._entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
     
     def calculate(self, charging, possession, possessionElement):
         element = possessionElement.getElement()
@@ -119,7 +119,7 @@ class ChargeManager(Container):
             return possessionElement.getElement().getGlobalValue()
             
     def findAllUncharged(self):
-        return entityManager.createQuery("Select p From Possession p Where p.id not in(Select ped.id From Charging c Join c.possession ped Where c.month = %s)" % self._currentMonth).getResultList()
+        return self._entityManager.createQuery("Select p From Possession p Where p.id not in(Select ped.id From Charging c Join c.possession ped Where c.month = %s)" % self._currentMonth).getResultList()
             
     def getCurrentMonth(self):
-        return entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
+        return self._entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()

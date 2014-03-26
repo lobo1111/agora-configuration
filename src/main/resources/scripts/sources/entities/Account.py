@@ -34,14 +34,14 @@ class AccountManager(Container):
             account.getZpks().add(zpk)
             if account.getCommunity().getDefaultAccount() == None:
                 account.getCommunity().setDefaultAccount(account)
-                entityManager.persist(account.getCommunity())
+                self._entityManager.persist(account.getCommunity())
         if account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
             zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
             zpk.setAccount(account)
             account.getZpks().add(zpk)
             if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
                 account.getCommunity().setRepairFundAccount(account)
-                entityManager.persist(account.getCommunity())
+                self._entityManager.persist(account.getCommunity())
         
     def getType(self):
         
@@ -57,8 +57,8 @@ class AccountManager(Container):
         
     def saveAccount(self, account):
         self._logger.info(account.longDescription())
-        entityManager.persist(account)
-        entityManager.flush()
+        self._entityManager.persist(account)
+        self._entityManager.flush()
 
     def findAccount(self):
         
@@ -66,14 +66,14 @@ class AccountManager(Container):
         return self.findAccountById(id)
 
     def findAccountById(self, id):
-        return entityManager.createQuery('Select account From Account account Where account.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select account From Account account Where account.id = ' + str(id)).getSingleResult()
 
     def findCommunityById(self, id):
         try:
-            return entityManager.createQuery('Select c From Community c Where c.id = ' + str(id)).getSingleResult()
+            return self._entityManager.createQuery('Select c From Community c Where c.id = ' + str(id)).getSingleResult()
         except:
             return None
 
     def findAccountByNumber(self, number):
         sql = "Select account From Account account Where account.number = '%s'" % str(number)
-        return entityManager.createQuery(sql).getSingleResult()
+        return self._entityManager.createQuery(sql).getSingleResult()

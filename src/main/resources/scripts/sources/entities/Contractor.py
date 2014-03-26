@@ -14,22 +14,22 @@ class ContractorManager(Container):
         obligation = Contractor()
         self.setData(obligation)
         self.generateZpkNumber(obligation)
-        entityManager.persist(obligation)
-        entityManager.flush()
+        self._entityManager.persist(obligation)
+        self._entityManager.flush()
         return obligation
         
     def update(self):
         
         obligation = self.findContractorById(self._svars.get(self._prefix + 'id'))
         self.setData(obligation)
-        entityManager.persist(obligation)
+        self._entityManager.persist(obligation)
         return obligation
 
     def remove(self):
         
         obligation = self.findContractorById(self._svars.get(self._prefix + 'id'))
-        entityManager.remove(obligation.getZpk())
-        entityManager.remove(obligation)
+        self._entityManager.remove(obligation.getZpk())
+        self._entityManager.remove(obligation)
         
     def setData(self, obligation):
         
@@ -56,7 +56,7 @@ class ContractorManager(Container):
             return companyManager.create()
         
     def findContractorById(self, id):
-        return entityManager.createQuery('Select o From Contractor o Where o.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select o From Contractor o Where o.id = ' + str(id)).getSingleResult()
     
     def findCommunity(self, id):
         return CommunityManager().findCommunityById(id)

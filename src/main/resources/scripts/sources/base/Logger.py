@@ -5,6 +5,9 @@ class Logger:
     
     def setSvars(self, svars):
         self._svars = svars
+        
+    def setEntityManager(self, entityManager):
+        self._entityManager = entityManager
 
     def appendLog(self, level, message):
         log = Log()
@@ -16,7 +19,7 @@ class Logger:
         log.setLevel(level)
         log.setMessage(unicode(message, errors = 'replace')[0:1023])
         if level in ['WARNING', 'ERROR']:
-            entityManager.persist(log)
+            self._entityManager.persist(log)
 
     def info(self, message):
         self.appendLog('INFO', message)

@@ -28,7 +28,7 @@ class XMLLoader(Container):
 
   def saveDocument(self, document):
     self._logger.info('Saving entity...')
-    entityManager.persist(document)
+    self._entityManager.persist(document)
 
   def setHeader(self, xml, document):
     self._logger.info('Setting header...')

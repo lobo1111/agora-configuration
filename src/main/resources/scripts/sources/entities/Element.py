@@ -34,7 +34,7 @@ class ElementManager(Container):
     def remove(self):
         
         element = self.findElementById(self._svars.get('id'))
-        entityManager.remove(element)
+        self._entityManager.remove(element)
         
     def removeSubElement(self):
         
@@ -43,17 +43,17 @@ class ElementManager(Container):
             self._logger.info('Removing community element - %d' % element.getId())
             for possessionElement in element.getPossessionsElements():
                 if not possessionElement.isOverrideParentValue():
-                    entityManager.remove(possessionElement)
+                    self._entityManager.remove(possessionElement)
                     self._logger.info('Removing possession element - %d' % possessionElement.getId())
                 else:
                     possessionElement.setElementCommunity(None)
                     self.saveElement(possessionElement)
                     self._logger.info('Possession element not removued due to override flag set - %d' % possessionElement.getId())
-            entityManager.remove(element)
+            self._entityManager.remove(element)
         elif self._svars.get('subType') == "POSSESSION":
             element = self.findSubElementPossession(self._svars.get('subId'))
             self._logger.info('Removing possession element - %d' % element.getId())
-            entityManager.remove(element)
+            self._entityManager.remove(element)
         
     def CreateOrUpdateCommunityElement(self, community):
         
@@ -79,7 +79,7 @@ class ElementManager(Container):
             self.setElementForPossessions(community, communityElement)
             self._svars.put('override', tmpOverride)
             self._svars.put('overrideValue', tmpOverrideValue)
-        entityManager.persist(community)
+        self._entityManager.persist(community)
         self.saveElement(communityElement)
         
     def setElementForPossessions(self, community, communityElement):
@@ -115,7 +115,7 @@ class ElementManager(Container):
             else:
                 possessionElement.setOverrideParentValue(False)
             possessionElement.setGlobalValue(float(self._svars.get('overrideValue')))
-        entityManager.persist(possession)
+        self._entityManager.persist(possession)
         self.saveElement(possessionElement)
             
     def setElementData(self, element):
@@ -131,33 +131,33 @@ class ElementManager(Container):
         element.setAlgorithm(self._svars.get(self._prefix + 'algorithm'))
         
     def saveElement(self, element):
-        entityManager.persist(element)
-        entityManager.flush()
+        self._entityManager.persist(element)
+        self._entityManager.flush()
         
     def findElementById(self, id):
-        return entityManager.createQuery('Select element From Element element Where element.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select element From Element element Where element.id = ' + str(id)).getSingleResult()
         
     def findSubElementCommunity(self, id):
-        return entityManager.createQuery('Select element From ElementCommunity element Where element.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select element From ElementCommunity element Where element.id = ' + str(id)).getSingleResult()
         
     def findSubElementPossession(self, id):
-        return entityManager.createQuery('Select element From ElementPossession element Where element.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select element From ElementPossession element Where element.id = ' + str(id)).getSingleResult()
     
     def findCommunityElement(self, elementId, communityId):
         try:
-            return entityManager.createQuery('Select element From ElementCommunity element join element.element parent join element.community community Where parent.id = %s and community.id = %s' % (str(elementId), str(communityId))).getSingleResult()
+            return self._entityManager.createQuery('Select element From ElementCommunity element join element.element parent join element.community community Where parent.id = %s and community.id = %s' % (str(elementId), str(communityId))).getSingleResult()
         except:
             self._logger.info('Community(%s) element(%s) not found' % (communityId, elementId))
             return None
     
     def findPossessionElement(self, elementId, possessionId):
         try:
-            return entityManager.createQuery('Select element From ElementPossession element join element.element parent join element.possession possession Where parent.id = %s and possession.id = %s' % (str(elementId), str(possessionId))).getSingleResult()
+            return self._entityManager.createQuery('Select element From ElementPossession element join element.element parent join element.possession possession Where parent.id = %s and possession.id = %s' % (str(elementId), str(possessionId))).getSingleResult()
         except:
             return None
     
     def findGroupById(self, id):
-        return entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select dict From Dictionary dict Where dict.id = ' + str(id)).getSingleResult()
     
     def findDefaultElements(self):
-        return entityManager.createQuery('Select element From Element element where element.defaultElement = 1').getResultList()
+        return self._entityManager.createQuery('Select element From Element element where element.defaultElement = 1').getResultList()

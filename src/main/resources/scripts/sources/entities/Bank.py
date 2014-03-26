@@ -26,8 +26,8 @@ class BankManager(Container):
         
     def saveBank(self, bank):
         self._logger.info(bank.longDescription())
-        entityManager.persist(bank)
-        entityManager.flush()
+        self._entityManager.persist(bank)
+        self._entityManager.flush()
 
     def findBank(self):
         
@@ -35,7 +35,7 @@ class BankManager(Container):
         return self.findBankById(id)
 
     def findBankById(self, id):
-        return entityManager.createQuery('Select bank From Bank bank Where bank.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select bank From Bank bank Where bank.id = ' + str(id)).getSingleResult()
     
     def findBankByKey(self, key):
-        return entityManager.createQuery('Select bank From Bank bank Where bank.key = ' + str(key)).getSingleResult()
+        return self._entityManager.createQuery('Select bank From Bank bank Where bank.key = ' + str(key)).getSingleResult()

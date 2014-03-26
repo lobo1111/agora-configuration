@@ -14,7 +14,7 @@ class ZpkDictionaryManager(Container):
         self.save(entity)
     
     def save(self, entity):
-        entityManager.persist(entity)
+        self._entityManager.persist(entity)
     
     def setData(self, entity):
         
@@ -23,7 +23,7 @@ class ZpkDictionaryManager(Container):
         entity.setValue(self._svars.get('dictValue'))
     
     def findById(self, id):
-        return entityManager.createQuery("Select e From Dictionary e Where e.id = %s" % id).getSingleResult()
+        return self._entityManager.createQuery("Select e From Dictionary e Where e.id = %s" % id).getSingleResult()
     
     def findZpkDictType(self):
-        return entityManager.createQuery("Select e From DictionaryType e Where e.type = 'ZPKS'").getSingleResult()
+        return self._entityManager.createQuery("Select e From DictionaryType e Where e.type = 'ZPKS'").getSingleResult()

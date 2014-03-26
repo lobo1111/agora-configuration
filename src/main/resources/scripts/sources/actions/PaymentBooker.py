@@ -9,7 +9,7 @@ class PaymentBooker(Container):
         self._logger.info("All payments booked")
         
     def collectPayments(self):
-        return entityManager.createQuery('Select c From PaymentRent c Join c.bookingPeriod p Where c.month In (SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT") and p.defaultPeriod = True').getResultList()
+        return self._entityManager.createQuery('Select c From PaymentRent c Join c.bookingPeriod p Where c.month In (SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT") and p.defaultPeriod = True').getResultList()
     
     def bookPayment(self, payment):
         self._logger.info("Booking payment %d" % payment.getId())
@@ -50,7 +50,7 @@ class PaymentBooker(Container):
         self._svars.put('comment', 'Wystawiono automatycznie')
         manager = InternalPaymentManager()
         payment = manager.create()
-        entityManager.flush()
+        self._entityManager.flush()
         self._svars.put('paymentId', str(payment.getId()))
         manager.book()
         
@@ -109,7 +109,7 @@ class PaymentBooker(Container):
         return self.findDictionary(str(self.findZpkSettingId(typeKey)))
     
     def findDictionary(self, id):
-        return entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % str(id)).getSingleResult()
+        return self._entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % str(id)).getSingleResult()
     
     def findZpkSettingId(self, typeKey):
-        return entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = '%s'" % typeKey).getSingleResult()
+        return self._entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = '%s'" % typeKey).getSingleResult()

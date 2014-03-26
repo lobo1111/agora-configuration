@@ -6,4 +6,10 @@ class Container:
     def setSvars(self, svars):
         self._svars = svars
         self._logger.setSvars(svars)
-        self._logger.info(self._svars)
+        
+    def setEntityManager(self, entityManager):
+        self._entityManager = entityManager
+        self._logger.setEntityManager(entityManager)
+        
+    def setProperties(self, properties):
+        self._properties = properties

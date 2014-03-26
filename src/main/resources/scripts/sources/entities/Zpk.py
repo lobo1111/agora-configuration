@@ -57,18 +57,18 @@ class ZpkManager(Container):
     
     def save(self, zpk):
         self._logger.info(zpk.longDescription())
-        entityManager.persist(zpk)
+        self._entityManager.persist(zpk)
 
     def findPool(self, poolId):
         sql = "SELECT d FROM Dictionary d WHERE d.id = %s" % str(poolId)
-        return entityManager.createQuery(sql).getSingleResult()
+        return self._entityManager.createQuery(sql).getSingleResult()
     
     def findPoolId(self, poolName):
-        return entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = '%s'" % poolName).getSingleResult()
+        return self._entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = '%s'" % poolName).getSingleResult()
     
     def findCommunityById(self, communityId):
         sql = "SELECT c FROM Community c WHERE c.id = %s" % str(communityId)
-        return entityManager.createQuery(sql).getSingleResult()
+        return self._entityManager.createQuery(sql).getSingleResult()
 
     def generateNumber(self, dict, community):
         zpks = []

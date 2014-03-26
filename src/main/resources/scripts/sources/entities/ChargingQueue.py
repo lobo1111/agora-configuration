@@ -15,14 +15,14 @@ class ChargingQueueManager(Container):
         if not possessionId is None and possessionId != '0':
             cq.setPossession(self.findPossessionById(possessionId))
         cq.setType(type)
-        entityManager.persist(cq)
+        self._entityManager.persist(cq)
     
     def popFromQueue(self):
         if self.itemsInQueue():
             item = self.getFirst()
             self._logger.info('item poped - %s' % str(item.getId()))
-            entityManager.remove(item)
-            entityManager.flush()
+            self._entityManager.remove(item)
+            self._entityManager.flush()
             return item
         else:
             self._logger.info('Charge queue is empty')
@@ -38,16 +38,16 @@ class ChargingQueueManager(Container):
         return None
     
     def itemsInQueue(self):
-        queueSize = entityManager.createQuery('Select count(cq.id) From ChargingQueue cq').getSingleResult()
+        queueSize = self._entityManager.createQuery('Select count(cq.id) From ChargingQueue cq').getSingleResult()
         self._logger.info('charge queue size - %s' % str(queueSize))
         return queueSize
     
     def getFirst(self):
-        return entityManager.createQuery('Select cq From ChargingQueue cq Order By cq.id ASC').getResultList()[0]
+        return self._entityManager.createQuery('Select cq From ChargingQueue cq Order By cq.id ASC').getResultList()[0]
         
     def findCommunityById(self, id):
-        return entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
     
     def findPossessionById(self, id):
-        return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + str(id)).getSingleResult()
     

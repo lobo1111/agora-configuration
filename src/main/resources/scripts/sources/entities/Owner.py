@@ -30,7 +30,7 @@ class OwnerManager(Container):
     def delete(self):
         
         owner = self.findOwnerById(self._svars.get('id'))
-        entityManager.remove(owner)
+        self._entityManager.remove(owner)
 
     def createPossession(self, subject):
         possessionManager = PossessionManager()
@@ -93,8 +93,8 @@ class OwnerManager(Container):
         
     def saveOwner(self, owner):
         self._logger.info(owner.longDescription())
-        entityManager.persist(owner)
-        entityManager.flush()
+        self._entityManager.persist(owner)
+        self._entityManager.flush()
         
     def findOwnerById(self, id):
-        return entityManager.createQuery('Select owner From Owner owner Where owner.id = ' + id).getSingleResult()
+        return self._entityManager.createQuery('Select owner From Owner owner Where owner.id = ' + id).getSingleResult()

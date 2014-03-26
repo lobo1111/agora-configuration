@@ -19,7 +19,7 @@ class CronAutoPaymentRent(Container):
         
     def getDocuments(self):
         sql = "Select doc From IncomingPaymentDocumentPosition doc Join doc.status st Where st.key in('NEW', 'UNKNOWN')"
-        return entityManager.createQuery(sql).getResultList()
+        return self._entityManager.createQuery(sql).getResultList()
     
     def handleDocument(self, document):
         possession = self.matchAutoPayment(document)
@@ -28,12 +28,12 @@ class CronAutoPaymentRent(Container):
         else:  
             self.createPaymentRentFromDocument(document, possession)
             self.setAsProcessed(document)
-        entityManager.persist(document)
+        self._entityManager.persist(document)
         
     def matchAutoPayment(self, document):
         try:
             sql = "Select p From Possession p Join p.account account Where account.number = '%s'" % str(document.getClientNumber())
-            return entityManager.createQuery(sql).getSingleResult()
+            return self._entityManager.createQuery(sql).getSingleResult()
         except:
             return None;
         
@@ -60,14 +60,14 @@ class CronAutoPaymentRent(Container):
         paymentRentDetails.setRequestDate(document.getRequestDate())
         paymentRentDetails.setValue(document.getIncome().floatValue())
         paymentRentDetails.setAuto(True)
-        entityManager.persist(paymentRent)
+        self._entityManager.persist(paymentRent)
     
     def findAccountByNumber(self, number):
         return AccountManager().findAccountByNumber(number)
     
     def getCurrentMonth(self):
-        return entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
+        return self._entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
     
     def getBookingPeriod(self):
-        return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
+        return self._entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
     

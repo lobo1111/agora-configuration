@@ -16,7 +16,7 @@ class ZpksSettings:
         id = self._svars.get(idVariableName)
         dict = self.findOrCreateDict(dictName)
         dict.setValue(id)
-        entityManager.persist(dict)
+        self._entityManager.persist(dict)
         
     def findOrCreateDict(self, name):
         try:
@@ -28,7 +28,7 @@ class ZpksSettings:
             return dict
     
     def findDict(self, dict):
-        return entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = '%s'" % dict).getSingleResult()
+        return self._entityManager.createQuery("SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = 'ZPKS_SETTINGS' AND dict.key = '%s'" % dict).getSingleResult()
     
     def findSettingsType(self):
-        return entityManager.createQuery("SELECT dtype FROM DictionaryType dtype WHERE dtype.type = 'ZPKS_SETTINGS'").getSingleResult()
+        return self._entityManager.createQuery("SELECT dtype FROM DictionaryType dtype WHERE dtype.type = 'ZPKS_SETTINGS'").getSingleResult()

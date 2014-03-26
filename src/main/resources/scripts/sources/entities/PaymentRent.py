@@ -15,9 +15,9 @@ class PaymentRentManager(Container):
         currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
         if paymentRent.getMonth() == currentMonth and paymentRent.getBookingPeriod().getId() == currentBookingPeriod.getId():
-            entityManager.remove(paymentRent.getPaymentRentDetails())
-            entityManager.remove(paymentRent)
-            entityManager.flush()
+            self._entityManager.remove(paymentRent.getPaymentRentDetails())
+            self._entityManager.remove(paymentRent)
+            self._entityManager.flush()
             
     def removeCharging(self):
         
@@ -26,10 +26,10 @@ class PaymentRentManager(Container):
         currentBookingPeriod = self.getBookingPeriod()
         if charging.getMonth() == currentMonth and charging.getBookingPeriod().getId() == currentBookingPeriod.getId():
             for element in charging.getChargingElements():
-                entityManager.remove(element)
+                self._entityManager.remove(element)
             charging.getChargingElements().clear()
-            entityManager.remove(charging)
-            entityManager.flush()
+            self._entityManager.remove(charging)
+            self._entityManager.flush()
         
         
     def setPaymentRentData(self, paymentRent):
@@ -49,24 +49,24 @@ class PaymentRentManager(Container):
         paymentRentDetails.setAuto(False)
     
     def savePaymentRent(self, paymentRent):
-        entityManager.persist(paymentRent)
-        entityManager.flush()
+        self._entityManager.persist(paymentRent)
+        self._entityManager.flush()
 
     def getPossession(self):
         
         possessionId = int(self._svars.get('possessionId'))
-        return entityManager.createQuery('Select p From Possession p Where p.id = %d' % possessionId).getSingleResult()
+        return self._entityManager.createQuery('Select p From Possession p Where p.id = %d' % possessionId).getSingleResult()
     
     def getAccount(self):
         
         accountId = int(self._svars.get('accountId'))
-        return entityManager.createQuery('Select a From Account a Where a.id = %d' % accountId).getSingleResult()
+        return self._entityManager.createQuery('Select a From Account a Where a.id = %d' % accountId).getSingleResult()
     
     def getCurrentMonth(self):
-        return entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
+        return self._entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
     
     def getBookingPeriod(self):
-        return entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
+        return self._entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
     
     def parseDate(self, dateAsString):
         try:
@@ -75,7 +75,7 @@ class PaymentRentManager(Container):
             return None
         
     def findPaymentRentById(self, id):
-        return entityManager.createQuery('Select p From PaymentRent p Where p.id = %d' % int(id)).getSingleResult()
+        return self._entityManager.createQuery('Select p From PaymentRent p Where p.id = %d' % int(id)).getSingleResult()
     
     def findChargingById(self, id):
-        return entityManager.createQuery('Select p From Charging p Where p.id = %d' % int(id)).getSingleResult()
+        return self._entityManager.createQuery('Select p From Charging p Where p.id = %d' % int(id)).getSingleResult()

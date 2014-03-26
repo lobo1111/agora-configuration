@@ -34,13 +34,13 @@ class PossessionManager(Container):
     def remove(self):
         
         possession = self.findPossessionById(self._svars.get('id'))
-        entityManager.remove(possession.getAddress())
+        self._entityManager.remove(possession.getAddress())
         for owner in possession.getOwners():
-            entityManager.remove(owner)
+            self._entityManager.remove(owner)
         for possessionElement in possession.getElements():
-            entityManager.remove(possessionElement)
-        entityManager.remove(possession.getAdditionalData())
-        entityManager.remove(possession)
+            self._entityManager.remove(possessionElement)
+        self._entityManager.remove(possession.getAdditionalData())
+        self._entityManager.remove(possession)
         
     def generateZpkNumber(self, possession):
         manager = ZpkManager()
@@ -72,7 +72,7 @@ class PossessionManager(Container):
         if possession.getId() == None or possession.getId() == 0:
             self._logger.info('New possession added to community')
             community.getPossessions().add(possession)
-            entityManager.persist(community)
+            self._entityManager.persist(community)
         
     def setPossessionAdditionalData(self, possession):
         
@@ -96,12 +96,12 @@ class PossessionManager(Container):
         
     def savePossession(self, possession):
         self._logger.info(possession.longDescription())
-        entityManager.persist(possession)
+        self._entityManager.persist(possession)
         CommunityManager().recalculateShares(possession.getCommunity().getId())
             
         
     def findAccountById(self, id):
-        return entityManager.createQuery('Select a From Account a Where a.id = ' + id).getSingleResult()
+        return self._entityManager.createQuery('Select a From Account a Where a.id = ' + id).getSingleResult()
         
     def findPossessionById(self, id):
-        return entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()
+        return self._entityManager.createQuery('Select possession From Possession possession Where possession.id = ' + id).getSingleResult()

@@ -63,8 +63,8 @@ class CommunityManager(Container):
         
     def saveCommunity(self, community):
         self._logger.info(community.longDescription())
-        entityManager.persist(community)
-        entityManager.flush()
+        self._entityManager.persist(community)
+        self._entityManager.flush()
         
     def setContractorData(self, community):
         
@@ -83,16 +83,16 @@ class CommunityManager(Container):
         return self.findCommunityById(id)
 
     def findDefaultCompanies(self):
-        return entityManager.createQuery('Select company From Company company Where company.defaultContractor = 1').getResultList()
+        return self._entityManager.createQuery('Select company From Company company Where company.defaultContractor = 1').getResultList()
 
     def findCommunityById(self, id):
         try:
-            return entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
+            return self._entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
         except:
             self._logger.error('Can\'t load community. Tried to load by id stored as ' + str(id))
 
     def findAccountById(self, id):
-        return entityManager.createQuery('Select a From Account a Where a.id = ' + str(id)).getSingleResult()
+        return self._entityManager.createQuery('Select a From Account a Where a.id = ' + str(id)).getSingleResult()
 
     def recalculateShares(self, communityId):
         community = self.findCommunityById(communityId)
@@ -103,7 +103,7 @@ class CommunityManager(Container):
             area += possession.getArea().floatValue()
         self._logger.info('Area recalculated(%s) on community %s' % (str(area), community.getName()))
         community.setArea(BigDecimal(area))
-        entityManager.persist(community)
+        self._entityManager.persist(community)
         area = BigDecimal(area)
         for possession in community.getPossessions():
             if possession.getArea().floatValue() > 0:
@@ -112,4 +112,4 @@ class CommunityManager(Container):
             else:
                 possession.setShare(BigDecimal(0))
             self._logger.info('Share recalculated(%s) on possession %s' % (str(possession.getShare().floatValue()), str(possession.getId())))
-            entityManager.persist(possession)
+            self._entityManager.persist(possession)
