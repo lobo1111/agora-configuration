@@ -5,18 +5,14 @@ import xml.sax
 from base.Container import Container
 
 class FileWatchdog(Container):
-  _newXMLs = self._properties.getProperty("xmlNewXMLs")
-  _processedXMLs = self._properties.getProperty("xmlProcessedXMLs")
-  _nonXMLDir = self._properties.getProperty("xmlNonXML")
-  _errorXMLs = self._properties.getProperty("xmlErrorXMLs")
   
   def moveFile(self, source, destination):
     self._logger.info('moving ' + source + ' to ' + destination)
     shutil.move(source, destination)
 
   def getFiles(self):
-    self._logger.info('processing files in ' + self._newXMLs)
-    return os.listdir(self._newXMLs)
+    self._logger.info('processing files in ' + self._properties.getProperty("xmlNewXMLs"))
+    return os.listdir(self._properties.getProperty("xmlNewXMLs"))
 
   def isXML(self, file):
     try:
@@ -42,14 +38,14 @@ class FileWatchdog(Container):
     self._logger.info('found[%d][%s]' % (len(files), ','.join(files)))
     for file in files:
       self._logger.info('processing ' + file)
-      fullPath = self._newXMLs + os.sep + file
+      fullPath = self._properties.getProperty("xmlNewXMLs") + os.sep + file
       if self.isXML(fullPath):
         if self.processXML(self.readFile(fullPath)):
           self._logger.info('file ' + file + ' processed')
-          self.moveFile(fullPath, self._processedXMLs + os.sep + file)
+          self.moveFile(fullPath, self._properties.getProperty("xmlProcessedXMLs") + os.sep + file)
         else:
           self._logger.warn('There is something wrong with ' + file)
-          self.moveFile(fullPath, self._errorXMLs + os.sep + file)
+          self.moveFile(fullPath, self._properties.getProperty("xmlErrorXMLs") + os.sep + file)
       else:
-        self.moveFile(fullPath, self._nonXMLDir + os.sep + file)
+        self.moveFile(fullPath, self._properties.getProperty("xmlNonXML") + os.sep + file)
     self._logger.info('all files processed')
