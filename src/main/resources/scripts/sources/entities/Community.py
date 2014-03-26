@@ -5,6 +5,7 @@ from base.Container import Container
 from entities.Company import CompanyManager
 from entities.Zpk import ZpkManager
 from entities.Element import ElementManager
+from entities.Contractor import ContractorManager
 
 class CommunityManager(Container):
     _prefix = ''
@@ -82,6 +83,8 @@ class CommunityManager(Container):
         for company in self.findDefaultCompanies():
             self._svars.put('obligationCompanyId', str(company.getId()))
             obligationManager = ContractorManager()
+            obligationManager.setEntityManager(self._entityManager)
+            obligationManager.setSvars(self._svars)
             obligation = obligationManager.create()
             community.getZpks().addAll(obligation.getZpks())
         self.saveCommunity(community)
