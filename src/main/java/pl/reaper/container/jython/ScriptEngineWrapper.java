@@ -49,7 +49,7 @@ public class ScriptEngineWrapper {
     }
 
     public Object extractResult(Bindings binding) {
-        Object output = ((Map<String, Object>) binding.get("vars")).get("output");
+        Object output = ((Map<String, Object>) binding.get("svars")).get("output");
         if (output != null) {
             return (String) output;
         } else {
