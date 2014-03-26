@@ -1,6 +1,6 @@
 from base.Logger import Logger
 
-global svars
+print globals()
 
 class Container:
     _logger = Logger()
