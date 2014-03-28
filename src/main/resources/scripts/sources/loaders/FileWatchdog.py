@@ -29,7 +29,11 @@ class FileWatchdog(Container):
 
   def processXML(self, content):
     try:
-      return XMLLoader().process(content)
+        loader = XMLLoader()
+        loader.setEntityManager(self._entityManager)
+        loader.setSvars(self._svars)
+        loader.setProperties(self._properties)
+      return loader.process(content)
     except:
       self._logger.error('Error in processing xml file: ' + content)
       self._logger.error(traceback.format_exc())
