@@ -1,7 +1,6 @@
 from pl.reaper.container.data import PaymentRent
 from pl.reaper.container.data import PaymentRentDetails
 from base.Container import Container
-from entities.Dictionary import DictionaryManager
 from entities.Account import AccountManager
 
 class CronAutoPaymentRent(Container):
@@ -38,18 +37,14 @@ class CronAutoPaymentRent(Container):
             return None;
         
     def setAsUnknown(self, document):
-        self._dictManager = DictionaryManager()
-        self._dictManager.setSvars(self._svars)
-        self._dictManager.setEntityManager(self._entityManager)
-        status = self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'UNKNOWN')
-        document.setStatus(status)
+        sql = 'SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "DOCUMENT_STATUS" AND dict.key = "UNKNOWN"'
+        dict = self._entityManager.createQuery(sql).getSingleResult()
+        document.setStatus(dict)
     
     def setAsProcessed(self, document):
-        self._dictManager = DictionaryManager()
-        self._dictManager.setSvars(self._svars)
-        self._dictManager.setEntityManager(self._entityManager)
-        status = self._dictManager.findDictionaryInstance('DOCUMENT_STATUS', 'PROCESSED')
-        document.setStatus(status)
+        sql = 'SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "DOCUMENT_STATUS" AND dict.key = "PROCESSED"'
+        dict = self._entityManager.createQuery(sql).getSingleResult()
+        document.setStatus(dict)
         
     def createPaymentRentFromDocument(self, document, possession):
         paymentRent = PaymentRent()
