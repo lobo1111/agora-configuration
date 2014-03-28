@@ -37,12 +37,12 @@ class CronAutoPaymentRent(Container):
             return None;
         
     def setAsUnknown(self, document):
-        sql = 'SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "DOCUMENT_STATUS" AND dict.key = "UNKNOWN"'
+        sql = 'SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "DOCUMENT_STATUS" AND dict.key = "UNKNOWN"'
         dict = self._entityManager.createQuery(sql).getSingleResult()
         document.setStatus(dict)
     
     def setAsProcessed(self, document):
-        sql = 'SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "DOCUMENT_STATUS" AND dict.key = "PROCESSED"'
+        sql = 'SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "DOCUMENT_STATUS" AND dict.key = "PROCESSED"'
         dict = self._entityManager.createQuery(sql).getSingleResult()
         document.setStatus(dict)
         
