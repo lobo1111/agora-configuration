@@ -79,7 +79,7 @@ class MailProcessor(Container):
             return True
 
     def saveFile(self, filename, data):
-        uniqueFilename = '[' + str(uuid.uuid4()) + ']' + filename
+        uniqueFilename = '' + str(uuid.uuid4()) + '.' + filename
         dir = self._properties.getProperty('xmlNewXMLs')
         destination = os.path.join(dir, uniqueFilename)
         if not os.path.isfile(destination):
