@@ -33,10 +33,10 @@ class FileWatchdog(Container):
         loader.setEntityManager(self._entityManager)
         loader.setSvars(self._svars)
         loader.setProperties(self._properties)
-      return loader.process(content)
+        return loader.process(content)
     except:
-      self._logger.error('Error in processing xml file: ' + content)
-      self._logger.error(traceback.format_exc())
+        self._logger.error('Error in processing xml file: ' + content)
+        self._logger.error(traceback.format_exc())
 
   def processFiles(self):
     files = self.getFiles()
