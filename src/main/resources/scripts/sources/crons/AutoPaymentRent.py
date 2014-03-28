@@ -12,6 +12,7 @@ class CronAutoPaymentRent(Container):
         self._logger.info('Found %s documents ready for processing' % (str(self._documents.size())))
         for document in self._documents:
             self.handleDocument(document)
+        self._entityManager.flush()
         self._logger.info('Cron auto payment finished.')
         
     def getDocuments(self):
@@ -22,9 +23,11 @@ class CronAutoPaymentRent(Container):
         possession = self.matchAutoPayment(document)
         if possession is None:
             self.setAsUnknown(document)
+            self._logger.info('Document(%s) set as unkonwn' % str(document.getId()))
         else:  
             self.createPaymentRentFromDocument(document, possession)
             self.setAsProcessed(document)
+            self._logger.info('Document(%s) set as processed' % str(document.getId()))
         self._entityManager.persist(document)
         
     def matchAutoPayment(self, document):
