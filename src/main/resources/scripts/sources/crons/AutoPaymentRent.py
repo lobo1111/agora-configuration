@@ -34,7 +34,7 @@ class CronAutoPaymentRent(Container):
             sql = "Select p From Possession p Join p.account account Where account.number = '%s'" % str(document.getClientNumber())
             return self._entityManager.createQuery(sql).getSingleResult()
         except:
-            return None;
+            return None
         
     def setAsUnknown(self, document):
         sql = 'SELECT dict FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "DOCUMENT_STATUS" AND dict.key = "UNKNOWN"'
