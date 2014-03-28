@@ -3,6 +3,7 @@ import traceback
 import shutil
 import xml.sax
 from base.Container import Container
+from loaders.XMLLoader import XMLLoader
 
 class FileWatchdog(Container):
   
