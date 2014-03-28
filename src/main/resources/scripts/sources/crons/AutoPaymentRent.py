@@ -31,7 +31,7 @@ class CronAutoPaymentRent(Container):
         
     def matchAutoPayment(self, document):
         try:
-            sql = "Select p From Possession p Join p.account account Where account.number = '%s'" % str(document.getClientNumber())
+            sql = "Select p From Possession p Join p.additionalData ad Join ad.account account Where account.number = '%s'" % str(document.getClientNumber())
             return self._entityManager.createQuery(sql).getSingleResult()
         except:
             return None
