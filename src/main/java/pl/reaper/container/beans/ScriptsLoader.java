@@ -40,7 +40,7 @@ public class ScriptsLoader implements ScriptsLoaderLocal {
 
     @PostConstruct
     @Override
-    public void init() {
+    public void compileScripts() {
         ScriptEngine engine = createEngine();
         Compilable compilingEngine = (Compilable) engine;
         for (File file : findAllScripts()) {
