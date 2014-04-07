@@ -1,7 +1,13 @@
+import helpers
 from base.Logger import Logger
 
 class Container:
     _logger = Logger()
+    
+    def __init__(self):
+        self._svars = helpers.svars
+        self._entityManager = helpers.entityManager
+        self._properties = helpers.properties
     
     def setSvars(self, svars):
         self._svars = svars
