@@ -1,8 +1,8 @@
-from entities.Community import CommunityManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from entities.Community import CommunityManager
 communityManager = CommunityManager()
-communityManager.setSvars(svars)
-communityManager.setEntityManager(entityManager)
-communityManager.setProperties(properties)
 communityManager.create()

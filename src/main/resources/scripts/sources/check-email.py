@@ -1,8 +1,8 @@
-from loaders.MailProcessor import MailProcessor
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from loaders.MailProcessor import MailProcessor
 mailProcessor = MailProcessor()
-mailProcessor.setSvars(svars)
-mailProcessor.setEntityManager(entityManager)
-mailProcessor.setProperties(properties)
 mailProcessor.checkMailbox()

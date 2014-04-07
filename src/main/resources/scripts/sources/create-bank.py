@@ -1,8 +1,8 @@
-from entities.Bank import BankManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from entities.Bank import BankManager
 bankManager = BankManager()
-bankManager.setSvars(svars)
-bankManager.setEntityManager(entityManager)
-bankManager.setProperties(properties)
 bankManager.create()

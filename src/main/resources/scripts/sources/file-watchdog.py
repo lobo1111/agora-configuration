@@ -1,8 +1,8 @@
-from loaders.FileWatchdog import FileWatchdog
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from loaders.FileWatchdog import FileWatchdog
 manager = FileWatchdog()
-manager.setSvars(svars)
-manager.setEntityManager(entityManager)
-manager.setProperties(properties)
 manager.processFiles()

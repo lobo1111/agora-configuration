@@ -1,8 +1,8 @@
-from entities.PaymentRent import PaymentRentManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from entities.PaymentRent import PaymentRentManager
 manager = PaymentRentManager()
-manager.setSvars(svars)
-manager.setEntityManager(entityManager)
-manager.setProperties(properties)
 manager.remove()

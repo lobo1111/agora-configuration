@@ -1,8 +1,8 @@
-from crons.AutoPaymentRent import CronAutoPaymentRent
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from crons.AutoPaymentRent import CronAutoPaymentRent
 cronAutoPaymentRent = CronAutoPaymentRent()
-cronAutoPaymentRent.setSvars(svars)
-cronAutoPaymentRent.setEntityManager(entityManager)
-cronAutoPaymentRent.setProperties(properties)
 cronAutoPaymentRent.processDocuments()

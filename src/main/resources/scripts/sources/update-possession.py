@@ -1,8 +1,8 @@
-from entities.Possession import PossessionManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from entities.Possession import PossessionManager
 manager = PossessionManager()
-manager.setSvars(svars)
-manager.setEntityManager(entityManager)
-manager.setProperties(properties)
 manager.update()

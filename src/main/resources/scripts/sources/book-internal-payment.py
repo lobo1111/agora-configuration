@@ -1,8 +1,8 @@
-from entities.InternalPayment import InternalPaymentManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from entities.InternalPayment import InternalPaymentManager
 internalPaymentManager = InternalPaymentManager()
-internalPaymentManager.setSvars(svars)
-internalPaymentManager.setEntityManager(entityManager)
-internalPaymentManager.setProperties(properties)
 internalPaymentManager.book()

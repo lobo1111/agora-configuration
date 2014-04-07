@@ -1,8 +1,8 @@
-from base.TemplateParser import TemplateParser
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from base.TemplateParser import TemplateParser
 manager = TemplateParser()
-manager.setSvars(svars)
-manager.setEntityManager(entityManager)
-manager.setProperties(properties)
 svars.put('output', manager.parse())

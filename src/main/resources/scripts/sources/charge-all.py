@@ -1,8 +1,8 @@
-from crons.Charger import ChargeManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from crons.Charger import ChargeManager
 chargeManager = ChargeManager()
-chargeManager.setSvars(svars)
-chargeManager.setEntityManager(entityManager)
-chargeManager.setProperties(properties)
 chargeManager.chargeAll()

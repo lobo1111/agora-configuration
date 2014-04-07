@@ -28,9 +28,9 @@ class CommunityManager(Container):
         self.setElementsData(community)
         
     def setCommunityData(self, community):
-        
-        community.setName(self._svars.get('name'))
+        community.setName(self._svars.get('communityName'))
         community.setCompany(self.getCompany(community))
+        community.getCompany().setName(self._svars.get('communityName'))
         if self._svars.get('hasDefaultAccount') == 'true':
             community.setDefaultAccount(self.findAccountById(self._svars.get('defaultAccountId')))
         else:

@@ -1,8 +1,8 @@
-from entities.Contractor import ContractorManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from entities.Contractor import ContractorManager
 contractorManager = ContractorManager()
-contractorManager.setSvars(svars)
-contractorManager.setEntityManager(entityManager)
-contractorManager.setProperties(properties)
 contractorManager.create()

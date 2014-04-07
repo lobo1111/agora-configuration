@@ -1,8 +1,8 @@
-from entities.Company import CompanyManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from entities.Company import CompanyManager
 manager = CompanyManager()
-manager.setSvars(svars)
-manager.setEntityManager(entityManager)
-manager.setProperties(properties)
 manager.update()

@@ -1,8 +1,8 @@
-from entities.Element import ElementManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from entities.Element import ElementManager
 elementManager = ElementManager()
-elementManager.setSvars(svars)
-elementManager.setEntityManager(entityManager)
-elementManager.setProperties(properties)
 elementManager.create()

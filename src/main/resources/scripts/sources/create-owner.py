@@ -1,8 +1,8 @@
-from entities.Owner import OwnerManager
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from entities.Owner import OwnerManager
 ownerManager = OwnerManager()
-ownerManager.setSvars(svars)
-ownerManager.setEntityManager(entityManager)
-ownerManager.setProperties(properties)
 ownerManager.create()

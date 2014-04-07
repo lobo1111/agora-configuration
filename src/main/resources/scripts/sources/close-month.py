@@ -1,8 +1,8 @@
-from actions.Close import Close
+import helpers
+helpers.entityManager = globals()['entityManager']
+helpers.svars = globals()['svars']
+helpers.properties = globals()['properties']
 
-global svars, entityManager, properties
+from actions.Close import Close
 close = Close()
-close.setSvars(svars)
-close.setEntityManager(entityManager)
-close.setProperties(properties)
 close.closeMonth()
