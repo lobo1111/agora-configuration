@@ -1,3 +1,3 @@
 entityManager = None
-vars = None
+svars = None
 properties = None
