@@ -1124,7 +1124,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='invoice-position-table'>
+    <changeSet author='tkopacki' id='invoice-payment-table'>
         <sql>        
             CREATE TABLE `invoice_payment` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
