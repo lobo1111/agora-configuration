@@ -1087,4 +1087,89 @@
             ALTER TABLE `company` ADD COLUMN default_contractor tinyint(1) DEFAULT NULL;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-table'>
+        <sql>        
+            CREATE TABLE `invoice` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `contractor_id` int(11) NOT NULL,
+            `company_id` int(11) NOT NULL,
+            `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `payment_date` date NOT NULL,
+            `to_pay` decimal(10,2) DEFAULT 0,
+            `accepted` tinyint(1) NOT NULL,
+            `payments_sum` decimal(10,2) DEFAULT 0,
+            PRIMARY KEY (`id`),
+            KEY `invoice_contractor_fkey` (`contractor_id`),
+            KEY `invoice_company_fkey` (`company_id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=60 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-position-table'>
+        <sql>        
+            CREATE TABLE `invoice_position` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `invoice_id` int(11) NOT NULL,
+            `position` int(11) NOT NULL,
+            `name` varchar(512) NOT NULL,
+            `tax_id` int(11) NOT NULL,
+            `volume` int (11) NOT NULL,
+            `value_net` decimal(10,2) NOT NULL,
+            `value_gross` decimal(10,2) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `invoice_position_invoice_fkey` (`invoice_id`),
+            KEY `invoice_tax_fkey` (`tax_id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=60 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-position-table'>
+        <sql>        
+            CREATE TABLE `invoice_payment` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `invoice_id` int(11) NOT NULL,
+            `value_payment` decimal(10,2) NOT NULL,
+            `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `booked` tinyint(1) NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `invoice_payment_invoice_fkey` (`invoice_id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=60 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-contractor-fkey'>
+        <sql>                   
+            ALTER TABLE `invoice`
+            ADD CONSTRAINT `invoice_contractor_id_fkey` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-company-fkey'>
+        <sql>                   
+            ALTER TABLE `invoice`
+            ADD CONSTRAINT `invoice_company_id_fkey` FOREIGN KEY (`company_id`) REFERENCES `contractor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-position-invoice-fkey'>
+        <sql>                   
+            ALTER TABLE `invoice_position`
+            ADD CONSTRAINT `invoice_position_invoice_id_fkey` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-position-tax-fkey'>
+        <sql>                   
+            ALTER TABLE `invoice_position`
+            ADD CONSTRAINT `invoice_position_tax_id_fkey` FOREIGN KEY (`tax_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-payment-fkey'>
+        <sql>                   
+            ALTER TABLE `invoice_payment`
+            ADD CONSTRAINT `invoice_payment_invoice_id_fkey` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
