@@ -1101,7 +1101,6 @@
             `payments_sum` decimal(10,2) DEFAULT 0,
             PRIMARY KEY (`id`),
             KEY `invoice_contractor_fkey` (`contractor_id`),
-            KEY `invoice_company_fkey` (`company_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=60 ;
         </sql>
     </changeSet>

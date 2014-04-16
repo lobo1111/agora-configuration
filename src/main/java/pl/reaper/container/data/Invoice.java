@@ -47,7 +47,7 @@ public class Invoice implements Serializable {
     @Column(name = "accepted")
     private boolean accepted;
     @Column(name = "payments_sum")
-    private double paymnetsSum;
+    private double paymentsSum;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
     private List<InvoicePosition> positions = new ArrayList<>();
 
@@ -107,12 +107,12 @@ public class Invoice implements Serializable {
         this.accepted = accepted;
     }
 
-    public double getPaymnetsSum() {
-        return paymnetsSum;
+    public double getPaymentsSum() {
+        return paymentsSum;
     }
 
-    public void setPaymnetsSum(double paymnetsSum) {
-        this.paymnetsSum = paymnetsSum;
+    public void setPaymentsSum(double paymentsSum) {
+        this.paymentsSum = paymentsSum;
     }
 
     public List<InvoicePosition> getPositions() {

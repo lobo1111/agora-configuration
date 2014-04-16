@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<invoices>
+    #foreach($row in $invoices)
+    <item>
+        <invoiceId>$!row.getId()</invoiceId>
+        <createDate>$!row.getCreateDate()</createDate>
+        <paymentDate>$!row.getPaymentDate()</paymentDate>
+        <toPay>$!row.getToPay()</toPay>
+        #if($!row.getPaymentsSum() > $!row.getToPay())
+        <payed>OVERPAYED</payed>
+        #elseif($!row.getPaymentsSum()==> $!row.getToPay())
+        <payed>PAYED</payed>
+        #else
+        <payed>UNDERPAYED</payed>
+        #end
+        <contractorId>$!row.getContractor().getId()</contractorId>
+        <companyId>$!row.getContractor().getCompany().getId()</companyId>
+        <companyName>$!row.getContractor().getCompany().getName()</companyName>
+        <communityId>$!row.getCommunity().getId()</communityId>
+        <communityName>$!row.getCommunity().getName()</communityName>
+    </item>
+    #end
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
+</invoices>
