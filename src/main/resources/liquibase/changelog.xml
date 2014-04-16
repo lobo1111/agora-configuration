@@ -1093,7 +1093,7 @@
             CREATE TABLE `invoice` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `contractor_id` int(11) NOT NULL,
-            `company_id` int(11) NOT NULL,
+            `community_id` int(11) NOT NULL,
             `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `payment_date` date NOT NULL,
             `to_pay` decimal(10,2) DEFAULT 0,
@@ -1145,13 +1145,6 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='invoice-company-fkey'>
-        <sql>                   
-            ALTER TABLE `invoice`
-            ADD CONSTRAINT `invoice_company_id_fkey` FOREIGN KEY (`company_id`) REFERENCES `contractor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-        </sql>
-    </changeSet>
-    
     <changeSet author='tkopacki' id='invoice-position-invoice-fkey'>
         <sql>                   
             ALTER TABLE `invoice_position`
@@ -1172,4 +1165,29 @@
             ADD CONSTRAINT `invoice_payment_invoice_id_fkey` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-community-id-fkey'>
+        <sql>                   
+            ALTER TABLE `invoice`
+            ADD CONSTRAINT `invoice_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='taxes-dictionary'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('TAXES');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='taxes-dictionary-inserts-1'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '0.22', '22%' FROM `dictionary_type` WHERE `type` = 'TAXES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '0.08', '8%' FROM `dictionary_type` WHERE `type` = 'TAXES';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog> 

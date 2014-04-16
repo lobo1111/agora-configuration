@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+    <event name="invoice-create">
+        <actions>
+            <action>
+                <handler type="event">entity-init</handler>
+                <parameters>
+                    <parameter name="classPath">pl.reaper.container.data.Invoice</parameter>
+                </parameters>
+            </action>
+            <action>
+                <handler type="script">invoice-set-data</handler>
+            </action>
+            <action>
+                <handler type="event">entity-persist</handler>
+            </action>
+        </actions>
+    </event>
+</events>

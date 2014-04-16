@@ -751,6 +751,40 @@
         </variables>
     </template>
     <template>
+        <name>list-invoices</name>
+        <source>list-invoices.vtl</source>
+        <variables>
+            <var>
+                <name>invoices</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    invoice
+                    FROM 
+                    Invoice invoice
+                    JOIN invoice.community community
+                    JOIN invoice.positions position
+                    JOIN invoice.paymnets payment
+                    WHERE {:where}
+                    ORDER BY invoice.createDate DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(invoice.id)
+                    FROM 
+                    Invoice invoice
+                    JOIN invoice.community community
+                    JOIN invoice.positions position
+                    JOIN invoice.paymnets payment
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-companies</name>
         <source>list-companies.vtl</source>
         <variables>

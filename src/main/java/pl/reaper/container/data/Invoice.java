@@ -34,8 +34,8 @@ public class Invoice implements Serializable {
     @JoinColumn(name = "contractor_id", referencedColumnName = "id")
     private Contractor contractor;
     @ManyToOne
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
-    private Contractor company;
+    @JoinColumn(name = "community_id", referencedColumnName = "id")
+    private Community community;
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
@@ -59,20 +59,20 @@ public class Invoice implements Serializable {
         this.id = id;
     }
 
+    public Community getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Community community) {
+        this.community = community;
+    }
+
     public Contractor getContractor() {
         return contractor;
     }
 
     public void setContractor(Contractor contractor) {
         this.contractor = contractor;
-    }
-
-    public Contractor getCompany() {
-        return company;
-    }
-
-    public void setCompany(Contractor company) {
-        this.company = company;
     }
 
     public Date getCreateDate() {
