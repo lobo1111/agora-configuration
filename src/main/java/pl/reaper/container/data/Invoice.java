@@ -50,6 +50,8 @@ public class Invoice implements Serializable {
     private double paymentsSum;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
     private List<InvoicePosition> positions = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
+    private List<InvoicePayment> payments = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -121,5 +123,13 @@ public class Invoice implements Serializable {
 
     public void setPositions(List<InvoicePosition> positions) {
         this.positions = positions;
+    }
+
+    public List<InvoicePayment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<InvoicePayment> payments) {
+        this.payments = payments;
     }
 }
