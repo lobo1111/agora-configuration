@@ -764,7 +764,7 @@
                     Invoice invoice
                     JOIN invoice.community community
                     JOIN invoice.positions position
-                    JOIN invoice.paymnets payment
+                    JOIN invoice.payments payment
                     WHERE {:where}
                     ORDER BY invoice.createDate DESC
                 </data>
@@ -778,7 +778,7 @@
                     Invoice invoice
                     JOIN invoice.community community
                     JOIN invoice.positions position
-                    JOIN invoice.paymnets payment
+                    JOIN invoice.payments payment
                     WHERE {:where}
                 </data>
             </var>
