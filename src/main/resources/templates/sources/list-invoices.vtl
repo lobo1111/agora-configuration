@@ -8,7 +8,7 @@
         <toPay>$!row.getToPay()</toPay>
         #if($!row.getPaymentsSum() > $!row.getToPay())
         <payed>OVERPAYED</payed>
-        #elseif($!row.getPaymentsSum()==> $!row.getToPay())
+        #elseif($!row.getPaymentsSum() == $!row.getToPay())
         <payed>PAYED</payed>
         #else
         <payed>UNDERPAYED</payed>
