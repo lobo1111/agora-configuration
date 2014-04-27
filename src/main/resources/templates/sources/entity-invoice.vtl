@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<invoice>
+    <id>$!entity.getId()</id>
+    <createDate>$!entity.getCreateDate()</createDate>
+    <paymentDate>$!entity.getPaymentDate()</paymentDate>
+    <toPay>$!entity.getToPay()</toPay>
+    <accepted>$!entity.isAccepted()</accepted>
+    <paymentsSum>$!entity.getPaymentsSum()</paymentsSum>
+    <community>
+        <id>$!entity.getCommunity().getId()</id>
+        <name>$!entity.getCommunity().getName()</name>
+    </community>
+    <contractor>
+        <id>$!entity.getContractor().getId()</id>
+        <name>$!entity.getContractor().getName()</name>
+        <company>
+            <id>$!entity.getContractor().getCompany().getId()</id>
+            <name>$!entity.getContractor().getCompany().getName()</name>
+        </company>
+    </contractor>
+    <positions>
+        #for($position in $!entity.getPositions())
+        <position>
+            <id>$!position.getId()</id>
+            <position>$!position.getPosition()</position>
+            <name>$!position.getName()</name>
+            <taxId>$!position.getTax().getId()</taxId>
+            <volume>$!position.getVolume()</volume>
+            <valueNet>$!position.getValueNet()</valueNet>
+            <valueGross>$!position.getValueGross()</valueGross>
+        </position>
+        #end
+    </positions>
+    <invoice-payments>
+        #for($payment in $!entity.getPayments())
+        <payment>
+            <id>$!payment.getId()</id>
+            <value>$!payment.getValuePayment()</value>
+            <createDate>$!payment.getCreateDate()</createDate>
+            <booked>$!payment.isBooked()</booked>
+        </payment>
+        #end
+    </invoice-payments>
+</invoice>

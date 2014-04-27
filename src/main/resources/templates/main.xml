@@ -38,6 +38,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-invoice</name>
+        <source>entity-invoice.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Invoice e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-payment-rent</name>
         <source>entity-payment-rent.vtl</source>
         <variables>
@@ -864,6 +882,26 @@
                         JOIN dictType.dictionaryCollection dict
                     WHERE
                         dictType.type = "ZPKS"
+                    ORDER BY
+                        dict.key, dict.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-tax-dictionary</name>
+        <source>list-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT 
+                        dict
+                    FROM
+                        DictionaryType dictType
+                        JOIN dictType.dictionaryCollection dict
+                    WHERE
+                        dictType.type = "TAXES"
                     ORDER BY
                         dict.key, dict.value ASC
                 </data>
