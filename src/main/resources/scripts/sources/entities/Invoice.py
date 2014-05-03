@@ -75,7 +75,7 @@ class InvoiceManager(Container):
                 invoice.getPayments().add(payment)
                 payment.setBooked(self.parseBoolean(self._svars.get(str(i) + '_payments_booked')))
                 payment.setCreateDate(self.parseDate(self._svars.get(str(i) + '_payments_createDate')))
-                payment.setValue(float(self._svars.get(str(i) + '_positions_value')))
+                payment.setValuePayment(float(self._svars.get(str(i) + '_positions_value')))
                 self._entityManager.persist(payment)
 
     def findTax(self, id):

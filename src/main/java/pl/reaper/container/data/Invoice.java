@@ -48,9 +48,9 @@ public class Invoice implements Serializable {
     private boolean accepted;
     @Column(name = "payments_sum")
     private double paymentsSum;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
     private List<InvoicePosition> positions = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
     private List<InvoicePayment> payments = new ArrayList<>();
 
     public int getId() {
