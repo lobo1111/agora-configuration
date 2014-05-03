@@ -53,16 +53,16 @@ class InvoiceManager(Container):
 
     def addPositions(self, invoice):
         for i in range(int(self._svars.get('positionsCount'))):
-            positionId = self._svars.get(i + '_positions_positionId')
+            positionId = self._svars.get(str(i) + '_positions_positionId')
             if positionId == 0:
                 position = InvoicePosition()
                 position.setInvoice(invoice)
                 invoice.getPositions().add(position)
-                position.setVolume(int(self._svars.get(i + '_positions_volume')))
-                position.setPosition(int(self._svars.get(i + '_positions_position')))
-                position.setNetValue(double(self._svars.get(i + '_positions_netValue')))
-                position.setGrossValue(double(self._svars.get(i + '_positions_grossValue')))
-                position.setTax(self.findTax(self._svars.get(i + '_positions_taxId')))
+                position.setVolume(int(self._svars.get(str(i) + '_positions_volume')))
+                position.setPosition(int(self._svars.get(str(i) + '_positions_position')))
+                position.setNetValue(double(self._svars.get(str(i) + '_positions_netValue')))
+                position.setGrossValue(double(self._svars.get(str(i) + '_positions_grossValue')))
+                position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
                 self._entityManager.persist(position)
 
     def addPayments(self, payments):
