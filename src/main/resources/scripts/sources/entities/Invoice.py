@@ -60,8 +60,8 @@ class InvoiceManager(Container):
                 invoice.getPositions().add(position)
                 position.setVolume(int(self._svars.get(str(i) + '_positions_volume')))
                 position.setPosition(int(self._svars.get(str(i) + '_positions_position')))
-                position.setNetValue(double(self._svars.get(str(i) + '_positions_netValue')))
-                position.setGrossValue(double(self._svars.get(str(i) + '_positions_grossValue')))
+                position.setValueNet(double(self._svars.get(str(i) + '_positions_netValue')))
+                position.setValueGross(double(self._svars.get(str(i) + '_positions_grossValue')))
                 position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
                 self._entityManager.persist(position)
 
