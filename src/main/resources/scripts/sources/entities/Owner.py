@@ -8,7 +8,6 @@ from entities.Possession import PossessionManager
 class OwnerManager(Container):
     
     def create(self):
-        
         subject = self.getSubject()
         for possession in self.getPossessions():
             owner = Owner()
@@ -21,14 +20,12 @@ class OwnerManager(Container):
             self.createPossession(subject)
             
     def update(self):
-        
         owner = self.findOwnerById(self._svars.get('id'))
         additionalAddress = self.getAdditionalAddress()
         self.setAdditionalAddress(owner, additionalAddress)
         self.saveOwner(owner)
         
     def delete(self):
-        
         owner = self.findOwnerById(self._svars.get('id'))
         self._entityManager.remove(owner)
 
@@ -46,7 +43,6 @@ class OwnerManager(Container):
         self.saveOwner(owner)
             
     def getPossessions(self):
-        
         possessions = []
         for i in range(int(self._svars.get('possessionsCount'))):
             possessionId = self._svars.get('possession' + str(i))
@@ -57,7 +53,6 @@ class OwnerManager(Container):
         return possessions
         
     def getSubject(self):
-        
         if self._svars.get('personSubject') == 'true':
             manager = PersonManager()
             manager.setSvars(self._svars)
