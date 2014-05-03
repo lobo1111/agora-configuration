@@ -58,6 +58,7 @@ class InvoiceManager(Container):
                 position = InvoicePosition()
                 position.setInvoice(invoice)
                 invoice.getPositions().add(position)
+                position.setName(self._svars.get(str(i) + '_positions_name'))
                 position.setVolume(int(self._svars.get(str(i) + '_positions_volume')))
                 position.setPosition(int(self._svars.get(str(i) + '_positions_position')))
                 position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
