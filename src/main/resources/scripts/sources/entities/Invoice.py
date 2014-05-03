@@ -25,13 +25,13 @@ class InvoiceManager(Container):
         self.saveInvoice(invoice)
         
     def setInvoiceData(self, invoice):
-        self.setContractor(self.findContractor(self._svars.get('contractorId')))
-        self.setCommunity(self.findCommunity(self._svars.get('communityId')))
-        self.setCreateDate(self.parseDate(self._svars.get('createDate')))
-        self.setPaymentDate(self.parseDate(self._svars.get('paymentDate')))
-        self.setToPay(float(self._svars.get('toPay')))
-        self.setPaymentsSum(float(self._svars.get('paymentsSum')))
-        self.setAccepted(self.parseBoolean(self._svars.get('accepted')))
+        invoice.setContractor(self.findContractor(self._svars.get('contractorId')))
+        invoice.setCommunity(self.findCommunity(self._svars.get('communityId')))
+        invoice.setCreateDate(self.parseDate(self._svars.get('createDate')))
+        invoice.setPaymentDate(self.parseDate(self._svars.get('paymentDate')))
+        invoice.setToPay(float(self._svars.get('toPay')))
+        invoice.setPaymentsSum(float(self._svars.get('paymentsSum')))
+        invoice.setAccepted(self.parseBoolean(self._svars.get('accepted')))
 
     def findContractor(self, id):
         return ContractorManager().findContractorById(id)
