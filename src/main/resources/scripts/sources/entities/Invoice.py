@@ -31,7 +31,7 @@ class InvoiceManager(Container):
         self.setPaymentDate(self.parseDate(self._svars.get('paymentDate')))
         self.setToPay(float(self._svars.get('toPay')))
         self.setPaymentsSum(float(self._svars.get('paymentsSum')))
-        self.setAccepted(self.parseBoolean(self._svars.get('accepted'))
+        self.setAccepted(self.parseBoolean(self._svars.get('accepted')))
 
     def findContractor(self, id):
         return ContractorManager().findContractorById(id)
