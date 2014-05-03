@@ -54,7 +54,7 @@ class InvoiceManager(Container):
     def addPositions(self, invoice):
         for i in range(int(self._svars.get('positionsCount'))):
             positionId = self._svars.get(str(i) + '_positions_positionId')
-            if positionId == 0:
+            if positionId == '0':
                 position = InvoicePosition()
                 position.setInvoice(invoice)
                 invoice.getPositions().add(position)
