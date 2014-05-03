@@ -70,7 +70,7 @@ class InvoiceManager(Container):
         pass
 
     def findTax(self, id):
-        DictionaryManager().getDictionaryInstance(int(id))
+        return DictionaryManager().getDictionaryInstance(int(id))
 
     def saveInvoice(self, invoice):
         self._entityManager.persist(invoice)
