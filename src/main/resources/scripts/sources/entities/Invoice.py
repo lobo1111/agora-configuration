@@ -1,5 +1,8 @@
 from pl.reaper.container.data import Invoice
+from pl.reaper.container.data import InvoicePosition
+from pl.reaper.container.data import InvoicePayment
 from entities.Contractor import ContractorManager
+from entities.Dictionary import DictionaryManager
 from entities.Community import CommunityManager
 from java.text import SimpleDateFormat
 from base.Container import Container
@@ -49,10 +52,24 @@ class InvoiceManager(Container):
         return boolean == 'true'
 
     def addPositions(self, invoice):
-        pass
+        for i in range(int(self._svars.get('positionsCount'))):
+            positionId = self._svars.get(i + '_positions_positionId')
+            if positionId == 0:
+                position = InvoicePosition()
+                position.setInvoice(invoice)
+                invoice.getPositions().add(position)
+                position.setVolume(int(self._svars.get(i + '_positions_volume')))
+                position.setPosition(int(self._svars.get(i + '_positions_position')))
+                position.setNetValue(double(self._svars.get(i + '_positions_netValue')))
+                position.setGrossValue(double(self._svars.get(i + '_positions_grossValue')))
+                position.setTax(self.findTax(self._svars.get(i + '_positions_taxId')))
+                self._entityManager.persist(position)
 
     def addPayments(self, payments):
         pass
+
+    def findTax(self, id):
+        DictionaryManager().getDictionaryInstance(int(id))
 
     def saveInvoice(self, invoice):
         self._entityManager.persist(invoice)
