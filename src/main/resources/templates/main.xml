@@ -781,7 +781,7 @@
                     FROM 
                     Invoice invoice
                     JOIN invoice.community community
-                    LEFT OUTER JOIN invoice.positions position
+                    JOIN invoice.positions position
                     LEFT OUTER JOIN invoice.payments payment
                     WHERE {:where}
                     ORDER BY invoice.createDate DESC
@@ -795,7 +795,7 @@
                     FROM 
                     Invoice invoice
                     JOIN invoice.community community
-                    LEFT OUTER JOIN invoice.positions position
+                    invoice.positions position
                     LEFT OUTER JOIN invoice.payments payment
                     WHERE {:where}
                 </data>
