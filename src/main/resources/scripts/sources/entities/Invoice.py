@@ -82,7 +82,8 @@ class InvoiceManager(Container):
 
     def findTax(self, id):
         print '!!!!!!!!!!!!!!!!!!!!!' + id
-        return DictionaryManager().getDictionaryInstance(int(id))
+        return None
+        #return DictionaryManager().getDictionaryInstance(int(id))
 
     def saveInvoice(self, invoice):
         self._entityManager.persist(invoice)
