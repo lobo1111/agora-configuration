@@ -84,6 +84,7 @@ class InvoiceManager(Container):
         return DictionaryManager().getDictionaryInstance(int(id))
 
     def saveInvoice(self, invoice):
+        pass
         #self._entityManager.persist(invoice)
         #self._entityManager.flush()
         
