@@ -66,7 +66,8 @@ class InvoiceManager(Container):
                 position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
                 position.setValueGross(float(self._svars.get(str(i) + '_positions_grossValue')))
                 position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
-                self._entityManager.persist(position)
+                print position.getTax().getId()
+                #self._entityManager.persist(position)
 
     def addPayments(self, invoice):
         for i in range(int(self._svars.get('paymentsCount'))):
