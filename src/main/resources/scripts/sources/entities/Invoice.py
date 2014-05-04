@@ -66,6 +66,7 @@ class InvoiceManager(Container):
                 position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
                 position.setValueGross(float(self._svars.get(str(i) + '_positions_grossValue')))
                 position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
+                print "!!!!!!!!!!!!!!!" + str(position.getTax().getId())
                 #self._entityManager.persist(position)
 
     def addPayments(self, invoice):
@@ -81,9 +82,7 @@ class InvoiceManager(Container):
                 self._entityManager.persist(payment)
 
     def findTax(self, id):
-        print '!!!!!!!!!!!!!!!!!!!!!' + id
-        return None
-        #return DictionaryManager().getDictionaryInstance(int(id))
+        return DictionaryManager().getDictionaryInstance(int(id))
 
     def saveInvoice(self, invoice):
         self._entityManager.persist(invoice)
