@@ -58,14 +58,14 @@ class InvoiceManager(Container):
             positionId = self._svars.get(str(i) + '_positions_positionId')
             if positionId == '0':
                 position = InvoicePosition()
-                position.setInvoice(invoice)
-                invoice.getPositions().add(position)
                 position.setName(self._svars.get(str(i) + '_positions_name'))
                 position.setVolume(int(self._svars.get(str(i) + '_positions_volume')))
                 position.setPosition(int(self._svars.get(str(i) + '_positions_position')))
                 position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
                 position.setValueGross(float(self._svars.get(str(i) + '_positions_grossValue')))
                 position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
+                position.setInvoice(invoice)
+                invoice.getPositions().add(position)
                 self._entityManager.persist(position)
 
     def addPayments(self, invoice):
@@ -81,7 +81,7 @@ class InvoiceManager(Container):
                 self._entityManager.persist(payment)
 
     def findTax(self, id):
-        return self._entityManager.createQuery(("Select dict From Dictionary dict Where dict.id = %s") % id).getSingleResult();
+        return DictionaryManager().getDictionaryInstance(int(id))
 
     def saveInvoice(self, invoice):
         self._entityManager.persist(invoice)
