@@ -19,12 +19,16 @@
         </company>
     </contractor>
     <positions>
-        #for($position in $!entity.getPositions())
+        #foreach($position in $!entity.getPositions())
         <position>
             <id>$!position.getId()</id>
             <position>$!position.getPosition()</position>
             <name>$!position.getName()</name>
-            <taxId>$!position.getTax().getId()</taxId>
+            <dictionary>
+                <id>$!position.getTax().getId()</id>
+                <key>$!position.getTax().getKey()</key>
+                <value>$!position.getTax().getValue()</value>
+            </dictionary>
             <volume>$!position.getVolume()</volume>
             <valueNet>$!position.getValueNet()</valueNet>
             <valueGross>$!position.getValueGross()</valueGross>
@@ -32,7 +36,7 @@
         #end
     </positions>
     <invoice-payments>
-        #for($payment in $!entity.getPayments())
+        #foreach($payment in $!entity.getPayments())
         <payment>
             <id>$!payment.getId()</id>
             <value>$!payment.getValuePayment()</value>
