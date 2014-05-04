@@ -795,8 +795,8 @@
                     FROM 
                     Invoice invoice
                     JOIN invoice.community community
-                    JOIN invoice.positions position
-                    JOIN invoice.payments payment
+                    LEFT OUTER JOIN invoice.positions position
+                    LEFT OUTER JOIN invoice.payments payment
                     WHERE {:where}
                 </data>
             </var>
