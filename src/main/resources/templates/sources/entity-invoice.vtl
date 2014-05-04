@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <invoice>
     <id>$!entity.getId()</id>
-    <createDate>$!entity.getCreateDate()</createDate>
-    <paymentDate>$!entity.getPaymentDate()</paymentDate>
+    <createDate>$!entity.getCreateDate().getTime()</createDate>
+    <paymentDate>$!entity.getPaymentDate().getTime()</paymentDate>
     <toPay>$!entity.getToPay()</toPay>
     <accepted>$!entity.isAccepted()</accepted>
     <paymentsSum>$!entity.getPaymentsSum()</paymentsSum>
@@ -40,7 +40,7 @@
         <payment>
             <id>$!payment.getId()</id>
             <value>$!payment.getValuePayment()</value>
-            <createDate>$!payment.getCreateDate()</createDate>
+            <createDate>$!payment.getCreateDate().getTime()</createDate>
             <booked>$!payment.isBooked()</booked>
         </payment>
         #end
