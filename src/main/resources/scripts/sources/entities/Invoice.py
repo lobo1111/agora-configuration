@@ -22,9 +22,11 @@ class InvoiceManager(Container):
         
     def update(self):
         invoice = self.findInvoice()
+        invoice.setToPay(float(self._svars.get('toPay')))
+        invoice.setPaymentsSum(float(self._svars.get('paymentsSum')))
         if not invoice.isAccepted():
-            self.addPositions()
-        self.addPayments()
+            self.addPositions(invoice)
+        self.addPayments(invoice)
         self.saveInvoice(invoice)
         
     def setInvoiceData(self, invoice):
