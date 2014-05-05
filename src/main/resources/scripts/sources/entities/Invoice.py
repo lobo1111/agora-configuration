@@ -18,15 +18,17 @@ class InvoiceManager(Container):
         self.setInvoiceData(invoice)
         self.addPositions(invoice)
         self.addPayments(invoice)
+        self.calculateToPay(invoice)
+        self.calculatePayed(invoice)
         self.saveInvoice(invoice)
         
     def update(self):
         invoice = self.findInvoice()
-        self.calculateToPay(invoice)
-        self.calculatePayed(invoice)
         if not invoice.isAccepted():
             self.addPositions(invoice)
         self.addPayments(invoice)
+        self.calculateToPay(invoice)
+        self.calculatePayed(invoice)
         self.saveInvoice(invoice)
 
     def removePosition(self):
@@ -58,8 +60,6 @@ class InvoiceManager(Container):
         invoice.setCommunity(self.findCommunity(self._svars.get('communityId')))
         invoice.setCreateDate(self.parseDate(self._svars.get('createDate')))
         invoice.setPaymentDate(self.parseDate(self._svars.get('paymentDate')))
-        self.calculateToPay(invoice)
-        self.calculatePayed(invoice)
         invoice.setAccepted(self.parseBoolean(self._svars.get('accepted')))
 
     def findContractor(self, id):
