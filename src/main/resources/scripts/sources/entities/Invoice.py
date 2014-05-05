@@ -28,6 +28,20 @@ class InvoiceManager(Container):
             self.addPositions(invoice)
         self.addPayments(invoice)
         self.saveInvoice(invoice)
+
+    def removePosition(self):
+        position = self.findInvoicePosition()
+        if not position.getInvoice().isAccepted():
+            position.getInvoice().getPositions().remove(position)
+            self._entityManager.remove(position)
+            self._entityManager.flush()
+
+    def removePayment(self):
+        payment = self.findInvoicePayment()
+        if not payment.isBooked():
+            payment.getInvoice().getPayments().remove(payment)
+            self._entityManager.remove(payment)
+            self._entityManager.flush()
         
     def setInvoiceData(self, invoice):
         invoice.setContractor(self.findContractor(self._svars.get('contractorId')))
@@ -90,9 +104,29 @@ class InvoiceManager(Container):
     def findInvoice(self):
         id = self._svars.get('id')
         return self.findInvoiceById(id)
+        
+    def findInvoicePosition(self):
+        id = self._svars.get('positionId')
+        return self.findInvoicePositionById(id)
+        
+    def findInvoicePayment(self):
+        id = self._svars.get('paymentId')
+        return self.findInvoicePaymentById(id)
 
     def findInvoiceById(self, id):
         try:
             return self._entityManager.createQuery('Select i From Invoice i Where i.id = ' + str(id)).getSingleResult()
         except:
             self._logger.error('Can\'t load invoice. Tried to load by id stored as ' + str(id))
+
+    def findInvoicePositionById(self, id):
+        try:
+            return self._entityManager.createQuery('Select i From InvoicePosition i Where i.id = ' + str(id)).getSingleResult()
+        except:
+            self._logger.error('Can\'t load invoice position. Tried to load by id stored as ' + str(id))
+
+    def findInvoicePaymentById(self, id):
+        try:
+            return self._entityManager.createQuery('Select i From InvoicePayment i Where i.id = ' + str(id)).getSingleResult()
+        except:
+            self._logger.error('Can\'t load invoice payment. Tried to load by id stored as ' + str(id))
