@@ -35,8 +35,8 @@ class InvoiceManager(Container):
             position.getInvoice().getPositions().remove(position)
             self._entityManager.remove(position)
             self._entityManager.flush()
-        self.calculateToPay(invoice)
-        self._entityManager.persist(invoice)
+        self.calculateToPay(position.getInvoice())
+        self._entityManager.persist(position.getInvoice())
 
     def removePayment(self):
         payment = self.findInvoicePayment()
@@ -44,8 +44,8 @@ class InvoiceManager(Container):
             payment.getInvoice().getPayments().remove(payment)
             self._entityManager.remove(payment)
             self._entityManager.flush()
-        self.calculatePayed(invoice)
-        self._entityManager.persist(invoice)
+        self.calculatePayed(payment.getInvoice())
+        self._entityManager.persist(payment.getInvoice())
 
     def calculateToPay(self, invoice):
         invoice.setToPay(sum([position.getValueGross() for position in invoice.getPositions()]))
