@@ -22,8 +22,8 @@ class InvoiceManager(Container):
         
     def update(self):
         invoice = self.findInvoice()
-        invoice.setToPay(float(self._svars.get('toPay')))
-        invoice.setPaymentsSum(float(self._svars.get('paymentsSum')))
+        self.calculateToPay(invoice)
+        self.calculatePayed(invoice)
         if not invoice.isAccepted():
             self.addPositions(invoice)
         self.addPayments(invoice)
@@ -35,6 +35,8 @@ class InvoiceManager(Container):
             position.getInvoice().getPositions().remove(position)
             self._entityManager.remove(position)
             self._entityManager.flush()
+        self.calculateToPay(invoice)
+        self._entityManager.persist(invoice)
 
     def removePayment(self):
         payment = self.findInvoicePayment()
@@ -42,14 +44,26 @@ class InvoiceManager(Container):
             payment.getInvoice().getPayments().remove(payment)
             self._entityManager.remove(payment)
             self._entityManager.flush()
+        self.calculatePayed(invoice)
+        self._entityManager.persist(invoice)
+
+    def calculateToPay(self, invoice):
+        sum = 0.0
+        [sum += position.getValueGross() for position in invoice.getPositions()]
+        invoice.setToPay(sum)
+
+    def calculatePayed(self, invoice):
+        sum = 0.0
+        [sum += payment.getValue() for payment in invoice.getPayments()]
+        invoice.setPaymentsSum(sum)
         
     def setInvoiceData(self, invoice):
         invoice.setContractor(self.findContractor(self._svars.get('contractorId')))
         invoice.setCommunity(self.findCommunity(self._svars.get('communityId')))
         invoice.setCreateDate(self.parseDate(self._svars.get('createDate')))
         invoice.setPaymentDate(self.parseDate(self._svars.get('paymentDate')))
-        invoice.setToPay(float(self._svars.get('toPay')))
-        invoice.setPaymentsSum(float(self._svars.get('paymentsSum')))
+        self.calculateToPay(invoice)
+        self.calculatePayed(invoice)
         invoice.setAccepted(self.parseBoolean(self._svars.get('accepted')))
 
     def findContractor(self, id):
