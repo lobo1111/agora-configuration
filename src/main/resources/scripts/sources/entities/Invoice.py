@@ -49,12 +49,12 @@ class InvoiceManager(Container):
 
     def calculateToPay(self, invoice):
         sum = 0.0
-        [sum += position.getValueGross() for position in invoice.getPositions()]
+        [sum = sum + position.getValueGross() for position in invoice.getPositions()]
         invoice.setToPay(sum)
 
     def calculatePayed(self, invoice):
         sum = 0.0
-        [sum += payment.getValue() for payment in invoice.getPayments()]
+        [sum = sum + payment.getValue() for payment in invoice.getPayments()]
         invoice.setPaymentsSum(sum)
         
     def setInvoiceData(self, invoice):
