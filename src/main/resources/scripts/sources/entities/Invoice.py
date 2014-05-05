@@ -48,10 +48,10 @@ class InvoiceManager(Container):
         self._entityManager.persist(invoice)
 
     def calculateToPay(self, invoice):
-        invoice.setToPay([sum(position.getValueGross()) for position in invoice.getPositions()])
+        invoice.setToPay(sum([position.getValueGross() for position in invoice.getPositions()]))
 
     def calculatePayed(self, invoice):
-        invoice.setPaymentsSum([sum(payment.getValue()) for payment in invoice.getPayments()])
+        invoice.setPaymentsSum(sum([payment.getValue() for payment in invoice.getPayments()]))
         
     def setInvoiceData(self, invoice):
         invoice.setContractor(self.findContractor(self._svars.get('contractorId')))
