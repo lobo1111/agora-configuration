@@ -31,6 +31,19 @@ class InvoiceManager(Container):
         self.calculatePayed(invoice)
         self.saveInvoice(invoice)
 
+    def accept(self):
+        invoice = self.findInvoice()
+        if not invoice.isAccepted():
+            invoice.setAccepted(True)
+            self.saveInvoice(invoice)
+
+    def cancel(self):
+        invoice = self.findInvoice()
+        if len([invoicePayment.isBooked() for invoicePayment in invoice.getPayments()]) == 0:
+            [self._entityManager.remove(invoicePayment for invoicePayment in invoice.getPayments()]
+            [self._entityManager.remove(invoicePosition for invoicePosition in invoice.getPositions()]
+            self._entityManager.remove(invoice)
+
     def removePosition(self):
         position = self.findInvoicePosition()
         if not position.getInvoice().isAccepted():
