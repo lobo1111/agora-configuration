@@ -40,7 +40,7 @@ class InvoiceManager(Container):
 
     def cancel(self):
         invoice = self.findInvoice()
-        if len([invoicePayment.isBooked() for invoicePayment in invoice.getPayments()]) == 0:
+        if len([invoicePayment for invoicePayment in invoice.getPayments() if invoicePayment.isBooked()]) == 0:
             self._logger.info("Canceling invoice(%d)..." % invoice.getId())
             [self._entityManager.remove(invoicePayment) for invoicePayment in invoice.getPayments()]
             [self._entityManager.remove(invoicePosition) for invoicePosition in invoice.getPositions()]
