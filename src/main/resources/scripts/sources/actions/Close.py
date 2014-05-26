@@ -2,6 +2,7 @@ from base.Container import Container
 from entities.Dictionary import DictionaryManager
 from actions.ChargingBooker import ChargingBooker
 from actions.PaymentBooker import PaymentBooker
+from actions.InvoiceBooker import InvoiceBooker
 
 class Close(Container):
     
@@ -35,10 +36,8 @@ class Close(Container):
         
     def bookAll(self):
         cBooker = ChargingBooker()
-        cBooker.setEntityManager(self._entityManager)
-        cBooker.setSvars(self._svars)
         cBooker.bookAllChargings()
         pBooker = PaymentBooker()
-        pBooker.setEntityManager(self._entityManager)
-        pBooker.setSvars(self._svars)
         pBooker.bookAllPayments()
+        iBooker = InvoiceBooker()
+        iBooker.bookAllInvoices()

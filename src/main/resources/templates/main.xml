@@ -1165,6 +1165,24 @@
         </variables>
     </template>
     <template>
+        <name>can-close-month-invoices</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        COUNT(i.id) as counter
+                    FROM
+                        Invoice i
+                    WHERE
+                        i.accepted = false
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>can-close-month-accounts</name>
         <source>simple-long-response.vtl</source>
         <variables>
