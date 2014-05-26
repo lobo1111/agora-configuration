@@ -76,7 +76,7 @@ class PaymentBooker(Container):
     def getAccount(self, payment):
         account = payment.getPaymentRentDetails().getAccount()
         if account.getType().getKey() == 'INDIVIDUAL':
-            return account.getParentAccount()
+            return account.getParrentAccount()
         else:
             return account
     
