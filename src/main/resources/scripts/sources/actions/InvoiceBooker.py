@@ -1,7 +1,7 @@
 from base.Container import Container
 from entities.InternalPayment import InternalPaymentManager
 
-class InvoiceBookerManager(Container):
+class InvoiceBooker(Container):
     
     def bookAllInvoices(self):
         self._logger.info("Invoice Booker starts...")
