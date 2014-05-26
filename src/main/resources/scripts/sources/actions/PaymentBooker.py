@@ -48,7 +48,7 @@ class PaymentBooker(Container):
         self._svars.put('creditZpkId', str(creditZpk.getId()))
         self._svars.put('debitZpkId', str(debitZpk.getId()))
         self._svars.put('amount', str(amount))
-        self._svars.put('comment', 'Wystawiono automatycznie')
+        self._svars.put('comment', 'Wpłata')
         manager = InternalPaymentManager()
         manager.setEntityManager(self._entityManager)
         manager.setSvars(self._svars)
