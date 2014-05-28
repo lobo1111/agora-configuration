@@ -50,6 +50,8 @@ public class Invoice implements Serializable {
     private double paymentsSum;
     @Column(name = "booked")
     private boolean booked;
+    @Column(name = "number")
+    private String number;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
     private List<InvoicePosition> positions = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
@@ -125,6 +127,14 @@ public class Invoice implements Serializable {
 
     public void setBooked(boolean booked) {
         this.booked = booked;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public List<InvoicePosition> getPositions() {

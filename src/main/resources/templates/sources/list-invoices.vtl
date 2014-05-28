@@ -3,6 +3,8 @@
     #foreach($row in $invoices)
     <item>
         <invoiceId>$!row.getId()</invoiceId>
+        <number>$!row.getNumber()</number>
+        <booked>$!row.isBooked()</booked>
         <createDate>$!row.getCreateDate().getTime()</createDate>
         <paymentDate>$!row.getPaymentDate().getTime()</paymentDate>
         <toPay>$!row.getToPay()</toPay>

@@ -25,6 +25,7 @@ class InvoiceManager(Container):
     def update(self):
         invoice = self.findInvoice()
         if not invoice.isAccepted():
+            invoice.setNumber(self._svars.get('number'))
             self.addPositions(invoice)
         self.addPayments(invoice)
         self.calculateToPay(invoice)
@@ -78,6 +79,7 @@ class InvoiceManager(Container):
         invoice.setCreateDate(self.parseDate(self._svars.get('createDate')))
         invoice.setPaymentDate(self.parseDate(self._svars.get('paymentDate')))
         invoice.setAccepted(self.parseBoolean(self._svars.get('accepted')))
+        invoice.setNumber(self._svars.get('number'))
 
     def findContractor(self, id):
         return ContractorManager().findContractorById(id)
