@@ -1196,7 +1196,7 @@
         </sql>
      </changeSet>
     
-     <changeSet author='tkopacki' id='invoice-booked-column'>
+     <changeSet author='tkopacki' id='invoice-number-column'>
         <sql>                   
             ALTER TABLE `invoice`
             ADD COLUMN `number` varchar(255) NOT NULL
