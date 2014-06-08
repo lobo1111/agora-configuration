@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <override-element>
     <element>
-        #if($!elements.length > 0)
-            <id>$!elements[0].getElement().getId()</id>
-            <name>$!elements[0].getElement().getName()</name>
+        #if($elements.size() > 0)
+            <id>$elements.get(0).getElement().getId()</id>
+            <name>$elements.get(0).getElement().getName()</name>
         #end
     </element>
     #foreach($cElement in $elements)
