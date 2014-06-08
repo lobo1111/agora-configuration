@@ -272,6 +272,24 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>entity-override-elements</name>
+        <source>entity-override-elements.vtl</source>
+        <variables>
+            <var>
+                <name>elements</name>
+                <data>
+                    SELECT 
+                    e
+                    FROM 
+                    CommunityElement e
+                    WHERE
+                    e.element.id = {:id}
+                    AND e.overrideParentValue = 1
+                </data>
+            </var>
+        </variables>
+    </template>
     <!-- LISTS -->
     <template>
         <name>list-community-charging</name>

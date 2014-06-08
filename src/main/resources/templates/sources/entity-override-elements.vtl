@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<override-element>
+    <element>
+        <id>$!elements[0].getElement().getId()</id>
+        <name>$!elements[0].getElement().getName()</name>
+    </element>
+    #foreach($cElement in $elements)
+    <item>
+        <id>$!cElement.getId()</id>
+        <communityName>$!cElement.getCommunity().getName()</communityName>
+        <oldValue>$!cElement.getGlobalValue()</oldValue>
+    </item>
+    #end
+</override-element>
