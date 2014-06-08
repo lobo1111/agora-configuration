@@ -282,7 +282,7 @@
                     SELECT 
                     e
                     FROM 
-                    CommunityElement e
+                    ElementCommunity e
                     WHERE
                     e.element.id = {:id}
                     AND e.overrideParentValue = 1
