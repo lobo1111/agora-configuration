@@ -7,10 +7,10 @@
         #end
     </element>
     #foreach($cElement in $elements)
-    <item>
+    <overrides>
         <id>$!cElement.getId()</id>
         <communityName>$!cElement.getCommunity().getName()</communityName>
         <oldValue>$!cElement.getGlobalValue()</oldValue>
-    </item>
+    </overrides>
     #end
 </override-element>
