@@ -18,26 +18,32 @@ class ElementManager(Container):
         return element
         
     def update(self):
-        
         element = self.findElementById(self._svars.get(self._prefix + 'id'))
         self.setElementData(element)
         self.saveElement(element)
         return element
     
     def addDefaultElements(self, community):
-        
         for element in self.findDefaultElements():
             self._logger.info('Adding default community element - %d' % element.getId())
             self._svars.put("elementId", element.getId())
             self.CreateOrUpdateCommunityElement(community)
     
     def remove(self):
-        
         element = self.findElementById(self._svars.get('id'))
         self._entityManager.remove(element)
+
+    def multiUpdate(self):
+        for i in range(int(self._svars.get(self._prefix + 'counter'))):
+            if self._svars.get(self._prefix + 'i' + _newValue) != '':
+                newValue = float(self._svars.get(self._prefix + 'i' + _newValue))
+                communityElementId = int(self._svars.get(self._prefix + 'i' + _id))
+                communityElement = self.findCommunityElementById(communityElementId)
+                communityElement.setGlobalValue(newValue)
+                self._entityManager.persist(communityElement)
+            
         
     def removeSubElement(self):
-        
         if self._svars.get('subType') == "COMMUNITY":
             element = self.findSubElementCommunity(self._svars.get('subId'))
             self._logger.info('Removing community element - %d' % element.getId())
@@ -56,7 +62,6 @@ class ElementManager(Container):
             self._entityManager.remove(element)
         
     def CreateOrUpdateCommunityElement(self, community):
-        
         elementId = self._svars.get("elementId")
         communityId = community.getId()
         communityElement = self.findCommunityElement(elementId, communityId)
@@ -83,14 +88,12 @@ class ElementManager(Container):
         self.saveElement(communityElement)
         
     def setElementForPossessions(self, community, communityElement):
-        
         for possession in community.getPossessions():
             self._svars.put("overrideValue", "0")
             self._svars.put("override", "false")
             self.CreateOrUpdatePossessionElement(possession, communityElement, False)
             
     def propagateElementsForNewPossession(self, possession):
-        
         for communityElement in possession.getCommunity().getElements():
             self._logger.info('Propagating element for new possession - %d' % communityElement.getElement().getId())
             self._svars.put("elementId", str(communityElement.getElement().getId()))
@@ -136,6 +139,9 @@ class ElementManager(Container):
         
     def findElementById(self, id):
         return self._entityManager.createQuery('Select element From Element element Where element.id = ' + str(id)).getSingleResult()
+        
+    def findCommunityElementById(self, id):
+        return self._entityManager.createQuery('Select element From ElementCommunity element Where element.id = ' + str(id)).getSingleResult()
         
     def findSubElementCommunity(self, id):
         return self._entityManager.createQuery('Select element From ElementCommunity element Where element.id = ' + str(id)).getSingleResult()
