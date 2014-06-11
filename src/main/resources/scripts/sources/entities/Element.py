@@ -37,7 +37,7 @@ class ElementManager(Container):
         for i in range(int(self._svars.get(self._prefix + 'counter'))):
             newValueAsString = self._svars.get(self._prefix + 'i' + '_newValue')
             communityElementId = self._svars.get(self._prefix + 'i' + '_id')
-            self._logger.info('Got new value %s for community element %s' % (newValueAsString, communityElementId))
+            print 'Got new value %s for community element %s' % (newValueAsString, communityElementId)
             #if newValueAsString != '':
             #    newValue = float(newValueAsString)
             #    communityElement = self.findCommunityElementById(communityElementId)
