@@ -38,11 +38,11 @@ class ElementManager(Container):
             newValueAsString = self._svars.get(self._prefix + 'i' + '_newValue')
             communityElementId = self._svars.get(self._prefix + 'i' + '_id')
             self._logger.info('Got new value %s for community element %s' % (newValueAsString, communityElementId))
-            if newValueAsString != '':
-                newValue = float(newValueAsString)
-                communityElement = self.findCommunityElementById(communityElementId)
-                communityElement.setGlobalValue(newValue)
-                self._entityManager.persist(communityElement)
+            #if newValueAsString != '':
+            #    newValue = float(newValueAsString)
+            #    communityElement = self.findCommunityElementById(communityElementId)
+            #    communityElement.setGlobalValue(newValue)
+            #    self._entityManager.persist(communityElement)
         self._entityManager.flush()
             
         
