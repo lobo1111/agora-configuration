@@ -35,12 +35,15 @@ class ElementManager(Container):
 
     def multiUpdate(self):
         for i in range(int(self._svars.get(self._prefix + 'counter'))):
-            if self._svars.get(self._prefix + 'i' + '_newValue') != '':
-                newValue = float(self._svars.get(self._prefix + 'i' + '_newValue'))
-                communityElementId = int(self._svars.get(self._prefix + 'i' + '_id'))
+            newValueAsString = self._svars.get(self._prefix + 'i' + '_newValue')
+            communityElementId = int(self._svars.get(self._prefix + 'i' + '_id'))
+            self._logger.info('Got new value %s for community element %s' % (newValueAsString, communityElementId))
+            if newValueAsString != '':
+                newValue = float(newValueAsString)
                 communityElement = self.findCommunityElementById(communityElementId)
                 communityElement.setGlobalValue(newValue)
                 self._entityManager.persist(communityElement)
+        self._entityManager.flush()
             
         
     def removeSubElement(self):
