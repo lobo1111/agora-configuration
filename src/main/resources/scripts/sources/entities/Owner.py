@@ -76,4 +76,5 @@ class OwnerManager(Container):
         
     def findOwnerById(self, id):
         self._logger.info('Looking for owner with ID: %s' % str(id))
+        print 'Looking for owner with ID: %s' % str(id)
         return self._entityManager.createQuery('Select owner From Owner owner Where owner.id = ' + id).getSingleResult()
