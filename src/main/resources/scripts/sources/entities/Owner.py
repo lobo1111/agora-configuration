@@ -9,15 +9,12 @@ class OwnerManager(Container):
     
     def create(self):
         subject = self.getSubject()
-        for possession in self.getPossessions():
-            owner = Owner()
-            owner.setPossession(possession)
-            self.setSubject(owner, subject)
-            additionalAddress = self.getAdditionalAddress()
-            self.setAdditionalAddress(owner, additionalAddress)
-            self.saveOwner(owner)
-        if self._svars.get('newPossession') == 'true':
-            self.createPossession(subject)
+        owner = Owner()
+        self.setPossession(owner, self._svars.get('possessionId'));
+        self.setSubject(owner, subject)
+        additionalAddress = self.getAdditionalAddress()
+        self.setAdditionalAddress(owner, additionalAddress)
+        self.saveOwner(owner)
             
     def update(self):
         owner = self.findOwnerById(self._svars.get('id'))
@@ -29,49 +26,21 @@ class OwnerManager(Container):
         owner = self.findOwnerById(self._svars.get('id'))
         self._entityManager.remove(owner)
 
-    def createPossession(self, subject):
-        possessionManager = PossessionManager()
-        possessionManager.setSvars(self._svars)
-        possessionManager.setEntityManager(self._entityManager)
-        possessionManager.setPrefix('newPossession_')
-        possession = possessionManager.create()
-        owner = Owner()
+    def setPossession(self, owner, possessionId):
+        possession = PossessionManager().findPossessionById(possessionId)
         owner.setPossession(possession)
-        self.setSubject(owner, subject)
-        additionalAddress = self.getAdditionalAddress()
-        self.setAdditionalAddress(owner, additionalAddress)
-        self.saveOwner(owner)
-            
-    def getPossessions(self):
-        possessions = []
-        for i in range(int(self._svars.get('possessionsCount'))):
-            possessionId = self._svars.get('possession' + str(i))
-            possessionManager = PossessionManager()
-            possessionManager.setSvars(self._svars)
-            possessionManager.setEntityManager(self._entityManager)
-            possessions.append(possessionManager.findPossessionById(possessionId))
-        return possessions
-        
+        possession.getOwners().add(owner)
+        self._entityManager.persist(possession)
+
     def getSubject(self):
         if self._svars.get('personSubject') == 'true':
             manager = PersonManager()
-            manager.setSvars(self._svars)
-            manager.setEntityManager(self._entityManager)
-            if self._svars.get('newSubject') == 'true':
-                return manager.create()
-            else:
-                return manager.findPersonById(self._svars.get('personId'))
+            return manager.findPersonById(self._svars.get('personId'))
         else:
             manager = CompanyManager()
-            manager.setSvars(self._svars)
-            manager.setEntityManager(self._entityManager)
-            if self._svars.get('newSubject') == 'true':
-                return manager.create()
-            else:
-                return manager.findCompanyById(self._svars.get('companyId'))
+            return manager.findCompanyById(self._svars.get('companyId'))
         
     def setSubject(self, owner, subject):
-        
         if self._svars.get('personSubject') == 'true':
             owner.setPerson(subject)
         else:
@@ -79,7 +48,6 @@ class OwnerManager(Container):
         subject.getOwners().add(owner)
             
     def getAdditionalAddress(self):
-        
         if self._svars.get('additionalAddress') == 'true':
             addressManager = AddressManager()
             addressManager.setSvars(self._svars)
@@ -90,7 +58,6 @@ class OwnerManager(Container):
             return None
         
     def setAdditionalAddress(self, owner, additionalAddress):
-        
         if self._svars.get('additionalAddress') == 'true':
             owner.setAddress(additionalAddress)
         else:
@@ -108,4 +75,5 @@ class OwnerManager(Container):
         self._entityManager.flush()
         
     def findOwnerById(self, id):
+        self._logger.info('Looking for owner with ID: %s' % str(id))
         return self._entityManager.createQuery('Select owner From Owner owner Where owner.id = ' + id).getSingleResult()
