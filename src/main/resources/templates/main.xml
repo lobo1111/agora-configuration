@@ -474,35 +474,7 @@
             </var>
         </variables>
     </template>
-    <template>
-        <name>list-banks</name>
-        <source>list-banks.vtl</source>
-        <variables>
-            <var>
-                <name>banks</name>
-                <data>
-                    {:limit}
-                    SELECT 
-                    bank
-                    FROM 
-                    Bank bank
-                    WHERE {:where}
-                    ORDER BY bank.name
-                </data>
-            </var>
-            <var>
-                <name>countRows</name>
-                <data>
-                    {:single}
-                    SELECT 
-                    count(bank.id)
-                    FROM 
-                    Bank bank
-                    WHERE {:where}
-                </data>
-            </var>
-        </variables>
-    </template>
+    
     <template>
         <name>list-accounts</name>
         <source>list-accounts.vtl</source>
@@ -534,7 +506,7 @@
                     JOIN account.community community
                     JOIN account.type accountType
                     JOIN account.bank bank
-                    JOIN account.parrentAccount parentAccount
+                    LEFT OUTER JOIN account.parrentAccount parentAccount
                     WHERE {:where}
                 </data>
             </var>
@@ -745,6 +717,34 @@
                     LEFT OUTER JOIN owner.person person
                     JOIN owner.possession possession
                     JOIN possession.community community
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-banks</name>
+        <source>list-banks.vtl</source>
+        <variables>
+            <var>
+                <name>banks</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    bank
+                    FROM 
+                    Bank bank
+                    WHERE {:where}
+                    ORDER BY bank.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(bank.id)
+                    FROM 
+                    Bank bank
                     WHERE {:where}
                 </data>
             </var>
