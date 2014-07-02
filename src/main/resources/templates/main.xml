@@ -829,9 +829,6 @@
                     FROM 
                     Company company
                     JOIN company.address address
-                    LEFT OUTER JOIN company.contractors contractor
-                    LEFT OUTER JOIN company.owners owner
-                    LEFT OUTER JOIN owner.possession possession
                     WHERE {:where}
                     ORDER BY company.name ASC
                 </data>
@@ -844,9 +841,6 @@
                     FROM
                     Company company
                     JOIN company.address address
-                    LEFT OUTER JOIN company.contractors contractor
-                    LEFT OUTER JOIN company.owners owner
-                    LEFT OUTER JOIN owner.possession possession
                     WHERE {:where}
                 </data>
             </var>
