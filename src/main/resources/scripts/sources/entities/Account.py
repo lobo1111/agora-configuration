@@ -9,7 +9,8 @@ class AccountManager(Container):
     def create(self):
         account = Account()
         self.setAccountData(account)
-        self.createZpk(account)
+        if not account.getCommunity() is None:
+            self.createZpk(account)
         self.saveAccount(account)
         
     def update(self):
