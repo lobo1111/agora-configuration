@@ -49,7 +49,7 @@
             #if($!entity.getContractor())
                 <description>$!entity.getContractor().getName()</description>
             #end
-            <number>$!entity.getNumber()</number>
+            <number>$!entity.getType().getKey()-$!entity.getNumber()</number>
             #foreach($balance in $entity.getZpkBalances())
             #if($balance.getBookingPeriod().isDefaultPeriod())
                 <credit>$balance.getCredit()</credit>
