@@ -15,10 +15,9 @@ class BankManager(Container):
         self.saveBank(bank)
         
     def setBankData(self, bank):
-        
-        bank.setName(self._svars.get('bankName'))
-        bank.setKey(self._svars.get('bankKey'))
         bank.setCompany(self.getCompany(bank))
+        bank.setName(bank.getCompany().getName())
+        bank.setKey(bank.getCompany().getName())
         
     def getCompany(self, bank):
         companyManager = CompanyManager()
