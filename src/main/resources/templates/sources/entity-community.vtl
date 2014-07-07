@@ -36,6 +36,27 @@
         </element>
         #end
     </elements>
+    <zpks>
+        #foreach($entity in $!community.getZpks())
+            <id>$!entity.getId()</id>
+            #if($!entity.getAccount())
+                <description>$!entity.getAccount().getNumber()</description>
+            #end
+            #if($!entity.getPossession())
+                <description>$!entity.getPossession().getFullAddress()</description>
+            #end
+            #if($!entity.getContractor())
+                <description>$!entity.getContractor().getName()</description>
+            #end
+            <number>$!entity.getNumber()</number>
+            #foreach($balance in $entity.getZpkBalances())
+            #if($balance.getBookingPeriod().isDefaultPeriod())
+                <credit>$balance.getCredit()</credit>
+                <debit>$balance.getDebit()</debit>
+            #end
+            #end
+        #end
+    </zpks>
     <defaultAccountId>$!community.getDefaultAccount().getId()</defaultAccountId>
     <defaultAccountNumber>$!community.getDefaultAccount().getNumber()</defaultAccountNumber>
     <repairFundAccountId>$!community.getRepairFundAccount().getId()</repairFundAccountId>
