@@ -39,7 +39,10 @@
     <contractors>
         #foreach($entity in $!community.getObligations())
         <contractor>
-            <name>!entity.getCompany().getName()</name>
+            <id>!entity.getId()</id>
+            <company>
+                <name>!entity.getCompany().getName()</name>
+            </company>
         </contractor>
         #end
     </contractors>
