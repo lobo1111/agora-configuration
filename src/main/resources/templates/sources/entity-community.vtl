@@ -36,6 +36,13 @@
         </element>
         #end
     </elements>
+    <contractors>
+        #foreach($entity in $!community.getObligations())
+        <contractor>
+            <name>!entity.getCompany().getName()</name>
+        </contractor>
+        #end
+    </contractors>
     <zpks>
         #foreach($entity in $!community.getZpks())
         <zpk>
