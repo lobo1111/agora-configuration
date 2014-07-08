@@ -36,12 +36,12 @@ class CommunityManager(Container):
         community.setName(community.getCompany().getName())
         if self._svars.get('hasDefaultAccount') == 'true':
             account = self.findAccountById(self._svars.get('defaultAccountId'))
-            acount.setCommunity(community)
+            account.setCommunity(community)
             community.setDefaultAccount()
             AccountManager().createZpk(account)
         if self._svars.get('hasRepairFundAccount') == 'true':
             account = self.findAccountById(self._svars.get('repairFundAccountId'))
-            acount.setCommunity(community)
+            account.setCommunity(community)
             community.setRepairFundAccount()
             AccountManager().createZpk(account)
 
