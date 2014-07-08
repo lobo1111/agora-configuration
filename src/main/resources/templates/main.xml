@@ -332,6 +332,25 @@
         </variables>
     </template>
     <template>
+        <name>list-default-contractors</name>
+        <source>list-default-contractors.vtl</source>
+        <variables>
+            <var>
+                <name>companies</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    company
+                    FROM
+                    Company company
+                    WHERE company.defaultContractor = 1
+                    ORDER BY
+                    company.nameASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-contractors</name>
         <source>list-contractors.vtl</source>
         <variables>

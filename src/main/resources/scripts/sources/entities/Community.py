@@ -2,6 +2,7 @@ from pl.reaper.container.data import Community
 from java.math import BigDecimal
 from java.math import RoundingMode
 from base.Container import Container
+from entities.Account import AccountManager
 from entities.Company import CompanyManager
 from entities.Zpk import ZpkManager
 from entities.Element import ElementManager
@@ -19,7 +20,7 @@ class CommunityManager(Container):
         self.generateZpkNumber(community)
         self.saveCommunity(community)
         self.addDefaultElements(community)
-        self.setContractorData(community)
+        self.addContractors(community)
         
     def update(self):
         community = self.findCommunity()
@@ -28,17 +29,18 @@ class CommunityManager(Container):
         self.setElementsData(community)
         
     def setCommunityData(self, community):
-        community.setName(self._svars.get('communityName'))
         community.setCompany(self.getCompany(community))
-        community.getCompany().setName(self._svars.get('communityName'))
+        community.setName(community.getCompany().getName())
         if self._svars.get('hasDefaultAccount') == 'true':
-            community.setDefaultAccount(self.findAccountById(self._svars.get('defaultAccountId')))
-        else:
-            community.setDefaultAccount(None)
+            account = self.findAccountById(self._svars.get('defaultAccountId'))
+            acount.setCommunity(community)
+            community.setDefaultAccount()
+            AccountManager().createZpk(account)
         if self._svars.get('hasRepairFundAccount') == 'true':
-            community.setRepairFundAccount(self.findAccountById(self._svars.get('repairFundAccountId')))
-        else:
-            community.setRepairFundAccount(None)
+            account = self.findAccountById(self._svars.get('repairFundAccountId'))
+            acount.setCommunity(community)
+            community.setRepairFundAccount()
+            AccountManager().createZpk(account)
 
     def generateZpkNumber(self, community):
         manager = ZpkManager()
@@ -76,8 +78,7 @@ class CommunityManager(Container):
         self._entityManager.persist(community)
         self._entityManager.flush()
         
-    def setContractorData(self, community):
-        
+    def addContractors(self, community):
         self._svars.put('communityId', str(community.getId()))
         self._svars.put('exsitingCompany', 'true')
         for company in self.findDefaultCompanies():
@@ -90,7 +91,6 @@ class CommunityManager(Container):
         self.saveCommunity(community)
             
     def findCommunity(self):
-        
         id = self._svars.get('id')
         return self.findCommunityById(id)
 
