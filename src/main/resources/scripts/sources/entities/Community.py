@@ -56,13 +56,18 @@ class CommunityManager(Container):
         notToRemove = []
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
             notToRemove.append(int(self._svars.get(self._prefix + str(i) + "_elementId")))
+            self._logger.info('Element marked as not to remove: ' + self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             ElementManager().CreateOrUpdateCommunityElement(community)
         for element in community.getElements():
             if not element.getId() in notToRemove:
+                self._svars.get('Element will be removed: ' + str(element.getId()))
                 self._entityManager.remove(element)
+            else:
+                self._svars.get('Element won\t be removed: ' + str(element.getId()))
+        self._entityManager.flush()
             
     def getCompany(self, community):
         companyManager = CompanyManager()
