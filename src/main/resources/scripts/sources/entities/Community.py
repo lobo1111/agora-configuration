@@ -73,10 +73,9 @@ class CommunityManager(Container):
         self._entityManager.flush()
         
     def addContractors(self, community):
-        self._svars.put('communityId', str(community.getId()))
         contractorsManager = ContractorManager()
         for i in range(int(self._svars.get(self._prefix + 'contractorsCount'))): 
-            self._logger.info('Adding contractor, prefix set as %s' % (str(i)))
+            self._svars.put((str(i) + 'communityId', str(community.getId()))
             contractorsManager.setPrefix(str(i))
             obligation = contractorsManager.create()
             community.getZpks().addAll(obligation.getZpks())
@@ -105,10 +104,7 @@ class CommunityManager(Container):
         return self._entityManager.createQuery('Select e From Contractor e Where e.community.id = %d' % id).getResultList()
 
     def findCommunityById(self, id):
-        try:
-            return self._entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
-        except:
-            self._logger.error('Can\'t load community. Tried to load by id stored as ' + str(id))
+        return self._entityManager.createQuery('Select community From Community community Where community.id = ' + str(id)).getSingleResult()
 
     def findAccountById(self, id):
         return self._entityManager.createQuery('Select a From Account a Where a.id = ' + str(id)).getSingleResult()
