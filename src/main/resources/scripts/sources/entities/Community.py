@@ -37,12 +37,12 @@ class CommunityManager(Container):
         if self._svars.get('hasDefaultAccount') == 'true':
             account = self.findAccountById(self._svars.get('defaultAccountId'))
             account.setCommunity(community)
-            community.setDefaultAccount()
+            community.setDefaultAccount(account)
             AccountManager().createZpk(account)
         if self._svars.get('hasRepairFundAccount') == 'true':
             account = self.findAccountById(self._svars.get('repairFundAccountId'))
             account.setCommunity(community)
-            community.setRepairFundAccount()
+            community.setRepairFundAccount(account)
             AccountManager().createZpk(account)
 
     def generateZpkNumber(self, community):
