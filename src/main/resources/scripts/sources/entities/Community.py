@@ -55,7 +55,7 @@ class CommunityManager(Container):
     def addElements(self, community):
         notToRemove = []
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
-            notToRemove.push(int(self._svars.get(self._prefix + str(i) + "_elementId")))
+            notToRemove.append(int(self._svars.get(self._prefix + str(i) + "_elementId")))
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
