@@ -49,10 +49,7 @@ class ContractorManager(Container):
         companyManager.setEntityManager(self._entityManager)
         companyManager.setSvars(self._svars)
         companyManager.setPrefix(self._prefix)
-        if self._svars.get(self._prefix + 'exsitingCompany') == 'true':
-            return companyManager.findCompanyById(self._svars.get(self._prefix + 'obligationCompanyId'))
-        else:
-            return companyManager.create()
+        return companyManager.findCompanyById(self._svars.get(self._prefix + 'obligationCompanyId'))
         
     def findContractorById(self, id):
         return self._entityManager.createQuery('Select o From Contractor o Where o.id = ' + str(id)).getSingleResult()

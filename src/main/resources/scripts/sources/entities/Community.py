@@ -19,14 +19,17 @@ class CommunityManager(Container):
         self.setCommunityData(community)
         self.generateZpkNumber(community)
         self.saveCommunity(community)
-        self.addDefaultElements(community)
+        self.addElements(community)
         self.addContractors(community)
         
     def update(self):
         community = self.findCommunity()
         self.setCommunityData(community)
         self.saveCommunity(community)
-        self.setElementsData(community)
+        self.removeElements(community)
+        self.removeContractors(community)
+        self.addElements(community)
+        self.addContractors(community)
         
     def setCommunityData(self, community):
         community.setCompany(self.getCompany(community))
@@ -51,22 +54,13 @@ class CommunityManager(Container):
         zpkRepairFund = manager.generateZpkForCommunity(community, "CHARGING_REPAIR_FUND")
         community.getZpks().add(zpkRepairFund)
         
-    def setElementsData(self, community):
+    def addElements(self, community):
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
-            manager = ElementManager()
-            manager.setEntityManager(self._entityManager)
-            manager.setSvars(self._svars)
-            manager.CreateOrUpdateCommunityElement(community)
+            ElementManager().CreateOrUpdateCommunityElement(community)
             
-    def addDefaultElements(self, community):
-        manager = ElementManager()
-        manager.setEntityManager(self._entityManager)
-        manager.setSvars(self._svars)
-        manager.addDefaultElements(community)
-        
     def getCompany(self, community):
         companyManager = CompanyManager()
         companyManager.setEntityManager(self._entityManager)
@@ -81,21 +75,32 @@ class CommunityManager(Container):
     def addContractors(self, community):
         self._svars.put('communityId', str(community.getId()))
         self._svars.put('exsitingCompany', 'true')
-        for company in self.findDefaultCompanies():
-            self._svars.put('obligationCompanyId', str(company.getId()))
-            obligationManager = ContractorManager()
-            obligationManager.setEntityManager(self._entityManager)
-            obligationManager.setSvars(self._svars)
-            obligation = obligationManager.create()
+        for i in range(int(self._svars.get(self._prefix + 'contractorsCount'))): 
+            obligation = ContractorManager().create()
             community.getZpks().addAll(obligation.getZpks())
         self.saveCommunity(community)
+
+    def removeElements(self, community):
+        for element in self.findCommunityElements(community.getId()):
+            if not element in community.getElements():
+                self._entityManager.remove(element)
+        self._entityManager.flush()
+            
+    def removeContractors(self, community):
+        for contractor in self.findCommunityContractors(community.getId()):
+            if not contractor in community.getObligations():
+                self._entityManager.remove(contractor)
+        self._entityManager.flush()
             
     def findCommunity(self):
         id = self._svars.get('id')
         return self.findCommunityById(id)
 
-    def findDefaultCompanies(self):
-        return self._entityManager.createQuery('Select company From Company company Where company.defaultContractor = 1').getResultList()
+    def findCommunityElements(self, id):
+        return self._entityManager.createQuery('Select e From ElementCommunity e Where e.community.id = %d' int(id)).getResultList()
+
+    def findCommunityContractors(self, id):
+        return self._entityManager.createQuery('Select e From Contractor e Where e.community.id = %d' int(id)).getResultList()
 
     def findCommunityById(self, id):
         try:

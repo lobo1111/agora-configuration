@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<community>
+<elements>
+        #foreach($entity in $!items)
+        <element>
+            <groupKey>$!entity.getGroup().getId()</groupKey>
+            <groupValue>$!entity.getGroup().getValue()</groupValue>
+            <name>$!entity.getName()</name>
+            <globalValue>$!entity.getGlobalValue()</globalValue>
+        </element>
+        #end
+    </elements>
+</community>
