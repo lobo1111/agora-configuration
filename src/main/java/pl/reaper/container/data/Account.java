@@ -53,7 +53,7 @@ public class Account implements Serializable {
     @ManyToOne
     private Account parrentAccount;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Community community;
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
