@@ -45,6 +45,7 @@ class ContractorManager(Container):
         obligation.getZpks().add(zpkCost)
 
     def getCompany(self, obligation):
+        self._logger.info('Looking for company ' + self._prefix + 'obligationCompanyId' + '=' + self._svars.get(self._prefix + 'obligationCompanyId'))
         return CompanyManager().findCompanyById(self._svars.get(self._prefix + 'obligationCompanyId'))
         
     def findContractorById(self, id):

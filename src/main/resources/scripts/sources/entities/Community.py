@@ -76,6 +76,7 @@ class CommunityManager(Container):
         self._svars.put('communityId', str(community.getId()))
         contractorsManager = ContractorManager()
         for i in range(int(self._svars.get(self._prefix + 'contractorsCount'))): 
+            self._logger.info('Adding contractor, prefix set as %s' % (str(i)))
             contractorsManager.setPrefix(str(i))
             obligation = contractorsManager.create()
             community.getZpks().addAll(obligation.getZpks())
