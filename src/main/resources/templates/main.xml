@@ -345,7 +345,7 @@
                     Company company
                     WHERE company.defaultContractor = 1
                     ORDER BY
-                    company.nameASC
+                    company.name ASC
                 </data>
             </var>
         </variables>
