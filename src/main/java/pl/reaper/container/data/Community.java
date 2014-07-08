@@ -47,7 +47,7 @@ public class Community implements Serializable {
     @Column(name = "in_date")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date inDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "community")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<Possession> possessions = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
@@ -56,10 +56,10 @@ public class Community implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<ElementCommunity> elements = new ArrayList<>();
     @JoinColumn(name = "default_account_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Account defaultAccount;
     @JoinColumn(name = "repair_fund_account_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Account repairFundAccount;
 
     public Community() {
