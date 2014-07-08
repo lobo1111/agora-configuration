@@ -26,20 +26,18 @@ class CommunityManager(Container):
         community = self.findCommunity()
         self.setCommunityData(community)
         self.saveCommunity(community)
-        self.removeElements(community)
-        self.removeContractors(community)
         self.addElements(community)
         self.addContractors(community)
         
     def setCommunityData(self, community):
         community.setCompany(self.getCompany(community))
         community.setName(community.getCompany().getName())
-        if self._svars.get('hasDefaultAccount') == 'true':
+        if self._svars.get('hasDefaultAccount') == 'true' and self._svars.get('defaultAccountId') != str(community.getDefaultAccount().getId()):
             account = self.findAccountById(self._svars.get('defaultAccountId'))
             account.setCommunity(community)
             community.setDefaultAccount(account)
             AccountManager().createZpk(account)
-        if self._svars.get('hasRepairFundAccount') == 'true':
+        if self._svars.get('hasRepairFundAccount') == 'true' and self._svars.get('repairFundAccountId') != str(community.getRepairFundAccount().getId()):
             account = self.findAccountById(self._svars.get('repairFundAccountId'))
             account.setCommunity(community)
             community.setRepairFundAccount(account)
@@ -55,11 +53,16 @@ class CommunityManager(Container):
         community.getZpks().add(zpkRepairFund)
         
     def addElements(self, community):
+        notToRemove = []
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
+            notToRemove.push(int(self._svars.get(self._prefix + str(i) + "_elementId")))
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             ElementManager().CreateOrUpdateCommunityElement(community)
+        for element in community.getElements():
+            if not element.getId() in notToRemove:
+                self._entityManager.remove(element)
             
     def getCompany(self, community):
         companyManager = CompanyManager()
@@ -81,18 +84,6 @@ class CommunityManager(Container):
             community.getZpks().addAll(obligation.getZpks())
         self.saveCommunity(community)
 
-    def removeElements(self, community):
-        for element in self.findCommunityElements(community.getId()):
-            if not element in community.getElements():
-                self._entityManager.remove(element)
-        self._entityManager.flush()
-            
-    def removeContractors(self, community):
-        for contractor in self.findCommunityContractors(community.getId()):
-            if not contractor in community.getObligations():
-                self._entityManager.remove(contractor)
-        self._entityManager.flush()
-            
     def findCommunity(self):
         id = self._svars.get('id')
         return self.findCommunityById(id)
