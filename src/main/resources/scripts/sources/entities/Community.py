@@ -97,10 +97,10 @@ class CommunityManager(Container):
         return self.findCommunityById(id)
 
     def findCommunityElements(self, id):
-        return self._entityManager.createQuery('Select e From ElementCommunity e Where e.community.id = %d' int(id)).getResultList()
+        return self._entityManager.createQuery('Select e From ElementCommunity e Where e.community.id = %d' % id).getResultList()
 
     def findCommunityContractors(self, id):
-        return self._entityManager.createQuery('Select e From Contractor e Where e.community.id = %d' int(id)).getResultList()
+        return self._entityManager.createQuery('Select e From Contractor e Where e.community.id = %d' % id).getResultList()
 
     def findCommunityById(self, id):
         try:
