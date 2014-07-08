@@ -3,6 +3,7 @@
 <elements>
         #foreach($entity in $!items)
         <element>
+            <id>$!entity.getId()</id>
             <groupKey>$!entity.getGroup().getId()</groupKey>
             <groupValue>$!entity.getGroup().getValue()</groupValue>
             <name>$!entity.getName()</name>
