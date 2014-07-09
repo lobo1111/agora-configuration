@@ -87,7 +87,7 @@ class ElementManager(Container):
             self._svars.put('override', tmpOverride)
             self._svars.put('overrideValue', tmpOverrideValue)
         self._entityManager.persist(community)
-        self._entityManager.flush(community)
+        self._entityManager.flush()
         self.saveElement(communityElement)
         
     def setElementForPossessions(self, community, communityElement):
