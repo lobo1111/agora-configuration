@@ -56,6 +56,7 @@ class CommunityManager(Container):
         
     def addElements(self, community):
         notToRemove = []
+        toRemove = []
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
@@ -68,10 +69,12 @@ class CommunityManager(Container):
             self._logger.info('Checking if element should be dropped: ' + str(element.getId()))
             if not (element.getId() in notToRemove):
                 self._logger.info('Element will be removed: ' + str(element.getId()))
-                community.getElements().remove(element)
-                self._entityManager.remove(element)
+                toRemove.append(element)
             else:
                 self._logger.info('Element won\'t be removed: ' + str(element.getId()))
+        for element in toRemove:
+            community.getElements().remove(element)
+            self._entityManager.remove(element)
             
     def getCompany(self, community):
         companyManager = CompanyManager()
