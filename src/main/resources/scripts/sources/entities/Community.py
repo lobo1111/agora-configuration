@@ -21,6 +21,7 @@ class CommunityManager(Container):
         self.saveCommunity(community)
         self.addElements(community)
         self.addContractors(community)
+        self.saveCommunity(community)
         
     def update(self):
         community = self.findCommunity()
@@ -28,6 +29,7 @@ class CommunityManager(Container):
         self.saveCommunity(community)
         self.addElements(community)
         self.addContractors(community)
+        self.saveCommunity(community)
         
     def setCommunityData(self, community):
         community.setCompany(self.getCompany(community))
@@ -71,7 +73,6 @@ class CommunityManager(Container):
             else:
                 self._logger.info('Element won\'t be removed: ' + str(element.getId()))
         self._entityManager.persist(community)        
-        self._entityManager.flush()
             
     def getCompany(self, community):
         companyManager = CompanyManager()
