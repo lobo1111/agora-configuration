@@ -63,6 +63,7 @@ class CommunityManager(Container):
             ElementManager().CreateOrUpdateCommunityElement(community)
         self._logger.info('Community has total elements: ' + str(community.getElements().size()))
         for element in community.getElements():
+            self._logger.info('Checking if element should be dropped: ' + str(element.getId()))
             if not element.getId() in notToRemove:
                 self._svars.get('Element will be removed: ' + str(element.getId()))
                 self._entityManager.remove(element)
