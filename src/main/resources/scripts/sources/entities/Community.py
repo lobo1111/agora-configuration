@@ -66,7 +66,7 @@ class CommunityManager(Container):
                 self._svars.get('Element will be removed: ' + str(element.getId()))
                 self._entityManager.remove(element)
             else:
-                self._svars.get('Element won\t be removed: ' + str(element.getId()))
+                self._svars.get('Element won\'t be removed: ' + str(element.getId()))
         self._entityManager.flush()
             
     def getCompany(self, community):
