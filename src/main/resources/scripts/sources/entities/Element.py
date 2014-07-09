@@ -89,6 +89,7 @@ class ElementManager(Container):
         self._entityManager.persist(community)
         self._entityManager.flush()
         self.saveElement(communityElement)
+        return communityElement
         
     def setElementForPossessions(self, community, communityElement):
         for possession in community.getPossessions():

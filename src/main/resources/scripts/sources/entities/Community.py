@@ -55,20 +55,20 @@ class CommunityManager(Container):
     def addElements(self, community):
         notToRemove = []
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
-            notToRemove.append(int(self._svars.get(self._prefix + str(i) + "_elementId")))
-            self._logger.info('Element marked as not to remove: ' + self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
-            ElementManager().CreateOrUpdateCommunityElement(community)
+            communityElement = ElementManager().CreateOrUpdateCommunityElement(community)
+            notToRemove.append(communityElement.getId())
+            self._logger.info('Element marked as not to remove: ' + str(communityElement.getId()))
         self._logger.info('Community has total elements: ' + str(community.getElements().size()))
         for element in community.getElements():
             self._logger.info('Checking if element should be dropped: ' + str(element.getId()))
-            if not element.getId() in notToRemove:
-                self._svars.get('Element will be removed: ' + str(element.getId()))
+            if not (element.getId() in notToRemove):
+                self._logger.info('Element will be removed: ' + str(element.getId()))
                 self._entityManager.remove(element)
             else:
-                self._svars.get('Element won\'t be removed: ' + str(element.getId()))
+                self._logger.info('Element won\'t be removed: ' + str(element.getId()))
         self._entityManager.flush()
             
     def getCompany(self, community):
