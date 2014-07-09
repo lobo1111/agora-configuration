@@ -66,9 +66,11 @@ class CommunityManager(Container):
             self._logger.info('Checking if element should be dropped: ' + str(element.getId()))
             if not (element.getId() in notToRemove):
                 self._logger.info('Element will be removed: ' + str(element.getId()))
+                community.getElements().remove(element)
                 self._entityManager.remove(element)
             else:
                 self._logger.info('Element won\'t be removed: ' + str(element.getId()))
+        self._entityManager.persist(community)        
         self._entityManager.flush()
             
     def getCompany(self, community):
