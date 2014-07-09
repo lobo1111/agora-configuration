@@ -72,7 +72,6 @@ class CommunityManager(Container):
                 self._entityManager.remove(element)
             else:
                 self._logger.info('Element won\'t be removed: ' + str(element.getId()))
-        self._entityManager.persist(community)        
             
     def getCompany(self, community):
         companyManager = CompanyManager()
