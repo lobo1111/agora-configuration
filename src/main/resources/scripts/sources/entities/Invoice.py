@@ -99,7 +99,7 @@ class InvoiceManager(Container):
             self._entityManager.flush()
             notToRemove.append(position.getId())
         for position in invoice.getPositions():
-            if not position.getId() in notToRemove:
+            if not (position.getId() in notToRemove):
                 toRemove.append(position)
         for position in toRemove:
             invoice.getPositions().remove(position)
@@ -123,7 +123,7 @@ class InvoiceManager(Container):
             self._entityManager.flush()
             notToRemove.append(payment.getId())
         for payment in invoice.getPayments():
-            if not payment.getId() in notToRemove:
+            if not (payment.getId() in notToRemove):
                 toRemove.append(payment)
         for payment in toRemove:
             invoice.getPayments().remove(payment)
