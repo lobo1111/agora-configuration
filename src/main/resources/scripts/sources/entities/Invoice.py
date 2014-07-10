@@ -49,24 +49,6 @@ class InvoiceManager(Container):
         else:
             self._logger.info("Invoice(%d) contains booked payments, can't be canceled" % invoice.getId())
 
-    def removePosition(self):
-        position = self.findInvoicePosition()
-        if not position.getInvoice().isAccepted():
-            position.getInvoice().getPositions().remove(position)
-            self._entityManager.remove(position)
-            self._entityManager.flush()
-        self.calculateToPay(position.getInvoice())
-        self._entityManager.persist(position.getInvoice())
-
-    def removePayment(self):
-        payment = self.findInvoicePayment()
-        if not payment.isBooked():
-            payment.getInvoice().getPayments().remove(payment)
-            self._entityManager.remove(payment)
-            self._entityManager.flush()
-        self.calculatePayed(payment.getInvoice())
-        self._entityManager.persist(payment.getInvoice())
-
     def calculateToPay(self, invoice):
         invoice.setToPay(sum([position.getValueGross() for position in invoice.getPositions()]))
 
@@ -97,31 +79,54 @@ class InvoiceManager(Container):
         return boolean == 'true'
 
     def addPositions(self, invoice):
+        notToRemove = []
+        toRemove = []
         for i in range(int(self._svars.get('positionsCount'))):
             positionId = self._svars.get(str(i) + '_positions_positionId')
             if positionId == '0':
                 position = InvoicePosition()
-                position.setName(self._svars.get(str(i) + '_positions_name'))
-                position.setVolume(int(self._svars.get(str(i) + '_positions_volume')))
-                position.setPosition(int(self._svars.get(str(i) + '_positions_position')))
-                position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
-                position.setValueGross(float(self._svars.get(str(i) + '_positions_grossValue')))
-                position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
-                position.setInvoice(invoice)
-                invoice.getPositions().add(position)
-                self._entityManager.persist(position)
+            else:
+                position = self.findPositionById(positionId)
+            position.setName(self._svars.get(str(i) + '_positions_name'))
+            position.setVolume(int(self._svars.get(str(i) + '_positions_volume')))
+            position.setPosition(int(self._svars.get(str(i) + '_positions_position')))
+            position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
+            position.setValueGross(float(self._svars.get(str(i) + '_positions_grossValue')))
+            position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
+            position.setInvoice(invoice)
+            invoice.getPositions().add(position)
+            self._entityManager.persist(position)
+            self._entityManager.flush()
+            notToRemove.append(position.getId())
+        for position in invoice.getPositions():
+            if not position.getId() in notToRemove:
+                toRemove.append(position)
+        for position in toRemove:
+            invoice.getPositions().remove(position)
+
 
     def addPayments(self, invoice):
+        notToRemove = []
+        toRemove = []
         for i in range(int(self._svars.get('paymentsCount'))):
             paymentId = self._svars.get(str(i) + '_payments_paymentId')
             if paymentId == '0':
                 payment = InvoicePayment()
-                payment.setBooked(self.parseBoolean(self._svars.get(str(i) + '_payments_booked')))
-                payment.setCreateDate(self.parseDate(self._svars.get(str(i) + '_payments_createDate')))
-                payment.setValuePayment(float(self._svars.get(str(i) + '_payments_value')))
-                payment.setInvoice(invoice)
-                invoice.getPayments().add(payment)
-                self._entityManager.persist(payment)
+            else:
+                payment = self.findPaymentById(paymentId)
+            payment.setBooked(self.parseBoolean(self._svars.get(str(i) + '_payments_booked')))
+            payment.setCreateDate(self.parseDate(self._svars.get(str(i) + '_payments_createDate')))
+            payment.setValuePayment(float(self._svars.get(str(i) + '_payments_value')))
+            payment.setInvoice(invoice)
+            invoice.getPayments().add(payment)
+            self._entityManager.persist(payment)
+            self._entityManager.flush()
+            notToRemove.append(payment.getId())
+        for payment in invoice.getPayments():
+            if not payment.getId() in notToRemove:
+                toRemove.append(payment)
+        for payment in toRemove:
+            invoice.getPayments().remove(payment)
 
     def findTax(self, id):
         return DictionaryManager().getDictionaryInstance(int(id))
@@ -134,28 +139,14 @@ class InvoiceManager(Container):
         id = self._svars.get('id')
         return self.findInvoiceById(id)
         
-    def findInvoicePosition(self):
-        id = self._svars.get('positionId')
-        return self.findInvoicePositionById(id)
-        
-    def findInvoicePayment(self):
-        id = self._svars.get('paymentId')
-        return self.findInvoicePaymentById(id)
-
     def findInvoiceById(self, id):
         try:
             return self._entityManager.createQuery('Select i From Invoice i Where i.id = ' + str(id)).getSingleResult()
         except:
             self._logger.error('Can\'t load invoice. Tried to load by id stored as ' + str(id))
 
-    def findInvoicePositionById(self, id):
-        try:
-            return self._entityManager.createQuery('Select i From InvoicePosition i Where i.id = ' + str(id)).getSingleResult()
-        except:
-            self._logger.error('Can\'t load invoice position. Tried to load by id stored as ' + str(id))
+    def findPositionById(self, id):
+        return self._entityManager.createQuery('Select i From InvoicePosition i Where i.id = ' + str(id)).getSingleResult()
 
-    def findInvoicePaymentById(self, id):
-        try:
-            return self._entityManager.createQuery('Select i From InvoicePayment i Where i.id = ' + str(id)).getSingleResult()
-        except:
-            self._logger.error('Can\'t load invoice payment. Tried to load by id stored as ' + str(id))
+    def findPaymentById(self, id):
+        return self._entityManager.createQuery('Select i From InvoicePayment i Where i.id = ' + str(id)).getSingleResult()
