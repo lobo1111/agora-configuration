@@ -23,11 +23,14 @@ class InvoiceManager(Container):
         self.saveInvoice(invoice)
         
     def update(self):
+        self._logger.info("Update")
         invoice = self.findInvoice()
         if not invoice.isAccepted():
             invoice.setNumber(self._svars.get('number'))
             self.addPositions(invoice)
+        self._logger.info("before")
         self.addPayments(invoice)
+        self._logger.info("after")
         self.calculateToPay(invoice)
         self.calculatePayed(invoice)
         self.saveInvoice(invoice)
