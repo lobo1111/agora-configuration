@@ -27,8 +27,6 @@ public class Element implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "key_value")
     private String key;
     @Basic(optional = false)
@@ -86,7 +84,6 @@ public class Element implements Serializable {
     }
 
     public void setName(String name) {
-        this.key = name;
         this.name = name;
     }
 
