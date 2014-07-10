@@ -59,6 +59,7 @@ public class ScriptEngineWrapper {
 
     public Object eval(String scriptName) throws ScriptException, Exception {
         try {
+            Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Script name: " + scriptName);
             Logger.getLogger(ScriptEngineWrapper.class.getName()).log(Level.INFO, "Variables:\n" + variablesAsString());
             CompiledScript script = findScript(scriptName);
             Bindings binding = getBinding();
