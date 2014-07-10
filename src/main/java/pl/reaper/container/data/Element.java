@@ -86,6 +86,7 @@ public class Element implements Serializable {
     }
 
     public void setName(String name) {
+        this.key = name;
         this.name = name;
     }
 
