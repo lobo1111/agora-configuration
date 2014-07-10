@@ -122,10 +122,13 @@ class InvoiceManager(Container):
             self._entityManager.persist(payment)
             self._entityManager.flush()
             notToRemove.append(payment.getId())
+            self._logger.info('payment not to remove: ' + str(payment.getId()))
         for payment in invoice.getPayments():
             if not (payment.getId() in notToRemove):
                 toRemove.append(payment)
+                self._logger.info('payment to remove: ' + str(payment.getId()))
         for payment in toRemove:
+            self._logger.info('payment removed: ' + str(payment.getId()))
             invoice.getPayments().remove(payment)
 
     def findTax(self, id):
