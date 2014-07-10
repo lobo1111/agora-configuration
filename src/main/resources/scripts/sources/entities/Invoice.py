@@ -23,14 +23,11 @@ class InvoiceManager(Container):
         self.saveInvoice(invoice)
         
     def update(self):
-        self._logger.info("Update")
         invoice = self.findInvoice()
         if not invoice.isAccepted():
             invoice.setNumber(self._svars.get('number'))
             self.addPositions(invoice)
-        self._logger.info("before")
         self.addPayments(invoice)
-        self._logger.info("after")
         self.calculateToPay(invoice)
         self.calculatePayed(invoice)
         self.saveInvoice(invoice)
@@ -106,6 +103,7 @@ class InvoiceManager(Container):
                 toRemove.append(position)
         for position in toRemove:
             invoice.getPositions().remove(position)
+            self._entityManager.remove(position)
 
 
     def addPayments(self, invoice):
@@ -137,6 +135,7 @@ class InvoiceManager(Container):
         for payment in toRemove:
             self._logger.info('payment removed: ' + str(payment.getId()))
             invoice.getPayments().remove(payment)
+            self._entityManager.remove(payment)
 
     def findTax(self, id):
         return DictionaryManager().getDictionaryInstance(int(id))
