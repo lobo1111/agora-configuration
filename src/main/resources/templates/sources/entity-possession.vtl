@@ -42,4 +42,12 @@
         </element>
         #end
     </elements>
+    <owners>
+        #foreach($entity in $!possession.getOwners())
+            <owner>
+                <id>$!owner.getId()</id>
+                <name>$!owner.getName()</name>
+            </owner>
+        #end
+    </owners>
 </possession>
