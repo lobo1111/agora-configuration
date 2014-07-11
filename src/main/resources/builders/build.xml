@@ -1,0 +1,7 @@
+<project name="Scripting Container" basedir=".">
+    <description>Scripting Container</description>
+  
+    <import file="properties.xml" />
+    <import file="glassfish.xml" />
+
+</project>
