@@ -1,7 +1,7 @@
 <project name="Scripting Container - glassfish" default="help" basedir=".">
     <description>Scripting Container - glassfish</description>
 
-    <target name="gf-deploy" depends="init">
+    <target name="gf-deploy">
         <exec executable="${gfAsadminPath}" failonerror="true">
             <arg value="-p" />
             <arg value="${gfAdminPort}" />
@@ -14,7 +14,7 @@
         </exec>
     </target>
     
-    <target name="gf-undeploy" depends="init">
+    <target name="gf-undeploy">
         <exec executable="${gfAsadminPath}" failonerror="true">
             <arg value="-p" />
             <arg value="${gfAdminPort}" />
@@ -27,14 +27,14 @@
         </exec>
     </target>
     
-    <target name="gf-stop" depends="init">
+    <target name="gf-stop">
         <exec executable="${gfAsadminPath}" failonerror="true">
             <arg value="stop-domain" />
             <arg value="${buildType}" />
         </exec>
     </target>
     
-    <target name="gf-start" depends="init">
+    <target name="gf-start">
         <exec executable="${gfAsadminPath}" failonerror="true">
             <arg value="start-domain" />
             <arg value="${buildType}" />

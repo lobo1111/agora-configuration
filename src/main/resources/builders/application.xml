@@ -1,7 +1,7 @@
 <project name="Scripting Container - application" default="help" basedir=".">
     <description>Scripting Container - application</description>
 
-    <target name="app-download" depends="init">
+    <target name="app-download">
         <exec executable="git" dir="${repoDir}" failonerror="false">
             <arg value="branch" />
             <arg value="${branch}" />
@@ -13,14 +13,14 @@
         </exec>
     </target>
     
-    <target name="app-build" depends="init">
+    <target name="app-build">
         <exec executable="/opt/apache-maven-3.0.4/bin/mvn" dir="${repoDir}" failonerror="true">
             <arg value="clean" />
             <arg value="install" />
         </exec>
     </target>
     
-    <target name="app-scripts-recompile" depends="init">
+    <target name="app-scripts-recompile">
         <exec executable="touch" failonerror="true">
             <arg value="${appScriptsWatch}" />
         </exec>
@@ -30,7 +30,7 @@
         </exec>
     </target>
     
-    <target name="app-scripts-update" depends="init">
+    <target name="app-scripts-update">
         <exec executable="python" dir="${repoDir}/src/main/resources/scripts" failonerror="true">
             <arg value="${repoDir}/src/main/resources/scripts/loader.py" />
             <arg value="${sDb}" />
@@ -38,7 +38,7 @@
         </exec>
     </target>
     
-    <target name="app-db-update" depends="init">
+    <target name="app-db-update">
         <exec executable="/opt/jdk1.7.0_40/bin/java" failonerror="true">
             <arg value="-jar" />
             <arg value="/opt/liquibase/liquibase.jar" />
@@ -53,7 +53,7 @@
         </exec>
     </target>
     
-    <target name="app-templates-update" depends="init">
+    <target name="app-templates-update">
         <exec executable="python" dir="/opt/builder/container/src/main/resources/templates" failonerror="true">
             <arg value="/opt/builder/container/src/main/resources/templates/loader.py" />
             <arg value="${sDb}" />
