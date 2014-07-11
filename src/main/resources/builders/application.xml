@@ -2,10 +2,25 @@
     <description>Scripting Container - application</description>
 
     <target name="app-download">
-        <exec executable="git" dir="${repoDir}" failonerror="false">
-            <arg value="branch" />
-            <arg value="${branch}" />
+        <exec executable="bash" failonerror="true" outputproperty="currentBranch">
+            <arg value="helpers/git-branch.sh" />
         </exec>
+        <switch value="${currentBranch}">
+            <case value="${branch}">
+                <echo>Currently at correct branch</echo>
+            </case>
+            <default>
+                <echo>Currently at ${currentBranch} - switching to ${branch}</echo>
+                <exec executable="git" dir="${repoDir}" failonerror="true">
+                    <arg value="branch" />
+                    <arg value="${branch}" />
+                </exec>
+                <exec executable="git" dir="${repoDir}" failonerror="false">
+                    <arg value="checkout" />
+                    <arg value="${branch}" />
+                </exec>
+            </default>
+        </switch>
         <exec executable="git" dir="${repoDir}" failonerror="true">
             <arg value="pull" />
             <arg value="origin" />
