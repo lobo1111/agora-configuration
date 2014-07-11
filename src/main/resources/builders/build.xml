@@ -16,18 +16,18 @@
     </target>
     
     <target name="build">
-        <antcall target="init" />
-        <echo>build after init1 ${gfPasswordFile}</echo>
-        <antcall target="app-download" />
-        <echo>build after init2 ${gfPasswordFile}</echo>
-        <antcall target="gf-undeploy" />
-        <antcall target="gf-stop" />
-        <antcall target="app-build" />
-        <antcall target="app-db-update" />
-        <antcall target="app-scripts-update" />
-        <antcall target="app-templates-update" />
-        <antcall target="gf-start" />
-        <antcall target="gf-deploy" />
+        <antcall>
+        <target name="init" />
+        <target name="app-download" />
+        <target name="gf-undeploy" />
+        <target name="gf-stop" />
+        <target name="app-build" />
+        <target name="app-db-update" />
+        <target name="app-scripts-update" />
+        <target name="app-templates-update" />
+        <target name="gf-start" />
+        <target name="gf-deploy" />
+        </antcall>
     </target>
     
 </project>
