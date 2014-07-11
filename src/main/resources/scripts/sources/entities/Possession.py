@@ -30,6 +30,7 @@ class PossessionManager(Container):
         self.setPossessionAdditionalData(possession)
         self.savePossession(possession)
         self.setElementsData(possession)
+        self.removeOwners(possession)
         return possession;
         
     def remove(self):
@@ -77,7 +78,20 @@ class PossessionManager(Container):
         for element in toRemove:
             possession.getElements().remove(element)
             self._entityManager.remove(element)
+
+    def removeOwners(self, possession):
+        notToRemove = []
+        toRemove = []
+        for i in range(int(self._svars.get(self._prefix + 'ownersCount'))): 
+            notToRemove.append(self._svars.get(self._prefix + str(i) + "_ownerId"))
+        for owner in possession.getOwners():
+            if not (owner.getId() in notToRemove):
+                toRemove.append(owner)
+        for owner in toRemove:
+            possession.getOwners().remove(owner)
+            self._entityManager.remove(owner)
         
+
     def setPossessionData(self, possession):
         possession.setArea(BigDecimal(self._svars.get(self._prefix + 'possessionArea')))
         possession.setAddress(self.getAddress(possession))
