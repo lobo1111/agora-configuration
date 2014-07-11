@@ -16,7 +16,9 @@
     </target>
     
     <target name="build">
+        <echo>${gfPasswordFile}</echo>
         <antcall target="init" />
+        <echo>${gfPasswordFile}</echo>
         <antcall target="app-download" />
         <antcall target="gf-undeploy" />
         <antcall target="gf-stop" />
