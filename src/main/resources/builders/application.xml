@@ -2,7 +2,7 @@
     <description>Scripting Container - application</description>
 
     <target name="app-download" depends="init">
-        <exec executable="git" dir="${repoDir}" failonerror="true">
+        <exec executable="git" dir="${repoDir}" failonerror="false">
             <arg value="branch" />
             <arg value="${branch}" />
         </exec>
