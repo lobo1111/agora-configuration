@@ -1,0 +1,63 @@
+<project name="Scripting Container - glassfish" default="help" basedir=".">
+    <description>Scripting Container - glassfish</description>
+
+    <target name="app-download" depends="init">
+        <exec executable="git" dir="${repoDir}" failonerror="true">
+            <arg value="branch" />
+            <arg value="${branch}" />
+        </exec>
+        <exec executable="git" dir="${repoDir}" failonerror="true">
+            <arg value="pull" />
+            <arg value="origin" />
+            <arg value="${branch}" />
+        </exec>
+    </target>
+    
+    <target name="app-build" dir="${repoDir}" depends="init">
+        <exec executable="/opt/apache-maven-3.0.4/bin/mvn" failonerror="true">
+            <arg value="clean" />
+            <arg value="install" />
+        </exec>
+    </target>
+    
+    <target name="app-scripts-recompile" depends="init">
+        <exec executable="touch" failonerror="true">
+            <arg value="${appScriptsWatch}" />
+        </exec>
+        <exec executable="chown" failonerror="true">
+            <arg value="glassfish:glassfish" />
+            <arg value="${appScriptsWatch}" />
+        </exec>
+    </target>
+    
+    <target name="app-scripts-update" dir="${repoDir}/src/main/resources/scripts" depends="init">
+        <exec executable="python" failonerror="true">
+            <arg value="${repoDir}/src/main/resources/scripts/loader.py" />
+            <arg value="${sDb}" />
+            <arg value="${sDestination}" />
+        </exec>
+    </target>
+    
+    <target name="app-db-update" depends="init">
+        <exec executable="/opt/jdk1.7.0_40/bin/java" failonerror="true">
+            <arg value="-jar" />
+            <arg value="/opt/liquibase/liquibase.jar" />
+            <arg value="--changeLogFile=/opt/builder/container/src/main/resources/liquibase/changelog.xml" />
+            <arg value="--driver=com.mysql.jdbc.jdbc2.optional.MysqlDataSource" />
+            <arg value="--username=agora" />
+            <arg value="--password=tomasz.12" />
+            <arg value="--url=jdbc:mysql://172.16.1.5:3306/${dbName}" />
+            <arg value="--classpath=/opt/liquibase/mysql-connector-java-5.0.8-bin.jar" />
+            <arg value="--driver=com.mysql.jdbc.Driver" />
+            <arg value="update" />
+        </exec>
+    </target>
+    
+    <target name="app-templates-update" depends="init">
+        <exec executable="python" dir="/opt/builder/container/src/main/resources/templates" failonerror="true">
+            <arg value="/opt/builder/container/src/main/resources/templates/loader.py" />
+            <arg value="${sDb}" />
+        </exec>
+    </target>
+    
+</project>

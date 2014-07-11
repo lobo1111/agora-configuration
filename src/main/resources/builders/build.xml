@@ -3,5 +3,19 @@
   
     <import file="properties.xml" />
     <import file="glassfish.xml" />
-
+    <import file="application.xml" />
+    
+    <target name="build-devel">
+        <property name="buildType" value="devel"/>
+        <antcall target="app-download" />
+        <antcall target="gf-undeploy" />
+        <antcall target="gf-stop" />
+        <antcall target="app-build" />
+        <antcall target="app-db-update" />
+        <antcall target="app-scripts-update" />
+        <antcall target="app-templates-update" />
+        <antcall target="gf-start" />
+        <antcall target="gf-deploy" />
+    </target>
+    
 </project>

@@ -3,27 +3,37 @@
     
     <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
     
-    <property name="buildType" value="devel"/>
     <property name="appName" value="Container"/>
     <property name="appVersion" value="0.1"/>
     <property name="fullAppName" value="${appName}-${appVersion}"/>
   
+    <property name="branch" value="Sprint-2"/>
+  
     <property name="gfPath" value="/opt/glassfish"/>
     <property name="gfAsadminPath" value="${gfPath}/bin/asadmin"/>
     <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
+    
     <property name="repoDir" value="/opt/builder/container"/>
     <property name="earPath" value="${repoDir}/target/${fullAppName}.jar"/>
     
+    <property name="appScriptsWatch" value="${gfPath}/domains/${buildType}/container/watchDir/recompile"/>
     
     <target name="init">
+        <fail unless="buildType">
         <switch value="${buildType}">
             <case value="devel">
                 <property name="gfAdminPort" value="5000"/>
                 <property name="gfAdminUser" value="admin"/>
+                <property name="sDb" value="db1"/>
+                <property name="sDestination" value="destination1"/>
+                <property name="dbName" value="agora_dev_erp"/>
             </case>
             <case value="prod">
                 <property name="gfAdminPort" value="4848"/>
                 <property name="gfAadminUser" value="root"/>
+                <property name="sDb" value="db2"/>
+                <property name="sDestination" value="destination2"/>
+                <property name="dbName" value="agora_erp"/>
             </case>
         </switch>
     </target>
