@@ -18,6 +18,7 @@
     
     <target name="init">
         <fail unless="buildType">buidType property not set !</fail>
+        <echo>aaa</echo>
         <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
         <property name="appScriptsWatch" value="${gfPath}/domains/${buildType}/container/watchDir/recompile"/>
         <switch value="${buildType}">
