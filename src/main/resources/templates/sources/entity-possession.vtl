@@ -55,18 +55,20 @@
         <payment>
             <id>$!e.getId()</id>
             <type>CHARGING</type>
-            <month$!e.getMonth()</month>
+            <month>$!e.getMonth()</month>
             <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
             <value>$!e.calculateValue()</value>
+            <createDate>$!e.getTimestamp().getTime()</createDate>
         </payment>
         #end
         #foreach($e in $!possession.getPaymentsCurrentPeriod())
         <payment>
             <id>$!e.getId()</id>
             <type>PAYMENT</type>
-            <month$!e.getMonth()</month>
+            <month>$!e.getMonth()</month>
             <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
             <value>$!e.calculateValue()</value>
+            <createDate>$!e.getTimestamp().getTime()</createDate>
         </payment>
         #end
     </payments>
