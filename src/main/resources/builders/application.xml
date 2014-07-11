@@ -13,8 +13,8 @@
         </exec>
     </target>
     
-    <target name="app-build" dir="${repoDir}" depends="init">
-        <exec executable="/opt/apache-maven-3.0.4/bin/mvn" failonerror="true">
+    <target name="app-build" depends="init">
+        <exec executable="/opt/apache-maven-3.0.4/bin/mvn" dir="${repoDir}" failonerror="true">
             <arg value="clean" />
             <arg value="install" />
         </exec>
@@ -30,8 +30,8 @@
         </exec>
     </target>
     
-    <target name="app-scripts-update" dir="${repoDir}/src/main/resources/scripts" depends="init">
-        <exec executable="python" failonerror="true">
+    <target name="app-scripts-update" depends="init">
+        <exec executable="python" dir="${repoDir}/src/main/resources/scripts" failonerror="true">
             <arg value="${repoDir}/src/main/resources/scripts/loader.py" />
             <arg value="${sDb}" />
             <arg value="${sDestination}" />
