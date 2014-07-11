@@ -14,4 +14,31 @@
         </exec>
     </target>
     
+    <target name="gf-undeploy" depends="init">
+        <exec executable="${gfAsadminPath}" failonerror="true">
+            <arg value="-p" />
+            <arg value="${gfAdminPort}" />
+            <arg value="-u" />
+            <arg value="${gfAdminUser}" />
+            <arg value="-W" />
+            <arg value="${gfPasswordFile}" />
+            <arg value="undeploy" />
+            <arg value="${fullAppName}" />
+        </exec>
+    </target>
+    
+    <target name="gf-stop" depends="init">
+        <exec executable="${gfAsadminPath}" failonerror="true">
+            <arg value="stop-domain" />
+            <arg value="${buildType}" />
+        </exec>
+    </target>
+    
+    <target name="gf-start" depends="init">
+        <exec executable="${gfAsadminPath}" failonerror="true">
+            <arg value="start-domain" />
+            <arg value="${buildType}" />
+        </exec>
+    </target>
+    
 </project>

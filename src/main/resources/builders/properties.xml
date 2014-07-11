@@ -4,12 +4,15 @@
     <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
     
     <property name="buildType" value="devel"/>
+    <property name="appName" value="Container"/>
+    <property name="appVersion" value="0.1"/>
+    <property name="fullAppName" value="${appName}-${appVersion}"/>
   
     <property name="gfPath" value="/opt/glassfish"/>
     <property name="gfAsadminPath" value="${gfPath}/bin/asadmin"/>
     <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
     <property name="repoDir" value="/opt/builder/container"/>
-    <property name="earPath" value="${repoDir}/target/Container-0.1.jar"/>
+    <property name="earPath" value="${repoDir}/target/${fullAppName}.jar"/>
     
     
     <target name="init">
