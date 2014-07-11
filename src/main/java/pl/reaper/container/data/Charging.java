@@ -96,4 +96,12 @@ public class Charging implements Serializable {
     public void setChargingElements(Collection<ChargingElement> chargingElements) {
         this.chargingElements = chargingElements;
     }
+    
+    public double calculateValue() {
+        double value = 0.0;
+        for(ChargingElement element: chargingElements) {
+            value += element.getValue();
+        }
+        return value;
+    }
 }

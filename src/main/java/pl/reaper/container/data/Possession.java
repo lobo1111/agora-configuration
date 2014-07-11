@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -49,6 +52,10 @@ public class Possession implements Serializable {
     private Collection<ElementPossession> elements;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
+    private Collection<Charging> chargings = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
+    private Collection<PaymentRent> payments = new ArrayList<>();
 
     public Possession() {
     }
@@ -103,6 +110,42 @@ public class Possession implements Serializable {
 
     public void setZpks(Collection<ZakladowyPlanKont> zpks) {
         this.zpks = zpks;
+    }
+
+    public Collection<Charging> getChargings() {
+        return chargings;
+    }
+
+    public Collection<Charging> getChargingsCurrentPeriod() {
+        List<Charging> filtered = new ArrayList<>();
+        for (Charging charging : chargings) {
+            if (charging.getBookingPeriod().isDefaultPeriod()) {
+                filtered.add(charging);
+            }
+        }
+        return filtered;
+    }
+
+    public void setChargings(Collection<Charging> chargings) {
+        this.chargings = chargings;
+    }
+
+    public Collection<PaymentRent> getPayments() {
+        return payments;
+    }
+
+    public Collection<PaymentRent> getPaymentsCurrentPeriod() {
+        List<PaymentRent> filtered = new ArrayList<>();
+        for (PaymentRent payment : payments) {
+            if (payment.getBookingPeriod().isDefaultPeriod()) {
+                filtered.add(payment);
+            }
+        }
+        return filtered;
+    }
+
+    public void setPayments(Collection<PaymentRent> payments) {
+        this.payments = payments;
     }
 
     @Override

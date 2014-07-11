@@ -95,4 +95,8 @@ public class PaymentRent implements Serializable {
     public void setPaymentRentDetails(PaymentRentDetails paymentRentDetails) {
         this.paymentRentDetails = paymentRentDetails;
     }
+
+    public double calculateValue() {
+        return paymentRentDetails.getValue();
+    }
 }
