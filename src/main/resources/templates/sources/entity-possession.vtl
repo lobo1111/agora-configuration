@@ -43,7 +43,7 @@
         #end
     </elements>
     <owners>
-        #foreach($entity in $!possession.getOwners())
+        #foreach($owner in $!possession.getOwners())
             <owner>
                 <id>$!owner.getId()</id>
                 <name>$!owner.getName()</name>
