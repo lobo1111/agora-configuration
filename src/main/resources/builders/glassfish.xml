@@ -2,11 +2,15 @@
     <description>Scripting Container - glassfish</description>
 
     <target name="gf-deploy" depends="init">
-        <exec executable="${gfAsadminPath}/asadmin" failonerror="true">
-            <arg value="--port ${gfAdminPort}" />
-            <arg value="--user ${gfAdminUser}" />
-            <arg value="--passwordfile ${gfPasswordFile}" />
-            <arg value="deploy ${earPath}" />
+        <exec executable="${gfAsadminPath}" failonerror="true">
+            <arg value="--port" />
+            <arg value="${gfAdminPort}" />
+            <arg value="--user" />
+            <arg value="${gfAdminUser}" />
+            <arg value="--passwordfile" />
+            <arg value="${gfPasswordFile}" />
+            <arg value="deploy" />
+            <arg value="${earPath}" />
         </exec>
     </target>
     
