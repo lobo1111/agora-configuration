@@ -2,9 +2,11 @@
     <description>Scripting Container - application</description>
 
     <target name="app-download">
-        <exec executable="/bin/bash" failonerror="true" outputproperty="currentBranch">
+        <exec executable="chmod" failonerror="true" outputproperty="currentBranch">
+            <arg value="+x" />
             <arg value="helpers/git-branch.sh" />
         </exec>
+        <exec executable="./helpers/git-branch.sh" failonerror="true" outputproperty="currentBranch"/>
         <switch value="${currentBranch}">
             <case value="${branch}">
                 <echo>Currently at correct branch</echo>
