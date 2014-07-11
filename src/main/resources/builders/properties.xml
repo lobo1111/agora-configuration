@@ -1,5 +1,7 @@
 <project name="Scripting Container - common settings" basedir=".">
     <description>Scripting Container - common settings</description>
+    
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
   
     <property name="gfPath" value="/opt/glassfish"/>
     <property name="gfAsadminPath" value="${gfPath}/bin/asadmin"/>
