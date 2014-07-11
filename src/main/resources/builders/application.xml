@@ -4,9 +4,9 @@
     <target name="app-download">
         <exec executable="chmod" failonerror="true">
             <arg value="+x" />
-            <arg value="${repoDir}/src/main/resources/builders/helpers/git-branch.sh" />
+            <arg value="${repoDir}/src/main/resources/builders/helpers/get-branch.sh" />
         </exec>
-        <exec executable="${repoDir}/src/main/resources/builders/helpers/git-branch.sh" failonerror="true" outputproperty="currentBranch"/>
+        <exec executable="${repoDir}/src/main/resources/builders/helpers/get-branch.sh" failonerror="true" outputproperty="currentBranch"/>
         <switch value="${currentBranch}">
             <case value="${branch}">
                 <echo>Currently at correct branch</echo>
