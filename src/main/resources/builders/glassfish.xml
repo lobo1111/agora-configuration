@@ -15,6 +15,7 @@
     </target>
     
     <target name="gf-undeploy">
+        <property name="buildType" value="devel"/>
         <exec executable="${gfAsadminPath}" failonerror="true">
             <arg value="-p" />
             <arg value="${gfAdminPort}" />
