@@ -2,6 +2,7 @@
     <description>Scripting Container - glassfish</description>
 
     <target name="gf-deploy">
+        <property name="buildType" value="devel"/>
         <exec executable="${gfAsadminPath}" failonerror="true">
             <arg value="-p" />
             <arg value="${gfAdminPort}" />
@@ -29,6 +30,7 @@
     </target>
     
     <target name="gf-stop">
+        <property name="buildType" value="devel"/>
         <exec executable="${gfAsadminPath}" failonerror="true">
             <arg value="stop-domain" />
             <arg value="${buildType}" />
@@ -36,6 +38,7 @@
     </target>
     
     <target name="gf-start">
+        <property name="buildType" value="devel"/>
         <exec executable="${gfAsadminPath}" failonerror="true">
             <arg value="start-domain" />
             <arg value="${buildType}" />
