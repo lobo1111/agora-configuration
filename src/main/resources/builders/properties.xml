@@ -11,15 +11,15 @@
   
     <property name="gfPath" value="/opt/glassfish"/>
     <property name="gfAsadminPath" value="${gfPath}/bin/asadmin"/>
-    <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
     
     <property name="repoDir" value="/opt/builder/container"/>
     <property name="earPath" value="${repoDir}/target/${fullAppName}.jar"/>
     
-    <property name="appScriptsWatch" value="${gfPath}/domains/${buildType}/container/watchDir/recompile"/>
     
     <target name="init">
         <fail unless="buildType">buidType property not set !</fail>
+        <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
+        <property name="appScriptsWatch" value="${gfPath}/domains/${buildType}/container/watchDir/recompile"/>
         <switch value="${buildType}">
             <case value="devel">
                 <property name="gfAdminPort" value="5000"/>

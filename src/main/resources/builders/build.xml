@@ -7,6 +7,15 @@
     
     <target name="build-devel">
         <property name="buildType" value="devel"/>
+        <antcall target="build" />
+    </target>
+    
+    <target name="build-prod">
+        <property name="buildType" value="prod"/>
+        <antcall target="build" />
+    </target>
+    
+    <target name="build">
         <antcall target="init" />
         <antcall target="app-download" />
         <antcall target="gf-undeploy" />
