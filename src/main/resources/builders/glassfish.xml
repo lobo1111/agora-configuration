@@ -14,7 +14,7 @@
              host="localhost"
              port="${gfAdminPort}"
              target="${default-instance-name}"
-             asinstalldir="${gfAsadminPath}" />
+             asinstalldir="${gfPath}" />
     </target>
 
 </project>
