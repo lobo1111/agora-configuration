@@ -19,7 +19,7 @@
     <property name="appScriptsWatch" value="${gfPath}/domains/${buildType}/container/watchDir/recompile"/>
     
     <target name="init">
-        <fail unless="buildType">
+        <fail unless="buildType">buidType property not set !</fail>
         <switch value="${buildType}">
             <case value="devel">
                 <property name="gfAdminPort" value="5000"/>
