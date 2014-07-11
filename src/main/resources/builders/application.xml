@@ -2,6 +2,7 @@
     <description>Scripting Container - application</description>
 
     <target name="app-download">
+        <echo>dir: ${basedir}</echo>
         <exec executable="chmod" failonerror="true" outputproperty="currentBranch">
             <arg value="+x" />
             <arg value="helpers/git-branch.sh" />
