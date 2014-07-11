@@ -15,6 +15,7 @@
     </target>
     
     <target name="gf-undeploy">
+        <echo>gf undeploy ${gfPasswordFile}</echo>
         <exec executable="${gfAsadminPath}" failonerror="true">
             <arg value="-p" />
             <arg value="${gfAdminPort}" />

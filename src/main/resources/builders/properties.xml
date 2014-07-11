@@ -19,7 +19,6 @@
     <target name="init">
         <fail unless="buildType">buidType property not set !</fail>
         <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
-        <echo>${gfPasswordFile}</echo>
         <property name="appScriptsWatch" value="${gfPath}/domains/${buildType}/container/watchDir/recompile"/>
         <switch value="${buildType}">
             <case value="devel">
@@ -37,6 +36,5 @@
                 <property name="dbName" value="agora_erp"/>
             </case>
         </switch>
-        <echo>${gfPasswordFile}</echo>
     </target>
 </project>
