@@ -1,0 +1,24 @@
+<project name="Scripting Container - common settings" basedir=".">
+    <description>Scripting Container - common settings</description>
+  
+    <property name="gfPath" value="/opt/glassfish"/>
+    <property name="gfAsadminPath" value="${gfPath}/bin/asadmin"/>
+    <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
+    <property name="repoDir" value="/opt/builder/container"/>
+    <property name="earPath" value="${repoDir}/target/Container-0.1.jar"/>
+    
+    <property name="buildType" value="devel"/>
+    
+    <target name="init">
+        <switch value="${buildType}">
+            <case value="devel">
+                <property name="gfAdminPort" value="5000"/>
+                <property name="gfAdminUser" value="admin"/>
+            </case>
+            <case value="prod">
+                <property name="gfAdminPort" value="4848"/>
+                <property name="gfAadminUser" value="root"/>
+            </case>
+        </switch>
+    </target>
+</project>
