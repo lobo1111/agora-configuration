@@ -2,19 +2,11 @@
     <description>Scripting Container - glassfish</description>
 
     <target name="gf-deploy" depends="init">
-        <sun-appserv-deploy
-             file="${earPath}"
-             name="Container"
-             force="true"
-             precompilejsp="false"
-             verify="false"
-             upload="true"
-             user="${gfAdminUser}"
-             passwordfile="${gfPasswordFile}"
-             host="localhost"
-             port="${gfAdminPort}"
-             target="${default-instance-name}"
-             asinstalldir="${gfPath}" />
-    </target>
+        <exec executable="${gfAsadminPath}/asadmin" failonerror="true">
+            <arg value="--port ${gfAdminPort}" />
+            <arg value="--user ${gfAdminUser}" />
+            <arg value="--passwordfile ${gfPasswordFile}" />
+            <arg value="deploy ${earPath}" />
+        </exec>
 
 </project>

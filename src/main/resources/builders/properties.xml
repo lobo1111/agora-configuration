@@ -22,22 +22,5 @@
                 <property name="gfAadminUser" value="root"/>
             </case>
         </switch>
-        <taskdef name="sun-appserv-deploy"
-                 classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.DeployTask" />
-        <taskdef name="sun-appserv-undeploy"
-            classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.UndeployTask" />
-        <taskdef name="sun-appserv-component"
-            classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.ComponentTask" />
-        <taskdef name="sun-appserv-admin"
-            classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.AdminTask" />
-        <taskdef name="sun-appserv-jspc"
-            classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.SunJspc" />
-        <taskdef name="sun-appserv-update"
-            classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.UpdateTask" />
-        <taskdef name="sun-appserv-instance"
-            classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.InstanceTask" />
-        <taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen" />
-        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport" />
-        <classpath path="${gfPath}/lib/sun-appserv-ant.jar" />
     </target>
 </project>
