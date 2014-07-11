@@ -5,8 +5,9 @@
     <import file="glassfish.xml" />
     <import file="application.xml" />
     
-    <target name="build-devel" depends="init">
+    <target name="build-devel">
         <property name="buildType" value="devel"/>
+        <antcall target="init" />
         <antcall target="app-download" />
         <antcall target="gf-undeploy" />
         <antcall target="gf-stop" />
