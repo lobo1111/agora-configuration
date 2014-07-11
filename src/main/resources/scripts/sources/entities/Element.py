@@ -101,7 +101,6 @@ class ElementManager(Container):
             self.CreateOrUpdatePossessionElement(possession, communityElement, False)
             
     def CreateOrUpdatePossessionElement(self, possession, elementCommunity = None, override = True):
-        
         elementId = self._svars.get("elementId")
         possessionId = possession.getId()
         possessionElement = self.findPossessionElement(elementId, possessionId)
@@ -121,6 +120,7 @@ class ElementManager(Container):
             possessionElement.setGlobalValue(float(self._svars.get('overrideValue')))
         self._entityManager.persist(possession)
         self.saveElement(possessionElement)
+        return possessionElement
             
     def setElementData(self, element):
         
