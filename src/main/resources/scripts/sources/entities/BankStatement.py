@@ -35,7 +35,7 @@ class BankStatementManager(Container):
         return self._entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
 
     def findCurrentMonth(self):
-        return self._entityManager.createQuery('Select d From Dictionary dict Join dict.type dtype Where dtype.type = "PERIODS" and dict.ket = "CURRENT"').getSingleResult().getValue()
+        return self._entityManager.createQuery('Select dict From Dictionary dict Join dict.type dtype Where dtype.type = "PERIODS" and dict.ket = "CURRENT"').getSingleResult().getValue()
 
     def findInvoiceById(self, id):
         return self._entityManager.createQuery('Select i From Invoice i Where i.id = ' + str(id)).getSingleResult()
