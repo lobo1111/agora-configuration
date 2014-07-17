@@ -30,6 +30,7 @@
             <target name="init" />
             <target name="app-download" />
             <target name="app-templates-update" />
+            <target name="app-scripts-update" />
             <target name="app-scripts-recompile" />
         </antcall>
     </target>
