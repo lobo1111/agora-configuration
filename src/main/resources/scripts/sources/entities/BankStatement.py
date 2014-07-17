@@ -49,12 +49,16 @@ class BankStatementManager(Container):
         return self._entityManager.createQuery('Select i From Account i Where i.id = ' + str(id)).getSingleResult()
 
     def parseDate(self, dateAsString):
+        print 'Parsing date from str(%s) % dateAsString
+        self._logger.info('Parsing date from str(%s) % dateAsString)
         try:
             self._logger.info('Parsing date from str(%s) into %s' % (dateAsString, SimpleDateFormat('dd-MM-yyyy').parse(dateAsString)))
+            print 'Parsing date from str(%s) into %s' % (dateAsString, SimpleDateFormat('dd-MM-yyyy').parse(dateAsString))
             return SimpleDateFormat('dd-MM-yyyy').parse(dateAsString)
         except:
             exc_type, exc_value, exc_traceback = sys.exc_info()
             self._logger.info('Cant parse !')
             self._logger.info(exc_value)
+            print exc_value
             return None
     
