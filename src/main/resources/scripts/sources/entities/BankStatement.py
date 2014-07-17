@@ -23,6 +23,7 @@ class BankStatementManager(Container):
         payment.setPossession(self.findPossessionById(self._svars.get('possessionId')))
         payment.setBookingPeriod(self.findCurrentBookingPeriod())
         payment.setMonth(self.findCurrentMonth())
+        payment.getPaymentRentDetails().setPaymentRent(payment)
         payment.getPaymentRentDetails().setValue(float(self._svars.get('value')))
         payment.getPaymentRentDetails().setRequestDate(self.parseDate(self._svars.get('requestDate')))
         payment.getPaymentRentDetails().setBookingDate(self.parseDate(self._svars.get('bookingDate')))
