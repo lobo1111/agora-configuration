@@ -14,7 +14,7 @@ class BankStatementManager(Container):
     def createInvoicePayment(self):
         payment = InvoicePayment()
         payment.setInvoice(self.findInvoiceById(self._svars.get('invoiceId')))
-        payment.setValuePayment((float)self._svars.get('value'))
+        payment.setValuePayment(float(self._svars.get('value')))
         payment.setCreateDate(self._svars.get('createDate'))
         self._entityManager.persist(payment)
 
@@ -23,7 +23,7 @@ class BankStatementManager(Container):
         payment.setPossession(self.findPossessionById())
         payment.setBookingPeriod(self.findCurrentBookingPeriod())
         payment.setMonth(self.findCurrentMonth())
-        payment.getPaymentRentDetails().setValue((float)self._svars.get('value'))
+        payment.getPaymentRentDetails().setValue(float(self._svars.get('value')))
         payment.getPaymentRentDetails().setRequestDate(self._svars.get('requestDate'))
         payment.getPaymentRentDetails().setBookingDate(self._svars.get('bookingDate'))
         payment.getPaymentRentDetails().setTitle(self._svars.get('title'))
