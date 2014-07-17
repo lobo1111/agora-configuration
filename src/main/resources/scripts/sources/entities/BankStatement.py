@@ -17,7 +17,7 @@ class BankStatementManager(Container):
         payment.setInvoice(self.findInvoiceById(self._svars.get('invoiceId')))
         payment.setValuePayment(float(self._svars.get('value')))
         payment.setCreateDate(self.parseDate(self._svars.get('createDate')))
-        self._entityManager.persist(payment)
+        #self._entityManager.persist(payment)
 
     def createRentPayment(self):
         payment = PaymentRent()
@@ -54,6 +54,7 @@ class BankStatementManager(Container):
             return SimpleDateFormat('dd-MM-yyyy').parse(dateAsString)
         except:
             exc_type, exc_value, exc_traceback = sys.exc_info()
+            self._logger.info('Cant parse !')
             self._logger.info(exc_value)
             return None
     
