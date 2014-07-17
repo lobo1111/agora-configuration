@@ -54,6 +54,6 @@ class BankStatementManager(Container):
             return SimpleDateFormat('dd-MM-yyyy').parse(dateAsString)
         except:
             exc_type, exc_value, exc_traceback = sys.exc_info()
-            self._logger.error(exc_value)
+            self._logger.info(exc_value)
             return None
     
