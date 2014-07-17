@@ -5,7 +5,7 @@ from pl.reaper.container.data import PaymentRent
 class BankStatementManager(Container):
     
     def create(self):
-        invoiceType = self._svar.get('invoiceType')
+        invoiceType = self._svars.get('invoiceType')
         if invoiceType == 'true':
             self.createInvoicePayment()
         else:
