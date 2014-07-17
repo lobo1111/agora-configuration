@@ -20,7 +20,7 @@ class BankStatementManager(Container):
 
     def createRentPayment(self):
         payment = PaymentRent()
-        payment.setPossession(self.findPossessionById())
+        payment.setPossession(self.findPossessionById(self._svars.get('possessionId')))
         payment.setBookingPeriod(self.findCurrentBookingPeriod())
         payment.setMonth(self.findCurrentMonth())
         payment.getPaymentRentDetails().setValue(float(self._svars.get('value')))
