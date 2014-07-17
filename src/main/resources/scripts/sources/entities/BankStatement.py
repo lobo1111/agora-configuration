@@ -1,6 +1,7 @@
 from base.Container import Container
 from pl.reaper.container.data import InvoicePayment
 from pl.reaper.container.data import PaymentRent
+import sys
 
 class BankStatementManager(Container):
     
@@ -49,7 +50,10 @@ class BankStatementManager(Container):
 
     def parseDate(self, dateAsString):
         try:
+            self._logger.info('Parsing date from str(%s) into %s' % (dateAsString, SimpleDateFormat('dd-MM-yyyy').parse(dateAsString)))
             return SimpleDateFormat('dd-MM-yyyy').parse(dateAsString)
         except:
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            self._logger.error(exc_value)
             return None
     
