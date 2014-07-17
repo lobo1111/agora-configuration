@@ -18,7 +18,7 @@ class BankStatementManager(Container):
         payment.setInvoice(self.findInvoiceById(self._svars.get('invoiceId')))
         payment.setValuePayment(float(self._svars.get('value')))
         payment.setCreateDate(self.parseDate(self._svars.get('createDate')))
-        #self._entityManager.persist(payment)
+        self._entityManager.persist(payment)
 
     def createRentPayment(self):
         payment = PaymentRent()
