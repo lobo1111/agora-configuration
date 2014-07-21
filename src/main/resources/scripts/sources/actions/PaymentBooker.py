@@ -44,7 +44,6 @@ class PaymentBooker(Container):
             self.createAndBookPayment(zpkPossessionRepairFund, zpkCommunityRepairFundAccount, repairFundAmount)
         
     def createAndBookPayment(self, creditZpk, debitZpk, amount):
-        
         self._svars.put('creditZpkId', str(creditZpk.getId()))
         self._svars.put('debitZpkId', str(debitZpk.getId()))
         self._svars.put('amount', str(amount))
