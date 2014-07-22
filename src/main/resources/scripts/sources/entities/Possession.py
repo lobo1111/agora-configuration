@@ -114,7 +114,7 @@ class PossessionManager(Container):
         possession.getAdditionalData().setColdWater(Double.parseDouble(self._svars.get(self._prefix + 'coldWater')))
         possession.getAdditionalData().setPeople(Integer.parseInt(self._svars.get(self._prefix + 'people')))
         possession.getAdditionalData().setRooms(Integer.parseInt(self._svars.get(self._prefix + 'rooms')))
-        if self._svars.get(self._prefix + 'account') != 0:
+        if self._svars.get(self._prefix + 'account') != '0':
             manager = AccountManager()
             account = manager.findAccountById(self._svars.get(self._prefix + 'account'))
             possession.getAdditionalData().setAccount(account)
