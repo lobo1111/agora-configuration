@@ -110,7 +110,7 @@ public class Possession implements Serializable {
     
     public ZakladowyPlanKont getRentZpk() {
         for(ZakladowyPlanKont zpk: zpks) {
-            if(zpk.getType().getKey().equals("POSSESSION")) {
+            if(zpk.getType().getKey().equals("201")) {
                 return zpk;
             }
         }
@@ -119,7 +119,7 @@ public class Possession implements Serializable {
     
     public ZakladowyPlanKont getRepairFundZpk() {
         for(ZakladowyPlanKont zpk: zpks) {
-            if(zpk.getType().getKey().equals("POSSESSION_REPAIR_FUND")) {
+            if(zpk.getType().getKey().equals("202")) {
                 return zpk;
             }
         }
