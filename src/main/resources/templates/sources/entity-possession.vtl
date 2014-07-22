@@ -10,10 +10,12 @@
     <people>$!possession.getAdditionalData().getPeople()</people>
     <hotWater>$!possession.getAdditionalData().getHotWater()</hotWater>
     <coldWater>$!possession.getAdditionalData().getColdWater()</coldWater>
-    <startCreditRent>$!possession.getRentZpk().getCurrentBalance().getStartCredit()</startCreditRent>
+    <!--<startCreditRent>$!possession.getRentZpk().getCurrentBalance().getStartCredit()</startCreditRent>-->
+    <startCreditRent>$!possession.getRentZpk()</startCreditRent>
     <startDebitRent>$!possession.getRentZpk().getCurrentBalance().getStartDebit()</startDebitRent>
     <startCreditRepairFund>$!possession.getRepairFundZpk().getCurrentBalance().getStartCredit()</startCreditRepairFund>
-    <startDebitRepairFund>$!possession.getRepairFundZpk().getCurrentBalance().getStartDebit()</startDebitRepairFund>
+    <!--<startDebitRepairFund>$!possession.getRepairFundZpk().getCurrentBalance().getStartDebit()</startDebitRepairFund>-->
+    <startDebitRepairFund>$!possession.getRepairFundZpk()</startDebitRepairFund>
     <address>
         <street>$!possession.getAddress().getStreet()</street>
         <houseNumber>$!possession.getAddress().getHouseNumber()</houseNumber>
