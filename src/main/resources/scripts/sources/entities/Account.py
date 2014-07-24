@@ -34,6 +34,8 @@ class AccountManager(Container):
         if account.getType().getKey() in ['DEFAULT', 'RENT']:
             zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'RENT')
             zpk.setAccount(account)
+            zpk.getCurrentBalance().setStartCredit(float(self._svars.get('startCredit')))
+            zpk.getCurrentBalance().setStartDebit(float(self._svars.get('startDebit')))
             account.getZpks().add(zpk)
             if account.getCommunity().getDefaultAccount() == None:
                 account.getCommunity().setDefaultAccount(account)
@@ -41,6 +43,8 @@ class AccountManager(Container):
         if account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
             zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
             zpk.setAccount(account)
+            zpk.getCurrentBalance().setStartCredit(float(self._svars.get('startCredit')))
+            zpk.getCurrentBalance().setStartDebit(float(self._svars.get('startDebit')))
             account.getZpks().add(zpk)
             if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
                 account.getCommunity().setRepairFundAccount(account)
