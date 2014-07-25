@@ -38,11 +38,15 @@ class CommunityManager(Container):
             account = self.findAccountById(self._svars.get('defaultAccountId'))
             account.setCommunity(community)
             community.setDefaultAccount(account)
+            self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
+            self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
             AccountManager().createZpk(account)
         if self._svars.get('hasRepairFundAccount') == 'true' and (community.getRepairFundAccount() == None or self._svars.get('repairFundAccountId') != str(community.getRepairFundAccount().getId())):
             account = self.findAccountById(self._svars.get('repairFundAccountId'))
             account.setCommunity(community)
             community.setRepairFundAccount(account)
+            self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
+            self._svars.put('startDebit', self._svars.get('repairFundAccountDebit'))
             AccountManager().createZpk(account)
 
     def generateZpkNumber(self, community):
