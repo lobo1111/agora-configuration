@@ -47,6 +47,8 @@ class AccountManager(Container):
             zpk.setAccount(account)
             zpk.getCurrentBalance().setStartCredit(float(self._svars.get('startCredit')))
             zpk.getCurrentBalance().setStartDebit(float(self._svars.get('startDebit')))
+            self._logger.info('start credit set as %f' % zpk.getCurrentBalance().getStartCredit())
+            self._logger.info('start debit set as %f' % zpk.getCurrentBalance().getStartDebit())
             account.getZpks().add(zpk)
             if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
                 account.getCommunity().setRepairFundAccount(account)

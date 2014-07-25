@@ -34,14 +34,22 @@ class CommunityManager(Container):
     def setCommunityData(self, community):
         community.setCompany(self.getCompany(community))
         community.setName(community.getCompany().getName())
-        if self._svars.get('defaultAccountId') != '0' and (community.getDefaultAccount() == None or self._svars.get('defaultAccountId') != str(community.getDefaultAccount().getId())):
-            account = self.findAccountById(self._svars.get('defaultAccountId'))
-            account.setCommunity(community)
-            community.setDefaultAccount(account)
-            self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
-            self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
-            AccountManager().createZpk(account)
-
+        if self._svars.get('defaultAccountId') != '0':
+            self._logger.info('default Account ID recieved: %s' % self._svars.get('defaultAccountId'))
+            if community.getDefaultAccount() != None:
+                currentId = community.getDefaultAccount().getId()
+                self._logger.info('Current default id: %d' % currentId)
+                if int(self._svars.get('defaultAccountId')) != currentId:
+                    self._logger.info('Numbers are different, changing account...')
+                    account = self.findAccountById(self._svars.get('defaultAccountId'))
+                    account.setCommunity(community)
+                    community.setDefaultAccount(account)
+                    self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
+                    self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
+                    AccountManager().createZpk(account)
+        else:
+            self._logger.info('default Account ID unavailable, clearing...')
+            community.setDefaultAccount(None)
         if self._svars.get('repairFundAccountId') != '0':
             self._logger.info('Repair Fund Account ID recieved: %s' % self._svars.get('repairFundAccountId'))
             if community.getRepairFundAccount() != None:
