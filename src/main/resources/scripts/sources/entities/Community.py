@@ -34,14 +34,14 @@ class CommunityManager(Container):
     def setCommunityData(self, community):
         community.setCompany(self.getCompany(community))
         community.setName(community.getCompany().getName())
-        if self._svars.get('hasDefaultAccount') == 'true' and (community.getDefaultAccount() == None or self._svars.get('defaultAccountId') != str(community.getDefaultAccount().getId())):
+        if self._svars.get('defaultAccountId') != '0' and (community.getDefaultAccount() == None or self._svars.get('defaultAccountId') != str(community.getDefaultAccount().getId())):
             account = self.findAccountById(self._svars.get('defaultAccountId'))
             account.setCommunity(community)
             community.setDefaultAccount(account)
             self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
             self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
             AccountManager().createZpk(account)
-        if self._svars.get('hasRepairFundAccount') == 'true' and (community.getRepairFundAccount() == None or self._svars.get('repairFundAccountId') != str(community.getRepairFundAccount().getId())):
+        if self._svars.get('repairFundAccountId') != '0' and (community.getRepairFundAccount() == None or self._svars.get('repairFundAccountId') != str(community.getRepairFundAccount().getId())):
             account = self.findAccountById(self._svars.get('repairFundAccountId'))
             account.setCommunity(community)
             community.setRepairFundAccount(account)
