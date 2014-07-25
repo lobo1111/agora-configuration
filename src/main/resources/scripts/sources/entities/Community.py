@@ -47,7 +47,7 @@ class CommunityManager(Container):
             if community.getRepairFundAccount() != None:
                 currentId = community.getRepairFundAccount().getId()
                 self._logger.info('Current repair fund id: %d' % currentId)
-                if(int(self._svars.get('repairFundAccountId')) != currentId:
+                if int(self._svars.get('repairFundAccountId')) != currentId:
                     self._logger.info('Numbers are different, changing account...')
                     account = self.findAccountById(self._svars.get('repairFundAccountId'))
                     account.setCommunity(community)
