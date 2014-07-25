@@ -51,28 +51,32 @@
         <zpk>
             <id>$!entity.getId()</id>
             #if($!entity.getAccount())
-                <description>$!entity.getAccount().getNumber()</description>
+            <description>$!entity.getAccount().getNumber()</description>
             #end
             #if($!entity.getPossession())
-                <description>$!entity.getPossession().getFullAddress()</description>
+            <description>$!entity.getPossession().getFullAddress()</description>
             #end
             #if($!entity.getContractor())
-                <description>$!entity.getContractor().getName()</description>
+            <description>$!entity.getContractor().getName()</description>
             #end
             <number>$!entity.getType().getKey()-$!entity.getNumber()</number>
             #foreach($balance in $entity.getZpkBalances())
             #if($balance.getBookingPeriod().isDefaultPeriod())
-                <credit>$balance.getCredit()</credit>
-                <debit>$balance.getDebit()</debit>
+            <credit>$balance.getCredit()</credit>
+            <debit>$balance.getDebit()</debit>
             #end
             #end
         </zpk>
         #end
     </zpks>
-    <defaultAccountId>$!community.getDefaultAccount().getId()</defaultAccountId>
-    <defaultAccountNumber>$!community.getDefaultAccount().getNumber()</defaultAccountNumber>
-    <repairFundAccountId>$!community.getRepairFundAccount().getId()</repairFundAccountId>
-    <repairFundAccountNumber>$!community.getRepairFundAccount().getNumber()</repairFundAccountNumber>
+    <defaultAccount>
+        <id>$!community.getDefaultAccount().getId()</id>
+        <number>$!community.getDefaultAccount().getNumber()</number>
+    </defaultAccount>
+    <repairFundAccount>
+        <id>$!community.getRepairFundAccount().getId()</id>
+        <number>$!community.getRepairFundAccount().getNumber()</number>
+    </repairFundAccount>
 </community>
 
 
