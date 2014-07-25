@@ -41,13 +41,23 @@ class CommunityManager(Container):
             self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
             self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
             AccountManager().createZpk(account)
-        if self._svars.get('repairFundAccountId') != '0' and (community.getRepairFundAccount() == None or self._svars.get('repairFundAccountId') != str(community.getRepairFundAccount().getId())):
-            account = self.findAccountById(self._svars.get('repairFundAccountId'))
-            account.setCommunity(community)
-            community.setRepairFundAccount(account)
-            self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
-            self._svars.put('startDebit', self._svars.get('repairFundAccountDebit'))
-            AccountManager().createZpk(account)
+
+        if self._svars.get('repairFundAccountId') != '0':
+            self._logger.info('Repair Fund Account ID recieved: %s' % self._svars.get('repairFundAccountId'))
+            if community.getRepairFundAccount() != None:
+                currentId = community.getRepairFundAccount().getId()
+                self._logger.info('Current repair fund id: %d' % currentId)
+                if(int(self._svars.get('repairFundAccountId')) != currentId:
+                    self._logger.info('Numbers are different, changing account...')
+                    account = self.findAccountById(self._svars.get('repairFundAccountId'))
+                    account.setCommunity(community)
+                    community.setRepairFundAccount(account)
+                    self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
+                    self._svars.put('startDebit', self._svars.get('repairFundAccountDebit'))
+                    AccountManager().createZpk(account)
+        else:
+            self._logger.info('Repair Fund Account ID unavailable, clearing...')
+            community.setRepairFundAccount(None)
 
     def generateZpkNumber(self, community):
         manager = ZpkManager()
