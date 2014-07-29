@@ -7,7 +7,7 @@
     <property name="appVersion" value="0.1"/>
     <property name="fullAppName" value="${appName}-${appVersion}"/>
   
-    <property name="branch" value="Sprint-2"/>
+    <property name="branch" value="master"/>
   
     <property name="gfPath" value="/opt/glassfish"/>
     <property name="gfAsadminPath" value="${gfPath}/bin/asadmin"/>
