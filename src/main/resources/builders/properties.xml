@@ -29,7 +29,7 @@
                 <property name="dbName" value="agora_dev_erp"/>
             </case>
             <case value="prod">
-                <property name="gfAdminPort" value="4848"/>
+                <property name="gfAdminPort" value="57862"/>
                 <property name="gfAadminUser" value="root"/>
                 <property name="sDb" value="db2"/>
                 <property name="sDestination" value="destination2"/>
