@@ -30,7 +30,7 @@
             </case>
             <case value="prod">
                 <property name="gfAdminPort" value="57862"/>
-                <property name="gfAadminUser" value="root"/>
+                <property name="gfAdminUser" value="root"/>
                 <property name="sDb" value="db2"/>
                 <property name="sDestination" value="destination2"/>
                 <property name="dbName" value="agora_erp"/>
