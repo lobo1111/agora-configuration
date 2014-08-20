@@ -1,7 +1,7 @@
 from pl.reaper.container.data import Account
 from base.Container import Container
 from entities.Bank import BankManager
-from entities.Community import CommunityManager
+import entities.Community
 from entities.Dictionary import DictionaryManager
 from entities.Zpk import ZpkManager
 
@@ -23,7 +23,7 @@ class AccountManager(Container):
         account = findOrCreate(self._svars.get('accountName'))
         if account.getCommunity().getCompany().getName() != '' and account.getCommunity().getCompany().getName() != self._svars.get('communityName'):
             raise Exception('importer cannot change community !')
-        account.setCommunity(CommunityManager().findByLabel(self._svars.get('communityName')))
+        account.setCommunity(Community.CommunityManager().findByLabel(self._svars.get('communityName')))
         account.setNumber(self._svars.get('accountNumber'))
         account.setType(DictionaryManager().findByLabel(self._svars.get('accountTypeValue')))
         account.setParrentAccount(self.findByLabel(self._svars.get('parentAccountName')))
