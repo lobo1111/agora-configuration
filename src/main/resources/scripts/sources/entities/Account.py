@@ -1,7 +1,6 @@
 from pl.reaper.container.data import Account
 from base.Container import Container
 from entities.Bank import BankManager
-import entities.Community import CommunityManager
 from entities.Dictionary import DictionaryManager
 from entities.Zpk import ZpkManager
 
