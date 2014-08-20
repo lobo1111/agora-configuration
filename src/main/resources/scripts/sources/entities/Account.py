@@ -19,7 +19,7 @@ class AccountManager(Container):
         self.setAccountData(account)
         self.saveAccount(account)
 
-    def import(self):
+    def importCSV(self):
         account = findOrCreate(self._svars.get('accountName'))
         if account.getCommunity().getCompany().getName() != '' and account.getCommunity().getCompany().getName() != self._svars.get('communityName'):
             raise Exception('importer cannot change community !')

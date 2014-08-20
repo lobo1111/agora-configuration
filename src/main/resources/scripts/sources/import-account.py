@@ -5,4 +5,4 @@ helpers.properties = globals()['properties']
 
 from entities.Account import AccountManager
 accountManager = AccountManager()
-accountManager.import()
+accountManager.importCSV()
