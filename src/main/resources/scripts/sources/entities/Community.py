@@ -153,3 +153,6 @@ class CommunityManager(Container):
                 possession.setShare(BigDecimal(0))
             self._logger.info('Share recalculated(%s) on possession %s' % (str(possession.getShare().floatValue()), str(possession.getId())))
             self._entityManager.persist(possession)
+
+    def findByLabel(self, label):
+        return self._entityManager.createQuery('Select d From Community d Join d.company c Where c.name = %s' % label).getSingleResult()

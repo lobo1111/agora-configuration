@@ -1,6 +1,7 @@
 from pl.reaper.container.data import Account
 from base.Container import Container
 from entities.Bank import BankManager
+from entities.Community import CommunityManager
 from entities.Dictionary import DictionaryManager
 from entities.Zpk import ZpkManager
 
@@ -16,6 +17,21 @@ class AccountManager(Container):
     def update(self):
         account = self.findAccount()
         self.setAccountData(account)
+        self.saveAccount(account)
+
+    def import(self):
+        account = findOrCreate(self._svars.get('accountName'))
+        if account.getCommunity().getCompany().getName() != '' and account.getCommunity().getCompany().getName() != self._svars.get('communityName'):
+            raise Exception('importer cannot change community !')
+        account.setCommunity(CommunityManager().findByLabel(self._svars.get('communityName')))
+        account.setNumber(self._svars.get('accountNumber'))
+        account.setType(DictionaryManager().findByLabel(self._svars.get('accountTypeValue')))
+        account.setParrentAccount(self.findByLabel(self._svars.get('parentAccountName')))
+        if account.getId() == 0:
+            self.createZpk(account)
+        else:
+            pass
+        account.setBank(BankManager().findByLabel(self._svars.get('name')))
         self.saveAccount(account)
         
     def setAccountData(self, account):
@@ -33,26 +49,16 @@ class AccountManager(Container):
         zpkManager.setSvars(self._svars)
         if account.getType().getKey() in ['DEFAULT', 'RENT']:
             zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'RENT')
+            zpkManager.setStartBalance(zpk, float(self._svars.get('startCredit')), float(self._svars.get('startDebit')))
             zpk.setAccount(account)
-            zpk.getCurrentBalance().setStartCredit(float(self._svars.get('startCredit')))
-            zpk.getCurrentBalance().setStartDebit(float(self._svars.get('startDebit')))
-            zpk.getCurrentBalance().setCredit(zpk.getCurrentBalance().getStartCredit())
-            zpk.getCurrentBalance().setDebit(zpk.getCurrentBalance().getStartDebit())
-            self._logger.info('start credit set as %f' % zpk.getCurrentBalance().getStartCredit())
-            self._logger.info('start debit set as %f' % zpk.getCurrentBalance().getStartDebit())
             account.getZpks().add(zpk)
             if account.getCommunity().getDefaultAccount() == None:
                 account.getCommunity().setDefaultAccount(account)
                 self._entityManager.persist(account.getCommunity())
         if account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
             zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
+            zpkManager.setStartBalance(zpk, float(self._svars.get('startCredit')), float(self._svars.get('startDebit')))
             zpk.setAccount(account)
-            zpk.getCurrentBalance().setStartCredit(float(self._svars.get('startCredit')))
-            zpk.getCurrentBalance().setStartDebit(float(self._svars.get('startDebit')))
-            zpk.getCurrentBalance().setCredit(zpk.getCurrentBalance().getStartCredit())
-            zpk.getCurrentBalance().setDebit(zpk.getCurrentBalance().getStartDebit())
-            self._logger.info('start credit set as %f' % zpk.getCurrentBalance().getStartCredit())
-            self._logger.info('start debit set as %f' % zpk.getCurrentBalance().getStartDebit())
             account.getZpks().add(zpk)
             if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
                 account.getCommunity().setRepairFundAccount(account)
@@ -81,6 +87,15 @@ class AccountManager(Container):
     def findAccount(self):
         id = self._svars.get('id')
         return self.findAccountById(id)
+
+    def findByLabel(self, label):
+        return self._entityManager.createQuery('Select a From Account a where a.name = %s' % label).getSingleResult()
+
+    def findOrCreate(self, label):
+        try:
+            return self.findByLabel(self, label)
+        except:
+            return Account()
 
     def findAccountById(self, id):
         return self._entityManager.createQuery('Select account From Account account Where account.id = ' + str(id)).getSingleResult()

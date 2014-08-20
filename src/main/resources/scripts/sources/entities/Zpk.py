@@ -7,7 +7,6 @@ from entities.BookingPeriod import BookingPeriodManager
 class ZpkManager(Container):
 
     def create(self):
-        
         pool = self.findPool(self._svars.get('poolId'))
         community = self.findCommunityById(self._svars.get('communityId'))
         number = self.generateNumber(pool, community)
@@ -31,7 +30,6 @@ class ZpkManager(Container):
             zpk.getZpkBalances().add(zpkBalance)
             
     def createBalanceForPeriod(self, bookingPeriod):
-        
         balance = ZpkBalance()
         balance.setBookingPeriod(bookingPeriod)
         if bookingPeriod.isDefaultPeriod():
@@ -42,7 +40,6 @@ class ZpkManager(Container):
         return balance
     
     def generateZpkForCommunity(self, community, poolKey, credit = '0', debit = '0'):
-        
         poolId = self.findPoolId(poolKey)
         pool = self.findPool(poolId.getValue())
         number = self.generateNumber(pool, community)
@@ -56,6 +53,12 @@ class ZpkManager(Container):
         self._svars.put('debit', debit)
         self.setAllBookingPeriods(zpk)
         return zpk
+
+    def setStartBalance(self, zpk, credit, debit):
+        zpk.getCurrentBalance().setStartCredit(credit)
+        zpk.getCurrentBalance().setStartDebit(debit)
+        zpk.getCurrentBalance().setCredit(zpk.getCurrentBalance().getStartCredit())
+        zpk.getCurrentBalance().setDebit(zpk.getCurrentBalance().getStartDebit())
     
     def save(self, zpk):
         self._logger.info(zpk.longDescription())
