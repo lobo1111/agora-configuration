@@ -17,5 +17,5 @@ class DictionaryManager(Container):
         self._logger.info('Executing query: %s' % sql)
         return self._entityManager.createQuery(sql).getSingleResult()
 
-    def findByLabel(self, label):
-        return self._entityManager.createQuery("Select d From Dictionary d Where d.value = '%s'" % label).getSingleResult()
+    def findByLabel(self, type, label):
+        return self._entityManager.createQuery("Select d From Dictionary d Join d.type t Where t.type = '%s' Amd d.value = '%s'" % (type, label)).getSingleResult()
