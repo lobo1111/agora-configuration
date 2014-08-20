@@ -26,7 +26,8 @@ class AccountManager(Container):
         account.setCommunity(CommunityManager().findByLabel(self._svars.get('communityName')))
         account.setNumber(self._svars.get('accountNumber'))
         account.setType(DictionaryManager().findByLabel('ACCOUNT_TYPE', self._svars.get('accountTypeValue')))
-        account.setParrentAccount(self.findByLabel(self._svars.get('parentAccountName')))
+        if self._svars.get('parentAccountName') != '':
+            account.setParrentAccount(self.findByLabel(self._svars.get('parentAccountName')))
         if account.getId() == 0:
             self.createZpk(account)
         else:
