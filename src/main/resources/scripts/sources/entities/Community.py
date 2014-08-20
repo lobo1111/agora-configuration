@@ -155,4 +155,4 @@ class CommunityManager(Container):
             self._entityManager.persist(possession)
 
     def findByLabel(self, label):
-        return self._entityManager.createQuery('Select d From Community d Join d.company c Where c.name = %s' % label).getSingleResult()
+        return self._entityManager.createQuery("Select d From Community d Join d.company c Where c.name = '%s'" % label).getSingleResult()

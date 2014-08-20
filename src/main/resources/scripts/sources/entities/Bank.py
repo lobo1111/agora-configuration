@@ -38,8 +38,5 @@ class BankManager(Container):
     def findBankById(self, id):
         return self._entityManager.createQuery('Select bank From Bank bank Where bank.id = ' + str(id)).getSingleResult()
     
-    def findBankByKey(self, key):
-        return self._entityManager.createQuery('Select bank From Bank bank Where bank.key = ' + str(key)).getSingleResult()
-
     def findByLabel(self, label):
-        return self._entityManager.createQuery('Select d From Bank d Join d.company c Where c.name = %s' % label).getSingleResult()
+        return self._entityManager.createQuery("Select d From Bank d Join d.company c Where c.name = '%s'" % label).getSingleResult()

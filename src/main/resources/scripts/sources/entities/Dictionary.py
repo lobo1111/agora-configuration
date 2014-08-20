@@ -18,4 +18,4 @@ class DictionaryManager(Container):
         return self._entityManager.createQuery(sql).getSingleResult()
 
     def findByLabel(self, label):
-        return self._entityManager.createQuery('Select d From Dictionary d Where d.value = %s' % label).getSingleResult()
+        return self._entityManager.createQuery("Select d From Dictionary d Where d.value = '%s'" % label).getSingleResult()
