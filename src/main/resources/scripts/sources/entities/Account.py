@@ -22,7 +22,8 @@ class AccountManager(Container):
         from entities.Community import CommunityManager
         account = self.findOrCreate(self._svars.get('accountName'))
         if account.getCommunity() != None and account.getCommunity().getCompany().getName() != '' and account.getCommunity().getCompany().getName() != self._svars.get('communityName'):
-            self._logger.info('current: %s - new: %s' % (account.getCommunity().getCompany().getName(), self._svars.get('communityName')))
+            self._logger.info('current: "%s" - new: "%s"' % (account.getCommunity().getCompany().getName(), self._svars.get('communityName')))
+            self._logger.info(str(account.getCommunity().getCompany().getName() != self._svars.get('communityName')))
             raise Exception('importer cannot change community !')
         account.setCommunity(CommunityManager().findByLabel(self._svars.get('communityName')))
         account.setNumber(self._svars.get('accountNumber'))
