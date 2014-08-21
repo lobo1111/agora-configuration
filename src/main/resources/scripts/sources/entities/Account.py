@@ -90,7 +90,7 @@ class AccountManager(Container):
         return self.findAccountById(id)
 
     def findByLabel(self, label):
-        return self._entityManager.createQuery("Select a From Account a where a.name = '%s'" % label).getSingleResult()
+        return self._entityManager.createQuery("Select a From Account a where a.name = '%s'" % label).getResultList().get(0)
 
     def findOrCreate(self, label):
         return self.findByLabel(label)
