@@ -96,7 +96,9 @@ class AccountManager(Container):
         try:
             return self.findByLabel(self, label)
         except:
-            return Account()
+            account = Account()
+            account.setName(label)
+            return account
 
     def findAccountById(self, id):
         return self._entityManager.createQuery('Select account From Account account Where account.id = ' + str(id)).getSingleResult()
