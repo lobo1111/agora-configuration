@@ -93,12 +93,12 @@ class AccountManager(Container):
         return self._entityManager.createQuery("Select a From Account a where a.name = '%s'" % label).getSingleResult()
 
     def findOrCreate(self, label):
-        try:
-            return self.findByLabel(self, label)
-        except:
-            account = Account()
-            account.setName(label)
-            return account
+        return self.findByLabel(self, label)
+        #try:
+        #except:
+        #    account = Account()
+        #    account.setName(label)
+        #    return account
 
     def findAccountById(self, id):
         return self._entityManager.createQuery('Select account From Account account Where account.id = ' + str(id)).getSingleResult()
