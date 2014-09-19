@@ -58,8 +58,8 @@ class PossessionManager(Container):
         zpkRepairFund.setPossession(possession)
         zpkRepairFund.getCurrentBalance().setStartCredit(float(self._svars.get('startCreditRepairFund')))
         zpkRepairFund.getCurrentBalance().setStartDebit(float(self._svars.get('startDebitRepairFund')))
-        zpkRepairFund.getCurrentBalance().setCredit(zpkRent.getCurrentBalance().getStartCredit())
-        zpkRepairFund.getCurrentBalance().setDebit(zpkRent.getCurrentBalance().getStartDebit())
+        zpkRepairFund.getCurrentBalance().setCredit(zpkRepairFund.getCurrentBalance().getStartCredit())
+        zpkRepairFund.getCurrentBalance().setDebit(zpkRepairFund.getCurrentBalance().getStartDebit())
         possession.getZpks().add(zpkRepairFund)
 
     def propagateElementsForNewPossession(self, possession):
