@@ -36,33 +36,27 @@ class CommunityManager(Container):
         community.setName(community.getCompany().getName())
         if self._svars.get('defaultAccountId') != '0':
             self._logger.info('default Account ID recieved: %s' % self._svars.get('defaultAccountId'))
-            if community.getDefaultAccount() != None:
-                currentId = community.getDefaultAccount().getId()
-                self._logger.info('Current default id: %d' % currentId)
-                if currentId == None or int(self._svars.get('defaultAccountId')) != currentId:
-                    self._logger.info('Numbers are different, changing account...')
-                    account = self.findAccountById(self._svars.get('defaultAccountId'))
-                    account.setCommunity(community)
-                    community.setDefaultAccount(account)
-                    self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
-                    self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
-                    AccountManager().createZpk(account)
+            if community.getDefaultAccount( == None or int(self._svars.get('defaultAccountId')) != community.getDefaultAccount().getId():
+                self._logger.info('Numbers are different, changing account...')
+                account = self.findAccountById(self._svars.get('defaultAccountId'))
+                account.setCommunity(community)
+                community.setDefaultAccount(account)
+                self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
+                self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
+                AccountManager().createZpk(account)
         else:
             self._logger.info('default Account ID unavailable, clearing...')
             community.setDefaultAccount(None)
         if self._svars.get('repairFundAccountId') != '0':
             self._logger.info('Repair Fund Account ID recieved: %s' % self._svars.get('repairFundAccountId'))
-            if community.getRepairFundAccount() != None:
-                currentId = community.getRepairFundAccount().getId()
-                self._logger.info('Current repair fund id: %d' % currentId)
-                if currentId == None or int(self._svars.get('repairFundAccountId')) != currentId:
-                    self._logger.info('Numbers are different, changing account...')
-                    account = self.findAccountById(self._svars.get('repairFundAccountId'))
-                    account.setCommunity(community)
-                    community.setRepairFundAccount(account)
-                    self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
-                    self._svars.put('startDebit', self._svars.get('repairFundAccountDebit'))
-                    AccountManager().createZpk(account)
+            if community.getRepairFundAccount() == None or int(self._svars.get('repairFundAccountId')) != community.getRepairFundAccount().getId():
+                self._logger.info('Numbers are different, changing account...')
+                account = self.findAccountById(self._svars.get('repairFundAccountId'))
+                account.setCommunity(community)
+                community.setRepairFundAccount(account)
+                self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
+                self._svars.put('startDebit', self._svars.get('repairFundAccountDebit'))
+                AccountManager().createZpk(account)
         else:
             self._logger.info('Repair Fund Account ID unavailable, clearing...')
             community.setRepairFundAccount(None)
@@ -86,12 +80,12 @@ class CommunityManager(Container):
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             communityElement = ElementManager().CreateOrUpdateCommunityElement(community)
-            notToRemove.append(self._svars.get('elementId'))
-            self._logger.info('Element marked as not to remove: ' + self._svars.get('elementId'))
+            notToRemove.append(communityElement.getId())
+            self._logger.info('Element marked as not to remove: ' + str(communityElement.getId()))
         self._logger.info('Community has total elements: ' + str(community.getElements().size()))
         for element in community.getElements():
             self._logger.info('Checking if element should be dropped: ' + str(element.getId()))
-            if not (element.getId() in notToRemove):
+            if element.getId() != None and not (element.getId() in notToRemove):
                 self._logger.info('Element will be removed: ' + str(element.getId()))
                 toRemove.append(element)
             else:
