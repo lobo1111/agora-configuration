@@ -39,7 +39,7 @@ class CommunityManager(Container):
             if community.getDefaultAccount() != None:
                 currentId = community.getDefaultAccount().getId()
                 self._logger.info('Current default id: %d' % currentId)
-                if int(self._svars.get('defaultAccountId')) != currentId:
+                if currentId == None or int(self._svars.get('defaultAccountId')) != currentId:
                     self._logger.info('Numbers are different, changing account...')
                     account = self.findAccountById(self._svars.get('defaultAccountId'))
                     account.setCommunity(community)
@@ -55,7 +55,7 @@ class CommunityManager(Container):
             if community.getRepairFundAccount() != None:
                 currentId = community.getRepairFundAccount().getId()
                 self._logger.info('Current repair fund id: %d' % currentId)
-                if int(self._svars.get('repairFundAccountId')) != currentId:
+                if currentId == None or int(self._svars.get('repairFundAccountId')) != currentId:
                     self._logger.info('Numbers are different, changing account...')
                     account = self.findAccountById(self._svars.get('repairFundAccountId'))
                     account.setCommunity(community)
@@ -86,7 +86,7 @@ class CommunityManager(Container):
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             communityElement = ElementManager().CreateOrUpdateCommunityElement(community)
-            notToRemove.append(communityElement.getId())
+            notToRemove.append(elementId)
             self._logger.info('Element marked as not to remove: ' + str(communityElement.getId()))
         self._logger.info('Community has total elements: ' + str(community.getElements().size()))
         for element in community.getElements():
