@@ -86,8 +86,8 @@ class CommunityManager(Container):
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             communityElement = ElementManager().CreateOrUpdateCommunityElement(community)
-            notToRemove.append(elementId)
-            self._logger.info('Element marked as not to remove: ' + str(communityElement.getId()))
+            notToRemove.append(self._svars.get('elementId'))
+            self._logger.info('Element marked as not to remove: ' + self._svars.get('elementId'))
         self._logger.info('Community has total elements: ' + str(community.getElements().size()))
         for element in community.getElements():
             self._logger.info('Checking if element should be dropped: ' + str(element.getId()))
