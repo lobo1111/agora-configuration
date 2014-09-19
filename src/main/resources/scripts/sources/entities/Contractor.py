@@ -38,10 +38,11 @@ class ContractorManager(Container):
         manager.setEntityManager(self._entityManager)
         manager.setSvars(self._svars)
         zpkContractor = manager.generateZpkForCommunity(obligation.getCommunity(), "CONTRACTOR")
-        manager.setStartBalance(zpkContractor, float(self._svars.get('startCredit')), float(self._svars.get('startDebit')))
+        manager.setStartBalance(zpkContractor, float(self._svars.get('startCredit2')), float(self._svars.get('startDebit2')))
         zpkContractor.setContractor(obligation)
         obligation.getZpks().add(zpkContractor)
         zpkCost = manager.generateZpkForCommunity(obligation.getCommunity(), "CONTRACTOR_COST")
+        manager.setStartBalance(zpkCost, float(self._svars.get('startCredit5')), float(self._svars.get('startDebit5')))
         zpkCost.setContractor(obligation)
         obligation.getZpks().add(zpkCost)
 

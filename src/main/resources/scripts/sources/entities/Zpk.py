@@ -64,6 +64,10 @@ class ZpkManager(Container):
         self._logger.info(zpk.longDescription())
         self._entityManager.persist(zpk)
 
+    def findPoolByName(self, poolName):
+        poolId = self.findPoolId(poolName)
+        return self.findPool(poolId)
+
     def findPool(self, poolId):
         sql = "SELECT d FROM Dictionary d WHERE d.id = %s" % str(poolId)
         return self._entityManager.createQuery(sql).getSingleResult()
