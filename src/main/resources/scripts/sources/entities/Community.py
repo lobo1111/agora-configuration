@@ -36,7 +36,7 @@ class CommunityManager(Container):
         community.setName(community.getCompany().getName())
         if self._svars.get('defaultAccountId') != '0':
             self._logger.info('default Account ID recieved: %s' % self._svars.get('defaultAccountId'))
-            if community.getDefaultAccount( == None or int(self._svars.get('defaultAccountId')) != community.getDefaultAccount().getId():
+            if community.getDefaultAccount() == None or int(self._svars.get('defaultAccountId')) != community.getDefaultAccount().getId():
                 self._logger.info('Numbers are different, changing account...')
                 account = self.findAccountById(self._svars.get('defaultAccountId'))
                 account.setCommunity(community)
