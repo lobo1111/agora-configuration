@@ -1208,5 +1208,95 @@
             CREATE INDEX indx_account_name ON account (name);
         </sql>
      </changeSet>
+     
+     <changeSet author='tkopacki' id='counter-table'>
+        <sql>        
+            CREATE TABLE `counter` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `serial_number` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `type_id` int(11) NOT NULL,
+            `installation` date NULL,
+            `decommission` date NULL,
+            `community_id` int(11) NULL,
+            `possession_id` int(11) NULL,
+            `parent_counter_id` int(11) NULL,
+            
+            PRIMARY KEY (`id`),
+            KEY `counter_dictionary_fkey` (`type_id`),
+            KEY `counter_community_fkey` (`community_id`),
+            KEY `counter_possession_fkey` (`possession_id`),
+            KEY `counter_counter_fkey` (`parent_counter_id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+     
+     <changeSet author='tkopacki' id='counter-status-table'>
+        <sql>        
+            CREATE TABLE `counter_status` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `counter_id` int(11) NOT NULL,
+            `timestamp` date NOT NULL,
+            `status` decimal(10,2) DEFAULT NULL,
+            
+            PRIMARY KEY (`id`),
+            KEY `counter_status_counter_fkey` (`counter_id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='counter-type-fkey'>
+        <sql>                   
+            ALTER TABLE `counter`
+            ADD CONSTRAINT `counter_type_id_fkey` FOREIGN KEY (`type_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='counter-community-fkey'>
+        <sql>                   
+            ALTER TABLE `counter`
+            ADD CONSTRAINT `counter_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='counter-possession-fkey'>
+        <sql>                   
+            ALTER TABLE `counter`
+            ADD CONSTRAINT `counter_possession_id_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='counter-counter-fkey'>
+        <sql>                   
+            ALTER TABLE `counter`
+            ADD CONSTRAINT `counter_counter_id_fkey` FOREIGN KEY (`parent_counter_id`) REFERENCES `counter` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='counter-status-counter-fkey'>
+        <sql>                   
+            ALTER TABLE `counter_status`
+            ADD CONSTRAINT `counter_status_counter_id_fkey` FOREIGN KEY (`counter_id`) REFERENCES `counter` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='counters-types-dictionary'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('COUNTERS_TYPES');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='counters-types-inserts-1'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'HEATING', 'Ogrzewanie' FROM `dictionary_type` WHERE `type` = 'COUNTERS_TYPES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'COLD_WATER', 'Woda zimna' FROM `dictionary_type` WHERE `type` = 'COUNTERS_TYPES';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'HOT_WATER', 'Woda ciepła' FROM `dictionary_type` WHERE `type` = 'COUNTERS_TYPES';
+        </sql>
+    </changeSet>
 
 </databaseChangeLog> 
