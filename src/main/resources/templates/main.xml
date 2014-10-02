@@ -632,6 +632,41 @@
         </variables>
     </template>
     <template>
+        <name>list-counters</name>
+        <source>list-counters.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    counter
+                    FROM 
+                    Counter counter
+                    JOIN counter.community community
+                    JOIN counter.possession possession
+                    JOIN counter.type type
+                    WHERE {:where}
+                    ORDER BY counter.serialNumber ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(counter.id)
+                    FROM 
+                    Counter counter
+                    JOIN counter.community community
+                    JOIN counter.possession possession
+                    JOIN counter.type type
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-chargings</name>
         <source>list-chargings.vtl</source>
         <variables>

@@ -1,0 +1,137 @@
+package pl.reaper.container.data;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@Entity
+@Table(name = "counter")
+@XmlRootElement
+public class Counter implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "serial_number")
+    private String serialNumer;
+    @JoinColumn(name = "type_id", referencedColumnName = "id")
+    @ManyToOne
+    private Dictionary type;
+    @Column(name = "installation")
+    @Temporal(TemporalType.DATE)
+    private Date installation;
+    @Column(name = "decomission")
+    @Temporal(TemporalType.DATE)
+    private Date decomission;
+    @JoinColumn(name = "community_id", referencedColumnName = "id")
+    @ManyToOne
+    private Community community;
+    @JoinColumn(name = "possession_id", referencedColumnName = "id")
+    @ManyToOne
+    private Possession possession;
+    @JoinColumn(name = "parent_counter_id", referencedColumnName = "id")
+    @ManyToOne
+    private Counter parent;
+    @OneToMany(mappedBy = "counter", cascade = CascadeType.PERSIST)
+    private ArrayList<Counter> children;
+    @OneToMany(mappedBy = "counter", cascade = CascadeType.PERSIST)
+    private ArrayList<CounterStatus> statuses;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getSerialNumer() {
+        return serialNumer;
+    }
+
+    public void setSerialNumer(String serialNumer) {
+        this.serialNumer = serialNumer;
+    }
+
+    public Dictionary getType() {
+        return type;
+    }
+
+    public void setType(Dictionary type) {
+        this.type = type;
+    }
+
+    public Date getInstallation() {
+        return installation;
+    }
+
+    public void setInstallation(Date installation) {
+        this.installation = installation;
+    }
+
+    public Date getDecomission() {
+        return decomission;
+    }
+
+    public void setDecomission(Date decomission) {
+        this.decomission = decomission;
+    }
+
+    public Community getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Community community) {
+        this.community = community;
+    }
+
+    public Possession getPossession() {
+        return possession;
+    }
+
+    public void setPossession(Possession possession) {
+        this.possession = possession;
+    }
+
+    public Counter getParent() {
+        return parent;
+    }
+
+    public void setParent(Counter parent) {
+        this.parent = parent;
+    }
+
+    public ArrayList<Counter> getChildren() {
+        return children;
+    }
+
+    public void setChildren(ArrayList<Counter> children) {
+        this.children = children;
+    }
+
+    public ArrayList<CounterStatus> getStatuses() {
+        return statuses;
+    }
+
+    public void setStatuses(ArrayList<CounterStatus> statuses) {
+        this.statuses = statuses;
+    }
+
+}
