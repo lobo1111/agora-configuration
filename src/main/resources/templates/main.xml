@@ -645,7 +645,7 @@
                     Counter counter
                     JOIN counter.community community
                     JOIN counter.possession possession
-                    JOIN counter.type type
+                    JOIN counter.type dtype
                     WHERE {:where}
                     ORDER BY counter.serialNumber ASC
                 </data>
@@ -660,7 +660,7 @@
                     Counter counter
                     JOIN counter.community community
                     JOIN counter.possession possession
-                    JOIN counter.type type
+                    JOIN counter.type dtype
                     WHERE {:where}
                 </data>
             </var>
