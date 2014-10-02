@@ -1298,5 +1298,12 @@
             SELECT id, 'HOT_WATER', 'Woda ciepła' FROM `dictionary_type` WHERE `type` = 'COUNTERS_TYPES';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='counter-decomission-typo'>
+        <sql>                   
+            ALTER TABLE `counter`
+            change decommission decomission varchar (150) NULL
+        </sql>
+     </changeSet>
 
 </databaseChangeLog> 
