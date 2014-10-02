@@ -30,7 +30,7 @@ public class Counter implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "serial_number")
-    private String serialNumer;
+    private String serialNumber;
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne
     private Dictionary type;
@@ -62,12 +62,12 @@ public class Counter implements Serializable {
         this.id = id;
     }
 
-    public String getSerialNumer() {
-        return serialNumer;
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setSerialNumer(String serialNumer) {
-        this.serialNumer = serialNumer;
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public Dictionary getType() {
