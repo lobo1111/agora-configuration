@@ -49,7 +49,7 @@ public class Counter implements Serializable {
     @JoinColumn(name = "parent_counter_id", referencedColumnName = "id")
     @ManyToOne
     private Counter parent;
-    @OneToMany(mappedBy = "counter", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.PERSIST)
     private ArrayList<Counter> children;
     @OneToMany(mappedBy = "counter", cascade = CascadeType.PERSIST)
     private ArrayList<CounterStatus> statuses;
