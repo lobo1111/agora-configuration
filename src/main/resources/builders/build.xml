@@ -1,5 +1,13 @@
-<project name="Scripting Container" basedir=".">
+<project name="Scripting Container" basedir="." default="help">
     <description>Scripting Container</description>
+  
+    <target name="help">
+        <echo>build-devel</echo>
+        <echo>build-prod</echo>
+        <echo></echo>
+        <echo>fast-update-devel</echo>
+        <echo>fast-update-prod</echo>
+    </target>
   
     <import file="properties.xml" />
     <import file="glassfish.xml" />
