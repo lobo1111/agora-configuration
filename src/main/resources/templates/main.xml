@@ -1205,7 +1205,7 @@
                 <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    dict.id, CONCAT(dict.value))
+                    dict.id, dict.value)
                     FROM 
                     Dictionary dict
                     JOIN dict.type dtype
