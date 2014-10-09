@@ -7,7 +7,7 @@ class CounterManager(Container):
     def create(self):
         counter = Counter()
         self.setCounterData(counter)
-        self.saveCounter(counter)
+        self.saveEntity(counter)
         
     def update(self):
         counter = self.findById('Counter', self._svars.get('id'))
