@@ -20,4 +20,4 @@ class CounterManager(Container):
         counter.setDecomission(self.parseDate(self._svars.get('decomission')))
         counter.setCommunity(self.findById('Community', self._svars.get('communityId')))
         counter.setPossession(self.findById('Possession', self._svars.get('possessionId')))
-        counter.setCounter(self.findById('Counter', self._svars.get('counterId')))
+        counter.setParent(self.findById('Counter', self._svars.get('counterId')))
