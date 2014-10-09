@@ -15,7 +15,7 @@ class CounterManager(Container):
         self.saveCounter(counter)
 
     def setCounterData(self, counter):
-        counter.setType(DictionaryManager().findDictionaryInstance("COUNTERS_TYPES", self._svars.get('groupKey')))
+        counter.setType(DictionaryManager().getDictionaryInstance(self._svars.get('groupId')))
         counter.setInstallation(self.parseDate(self._svars.get('installation')))
         counter.setDecomission(self.parseDate(self._svars.get('decomission')))
         counter.setCommunity(self.findCommunityById(self._svars.get('communityId')))
