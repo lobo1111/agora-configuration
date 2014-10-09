@@ -8,6 +8,13 @@ class Container:
         self._svars = helpers.svars
         self._entityManager = helpers.entityManager
         self._properties = helpers.properties
+
+    def findById(self, entityName, id):
+        try:
+            sql = 'Select entity From %s entity where entity.id = %s' % (entityName, id)
+            return self._entityManager.createQuery(sql).getSingleResult()
+        except:
+            return None
     
     def setSvars(self, svars):
         self._svars = svars
@@ -19,3 +26,13 @@ class Container:
         
     def setProperties(self, properties):
         self._properties = properties
+
+    def parseDate(self, dateAsString):
+        try:
+            return SimpleDateFormat('dd-MM-yy').parse(dateAsString)
+        except:
+            return None
+
+    def saveEntity(self, entity):
+        self._entityManager.persist(entity)
+        self._entityManager.flush()
