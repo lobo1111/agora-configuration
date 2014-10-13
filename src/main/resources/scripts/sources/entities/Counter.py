@@ -21,3 +21,4 @@ class CounterManager(Container):
         counter.setCommunity(self.findById('Community', self._svars.get('communityId')))
         counter.setPossession(self.findById('Possession', self._svars.get('possessionId')))
         #counter.setParent(self.findById('Counter', self._svars.get('counterId')))
+
