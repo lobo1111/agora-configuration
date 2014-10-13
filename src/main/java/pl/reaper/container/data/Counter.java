@@ -119,7 +119,7 @@ public class Counter implements Serializable {
         this.parent = parent;
     }
 
-    public ArrayList<Counter> getChildren() {
+    public Collection<Counter> getChildren() {
         return children;
     }
 
@@ -127,7 +127,7 @@ public class Counter implements Serializable {
         this.children = children;
     }
 
-    public ArrayList<CounterStatus> getStatuses() {
+    public Collection<CounterStatus> getStatuses() {
         return statuses;
     }
 
