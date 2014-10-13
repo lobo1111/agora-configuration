@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -50,9 +51,9 @@ public class Counter implements Serializable {
     @ManyToOne
     private Counter parent;
     @OneToMany(mappedBy = "parent", cascade = CascadeType.PERSIST)
-    private ArrayList<Counter> children;
+    private Collection<Counter> children = new ArrayList<>();
     @OneToMany(mappedBy = "counter", cascade = CascadeType.PERSIST)
-    private ArrayList<CounterStatus> statuses;
+    private Collection<CounterStatus> statuses = new ArrayList<>();
 
     public Integer getId() {
         return id;
