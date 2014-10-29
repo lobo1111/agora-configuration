@@ -56,12 +56,22 @@ public class Possession implements Serializable {
     private Collection<Charging> chargings = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<PaymentRent> payments = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
+    private Collection<Counter> counters = new ArrayList<>();
 
     public Possession() {
     }
 
     public Possession(Integer id) {
         this.id = id;
+    }
+
+    public Collection<Counter> getCounters() {
+        return counters;
+    }
+
+    public void setCounters(Collection<Counter> counters) {
+        this.counters = counters;
     }
 
     public Integer getId() {
@@ -107,7 +117,7 @@ public class Possession implements Serializable {
     public Collection<ZakladowyPlanKont> getZpks() {
         return zpks;
     }
-    
+
     public void setZpks(Collection<ZakladowyPlanKont> zpks) {
         this.zpks = zpks;
     }

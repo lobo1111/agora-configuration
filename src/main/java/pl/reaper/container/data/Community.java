@@ -55,6 +55,8 @@ public class Community implements Serializable {
     private Collection<Contractor> obligations = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<ElementCommunity> elements = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
+    private Collection<Counter> counters = new ArrayList<>();
     @JoinColumn(name = "default_account_id", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Account defaultAccount;
@@ -152,6 +154,14 @@ public class Community implements Serializable {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
+    }
+
+    public Collection<Counter> getCounters() {
+        return counters;
+    }
+
+    public void setCounters(Collection<Counter> counters) {
+        this.counters = counters;
     }
 
     @Override

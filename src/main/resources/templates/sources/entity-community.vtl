@@ -77,6 +77,36 @@
         <id>$!community.getRepairFundAccount().getId()</id>
         <number>$!community.getRepairFundAccount().getNumber()</number>
     </repairFundAccount>
+    <possessionsCounters>
+        #foreach($counter in $entity.getCounters())
+        #if($counter.getPossession())
+        <counter>
+            <id>$!counter.getId()</id>
+            <serialNumber>$!counter.getSerialNumber()</serialNumber>
+            <possession>
+                <id>$!counter.getPossession().getId()</id>
+                <address>
+                    <street>$!counter.getPossession().getAddress().getStreet()</street>
+                    <houseNumber>$!counter.getPossession().getAddress().getHouseNumber()</houseNumber>
+                    <flatNumber>$!counter.getPossession().getAddress().getFlatNumber()</flatNumber>
+                    <postalCode>$!counter.getPossession().getAddress().getPostalCode()</postalCode>
+                    <city>$!counter.getPossession().getAddress().getCity()</city>
+                </address>
+            </possession>
+        </counter>
+        #end
+        #end
+    </possessionsCounters>
+    <mainCounters>
+        #foreach($counter in $entity.getCounters())
+        #if(!$counter.getPossession())
+        <counter>
+            <id>$!counter.getId()</id>
+            <serialNumber>$!counter.getSerialNumber()</serialNumber>
+        </counter>
+        #end
+        #end
+    </mainCounters>
 </community>
 
 

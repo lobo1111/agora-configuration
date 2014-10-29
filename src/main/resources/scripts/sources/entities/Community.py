@@ -21,6 +21,7 @@ class CommunityManager(Container):
         self.saveCommunity(community)
         self.addElements(community)
         self.addContractors(community)
+        self.addCounters(community)
         self.saveCommunity(community)
         
     def update(self):
@@ -29,6 +30,7 @@ class CommunityManager(Container):
         self.saveCommunity(community)
         self.addElements(community)
         self.addContractors(community)
+        self.addCounters(community)        
         self.saveCommunity(community)
         
     def setCommunityData(self, community):
@@ -113,6 +115,29 @@ class CommunityManager(Container):
             obligation = contractorsManager.create()
             community.getZpks().addAll(obligation.getZpks())
         self.saveCommunity(community)
+
+    def addCounters(self, community):
+        for i in range(int(self._svars.get(self._prefix + 'mainCountersCount'))): 
+            counterId = self._svars.get(self._prefix + i + '_id')
+            counter = self.findById('Counter', counterId)
+            counter.setCommunity(community)
+            community.getMainCounters().add(counter)
+            self.saveCommunity(community)
+            self._entityManager.persist(counter)
+        for i in range(int(self._svars.get(self._prefix + 'possessionsCountersCount'))): 
+            counterId = self._svars.get(self._prefix + i + '_id')
+            possessionId = self._svars.get(self._prefix + i + '_possessionid')
+            counter = self.findById('Counter', counterId)
+            possession = self.findById('Possession', possessionId)
+            counter.setCommunity(community)
+            counter.setPossession(possession)
+            community.getMainCounters().add(counter)
+            community.getPossessionsCounters().add(counter)
+            possession.getCounters().add(counter)
+            self.saveCommunity(community)
+            self._entityManager.persist(counter)
+            self._entityManager.persist(possession)
+
 
     def findCommunity(self):
         id = self._svars.get('id')
