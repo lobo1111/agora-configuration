@@ -78,6 +78,7 @@
         <number>$!community.getRepairFundAccount().getNumber()</number>
     </repairFundAccount>
     <possessionsCounters>
+        $entity.getCounters().size()
         #foreach($counter in $entity.getCounters())
         #if($counter.getPossession())
         <counter>
