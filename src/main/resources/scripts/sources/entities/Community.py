@@ -118,7 +118,7 @@ class CommunityManager(Container):
 
     def addCounters(self, community):
         for i in range(int(self._svars.get(self._prefix + 'mainCountersCount'))): 
-            counterId = self._svars.get(self._prefix + i + '_id')
+            counterId = self._svars.get(self._prefix + str(i) + '_id')
             counter = self.findById('Counter', counterId)
             counter.setCommunity(community)
             community.getMainCounters().add(counter)
