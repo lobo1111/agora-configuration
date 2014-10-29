@@ -1,4 +1,5 @@
 import helpers
+import traceback
 from base.Logger import Logger
 
 class Container:
@@ -31,7 +32,8 @@ class Container:
         try:
             return SimpleDateFormat('dd-MM-yy').parse(dateAsString)
         except:
-            self._logger.info('Wrong date format "%s"' % dateAsString)
+            self._logger.error('Wrong date format "%s"' % dateAsString)
+            self._logger.error(traceback.format_exc())
             return None
 
     def saveEntity(self, entity):

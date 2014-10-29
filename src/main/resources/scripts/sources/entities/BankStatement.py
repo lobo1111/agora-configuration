@@ -55,7 +55,7 @@ class BankStatementManager(Container):
 
     def parseDate(self, dateAsString):
         try:
-            return SimpleDateFormat('dd-MM-yyyy').parse(dateAsString)
+            return SimpleDateFormat('dd-MM-yy').parse(dateAsString)
         except:
             return None
     
