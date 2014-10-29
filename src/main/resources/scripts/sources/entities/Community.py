@@ -124,20 +124,6 @@ class CommunityManager(Container):
             community.getMainCounters().add(counter)
             self.saveCommunity(community)
             self._entityManager.persist(counter)
-        for i in range(int(self._svars.get(self._prefix + 'possessionsCountersCount'))): 
-            counterId = self._svars.get(self._prefix + i + '_id')
-            possessionId = self._svars.get(self._prefix + i + '_possessionid')
-            counter = self.findById('Counter', counterId)
-            possession = self.findById('Possession', possessionId)
-            counter.setCommunity(community)
-            counter.setPossession(possession)
-            community.getMainCounters().add(counter)
-            community.getPossessionsCounters().add(counter)
-            possession.getCounters().add(counter)
-            self.saveCommunity(community)
-            self._entityManager.persist(counter)
-            self._entityManager.persist(possession)
-
 
     def findCommunity(self):
         id = self._svars.get('id')
