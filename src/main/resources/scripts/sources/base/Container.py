@@ -31,6 +31,7 @@ class Container:
         try:
             return SimpleDateFormat('dd-MM-yy').parse(dateAsString)
         except:
+            self._logger.info('Wrong date format "%s"' % dateAsString)
             return None
 
     def saveEntity(self, entity):

@@ -661,8 +661,8 @@
                     counter
                     FROM 
                     Counter counter
-                    JOIN counter.community community
-                    JOIN counter.possession possession
+                    LEFT OUTER JOIN counter.community community
+                    LEFT OUTER JOIN counter.possession possession
                     JOIN counter.type dtype
                     WHERE {:where}
                     ORDER BY counter.serialNumber ASC
@@ -676,8 +676,8 @@
                     count(counter.id)
                     FROM 
                     Counter counter
-                    JOIN counter.community community
-                    JOIN counter.possession possession
+                    LEFT OUTER JOIN counter.community community
+                    LEFT OUTER JOIN counter.possession possession
                     JOIN counter.type dtype
                     WHERE {:where}
                 </data>
