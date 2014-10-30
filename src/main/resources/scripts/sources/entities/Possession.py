@@ -22,6 +22,7 @@ class PossessionManager(Container):
         self.generateZpkNumber(possession)
         self.savePossession(possession)
         self.propagateElementsForNewPossession(possession)
+        self.addCounters(possession)
         return possession;
         
     def update(self):
@@ -31,6 +32,7 @@ class PossessionManager(Container):
         self.savePossession(possession)
         self.setElementsData(possession)
         self.removeOwners(possession)
+        self.addCounters(possession)
         return possession;
         
     def remove(self):
@@ -144,7 +146,18 @@ class PossessionManager(Container):
         communityManager.setEntityManager(self._entityManager)
         communityManager.recalculateShares(possession.getCommunity().getId())
             
-        
+    def addCounters(self, possession):
+        for i in range(int(self._svars.get(self._prefix + 'countersCount'))): 
+            counterId = self._svars.get(self._prefix + str(i) + '_id')
+            counter = self.findById('Counter', counterId)
+            counter.setCommunity(possession.getCommunity())
+            counter.setPossession(possession)
+            possession.getCommunity().getPossessionsCounters().add(counter)
+            possession.getCounters().add(counter)
+            self.savePossession(possession)
+            self._entityManager.persist(possession.getCommunity())
+            self._entityManager.persist(counter)
+
     def findAccountById(self, id):
         return self._entityManager.createQuery('Select a From Account a Where a.id = ' + id).getSingleResult()
         

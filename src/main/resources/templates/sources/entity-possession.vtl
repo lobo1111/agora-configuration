@@ -72,4 +72,12 @@
         </payment>
         #end
     </payments>
+    <counters>
+        #foreach($counter in $possession.getCounters())
+        <counter>
+            <id>$!counter.getId()</id>
+            <serialNumber>$!counter.getSerialNumber()</serialNumber>
+        </counter>
+        #end
+    </counters>
 </possession>
