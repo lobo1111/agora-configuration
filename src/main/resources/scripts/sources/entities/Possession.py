@@ -152,7 +152,7 @@ class PossessionManager(Container):
             counter = self.findById('Counter', counterId)
             counter.setCommunity(possession.getCommunity())
             counter.setPossession(possession)
-            possession.getCommunity().getPossessionsCounters().add(counter)
+            possession.getCommunity().getCounters().add(counter)
             possession.getCounters().add(counter)
             self.savePossession(possession)
             self._entityManager.persist(possession.getCommunity())
