@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<counter>
+    <id>$!entity.getId()</id>
+    <serialNumber>$!entity.getSerialNumber()</serialNumber>
+    <groupKey>$!entity.getType().getKey()</groupKey>
+    <groupValue>$!entity.getType().getValue()</groupValue>
+    <installation>$!entity.getInstallation().getTime()</installation>
+    <decomission>$!entity.getDecomission().getTime()</decomission>
+    <statusList>
+        #foreach($item in $entity.getStatuses())
+        <status>
+            <id>$item.getId()</id>
+            <timestamp>$item.getTimestamp()</timestamp>
+            <status>$item.getStatus()</status>
+        </status>
+        #end
+    </statusList>
+</counter>
