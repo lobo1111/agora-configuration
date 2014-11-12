@@ -24,11 +24,11 @@ class CounterManager(Container):
             counter.setParent(self.findById('Counter', self._svars.get('parentId')))
 
     def addStatuses(self, counter):
-        for i in range(int(self._svars.get(self._prefix + 'statusCount'))): 
+        for i in range(int(self._svars.get('statusCount'))): 
             cStatus = CounterStatus()
             counter.getStatuses.add(cStatus)
             cStatus.setCounter(counter)
-            cStatus.setStatus(float(self._svars.get(self._prefix + 'status_' + str(i))))
+            cStatus.setStatus(float(self._svars.get('status_' + str(i))))
             cStatus.setTimestamp(Date())
             self._entityManager.persist(cStatus)
 
