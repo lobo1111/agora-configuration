@@ -1,5 +1,6 @@
 from pl.reaper.container.data import Community
 from java.math import BigDecimal
+from java.util import Date
 from java.math import RoundingMode
 from base.Container import Container
 from entities.Account import AccountManager
@@ -31,6 +32,7 @@ class CommunityManager(Container):
         self.addElements(community)
         self.addContractors(community)
         self.addCounters(community)        
+        self.addStatuses(community)
         self.saveCommunity(community)
         
     def setCommunityData(self, community):
@@ -123,6 +125,28 @@ class CommunityManager(Container):
             counter.setCommunity(community)
             community.getMainCounters().add(counter)
             self.saveCommunity(community)
+            self._entityManager.persist(counter)
+
+    def addStatuses(self, community):
+        for i in range(int(self._svars.get(self._prefix + 'mainCounterStatusCount'))): 
+            counterId = self._svars.get(self._prefix + 'mainCounterStatus_' + str(i) + '_id')
+            counter = self.findById('Counter', counterId)
+            cStatus = new CounterStatus()
+            counter.getStatuses.add(cStatus)
+            cStatus.setCounter(counter)
+            cStatus.setStatus(float(self._svars.get(self._prefix + 'mainCounterStatus_' + str(i) + '_status')))
+            cStatus.setTimestamp(Date())
+            self._entityManager.persist(cStatus)
+            self._entityManager.persist(counter)
+        for i in range(int(self._svars.get(self._prefix + 'possessionsCounterStatusCount'))): 
+            counterId = self._svars.get(self._prefix + 'possessionsCounterStatus_' + str(i) + '_id')
+            counter = self.findById('Counter', counterId)
+            cStatus = new CounterStatus()
+            counter.getStatuses.add(cStatus)
+            cStatus.setCounter(counter)
+            cStatus.setStatus(float(self._svars.get(self._prefix + 'possessionsCounterStatus_' + str(i) + '_status')))
+            cStatus.setTimestamp(Date())
+            self._entityManager.persist(cStatus)
             self._entityManager.persist(counter)
 
     def findCommunity(self):
