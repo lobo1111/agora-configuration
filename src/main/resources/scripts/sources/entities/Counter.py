@@ -27,7 +27,7 @@ class CounterManager(Container):
     def addStatuses(self, counter):
         for i in range(int(self._svars.get('statusCount'))): 
             cStatus = CounterStatus()
-            counter.getStatuses.add(cStatus)
+            counter.getStatuses().add(cStatus)
             cStatus.setCounter(counter)
             cStatus.setStatus(float(self._svars.get('status_' + str(i))))
             cStatus.setTimestamp(Date())
