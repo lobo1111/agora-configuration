@@ -12,6 +12,7 @@ class CounterManager(Container):
     def update(self):
         counter = self.findById('Counter', self._svars.get('id'))
         self.setCounterData(counter)
+        self.addStatuses(counter)
         self.saveEntity(counter)
 
     def setCounterData(self, counter):
@@ -21,4 +22,13 @@ class CounterManager(Container):
         counter.setSerialNumber(self._svars.get('serialNumber'))
         if not (self._svars.get('parentId') == ''):
             counter.setParent(self.findById('Counter', self._svars.get('parentId')))
+
+    def addStatuses(self, counter):
+        for i in range(int(self._svars.get(self._prefix + 'statusCount'))): 
+            cStatus = new CounterStatus()
+            counter.getStatuses.add(cStatus)
+            cStatus.setCounter(counter)
+            cStatus.setStatus(float(self._svars.get(self._prefix + 'status_' + str(i))))
+            cStatus.setTimestamp(Date())
+            self._entityManager.persist(cStatus)
 
