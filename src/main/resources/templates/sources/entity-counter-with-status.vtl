@@ -11,7 +11,7 @@
         #foreach($item in $entity.getStatuses())
         <status>
             <id>$item.getId()</id>
-            <timestamp>$item.getTimestamp()</timestamp>
+            <timestamp>$item.getTimestamp().getTime()</timestamp>
             <status>$item.getStatus()</status>
         </status>
         #end
