@@ -1305,5 +1305,12 @@
             change decommission decomission varchar (150) NULL
         </sql>
      </changeSet>
+    
+    <changeSet author='tkopacki' id='postal-code-6-chars'>
+        <sql>                   
+            ALTER TABLE address
+            ALTER COLUMN postal_code VARCHAR(6)
+        </sql>
+     </changeSet>
 
 </databaseChangeLog> 
