@@ -40,6 +40,7 @@ class CommunityManager(Container):
         if community.getDefaultAccount() == None or community.getDefaultAccount().getNumber() != self._svars.get('defaultAccountNumber'):
             self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
             self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
+            self._svars.put('accountNumber', self._svars.get('defaultAccountNumber'))
             self._svars.put('accountType', 'DEFAULT')
             account = AccountManager().createNewAccount(community)
         if self._svars.get('repairFundAccountNumber') != '' and (community.getRepairFundAccount() == None or community.getRepairFundAccount().getNumber() != self._svars.get('repairFundAccountNumber')):
@@ -48,6 +49,7 @@ class CommunityManager(Container):
             else:
                 self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
                 self._svars.put('startDebit', self._svars.get('repairFundAccountDebit'))
+                self._svars.put('accountNumber', self._svars.get('repairFundAccountNumber'))
                 self._svars.put('accountType', 'REPAIR_FUND')
                 account = AccountManager().createNewAccount(community)
 
