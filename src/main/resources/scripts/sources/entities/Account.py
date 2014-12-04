@@ -22,6 +22,7 @@ class AccountManager(Container):
         account.setBank(BankManager().getByAccountNumber(account.getNumber()))
         self.saveAccount(account)
         self.createZpk(account)
+        return account
         
     def update(self):
         account = self.findAccount()
