@@ -18,7 +18,7 @@ class AccountManager(Container):
         account.setCommunity(community)
         account.setName(self._svars.get('accountNumber'))
         account.setNumber(self._svars.get('accountNumber'))
-        account.setType(DictionaryManager().findByLabel('ACCOUNT_TYPE', self._svars.get('accountType')))
+        account.setType(DictionaryManager().findDictionaryInstance('ACCOUNT_TYPE', self._svars.get('accountType')))
         account.setBank(BankManager().getByAccountNumber(account.getNumber()))
         self.saveAccount(account)
         self.createZpk(account)
