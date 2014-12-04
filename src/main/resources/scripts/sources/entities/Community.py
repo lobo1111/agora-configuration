@@ -43,6 +43,7 @@ class CommunityManager(Container):
             self._svars.put('accountNumber', self._svars.get('defaultAccountNumber'))
             self._svars.put('accountType', 'DEFAULT')
             account = AccountManager().createNewAccount(community)
+            community.setDefaultAccount(account)
         if self._svars.get('repairFundAccountNumber') != '' and (community.getRepairFundAccount() == None or community.getRepairFundAccount().getNumber() != self._svars.get('repairFundAccountNumber')):
             if self._svars.get('repairFundAccountNumber') == '':
                 community.setRepairFundAccount(None)
@@ -52,7 +53,7 @@ class CommunityManager(Container):
                 self._svars.put('accountNumber', self._svars.get('repairFundAccountNumber'))
                 self._svars.put('accountType', 'REPAIR_FUND')
                 account = AccountManager().createNewAccount(community)
-
+                community.setRepairFundAccount(account)
         #if self._svars.get('defaultAccountId') != '0':
         #    self._logger.info('default Account ID recieved: %s' % self._svars.get('defaultAccountId'))
         #    if community.getDefaultAccount() == None or int(self._svars.get('defaultAccountId')) != community.getDefaultAccount().getId():
