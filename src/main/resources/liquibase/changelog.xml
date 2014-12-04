@@ -1309,7 +1309,7 @@
     <changeSet author='tkopacki' id='postal-code-6-chars'>
         <sql>                   
             ALTER TABLE `address`
-            ALTER COLUMN `postal_code` VARCHAR(6)
+            MODIFY `postal_code` VARCHAR(6)
         </sql>
      </changeSet>
 
