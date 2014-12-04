@@ -138,7 +138,7 @@ class CommunityManager(Container):
             counterId = self._svars.get(self._prefix + str(i) + '_id')
             counter = self.findById('Counter', counterId)
             counter.setCommunity(community)
-            community.getMainCounters().add(counter)
+            community.getCounters().add(counter)
             self.saveCommunity(community)
             self._entityManager.persist(counter)
 
