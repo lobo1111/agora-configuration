@@ -37,32 +37,46 @@ class CommunityManager(Container):
     def setCommunityData(self, community):
         community.setCompany(self.getCompany(community))
         community.setName(community.getCompany().getName())
-        if self._svars.get('defaultAccountId') != '0':
-            self._logger.info('default Account ID recieved: %s' % self._svars.get('defaultAccountId'))
-            if community.getDefaultAccount() == None or int(self._svars.get('defaultAccountId')) != community.getDefaultAccount().getId():
-                self._logger.info('Numbers are different, changing account...')
-                account = self.findAccountById(self._svars.get('defaultAccountId'))
-                account.setCommunity(community)
-                community.setDefaultAccount(account)
-                self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
-                self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
-                AccountManager().createZpk(account)
-        else:
-            self._logger.info('default Account ID unavailable, clearing...')
-            community.setDefaultAccount(None)
-        if self._svars.get('repairFundAccountId') != '0':
-            self._logger.info('Repair Fund Account ID recieved: %s' % self._svars.get('repairFundAccountId'))
-            if community.getRepairFundAccount() == None or int(self._svars.get('repairFundAccountId')) != community.getRepairFundAccount().getId():
-                self._logger.info('Numbers are different, changing account...')
-                account = self.findAccountById(self._svars.get('repairFundAccountId'))
-                account.setCommunity(community)
-                community.setRepairFundAccount(account)
+        if community.getDefaultAccount() == None or community.getDefaultAccount().getNumber() != self._svars.get('defaultAccountNumber'):
+            self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
+            self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
+            self._svars.put('accountType', 'DEFAULT')
+            account = AccountManager().createNewAccount(community)
+        if self._svars.get('repairFundAccountNumber') != '' and (community.getRepairFundAccount() == None or community.getRepairFundAccount().getNumber() != self._svars.get('repairFundAccountNumber')):
+            if self._svars.get('repairFundAccountNumber') == '':
+                community.setRepairFundAccount(None)
+            else:
                 self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
                 self._svars.put('startDebit', self._svars.get('repairFundAccountDebit'))
-                AccountManager().createZpk(account)
-        else:
-            self._logger.info('Repair Fund Account ID unavailable, clearing...')
-            community.setRepairFundAccount(None)
+                self._svars.put('accountType', 'REPAIR_FUND')
+                account = AccountManager().createNewAccount(community)
+
+        #if self._svars.get('defaultAccountId') != '0':
+        #    self._logger.info('default Account ID recieved: %s' % self._svars.get('defaultAccountId'))
+        #    if community.getDefaultAccount() == None or int(self._svars.get('defaultAccountId')) != community.getDefaultAccount().getId():
+        #        self._logger.info('Numbers are different, changing account...')
+        #        account = self.findAccountById(self._svars.get('defaultAccountId'))
+        #        account.setCommunity(community)
+        #        community.setDefaultAccount(account)
+        #        self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
+        #        self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
+        #        AccountManager().createZpk(account)
+        #else:
+        #    self._logger.info('default Account ID unavailable, clearing...')
+        #    community.setDefaultAccount(None)
+        #if self._svars.get('repairFundAccountId') != '0':
+        #    self._logger.info('Repair Fund Account ID recieved: %s' % self._svars.get('repairFundAccountId'))
+        #    if community.getRepairFundAccount() == None or int(self._svars.get('repairFundAccountId')) != community.getRepairFundAccount().getId():
+        #        self._logger.info('Numbers are different, changing account...')
+        #        account = self.findAccountById(self._svars.get('repairFundAccountId'))
+        #        account.setCommunity(community)
+        #        community.setRepairFundAccount(account)
+        #        self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
+        #        self._svars.put('startDebit', self._svars.get('repairFundAccountDebit'))
+        #        AccountManager().createZpk(account)
+        #else:
+        #    self._logger.info('Repair Fund Account ID unavailable, clearing...')
+        #    community.setRepairFundAccount(None)
 
     def generateZpkNumber(self, community):
         manager = ZpkManager()

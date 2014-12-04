@@ -12,6 +12,16 @@ class AccountManager(Container):
         if not account.getCommunity() is None:
             self.createZpk(account)
         self.saveAccount(account)
+
+    def createNewAccount(self, community):
+        account = Account()
+        account.setCommunity(community)
+        account.setName(self._svars.get('accountNumber'))
+        account.setNumber(self._svars.get('accountNumber'))
+        account.setType(self.findType(DictionaryManager().findByLabel('ACCOUNT_TYPE', self._svars.get('accountType'))))
+        account.setBank(BankManager().getByAccountNumber(account.getNumber()))
+        self.saveAccount(account)
+        self.createZpk(account)
         
     def update(self):
         account = self.findAccount()

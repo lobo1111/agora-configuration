@@ -40,3 +40,14 @@ class BankManager(Container):
     
     def findByLabel(self, label):
         return self._entityManager.createQuery("Select d From Bank d Join d.company c Where c.name = '%s'" % label).getSingleResult()
+
+    def getByAccountNumber(self, accountNumber):
+        bankKey = accountNumber[:2]
+        bank = self.findBy('Bank', 'bankKey', '"' + bankKey + '"')
+        if bank == None:
+            bank = Bank()
+            bank.setCompany(CompanyManager().generateDummyCompany())
+            bank.setName(bank.getCompany().getName())
+            bank.setKey(bankKey)
+            self.saveEntity(bank)
+        return bank

@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Company
+from pl.reaper.container.data import Address
 from base.Container import Container
 from entities.Address import AddressManager
 
@@ -18,6 +19,26 @@ class CompanyManager(Container):
         company = self.findCompanyById(self._svars.get(self._prefix + 'id'))
         self.setCompanyData(company)
         self.saveCompany(company)
+        return company
+
+    def generateDummyCompany(self):
+        company = Company()
+        company.setName('Brak')
+        company.setNip('Brak')
+        company.setRegon('Brak')
+        company.setEmail('Brak')
+        company.setWww('Brak')
+        company.setPhoneNumber1('Brak')
+        company.setPhoneNumber2('Brak')
+        company.setPhoneNumber3('Brak')
+        address = Address()
+        address.setStreet('Brak')
+        address.setHouseNumber('Brak')
+        address.setFlatNumber('Brak')
+        address.setPostalCode('00-000')
+        address.setCity('Brak')
+        company.setAddress(address)
+        self.saveEntity(company)
         return company
     
     def toggleDefault(self):

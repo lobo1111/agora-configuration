@@ -11,6 +11,13 @@ class Container:
         self._entityManager = helpers.entityManager
         self._properties = helpers.properties
 
+    def findBy(self, entityName, field, value):
+        try:
+            sql = 'Select entity From %s entity where entity.%s = %s' % (entityName, field, value)
+            return self._entityManager.createQuery(sql).getSingleResult()
+        except:
+            return None
+
     def findById(self, entityName, id):
         try:
             sql = 'Select entity From %s entity where entity.id = %s' % (entityName, id)
