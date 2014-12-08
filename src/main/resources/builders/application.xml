@@ -6,6 +6,7 @@
             <arg value="checkout" />
             <arg value="${branch}" />
         </exec>
+        
         <exec executable="git" dir="${repoDir}" failonerror="true">
             <arg value="pull" />
             <arg value="origin" />
