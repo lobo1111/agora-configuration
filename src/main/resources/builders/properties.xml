@@ -3,9 +3,6 @@
     
     <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
     
-    <property name="branch" value="${arg0}"/>
-    <property name="appVersion" value="${arg1}"/>    
-    
     <property name="appName" value="Container"/>
     <property name="fullAppName" value="${appName}-${appVersion}"/>
   
@@ -16,6 +13,8 @@
     <property name="earPath" value="${repoDir}/target/${fullAppName}.jar"/>
     
     <target name="init">
+        <fail unless="branch">Branch property not set !</fail>
+        <fail unless="appVersion">appVersion property not set !</fail>
         <fail unless="buildType">buidType property not set !</fail>
         <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
         <property name="appScriptsWatch" value="${gfPath}/domains/${buildType}/container/watchDir/recompile"/>
