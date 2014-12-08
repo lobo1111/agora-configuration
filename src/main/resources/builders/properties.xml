@@ -12,7 +12,7 @@
     <property name="gfPath" value="/opt/glassfish"/>
     <property name="gfAsadminPath" value="${gfPath}/bin/asadmin"/>
     
-    <property name="repoDir" value="/opt/builder/container"/>
+    <property name="repoDir" value="/opt/sources/container"/>
     <property name="earPath" value="${repoDir}/target/${fullAppName}.jar"/>
     
     
