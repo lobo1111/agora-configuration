@@ -2,27 +2,10 @@
     <description>Scripting Container - application</description>
 
     <target name="app-download">
-        <exec executable="chmod" failonerror="true">
-            <arg value="+x" />
-            <arg value="${repoDir}/src/main/resources/builders/helpers/get-branch.sh" />
+        <exec executable="git" dir="${repoDir}" failonerror="true">
+            <arg value="checkout" />
+            <arg value="${branch}" />
         </exec>
-        <exec executable="${repoDir}/src/main/resources/builders/helpers/get-branch.sh" failonerror="true" outputproperty="currentBranch"/>
-        <switch value="${currentBranch}">
-            <case value="${branch}">
-                <echo>Currently at correct branch</echo>
-            </case>
-            <default>
-                <echo>Currently at ${currentBranch} - switching to ${branch}</echo>
-                <exec executable="git" dir="${repoDir}" failonerror="false">
-                    <arg value="branch" />
-                    <arg value="${branch}" />
-                </exec>
-                <exec executable="git" dir="${repoDir}" failonerror="true">
-                    <arg value="checkout" />
-                    <arg value="${branch}" />
-                </exec>
-            </default>
-        </switch>
         <exec executable="git" dir="${repoDir}" failonerror="true">
             <arg value="pull" />
             <arg value="origin" />
