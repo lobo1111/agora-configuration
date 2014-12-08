@@ -60,8 +60,8 @@
     </target>
     
     <target name="app-templates-update">
-        <exec executable="python" dir="/opt/builder/container/src/main/resources/templates" failonerror="true">
-            <arg value="/opt/builder/container/src/main/resources/templates/loader.py" />
+        <exec executable="python" dir="${repoDir}/src/main/resources/templates" failonerror="true">
+            <arg value="${repoDir}/src/main/resources/templates/loader.py" />
             <arg value="${sDb}" />
         </exec>
     </target>
