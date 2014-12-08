@@ -2,6 +2,11 @@
     <description>Scripting Container - application</description>
 
     <target name="app-download">
+        <exec executable="git" dir="${repoDir}" failonerror="false">
+            <arg value="branch" />
+            <arg value="${branch}" />
+        </exec>
+
         <exec executable="git" dir="${repoDir}" failonerror="true">
             <arg value="checkout" />
             <arg value="${branch}" />
