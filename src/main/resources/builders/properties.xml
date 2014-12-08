@@ -3,8 +3,7 @@
     
     <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
     
-    <property name="appName" value="Container"/>
-    <property name="fullAppName" value="${appName}-${appVersion}"/>
+    <property name="fullAppName" value="ScriptingContainer"/>
   
     <property name="gfPath" value="/opt/glassfish"/>
     <property name="gfAsadminPath" value="${gfPath}/bin/asadmin"/>
@@ -14,7 +13,6 @@
     
     <target name="init">
         <fail unless="branch">Branch property not set !</fail>
-        <fail unless="appVersion">appVersion property not set !</fail>
         <fail unless="buildType">buidType property not set !</fail>
         <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
         <property name="appScriptsWatch" value="${gfPath}/domains/${buildType}/container/watchDir/recompile"/>

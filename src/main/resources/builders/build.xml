@@ -2,8 +2,8 @@
     <description>Scripting Container</description>
   
     <target name="help">
-        <echo>build-devel -Dbranch=_branch_ -DappVersion=_version_</echo>
-        <echo>build-prod -Dbranch=_branch_ -DappVersion=_version_</echo>
+        <echo>build-devel -Dbranch=_branch_</echo>
+        <echo>build-prod -Dbranch=_branch_</echo>
         <echo></echo>
         <echo>fast-update-devel -Darg0=_branch_</echo>
         <echo>fast-update-prod -Darg0=_branch_</echo>
