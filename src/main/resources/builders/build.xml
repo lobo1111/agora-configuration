@@ -2,11 +2,11 @@
     <description>Scripting Container</description>
   
     <target name="help">
-        <echo>build-devel</echo>
-        <echo>build-prod</echo>
+        <echo>build-devel -Darg0=_branch_ -Darg1=_version_</echo>
+        <echo>build-prod -Darg0=_branch_ -Darg1=_version_</echo>
         <echo></echo>
-        <echo>fast-update-devel</echo>
-        <echo>fast-update-prod</echo>
+        <echo>fast-update-devel -Darg0=_branch_</echo>
+        <echo>fast-update-prod -Darg0=_branch_</echo>
     </target>
   
     <import file="properties.xml" />
@@ -18,7 +18,7 @@
         <antcall target="fast-update" />
     </target>
     
-    <target name="fast-update-prod">
+    <target name="fast-update-prod" depends="confirm">
         <property name="buildType" value="prod"/>
         <antcall target="fast-update" />
     </target>
@@ -28,7 +28,7 @@
         <antcall target="build" />
     </target>
     
-    <target name="build-prod">
+    <target name="build-prod" depends="confirm">
         <property name="buildType" value="prod"/>
         <antcall target="build" />
     </target>

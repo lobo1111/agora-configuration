@@ -43,7 +43,7 @@
         <exec executable="/opt/jdk1.7.0_40/bin/java" failonerror="true">
             <arg value="-jar" />
             <arg value="/opt/liquibase/liquibase.jar" />
-            <arg value="--changeLogFile=/opt/builder/container/src/main/resources/liquibase/changelog.xml" />
+            <arg value="--changeLogFile=${repoDir}/src/main/resources/liquibase/changelog.xml" />
             <arg value="--driver=com.mysql.jdbc.jdbc2.optional.MysqlDataSource" />
             <arg value="--username=agora" />
             <arg value="--password=tomasz.12" />

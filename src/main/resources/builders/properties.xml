@@ -15,7 +15,6 @@
     <property name="repoDir" value="/opt/sources/container"/>
     <property name="earPath" value="${repoDir}/target/${fullAppName}.jar"/>
     
-    
     <target name="init">
         <fail unless="buildType">buidType property not set !</fail>
         <property name="gfPasswordFile" value="${gfPath}/domains/${buildType}/passFile"/>
@@ -36,5 +35,17 @@
                 <property name="dbName" value="agora_erp"/>
             </case>
         </switch>
+    </target>
+    
+    <target name="confirm">
+        <input
+            message="Do you want deploy that on production (y/n)?"
+            validargs="y,n"
+            addproperty="do.delete"
+        />
+        <condition property="do.abort">
+            <equals arg1="n" arg2="${do.delete}"/>
+        </condition>
+        <fail if="do.abort">Build aborted by user.</fail>
     </target>
 </project>
