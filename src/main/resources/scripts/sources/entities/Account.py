@@ -62,21 +62,27 @@ class AccountManager(Container):
         zpkManager.setEntityManager(self._entityManager)
         zpkManager.setSvars(self._svars)
         if account.getType().getKey() in ['DEFAULT', 'RENT']:
-            zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'RENT')
-            zpkManager.setStartBalance(zpk, float(self._svars.get('startCredit')), float(self._svars.get('startDebit')))
-            zpk.setAccount(account)
-            account.getZpks().add(zpk)
-            if account.getCommunity().getDefaultAccount() == None:
-                account.getCommunity().setDefaultAccount(account)
-                self._entityManager.persist(account.getCommunity())
+            self.createRentZpk(account)
         if account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
-            zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
-            zpkManager.setStartBalance(zpk, float(self._svars.get('startCredit')), float(self._svars.get('startDebit')))
-            zpk.setAccount(account)
-            account.getZpks().add(zpk)
-            if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
-                account.getCommunity().setRepairFundAccount(account)
-                self._entityManager.persist(account.getCommunity())
+            self.createRepairFundZpk(account)
+
+    def createRepairFundZpk(self, account):
+        zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
+        zpkManager.setStartBalance(zpk, float(self._svars.get('startCredit')), float(self._svars.get('startDebit')))
+        zpk.setAccount(account)
+        account.getZpks().add(zpk)
+        if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
+            account.getCommunity().setRepairFundAccount(account)
+            self._entityManager.persist(account.getCommunity())
+
+    def createRentZpk(self, account):
+        zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'RENT')
+        zpkManager.setStartBalance(zpk, float(self._svars.get('startCredit')), float(self._svars.get('startDebit')))
+        zpk.setAccount(account)
+        account.getZpks().add(zpk)
+        if account.getCommunity().getDefaultAccount() == None:
+            account.getCommunity().setDefaultAccount(account)
+            self._entityManager.persist(account.getCommunity())
         
     def getType(self):
         manager = DictionaryManager()
