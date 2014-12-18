@@ -54,8 +54,9 @@ class CommunityManager(Container):
                 if community.getDefaultAccount() != None:
                     community.getDefaultAccount().setType(DictionaryManager().findDictionaryInstance('ACCOUNT_TYPE', 'RENT'))
                     for zpk in community.getDefaultAccount().getZpks():
-                        if zpk.getType.getKey() == 'REPAIR_FUND':
+                        if zpk.getType().getKey() == 'REPAIR_FUND':
                             community.getDefaultAccount().getZpks().remove(zpk)
+                            zpk.setAccount(None)
                 self._logger.info('Repair fund account changed')
         else:
             self._logger.info('No changes to repair fund account has been done')
