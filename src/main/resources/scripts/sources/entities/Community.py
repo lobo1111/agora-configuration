@@ -37,9 +37,11 @@ class CommunityManager(Container):
     def setCommunityData(self, community):
         community.setCompany(self.getCompany(community))
         community.setName(community.getCompany().getName())
+        repairFundAccountCleared = False
         if (self._svars.get('repairFundAccountNumber') != '' and (community.getRepairFundAccount() == None) or (community.getRepairFundAccount().getNumber() != self._svars.get('repairFundAccountNumber'))):
             if self._svars.get('repairFundAccountNumber') == '':
                 community.setRepairFundAccount(None)
+                repairFundAccountCleared = True
                 self._logger.info('Repair fund account cleared')
             else:
                 self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
@@ -48,6 +50,8 @@ class CommunityManager(Container):
                 self._svars.put('accountType', 'REPAIR_FUND')
                 account = AccountManager().createNewAccount(community)
                 community.setRepairFundAccount(account)
+                if community.getDefaultAccount() != None:
+                    community.getDefaultAccount().setType(DictionaryManager().findDictionaryInstance('ACCOUNT_TYPE', 'RENT'))
                 self._logger.info('Repair fund account changed')
         else:
             self._logger.info('No changes to repair fund account has been done')
@@ -65,7 +69,13 @@ class CommunityManager(Container):
             community.setDefaultAccount(account)
             self._logger.info('Default account changed')
         else:
-            self._logger.info('No changes to default account has been done')
+            if repairFundAccountCleared:
+                account = community.getDefaultAccount()
+                account.setType(DictionaryManager().findDictionaryInstance('ACCOUNT_TYPE', 'DEFAULT'))
+                AccountManager().createRepairFundZpk(account)
+                self._logger.info('Rent account has been transformed into default one')
+            else:
+                self._logger.info('No changes to default account has been done')
 
     def generateZpkNumber(self, community):
         manager = ZpkManager()
