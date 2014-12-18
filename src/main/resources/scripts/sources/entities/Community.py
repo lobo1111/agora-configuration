@@ -73,6 +73,8 @@ class CommunityManager(Container):
             if repairFundAccountCleared:
                 account = community.getDefaultAccount()
                 account.setType(DictionaryManager().findDictionaryInstance('ACCOUNT_TYPE', 'DEFAULT'))
+                self._svars.put('startCredit', '0')
+                self._svars.put('startDebit', '0')
                 AccountManager().createRepairFundZpk(account)
                 self._logger.info('Rent account has been transformed into default one')
             else:
