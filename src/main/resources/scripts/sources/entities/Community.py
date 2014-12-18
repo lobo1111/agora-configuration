@@ -37,9 +37,10 @@ class CommunityManager(Container):
     def setCommunityData(self, community):
         community.setCompany(self.getCompany(community))
         community.setName(community.getCompany().getName())
-        if self._svars.get('repairFundAccountNumber') != '' and (community.getRepairFundAccount() == None or community.getRepairFundAccount().getNumber() != self._svars.get('repairFundAccountNumber')):
+        if (self._svars.get('repairFundAccountNumber') != '' and (community.getRepairFundAccount() == None) or (community.getRepairFundAccount().getNumber() != self._svars.get('repairFundAccountNumber'))):
             if self._svars.get('repairFundAccountNumber') == '':
                 community.setRepairFundAccount(None)
+                self._logger.info('Repair fund account cleared')
             else:
                 self._svars.put('startCredit', self._svars.get('repairFundAccountCredit'))
                 self._svars.put('startDebit', self._svars.get('repairFundAccountDebit'))
@@ -47,6 +48,9 @@ class CommunityManager(Container):
                 self._svars.put('accountType', 'REPAIR_FUND')
                 account = AccountManager().createNewAccount(community)
                 community.setRepairFundAccount(account)
+                self._logger.info('Repair fund account changed')
+        else:
+            self._logger.info('No changes to repair fund account has been done')
         if community.getDefaultAccount() == None or community.getDefaultAccount().getNumber() != self._svars.get('defaultAccountNumber'):
             self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
             self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
@@ -59,6 +63,9 @@ class CommunityManager(Container):
             if community.getRepairFundAccount() == None:
                 AccountManager().createRentZpk(account)
             community.setDefaultAccount(account)
+            self._logger.info('Default account changed')
+        else:
+            self._logger.info('No changes to default account has been done')
 
     def generateZpkNumber(self, community):
         manager = ZpkManager()
