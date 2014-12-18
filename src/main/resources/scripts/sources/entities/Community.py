@@ -53,6 +53,9 @@ class CommunityManager(Container):
                 community.setRepairFundAccount(account)
                 if community.getDefaultAccount() != None:
                     community.getDefaultAccount().setType(DictionaryManager().findDictionaryInstance('ACCOUNT_TYPE', 'RENT'))
+                    for zpk in community.getDefaultAccount().getZpks():
+                        if zpk.getType.getKey() == 'REPAIR_FUND':
+                            community.getDefaultAccount().getZpks().remove(zpk)
                 self._logger.info('Repair fund account changed')
         else:
             self._logger.info('No changes to repair fund account has been done')
@@ -76,9 +79,6 @@ class CommunityManager(Container):
                 self._svars.put('startCredit', '0')
                 self._svars.put('startDebit', '0')
                 AccountManager().createRepairFundZpk(account)
-                for zpk in account.getZpks():
-                    if zpk.getType.getKey() == 'REPAIR_FUND':
-                        acount.getZpks().remove(zpk)
                 self._logger.info('Rent account has been transformed into default one')
             else:
                 self._logger.info('No changes to default account has been done')
