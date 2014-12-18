@@ -8,6 +8,7 @@ from entities.Company import CompanyManager
 from entities.Zpk import ZpkManager
 from entities.Element import ElementManager
 from entities.Contractor import ContractorManager
+from entities.Dictionary import DictionaryManager
 
 class CommunityManager(Container):
     _prefix = ''
