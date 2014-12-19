@@ -18,6 +18,48 @@ class BookingPeriodManager(Container):
             return self._entityManager.createQuery(sql).getSingleResult()
         except:
             return None
+
+    def closeYear(self):
+        if self.canCloseYear():
+            bookingPeriod = self.createBookingPeriod()
+            [self.createBalance(zpk, bookingPeriod) for zpk in self.collectZpks()]
+
+    def canCloseYear(self):
+        currentMonth = int(self._entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult())
+        return currentMonth == 12
+
+    def createBookingPeriod(self):
+        currentBookingPeriod = self.findDefaultBookingPeriod()
+        currentBookingPeriod.setActive(False)
+        currentBookingPeriod.setDefaultPeriod(False)
+        bookingPeriod bp = BookingPeriod()
+        bp.setDefaultPeriod(True)
+        bp.setName(LocalDateTime.now().getYear())
+        bp.setActive(True)
+        bp.setDefaultPeriod(True)
+        bp.setOrder(currentBookingPeriod.getOrder() + 1)
+        self.saveEntity(currentBookingPeriod)
+        self.saveEntity(bp)
+        return bp
+
+    def createBalance(self, zpk, bookingPeriod):
+        currentBalance = zpk.getCurrentBalance()
+        newBalance = ZpkBalance()
+        newBalance.setBookingPeriod(bookingPeriod)
+        if currentBalance.getCredit() > currentBalance.getDebit():
+            newBalance.setStartCredit(currentBalance.getCredit() - currentBalance.getDebit())
+            newBalance.setCredit(currentBalance.getCredit() - currentBalance.getDebit())
+            newBalance.setStartDebit(0)
+            newBalance.setDebit(0)
+        else:
+            newBalance.setStartCredit(0)
+            newBalance.setCredit(0)
+            newBalance.setStartDebit(currentBalance.getDebit() - currentBalance.getCredit())
+            newBalance.setDebit(currentBalance.getDebit() - currentBalance.getCredit())
+        self.saveEntity(newBalance)
+
+    def collectZpks(self):
+        return self._entityManager.createQuery('Select z From Zpk z').getResultList()
     
         
     
