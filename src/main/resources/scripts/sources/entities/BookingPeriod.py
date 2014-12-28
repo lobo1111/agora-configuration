@@ -32,7 +32,7 @@ class BookingPeriodManager(Container):
         currentBookingPeriod = self.findDefaultBookingPeriod()
         currentBookingPeriod.setActive(False)
         currentBookingPeriod.setDefaultPeriod(False)
-        bookingPeriod bp = BookingPeriod()
+        bp = BookingPeriod()
         bp.setDefaultPeriod(True)
         bp.setName(LocalDateTime.now().getYear())
         bp.setActive(True)
