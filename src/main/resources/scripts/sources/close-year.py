@@ -3,6 +3,6 @@ helpers.entityManager = globals()['entityManager']
 helpers.svars = globals()['svars']
 helpers.properties = globals()['properties']
 
-from actions.Close import Close
-close = Close()
-close.closeYear()
+from actions.BookingPeriod import BookingPeriodManager
+bookingPeriodManager = BookingPeriodManager()
+bookingPeriodManager.closeYear()
