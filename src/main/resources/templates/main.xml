@@ -731,7 +731,7 @@
                     JOIN community AS community ON (community.id = possession.community_id)
                     WHERE {:where}
                     GROUP BY charging.id)
-                    UNION (
+                    UNION ALL (
                     SELECT
                     paymentRent.id,
                     paymentRent.month,
@@ -769,7 +769,7 @@
                         JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = charging.booking_period_id)
                         JOIN community AS community ON (community.id = possession.community_id)
                         WHERE {:where}
-                        UNION
+                        UNION ALL
                         SELECT paymentRent.id
                         FROM payment_rent AS paymentRent
                         JOIN payment_rent_details AS paymentRentDetails ON(paymentRent.id = paymentRentDetails.payment_rent_id)
