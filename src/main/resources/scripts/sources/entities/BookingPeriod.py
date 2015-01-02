@@ -37,7 +37,7 @@ class BookingPeriodManager(Container):
         currentBookingPeriod.setDefaultPeriod(False)
         bp = BookingPeriod()
         bp.setDefaultPeriod(True)
-        bp.setName(Calendar.getInstance().get(Calendar.YEAR))
+        bp.setName('20' + str(Calendar.getInstance().get(Calendar.YEAR)))
         bp.setActive(True)
         bp.setDefaultPeriod(True)
         bp.setOrder(currentBookingPeriod.getOrder() + 1)
