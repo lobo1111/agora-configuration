@@ -115,7 +115,7 @@ class ChargeManager(Container):
     def discoverValue(self, possessionElement):
         if possessionElement.isOverrideParentValue():
             return possessionElement.getGlobalValue()
-        elif possessionElement.getElementCommunity().isOverrideParentValue():
+        elif possessionElement.getElementCommunity() != None and possessionElement.getElementCommunity().isOverrideParentValue():
             return possessionElement.getElementCommunity().getGlobalValue()
         else:
             return possessionElement.getElement().getGlobalValue()
