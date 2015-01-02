@@ -1,6 +1,7 @@
 from pl.reaper.container.data import BookingPeriod
 from pl.reaper.container.data import ZpkBalance
 from base.Container import Container
+from entities.Dictionary import DictionaryManager
 from java.util import Calendar
 
 class BookingPeriodManager(Container):
