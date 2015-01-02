@@ -17,6 +17,7 @@ class ChargingBooker(Container):
 
     def createPaymentForRent(self, charge):
         possession = charge.getPossession()
+        self._logger.info('Creating rent payments for possession id: %d' % possession.getId())
         zpkRentPossession = self.getZpkRent(possession.getZpks())
         rentAmount = self.calculateRent(charge.getChargingElements())
         zpkRentCommunity = self.findRentCreditZpk(possession.getCommunity())
@@ -24,6 +25,7 @@ class ChargingBooker(Container):
         
     def createPaymentForRepairFund(self, charge):
         possession = charge.getPossession()
+        self._logger.info('Creating repair fund payments for possession id: %d' % possession.getId())
         zpkRepairFundPossession = self.getZpkRepairFund(possession.getZpks())
         repairFundAmount = self.calculateRepairFund(charge.getChargingElements())
         zpkRepairFundCommunity = self.findRepairFundCreditZpk(possession.getCommunity())
