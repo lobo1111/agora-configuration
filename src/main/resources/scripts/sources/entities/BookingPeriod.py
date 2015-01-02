@@ -62,7 +62,7 @@ class BookingPeriodManager(Container):
         self.saveEntity(newBalance)
 
     def collectZpks(self):
-        return self._entityManager.createQuery('Select z From Zpk z').getResultList()
+        return self._entityManager.createQuery('Select z From ZakladowyPlanKont z').getResultList()
     
         
     
