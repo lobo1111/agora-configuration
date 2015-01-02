@@ -50,6 +50,8 @@ class BookingPeriodManager(Container):
         currentBalance = zpk.getCurrentBalance()
         newBalance = ZpkBalance()
         newBalance.setBookingPeriod(bookingPeriod)
+        newBalance.setZpk(zpk)
+        zpk.getZpkBalances().add(newBalance)
         if currentBalance.getCredit() > currentBalance.getDebit():
             newBalance.setStartCredit(currentBalance.getCredit() - currentBalance.getDebit())
             newBalance.setCredit(currentBalance.getCredit() - currentBalance.getDebit())
@@ -60,6 +62,7 @@ class BookingPeriodManager(Container):
             newBalance.setCredit(0)
             newBalance.setStartDebit(currentBalance.getDebit() - currentBalance.getCredit())
             newBalance.setDebit(currentBalance.getDebit() - currentBalance.getCredit())
+        self.saveEntity(zpk)
         self.saveEntity(newBalance)
 
     def collectZpks(self):
