@@ -32,7 +32,7 @@ class BookingPeriodManager(Container):
             newBookingPeriod.setDefaultPeriod(True)
             currentBookingPeriod.setActive(False)
             currentBookingPeriod.setDefaultPeriod(False)
-            currentMonthInstance = DictionaryManager.findDictionaryInstance('PERIODS', 'CURRENT')
+            currentMonthInstance = DictionaryManager().findDictionaryInstance('PERIODS', 'CURRENT')
             currentMonthInstance.setValue('1')
             self.saveEntity(currentMonthInstance)
             self.saveEntity(currentBookingPeriod)
