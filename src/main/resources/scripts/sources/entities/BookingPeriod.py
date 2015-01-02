@@ -24,24 +24,25 @@ class BookingPeriodManager(Container):
 
     def closeYear(self):
         if self.canCloseYear():
-            bookingPeriod = self.createBookingPeriod()
-            [self.createBalance(zpk, bookingPeriod) for zpk in self.collectZpks()]
+            currentBookingPeriod = self.findDefaultBookingPeriod()
+            newBookingPeriod = self.createBookingPeriod(currentBookingPeriod)
+            [self.createBalance(zpk, newBookingPeriod) for zpk in self.collectZpks()]
+            newBookingPeriod.setActive(True)
+            newBookingPeriod.setDefaultPeriod(True)
+            currentBookingPeriod.setActive(False)
+            currentBookingPeriod.setDefaultPeriod(False)
+            self.saveEntity(currentBookingPeriod)
+            self.saveEntity(newBookingPeriod)
 
     def canCloseYear(self):
         currentMonth = int(self._entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult())
         return currentMonth == 12
 
-    def createBookingPeriod(self):
-        currentBookingPeriod = self.findDefaultBookingPeriod()
-        currentBookingPeriod.setActive(False)
-        currentBookingPeriod.setDefaultPeriod(False)
+    def createBookingPeriod(self, currentBookingPeriod):
         bp = BookingPeriod()
         bp.setDefaultPeriod(True)
         bp.setName(str(Calendar.getInstance().get(Calendar.YEAR)))
-        bp.setActive(True)
-        bp.setDefaultPeriod(True)
         bp.setOrder(currentBookingPeriod.getOrder() + 1)
-        self.saveEntity(currentBookingPeriod)
         self.saveEntity(bp)
         return bp
 
