@@ -1,7 +1,7 @@
 from pl.reaper.container.data import BookingPeriod
 from pl.reaper.container.data import ZpkBalance
 from base.Container import Container
-from java.time import LocalDateTime
+from java.util import Calendar
 
 class BookingPeriodManager(Container):
     
@@ -37,7 +37,7 @@ class BookingPeriodManager(Container):
         currentBookingPeriod.setDefaultPeriod(False)
         bp = BookingPeriod()
         bp.setDefaultPeriod(True)
-        bp.setName(LocalDateTime.now().getYear())
+        bp.setName(Calendar.getInstance().get(Calendar.YEAR))
         bp.setActive(True)
         bp.setDefaultPeriod(True)
         bp.setOrder(currentBookingPeriod.getOrder() + 1)
