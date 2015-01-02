@@ -1293,7 +1293,7 @@
                                 JOIN charging.bookingPeriod bp
                             WHERE
                                 bp.defaultPeriod = true
-                                charging.month IN(
+                                AND charging.month IN(
                                     SELECT
                                         dict.value
                                     FROM
