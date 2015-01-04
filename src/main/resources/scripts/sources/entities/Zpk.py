@@ -52,12 +52,6 @@ class ZpkManager(Container):
         self.setAllBookingPeriods(zpk)
         return zpk
 
-    def setStartBalance(self, zpk, credit, debit):
-        zpk.getCurrentBalance().setStartCredit(credit)
-        zpk.getCurrentBalance().setStartDebit(debit)
-        zpk.getCurrentBalance().setCredit(zpk.getCurrentBalance().getStartCredit())
-        zpk.getCurrentBalance().setDebit(zpk.getCurrentBalance().getStartDebit())
-    
     def save(self, zpk):
         self._logger.info(zpk.longDescription())
         self._entityManager.persist(zpk)
@@ -95,4 +89,26 @@ class ZpkManager(Container):
         elif i < 100:
             return '0' + str(i)
         return str(i)
+
+    def setStartBalance(self):
+        zpk = self.findById('ZakladowyPlanKont', self._svars.get('id'))
+        balance = zpk.getCurrentBalance()
+        credit = float(self._svars.get('credit'))
+        debit = float(self._svars.get('debit'))
+        self.revokeOldStartBalance(balance)
+        self.setNewStartBalance(balance, credit, debit)
+        self.saveEntity(balance)
+
+    def revokeOldStartBalance(self, balance):
+        credit = balance.getStartCredit()
+        debit = balance.getStartDebit()
+        balance.setStartCredit(0)
+        balance.setStartDebit(0)
+        balance.setCredit(balance.getCredit() - credit)
+        balance.setDebit(balance.getDebit() - debit)
             
+    def setNewStartBalance(self, balance, credit, debit):
+        balance.setStartCredit(credit)
+        balance.setStartDebit(debit)
+        balance.setCredit(balance.getCredit() + credit)
+        balance.setDebit(balance.getDebit() + debit)

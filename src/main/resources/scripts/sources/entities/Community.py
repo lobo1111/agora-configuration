@@ -86,10 +86,8 @@ class CommunityManager(Container):
         manager.setEntityManager(self._entityManager)
         manager.setSvars(self._svars)
         zpkRent = manager.generateZpkForCommunity(community, "CHARGING_RENT")
-        manager.setStartBalance(zpkRent, float(self._svars.get('rentCredit')), float(self._svars.get('rentDebit')))
         community.getZpks().add(zpkRent)
         zpkRepairFund = manager.generateZpkForCommunity(community, "CHARGING_REPAIR_FUND")
-        manager.setStartBalance(zpkRepairFund, float(self._svars.get('repairFundCredit')), float(self._svars.get('repairFundDebit')))
         community.getZpks().add(zpkRepairFund)
         
     def addElements(self, community):
