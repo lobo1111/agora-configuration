@@ -1401,7 +1401,7 @@
                     WHERE
                         p.id = {:id}
                         And bp.defaultPeriod = 1
-                        And pr.isRepairFund = 0
+                        And pr.repairFund = 0
                 </data>
             </var>
         </variables>
@@ -1424,7 +1424,7 @@
                     WHERE
                         p.id = {:id}
                         And bp.defaultPeriod = 1
-                        And pr.isRepairFund = 1
+                        And pr.repairFund = 1
                 </data>
             </var>
         </variables>
