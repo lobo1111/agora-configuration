@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <simple-double-response>
-    <value>$response</value>
+    #if($!response)
+    <value>$!response</value>
+    #else
+    <value>0.0</value>
+    #fi
 </simple-double-response>
