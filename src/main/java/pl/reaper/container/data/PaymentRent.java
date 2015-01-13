@@ -45,6 +45,8 @@ public class PaymentRent implements Serializable {
     @Column(name = "timestamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
+    @Column(name = "repair_fund")
+    private boolean repairFund;
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "paymentRent")
     private PaymentRentDetails paymentRentDetails = new PaymentRentDetails();
 
@@ -86,6 +88,14 @@ public class PaymentRent implements Serializable {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public boolean isRepairFund() {
+        return repairFund;
+    }
+
+    public void setRepairFund(boolean repairFund) {
+        this.repairFund = repairFund;
     }
 
     public PaymentRentDetails getPaymentRentDetails() {

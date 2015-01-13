@@ -1314,4 +1314,11 @@
         </sql>
      </changeSet>
 
+     <changeSet author='tkopacki' id='payment-rent-type-flag'>
+        <sql>                   
+            ALTER TABLE `payment_rent`
+            ADD COLUMN `repair_fund` tinyint(1) DEFAULT '0'
+        </sql>
+     </changeSet>
+
 </databaseChangeLog> 

@@ -1383,4 +1383,96 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>possession-rent-payments-calculations</name>
+        <source>simple-double-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        Sum(prd.rentValue)
+                    FROM
+                        PossessionRent pr
+                        Join pr.paymentRentDetails prd
+                        Join pr.possession p
+                        Join pr.bookingPeriod bp
+                    WHERE
+                        p.id = {:id}
+                        And bp.defaultPeriod = 1
+                        And pr.isRepairFund = 0
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>possession-repair-fund-payments-calculations</name>
+        <source>simple-double-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        Sum(prd.rentValue)
+                    FROM
+                        PossessionRent pr
+                        Join pr.paymentRentDetails prd
+                        Join pr.possession p
+                        Join pr.bookingPeriod bp
+                    WHERE
+                        p.id = {:id}
+                        And bp.defaultPeriod = 1
+                        And pr.isRepairFund = 1
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>possession-rent-chargings-calculations</name>
+        <source>simple-double-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        Sum(ce.value)
+                    FROM
+                        Charging c
+                        Join c.chargingElements ce
+                        Join c.bookingPeriod bp
+                        Join c.possession p
+                    WHERE
+                        p.id = {:id}
+                        And bp.defaultPeriod = 1
+                        And ce.group.id NOT IN (Select d.id from Dictionary d Join d.type dt Where dt.type = 'ELEMENTS' And d.dictionaryKey = 'REPAIR_FUND')
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>possession-repair-fund-chargings-calculations</name>
+        <source>simple-double-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        Sum(ce.value)
+                    FROM
+                        Charging c
+                        Join c.chargingElements ce
+                        Join c.bookingPeriod bp
+                        Join c.possession p
+                    WHERE
+                        p.id = {:id}
+                        And bp.defaultPeriod = 1
+                        And ce.group.id IN (Select d.id from Dictionary d Join d.type dt Where dt.type = 'ELEMENTS' And d.dictionaryKey = 'REPAIR_FUND')
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>
