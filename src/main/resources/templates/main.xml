@@ -1392,7 +1392,7 @@
                 <data>
                     {:single}
                     SELECT
-                        Sum(prd.rentValue)
+                        Sum(prd.value)
                     FROM
                         PaymentRent pr
                         Join pr.paymentRentDetails prd
@@ -1415,7 +1415,7 @@
                 <data>
                     {:single}
                     SELECT
-                        Sum(prd.rentValue)
+                        Sum(prd.value)
                     FROM
                         PaymentRent pr
                         Join pr.paymentRentDetails prd
