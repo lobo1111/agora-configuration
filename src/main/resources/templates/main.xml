@@ -1447,7 +1447,7 @@
                     WHERE
                         p.id = {:id}
                         And bp.defaultPeriod = 1
-                        And ce.group.id NOT IN (Select d.id from Dictionary d Join d.type dt Where dt.type = \'ELEMENTS\' And d.dictionaryKey = \'REPAIR_FUND\')
+                        And ce.group.id NOT IN (Select d.id from Dictionary d Join d.type dt Where dt.type = \'ELEMENTS\' And d.key = \'REPAIR_FUND\')
                 </data>
             </var>
         </variables>
@@ -1470,7 +1470,7 @@
                     WHERE
                         p.id = {:id}
                         And bp.defaultPeriod = 1
-                        And ce.group.id IN (Select d.id from Dictionary d Join d.type dt Where dt.type = \'ELEMENTS\' And d.dictionaryKey = \'REPAIR_FUND\')
+                        And ce.group.id IN (Select d.id from Dictionary d Join d.type dt Where dt.type = \'ELEMENTS\' And d.key = \'REPAIR_FUND\')
                 </data>
             </var>
         </variables>
