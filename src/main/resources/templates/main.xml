@@ -1394,7 +1394,7 @@
                     SELECT
                         Sum(prd.rentValue)
                     FROM
-                        PossessionRent pr
+                        PaymentRent pr
                         Join pr.paymentRentDetails prd
                         Join pr.possession p
                         Join pr.bookingPeriod bp
@@ -1417,7 +1417,7 @@
                     SELECT
                         Sum(prd.rentValue)
                     FROM
-                        PossessionRent pr
+                        PaymentRent pr
                         Join pr.paymentRentDetails prd
                         Join pr.possession p
                         Join pr.bookingPeriod bp
