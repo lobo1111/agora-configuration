@@ -54,13 +54,13 @@ class BankStatementManager(Container):
         return self._entityManager.createQuery('Select dict From Dictionary dict Join dict.type dtype Where dtype.type = "PERIODS" and dict.key = "CURRENT"').getSingleResult().getValue()
 
     def findInvoiceByNumber(self, number):
-        return self._entityManager.createQuery('Select i From Invoice i Where i.number = ' + str(number)).getSingleResult()
+        return self._entityManager.createQuery('Select i From Invoice i Where i.number = \'' + str(number) + '\'').getSingleResult()
         
     def findPossessionById(self, id):
         return self._entityManager.createQuery('Select i From Possession i Where i.id = ' + str(id)).getSingleResult()
         
     def findAccountByNumber(self, number):
-        return self._entityManager.createQuery('Select i From Account i Where i.number = ' + str(number)).getSingleResult()
+        return self._entityManager.createQuery('Select i From Account i Where i.number = \'' + str(number) + '\'').getSingleResult()
 
     def parseDate(self, dateAsString):
         try:
