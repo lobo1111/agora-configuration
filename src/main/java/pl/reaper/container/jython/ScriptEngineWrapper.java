@@ -1,6 +1,7 @@
 package pl.reaper.container.jython;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -108,7 +109,9 @@ public class ScriptEngineWrapper {
 
     private String variablesAsString() {
         StringBuilder builder = new StringBuilder();
-        for (String key : variables.keySet().toArray(new String[0])) {
+        String[] keys = variables.keySet().toArray(new String[0]);
+        Arrays.sort(keys);
+        for (String key : keys) {
             builder.append(key).append("=").append(variables.get(key)).append("\n");
         }
         return builder.toString();

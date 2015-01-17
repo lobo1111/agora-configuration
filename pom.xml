@@ -8,10 +8,6 @@
     <packaging>ejb</packaging>
 
     <name>Container</name>
-    <ciManagement>
-        <system>hudson</system>
-        <url>http://localhost:8585/job/Container/</url>
-    </ciManagement>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
