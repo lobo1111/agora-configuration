@@ -1401,6 +1401,11 @@
                     AND invoice.paymentsSum != invoice.toPay
                     ORDER BY
                     contractor.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>possession-rent-payments-calculations</name>
         <source>simple-double-response.vtl</source>
         <variables>
