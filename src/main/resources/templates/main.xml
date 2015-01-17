@@ -1398,7 +1398,7 @@
                     JOIN contractor.community community
                     JOIN contractor.invoices invoice
                     WHERE {:where}
-                    AND invoice.paymentsSum < invoice.toPay
+                    AND invoice.paymentsSum != invoice.toPay
                     ORDER BY
                     contractor.name ASC
         <name>possession-rent-payments-calculations</name>
