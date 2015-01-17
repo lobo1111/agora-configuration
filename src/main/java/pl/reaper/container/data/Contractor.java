@@ -43,6 +43,8 @@ public class Contractor implements Serializable {
     private Company company;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "contractor")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "contractor")
+    private Collection<Invoice> invoices = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -82,6 +84,14 @@ public class Contractor implements Serializable {
 
     public void setZpks(Collection<ZakladowyPlanKont> zpks) {
         this.zpks = zpks;
+    }
+
+    public Collection<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Collection<Invoice> invoices) {
+        this.invoices = invoices;
     }
 
 }

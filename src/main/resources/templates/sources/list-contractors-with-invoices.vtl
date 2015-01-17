@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<contractors>
+    #foreach($row in $contractors)
+    <item>
+        <obligationId>$!row.getId()</obligationId>
+        <companyId>$!row.getCompany().getId()</companyId>
+        <companyName>$!row.getCompany().getName()</companyName>
+        <invoices>
+            #foreach($row in $invoices)
+            <invoice>
+                <invoiceId>$!row.getId()</invoiceId>
+                <number>$!row.getNumber()</number>
+                <createDate>$!row.getCreateDate().getTime()</createDate>
+                <paymentDate>$!row.getPaymentDate().getTime()</paymentDate>
+                <toPay>$!row.getToPay()</toPay>
+                #if($!row.getPaymentsSum() > $!row.getToPay())
+                <payed>OVERPAYED</payed>
+                #elseif($!row.getPaymentsSum() == $!row.getToPay())
+                <payed>PAYED</payed>
+                #else
+                <payed>UNDERPAYED</payed>
+                #end
+            </invoice>
+            #end            
+        </invoices>
+    </item>
+    #end
+</contractors>

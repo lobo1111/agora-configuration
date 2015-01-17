@@ -1382,4 +1382,26 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>list-contractors-with-invoices</name>
+        <source>list-contractors-with-invoices.vtl</source>
+        <variables>
+            <var>
+                <name>contractors</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    contractor
+                    FROM
+                    Contractor contractor
+                    JOIN contractor.community community
+                    JOIN contractor.invoices invoice
+                    WHERE {:where}
+                    AND invoice.paymentsSum < invoice.toPay
+                    ORDER BY
+                    contractor.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>
