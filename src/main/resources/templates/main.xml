@@ -1385,18 +1385,18 @@
     </template>
     <template>
         <name>list-contractors-with-invoices</name>
-        <source>list-contractors-with-invoices.vtl</source>
+        <source>list-invoices.vtl</source>
         <variables>
             <var>
-                <name>contractors</name>
+                <name>invoices</name>
                 <data>
                     {:limit}
                     SELECT
-                    contractor
+                    invoice
                     FROM
-                    Contractor contractor
+                    Invoice invoice
+                    JOIN invoice.contractor contractor
                     JOIN contractor.community community
-                    JOIN contractor.invoices invoice
                     WHERE {:where}
                     AND invoice.paymentsSum != invoice.toPay
                     ORDER BY
