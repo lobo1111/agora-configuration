@@ -62,19 +62,25 @@ class AccountManager(Container):
         zpkManager.setEntityManager(self._entityManager)
         zpkManager.setSvars(self._svars)
         if account.getType().getKey() in ['DEFAULT', 'RENT']:
-            zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'RENT')
-            zpk.setAccount(account)
-            account.getZpks().add(zpk)
-            if account.getCommunity().getDefaultAccount() == None:
-                account.getCommunity().setDefaultAccount(account)
-                self._entityManager.persist(account.getCommunity())
+            self.createRentZpk(account)
         if account.getType().getKey() in ['DEFAULT', 'REPAIR_FUND']:
-            zpk = zpkManager.generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
-            zpk.setAccount(account)
-            account.getZpks().add(zpk)
-            if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
-                account.getCommunity().setRepairFundAccount(account)
-                self._entityManager.persist(account.getCommunity())
+            self.createRepairFundZpk(account)
+
+    def createRepairFundZpk(self, account):
+        zpk = ZpkManager().generateZpkForCommunity(account.getCommunity(), 'REPAIR_FUND')
+        zpk.setAccount(account)
+        account.getZpks().add(zpk)
+        if account.getType().getKey() == 'REPAIR_FUND' and account.getCommunity().getRepairFundAccount() == None:
+            account.getCommunity().setRepairFundAccount(account)
+            self._entityManager.persist(account.getCommunity())
+
+    def createRentZpk(self, account):
+        zpk = ZpkManager().generateZpkForCommunity(account.getCommunity(), 'RENT')
+        zpk.setAccount(account)
+        account.getZpks().add(zpk)
+        if account.getCommunity().getDefaultAccount() == None:
+            account.getCommunity().setDefaultAccount(account)
+            self._entityManager.persist(account.getCommunity())
         
     def getType(self):
         manager = DictionaryManager()
