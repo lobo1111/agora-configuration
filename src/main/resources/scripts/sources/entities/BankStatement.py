@@ -15,7 +15,7 @@ class BankStatementManager(Container):
 
     def createInvoicePayment(self):
         payment = InvoicePayment()
-        invoice = self.findInvoiceByNumber(self._svars.get('invoiceNumber'))
+        invoice = self.findInvoiceById(self._svars.get('invoiceId'))
         payment.setInvoice(invoice)
         payment.setValuePayment(float(self._svars.get('value')))
         payment.setCreateDate(self.parseDate(self._svars.get('createDate')))
@@ -53,8 +53,8 @@ class BankStatementManager(Container):
     def findCurrentMonth(self):
         return self._entityManager.createQuery('Select dict From Dictionary dict Join dict.type dtype Where dtype.type = "PERIODS" and dict.key = "CURRENT"').getSingleResult().getValue()
 
-    def findInvoiceByNumber(self, number):
-        return self._entityManager.createQuery('Select i From Invoice i Where i.number = \'' + str(number) + '\'').getSingleResult()
+    def findInvoiceById(self, id):
+        return self._entityManager.createQuery('Select i From Invoice i Where i.id = ' + str(id)).getSingleResult()
         
     def findPossessionById(self, id):
         return self._entityManager.createQuery('Select i From Possession i Where i.id = ' + str(id)).getSingleResult()
