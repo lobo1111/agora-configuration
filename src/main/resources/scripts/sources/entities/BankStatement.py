@@ -44,7 +44,7 @@ class BankStatementManager(Container):
         payment.getPaymentRentDetails().setBookingDate(self.parseDate(self._svars.get('bookingDate')))
         payment.getPaymentRentDetails().setTitle(self._svars.get('title'))
         payment.getPaymentRentDetails().setClientName(self._svars.get('clientName'))
-        payment.getPaymentRentDetails().setAccount(self.findAccountByNumber(self._svars.get('accountNumber')))
+        payment.getPaymentRentDetails().setAccount(self.findAccountById(self._svars.get('accountId')))
         return payment
 
     def findCurrentBookingPeriod(self):
@@ -59,8 +59,8 @@ class BankStatementManager(Container):
     def findPossessionById(self, id):
         return self._entityManager.createQuery('Select i From Possession i Where i.id = ' + str(id)).getSingleResult()
         
-    def findAccountByNumber(self, number):
-        return self._entityManager.createQuery('Select i From Account i Where i.number = \'' + str(number) + '\'').getSingleResult()
+    def findAccountById(self, id):
+        return self._entityManager.createQuery('Select i From Account i Where i.id = ' + str(id)).getSingleResult()
 
     def parseDate(self, dateAsString):
         try:
