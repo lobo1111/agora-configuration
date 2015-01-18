@@ -1158,6 +1158,26 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-accounts</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    a.id, a.number)
+                    FROM 
+                    Account a
+                    Join a.community c
+                    WHERE 
+                    c.id = {:id}
+                    ORDER BY 
+                    a.number ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-accounts-types</name>
         <source>simple-list.vtl</source>
         <variables>
