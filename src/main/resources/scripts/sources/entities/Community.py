@@ -39,6 +39,7 @@ class CommunityManager(Container):
         community.setCompany(self.getCompany(community))
         community.setName(community.getCompany().getName())
         repairFundAccountCleared = False
+        repairFundAccountNoChanges = False
         if (self._svars.get('repairFundAccountNumber') != '' and (community.getRepairFundAccount() == None) or (community.getRepairFundAccount() != None and community.getRepairFundAccount().getNumber() != self._svars.get('repairFundAccountNumber'))):
             if self._svars.get('repairFundAccountNumber') == '':
                 community.setRepairFundAccount(None)
@@ -60,6 +61,7 @@ class CommunityManager(Container):
                 self._logger.info('Repair fund account changed')
         else:
             self._logger.info('No changes to repair fund account has been done')
+            repairFundAccountNoChanges = True
         if community.getDefaultAccount() == None or community.getDefaultAccount().getNumber() != self._svars.get('defaultAccountNumber'):
             self._svars.put('startCredit', self._svars.get('defaultAccountCredit'))
             self._svars.put('startDebit', self._svars.get('defaultAccountDebit'))
@@ -69,7 +71,7 @@ class CommunityManager(Container):
             else:
                 self._svars.put('accountType', 'RENT')
             account = AccountManager().createNewAccount(community)
-            if community.getRepairFundAccount() == None:
+            if community.getRepairFundAccount() == None and !repairFundAccountNoChanges:
                 AccountManager().createRentZpk(account)
             community.setDefaultAccount(account)
             self._logger.info('Default account changed')
