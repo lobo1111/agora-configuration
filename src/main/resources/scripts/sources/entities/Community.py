@@ -39,7 +39,7 @@ class CommunityManager(Container):
         community.setCompany(self.getCompany(community))
         community.setName(community.getCompany().getName())
         repairFundAccountCleared = False
-        if (self._svars.get('repairFundAccountNumber') != '' and (community.getRepairFundAccount() == None) or (community.getRepairFundAccount().getNumber() != self._svars.get('repairFundAccountNumber'))):
+        if (self._svars.get('repairFundAccountNumber') != '' and (community.getRepairFundAccount() == None) or (community.getRepairFundAccount() != None and community.getRepairFundAccount().getNumber() != self._svars.get('repairFundAccountNumber'))):
             if self._svars.get('repairFundAccountNumber') == '':
                 community.setRepairFundAccount(None)
                 repairFundAccountCleared = True
