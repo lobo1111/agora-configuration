@@ -71,7 +71,7 @@ class CommunityManager(Container):
             else:
                 self._svars.put('accountType', 'RENT')
             account = AccountManager().createNewAccount(community)
-            if community.getRepairFundAccount() == None and !repairFundAccountNoChanges:
+            if community.getRepairFundAccount() == None and not repairFundAccountNoChanges:
                 AccountManager().createRentZpk(account)
             community.setDefaultAccount(account)
             self._logger.info('Default account changed')
