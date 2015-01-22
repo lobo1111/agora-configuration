@@ -104,6 +104,7 @@ class InvoiceManager(Container):
         for position in toRemove:
             invoice.getPositions().remove(position)
             self._entityManager.remove(position)
+        self._entityManager.persist(invoice)
 
 
     def addPayments(self, invoice):
@@ -119,8 +120,9 @@ class InvoiceManager(Container):
             payment.setBooked(self.parseBoolean(self._svars.get(str(i) + '_payments_booked')))
             payment.setCreateDate(self.parseDate(self._svars.get(str(i) + '_payments_createDate')))
             payment.setValuePayment(float(self._svars.get(str(i) + '_payments_value')))
-            payment.setInvoice(invoice)
-            invoice.getPayments().add(payment)
+            if paymentId == '0':
+                payment.setInvoice(invoice)
+                invoice.getPayments().add(payment)
             self._entityManager.persist(payment)
             self._entityManager.flush()
             notToRemove.append(payment.getId())
@@ -136,6 +138,7 @@ class InvoiceManager(Container):
             self._logger.info('payment removed: ' + str(payment.getId()))
             invoice.getPayments().remove(payment)
             self._entityManager.remove(payment)
+        self._entityManager.persist(invoice)
 
     def findTax(self, id):
         return DictionaryManager().getDictionaryInstance(int(id))
