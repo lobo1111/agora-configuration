@@ -49,6 +49,17 @@ public class PaymentRent implements Serializable {
     private boolean repairFund;
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "paymentRent")
     private PaymentRentDetails paymentRentDetails = new PaymentRentDetails();
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "internal_payment_id", referencedColumnName = "id")
+    private InternalPayment internalPayment;
+
+    public InternalPayment getInternalPayment() {
+        return internalPayment;
+    }
+
+    public void setInternalPayment(InternalPayment internalPayment) {
+        this.internalPayment = internalPayment;
+    }
 
     public Integer getId() {
         return id;

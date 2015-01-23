@@ -5,7 +5,6 @@ from base.Container import Container
 class InternalPaymentManager(Container):
     
     def create(self):
-        
         self._logger.info("Creating payment...")
         payment = InternalPayment()
         payment.setBookingPeriod(self.findDefaultBookingPeriod())
@@ -24,7 +23,6 @@ class InternalPaymentManager(Container):
         return payment
     
     def book(self):
-        
         payment = self.findPaymentById(self._svars.get('paymentId'))
         if not payment.isBooked():
             self.increaseDebit(self.getCurrentBalance(payment.getDebitZpk()), payment.getAmount())
@@ -34,15 +32,22 @@ class InternalPaymentManager(Container):
             self._entityManager.persist(payment)
     
     def canCancel(self):
-        
         payment = self.findPaymentById(self._svars.get('paymentId'))
         return not payment.isBooked()
     
     def cancel(self):
-        
         if self.canCancel():
             payment = self.findPaymentById(self._svars.get('paymentId'))
             self._entityManager.remove(payment)
+
+    def cancelBookedPayment(self, internalPayment):
+        debitBalance = internalPayment.getDebitZpk().getCurrentBalance()
+        creditBalance = internalPayment.getCreditZpk().getCurrentBalance()
+        self.increaseDebit(debitBalance, internalPayment.getAmount() * -1)
+        self.increaseCredit(creditBalance, internalPayment.getAmount() * -1)
+        self._entityManager.persist(debitBalance)
+        self._entityManager.persist(creditBalance)
+        self._entityManager.remove(payment)
     
     def findDefaultBookingPeriod(self):
         return self._entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()

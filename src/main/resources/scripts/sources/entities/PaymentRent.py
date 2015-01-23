@@ -2,6 +2,7 @@ from pl.reaper.container.data import PaymentRent
 from pl.reaper.container.data import PaymentRentDetails
 from java.text import SimpleDateFormat
 from base.Container import Container
+from entities.InternalPayment import InternalPaymentManager
 
 class PaymentRentManager(Container):
     
@@ -11,11 +12,12 @@ class PaymentRentManager(Container):
         self.savePaymentRent(paymentRent)
         
     def remove(self):
-        
         paymentRent = self.findPaymentRentById(self._svars.get('id'))
-        currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
-        if paymentRent.getMonth() == currentMonth and paymentRent.getBookingPeriod().getId() == currentBookingPeriod.getId():
+        if paymentRent.isBooked() and paymentRent.getBookingPeriod().getId() == currentBookingPeriod.getId() and paymentRent.getPaymentRentDetails() != None:
+            internalPayment = paymentRent.getInternalPayment()
+            InternalPaymentManager.cancelBookedPayment(internalPayment)
+        elif not paymentRent.isBooked():
             self._entityManager.remove(paymentRent.getPaymentRentDetails())
             self._entityManager.remove(paymentRent)
             self._entityManager.flush()

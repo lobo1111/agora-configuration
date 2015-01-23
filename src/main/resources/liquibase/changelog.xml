@@ -1321,4 +1321,31 @@
         </sql>
      </changeSet>
 
+     <changeSet author='tkopacki' id='payment-rent-internal-payment'>
+        <sql>                   
+            ALTER TABLE `payment_rent`
+            ADD COLUMN `internal_payment_id` int(11)
+        </sql>
+     </changeSet>
+
+     <changeSet author='tkopacki' id='invoice-payment-internal-payment'>
+        <sql>                   
+            ALTER TABLE `invoice_payment`
+            ADD COLUMN `internal_payment_id` int(11)
+        </sql>
+     </changeSet>
+    
+    <changeSet author='tkopacki' id='payment-rent-internal-payment-fkey'>
+        <sql>                   
+            ALTER TABLE `payment_rent`
+            ADD CONSTRAINT `payment_rent_internal_payment_id_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-payment-internal-payment-fkey'>
+        <sql>                   
+            ALTER TABLE `invoice_payment`
+            ADD CONSTRAINT `invoice_payment_internal_payment_id_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
