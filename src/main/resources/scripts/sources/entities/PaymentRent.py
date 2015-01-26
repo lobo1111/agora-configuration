@@ -14,16 +14,14 @@ class PaymentRentManager(Container):
     def remove(self):
         paymentRent = self.findPaymentRentById(self._svars.get('id'))
         currentBookingPeriod = self.getBookingPeriod()
-        if paymentRent.isBooked() and paymentRent.getBookingPeriod().getId() == currentBookingPeriod.getId() and paymentRent.getPaymentRentDetails() != None:
+        if paymentRent.getBookingPeriod().getId() == currentBookingPeriod.getId() and paymentRent.getInternalPayment() != None:
             internalPayment = paymentRent.getInternalPayment()
             InternalPaymentManager.cancelBookedPayment(internalPayment)
-        elif not paymentRent.isBooked():
-            self._entityManager.remove(paymentRent.getPaymentRentDetails())
-            self._entityManager.remove(paymentRent)
-            self._entityManager.flush()
+        self._entityManager.remove(paymentRent.getPaymentRentDetails())
+        self._entityManager.remove(paymentRent)
+        self._entityManager.flush()
             
     def removeCharging(self):
-        
         charging = self.findChargingById(self._svars.get('id'))
         currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
