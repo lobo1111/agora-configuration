@@ -2,7 +2,7 @@
 <chargings>
     #foreach($item in $items)
     <item>
-        #if($!item[9] == "CHARGE)
+        #if($!item[9] == "CHARGE")
         <id>-$!item[0]</id>
         #else
         <id>$!item[0]</id>
@@ -24,4 +24,3 @@
         <maxResults>$!countRows</maxResults>
     </settings>
 </chargings>
-
