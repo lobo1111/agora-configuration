@@ -21,9 +21,9 @@ class PaymentBooker(Container):
         else:
             zpkCreditAccount = self.findZpkPossessionRent(possession.getZpks())
             zpkDebitAccount = self.findZpkCommunityRentAccount(account.getZpks())
-        self.createAndBookPayment(zpkCreditAccount, zpkDebitAccount, payment.getPaymentRentDetails().getValue())
+        self.createAndBookPayment(payment, zpkCreditAccount, zpkDebitAccount, payment.getPaymentRentDetails().getValue())
 
-    def createAndBookPayment(self, creditZpk, debitZpk, amount):
+    def createAndBookPayment(self, rentPayment, creditZpk, debitZpk, amount):
         self._svars.put('creditZpkId', str(creditZpk.getId()))
         self._svars.put('debitZpkId', str(debitZpk.getId()))
         self._svars.put('amount', str(amount))
@@ -32,6 +32,8 @@ class PaymentBooker(Container):
         manager.setEntityManager(self._entityManager)
         manager.setSvars(self._svars)
         payment = manager.create()
+        rentPayment.setInternalPayment(payment)
+        self.saveEntity(rentPayment)
         self._entityManager.flush()
         self._svars.put('paymentId', str(payment.getId()))
         manager.book()
