@@ -2,7 +2,11 @@
 <chargings>
     #foreach($item in $items)
     <item>
-        <id>$!item[9]:$!item[0]</id>
+        #if($!item[9] == "CHARGE)
+        <id>-$!item[0]</id>
+        #else
+        <id>$!item[0]</id>
+        #end
         <month>$!item[1]</month>
         <bookingPeriodName>$!item[2]</bookingPeriodName>
         <timestamp>$!item[3].getTime()</timestamp>
