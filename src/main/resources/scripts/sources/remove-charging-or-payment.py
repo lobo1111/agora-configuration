@@ -3,14 +3,17 @@ helpers.entityManager = globals()['entityManager']
 helpers.svars = globals()['svars']
 helpers.properties = globals()['properties']
 
+print globals()['svars'].get('id')
 if globals()['svars'].get('id').startswith('CHARGE'):
     id = globals()['svars'].get('id')[7:]
+    print '-' + id + '-'
     globals()['svars'].put('id', id)
     from entities.PaymentRent import PaymentRentManager
     manager = PaymentRentManager()
     manager.removeCharging()
 elif globals()['svars'].get('id').startswith('PAYMENT_RENT'):
     id = globals()['svars'].get('id')[13:]
+    print '-' + id + '-'
     globals()['svars'].put('id', id)
     from entities.PaymentRent import PaymentRentManager
     manager = PaymentRentManager()
