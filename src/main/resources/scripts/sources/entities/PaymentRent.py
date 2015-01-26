@@ -25,16 +25,17 @@ class PaymentRentManager(Container):
         charging = self.findChargingById(self._svars.get('id'))
         currentMonth = self.getCurrentMonth()
         currentBookingPeriod = self.getBookingPeriod()
-        if charging.getMonth() == currentMonth and charging.getBookingPeriod().getId() == currentBookingPeriod.getId():
-            for element in charging.getChargingElements():
-                self._entityManager.remove(element)
-            charging.getChargingElements().clear()
-            self._entityManager.remove(charging)
-            self._entityManager.flush()
+        if charging.getBookingPeriod().getId() == currentBookingPeriod.getId() and charging.getInternalPayment() != None:
+            internalPayment = charging.getInternalPayment()
+            InternalPaymentManager().cancelBookedPayment(internalPayment)
+        for element in charging.getChargingElements():
+            self._entityManager.remove(element)
+        charging.getChargingElements().clear()
+        self._entityManager.remove(charging)
+        self._entityManager.flush()
         
         
     def setPaymentRentData(self, paymentRent):
-        
         paymentRentDetails = PaymentRentDetails()
         paymentRentDetails.setPaymentRent(paymentRent)
         paymentRent.setPaymentRentDetails(paymentRentDetails)

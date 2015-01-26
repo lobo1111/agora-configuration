@@ -21,7 +21,7 @@ class ChargingBooker(Container):
         zpkRentPossession = self.getZpkRent(possession.getZpks())
         rentAmount = self.calculateRent(charge.getChargingElements())
         zpkRentCommunity = self.findRentCreditZpk(possession.getCommunity())
-        self.createAndBookPayment(zpkRentCommunity, zpkRentPossession, rentAmount)
+        self.createAndBookPayment(charge, zpkRentCommunity, zpkRentPossession, rentAmount)
         
     def createPaymentForRepairFund(self, charge):
         possession = charge.getPossession()
@@ -29,10 +29,9 @@ class ChargingBooker(Container):
         zpkRepairFundPossession = self.getZpkRepairFund(possession.getZpks())
         repairFundAmount = self.calculateRepairFund(charge.getChargingElements())
         zpkRepairFundCommunity = self.findRepairFundCreditZpk(possession.getCommunity())
-        self.createAndBookPayment(zpkRepairFundCommunity, zpkRepairFundPossession, repairFundAmount)
+        self.createAndBookPayment(charge, zpkRepairFundCommunity, zpkRepairFundPossession, repairFundAmount)
         
-    def createAndBookPayment(self, creditZpk, debitZpk, amount):
-        
+    def createAndBookPayment(self, charge, creditZpk, debitZpk, amount):
         self._svars.put('creditZpkId', str(creditZpk.getId()))
         self._svars.put('debitZpkId', str(debitZpk.getId()))
         self._svars.put('amount', str(amount))
@@ -41,6 +40,7 @@ class ChargingBooker(Container):
         manager.setSvars(self._svars)
         manager.setEntityManager(self._entityManager)
         payment = manager.create()
+        charge.setInternalPayment(payment)
         self._entityManager.flush()
         self._svars.put('paymentId', str(payment.getId()))
         manager.book()

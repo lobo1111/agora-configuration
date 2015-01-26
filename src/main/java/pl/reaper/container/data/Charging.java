@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,6 +49,17 @@ public class Charging implements Serializable {
     private Date timestamp;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "charging")
     private Collection<ChargingElement> chargingElements = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "internal_payment_id", referencedColumnName = "id")
+    private InternalPayment internalPayment;
+
+    public InternalPayment getInternalPayment() {
+        return internalPayment;
+    }
+
+    public void setInternalPayment(InternalPayment internalPayment) {
+        this.internalPayment = internalPayment;
+    }
 
     public Integer getId() {
         return id;
@@ -96,10 +108,10 @@ public class Charging implements Serializable {
     public void setChargingElements(Collection<ChargingElement> chargingElements) {
         this.chargingElements = chargingElements;
     }
-    
+
     public double calculateValue() {
         double value = 0.0;
-        for(ChargingElement element: chargingElements) {
+        for (ChargingElement element : chargingElements) {
             value += element.getValue();
         }
         return value;
