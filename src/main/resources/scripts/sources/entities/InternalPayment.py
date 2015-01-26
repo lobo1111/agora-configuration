@@ -47,7 +47,7 @@ class InternalPaymentManager(Container):
         self.increaseCredit(creditBalance, internalPayment.getAmount() * -1)
         self._entityManager.persist(debitBalance)
         self._entityManager.persist(creditBalance)
-        self._entityManager.remove(payment)
+        self._entityManager.remove(internalPayment)
     
     def findDefaultBookingPeriod(self):
         return self._entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
