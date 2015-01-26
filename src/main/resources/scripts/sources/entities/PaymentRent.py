@@ -16,7 +16,7 @@ class PaymentRentManager(Container):
         currentBookingPeriod = self.getBookingPeriod()
         if paymentRent.getBookingPeriod().getId() == currentBookingPeriod.getId() and paymentRent.getInternalPayment() != None:
             internalPayment = paymentRent.getInternalPayment()
-            InternalPaymentManager.cancelBookedPayment(internalPayment)
+            InternalPaymentManager().cancelBookedPayment(internalPayment)
         self._entityManager.remove(paymentRent.getPaymentRentDetails())
         self._entityManager.remove(paymentRent)
         self._entityManager.flush()
