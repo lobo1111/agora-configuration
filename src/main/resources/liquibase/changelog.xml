@@ -1362,4 +1362,25 @@
             ADD CONSTRAINT `invoice_payment_internal_payment_id_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='element_drop_algorithm_column'>
+        <sql>                   
+            ALTER TABLE `element`
+            DROP COLUMN `algorithm`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='element_add_algorithm_id_column'>
+        <sql>                   
+            ALTER TABLE `element`
+            ADD COLUMN `algorithm_id` int(11)
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='element_algorithm_id_fkey'>
+        <sql>                   
+            ALTER TABLE `element`
+            ADD CONSTRAINT `element_algorithm_id_fkey` FOREIGN KEY (`algorithm_id`) REFERENCES `payment_algorithm` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

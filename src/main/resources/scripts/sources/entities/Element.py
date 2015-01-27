@@ -125,7 +125,6 @@ class ElementManager(Container):
         return possessionElement
             
     def setElementData(self, element):
-        
         element.setName(self._svars.get(self._prefix + 'name'))
         element.setKey(self._svars.get(self._prefix + 'key'))
         element.setGlobalValue(BigDecimal(self._svars.get(self._prefix + 'value')).floatValue())
@@ -134,7 +133,7 @@ class ElementManager(Container):
             element.setDefaultElement(True)
         else:
             element.setDefaultElement(False)
-        element.setAlgorithm(self._svars.get(self._prefix + 'algorithm'))
+        element.setAlgorithm(self.findById('PaymentAlgorithm', int(self._svars.get(self._prefix + 'algorithm'))))
         
     def saveElement(self, element):
         self._entityManager.persist(element)

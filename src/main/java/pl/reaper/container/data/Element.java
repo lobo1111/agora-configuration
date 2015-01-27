@@ -36,12 +36,13 @@ public class Element implements Serializable {
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     @ManyToOne
     private Dictionary group;
+    @JoinColumn(name = "algorithm_id", referencedColumnName = "id")
+    @ManyToOne
+    private PaymentAlgorithm algorithm;
     @Column(name = "global_value")
     private double globalValue;
     @Column(name = "default_element")
     private boolean defaultElement;
-    @Column(name = "algorithm")
-    private String algorithm;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "element")
     private Collection<ElementCommunity> communityElements;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "element")
@@ -55,11 +56,11 @@ public class Element implements Serializable {
         this.defaultElement = defaultElement;
     }
 
-    public String getAlgorithm() {
+    public PaymentAlgorithm getAlgorithm() {
         return algorithm;
     }
 
-    public void setAlgorithm(String algorithm) {
+    public void setAlgorithm(PaymentAlgorithm algorithm) {
         this.algorithm = algorithm;
     }
 
