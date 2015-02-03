@@ -42,6 +42,10 @@ public class PaymentRent implements Serializable {
     @Size(min = 1, max = 12)
     @Column(name = "month")
     private String month;
+    @Basic(optional = true)
+    @Size(max = 1024)
+    @Column(name = "comment")
+    private String comment;
     @Column(name = "timestamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
@@ -120,4 +124,13 @@ public class PaymentRent implements Serializable {
     public double calculateValue() {
         return paymentRentDetails.getValue();
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
 }

@@ -1383,4 +1383,12 @@
             ADD CONSTRAINT `element_algorithm_id_fkey` FOREIGN KEY (`algorithm_id`) REFERENCES `payment_algorithm` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    
+     <changeSet author='tkopacki' id='invoice-payment-comment-column'>
+        <sql>                   
+            ALTER TABLE `invoice_payment`
+            ADD COLUMN `comment` varchar(1024)
+        </sql>
+     </changeSet>
 </databaseChangeLog> 
