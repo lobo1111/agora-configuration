@@ -154,6 +154,14 @@ public class Possession implements Serializable {
         return filtered;
     }
 
+    public String getOwnersAsString() {
+        StringBuilder output = new StringBuilder();
+        for (Owner owner : owners) {
+            output.append(owner.getName()).append(" ");
+        }
+        return output.toString();
+    }
+
     public void setPayments(Collection<PaymentRent> payments) {
         this.payments = payments;
     }
