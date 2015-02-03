@@ -1384,10 +1384,9 @@
         </sql>
     </changeSet>
     
-    
-     <changeSet author='tkopacki' id='invoice-payment-comment-column'>
+     <changeSet author='tkopacki' id='rent-payment-comment-column'>
         <sql>                   
-            ALTER TABLE `invoice_payment`
+            ALTER TABLE `rent_payment`
             ADD COLUMN `comment` varchar(1024)
         </sql>
      </changeSet>
