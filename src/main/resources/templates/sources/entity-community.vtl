@@ -64,6 +64,8 @@
             #if($balance.getBookingPeriod().isDefaultPeriod())
             <credit>$balance.getCredit()</credit>
             <debit>$balance.getDebit()</debit>
+            <startCredit>$balance.getStartCredit()</startCredit>
+            <startDebit>$balance.getStartDebit()</startDebit>
             #end
             #end
         </zpk>
