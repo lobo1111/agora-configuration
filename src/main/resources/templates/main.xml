@@ -743,7 +743,7 @@
                     possessionAddress.house_number,
                     paymentRentDetails.rent_value,
                     \'PAYMENT_RENT\',
-                    payment_rent.repair_fund
+                    paymentRent.repair_fund
                     FROM payment_rent AS paymentRent
                     JOIN payment_rent_details AS paymentRentDetails ON(paymentRent.id = paymentRentDetails.payment_rent_id)
                     JOIN possession AS possession ON(possession.id = paymentRent.possession_id)
