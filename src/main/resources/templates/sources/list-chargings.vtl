@@ -17,7 +17,15 @@
         <possessionName>$!item[5] $!item[7]</possessionName>
         #end
         <value>$!item[8]</value>
+        #if($!item[9] == "PAYMENT_RENT")
+        #if($!item[10] == 1)
+            <type>$!item[9]_RF</type>
+        #else
+            <type>$!item[9]_PR</type>
+        #end
+        #else
         <type>$!item[9]</type>
+        #end
     </item>
     #end
     <settings>
