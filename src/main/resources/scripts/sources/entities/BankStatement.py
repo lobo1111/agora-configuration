@@ -33,6 +33,7 @@ class BankStatementManager(Container):
         paymentRepairFund = self.createGenericPayment()
         paymentRepairFund.getPaymentRentDetails().setValue(float(self._svars.get('repairFund')))
         paymentRepairFund.setRepairFund(True)
+        paymentRepairFund.setComment(self._svars.get('comment'))
         self._entityManager.persist(paymentRepairFund)
 
     def createGenericPayment(self):

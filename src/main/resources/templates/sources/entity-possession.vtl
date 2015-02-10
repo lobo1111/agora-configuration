@@ -31,9 +31,9 @@
             <key>$!entity.getElement().getKey()</key>
             <name>$!entity.getElement().getName()</name>
             #if($!entity.getElementCommunity().isOverrideParentValue())
-                <globalValue>$!entity.getElementCommunity().getGlobalValue()</globalValue>
+            <globalValue>$!entity.getElementCommunity().getGlobalValue()</globalValue>
             #else
-                <globalValue>$!entity.getElement().getGlobalValue()</globalValue>
+            <globalValue>$!entity.getElement().getGlobalValue()</globalValue>
             #end
             <overrideValue>$!entity.getGlobalValue()</overrideValue>
             <override>$!entity.isOverrideParentValue()</override>
@@ -44,10 +44,10 @@
     </elements>
     <owners>
         #foreach($owner in $!possession.getOwners())
-            <owner>
-                <id>$!owner.getId()</id>
-                <name>$!owner.getName()</name>
-            </owner>
+        <owner>
+            <id>$!owner.getId()</id>
+            <name>$!owner.getName()</name>
+        </owner>
         #end
     </owners>
     <payments>
@@ -80,4 +80,6 @@
         </counter>
         #end
     </counters>
+    <startCredit>$possession.calculateStartCredit()</startCredit>
+    <startDebit>$possession.calculateStartDebit()</startDebit>
 </possession>

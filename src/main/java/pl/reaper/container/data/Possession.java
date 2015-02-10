@@ -225,4 +225,20 @@ public class Possession implements Serializable {
     public String getFullAddress() {
         return address.getFullAddress();
     }
+
+    public double calcuateStartCredit() {
+        double startCredit = 0;
+        for (ZakladowyPlanKont zpk : zpks) {
+            startCredit += zpk.getCurrentBalance().getStartCredit();
+        }
+        return startCredit;
+    }
+
+    public double calcuateStartDebit() {
+        double startDebit = 0;
+        for (ZakladowyPlanKont zpk : zpks) {
+            startDebit += zpk.getCurrentBalance().getStartDebit();
+        }
+        return startDebit;
+    }
 }
