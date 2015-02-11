@@ -71,8 +71,6 @@ class PossessionManager(Container):
         manager.propagateElementsForNewPossession(possession)
         
     def setElementsData(self, possession):
-        notToRemove = []
-        toRemove = []
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
@@ -81,13 +79,8 @@ class PossessionManager(Container):
             manager.setSvars(self._svars)
             manager.setEntityManager(self._entityManager)
             element = manager.CreateOrUpdatePossessionElement(possession)
-            notToRemove.append(element.getId())
-        for element in possession.getElements():
-            if not (element.getId() in notToRemove):
-                toRemove.append(element)
-        for element in toRemove:
-            possession.getElements().remove(element)
-            self._entityManager.remove(element)
+            if self._svars.get(self._prefix + str(i) + "_remove") == 'true':
+                ElementManager().dropPossessionElement(int(self._svars.get(self._prefix + str(i) + "_elementId")))
 
     def removeOwners(self, possession):
         notToRemove = []

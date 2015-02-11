@@ -23,16 +23,6 @@ class ElementManager(Container):
         self.saveElement(element)
         return element
     
-    def addDefaultElements(self, community):
-        for element in self.findDefaultElements():
-            self._logger.info('Adding default community element - %d' % element.getId())
-            self._svars.put("elementId", element.getId())
-            self.CreateOrUpdateCommunityElement(community)
-    
-    def remove(self):
-        element = self.findElementById(self._svars.get('id'))
-        self._entityManager.remove(element)
-
     def multiUpdate(self):
         for i in range(int(self._svars.get(self._prefix + 'counter'))):
             newValueAsString = self._svars.get(str(i) + '_newValue')
@@ -44,24 +34,6 @@ class ElementManager(Container):
                 self._entityManager.persist(communityElement)
         self._entityManager.flush()
             
-        
-    def removeSubElement(self):
-        if self._svars.get('subType') == "COMMUNITY":
-            element = self.findSubElementCommunity(self._svars.get('subId'))
-            self._logger.info('Removing community element - %d' % element.getId())
-            for possessionElement in element.getPossessionsElements():
-                if not possessionElement.isOverrideParentValue():
-                    self._entityManager.remove(possessionElement)
-                    self._logger.info('Removing possession element - %d' % possessionElement.getId())
-                else:
-                    possessionElement.setElementCommunity(None)
-                    self.saveElement(possessionElement)
-                    self._logger.info('Possession element not removued due to override flag set - %d' % possessionElement.getId())
-            self._entityManager.remove(element)
-        elif self._svars.get('subType') == "POSSESSION":
-            element = self.findSubElementPossession(self._svars.get('subId'))
-            self._logger.info('Removing possession element - %d' % element.getId())
-            self._entityManager.remove(element)
         
     def CreateOrUpdateCommunityElement(self, community):
         elementId = self._svars.get("elementId")
@@ -123,6 +95,20 @@ class ElementManager(Container):
         self._entityManager.persist(possession)
         self.saveElement(possessionElement)
         return possessionElement
+
+    def dropCommunityElement(self, communityElementId):
+        communityElement = self.findById('ElementCommunity', communityElementId)
+        for possessionElement in communityElement.getPossessionElements():
+            self.dropPossessionElement(possessionElement.getId())
+        communityElement.getCommunity().getCommunityElements().remove(communityElement)
+        self._entityManager.remove(communityElement)
+        self._entityManager.persist(communityElement.getCommunity())
+
+    def dropPossessionElement(self, possessionElementId):
+        possessionElement = self.findById('ElementPossession', possessionElementId)
+        possessionElement.getPossession().getPossessionElements().remove(possessionElement)
+        self._entityManager.remove(possessionElement)
+        self._entityManager.persist(possessionElement.getPossession())
             
     def setElementData(self, element):
         element.setName(self._svars.get(self._prefix + 'name'))

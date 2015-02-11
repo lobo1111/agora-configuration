@@ -96,26 +96,13 @@ class CommunityManager(Container):
         community.getZpks().add(zpkRepairFund)
         
     def addElements(self, community):
-        notToRemove = []
-        toRemove = []
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
             self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
             self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             communityElement = ElementManager().CreateOrUpdateCommunityElement(community)
-            notToRemove.append(communityElement.getId())
-            self._logger.info('Element marked as not to remove: ' + str(communityElement.getId()))
-        self._logger.info('Community has total elements: ' + str(community.getElements().size()))
-        for element in community.getElements():
-            self._logger.info('Checking if element should be dropped: ' + str(element.getId()))
-            if element.getId() != None and not (element.getId() in notToRemove):
-                self._logger.info('Element will be removed: ' + str(element.getId()))
-                toRemove.append(element)
-            else:
-                self._logger.info('Element won\'t be removed: ' + str(element.getId()))
-        for element in toRemove:
-            community.getElements().remove(element)
-            self._entityManager.remove(element)
+            if self._svars.get(self._prefix + str(i) + "_remove") == 'true':
+                ElementManager().dropCommunityElement(int(self._svars.get(self._prefix + str(i) + "_elementId")))
             
     def getCompany(self, community):
         companyManager = CompanyManager()
