@@ -98,7 +98,7 @@ class ElementManager(Container):
 
     def dropCommunityElement(self, communityElementId):
         communityElement = self.findById('ElementCommunity', communityElementId)
-        for possessionElement in communityElement.getPossessionElements():
+        for possessionElement in communityElement.getPossessionsElements():
             self.dropPossessionElement(possessionElement.getId())
         communityElement.getCommunity().getCommunityElements().remove(communityElement)
         self._entityManager.remove(communityElement)
