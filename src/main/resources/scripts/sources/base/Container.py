@@ -13,17 +13,15 @@ class Container:
 
     def findBy(self, entityName, field, value):
         try:
+            self._logger.info('Searching for %s/%s with value %s' % (entityName, field, value))
             sql = 'Select entity From %s entity where entity.%s = %s' % (entityName, field, value)
             return self._entityManager.createQuery(sql).getSingleResult()
         except:
+            self._logger.info('Entity not found %s/%s with value %s' % (entityName, field, value))
             return None
 
     def findById(self, entityName, id):
-        try:
-            sql = 'Select entity From %s entity where entity.id = %s' % (entityName, id)
-            return self._entityManager.createQuery(sql).getSingleResult()
-        except:
-            return None
+        return self.findBy(entityName, 'id', value)
     
     def setSvars(self, svars):
         self._svars = svars
