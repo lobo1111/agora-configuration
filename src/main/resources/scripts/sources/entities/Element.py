@@ -106,7 +106,7 @@ class ElementManager(Container):
 
     def dropPossessionElement(self, possessionElementId):
         possessionElement = self.findById('ElementPossession', possessionElementId)
-        possessionElement.getPossession().getPossessionsElements().remove(possessionElement)
+        possessionElement.getPossession().getElements().remove(possessionElement)
         self._entityManager.remove(possessionElement)
         self._entityManager.persist(possessionElement.getPossession())
             
