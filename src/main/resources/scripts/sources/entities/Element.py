@@ -100,7 +100,7 @@ class ElementManager(Container):
         communityElement = self.findById('ElementCommunity', communityElementId)
         for possessionElement in communityElement.getPossessionsElements():
             self.dropPossessionElement(possessionElement.getId())
-        communityElement.getCommunity().getCommunityElements().remove(communityElement)
+        communityElement.getCommunity().getElements().remove(communityElement)
         self._entityManager.remove(communityElement)
         self._entityManager.persist(communityElement.getCommunity())
 
