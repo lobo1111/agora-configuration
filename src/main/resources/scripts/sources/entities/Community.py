@@ -102,7 +102,7 @@ class CommunityManager(Container):
             self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             communityElement = ElementManager().CreateOrUpdateCommunityElement(community)
             if self._svars.get(self._prefix + str(i) + "_remove") == 'true':
-                ElementManager().dropCommunityElement(int(self._svars.get(self._prefix + str(i) + "_elementId")))
+                ElementManager().dropCommunityElement(communityElement.getId())
             
     def getCompany(self, community):
         companyManager = CompanyManager()

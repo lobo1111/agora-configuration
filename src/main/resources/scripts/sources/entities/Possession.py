@@ -80,7 +80,7 @@ class PossessionManager(Container):
             manager.setEntityManager(self._entityManager)
             element = manager.CreateOrUpdatePossessionElement(possession)
             if self._svars.get(self._prefix + str(i) + "_remove") == 'true':
-                ElementManager().dropPossessionElement(int(self._svars.get(self._prefix + str(i) + "_elementId")))
+                ElementManager().dropPossessionElement(element.getId())
 
     def removeOwners(self, possession):
         notToRemove = []
