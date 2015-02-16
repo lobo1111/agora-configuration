@@ -43,3 +43,5 @@ class Container:
     def saveEntity(self, entity):
         self._entityManager.persist(entity)
         self._entityManager.flush()
+        if hasattr(entity, 'getId'):
+            self._svars.put('output', str(entity.getId()))
