@@ -112,8 +112,7 @@ class CommunityManager(Container):
         
     def saveCommunity(self, community):
         self._logger.info(community.longDescription())
-        self._entityManager.persist(community)
-        self._entityManager.flush()
+        self.saveEntity(community)
         
     def addContractors(self, community):
         contractorsManager = ContractorManager()
