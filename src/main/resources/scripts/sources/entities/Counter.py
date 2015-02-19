@@ -21,9 +21,14 @@ class CounterManager(Container):
         if self._svars.get('type') == 'MAIN':
             counter.setType(DictionaryManager().getDictionaryInstance(self._svars.get('groupId')))
         elif self._svars.get('type') == 'POSSESSION':
-            counter.setParent(self.findById('Counter', self._svars.get('parentId')))
+            parent = self.findById('Counter', self._svars.get('parentId'))
+            counter.setParent(parent)
+            counter.setType(parent.getType())
         elif self._svars.get('type') == 'REPLACEMENT':
-            counter.setReplacementOf(self.findById('Counter', self._svars.get('replacementId')))
+            oldCounter = self.findById('Counter', self._svars.get('replacementId'))
+            counter.setReplacementOf(oldCounter)
+            counter.setType(oldCounter.getType())
+            counter.setParent(oldCounter.getParent())
         counter.setInstallation(self.parseDate(self._svars.get('installation')))
         counter.setDecomission(self.parseDate(self._svars.get('decomission')))
         counter.setSerialNumber(self._svars.get('serialNumber'))
