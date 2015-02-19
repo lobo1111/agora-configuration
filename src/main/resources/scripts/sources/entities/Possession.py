@@ -133,7 +133,7 @@ class PossessionManager(Container):
         
     def savePossession(self, possession):
         self._logger.info(possession.longDescription())
-        self._entityManager.persist(possession)
+        self.saveEntity(possession)
         communityManager = CommunityManager()
         communityManager.setSvars(self._svars)
         communityManager.setEntityManager(self._entityManager)

@@ -50,6 +50,9 @@ public class Counter implements Serializable {
     @JoinColumn(name = "parent_counter_id", referencedColumnName = "id")
     @ManyToOne
     private Counter parent;
+    @JoinColumn(name = "replacement_of", referencedColumnName = "id")
+    @ManyToOne
+    private Counter replacementOf;
     @OneToMany(mappedBy = "parent", cascade = CascadeType.PERSIST)
     private Collection<Counter> children = new ArrayList<>();
     @OneToMany(mappedBy = "counter", cascade = CascadeType.PERSIST)
@@ -61,6 +64,14 @@ public class Counter implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Counter getReplacementOf() {
+        return replacementOf;
+    }
+
+    public void setReplacementOf(Counter replacementOf) {
+        this.replacementOf = replacementOf;
     }
 
     public String getSerialNumber() {

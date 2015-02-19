@@ -122,8 +122,7 @@ class ElementManager(Container):
         element.setAlgorithm(self.findById('PaymentAlgorithm', int(self._svars.get(self._prefix + 'algorithm'))))
         
     def saveElement(self, element):
-        self._entityManager.persist(element)
-        self._entityManager.flush()
+        self.saveEntity(element)
         
     def findElementById(self, id):
         return self._entityManager.createQuery('Select element From Element element Where element.id = ' + str(id)).getSingleResult()

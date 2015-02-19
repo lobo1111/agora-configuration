@@ -29,5 +29,4 @@ class AddressManager(Container):
     
     def saveAddress(self, address):
         self._logger.info(address.longDescription())
-        self._entityManager.persist(address)
-        self._entityManager.flush()
+        self.saveEntity(address)

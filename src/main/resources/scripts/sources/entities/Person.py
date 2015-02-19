@@ -35,8 +35,7 @@ class PersonManager(Container):
         
     def savePerson(self, person):
         self._logger.info(person.longDescription())
-        self._entityManager.persist(person)
-        self._entityManager.flush()
+        self.saveEntity(person)
         
     def findPersonById(self, id):
         return self._entityManager.createQuery('Select person From Person person Where person.id = ' + id).getSingleResult()

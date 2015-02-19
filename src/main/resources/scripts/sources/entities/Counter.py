@@ -18,12 +18,15 @@ class CounterManager(Container):
         self.saveEntity(counter)
 
     def setCounterData(self, counter):
-        counter.setType(DictionaryManager().getDictionaryInstance(self._svars.get('groupId')))
+        if self._svars.get('type') == 'MAIN':
+            counter.setType(DictionaryManager().getDictionaryInstance(self._svars.get('groupId')))
+        elif self._svars.get('type') == 'POSSESSION':
+            counter.setParent(self.findById('Counter', self._svars.get('parentId')))
+        elif self._svars.get('type') == 'REPLACEMENT':
+            counter.setReplacementOf(self.findById('Counter', self._svars.get('replacementId')))
         counter.setInstallation(self.parseDate(self._svars.get('installation')))
         counter.setDecomission(self.parseDate(self._svars.get('decomission')))
         counter.setSerialNumber(self._svars.get('serialNumber'))
-        if not (self._svars.get('parentId') == ''):
-            counter.setParent(self.findById('Counter', self._svars.get('parentId')))
 
     def addStatuses(self, counter):
         for i in range(int(self._svars.get('statusCount'))): 

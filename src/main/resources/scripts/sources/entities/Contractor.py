@@ -13,14 +13,13 @@ class ContractorManager(Container):
         obligation = Contractor()
         self.setData(obligation)
         self.generateZpkNumber(obligation)
-        self._entityManager.persist(obligation)
-        self._entityManager.flush()
+        self.saveEntity(obligation)
         return obligation
         
     def update(self):
         obligation = self.findContractorById(self._svars.get(self._prefix + 'id'))
         self.setData(obligation)
-        self._entityManager.persist(obligation)
+        self.saveEntity(obligation)
         return obligation
 
     def remove(self):

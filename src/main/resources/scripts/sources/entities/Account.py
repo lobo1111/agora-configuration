@@ -99,8 +99,7 @@ class AccountManager(Container):
         
     def saveAccount(self, account):
         self._logger.info(account.longDescription())
-        self._entityManager.persist(account)
-        self._entityManager.flush()
+        self.saveEntity(account)
 
     def findAccount(self):
         id = self._svars.get('id')

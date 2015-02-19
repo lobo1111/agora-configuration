@@ -71,8 +71,7 @@ class OwnerManager(Container):
         
     def saveOwner(self, owner):
         self._logger.info(owner.longDescription())
-        self._entityManager.persist(owner)
-        self._entityManager.flush()
+        self.saveEntity(owner)
         
     def findOwnerById(self, id):
         self._logger.info('Looking for owner with ID: %s' % str(id))

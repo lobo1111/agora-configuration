@@ -51,11 +51,9 @@ class PaymentRentManager(Container):
         paymentRentDetails.setAuto(False)
     
     def savePaymentRent(self, paymentRent):
-        self._entityManager.persist(paymentRent)
-        self._entityManager.flush()
+        self.saveEntity(paymentRent)
 
     def getPossession(self):
-        
         possessionId = int(self._svars.get('possessionId'))
         return self._entityManager.createQuery('Select p From Possession p Where p.id = %d' % possessionId).getSingleResult()
     

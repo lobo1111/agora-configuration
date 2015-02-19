@@ -78,8 +78,7 @@ class CompanyManager(Container):
         
     def saveCompany(self, company):
         self._logger.info(company.longDescription())
-        self._entityManager.persist(company)
-        self._entityManager.flush()
+        self.saveEntity(company)
         
     def findCompanyById(self, id):
         return self._entityManager.createQuery('Select company From Company company Where company.id = ' + id).getSingleResult()

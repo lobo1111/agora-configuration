@@ -144,8 +144,7 @@ class InvoiceManager(Container):
         return DictionaryManager().getDictionaryInstance(int(id))
 
     def saveInvoice(self, invoice):
-        self._entityManager.persist(invoice)
-        self._entityManager.flush()
+        self.saveEntity(invoice)
         
     def findInvoice(self):
         id = self._svars.get('id')

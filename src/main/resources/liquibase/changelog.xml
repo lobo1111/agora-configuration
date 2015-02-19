@@ -1390,4 +1390,18 @@
             ADD COLUMN `comment` varchar(1024)
         </sql>
      </changeSet>
+    
+     <changeSet author='tkopacki' id='counter-replacement-of-column'>
+        <sql>                   
+            ALTER TABLE `counter`
+            ADD COLUMN `replacement_of` int(11)
+        </sql>
+     </changeSet>
+             
+    <changeSet author='tkopacki' id='counter-replacement-of-column-fkey'>
+        <sql>                   
+            ALTER TABLE `counter`
+            ADD CONSTRAINT `counter_counter_replacement_fkey` FOREIGN KEY (`replacement_of`) REFERENCES `counter` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
