@@ -26,11 +26,11 @@ class CounterManager(Container):
             counter.setType(parent.getType())
         elif self._svars.get('type') == 'REPLACEMENT':
             oldCounter = self.findById('Counter', self._svars.get('replacementId'))
+            oldCounter.setDecomission(Date())
             counter.setReplacementOf(oldCounter)
             counter.setType(oldCounter.getType())
             counter.setParent(oldCounter.getParent())
         counter.setInstallation(self.parseDate(self._svars.get('installation')))
-        counter.setDecomission(self.parseDate(self._svars.get('decomission')))
         counter.setSerialNumber(self._svars.get('serialNumber'))
 
     def addStatuses(self, counter):
