@@ -39,6 +39,16 @@ class CounterManager(Container):
             counter.getStatuses().add(cStatus)
             cStatus.setCounter(counter)
             cStatus.setStatus(float(self._svars.get('status_' + str(i))))
-            cStatus.setTimestamp(Date())
+            cStatus.setTimestamp(self.parseDate(self._svars.get('timestamp_' + str(i))))
             self._entityManager.persist(cStatus)
+
+    def addStatus(self):
+        counter = self.findById('Counter', self._svars.get('counterId'))
+        counterStatus = CounterStatus()
+        counter.getStatuses().add(counterStatus)
+        counterStatus.setCounter(counter)
+        counterStatus.setStatus(float(self._svars.get('status')))
+        counterStatus.setTimestamp(self.parseDate(self._svars.get('timestamp')))
+        self.saveEntity(counter)
+        self.saveEntity(counterStatus)
 
