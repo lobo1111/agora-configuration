@@ -84,6 +84,7 @@
         #if($counter.getPossession())
         <counter>
             <id>$!counter.getId()</id>
+            <group>$!counter.getType().getValue()</group>
             <serialNumber>$!counter.getSerialNumber()</serialNumber>
             <possession>
                 <id>$!counter.getPossession().getId()</id>
@@ -104,6 +105,7 @@
         #if(!$counter.getPossession())
         <counter>
             <id>$!counter.getId()</id>
+            <group>$!counter.getType().getValue()</group>
             <serialNumber>$!counter.getSerialNumber()</serialNumber>
         </counter>
         #end
