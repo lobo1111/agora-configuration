@@ -1404,4 +1404,11 @@
             ADD CONSTRAINT `counter_counter_replacement_fkey` FOREIGN KEY (`replacement_of`) REFERENCES `counter` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+     <changeSet author='tkopacki' id='possession-additional-data-heat-column'>
+        <sql>                   
+            ALTER TABLE `possession_additional_data`
+            ADD COLUMN `heat` decimal(10,2) DEFAULT '0.00'
+        </sql>
+     </changeSet>
 </databaseChangeLog> 

@@ -38,6 +38,8 @@ public class PossessionAdditionalData implements Serializable {
     private double hotWater;
     @Column(name = "cold_water")
     private double coldWater;
+    @Column(name = "heat")
+    private double heat;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "possession_id")
     private Possession possession;
@@ -107,6 +109,14 @@ public class PossessionAdditionalData implements Serializable {
 
     public void setColdWater(double coldWater) {
         this.coldWater = coldWater;
+    }
+
+    public double getHeat() {
+        return heat;
+    }
+
+    public void setHeat(double heat) {
+        this.heat = heat;
     }
 
     public Possession getPossession() {

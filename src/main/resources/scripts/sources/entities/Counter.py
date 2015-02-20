@@ -26,7 +26,7 @@ class CounterManager(Container):
             counter.setType(parent.getType())
         elif self._svars.get('type') == 'REPLACEMENT':
             oldCounter = self.findById('Counter', self._svars.get('replacementId'))
-            oldCounter.setDecomission(Date())
+            oldCounter.setDecomission(self.parseDate(self._svars.get('installation')))
             counter.setReplacementOf(oldCounter)
             counter.setType(oldCounter.getType())
             counter.setParent(oldCounter.getParent())
