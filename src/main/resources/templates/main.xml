@@ -827,6 +827,8 @@
                     Owner owner
                     LEFT OUTER JOIN owner.company company
                     LEFT OUTER JOIN owner.person person
+                    LEFT OUTER JOIN person.address pAddress
+                    LEFT OUTER JOIN company.address cAddress
                     JOIN owner.possession possession
                     JOIN possession.community community
                     WHERE {:where}
