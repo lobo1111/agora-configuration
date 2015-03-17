@@ -91,11 +91,11 @@ class CommunityManager(Container):
         
     def addElements(self, community):
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
-            self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
-            self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
-            self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
+            self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_element_elementId"))
+            self._svars.put("override", self._svars.get(self._prefix + str(i) + "_element_override"))
+            self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_element_overrideValue"))
             communityElement = ElementManager().CreateOrUpdateCommunityElement(community)
-            if self._svars.get(self._prefix + str(i) + "_remove") == 'true':
+            if self._svars.get(self._prefix + str(i) + "_element_remove") == 'true':
                 ElementManager().dropCommunityElement(communityElement.getId())
             
     def getCompany(self, community):
@@ -119,7 +119,7 @@ class CommunityManager(Container):
 
     def addCounters(self, community):
         for i in range(int(self._svars.get(self._prefix + 'mainCountersCount'))): 
-            counterId = self._svars.get(self._prefix + str(i) + '_id')
+            counterId = self._svars.get(self._prefix + str(i) + '_counter_id')
             counter = self.findById('Counter', counterId)
             counter.setCommunity(community)
             community.getCounters().add(counter)
