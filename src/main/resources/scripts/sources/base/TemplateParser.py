@@ -55,7 +55,7 @@ class TemplateParser(Container):
                     self._logger.info('Single result found: %s' % str(singleResult))
                     return singleResult
                 except:
-                    self._logger.warn(sys.exc_info()[1])
+                    self._logger.info(sys.exc_info()[1])
                     return None
             else:
                 return query.getResultList()
