@@ -23,6 +23,7 @@ class PossessionManager(Container):
         self.savePossession(possession)
         self.propagateElementsForNewPossession(possession)
         self.addCounters(possession)
+        self.saveEntity(possession)
         return possession;
         
     def update(self):
@@ -33,6 +34,7 @@ class PossessionManager(Container):
         self.setElementsData(possession)
         self.removeOwners(possession)
         self.addCounters(possession)
+        self.saveEntity(possession)
         return possession;
         
     def remove(self):
