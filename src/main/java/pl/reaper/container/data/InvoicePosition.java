@@ -35,7 +35,7 @@ public class InvoicePosition implements Serializable {
     @JoinColumn(name = "tax_id", referencedColumnName = "id")
     private Dictionary tax;
     @Column(name = "volume")
-    private int volume;
+    private double volume;
     @Column(name = "value_net")
     private double valueNet;
     @Column(name = "value_gross")
@@ -81,11 +81,11 @@ public class InvoicePosition implements Serializable {
         this.tax = tax;
     }
 
-    public int getVolume() {
+    public double getVolume() {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(double volume) {
         this.volume = volume;
     }
 

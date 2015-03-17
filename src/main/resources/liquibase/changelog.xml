@@ -1411,4 +1411,11 @@
             ADD COLUMN `heat` decimal(10,2) DEFAULT '0.00'
         </sql>
      </changeSet>
+    
+     <changeSet author='tkopacki' id='invoice-position-volume-to-decimal'>
+        <sql>                   
+            ALTER TABLE `invoice_position` 
+            CHANGE `volume` `volume` DECIMAL(10,2) DEFAULT "0" 
+        </sql>
+     </changeSet>
 </databaseChangeLog> 

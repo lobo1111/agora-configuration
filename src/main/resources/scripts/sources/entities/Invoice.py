@@ -88,7 +88,7 @@ class InvoiceManager(Container):
             else:
                 position = self.findPositionById(positionId)
             position.setName(self._svars.get(str(i) + '_positions_name'))
-            position.setVolume(int(self._svars.get(str(i) + '_positions_volume')))
+            position.setVolume(float(self._svars.get(str(i) + '_positions_volume')))
             position.setPosition(int(self._svars.get(str(i) + '_positions_position')))
             position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
             position.setValueGross(float(self._svars.get(str(i) + '_positions_grossValue')))
