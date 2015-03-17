@@ -98,6 +98,8 @@ class PossessionManager(Container):
             self._logger.info('New possession added to community')
             community.getPossessions().add(possession)
             self._entityManager.persist(community)
+        possession.setComment1(self._svars.get(self._prefix + 'comment1'))
+        possession.setComment2(self._svars.get(self._prefix + 'comment2'))
         
     def setPossessionAdditionalData(self, possession):
         possession.getAdditionalData().setPossession(possession)

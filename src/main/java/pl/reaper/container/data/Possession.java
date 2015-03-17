@@ -44,6 +44,10 @@ public class Possession implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Address address;
+    @Column(name = "comment1")
+    private String comment1;
+    @Column(name = "comment2")
+    private String comment2;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<Owner> owners = new ArrayList<>();
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "possession")
@@ -80,6 +84,22 @@ public class Possession implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getComment1() {
+        return comment1;
+    }
+
+    public void setComment1(String comment1) {
+        this.comment1 = comment1;
+    }
+
+    public String getComment2() {
+        return comment2;
+    }
+
+    public void setComment2(String comment2) {
+        this.comment2 = comment2;
     }
 
     public Community getCommunity() {

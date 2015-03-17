@@ -1190,27 +1190,27 @@
         </sql>
     </changeSet>
     
-     <changeSet author='tkopacki' id='invoice-booked-column'>
+    <changeSet author='tkopacki' id='invoice-booked-column'>
         <sql>                   
             ALTER TABLE `invoice`
             ADD COLUMN `booked` tinyint(1) NOT NULL
         </sql>
-     </changeSet>
+    </changeSet>
     
-     <changeSet author='tkopacki' id='invoice-number-column'>
+    <changeSet author='tkopacki' id='invoice-number-column'>
         <sql>                   
             ALTER TABLE `invoice`
             ADD COLUMN `number` varchar(255) NOT NULL
         </sql>
-     </changeSet>
+    </changeSet>
     
-     <changeSet author='tkopacki' id='index-account-name'>
+    <changeSet author='tkopacki' id='index-account-name'>
         <sql>                   
             CREATE INDEX indx_account_name ON account (name);
         </sql>
-     </changeSet>
+    </changeSet>
      
-     <changeSet author='tkopacki' id='counter-table'>
+    <changeSet author='tkopacki' id='counter-table'>
         <sql>        
             CREATE TABLE `counter` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1231,7 +1231,7 @@
         </sql>
     </changeSet>
      
-     <changeSet author='tkopacki' id='counter-status-table'>
+    <changeSet author='tkopacki' id='counter-status-table'>
         <sql>        
             CREATE TABLE `counter_status` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1305,42 +1305,42 @@
             ALTER TABLE `counter`
             change decommission decomission varchar (150) NULL
         </sql>
-     </changeSet>
+    </changeSet>
     
     <changeSet author='tkopacki' id='postal-code-6-chars'>
         <sql>                   
             ALTER TABLE `address`
             MODIFY `postal_code` VARCHAR(6)
         </sql>
-     </changeSet>
+    </changeSet>
 
-     <changeSet author='tkopacki' id='payment-rent-type-flag'>
+    <changeSet author='tkopacki' id='payment-rent-type-flag'>
         <sql>                   
             ALTER TABLE `payment_rent`
             ADD COLUMN `repair_fund` tinyint(1) DEFAULT '0'
         </sql>
-     </changeSet>
+    </changeSet>
 
-     <changeSet author='tkopacki' id='payment-rent-internal-payment'>
+    <changeSet author='tkopacki' id='payment-rent-internal-payment'>
         <sql>                   
             ALTER TABLE `payment_rent`
             ADD COLUMN `internal_payment_id` int(11)
         </sql>
-     </changeSet>
+    </changeSet>
 
-     <changeSet author='tkopacki' id='charging-internal-payment'>
+    <changeSet author='tkopacki' id='charging-internal-payment'>
         <sql>                   
             ALTER TABLE `charging`
             ADD COLUMN `internal_payment_id` int(11)
         </sql>
-     </changeSet>
+    </changeSet>
 
-     <changeSet author='tkopacki' id='invoice-payment-internal-payment'>
+    <changeSet author='tkopacki' id='invoice-payment-internal-payment'>
         <sql>                   
             ALTER TABLE `invoice_payment`
             ADD COLUMN `internal_payment_id` int(11)
         </sql>
-     </changeSet>
+    </changeSet>
     
     <changeSet author='tkopacki' id='payment-rent-internal-payment-fkey'>
         <sql>                   
@@ -1384,19 +1384,19 @@
         </sql>
     </changeSet>
     
-     <changeSet author='tkopacki' id='payment-rent-comment-column'>
+    <changeSet author='tkopacki' id='payment-rent-comment-column'>
         <sql>                   
             ALTER TABLE `payment_rent`
             ADD COLUMN `comment` varchar(1024)
         </sql>
-     </changeSet>
+    </changeSet>
     
-     <changeSet author='tkopacki' id='counter-replacement-of-column'>
+    <changeSet author='tkopacki' id='counter-replacement-of-column'>
         <sql>                   
             ALTER TABLE `counter`
             ADD COLUMN `replacement_of` int(11)
         </sql>
-     </changeSet>
+    </changeSet>
              
     <changeSet author='tkopacki' id='counter-replacement-of-column-fkey'>
         <sql>                   
@@ -1405,17 +1405,31 @@
         </sql>
     </changeSet>
     
-     <changeSet author='tkopacki' id='possession-additional-data-heat-column'>
+    <changeSet author='tkopacki' id='possession-additional-data-heat-column'>
         <sql>                   
             ALTER TABLE `possession_additional_data`
             ADD COLUMN `heat` decimal(10,2) DEFAULT '0.00'
         </sql>
-     </changeSet>
+    </changeSet>
     
-     <changeSet author='tkopacki' id='invoice-position-volume-to-decimal'>
+    <changeSet author='tkopacki' id='invoice-position-volume-to-decimal'>
         <sql>                   
             ALTER TABLE `invoice_position` 
             CHANGE `volume` `volume` DECIMAL(10,2) DEFAULT "0" 
         </sql>
-     </changeSet>
+    </changeSet>
+     
+    <changeSet author='tkopacki' id='possession-comment-1'>
+        <sql>                   
+            ALTER TABLE `possession`
+            ADD COLUMN `comment1` text
+        </sql>
+    </changeSet>
+     
+    <changeSet author='tkopacki' id='possession-comment-2'>
+        <sql>                   
+            ALTER TABLE `possession`
+            ADD COLUMN `comment2` text
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
