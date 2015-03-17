@@ -46,9 +46,11 @@ class CounterManager(Container):
         counter = self.findById('Counter', self._svars.get('counterId'))
         counterStatus = CounterStatus()
         counter.getStatuses().add(counterStatus)
+        counter.getPossession().setComment2(self._svars.get('comment2'))
         counterStatus.setCounter(counter)
         counterStatus.setStatus(float(self._svars.get('status')))
         counterStatus.setTimestamp(self.parseDate(self._svars.get('timestamp')))
+        self.saveEntity(counter.getPossession())
         self.saveEntity(counter)
         self.saveEntity(counterStatus)
 
