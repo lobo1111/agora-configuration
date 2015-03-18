@@ -271,7 +271,7 @@
                 <name>possession</name>
                 <data>
                     {:single}
-                    SELECT p FROM Possession p Join Counter p.counters c WHERE c.id = {:id}
+                    SELECT p FROM Possession p Join p.counters c WHERE c.id = {:id}
                 </data>
             </var>
         </variables>
