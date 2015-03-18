@@ -264,6 +264,19 @@
         </variables>
     </template>
     <template>
+        <name>entity-possession-comment</name>
+        <source>entity-possession.vtl</source>
+        <variables>
+            <var>
+                <name>possession</name>
+                <data>
+                    {:single}
+                    SELECT p FROM Possession p Join Counter p.counters c WHERE c.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-account</name>
         <source>entity-account.vtl</source>
         <variables>
