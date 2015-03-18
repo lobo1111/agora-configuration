@@ -34,6 +34,8 @@ public class CounterStatus implements Serializable {
     private Date timestamp;
     @Column(name = "status")
     private double status;
+    @Column(name = "predicted")
+    private boolean predicted;
 
     public Integer getId() {
         return id;
@@ -41,6 +43,14 @@ public class CounterStatus implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public boolean isPredicted() {
+        return predicted;
+    }
+
+    public void setPredicted(boolean predicted) {
+        this.predicted = predicted;
     }
 
     public Counter getCounter() {

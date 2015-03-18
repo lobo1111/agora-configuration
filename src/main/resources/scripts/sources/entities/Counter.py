@@ -40,6 +40,10 @@ class CounterManager(Container):
             cStatus.setCounter(counter)
             cStatus.setStatus(float(self._svars.get('status_' + str(i))))
             cStatus.setTimestamp(self.parseDate(self._svars.get('timestamp_' + str(i))))
+            if self._svars.get('predicted_' + str(i)) == 'true':
+                cStatus.setPredicted(True)
+            else:
+                cStatus.setPredicted(False)
             self._entityManager.persist(cStatus)
 
     def addStatus(self):
@@ -50,6 +54,10 @@ class CounterManager(Container):
         counterStatus.setCounter(counter)
         counterStatus.setStatus(float(self._svars.get('status')))
         counterStatus.setTimestamp(self.parseDate(self._svars.get('timestamp')))
+        if self._svars.get('predicted') == 'true':
+            counterStatus.setPredicted(True)
+        else:
+            counterStatus.setPredicted(False)
         self.saveEntity(counter.getPossession())
         self.saveEntity(counter)
         self.saveEntity(counterStatus)

@@ -1432,4 +1432,11 @@
             ADD COLUMN `comment2` text
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='counter-status-predicted-column'>
+        <sql>                   
+            ALTER TABLE `counter_status`
+            ADD COLUMN `predicted` tinyint(1) DEFAULT '0'
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
