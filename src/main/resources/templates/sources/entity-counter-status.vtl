@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<counter>
+    <id>$!entity.getCounter().getId()</id>
+    <statusList>
+        <status>
+            <id>$entity.getId()</id>
+            <timestamp>$entity.getTimestamp().getTime()</timestamp>
+            <status>$entity.getStatus()</status>
+            <predicted>$entity.isPredicted()</predicted>
+        </status>
+    </statusList>
+</counter>

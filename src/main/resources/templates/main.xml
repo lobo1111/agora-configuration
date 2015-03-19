@@ -1536,4 +1536,25 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>last-counter-status</name>
+        <source>entity-counter-status.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT
+                        s
+                    FROM
+                        CounterStatus cs
+                        Join cs.statuses s
+                    WHERE
+                        cs.id = {:id}
+                    ORDER BY s.timestamp DESC
+                    LIMIT 1
+                </data>
+            </var>
+        </variables>
+    </template>
 </templates>
