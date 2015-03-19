@@ -1543,7 +1543,6 @@
             <var>
                 <name>entity</name>
                 <data>
-                    {:single}
                     SELECT
                         s
                     FROM
@@ -1552,7 +1551,6 @@
                     WHERE
                         cs.id = {:id}
                     ORDER BY s.timestamp DESC
-                    LIMIT 1
                 </data>
             </var>
         </variables>

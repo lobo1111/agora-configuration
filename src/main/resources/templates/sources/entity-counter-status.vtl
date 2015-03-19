@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <counter>
-    <id>$!entity.getCounter().getId()</id>
+    <id>$!entity[0].getCounter().getId()</id>
     <statusList>
         <status>
-            <id>$entity.getId()</id>
-            <timestamp>$entity.getTimestamp().getTime()</timestamp>
-            <status>$entity.getStatus()</status>
-            <predicted>$entity.isPredicted()</predicted>
+            <id>$entity[0].getId()</id>
+            <timestamp>$entity[0].getTimestamp().getTime()</timestamp>
+            <status>$entity[0].getStatus()</status>
+            <predicted>$entity[0].isPredicted()</predicted>
         </status>
     </statusList>
 </counter>
