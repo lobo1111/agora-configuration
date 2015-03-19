@@ -1546,10 +1546,10 @@
                     SELECT
                         s
                     FROM
-                        CounterStatus cs
-                        Join cs.statuses s
+                        Counter c
+                        Join c.statuses s
                     WHERE
-                        cs.id = {:id}
+                        c.id = {:id}
                     ORDER BY s.timestamp DESC
                 </data>
             </var>
