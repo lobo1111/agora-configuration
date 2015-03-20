@@ -20,7 +20,7 @@ class ChargingReport(Container):
             cElement = ChargingElement()
             cElement.setName(element.getElement().getName())
             cElement.setGroup(element.getElement().getGroup())
-            cElement.setValue(calculator.calculate(element, possession))
+            cElement.setValue(calculator.calculate(element.getElement(), possession))
             calculatedElements.add(cElement)
         return calculatedElements
 
