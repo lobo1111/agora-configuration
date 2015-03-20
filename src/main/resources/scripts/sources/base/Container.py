@@ -2,6 +2,7 @@ import helpers
 import traceback
 from base.Logger import Logger
 from java.text import SimpleDateFormat
+import sys
 
 class Container:
     _logger = Logger()
@@ -18,6 +19,7 @@ class Container:
             return self._entityManager.createQuery(sql).getSingleResult()
         except:
             self._logger.info('Entity not found %s/%s with value %s' % (entityName, field, value))
+            self._logger.info(sys.exc_info()[0])
             return None
 
     def findById(self, entityName, id):
