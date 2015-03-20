@@ -1,5 +1,5 @@
 from base.Container import Container
-from entities.Charger import Calculator
+from crons.Charger import Calculator
 from pl.reaper.container.data import ChargingElement
 from java.io import StringWriter
 from org.apache.velocity import VelocityContext
