@@ -7,7 +7,7 @@ from org.apache.velocity.app import VelocityEngine
 
 class ChargingReport(Container):
 
-    def createReport(self):
+    def create(self):
         possession = self.findById("Possession", self._svars.get("id"))
         template = self.findBy("Template", "name", "charging-report")
         calculatedElements = self.calculateElements(possession.getElements())
