@@ -25,7 +25,7 @@ class ChargingReport(Container):
             calculatedElements.append(cElement)
         return calculatedElements
 
-    def compileTemplate(template, possession, calculatedElements):
+    def compileTemplate(self, template, possession, calculatedElements):
         ve = VelocityEngine()
         ve.init()
         context = VelocityContext()
