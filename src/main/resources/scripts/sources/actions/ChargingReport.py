@@ -9,7 +9,7 @@ class ChargingReport(Container):
 
     def create(self):
         possession = self.findById("Possession", self._svars.get("id"))
-        template = self.findBy("Template", "name", "charging-report")
+        template = self.findBy("Template", "name", "'charging-report'")
         calculatedElements = self.calculateElements(possession)
         return self.compileTemplate(template, possession, calculatedElements)
 
