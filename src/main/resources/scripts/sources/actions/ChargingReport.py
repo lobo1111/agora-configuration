@@ -16,6 +16,7 @@ class ChargingReport(Container):
     def calculateElements(self, possession):
         calculatedElements = []
         for element in possession.getElements():
+            element.getElement().setGlobalValue(self.discoverValue(element))
             calculator = Calculator()
             cElement = ChargingElement()
             cElement.setName(element.getElement().getName())
@@ -34,3 +35,11 @@ class ChargingReport(Container):
         ve.evaluate(context, writer, template.getName(), unicode(template.getSource()))
         evaluatedTemplate = writer.toString()
         return evaluatedTemplate
+
+    def discoverValue(self, possessionElement):
+        if possessionElement.isOverrideParentValue():
+            return possessionElement.getGlobalValue()
+        elif possessionElement.getElementCommunity() != None and possessionElement.getElementCommunity().isOverrideParentValue():
+            return possessionElement.getElementCommunity().getGlobalValue()
+        else:
+            return possessionElement.getElement().getGlobalValue()
