@@ -18,9 +18,8 @@ class ChargingReport(Container):
         for element in possessionElements:
             calculator = Calculator()
             cElement = ChargingElement()
-            cElement.setKey(element.getKey())
-            cElement.setName(element.getName())
-            cElement.setGroup(element.getGroup())
+            cElement.setName(element.getElement().getName())
+            cElement.setGroup(element.getElement().getGroup())
             cElement.setValue(calculator.calculate(element, possession))
             calculatedElements.add(cElement)
         return calculatedElements
