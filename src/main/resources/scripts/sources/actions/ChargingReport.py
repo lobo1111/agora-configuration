@@ -11,7 +11,9 @@ class ChargingReport(Container):
         possession = self.findById("Possession", self._svars.get("id"))
         template = self.findBy("Template", "name", "'charging-report'")
         calculatedElements = self.calculateElements(possession)
-        return self.compileTemplate(template, possession, calculatedElements)
+        output = self.compileTemplate(template, possession, calculatedElements)
+        self._svars.put("output", output)
+        return output
 
     def calculateElements(self, possession):
         calculatedElements = []
