@@ -32,6 +32,8 @@ public class Counter implements Serializable {
     private Integer id;
     @Column(name = "serial_number")
     private String serialNumber;
+    @Column(name = "seal")
+    private String seal;
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne
     private Dictionary type;
@@ -64,6 +66,14 @@ public class Counter implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getSeal() {
+        return seal;
+    }
+
+    public void setSeal(String seal) {
+        this.seal = seal;
     }
 
     public Counter getReplacementOf() {

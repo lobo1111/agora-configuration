@@ -1439,4 +1439,11 @@
             ADD COLUMN `predicted` tinyint(1) DEFAULT '0'
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='counter-seal-column'>
+        <sql>                   
+            ALTER TABLE `counter`
+            ADD COLUMN `seal` varchar(255)
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
