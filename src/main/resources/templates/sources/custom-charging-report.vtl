@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<charging>
+    <possession>
+        <id>$!possession.getId()</id>
+        <address>
+            <street>$!possession.getAddress().getStreet()</street>
+            <houseNumber>$!possession.getAddress().getHouseNumber()</houseNumber>
+            <flatNumber>$!possession.getAddress().getFlatNumber()</flatNumber>
+            <postalCode>$!possession.getAddress().getPostalCode()</postalCode>
+            <city>$!possession.getAddress().getCity()</city>
+        </address>
+        <owners>
+            #foreach($owner in $!possession.getOwners())
+            <owner>
+                <id>$!owner.getId()</id>
+                <name>$!owner.getName()</name>
+            </owner>
+            #end
+        </owners>
+    </possession>
+    <elements>
+        #foreach($item in $elements)
+        <element>
+            <groupValue>$!item.getGroup().getValue()</groupValue>
+            <name>$!item.getName()</name>
+            <globalValue>$!item.getValue()</globalValue>
+        </element>
+        #end
+    </elements>
+</charging>
+

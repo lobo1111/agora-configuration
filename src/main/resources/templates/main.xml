@@ -1555,4 +1555,9 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>charging-report</name>
+        <source>custom-charging-report.vtl</source>
+        <variables />
+    </template>
 </templates>
