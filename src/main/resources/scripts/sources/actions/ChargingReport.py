@@ -22,7 +22,7 @@ class ChargingReport(Container):
             cElement.setName(element.getElement().getName())
             cElement.setGroup(element.getElement().getGroup())
             cElement.setValue(calculator.calculate(element.getElement(), possession))
-            calculatedElements.add(cElement)
+            calculatedElements.append(cElement)
         return calculatedElements
 
     def compileTemplate(template, possession, calculatedElements):
