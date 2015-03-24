@@ -20,10 +20,10 @@
         </owners>
     </possession>
     <bookingPeriod>
-        <id>$!bookingPeriod().getId()</id>
-        <number>$!bookingPeriod().getName()</number>
-        <active>$!bookingPeriod().isActive()</active>
-        <defaultPeriod>$!bookingPeriod().isDefaultPeriod()</defaultPeriod>
+        <id>$!bookingPeriod.getId()</id>
+        <number>$!bookingPeriod.getName()</number>
+        <active>$!bookingPeriod.isActive()</active>
+        <defaultPeriod>$!bookingPeriod.isDefaultPeriod()</defaultPeriod>
     </bookingPeriod>  
     <elements>
         #foreach($item in $elements)
