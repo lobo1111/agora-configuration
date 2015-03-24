@@ -2,6 +2,7 @@
 <charging>
     <possession>
         <id>$!possession.getId()</id>
+        <communityId>$!possession.getCommunity().getId()</communityId>
         <address>
             <street>$!possession.getAddress().getStreet()</street>
             <houseNumber>$!possession.getAddress().getHouseNumber()</houseNumber>
@@ -18,6 +19,12 @@
             #end
         </owners>
     </possession>
+    <bookingPeriod>
+        <id>$!bookingPeriod().getId()</id>
+        <number>$!bookingPeriod().getName()</number>
+        <active>$!bookingPeriod().isActive()</active>
+        <defaultPeriod>$!bookingPeriod().isDefaultPeriod()</defaultPeriod>
+    </bookingPeriod>  
     <elements>
         #foreach($item in $elements)
         <element>

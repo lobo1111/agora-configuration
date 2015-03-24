@@ -1,5 +1,6 @@
 from base.Container import Container
 from crons.Charger import Calculator
+from entities.BookingPeriod import BookingPeriodManager
 from pl.reaper.container.data import ChargingElement
 from java.io import StringWriter
 from org.apache.velocity import VelocityContext
@@ -33,6 +34,7 @@ class ChargingReport(Container):
         context = VelocityContext()
         context.put("possession", possession)
         context.put("elements", calculatedElements)
+        context.put("bookingPeriod", BookingPeriodManager().findDefaultBookingPeriod())
         writer = StringWriter()
         ve.evaluate(context, writer, template.getName(), unicode(template.getSource()))
         evaluatedTemplate = writer.toString()
