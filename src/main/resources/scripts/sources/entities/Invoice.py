@@ -79,37 +79,31 @@ class InvoiceManager(Container):
         return boolean == 'true'
 
     def addPositions(self, invoice):
-        notToRemove = []
-        toRemove = []
         for i in range(int(self._svars.get('positionsCount'))):
             positionId = self._svars.get(str(i) + '_positions_positionId')
             if positionId == '0':
                 position = InvoicePosition()
             else:
                 position = self.findPositionById(positionId)
-            position.setName(self._svars.get(str(i) + '_positions_name'))
-            position.setVolume(float(self._svars.get(str(i) + '_positions_volume')))
-            position.setPosition(int(self._svars.get(str(i) + '_positions_position')))
-            position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
-            position.setValueGross(float(self._svars.get(str(i) + '_positions_grossValue')))
-            position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
-            position.setInvoice(invoice)
-            invoice.getPositions().add(position)
-            self._entityManager.persist(position)
-            self._entityManager.flush()
-            notToRemove.append(position.getId())
-        for position in invoice.getPositions():
-            if not (position.getId() in notToRemove):
-                toRemove.append(position)
-        for position in toRemove:
-            invoice.getPositions().remove(position)
-            self._entityManager.remove(position)
+            if self._svars.get(str(i) + '_positions_remove') == 'true':
+                invoice.getPositions().remove(position)
+                self._entityManager.remove(position)
+            else:
+                position.setName(self._svars.get(str(i) + '_positions_name'))
+                position.setVolume(float(self._svars.get(str(i) + '_positions_volume')))
+                position.setPosition(int(self._svars.get(str(i) + '_positions_position')))
+                position.setUnitValueNet(int(self._svars.get(str(i) + '_positions_unitValueNet')))
+                position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
+                position.setValueGross(float(self._svars.get(str(i) + '_positions_grossValue')))
+                position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
+                position.setInvoice(invoice)
+                invoice.getPositions().add(position)
+                self._entityManager.persist(position)
+                self._entityManager.flush()
         self._entityManager.persist(invoice)
 
 
     def addPayments(self, invoice):
-        notToRemove = []
-        toRemove = []
         self._logger.info('registered payments: ' + str(invoice.getPayments().size()))
         for i in range(int(self._svars.get('paymentsCount'))):
             paymentId = self._svars.get(str(i) + '_payments_paymentId')
@@ -117,27 +111,18 @@ class InvoiceManager(Container):
                 payment = InvoicePayment()
             else:
                 payment = self.findPaymentById(paymentId)
-            payment.setBooked(self.parseBoolean(self._svars.get(str(i) + '_payments_booked')))
-            payment.setCreateDate(self.parseDate(self._svars.get(str(i) + '_payments_createDate')))
-            payment.setValuePayment(float(self._svars.get(str(i) + '_payments_value')))
-            if paymentId == '0':
-                payment.setInvoice(invoice)
-                invoice.getPayments().add(payment)
-            self._entityManager.persist(payment)
-            self._entityManager.flush()
-            notToRemove.append(payment.getId())
-            self._logger.info('payment not to remove: ' + str(payment.getId()))
-            
-        for payment in invoice.getPayments():
-            if not (payment.getId() in notToRemove):
-                toRemove.append(payment)
-                self._logger.info('payment to remove: ' + str(payment.getId()))
+            if self._svars.get(str(i) + '_payments_remove') == 'true':
+                invoice.getPayments().remove(payment)
+                self._entityManager.remove(payment)
             else:
-                self._logger.info('payment will be spared: ' + str(payment.getId()))
-        for payment in toRemove:
-            self._logger.info('payment removed: ' + str(payment.getId()))
-            invoice.getPayments().remove(payment)
-            self._entityManager.remove(payment)
+                payment.setBooked(self.parseBoolean(self._svars.get(str(i) + '_payments_booked')))
+                payment.setCreateDate(self.parseDate(self._svars.get(str(i) + '_payments_createDate')))
+                payment.setValuePayment(float(self._svars.get(str(i) + '_payments_value')))
+                if paymentId == '0':
+                    payment.setInvoice(invoice)
+                    invoice.getPayments().add(payment)
+                self._entityManager.persist(payment)
+                self._entityManager.flush()
         self._entityManager.persist(invoice)
 
     def findTax(self, id):

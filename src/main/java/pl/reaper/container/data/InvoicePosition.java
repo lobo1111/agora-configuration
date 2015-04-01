@@ -36,6 +36,8 @@ public class InvoicePosition implements Serializable {
     private Dictionary tax;
     @Column(name = "volume")
     private double volume;
+    @Column(name = "unit_value_net")
+    private double unitValueNet;
     @Column(name = "value_net")
     private double valueNet;
     @Column(name = "value_gross")
@@ -112,6 +114,14 @@ public class InvoicePosition implements Serializable {
         return hash;
     }
 
+    public double getUnitValueNet() {
+        return unitValueNet;
+    }
+
+    public void setUnitValueNet(double unitValueNet) {
+        this.unitValueNet = unitValueNet;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -126,6 +136,5 @@ public class InvoicePosition implements Serializable {
         }
         return true;
     }
-    
-    
+
 }
