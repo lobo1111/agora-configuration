@@ -14,7 +14,6 @@ class AddressManager(Container):
         return address
     
     def setAddressData(self, address):
-        
         address.setStreet(self._svars.get(self._prefix + 'street'))
         address.setHouseNumber(self._svars.get(self._prefix + 'houseNumber'))
         address.setFlatNumber(self._svars.get(self._prefix + 'flatNumber'))
