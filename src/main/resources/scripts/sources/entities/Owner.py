@@ -31,14 +31,14 @@ class OwnerManager(Container):
             self.bindCompanySubject(owner)
 
     def bindPersonSubject(self, owner):
-        if self._svars.get('newSubject'):
+        if self._svars.get('newSubject') == 'true':
             person = PersonManager().create()
         else:
             person = self.findById('Person', self._svars.get('personId'))
         owner.setPerson(person)    
 
     def bindCompanySubject(self, owner):
-        if self._svars.get('newSubject'):
+        if self._svars.get('newSubject') == 'true':
             company = CompanyManager().create()
         else:
             company = self.findById('Company', self._svars.get('companyId'))
