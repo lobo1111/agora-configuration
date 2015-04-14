@@ -39,7 +39,7 @@ class OwnerManager(Container):
 
     def bindCompanySubject(self, owner):
         if self._svars.get('newSubject'):
-            person = CompanyManager().create()
+            company = CompanyManager().create()
         else:
-            person = self.findById('Company', self._svars.get('companyId'))
+            company = self.findById('Company', self._svars.get('companyId'))
         owner.setCompany(company)  
