@@ -42,4 +42,4 @@ class OwnerManager(Container):
             person = CompanyManager().create()
         else:
             person = self.findById('Company', self._svars.get('companyId'))
-        owner.setCompany(company)    
+        owner.setCompany(company)  
