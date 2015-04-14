@@ -7,7 +7,7 @@ from entities.Address import AddressManager
 class OwnerManager(Container):
 
     def create(self):
-        owner = new Owner()
+        owner = Owner()
         self.setAdditionalAddress(owner)
         self.bindPossession(owner)
         self.bindSubject(owner)
