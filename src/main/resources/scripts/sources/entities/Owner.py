@@ -20,7 +20,7 @@ class OwnerManager(Container):
 
     def bindPossession(self, owner):
         possession = self.findById("Possession", self._svars.get('possessionId'))
-        onwer.setPossession(possession)
+        owner.setPossession(possession)
         possession.getOwners().add(owner)
         self.saveEntity(possession)
 
