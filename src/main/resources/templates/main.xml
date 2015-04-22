@@ -536,9 +536,9 @@
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    Join possession.owners owner
-                    Join owner.person person
-                    Join owner.company company
+                    left outer Join possession.owners owner
+                    left outer Join owner.person person
+                    left outer Join owner.company company
                     WHERE {:where}
                     ORDER BY 
                     community.name, 
@@ -557,9 +557,9 @@
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    Join possession.owners owner
-                    Join owner.person person
-                    Join owner.company company
+                    left outer Join possession.owners owner
+                    left outer Join owner.person person
+                    left outer Join owner.company company
                     WHERE {:where}
                 </data>
             </var>
