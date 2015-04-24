@@ -37,6 +37,9 @@ public class Counter implements Serializable {
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne
     private Dictionary type;
+    @JoinColumn(name = "legalization_id", referencedColumnName = "id")
+    @ManyToOne
+    private Dictionary legalization;
     @Column(name = "installation")
     @Temporal(TemporalType.DATE)
     private Date installation;
@@ -74,6 +77,14 @@ public class Counter implements Serializable {
 
     public void setSeal(String seal) {
         this.seal = seal;
+    }
+
+    public Dictionary getLegalization() {
+        return legalization;
+    }
+
+    public void setLegalization(Dictionary legalization) {
+        this.legalization = legalization;
     }
 
     public Counter getReplacementOf() {
