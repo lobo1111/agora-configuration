@@ -1298,6 +1298,26 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-years</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dict.id, dict.value)
+                    FROM 
+                    Dictionary dict
+                    JOIN dict.type dtype
+                    WHERE
+                    dtype.type = \'YEARS\'
+                    ORDER BY 
+                    dict.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-communities-names</name>
         <source>simple-list.vtl</source>
         <variables>
