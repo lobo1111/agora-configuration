@@ -33,7 +33,7 @@ class CounterManager(Container):
         counter.setInstallation(self.parseDate(self._svars.get('installation')))
         counter.setSerialNumber(self._svars.get('serialNumber'))
         counter.setSeal(self._svars.get('seal'))
-        counter.setLegalization(self.findById('Dictionary', self._svars.get('legalizationId'))
+        counter.setLegalization(self.findById('Dictionary', self._svars.get('legalizationId')))
 
     def addStatuses(self, counter):
         for i in range(int(self._svars.get('statusCount'))): 
