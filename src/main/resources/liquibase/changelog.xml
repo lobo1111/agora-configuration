@@ -1493,7 +1493,7 @@
     <changeSet author='tkopacki' id='counter-legalization-id'>
         <sql>                   
             ALTER TABLE `counter`
-            ADD COLUMN `legalization_id` int(11) NOT NULL
+            ADD COLUMN `legalization_id` int(11) NULL
         </sql>
     </changeSet>
                  
