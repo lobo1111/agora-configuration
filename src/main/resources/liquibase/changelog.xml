@@ -1453,4 +1453,40 @@
             ADD COLUMN `unit_value_net` decimal(10,2)
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='years-dictionary'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('YEARS');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='years-dictionary-insert'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2014', '2014' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2015', '2015' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2016', '2016' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2017', '2017' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2018', '2018' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2019', '2019' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2020', '2020' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2021', '2021' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2022', '2022' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2023', '2023' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2024', '2024' FROM `dictionary_type` WHERE `type` = 'YEARS';
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, '2025', '2025' FROM `dictionary_type` WHERE `type` = 'YEARS';
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
