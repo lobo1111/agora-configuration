@@ -37,7 +37,7 @@ class CommunityManager(Container):
 
     def decomission(self):
         community = self.findById("Community", self._svars.get('id'))
-        community.setName("DECOMISSIONED + " + community.getName())
+        community.setName("DECOMISSIONED " + community.getName())
         community.setOutDate(Date())
         
     def setCommunityData(self, community):
