@@ -17,7 +17,8 @@ class CommunityManager(Container):
         self._prefix = prefix
         
     def create(self):
-        community = Community()
+        community = Community() 
+        community.setInDate(Date())
         self.setCommunityData(community)
         self.generateZpkNumber(community)
         self.saveCommunity(community)
