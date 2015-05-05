@@ -430,7 +430,7 @@
                     Contractor contractor
                     JOIN contractor.company company
                     JOIN contractor.community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                     ORDER BY
                     community.name, contractor.name ASC
                 </data>
@@ -445,7 +445,7 @@
                     Contractor contractor
                     JOIN contractor.company company
                     JOIN contractor.community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -470,6 +470,7 @@
                     LEFT OUTER JOIN zpk.contractor contractor
                     WHERE {:where} AND
                     period.defaultPeriod = true
+                    AND community.outDate is NULL
                     ORDER BY
                     community.name, pool.key, zpk.number ASC
                 </data>
@@ -489,6 +490,7 @@
                     LEFT OUTER JOIN zpk.contractor contractor
                     WHERE {:where} AND
                     period.defaultPeriod = true
+                    AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -505,7 +507,7 @@
                     community
                     FROM
                     Community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                     ORDER BY community.name ASC
                 </data>
             </var>
@@ -517,7 +519,7 @@
                     count(community.id)
                     FROM
                     Community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -539,7 +541,7 @@
                     left outer Join possession.owners owner
                     left outer Join owner.person person
                     left outer Join owner.company company
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                     ORDER BY 
                     community.name, 
                     possessionAddress.street, 
@@ -560,7 +562,7 @@
                     left outer Join possession.owners owner
                     left outer Join owner.person person
                     left outer Join owner.company company
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -582,7 +584,7 @@
                     JOIN account.type accountType
                     JOIN account.bank bank
                     LEFT OUTER JOIN account.parrentAccount parentAccount
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                     ORDER BY account.name ASC
                 </data>
             </var>
@@ -598,7 +600,7 @@
                     JOIN account.type accountType
                     JOIN account.bank bank
                     LEFT OUTER JOIN account.parrentAccount parentAccount
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -700,7 +702,7 @@
                     LEFT OUTER JOIN counter.community community
                     LEFT OUTER JOIN counter.possession possession
                     JOIN counter.type dtype
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                     ORDER BY counter.serialNumber ASC
                 </data>
             </var>
@@ -715,7 +717,7 @@
                     LEFT OUTER JOIN counter.community community
                     LEFT OUTER JOIN counter.possession possession
                     JOIN counter.type dtype
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -748,7 +750,7 @@
                     JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
                     JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = charging.booking_period_id)
                     JOIN community AS community ON (community.id = possession.community_id)
-                    WHERE {:where}
+                    WHERE {:where} AND community.out_date is NULL
                     GROUP BY charging.id)
                     UNION ALL (
                     SELECT
@@ -769,7 +771,7 @@
                     JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
                     JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = paymentRent.booking_period_id)
                     JOIN community AS community ON (community.id = possession.community_id)
-                    WHERE {:where}
+                    WHERE {:where} AND community.out_date is NULL
                     )
                     ORDER BY timestamp DESC
                 </data>
@@ -788,7 +790,7 @@
                         JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
                         JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = charging.booking_period_id)
                         JOIN community AS community ON (community.id = possession.community_id)
-                        WHERE {:where}
+                        WHERE {:where} AND community.out_date is NULL
                         UNION ALL
                         SELECT paymentRent.id
                         FROM payment_rent AS paymentRent
@@ -797,7 +799,7 @@
                         JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
                         JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = paymentRent.booking_period_id)
                         JOIN community AS community ON (community.id = possession.community_id)
-                        WHERE {:where}
+                        WHERE {:where} AND community.out_date is NULL
                     ) AS tmp
                 </data>
             </var>
@@ -850,7 +852,7 @@
                     LEFT OUTER JOIN company.address cAddress
                     JOIN owner.possession possession
                     JOIN possession.community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                     ORDER BY company.name, person.lastName ASC
                 </data>
             </var>
@@ -867,7 +869,7 @@
                     LEFT OUTER JOIN company.address cAddress
                     JOIN owner.possession possession
                     JOIN possession.community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -916,7 +918,7 @@
                     JOIN payment.debitZpk dZpk
                     JOIN payment.bookingPeriod bookingPeriod
                     JOIN cZpk.community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                     ORDER BY payment.createdDate DESC
                 </data>
             </var>
@@ -931,7 +933,7 @@
                     JOIN payment.debitZpk dZpk
                     JOIN payment.bookingPeriod bookingPeriod
                     JOIN cZpk.community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -949,7 +951,7 @@
                     FROM 
                     Invoice invoice
                     JOIN invoice.community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                     ORDER BY invoice.createDate DESC
                 </data>
             </var>
@@ -961,7 +963,7 @@
                     FROM 
                     Invoice invoice
                     JOIN invoice.community community
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -1080,7 +1082,7 @@
                         JOIN zpk.community community
                         JOIN zpk.type ztype
                     WHERE
-                        {:where}
+                        {:where} AND community.outDate is NULL
                     ORDER BY
                         ztype.key, zpk.number ASC
                 </data>
@@ -1195,7 +1197,7 @@
                     Account a
                     Join a.community c
                     WHERE 
-                    c.id = {:id}
+                    c.id = {:id}  AND c.outDate is NULL
                     ORDER BY 
                     a.number ASC
                 </data>
@@ -1328,6 +1330,8 @@
                     community.id, community.name)
                     FROM 
                     Community community 
+                    WHERE
+                    community.outDate is NULL
                     ORDER BY 
                     community.name ASC
                 </data>
@@ -1366,6 +1370,7 @@
                                     WHERE
                                         dtype.type = "PERIODS"
                                         AND dict.key = "CURRENT"))
+                        AND community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -1424,6 +1429,7 @@
                     Where 
                         rfa Is Null 
                         and rat.key = \'RENT\'
+                        AND c.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -1464,6 +1470,7 @@
                     JOIN contractor.community community
                     WHERE {:where}
                     AND invoice.paymentsSum != invoice.toPay
+                    AND community.outDate is NULL
                     ORDER BY
                     contractor.name ASC
                 </data>

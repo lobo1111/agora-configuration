@@ -1503,4 +1503,16 @@
             ADD CONSTRAINT `counter_legalization_id_fkey` FOREIGN KEY (`legalization_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet id="community-in-date" author="tkopacki">
+        <sql>
+            ALTER TABLE `community` ADD COLUMN `in_date` date NOT NULL DEFAULT now();
+        </sql>
+    </changeSet>
+    
+    <changeSet id="community-out-date" author="tkopacki">
+        <sql>
+            ALTER TABLE `community` ADD COLUMN `out_date` date NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
