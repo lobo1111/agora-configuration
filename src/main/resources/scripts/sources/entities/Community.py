@@ -34,6 +34,11 @@ class CommunityManager(Container):
         self.addContractors(community)
         self.addCounters(community)        
         self.saveCommunity(community)
+
+    def decomission(self):
+        community = self.findById("Community", self._svars.get('id'))
+        community.setName("DECOMISSIONED + " + community.getName())
+        community.setOutDate(Date())
         
     def setCommunityData(self, community):
         community.setCompany(self.getCompany(community))
