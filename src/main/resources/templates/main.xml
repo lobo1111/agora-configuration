@@ -1405,8 +1405,10 @@
                         COUNT(i.id) as counter
                     FROM
                         Invoice i
+                        JOIN i.community community
                     WHERE
                         i.accepted = false
+                        AND community.outDate is null
                 </data>
             </var>
         </variables>
