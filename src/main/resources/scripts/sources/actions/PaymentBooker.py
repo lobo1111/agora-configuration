@@ -45,11 +45,7 @@ class PaymentBooker(Container):
         return self.findZpk(zpks, 'POSSESSION_REPAIR_FUND')
     
     def findZpkCommunityRentAccount(self, zpks):
-        result = self.findZpk(zpks, 'RENT')
-        if result is None:
-            return self.findZpk(zpks, 'DEFAULT')
-        else:
-            return result
+        return self.findZpk(zpks, 'RENT', 'DEFAULT')
     
     def findZpkCommunityRepairFundAccount(self, zpks):
         return self.findZpk(zpks, 'REPAIR_FUND')
@@ -61,13 +57,9 @@ class PaymentBooker(Container):
         else:
             return account
     
-    def findZpk(self, zpks, typeKey):
+    def findZpk(self, zpks, typeKey, alternative = ''):
         zpkType = self.findZpkType(typeKey)
-        result = [zpk for zpk in zpks if zpk.getType().getKey() == zpkType.getKey()]
-        if len(result) > 0:
-            return result[0]
-        else:
-            return None
+        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkType.getKey() or zpk.getType().getKey() == 'DEFAULT'][0]
             
     def findZpkType(self, typeKey):
         return self.findDictionary(str(self.findZpkSettingId(typeKey)))
