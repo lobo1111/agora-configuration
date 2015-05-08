@@ -9,7 +9,7 @@ class PaymentBooker(Container):
         self._logger.info("All payments booked")
         
     def collectPayments(self):
-        return self._entityManager.createQuery('Select c From PaymentRent c Join c.bookingPeriod p Where c.month In (SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT") and p.defaultPeriod = True').getResultList()
+        return self._entityManager.createQuery('Select c From PaymentRent c Join c.bookingPeriod p Join c.possession possession Join possession.community community Where c.month In (SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT") and p.defaultPeriod = True and community.outDate is NULL').getResultList()
     
     def bookPayment(self, payment):
         self._logger.info("Booking payment %d" % payment.getId())
