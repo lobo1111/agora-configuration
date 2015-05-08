@@ -59,7 +59,12 @@ class PaymentBooker(Container):
     
     def findZpk(self, zpks, typeKey, alternative = ''):
         zpkType = self.findZpkType(typeKey)
-        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkType.getKey() or zpk.getType().getKey() == 'DEFAULT'][0]
+        self._logger.info('Looking for zpk type: %s' % typeKey)
+        for zpk in zpks:
+            self._logger.info('Checking: %s' % zpk.getType().getKey())
+            if zpk.getType().getKey() == zpkType.getKey() or zpk.getType().getKey() == alternative:
+                self._logger.info('Found it !')
+                return zpk
             
     def findZpkType(self, typeKey):
         return self.findDictionary(str(self.findZpkSettingId(typeKey)))
