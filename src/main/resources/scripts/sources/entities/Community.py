@@ -117,8 +117,8 @@ class CommunityManager(Container):
     def addContractors(self, community):
         contractorsManager = ContractorManager()
         for i in range(int(self._svars.get(self._prefix + 'contractorsCount'))): 
-            self._svars.put(str(i) + 'communityId', str(community.getId()))
-            contractorsManager.setPrefix(str(i))
+            self._svars.put(str(i) + '_countractor_communityId', str(community.getId()))
+            contractorsManager.setPrefix(str(i) + '_countractor_')
             obligation = contractorsManager.create()
             community.getZpks().addAll(obligation.getZpks())
         self.saveCommunity(community)

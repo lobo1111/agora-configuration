@@ -66,21 +66,21 @@ class PossessionManager(Container):
         
     def setElementsData(self, possession):
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
-            self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
-            self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
-            self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
+            self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_element_elementId"))
+            self._svars.put("override", self._svars.get(self._prefix + str(i) + "_element_override"))
+            self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_element_overrideValue"))
             manager = ElementManager()
             manager.setSvars(self._svars)
             manager.setEntityManager(self._entityManager)
             element = manager.CreateOrUpdatePossessionElement(possession)
-            if self._svars.get(self._prefix + str(i) + "_remove") == 'true':
+            if self._svars.get(self._prefix + str(i) + "_element_remove") == 'true':
                 ElementManager().dropPossessionElement(element.getId())
 
     def removeOwners(self, possession):
         notToRemove = []
         toRemove = []
         for i in range(int(self._svars.get(self._prefix + 'ownersCount'))): 
-            notToRemove.append(int(self._svars.get(self._prefix + str(i) + "_ownerId")))
+            notToRemove.append(int(self._svars.get(self._prefix + str(i) + "_owner_ownerId")))
         for owner in possession.getOwners():
             if not (owner.getId() in notToRemove):
                 toRemove.append(owner)
@@ -138,7 +138,7 @@ class PossessionManager(Container):
             
     def addCounters(self, possession):
         for i in range(int(self._svars.get(self._prefix + 'countersCount'))): 
-            counterId = self._svars.get(self._prefix + str(i) + '_id')
+            counterId = self._svars.get(self._prefix + str(i) + '_counter_id')
             counter = self.findById('Counter', counterId)
             counter.setCommunity(possession.getCommunity())
             counter.setPossession(possession)
