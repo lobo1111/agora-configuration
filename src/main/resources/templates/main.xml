@@ -835,6 +835,39 @@
         </variables>
     </template>
     <template>
+        <name>list-bank-notes</name>
+        <source>list-bank-notes.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    note
+                    FROM 
+                    BankNotes note
+                    JOIN note.element element
+                    JOIN note.possession possession
+                    JOIN possession.community community
+                    WHERE {:where}
+                    ORDER BY created_at DESC
+                </data>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(note.id)
+                    FROM 
+                    BankNotes note
+                    JOIN note.element element
+                    JOIN note.possession possession
+                    JOIN possession.community community
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-owners</name>
         <source>list-owners.vtl</source>
         <variables>

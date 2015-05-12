@@ -1509,4 +1509,32 @@
             ALTER TABLE `community` ADD COLUMN `out_date` date NULL;
         </sql>
     </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-note-table'>
+        <sql>        
+            CREATE TABLE `bank_note` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `element_id` int(11) NOT NULL,
+            `possession_id` int(11) NOT NULL,
+            `note_value` decimal(10,2) NULL,
+            `description varchar(1024) NULL,
+            `created_at` date DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-note-element-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_note`
+            ADD CONSTRAINT `bank_element_fkey` FOREIGN KEY (`element_id`) REFERENCES `element` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-note-possession-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_note`
+            ADD CONSTRAINT `bank_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
