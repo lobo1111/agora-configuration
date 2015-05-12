@@ -858,7 +858,7 @@
                     SELECT 
                     count(note.id)
                     FROM 
-                    BankNotes note
+                    BankNote note
                     JOIN note.element element
                     JOIN note.possession possession
                     JOIN possession.community community
