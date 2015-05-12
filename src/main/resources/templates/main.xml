@@ -850,7 +850,7 @@
                     JOIN note.possession possession
                     JOIN possession.community community
                     WHERE {:where}
-                    ORDER BY created_at DESC
+                    ORDER BY createdAt DESC
                 </data>
                 <name>countRows</name>
                 <data>
