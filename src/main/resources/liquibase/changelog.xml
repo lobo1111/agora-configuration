@@ -1517,7 +1517,7 @@
             `element_id` int(11) NOT NULL,
             `possession_id` int(11) NOT NULL,
             `note_value` decimal(10,2) NULL,
-            `description varchar(1024) NULL,
+            `description` varchar(1024) NULL,
             `created_at` date DEFAULT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
