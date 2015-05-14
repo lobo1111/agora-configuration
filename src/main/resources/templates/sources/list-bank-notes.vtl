@@ -3,6 +3,7 @@
     #foreach($row in $items)
     <item>
         <id>$!row.getId()</id>
+        <value>$!row.getNoteValue()</value>
         <createdAt>$!row.getCreatedAt().getTime()</createdAt>
         <description>$!row.getDescription()</description>
         <element>
