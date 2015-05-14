@@ -1,4 +1,4 @@
-from pl.reaper.container.data import Account
+from pl.reaper.container.data import BankNote
 from base.Container import Container
 
 class BankNoteManager(Container):

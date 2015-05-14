@@ -38,6 +38,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-bank-note</name>
+        <source>entity-bank-note.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    BankNote e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-invoice</name>
         <source>entity-invoice.vtl</source>
         <variables>
