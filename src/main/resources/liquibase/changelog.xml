@@ -1537,4 +1537,17 @@
             ADD CONSTRAINT `bank_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet id="bank-note-internal_payment-column" author="tkopacki">
+        <sql>
+            ALTER TABLE `bank_note` ADD COLUMN `internal_payment_id` int(11) NULL;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-note-internal_payment-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_note`
+            ADD CONSTRAINT `bank_internal_payment_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

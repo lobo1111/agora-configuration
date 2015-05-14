@@ -31,6 +31,8 @@ public class BankNote implements Serializable {
     @JoinColumn(name = "element_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Element element;
+    @JoinColumn(name = "internal_payment_id", referencedColumnName = "id")
+    private InternalPayment internalPayment;
     @Column(name = "note_value")
     private double noteValue;
     @Column(name = "description")
@@ -45,6 +47,14 @@ public class BankNote implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public InternalPayment getInternalPayment() {
+        return internalPayment;
+    }
+
+    public void setInternalPayment(InternalPayment internalPayment) {
+        this.internalPayment = internalPayment;
     }
 
     public Date getCreatedAt() {

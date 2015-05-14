@@ -11,3 +11,8 @@ class BankNoteManager(Container):
         note.setNoteValue(float(self._svars.get('value')))
         note.setDescription(self._svars.get('description'))
         self.saveEntity(note)
+
+    def remove(self):
+        note = self.findById("BankNote", self._svars.get('id'))
+        if note.getInternalPayment() == None:
+            self._entityManager.remove(note)
