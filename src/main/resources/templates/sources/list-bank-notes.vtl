@@ -22,14 +22,14 @@
             </address>
         </possession>
         <community>
-            <id>$!row.getCommunity().getId()</id>
+            <id>$!row.getPossession().getCommunity().getId()</id>
             <company>
-                <name>$!row.getCommunity().getCompany().getName()</name>
+                <name>$!row.getPossession().getCommunity().getCompany().getName()</name>
             </company>
         </community>
     </item>
     #end
     <settings>
-        <maxResults>$countRows</maxResults>
+        <maxResults>$!countRows</maxResults>
     </settings>
 </bankNotes>

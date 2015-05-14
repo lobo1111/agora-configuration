@@ -870,6 +870,8 @@
                     WHERE {:where}
                     ORDER BY note.createdAt DESC
                 </data>
+            </var>
+            <var>
                 <name>countRows</name>
                 <data>
                     {:single}
