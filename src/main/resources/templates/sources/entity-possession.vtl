@@ -55,35 +55,32 @@
     </owners>
     <payments>
         #foreach($e in $!possession.getChargingsCurrentPeriod())
-        #set($value = $!e.calculateValue() * -1)
         <payment>
             <id>$!e.getId()</id>
             <type>CHARGING</type>
             <month>$!e.getMonth()</month>
             <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$!value</value>
+            <value>$math.mul($e.calculateValue(), "-1")</value>
             <createDate>$!e.getTimestamp().getTime()</createDate>
         </payment>
         #end
         #foreach($e in $!possession.getPaymentsCurrentPeriod())
-        #set($value = $!e.calculateValue() * 1)
         <payment>
             <id>$!e.getId()</id>
             <type>PAYMENT</type>
             <month>$!e.getMonth()</month>
             <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$!value</value>
+            <value>$math.mul($e.calculateValue(), "1")</value>
             <createDate>$!e.getTimestamp().getTime()</createDate>
         </payment>
         #end
         #foreach($e in $!possession.getBankNotesCurrentPeriod())
-        #set($value = $!e.calculateValue() * -1)
         <payment>
             <id>$!e.getId()</id>
             <type>NOTE</type>
             <month>$!e.getMonth()</month>
             <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$!value</value>
+            <value>$math.mul($e.calculateValue(), "-1")</value>
             <createDate>$!e.getCreatedAt().getTime()</createDate>
         </payment>
         #end
