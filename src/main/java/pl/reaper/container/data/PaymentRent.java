@@ -125,6 +125,10 @@ public class PaymentRent implements Serializable {
         return paymentRentDetails.getValue();
     }
 
+    public double calculateNegativeValue() {
+        return calculateValue() * -1;
+    }
+
     public String getComment() {
         return comment;
     }

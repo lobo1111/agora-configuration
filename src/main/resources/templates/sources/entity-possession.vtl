@@ -60,7 +60,7 @@
             <type>CHARGING</type>
             <month>$!e.getMonth()</month>
             <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$math.mul($e.calculateValue(), "-1")</value>
+            <value>$e.calculateNegativeValue()</value>
             <createDate>$!e.getTimestamp().getTime()</createDate>
         </payment>
         #end
@@ -70,7 +70,7 @@
             <type>PAYMENT</type>
             <month>$!e.getMonth()</month>
             <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$math.mul($e.calculateValue(), "1")</value>
+            <value>$e.calculateNegativeValue()</value>
             <createDate>$!e.getTimestamp().getTime()</createDate>
         </payment>
         #end
@@ -80,7 +80,7 @@
             <type>NOTE</type>
             <month>$!e.getMonth()</month>
             <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$math.mul($e.calculateValue(), "-1")</value>
+            <value>$e.calculateNegativeValue()</value>
             <createDate>$!e.getCreatedAt().getTime()</createDate>
         </payment>
         #end

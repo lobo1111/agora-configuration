@@ -1,6 +1,5 @@
 from java.io import StringWriter
 from org.apache.velocity import VelocityContext
-from org.apache.velocity.tools.generic import MathTool
 from org.apache.velocity.app import VelocityEngine
 from base.Container import Container
 
@@ -26,7 +25,6 @@ class TemplateParser(Container):
         ve = VelocityEngine()
         ve.init()
         context = VelocityContext()
-        context.put("math", MathTool());
         for var in template.getTemplateVariableCollection():
             context.put(var.getName(), self.loadData(var.getData()))
         writer = StringWriter()

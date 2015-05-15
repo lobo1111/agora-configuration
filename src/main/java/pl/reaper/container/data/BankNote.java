@@ -125,4 +125,7 @@ public class BankNote implements Serializable {
         this.description = description;
     }
 
+    public double calculateNegativeValue() {
+        return getNoteValue() * -1;
+    }
 }
