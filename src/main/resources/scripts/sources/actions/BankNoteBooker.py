@@ -13,7 +13,6 @@ class BankNoteBooker(Container):
     
     def bookNote(self, note):
         self._logger.info("Booking note %d" % note.getId())
-        possession = note.getPossession()
         zpkCredit, zpkDebit = self.collectZpks(note)
         self.createAndBookPayment(note, zpkCredit, zpkDebit)
 
@@ -31,8 +30,8 @@ class BankNoteBooker(Container):
         manager.book()
 
     def collectZpks(self, note):
-        zpkCredit = self.findRentCreditZpk(possession.getCommunity())
-        zpkDebit = self.getZpkRent(possession.getZpks())
+        zpkCredit = self.findRentCreditZpk(note.getPossession().getCommunity())
+        zpkDebit = self.getZpkRent(note.getPossession().getZpks())
         return zpkCredit, zpkDebit
 
     def getZpkRent(self, zpks):
