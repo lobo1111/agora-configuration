@@ -74,6 +74,16 @@
             <createDate>$!e.getTimestamp().getTime()</createDate>
         </payment>
         #end
+        #foreach($e in $!possession.getgetBankNotesCurrentPeriod())
+        <payment>
+            <id>$!e.getId()</id>
+            <type>NOTE</type>
+            <month>$!e.getMonth()</month>
+            <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
+            <value>$!e.getNoteValue()</value>
+            <createDate>$!e.getCreatedAt().getTime()</createDate>
+        </payment>
+        #end
     </payments>
     <counters>
         #foreach($counter in $possession.getCounters())

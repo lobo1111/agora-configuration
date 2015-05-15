@@ -62,6 +62,8 @@ public class Possession implements Serializable {
     private Collection<PaymentRent> payments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<Counter> counters = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
+    private Collection<BankNote> bankNotes = new ArrayList<>();
 
     public Possession() {
     }
@@ -169,6 +171,16 @@ public class Possession implements Serializable {
         for (PaymentRent payment : payments) {
             if (payment.getBookingPeriod().isDefaultPeriod()) {
                 filtered.add(payment);
+            }
+        }
+        return filtered;
+    }
+
+    public Collection<BankNote> getBankNotesCurrentPeriod() {
+        List<BankNote> filtered = new ArrayList<>();
+        for (BankNote note : bankNotes) {
+            if (note.getBookingPeriod().isDefaultPeriod()) {
+                filtered.add(note);
             }
         }
         return filtered;

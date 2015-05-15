@@ -1550,4 +1550,36 @@
             ADD CONSTRAINT `bank_internal_payment_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet id="bank-note-internal_payment-column" author="tkopacki">
+        <sql>
+            ALTER TABLE `bank_note` ADD COLUMN `internal_payment_id` int(11) NULL;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-note-internal_payment-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_note`
+            ADD CONSTRAINT `bank_internal_payment_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet id="bank-note-booking-period-column" author="tkopacki">
+        <sql>
+            ALTER TABLE `bank_note` ADD COLUMN `booking_period_id` int(11) NOT NULL;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-note-booking-period-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_note`
+            ADD CONSTRAINT `bank_note_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet id="bank-note-month-column" author="tkopacki">
+        <sql>
+            ALTER TABLE `bank_note` ADD COLUMN `month` int(11) NOT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
