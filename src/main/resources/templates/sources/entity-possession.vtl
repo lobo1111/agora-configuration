@@ -70,11 +70,11 @@
             <type>PAYMENT</type>
             <month>$!p.getMonth()</month>
             <bookingPeriodName>$!p.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$p.calculateNegativeValue()</value>
+            <value>$p.calculateValue()</value>
             <createDate>$!p.getTimestamp().getTime()</createDate>
         </payment>
         #end
-        #foreach($e in $!possession.getBankNotesCurrentPeriod())
+        #foreach($n in $!possession.getBankNotesCurrentPeriod())
         <payment>
             <id>$!n.getId()</id>
             <type>NOTE</type>
