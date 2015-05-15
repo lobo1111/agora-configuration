@@ -24,7 +24,7 @@ class BankNoteBooker(Container):
         manager = InternalPaymentManager()
         payment = manager.create()
         note.setInternalPayment(payment)
-        self.saveEntity(rentPayment)
+        self.saveEntity(payment)
         self._entityManager.flush()
         self._svars.put('paymentId', str(payment.getId()))
         manager.book()
