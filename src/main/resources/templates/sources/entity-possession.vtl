@@ -74,7 +74,7 @@
             <createDate>$!e.getTimestamp().getTime()</createDate>
         </payment>
         #end
-        #foreach($e in $!possession.getgetBankNotesCurrentPeriod())
+        #foreach($e in $!possession.getBankNotesCurrentPeriod())
         <payment>
             <id>$!e.getId()</id>
             <type>NOTE</type>

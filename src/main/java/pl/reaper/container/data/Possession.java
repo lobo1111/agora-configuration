@@ -183,7 +183,7 @@ public class Possession implements Serializable {
                 filtered.add(note);
             }
         }
-        return bankNotes;
+        return filtered;
     }
 
     public String getOwnersAsString() {
@@ -258,7 +258,7 @@ public class Possession implements Serializable {
         return address.getFullAddress();
     }
 
-    public double calcuateStartCredit() {
+    public double calculateStartCredit() {
         double startCredit = 0;
         for (ZakladowyPlanKont zpk : zpks) {
             startCredit += zpk.getCurrentBalance().getStartCredit();
@@ -266,7 +266,7 @@ public class Possession implements Serializable {
         return startCredit;
     }
 
-    public double calcuateStartDebit() {
+    public double calculateStartDebit() {
         double startDebit = 0;
         for (ZakladowyPlanKont zpk : zpks) {
             startDebit += zpk.getCurrentBalance().getStartDebit();
