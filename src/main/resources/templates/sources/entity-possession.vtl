@@ -54,34 +54,34 @@
         #end
     </owners>
     <payments>
-        #foreach($e in $!possession.getChargingsCurrentPeriod())
+        #foreach($c in $!possession.getChargingsCurrentPeriod())
         <payment>
-            <id>$!e.getId()</id>
+            <id>$!c.getId()</id>
             <type>CHARGING</type>
-            <month>$!e.getMonth()</month>
-            <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$e.calculateNegativeValue()</value>
-            <createDate>$!e.getTimestamp().getTime()</createDate>
+            <month>$!c.getMonth()</month>
+            <bookingPeriodName>$!c.getBookingPeriod().getName()</bookingPeriodName>
+            <value>$c.calculateNegativeValue()</value>
+            <createDate>$!c.getTimestamp().getTime()</createDate>
         </payment>
         #end
-        #foreach($e in $!possession.getPaymentsCurrentPeriod())
+        #foreach($p in $!possession.getPaymentsCurrentPeriod())
         <payment>
-            <id>$!e.getId()</id>
+            <id>$!p.getId()</id>
             <type>PAYMENT</type>
-            <month>$!e.getMonth()</month>
-            <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$e.calculateNegativeValue()</value>
-            <createDate>$!e.getTimestamp().getTime()</createDate>
+            <month>$!p.getMonth()</month>
+            <bookingPeriodName>$!p.getBookingPeriod().getName()</bookingPeriodName>
+            <value>$p.calculateNegativeValue()</value>
+            <createDate>$!p.getTimestamp().getTime()</createDate>
         </payment>
         #end
         #foreach($e in $!possession.getBankNotesCurrentPeriod())
         <payment>
-            <id>$!e.getId()</id>
+            <id>$!n.getId()</id>
             <type>NOTE</type>
-            <month>$!e.getMonth()</month>
-            <bookingPeriodName>$!e.getBookingPeriod().getName()</bookingPeriodName>
-            <value>$e.calculateNegativeValue()</value>
-            <createDate>$!e.getCreatedAt().getTime()</createDate>
+            <month>$!n.getMonth()</month>
+            <bookingPeriodName>$!n.getBookingPeriod().getName()</bookingPeriodName>
+            <value>$n.calculateNegativeValue()</value>
+            <createDate>$!n.getCreatedAt().getTime()</createDate>
         </payment>
         #end
     </payments>
