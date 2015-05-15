@@ -3,6 +3,7 @@ from entities.Dictionary import DictionaryManager
 from actions.ChargingBooker import ChargingBooker
 from actions.PaymentBooker import PaymentBooker
 from actions.InvoiceBooker import InvoiceBooker
+from actions.BankNoteBooker import BankNoteBooker
 
 class Close(Container):
     
@@ -41,3 +42,5 @@ class Close(Container):
         pBooker.bookAllPayments()
         iBooker = InvoiceBooker()
         iBooker.bookAllInvoices()
+        nBooker = BankNoteBooker()
+        nBooker.bookAllNotes()
