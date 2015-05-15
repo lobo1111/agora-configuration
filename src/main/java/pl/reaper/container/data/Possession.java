@@ -183,7 +183,7 @@ public class Possession implements Serializable {
                 filtered.add(note);
             }
         }
-        return filtered;
+        return bankNotes;
     }
 
     public String getOwnersAsString() {
