@@ -60,9 +60,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-tools</artifactId>
-            <version>2.0-beta3</version>
+            <groupId>velocity-tools</groupId>
+            <artifactId>velocity-tools-generic</artifactId>
+            <version>1.1</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
