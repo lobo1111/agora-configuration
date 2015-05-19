@@ -557,7 +557,6 @@
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
                     WHERE {:where} AND community.outDate is NULL
-                    GROUP BY possession.id
                     ORDER BY 
                     community.name, 
                     possessionAddress.street, 
@@ -576,7 +575,6 @@
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
                     WHERE {:where} AND community.outDate is NULL
-                    GROUP BY possession.id
                 </data>
             </var>
         </variables>
