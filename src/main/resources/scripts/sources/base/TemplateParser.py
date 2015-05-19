@@ -25,8 +25,11 @@ class TemplateParser(Container):
         ve = VelocityEngine()
         ve.init()
         context = VelocityContext()
+        self._logger.info('Template contains %d variables' % len(template.getTemplateVariableCollection()))
         for var in template.getTemplateVariableCollection():
+            self._logger.info('Preparing variable %s' % var.getName())
             context.put(var.getName(), self.loadData(var.getData()))
+            self._logger.info('Variable %s stored' % var.getName())
         writer = StringWriter()
         ve.evaluate(context, writer, template.getName(), unicode(template.getSource()))
         evaluatedTemplate = writer.toString()
