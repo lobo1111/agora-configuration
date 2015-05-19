@@ -550,16 +550,14 @@
                 <name>possessions</name>
                 <data>
                     {:limit}
-                    SELECT 
+                    SELECT
                     possession
                     FROM 
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    left outer Join possession.owners owner
-                    left outer Join owner.person person
-                    left outer Join owner.company company
                     WHERE {:where} AND community.outDate is NULL
+                    GROUP BY possession.id
                     ORDER BY 
                     community.name, 
                     possessionAddress.street, 
@@ -577,10 +575,8 @@
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    left outer Join possession.owners owner
-                    left outer Join owner.person person
-                    left outer Join owner.company company
                     WHERE {:where} AND community.outDate is NULL
+                    GROUP BY possession.id
                 </data>
             </var>
         </variables>
