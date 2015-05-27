@@ -38,9 +38,9 @@ class BankStatementManager(Container):
         if account.getType().getKey() in ['REPAIR_FUND', 'DEFAULT']:
             paymentRepairFund = self.createGenericPayment()
             if account.getType().getKey() in ['DEFAULT']:
-                paymentRent.getPaymentRentDetails().setValue(float(self._svars.get('repairFund')))
+                paymentRepairFund.getPaymentRentDetails().setValue(float(self._svars.get('repairFund')))
             else:
-                paymentRent.getPaymentRentDetails().setValue(float(self._svars.get('value')))
+                paymentRepairFund.getPaymentRentDetails().setValue(float(self._svars.get('value')))
             paymentRepairFund.setRepairFund(True)
             paymentRepairFund.setComment(self._svars.get('comment'))
             self._entityManager.persist(paymentRepairFund)
