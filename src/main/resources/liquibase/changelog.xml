@@ -1630,7 +1630,7 @@
             `created_at` date DEFAULT null,
             `value` DECIMAL(10,2) DEFAULT 0,
             PRIMARY KEY (`id`),
-            KEY `credit/debit_zpk_fkey` (`credit_zpk_id`),
+            KEY `zpk_fkey` (`zpk_id`),
             KEY `booking_period_id_fkey` (`booking_period_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         </sql>
