@@ -1569,4 +1569,91 @@
             ALTER TABLE `bank_note` ADD COLUMN `month` int(11) NOT NULL;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='waiting-for-account-table'>
+        <sql>        
+            CREATE TABLE `waiting_for_account` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `community_id` int(11) NOT NULL,
+            `credit_zpk_id` int(11) NOT NULL,
+            `debit_zpk_id` int(11) NOT NULL,
+            `booking_period_id` int(11) NOT NULL,
+            `settled` tinyint(1) NOT NULL DEFAULT 0,
+            `comment` varchar(250) COLLATE utf8_polish_ci NOT NULL,
+            `created_at` date DEFAULT now(),
+            `value` DECIMAL(10,2) DEFAULT 0,
+            PRIMARY KEY (`id`),
+            KEY `community_fkey` (`community_id`),
+            KEY `credit_zpk_fkey` (`credit_zpk_id`),
+            KEY `debit_zpk_fkey` (`debit_zpk_id`),
+            KEY `booking_period_id_fkey` (`booking_period_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='waiting-for-account-community-fkey'>
+        <sql>                   
+            ALTER TABLE `waiting_for_account`
+            ADD CONSTRAINT `wfa_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='waiting-for-account-credit-zpk-fkey'>
+        <sql>                   
+            ALTER TABLE `waiting_for_account`
+            ADD CONSTRAINT `wfa_credit_zpk_fkey` FOREIGN KEY (`credit_zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='waiting-for-account-credit-zpk-fkey'>
+        <sql>                   
+            ALTER TABLE `waiting_for_account`
+            ADD CONSTRAINT `wfa_debit_zpk_fkey` FOREIGN KEY (`debit_zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='waiting-for-account-booking-period-fkey'>
+        <sql>                   
+            ALTER TABLE `waiting_for_account`
+            ADD CONSTRAINT `wfa_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='waiting-for-account-settlement-table'>
+        <sql>        
+            CREATE TABLE `waiting_for_account_settlement` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `waiting_for_account_id` int(11) NOT NULL,
+            `zpk_id` int(11) NOT NULL,
+            `booking_period_id` int(11) NOT NULL,
+            `comment` varchar(250) COLLATE utf8_polish_ci NOT NULL,
+            `created_at` date DEFAULT now(),
+            `value` DECIMAL(10,2) DEFAULT 0,
+            PRIMARY KEY (`id`),
+            KEY `credit/debit_zpk_fkey` (`credit_zpk_id`),
+            KEY `booking_period_id_fkey` (`booking_period_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='waiting-for-account-settlement-wfa-fkey'>
+        <sql>                   
+            ALTER TABLE `waiting_for_account_settlement`
+            ADD CONSTRAINT `wfa_wfa_settlement_fkey` FOREIGN KEY (`waiting_for_account_id`) REFERENCES `waiting_for_account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='waiting-for-account-settlement-zpk-fkey'>
+        <sql>                   
+            ALTER TABLE `waiting_for_account_settlement`
+            ADD CONSTRAINT `wfa_zpk_fkey` FOREIGN KEY (`zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='waiting-for-account-settlement-booking-period-fkey'>
+        <sql>                   
+            ALTER TABLE `waiting_for_account_booking_period`
+            ADD CONSTRAINT `wfa_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
