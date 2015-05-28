@@ -1605,7 +1605,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='waiting-for-account-credit-zpk-fkey'>
+    <changeSet author='tkopacki' id='waiting-for-account-debit-zpk-fkey'>
         <sql>                   
             ALTER TABLE `waiting_for_account`
             ADD CONSTRAINT `wfa_debit_zpk_fkey` FOREIGN KEY (`debit_zpk_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
