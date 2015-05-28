@@ -1652,7 +1652,7 @@
         
     <changeSet author='tkopacki' id='waiting-for-account-settlement-booking-period-fkey'>
         <sql>                   
-            ALTER TABLE `waiting_for_account_booking_period`
+            ALTER TABLE `waiting_for_account_settlement`
             ADD CONSTRAINT `wfa_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
