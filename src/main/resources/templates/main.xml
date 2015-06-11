@@ -357,6 +357,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-internal-payment</name>
+        <source>entity-internal-payment.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    p
+                    FROM 
+                    InternalPayment p
+                    WHERE
+                    p.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-override-elements</name>
         <source>entity-override-elements.vtl</source>
         <variables>
