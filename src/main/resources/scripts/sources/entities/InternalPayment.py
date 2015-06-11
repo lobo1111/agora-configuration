@@ -14,7 +14,7 @@ class InternalPaymentManager(Container):
         payment.setBooked(False)
         payment.setAmount(float(self._svars.get('amount')))
         payment.setComment(self._svars.get('comment'))
-        self.saveEntity(payment
+        self.saveEntity(payment)
         return payment
     
     def book(self):
