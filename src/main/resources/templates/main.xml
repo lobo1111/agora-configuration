@@ -1111,6 +1111,19 @@
                         dict.key, dict.value ASC
                 </data>
             </var>
+             <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                        count(dict.id)
+                    FROM
+                        DictionaryType dictType
+                        JOIN dictType.dictionaryCollection dict
+                    WHERE
+                        dictType.type = "ZPKS"
+                </data>
+            </var>
         </variables>
     </template>
     <template>
