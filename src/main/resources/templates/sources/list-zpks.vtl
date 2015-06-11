@@ -21,7 +21,9 @@
         #end
         <community>
             <id>$!row.getCommunity().getId()</id>
-            <name>$!row.getCommunity().getCompany().getName()</name>
+            <company>
+                <name>$!row.getCommunity().getCompany().getName()</name>
+            </company>
         </community>
     </item>
     #end
