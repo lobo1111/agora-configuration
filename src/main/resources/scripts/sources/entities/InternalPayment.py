@@ -27,12 +27,12 @@ class InternalPaymentManager(Container):
             self._entityManager.persist(payment)
     
     def canCancel(self):
-        payment = self.findById('InternalPayment', self._svars.get('paymentId'))
-        return payment.getBookedDate() == ''
+        payment = self.findById('InternalPayment', self._svars.get('id'))
+        return not payment.isBooked()
     
     def cancel(self):
         if self.canCancel():
-            payment = self.findById('InternalPayment', self._svars.get('paymentId'))
+            payment = self.findById('InternalPayment', self._svars.get('id'))
             self._entityManager.remove(payment)
 
     def cancelBookedPayment(self, internalPayment):
