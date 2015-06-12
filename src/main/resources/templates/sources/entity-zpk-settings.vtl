@@ -25,5 +25,8 @@
         #if($entity.getKey() == "CHARGING_REPAIR_FUND")
             <chargingRepairFundId>$entity.getValue()</chargingRepairFundId>
         #end
+        #if($entity.getKey() == "WAITING_FOR_ACCOUNT")
+            <waitingForAccountId>$entity.getValue()</waitingForAccountId>
+        #end
     #end
 </zpks-settings>
