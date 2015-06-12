@@ -28,7 +28,7 @@ class InternalPaymentManager(Container):
     
     def canCancel(self):
         payment = self.findById('InternalPayment', self._svars.get('paymentId'))
-        return not payment.isBooked()
+        return payment.getBookedDate() == ''
     
     def cancel(self):
         if self.canCancel():
