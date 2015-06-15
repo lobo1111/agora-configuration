@@ -1570,7 +1570,7 @@
         </sql>
     </changeSet>
         
-    <changeSet author='tkopacki' id='possession-additional-data-heat-column'>
+    <changeSet author='tkopacki' id='possession-additional-data-heat-area-column'>
         <sql>                   
             ALTER TABLE `possession_additional_data`
             ADD COLUMN `heat_area` decimal(10,2) DEFAULT '0.00'
