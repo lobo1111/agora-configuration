@@ -108,6 +108,7 @@ class PossessionManager(Container):
         possession.getAdditionalData().setHotWater(Double.parseDouble(self._svars.get(self._prefix + 'hotWater')))
         possession.getAdditionalData().setColdWater(Double.parseDouble(self._svars.get(self._prefix + 'coldWater')))
         possession.getAdditionalData().setHeat(Double.parseDouble(self._svars.get(self._prefix + 'heat')))
+        possession.getAdditionalData().setHeatArea(Double.parseDouble(self._svars.get(self._prefix + 'heatArea')))
         possession.getAdditionalData().setPeople(Integer.parseInt(self._svars.get(self._prefix + 'people')))
         possession.getAdditionalData().setRooms(Integer.parseInt(self._svars.get(self._prefix + 'rooms')))
         if self._svars.get(self._prefix + 'account') != '0':
