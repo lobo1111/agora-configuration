@@ -11,6 +11,7 @@ class ZpksSettings(Container):
         self.persistDict('contractorCostId', 'CONTRACTOR_COST')
         self.persistDict('chargingRentId', 'CHARGING_RENT')
         self.persistDict('chargingRepairFundId', 'CHARGING_REPAIR_FUND')
+        self.persistDict('waitingForAccountId', 'WAITING_FOR_ACCOUNT')
         
     def persistDict(self, idVariableName, dictName):
         id = self._svars.get(idVariableName)

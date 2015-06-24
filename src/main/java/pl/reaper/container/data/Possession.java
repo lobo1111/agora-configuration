@@ -62,6 +62,8 @@ public class Possession implements Serializable {
     private Collection<PaymentRent> payments = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<Counter> counters = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
+    private Collection<BankNote> bankNotes = new ArrayList<>();
 
     public Possession() {
     }
@@ -174,6 +176,16 @@ public class Possession implements Serializable {
         return filtered;
     }
 
+    public Collection<BankNote> getBankNotesCurrentPeriod() {
+        List<BankNote> filtered = new ArrayList<>();
+        for (BankNote note : bankNotes) {
+            if (note.getBookingPeriod().isDefaultPeriod()) {
+                filtered.add(note);
+            }
+        }
+        return filtered;
+    }
+
     public String getOwnersAsString() {
         StringBuilder output = new StringBuilder();
         for (Owner owner : owners) {
@@ -246,7 +258,7 @@ public class Possession implements Serializable {
         return address.getFullAddress();
     }
 
-    public double calcuateStartCredit() {
+    public double calculateStartCredit() {
         double startCredit = 0;
         for (ZakladowyPlanKont zpk : zpks) {
             startCredit += zpk.getCurrentBalance().getStartCredit();
@@ -254,7 +266,7 @@ public class Possession implements Serializable {
         return startCredit;
     }
 
-    public double calcuateStartDebit() {
+    public double calculateStartDebit() {
         double startDebit = 0;
         for (ZakladowyPlanKont zpk : zpks) {
             startDebit += zpk.getCurrentBalance().getStartDebit();

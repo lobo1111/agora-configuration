@@ -116,4 +116,8 @@ public class Charging implements Serializable {
         }
         return value;
     }
+
+    public double calculateNegativeValue() {
+        return calculateValue() * -1;
+    }
 }

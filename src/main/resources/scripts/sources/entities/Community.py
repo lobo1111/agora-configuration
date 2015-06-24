@@ -94,6 +94,8 @@ class CommunityManager(Container):
         community.getZpks().add(zpkRent)
         zpkRepairFund = manager.generateZpkForCommunity(community, "CHARGING_REPAIR_FUND")
         community.getZpks().add(zpkRepairFund)
+        zpkWaitingForAccount = manager.generateZpkForCommunity(community, "WAITING_FOR_ACCOUNT")
+        community.getZpks().add(zpkWaitingForAccount)
         
     def addElements(self, community):
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 

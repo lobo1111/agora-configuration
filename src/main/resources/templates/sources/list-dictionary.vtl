@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <dictionary-list>
     #foreach($row in $items)
-        <item>
-            <id>$!row.getId()</id>
-            <key>$!row.getKey()</key>
-            <value>$!row.getValue()</value>
-        </item>
+    <item>
+        <id>$!row.getId()</id>
+        <key>$!row.getKey()</key>
+        <value>$!row.getValue()</value>
+    </item>
     #end
+    <settings>
+        <maxResults>$countRows</maxResults>
+    </settings>
 </dictionary-list>

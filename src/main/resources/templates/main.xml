@@ -38,6 +38,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-bank-note</name>
+        <source>entity-bank-note.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    BankNote e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-invoice</name>
         <source>entity-invoice.vtl</source>
         <variables>
@@ -339,6 +357,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-internal-payment</name>
+        <source>entity-internal-payment.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    p
+                    FROM 
+                    InternalPayment p
+                    WHERE
+                    p.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-override-elements</name>
         <source>entity-override-elements.vtl</source>
         <variables>
@@ -532,15 +568,12 @@
                 <name>possessions</name>
                 <data>
                     {:limit}
-                    SELECT 
+                    SELECT
                     possession
                     FROM 
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    left outer Join possession.owners owner
-                    left outer Join owner.person person
-                    left outer Join owner.company company
                     WHERE {:where} AND community.outDate is NULL
                     ORDER BY 
                     community.name, 
@@ -559,9 +592,6 @@
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    left outer Join possession.owners owner
-                    left outer Join owner.person person
-                    left outer Join owner.company company
                     WHERE {:where} AND community.outDate is NULL
                 </data>
             </var>
@@ -835,6 +865,41 @@
         </variables>
     </template>
     <template>
+        <name>list-bank-notes</name>
+        <source>list-bank-notes.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    note
+                    FROM 
+                    BankNote note
+                    JOIN note.element element
+                    JOIN note.possession possession
+                    JOIN possession.community community
+                    WHERE {:where}
+                    ORDER BY note.createdAt DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(note.id)
+                    FROM 
+                    BankNote note
+                    JOIN note.element element
+                    JOIN note.possession possession
+                    JOIN possession.community community
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-owners</name>
         <source>list-owners.vtl</source>
         <variables>
@@ -1044,6 +1109,19 @@
                         dictType.type = "ZPKS"
                     ORDER BY
                         dict.key, dict.value ASC
+                </data>
+            </var>
+             <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                        count(dict.id)
+                    FROM
+                        DictionaryType dictType
+                        JOIN dictType.dictionaryCollection dict
+                    WHERE
+                        dictType.type = "ZPKS"
                 </data>
             </var>
         </variables>

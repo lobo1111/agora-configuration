@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<bankNotes>
+    #foreach($row in $items)
+    <item>
+        <id>$!row.getId()</id>
+        <value>$!row.getNoteValue()</value>
+        <createdAt>$!row.getCreatedAt().getTime()</createdAt>
+        <description>$!row.getDescription()</description>
+        #if($row.getInternalPayment())
+        <booked>1</booked>
+        #else
+        <booked>0</booked>
+        #end
+        <element>
+            <id>$!row.getElement().getId()</id>
+            <groupValue>$!row.getElement().getGroup().getValue()</groupValue>
+            <name>$!row.getElement().getName()</name>
+            <globalValue>$!row.getNoteValue()</globalValue>
+        </element>
+        <possession>
+            <id>$!row.getPossession().getId()</id>
+            <address>
+                <street>$!row.getPossession().getAddress().getStreet()</street>
+                <houseNumber>$!row.getPossession().getAddress().getHouseNumber()</houseNumber>
+                <flatNumber>$!row.getPossession().getAddress().getFlatNumber()</flatNumber>
+                <postalCode>$!row.getPossession().getAddress().getPostalCode()</postalCode>
+                <city>$!row.getPossession().getAddress().getCity()</city>
+            </address>
+        </possession>
+        <community>
+            <id>$!row.getPossession().getCommunity().getId()</id>
+            <company>
+                <name>$!row.getPossession().getCommunity().getCompany().getName()</name>
+            </company>
+        </community>
+    </item>
+    #end
+    <settings>
+        <maxResults>$!countRows</maxResults>
+    </settings>
+</bankNotes>

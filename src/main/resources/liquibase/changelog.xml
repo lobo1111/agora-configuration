@@ -1509,4 +1509,71 @@
             ALTER TABLE `community` ADD COLUMN `out_date` date NULL;
         </sql>
     </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-note-table'>
+        <sql>        
+            CREATE TABLE `bank_note` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `element_id` int(11) NOT NULL,
+            `possession_id` int(11) NOT NULL,
+            `note_value` decimal(10,2) NULL,
+            `description` varchar(1024) NULL,
+            `created_at` date DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-note-element-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_note`
+            ADD CONSTRAINT `bank_element_fkey` FOREIGN KEY (`element_id`) REFERENCES `element` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-note-possession-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_note`
+            ADD CONSTRAINT `bank_possession_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet id="bank-note-internal_payment-column" author="tkopacki">
+        <sql>
+            ALTER TABLE `bank_note` ADD COLUMN `internal_payment_id` int(11) NULL;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-note-internal_payment-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_note`
+            ADD CONSTRAINT `bank_internal_payment_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet id="bank-note-booking-period-column" author="tkopacki">
+        <sql>
+            ALTER TABLE `bank_note` ADD COLUMN `booking_period_id` int(11) NOT NULL;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-note-booking-period-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_note`
+            ADD CONSTRAINT `bank_note_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet id="bank-note-month-column" author="tkopacki">
+        <sql>
+            ALTER TABLE `bank_note` ADD COLUMN `month` int(11) NOT NULL;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='possession-additional-data-heat-area-column'>
+        <sql>                   
+            ALTER TABLE `possession_additional_data`
+            ADD COLUMN `heat_area` decimal(10,2) DEFAULT '0.00'
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

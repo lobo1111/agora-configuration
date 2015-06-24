@@ -66,21 +66,21 @@ class PossessionManager(Container):
         
     def setElementsData(self, possession):
         for i in range(int(self._svars.get(self._prefix + 'elementsCount'))): 
-            self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_element_elementId"))
-            self._svars.put("override", self._svars.get(self._prefix + str(i) + "_element_override"))
-            self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_element_overrideValue"))
+            self._svars.put("elementId", self._svars.get(self._prefix + str(i) + "_elementId"))
+            self._svars.put("override", self._svars.get(self._prefix + str(i) + "_override"))
+            self._svars.put("overrideValue", self._svars.get(self._prefix + str(i) + "_overrideValue"))
             manager = ElementManager()
             manager.setSvars(self._svars)
             manager.setEntityManager(self._entityManager)
             element = manager.CreateOrUpdatePossessionElement(possession)
-            if self._svars.get(self._prefix + str(i) + "_element_remove") == 'true':
+            if self._svars.get(self._prefix + str(i) + "_remove") == 'true':
                 ElementManager().dropPossessionElement(element.getId())
 
     def removeOwners(self, possession):
         notToRemove = []
         toRemove = []
         for i in range(int(self._svars.get(self._prefix + 'ownersCount'))): 
-            notToRemove.append(int(self._svars.get(self._prefix + str(i) + "_owner_ownerId")))
+            notToRemove.append(int(self._svars.get(self._prefix + str(i) + "_ownerId")))
         for owner in possession.getOwners():
             if not (owner.getId() in notToRemove):
                 toRemove.append(owner)
@@ -108,6 +108,7 @@ class PossessionManager(Container):
         possession.getAdditionalData().setHotWater(Double.parseDouble(self._svars.get(self._prefix + 'hotWater')))
         possession.getAdditionalData().setColdWater(Double.parseDouble(self._svars.get(self._prefix + 'coldWater')))
         possession.getAdditionalData().setHeat(Double.parseDouble(self._svars.get(self._prefix + 'heat')))
+        possession.getAdditionalData().setHeatArea(Double.parseDouble(self._svars.get(self._prefix + 'heatArea')))
         possession.getAdditionalData().setPeople(Integer.parseInt(self._svars.get(self._prefix + 'people')))
         possession.getAdditionalData().setRooms(Integer.parseInt(self._svars.get(self._prefix + 'rooms')))
         if self._svars.get(self._prefix + 'account') != '0':
@@ -138,7 +139,7 @@ class PossessionManager(Container):
             
     def addCounters(self, possession):
         for i in range(int(self._svars.get(self._prefix + 'countersCount'))): 
-            counterId = self._svars.get(self._prefix + str(i) + '_counter_id')
+            counterId = self._svars.get(self._prefix + str(i) + '_id')
             counter = self.findById('Counter', counterId)
             counter.setCommunity(possession.getCommunity())
             counter.setPossession(possession)
