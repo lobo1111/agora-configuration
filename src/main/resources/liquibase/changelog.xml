@@ -1597,4 +1597,32 @@
             ALTER TABLE `account` ADD COLUMN `bank_contractor_id` int(11) NOT NULL;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='account-bank-contractor-id-fkey'>
+        <sql>                   
+            ALTER TABLE `account`
+            ADD CONSTRAINT `account_bank_contractor_fkey` FOREIGN KEY (`bank_contractor_id`) REFERENCES `contractor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='account-provision-account-fkey'>
+        <sql>                   
+            ALTER TABLE `account_provision`
+            ADD CONSTRAINT `account_provision_account_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='account-provision-booking-period-fkey'>
+        <sql>                   
+            ALTER TABLE `account_provision`
+            ADD CONSTRAINT `account_provision_booking_period_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='account-provision-internal-payment-fkey'>
+        <sql>                   
+            ALTER TABLE `account_provision`
+            ADD CONSTRAINT `account_provision_internal_payment_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
