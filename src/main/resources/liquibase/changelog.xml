@@ -1594,7 +1594,7 @@
     
     <changeSet id="account-bank-contractor-column" author="tkopacki">
         <sql>
-            ALTER TABLE `account` ADD COLUMN `bank_contractor_id` int(11) NOT NULL;
+            ALTER TABLE `account` ADD COLUMN `bank_contractor_id` int(11) NULL;
         </sql>
     </changeSet>
     
