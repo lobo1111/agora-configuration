@@ -53,7 +53,7 @@ class AccountManager(Container):
 
     def createBankContractor(self, bank, community):
         self._svars.put("obligationContractorId", bank.getCompany().getId())
-        self._svars.put("communityId", community.getId())
+        self._svars.put("community", community)
         contractor = ContractorManager().create()
         return contractor
         

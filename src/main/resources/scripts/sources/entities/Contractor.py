@@ -30,7 +30,11 @@ class ContractorManager(Container):
     def setData(self, obligation):
         obligation.setCompany(self.getCompany(obligation))
         obligation.setName(obligation.getCompany().getName())
-        obligation.setCommunity(self.findCommunity(self._svars.get(self._prefix + 'communityId')))
+        community = self._svars.get(self._prefix + 'communityId')
+        if community == None:
+            obligation.setCommunity(self.findCommunity(self._svars.get(self._prefix + 'communityId')))
+        else:
+            obligation.setCommunity(community)
 
     def generateZpkNumber(self, obligation):
         manager = ZpkManager()
