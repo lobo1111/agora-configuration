@@ -22,7 +22,7 @@ class AccountManager(Container):
         account.setType(DictionaryManager().findDictionaryInstance('ACCOUNT_TYPE', self._svars.get('accountType')))
         bank = BankManager().getByAccountNumber(account.getNumber())
         account.setBank(bank)
-        self.createBankContractor(self.createBankContractor(bank, community))
+        account.setBankContractor(self.createBankContractor(bank, community))
         self.saveAccount(account)
         self.createZpk(account)
         return account
