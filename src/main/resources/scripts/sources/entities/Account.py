@@ -1,6 +1,7 @@
 from pl.reaper.container.data import Account
 from base.Container import Container
 from entities.Bank import BankManager
+from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
 from entities.Zpk import ZpkManager
 
@@ -22,6 +23,7 @@ class AccountManager(Container):
         account.setBank(BankManager().getByAccountNumber(account.getNumber()))
         self.saveAccount(account)
         self.createZpk(account)
+        self.createBankContractor(account)
         return account
         
     def update(self):
@@ -46,6 +48,14 @@ class AccountManager(Container):
         else:
             pass
         account.setBank(BankManager().findByLabel(self._svars.get('name')))
+        self.saveAccount(account)
+
+     def createBankContractor(self, account):
+        bank = account.getBank()
+        self._svars.put("obligationContractorId", bank.getCompany.getId())
+        self._svars.put("communityId", account.getCommunity().getId())
+        contractor = ContractorManager().create()
+        account.setBankContractor(contractor)
         self.saveAccount(account)
         
     def setAccountData(self, account):

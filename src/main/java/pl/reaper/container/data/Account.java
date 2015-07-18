@@ -49,6 +49,9 @@ public class Account implements Serializable {
     @JoinColumn(name = "bank_id", referencedColumnName = "id")
     @ManyToOne
     private Bank bank;
+    @JoinColumn(name = "bank_contractor_id", referencedColumnName = "id")
+    @ManyToOne
+    private Contractor bankContractor;
     @JoinColumn(name = "parrent_account_id", referencedColumnName = "id")
     @ManyToOne
     private Account parrentAccount;
@@ -69,6 +72,14 @@ public class Account implements Serializable {
         this.id = id;
         this.name = name;
         this.number = number;
+    }
+
+    public Contractor getBankContractor() {
+        return bankContractor;
+    }
+
+    public void setBankContractor(Contractor bankContractor) {
+        this.bankContractor = bankContractor;
     }
 
     public Integer getId() {

@@ -1576,4 +1576,25 @@
             ADD COLUMN `heat_area` decimal(10,2) DEFAULT '0.00'
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='account-provision-table'>
+        <sql>        
+            CREATE TABLE `account_provision` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `account_id` int(11) NOT NULL,
+            `booking_period_id` int(11) NOT NULL,
+            `internal_payment_id` int(11) NOT NULL,
+            `month` int(11) NOT NULL,
+            `provision_value` decimal(10,2) NULL,
+            `created_at` date DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+    
+    <changeSet id="account-bank-contractor-column" author="tkopacki">
+        <sql>
+            ALTER TABLE `account` ADD COLUMN `bank_contractor_id` int(11) NOT NULL;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
