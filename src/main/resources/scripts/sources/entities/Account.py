@@ -50,7 +50,7 @@ class AccountManager(Container):
         account.setBank(BankManager().findByLabel(self._svars.get('name')))
         self.saveAccount(account)
 
-     def createBankContractor(self, account):
+    def createBankContractor(self, account):
         bank = account.getBank()
         self._svars.put("obligationContractorId", bank.getCompany.getId())
         self._svars.put("communityId", account.getCommunity().getId())
