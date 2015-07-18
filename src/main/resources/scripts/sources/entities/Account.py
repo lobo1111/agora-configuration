@@ -52,7 +52,7 @@ class AccountManager(Container):
         self.saveAccount(account)
 
     def createBankContractor(self, bank, community):
-        self._svars.put("obligationContractorId", bank.getCompany.getId())
+        self._svars.put("obligationContractorId", bank.getCompany().getId())
         self._svars.put("communityId", community().getId())
         contractor = ContractorManager().create()
         return contractor
