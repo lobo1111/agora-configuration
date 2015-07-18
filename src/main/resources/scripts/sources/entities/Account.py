@@ -20,10 +20,11 @@ class AccountManager(Container):
         account.setName(self._svars.get('accountNumber'))
         account.setNumber(self._svars.get('accountNumber'))
         account.setType(DictionaryManager().findDictionaryInstance('ACCOUNT_TYPE', self._svars.get('accountType')))
-        account.setBank(BankManager().getByAccountNumber(account.getNumber()))
+        bank = BankManager().getByAccountNumber(account.getNumber())
+        account.setBank(bank)
+        self.createBankContractor(self.createBankContractor(bank, community))
         self.saveAccount(account)
         self.createZpk(account)
-        self.createBankContractor(account)
         return account
         
     def update(self):
@@ -50,13 +51,11 @@ class AccountManager(Container):
         account.setBank(BankManager().findByLabel(self._svars.get('name')))
         self.saveAccount(account)
 
-    def createBankContractor(self, account):
-        bank = account.getBank()
+    def createBankContractor(self, bank, community):
         self._svars.put("obligationContractorId", bank.getCompany.getId())
-        self._svars.put("communityId", account.getCommunity().getId())
+        self._svars.put("communityId", community().getId())
         contractor = ContractorManager().create()
-        account.setBankContractor(contractor)
-        self.saveAccount(account)
+        return contractor
         
     def setAccountData(self, account):
         account.setName(self._svars.get('accountName'))
