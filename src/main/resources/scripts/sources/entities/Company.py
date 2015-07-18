@@ -81,4 +81,4 @@ class CompanyManager(Container):
         self.saveEntity(company)
         
     def findCompanyById(self, id):
-        return self._entityManager.createQuery('Select company From Company company Where company.id = ' + id).getSingleResult()
+        return self._entityManager.createQuery('Select company From Company company Where company.id = ' + str(id)).getSingleResult()
