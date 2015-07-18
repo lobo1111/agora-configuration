@@ -30,7 +30,7 @@ class ContractorManager(Container):
     def setData(self, obligation):
         obligation.setCompany(self.getCompany(obligation))
         obligation.setName(obligation.getCompany().getName())
-        community = self._svars.get(self._prefix + 'communityId')
+        community = self._svars.get(self._prefix + 'community')
         if community == None:
             obligation.setCommunity(self.findCommunity(self._svars.get(self._prefix + 'communityId')))
         else:
