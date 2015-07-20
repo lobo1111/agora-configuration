@@ -111,6 +111,28 @@
         #end
         #end
     </mainCounters>
+    <accountProvisions>
+        #foreach($ap in $!community.getDefaultAccount().getAccountProvisions())
+        <accountProvision>
+            <account>
+                <id>$!ap.getAccount().getId()</id>
+                <number>$!ap.getAccount().getNumber()</number>
+            </account>
+            <createdAt>$!ap.getCreatedAt()</createdAt>
+            <value>$!ap.getValue()</value>
+        </accountProvision>
+        #end
+        #foreach($ap in $!community.getRepariFundAccount().getAccountProvisions())
+        <accountProvision>
+            <account>
+                <id>$!ap.getAccount().getId()</id>
+                <number>$!ap.getAccount().getNumber()</number>
+            </account>
+            <createdAt>$!ap.getCreatedAt()</createdAt>
+            <value>$!ap.getValue()</value>
+        </accountProvision>
+        #end
+    </accountProvisions>
 </community>
 
 

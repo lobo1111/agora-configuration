@@ -60,6 +60,8 @@ public class Account implements Serializable {
     private Community community;
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
+    @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
+    private Collection<AccountProvision> accountProvisions = new ArrayList<>();
 
     public Account() {
     }
@@ -72,6 +74,14 @@ public class Account implements Serializable {
         this.id = id;
         this.name = name;
         this.number = number;
+    }
+
+    public Collection<AccountProvision> getAccountProvisions() {
+        return accountProvisions;
+    }
+
+    public void setAccountProvisions(Collection<AccountProvision> accountProvisions) {
+        this.accountProvisions = accountProvisions;
     }
 
     public Contractor getBankContractor() {
