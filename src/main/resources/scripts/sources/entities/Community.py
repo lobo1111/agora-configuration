@@ -9,8 +9,7 @@ from entities.Zpk import ZpkManager
 from entities.Element import ElementManager
 from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
-from entities.BookingPeriod import BookingPeriodManager
-from pl.reaper.container.data import AccountProvision
+from entities.AccountProvision import AccountProvisionManager
 
 class CommunityManager(Container):
     _prefix = ''
@@ -139,16 +138,10 @@ class CommunityManager(Container):
 
     def addAccountProvisions(self, community):
         for i in range(int(self._svars.get(self._prefix + 'accountProvisionsCount'))): 
-            date = self._svars.get(self._prefix + str(i) + '_ap_date')
-            value = self._svars.get(self._prefix + str(i) + '_ap_value')
-            account = self.findById("Account", self._svars.get(self._prefix + str(i) + '_ap_accountId'))
-            ap = AccountProvision()
-            ap.setAccount(account)
-            ap.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
-            ap.setProvisionValue(float(value))
-            ap.setCreatedAt(self.parseDate(date))
-            ap.setMonth(BookingPeriodManager().getCurrentMonth())
-            self.saveEntity(ap)
+            self._svars.put('accountId', self._svars.get(self._prefix + str(i) + '_ap_accountId'))
+            self._svars.put('createdAt', self._svars.get(self._prefix + str(i) + '_ap_date'))
+            self._svars.put('value', self._svars.get(self._prefix + str(i) + '_ap_value'))
+            AccountProvisionManager().create()
 
     def findCommunity(self):
         id = self._svars.get('id')
