@@ -141,7 +141,7 @@ class CommunityManager(Container):
             date = self._svars.get(self._prefix + str(i) + '_ap_date')
             value = self._svars.get(self._prefix + str(i) + '_ap_value')
             account = self.findById("Account", self._svars.get(self._prefix + str(i) + '_ap_accountId'))
-            AccountProvision ap = AccountProvision()
+            ap = AccountProvision()
             ap.setAccount(account)
             ap.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
             ap.setProvisionValue(float(value))
