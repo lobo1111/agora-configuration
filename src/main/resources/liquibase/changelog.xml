@@ -1592,6 +1592,13 @@
         </sql>
     </changeSet>
     
+    <changeSet author='tkopacki' id='account-provision-internal-payment-nullable'>
+        <sql>                   
+            ALTER TABLE `account_provision` 
+            CHANGE `internal_payment_id` `internal_payment_id` int(11) NULL 
+        </sql>
+    </changeSet>
+    
     <changeSet id="account-bank-contractor-column" author="tkopacki">
         <sql>
             ALTER TABLE `account` ADD COLUMN `bank_contractor_id` int(11) NULL;
