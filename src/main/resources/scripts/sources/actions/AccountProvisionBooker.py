@@ -29,7 +29,7 @@ class AccountProvisionBooker(Container):
         self._svars.put('paymentId', str(payment.getId()))
         manager.book()
 
-    def collectZpks(self, note):
+    def collectZpks(self, provision):
         zpkCredit = self.findCreditZpk(provision.getAccount().getCommunity())
         zpkDebit = self.findDebitZpk(provision.getAccount().getBankContractor().getZpks())
         return zpkCredit, zpkDebit
