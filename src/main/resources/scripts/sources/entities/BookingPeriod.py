@@ -23,6 +23,9 @@ class BookingPeriodManager(Container):
         except:
             return None
 
+    def getCurrentMonth(self):
+        return self._entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
+
     def closeYear(self):
         if self.canCloseYear():
             currentBookingPeriod = self.findDefaultBookingPeriod()

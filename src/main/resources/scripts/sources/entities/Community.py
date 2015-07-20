@@ -9,6 +9,7 @@ from entities.Zpk import ZpkManager
 from entities.Element import ElementManager
 from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
+from entities.BookingPeriod import BookingPeriodManager
 
 class CommunityManager(Container):
     _prefix = ''
@@ -33,6 +34,7 @@ class CommunityManager(Container):
         self.saveCommunity(community)
         self.addElements(community)
         self.addContractors(community)
+        self.addAccountProvisions(community)
         self.addCounters(community)        
         self.saveCommunity(community)
 
@@ -133,6 +135,19 @@ class CommunityManager(Container):
             community.getCounters().add(counter)
             self.saveCommunity(community)
             self._entityManager.persist(counter)
+
+    def addAccountProvisions(self, community):
+        for i in range(int(self._svars.get(self._prefix + 'accountProvisionsCount'))): 
+            date = self._svars.get(self._prefix + str(i) + '_ap_date')
+            value = self._svars.get(self._prefix + str(i) + '_ap_value')
+            account = self.findById("Account", self._svars.get(self._prefix + str(i) + '_ap_accountId'))
+            AccountProvision ap = AccountProvision()
+            ap.setAccount(account)
+            ap.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
+            ap.setProvisionValue(float(value))
+            ap.setCreatedAt(self.parseDate(date))
+            ap.setMonth(BookingPeriodManager().getCurrentMonth())
+            self.saveEntity(ap)
 
     def findCommunity(self):
         id = self._svars.get('id')
