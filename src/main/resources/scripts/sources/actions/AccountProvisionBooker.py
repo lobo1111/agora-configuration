@@ -6,7 +6,7 @@ class AccountProvisionBooker(Container):
     def bookAllProvisions(self):
         self._logger.info("Accont Provision Booker starts...")
         [self.bookProvision(provision) for provision in self.collectProvisions()]
-        self._logger.info("All bank notes booked")
+        self._logger.info("All account provisions booked")
         
     def collectProvisions(self):
         return self._entityManager.createQuery('Select c From AccountProvision c Where c.internalPayment is null').getResultList()
@@ -23,7 +23,7 @@ class AccountProvisionBooker(Container):
         self._svars.put('comment', 'Prowizja')
         manager = InternalPaymentManager()
         payment = manager.create()
-        note.setInternalPayment(payment)
+        provision.setInternalPayment(payment)
         self.saveEntity(payment)
         self._entityManager.flush()
         self._svars.put('paymentId', str(payment.getId()))
