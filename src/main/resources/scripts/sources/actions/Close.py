@@ -4,6 +4,7 @@ from actions.ChargingBooker import ChargingBooker
 from actions.PaymentBooker import PaymentBooker
 from actions.InvoiceBooker import InvoiceBooker
 from actions.BankNoteBooker import BankNoteBooker
+from actions.AccountProvisionBooker import AccountProvisionBooker
 
 class Close(Container):
     
@@ -44,3 +45,5 @@ class Close(Container):
         iBooker.bookAllInvoices()
         nBooker = BankNoteBooker()
         nBooker.bookAllNotes()
+        apBooker = AccountProvisionBooker()
+        apBooker.bookAllProvisions()
