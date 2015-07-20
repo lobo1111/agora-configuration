@@ -10,6 +10,7 @@ from entities.Element import ElementManager
 from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
 from entities.BookingPeriod import BookingPeriodManager
+from pl.reaper.container.data import AccountProvision
 
 class CommunityManager(Container):
     _prefix = ''
