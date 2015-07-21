@@ -28,5 +28,8 @@
         #if($entity.getKey() == "WAITING_FOR_ACCOUNT")
             <waitingForAccountId>$entity.getValue()</waitingForAccountId>
         #end
+        #if($entity.getKey() == "WAITING_FOR_ACCOUNT_RF")
+            <waitingForAccountRFId>$entity.getValue()</waitingForAccountRFId>
+        #end
     #end
 </zpks-settings>
