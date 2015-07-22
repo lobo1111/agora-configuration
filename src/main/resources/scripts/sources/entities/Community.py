@@ -19,7 +19,10 @@ class CommunityManager(Container):
         
     def create(self):
         community = Community() 
-        community.setInDate(Date())
+        if self._svars.get("inDate") == '':
+            community.setInDate(Date())
+        else:
+            community.setInDate(self._svars.get("inDate"))
         self.setCommunityData(community)
         self.generateZpkNumber(community)
         self.saveCommunity(community)
