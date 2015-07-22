@@ -19,7 +19,7 @@ class CommunityManager(Container):
         
     def create(self):
         community = Community() 
-        if self._svars.get("inDate") == 'null':
+        if self._svars.get("inDate") == '':
             community.setInDate(Date())
         else:
             community.setInDate(self.parseDate(self._svars.get("inDate")))
