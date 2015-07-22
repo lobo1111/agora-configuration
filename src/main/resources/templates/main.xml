@@ -1449,7 +1449,7 @@
                                         dtype.type = "PERIODS"
                                         AND dict.key = "CURRENT"))
                         AND community.outDate is NULL
-                        AND community.inDate <= CURRENT_DATE
+                        AND CURRENT_DATE > community.inDate
                 </data>
             </var>
         </variables>
