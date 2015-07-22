@@ -22,7 +22,7 @@ class CommunityManager(Container):
         if self._svars.get("inDate") == '':
             community.setInDate(Date())
         else:
-            community.setInDate(self._svars.get("inDate"))
+            community.setInDate(self.parseDate(self._svars.get("inDate")))
         self.setCommunityData(community)
         self.generateZpkNumber(community)
         self.saveCommunity(community)
