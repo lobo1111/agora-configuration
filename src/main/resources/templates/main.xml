@@ -848,6 +848,14 @@
                         JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = paymentRent.booking_period_id)
                         JOIN community AS community ON (community.id = possession.community_id)
                         WHERE {:where} AND community.out_date is NULL
+                        UNION ALL
+                        SELECT bankNote.id
+                        FROM bank_note AS bankNote
+                        JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = bankNote.booking_period_id)
+                        JOIN possession AS possession ON(possession.id = bankNote.possession_id)
+                        JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
+                        JOIN community AS community ON (community.id = possession.community_id)
+                        WHERE {:where} AND community.out_date is NULL
                     ) AS tmp
                 </data>
             </var>
