@@ -812,7 +812,7 @@
                         possessionAddress.street,
                         possessionAddress.flat_number,
                         possessionAddress.house_number,
-                        bankNode.note_value,
+                        bankNote.note_value,
                         \'BANK_NOTE\',
                         0
                     FROM bank_note AS bankNote
