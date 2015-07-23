@@ -807,7 +807,7 @@
                         bankNote.id,
                         bankNote.month,
                         bookingPeriod.name,
-                        bankNote.createdAt AS timestamp,
+                        bankNote.created_at AS timestamp,
                         community.name,
                         possessionAddress.street,
                         possessionAddress.flat_number,
