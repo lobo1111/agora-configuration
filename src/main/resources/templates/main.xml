@@ -1651,6 +1651,26 @@
         </variables>
     </template>
     <template>
+        <name>booked-payments-in-invoice</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        Count(ip.id)
+                    FROM
+                        Invoice i
+                        Join i.payments ip
+                    WHERE
+                        i.id = {:id}
+                        And ip.booked = 1
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>last-counter-status</name>
         <source>entity-counter-status.vtl</source>
         <variables>
