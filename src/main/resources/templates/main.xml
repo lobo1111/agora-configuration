@@ -802,8 +802,26 @@
                     JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = paymentRent.booking_period_id)
                     JOIN community AS community ON (community.id = possession.community_id)
                     WHERE {:where} AND community.out_date is NULL
-                    )
-                    ORDER BY timestamp DESC
+                    ) UNION ALL (
+                    SELECT
+                        bankNode.id,
+                        bankNode.month,
+                        bookingPeriod.name,
+                        bankNode.createdAt AS timestamp,
+                        community.name,
+                        possessionAddress.street,
+                        possessionAddress.flat_number,
+                        possessionAddress.house_number,
+                        bankNode.noteValue,
+                        \'BANK_NOTE\',
+                        0
+                    FROM bank_note AS bankNote
+                    JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = bankNote.booking_period_id)
+                    JOIN possession AS possession ON(possession.id = bankNote.possession_id)
+                    JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
+                    JOIN community AS community ON (community.id = possession.community_id)
+                    WHERE {:where} AND community.out_date is NULL
+                    ) ORDER BY timestamp DESC
                 </data>
             </var>
             <var>
