@@ -804,10 +804,10 @@
                     WHERE {:where} AND community.out_date is NULL
                     ) UNION ALL (
                     SELECT
-                        bankNode.id,
-                        bankNode.month,
+                        bankNote.id,
+                        bankNote.month,
                         bookingPeriod.name,
-                        bankNode.createdAt AS timestamp,
+                        bankNote.createdAt AS timestamp,
                         community.name,
                         possessionAddress.street,
                         possessionAddress.flat_number,
