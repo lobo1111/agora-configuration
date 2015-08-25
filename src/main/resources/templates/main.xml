@@ -614,7 +614,7 @@
                     JOIN account.type accountType
                     JOIN account.bank bank
                     LEFT OUTER JOIN account.parrentAccount parentAccount
-                    WHERE {:where} AND community.outDate is NULL
+                    WHERE {:where} AND community.outDate is NULL AND account.closed = 0
                     ORDER BY account.name ASC
                 </data>
             </var>
@@ -630,7 +630,7 @@
                     JOIN account.type accountType
                     JOIN account.bank bank
                     LEFT OUTER JOIN account.parrentAccount parentAccount
-                    WHERE {:where} AND community.outDate is NULL
+                    WHERE {:where} AND community.outDate is NULL and account.closed = 0
                 </data>
             </var>
         </variables>
@@ -1301,7 +1301,7 @@
                     Account a
                     Join a.community c
                     WHERE 
-                    c.id = {:id}  AND c.outDate is NULL
+                    c.id = {:id}  AND c.outDate is NULL and a.closed = 0
                     ORDER BY 
                     a.number ASC
                 </data>

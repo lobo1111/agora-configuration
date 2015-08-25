@@ -1632,4 +1632,12 @@
             ADD CONSTRAINT `account_provision_internal_payment_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+            
+    <changeSet author='tkopacki' id='account-closed-column'>
+        <sql>                   
+            ALTER TABLE `account`
+            ADD COLUMN `closed` tinyint(1) DEFAULT 0
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

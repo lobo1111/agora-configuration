@@ -36,6 +36,8 @@ public class Account implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "name")
     private String name;
+    @Column(name = "closed")
+    private boolean closed;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
@@ -74,6 +76,14 @@ public class Account implements Serializable {
         this.id = id;
         this.name = name;
         this.number = number;
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
     }
 
     public Collection<AccountProvision> getAccountProvisions() {
