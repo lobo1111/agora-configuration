@@ -73,6 +73,7 @@
             <bookingPeriodName>$!p.getBookingPeriod().getName()</bookingPeriodName>
             <value>$p.calculateValue()</value>
             <createDate>$!p.getTimestamp().getTime()</createDate>
+            <bookedDate>$!p.getPaymentRentDetails().getBookingDate().getTime()</bookedDate>
         </payment>
         #end
         #foreach($n in $!possession.getBankNotesCurrentPeriod())
