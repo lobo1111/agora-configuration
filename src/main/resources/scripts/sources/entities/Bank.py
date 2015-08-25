@@ -40,7 +40,7 @@ class BankManager(Container):
         return self._entityManager.createQuery("Select d From Bank d Join d.company c Where c.name = '%s'" % label).getSingleResult()
 
     def getByAccountNumber(self, accountNumber):
-        bankKey = accountNumber[2:5]
+        bankKey = accountNumber[2:6]
         bank = self.findBy('Bank', 'bankKey', '"' + bankKey + '"')
         if bank == None:
             bank = Bank()
