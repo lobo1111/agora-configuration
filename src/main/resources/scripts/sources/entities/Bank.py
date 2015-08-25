@@ -41,7 +41,7 @@ class BankManager(Container):
 
     def getByAccountNumber(self, accountNumber):
         bankKey = accountNumber[2:6]
-        bank = self.findBy('Bank', 'bankKey', '"' + bankKey + '"')
+        bank = self.findBy('Bank', 'key', '"' + bankKey + '"')
         if bank == None:
             bank = Bank()
             bank.setCompany(CompanyManager().generateDummyCompany())
