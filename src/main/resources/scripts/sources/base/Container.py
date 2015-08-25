@@ -16,9 +16,11 @@ class Container:
         try:
             self._logger.info('Searching for %s/%s with value %s' % (entityName, field, value))
             sql = 'Select entity From %s entity where entity.%s = %s' % (entityName, field, value)
+            self._logger.info(sql)
             return self._entityManager.createQuery(sql).getSingleResult()
         except:
             self._logger.info('Entity not found %s/%s with value %s' % (entityName, field, value))
+            self._logger.info("Error message: %s" % sys.exc_info()[0])
             return None
 
     def findById(self, entityName, id):
