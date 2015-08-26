@@ -104,7 +104,7 @@ class AccountManager(Container):
         manager.book()
         
     def findZpk(self, key, entity):
-        zpkType = self.findZpkType(typeKey)
+        zpkType = self.findZpkType(key)
         for zpk in entity.getZpks():
             if zpk.getType().getKey() == zpkType.getKey():
                 return zpk
