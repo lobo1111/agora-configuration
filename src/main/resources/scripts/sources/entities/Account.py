@@ -35,7 +35,7 @@ class AccountManager(Container):
     def close(self):
         oldAccount = self.findById('Account', self._svars.get('id'))
         oldAccount.setClosed(1)
-        community = account.getCommunity()
+        community = oldAccount.getCommunity()
         if oldAccount.getType().getKey() == "DEFAULT":
             newAccount = community.getDefaultAccount()
             if newAccount.getType().getKey() == "DEFAULT":
