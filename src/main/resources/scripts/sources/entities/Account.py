@@ -90,7 +90,7 @@ class AccountManager(Container):
             zpkCredit = self.findZpk("REPAIR_FUND", newAccount)
             self.book(zpkCredit, zpkDebit, ammount)
         else:
-            self._logger.info("Nie można zamknac konta(%d), type niezgodne" % (oldAccount.getId()))    
+            self._logger.info("Can't close account(%d), types mismatch" % (oldAccount.getId()))    
         self.saveAccount(account)
         
     def book(self, zpkCredit, zpkDebit, amount):
