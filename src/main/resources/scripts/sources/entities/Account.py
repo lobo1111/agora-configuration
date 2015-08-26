@@ -4,6 +4,7 @@ from entities.Bank import BankManager
 from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
 from entities.Zpk import ZpkManager
+from entities.InternalPayment import InternalPaymentManager
 
 class AccountManager(Container):
     
