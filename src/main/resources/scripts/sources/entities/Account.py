@@ -102,6 +102,21 @@ class AccountManager(Container):
         payment = manager.create()
         self._svars.put('paymentId', str(payment.getId()))
         manager.book()
+        
+    def findZpk(self, key, entity):
+        zpkType = self.findZpkType(typeKey)
+        for zpk in entity.getZpks():
+            if zpk.getType().getKey() == zpkType.getKey():
+                return zpk
+            
+    def findZpkType(self, typeKey):
+        return self.findDictionary(str(self.findZpkSettingId(typeKey)))
+    
+    def findDictionary(self, id):
+        return self._entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % str(id)).getSingleResult()
+    
+    def findZpkSettingId(self, typeKey):
+        return self._entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = '%s'" % typeKey).getSingleResult()
 
     def importCSV(self):
         from entities.Community import CommunityManager
