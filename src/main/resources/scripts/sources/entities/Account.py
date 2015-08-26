@@ -37,6 +37,7 @@ class AccountManager(Container):
         oldAccount = self.findById('Account', self._svars.get('id'))
         oldAccount.setClosed(1)
         community = oldAccount.getCommunity()
+        newAccount = None
         if oldAccount.getType().getKey() == "DEFAULT":
             newAccount = community.getDefaultAccount()
             if newAccount.getType().getKey() == "DEFAULT":
@@ -92,7 +93,8 @@ class AccountManager(Container):
             self.book(zpkCredit, zpkDebit, ammount)
         else:
             self._logger.info("Can't close account(%d), types mismatch" % (oldAccount.getId()))    
-        self.saveAccount(account)
+        self.saveAccount(oldAccount)
+        self.saveAccount(newAccount)
         
     def book(self, zpkCredit, zpkDebit, amount):
         self._svars.put('creditZpkId', str(zpkCredit.getId()))
