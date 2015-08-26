@@ -31,6 +31,77 @@ class AccountManager(Container):
         account = self.findAccount()
         self.setAccountData(account)
         self.saveAccount(account)
+        
+    def close(self):
+        oldAccount = self.findById('Account', self._svars.get('id'))
+        oldAccount.setClosed(1)
+        community = account.getCommunity()
+        if oldAccount.getType().getKey() == "DEFAULT":
+            newAccount = community.getDefaultAccount()
+            if newAccount.getType().getKey() == "DEFAULT":
+                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT", community)
+                zpkDebit = self.findZpk("RENT", oldAccount)
+                ammount = zpkDebit.getCurrentBalance().getCredit()
+                self.book(zpkCredit, zpkDebit, ammount)
+                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT", community)
+                zpkCredit = self.findZpk("RENT", newAccount)
+                self.book(zpkCredit, zpkDebit, ammount)
+                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT_RF", community)
+                zpkDebit = self.findZpk("REPAIR_FUND", oldAccount)
+                ammount = zpkDebit.getCurrentBalance().getCredit()
+                self.book(zpkCredit, zpkDebit, ammount)
+                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT_RF", community)
+                zpkCredit = self.findZpk("REPAIR_FUND", newAccount)
+                self.book(zpkCredit, zpkDebit, ammount)
+            if newAccount.getType().getKey() == "RENT":
+                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT", community)
+                zpkDebit = self.findZpk("RENT", oldAccount)
+                ammount = zpkDebit.getCurrentBalance().getCredit()
+                self.book(zpkCredit, zpkDebit, ammount)
+                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT", community)
+                zpkCredit = self.findZpk("RENT", newAccount)
+                self.book(zpkCredit, zpkDebit, ammount)
+                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT", community)
+                zpkDebit = self.findZpk("REPAIR_FUND", oldAccount)
+                ammount = zpkDebit.getCurrentBalance().getCredit()
+                self.book(zpkCredit, zpkDebit, ammount)
+                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT", community)
+                zpkCredit = self.findZpk("RENT", newAccount)
+                self.book(zpkCredit, zpkDebit, ammount)
+        elif oldAccount.getType().getKey() == "RENT":
+            newAccount = community.getDefaultAccount()
+            if newAccount.getType().getKey() == "RENT" or newAccount.getType().getKey() == "DEFAULT":
+                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT", community)
+                zpkDebit = self.findZpk("RENT", oldAccount)
+                ammount = zpkDebit.getCurrentBalance().getCredit()
+                self.book(zpkCredit, zpkDebit, ammount)
+                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT", community)
+                zpkCredit = self.findZpk("RENT", newAccount)
+                if zpkCredit == None:
+                    zpkCredit = self.findZpk("DEFAULT", newAccount)
+                self.book(zpkCredit, zpkDebit, ammount)
+        elif oldAccount.getType().getKey() == "REPAIR_FUND":
+            newAccount = community.getRepairFundAccount()
+            zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT_RF", community)
+            zpkDebit = self.findZpk("REPAIR_FUND", oldAccount)
+            ammount = zpkDebit.getCurrentBalance().getCredit()
+            self.book(zpkCredit, zpkDebit, ammount)
+            zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT_RF", community)
+            zpkCredit = self.findZpk("REPAIR_FUND", newAccount)
+            self.book(zpkCredit, zpkDebit, ammount)
+        else:
+            self._logger.info("Nie można zamknąć konta(%d), type niezgodne" % (oldAccount.getId()))    
+        self.saveAccount(account)
+        
+    def book(self, zpkCredit, zpkDebit, amount):
+        self._svars.put('creditZpkId', str(zpkCredit.getId()))
+        self._svars.put('debitZpkId', str(zpkDebit.getId()))
+        self._svars.put('amount', str(amount))
+        self._svars.put('comment', 'Zamknięcie konta')
+        manager = InternalPaymentManager()
+        payment = manager.create()
+        self._svars.put('paymentId', str(payment.getId()))
+        manager.book()
 
     def importCSV(self):
         from entities.Community import CommunityManager
