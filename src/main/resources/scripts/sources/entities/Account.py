@@ -53,7 +53,7 @@ class AccountManager(Container):
                 zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT_RF", community)
                 zpkCredit = self.findZpk("REPAIR_FUND", newAccount)
                 self.book(zpkCredit, zpkDebit, ammount)
-            if newAccount.getType().getKey() == "RENT":
+            elif newAccount.getType().getKey() == "RENT":
                 zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT", community)
                 zpkDebit = self.findZpk("RENT", oldAccount)
                 ammount = zpkDebit.getCurrentBalance().getCredit()
@@ -90,14 +90,14 @@ class AccountManager(Container):
             zpkCredit = self.findZpk("REPAIR_FUND", newAccount)
             self.book(zpkCredit, zpkDebit, ammount)
         else:
-            self._logger.info("Nie można zamknąć konta(%d), type niezgodne" % (oldAccount.getId()))    
+            self._logger.info("Nie można zamknac konta(%d), type niezgodne" % (oldAccount.getId()))    
         self.saveAccount(account)
         
     def book(self, zpkCredit, zpkDebit, amount):
         self._svars.put('creditZpkId', str(zpkCredit.getId()))
         self._svars.put('debitZpkId', str(zpkDebit.getId()))
         self._svars.put('amount', str(amount))
-        self._svars.put('comment', 'Zamknięcie konta')
+        self._svars.put('comment', 'Zamkniecie konta')
         manager = InternalPaymentManager()
         payment = manager.create()
         self._svars.put('paymentId', str(payment.getId()))
