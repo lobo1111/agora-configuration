@@ -701,7 +701,7 @@
                     JOIN bc.community community
                     JOIN bc.contractor contractor
                     WHERE {:where}
-                    ORDER BY bankCredit.createdAt DESC
+                    ORDER BY bc.createdAt DESC
                 </data>
             </var>
             <var>
