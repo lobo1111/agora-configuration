@@ -695,9 +695,9 @@
                 <data>
                     {:limit}
                     SELECT 
-                    credit
+                    bc
                     FROM 
-                    BankCredit bankCredit
+                    BankCredit bc
                     JOIN bc.community community
                     JOIN bc.contractor contractor
                     WHERE {:where}
@@ -709,9 +709,9 @@
                 <data>
                     {:single}
                     SELECT 
-                    count(bankCredit.id)
+                    count(bc.id)
                     FROM 
-                    BankCredit bankCredit
+                    BankCredit bc
                     JOIN bc.community community
                     JOIN bc.contractor contractor
                     WHERE {:where}
