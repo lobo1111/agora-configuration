@@ -38,6 +38,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-bank-credit</name>
+        <source>entity-bank-credit.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    BankCredit e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-bank-note</name>
         <source>entity-bank-note.vtl</source>
         <variables>
@@ -663,6 +681,39 @@
                     IncomingPaymentDocumentPosition document
                     JOIN document.status status
                     JOIN document.document parentDocument
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-bank-credits</name>
+        <source>list-bank-credits.vtl</source>
+        <variables>
+            <var>
+                <name>credits</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    credit
+                    FROM 
+                    BankCredit bankCredit
+                    JOIN bc.community community
+                    JOIN bc.contractor contractor
+                    WHERE {:where}
+                    ORDER BY bankCredit.createdAt DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(bankCredit.id)
+                    FROM 
+                    BankCredit bankCredit
+                    JOIN bc.community community
+                    JOIN bc.contractor contractor
                     WHERE {:where}
                 </data>
             </var>

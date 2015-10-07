@@ -1633,11 +1633,57 @@
         </sql>
     </changeSet>
     
-            
     <changeSet author='tkopacki' id='account-closed-column'>
         <sql>                   
             ALTER TABLE `account`
             ADD COLUMN `closed` tinyint(1) DEFAULT 0
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-credit-table'>
+        <sql>        
+            CREATE TABLE `bank_credit` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `community_id` int(11) NOT NULL,
+            `contractor_id` int(11) NOT NULL,
+            `amount` decimal(10,2) NOT NULL,
+            `payed` tinyint(1) DEFAULT 0,
+            `created_at` date DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-credit-community-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_credit`
+            ADD CONSTRAINT `bank_credit_community_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-credit-contractor-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_credit`
+            ADD CONSTRAINT `bank_credit_contractor_fkey` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='bank-credit-payment-table'>
+        <sql>        
+            CREATE TABLE `bank_credit_payment` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `bank_credit_id` int(11) NOT NULL,
+            `amount` decimal(10,2) NOT NULL,
+            `created_at` date DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+            
+    <changeSet author='tkopacki' id='bank-credit-payment-bank-credit-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_credit_payment`
+            ADD CONSTRAINT `bank_credit_payment_bank_credit_fkey` FOREIGN KEY (`bank_credit_id`) REFERENCES `bank_credit` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
 </databaseChangeLog> 

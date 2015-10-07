@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<bankCredit>
+    <id>$!entity.getId()</id>
+    <createdAt>$!entity.getCreatedAt().getTime()</createdAt>
+    <community>
+        <id>$!entity.getCommunity().getId()</id>
+        <company>
+            <name>$!entity.getCommunity().getCompany().getName()</name>
+        </company
+    </community>
+    <contractor>
+        <id>$!entity.getContractor().getId()</id>
+        <name>$!entity.getContractor().getName()</name>
+    </contractor>
+    <amount>$!entity.getAmount()</amount>
+    <payed>$!entity.isPayed()</payed>
+</bankCredit>
