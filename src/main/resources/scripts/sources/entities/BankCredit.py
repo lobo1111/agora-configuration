@@ -18,7 +18,7 @@ class BankCreditManager(Container):
         #    self._entityManager.remove(note)
         
     def markAsPayed(self):
-        credit = self.findById("BankCrdit", self._svars.get('id'))
+        credit = self.findById("BankCredit", self._svars.get('id'))
         credit.setPayed(true)
         self.saveEntity(credit)
     
