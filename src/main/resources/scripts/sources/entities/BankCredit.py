@@ -16,4 +16,9 @@ class BankCreditManager(Container):
         #note = self.findById("BankNote", self._svars.get('id'))
         #if note.getInternalPayment() == None:
         #    self._entityManager.remove(note)
+        
+    def markAsPayed(self):
+        credit = self.findById("BankCrdit", self._svars.get('id'))
+        credit.isPayed(true)
+        self.saveEntity(credit)
     
