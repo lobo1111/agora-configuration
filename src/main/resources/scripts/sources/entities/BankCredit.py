@@ -7,8 +7,8 @@ class BankCreditManager(Container):
         credit = BankCredit()
         credit.setCreatedAt(self.parseDate(self._svars.get("createdAt")))
         credit.setAmount(float(self._svars.get("amount")))
-        credt.setCommunity(self.getById("Community", self._svars.get("communityId")))
-        credt.setContractor(self.getById("Contractor", self._svars.get("contratorId")))
+        credit.setCommunity(self.getById("Community", self._svars.get("communityId")))
+        credit.setContractor(self.getById("Contractor", self._svars.get("contratorId")))
         self.saveEntity(credit)
 
     def remove(self):
