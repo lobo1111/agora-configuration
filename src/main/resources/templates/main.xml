@@ -691,7 +691,7 @@
         <source>list-bank-credits.vtl</source>
         <variables>
             <var>
-                <name>credits</name>
+                <name>items</name>
                 <data>
                     {:limit}
                     SELECT 
