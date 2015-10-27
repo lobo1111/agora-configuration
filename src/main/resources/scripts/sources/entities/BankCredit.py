@@ -42,6 +42,6 @@ class BankCreditManager(Container):
                     #Marked as to remove but not stored so nothing to do.
                     pass
             else:
-                payment.getBankCredit(credit)
+                payment.setBankCredit(credit)
                 credit.getPayments().add(payment)
     
