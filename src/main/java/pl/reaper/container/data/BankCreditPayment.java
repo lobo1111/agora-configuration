@@ -34,6 +34,8 @@ public class BankCreditPayment implements Serializable {
     private Date createdAt;
     @Column(name = "amount")
     private double amount;
+    @Column(name = "booked")
+    private boolean booked;
 
     public Integer getId() {
         return id;
@@ -41,6 +43,14 @@ public class BankCreditPayment implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public boolean isBooked() {
+        return booked;
+    }
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
     }
 
     public BankCredit getBankCredit() {

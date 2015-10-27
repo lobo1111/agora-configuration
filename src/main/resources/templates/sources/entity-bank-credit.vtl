@@ -16,4 +16,14 @@
     </contractor>
     <amount>$!entity.getAmount()</amount>
     <payed>$!entity.isPayed()</payed>
+    <payments>
+        #foreach($payment in $!entity.getPayments())
+        <payment>
+            <id>$!payment.getId()</id>
+            <createdAt>$!payment.getCreatedAt()</createdAt>
+            <amount>$!payment.getAmount()</amount>
+            <booked>$!payment.isBooked()</booked>
+        </payment>
+        #end
+    </payments>
 </bankCredit>

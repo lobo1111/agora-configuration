@@ -1686,4 +1686,11 @@
             ADD CONSTRAINT `bank_credit_payment_bank_credit_fkey` FOREIGN KEY (`bank_credit_id`) REFERENCES `bank_credit` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-credit-payment-booked-column'>
+        <sql>                   
+            ALTER TABLE `bank_credit_payment`
+            ADD COLUMN `booked` tinyint(1) DEFAULT 0
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
