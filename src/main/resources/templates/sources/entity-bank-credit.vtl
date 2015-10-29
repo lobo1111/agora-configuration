@@ -20,7 +20,7 @@
         #foreach($payment in $!entity.getPayments())
         <payment>
             <id>$!payment.getId()</id>
-            <createdAt>$!payment.getCreatedAt()</createdAt>
+            <createdAt>$!payment.getCreatedAt().getTime()</createdAt>
             <amount>$!payment.getAmount()</amount>
             <booked>$!payment.isBooked()</booked>
         </payment>
