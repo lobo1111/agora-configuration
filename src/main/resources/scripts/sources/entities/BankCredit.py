@@ -35,12 +35,12 @@ class BankCreditManager(Container):
             payment.setAmount(float(self._svars.get(str(i) + '_payments_' + 'amount')))
             payment.setId(int(self._svars.get(str(i) + '_payments_' + 'paymentId')))
             if self._svars.get(str(i) + '_payments_' + 'remove') == 'true':
-                if payment.getId() != 0:
+                if self._entityManager.containes(payment):
                     self._entityManager.remove(payment)
                     credit.getPayments().remove(payment)
                 else:
                     #Marked as to remove but not stored so nothing to do.
-                    pass
+                    payment = None
             else:
                 payment.setBankCredit(credit)
                 credit.getPayments().add(payment)
