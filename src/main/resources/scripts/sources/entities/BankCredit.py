@@ -30,18 +30,25 @@ class BankCreditManager(Container):
         
     def updatePayments(self, credit):
         for i in range(int(self._svars.get('paymentsCount'))): 
-            payment = BankCreditPayment()
+            id = int(self._svars.get(str(i) + '_payments_' + 'paymentId'))
+            remove = self._svars.get(str(i) + '_payments_' + 'remove') == 'true'
+            payment = findOrCreatePayment(credit, id)
             payment.setCreatedAt(self.parseDate(self._svars.get(str(i) + '_payments_' + 'createdAt')))
             payment.setAmount(float(self._svars.get(str(i) + '_payments_' + 'amount')))
-            payment.setId(int(self._svars.get(str(i) + '_payments_' + 'paymentId')))
-            if self._svars.get(str(i) + '_payments_' + 'remove') == 'true':
-                if self._entityManager.containes(payment):
-                    self._entityManager.remove(payment)
-                    credit.getPayments().remove(payment)
-                else:
-                    #Marked as to remove but not stored so nothing to do.
-                    payment = None
-            else:
-                payment.setBankCredit(credit)
-                credit.getPayments().add(payment)
+            if remove:
+                self.removePayment(credit, payment)
+            
+    def findOrCreatePayment(self, credit, id):
+        if id == 0:
+            payment = BankCreditPayment()
+            payment.setBankCredit(credit)
+            credit.getPayments().add(payment)
+        else:
+            payment = self.findById("BankCreditPayment", id);
+        return payment
     
+    def removePayment(self, credit, payment):
+        credit.getPayments().remove(payment)
+        payment.setBankCredit(None)
+        if self._entityManager.contains(payment):
+            self._entityManager.remove(payment)
