@@ -32,7 +32,7 @@ class BankCreditManager(Container):
         for i in range(int(self._svars.get('paymentsCount'))): 
             id = int(self._svars.get(str(i) + '_payments_' + 'paymentId'))
             remove = self._svars.get(str(i) + '_payments_' + 'remove') == 'true'
-            payment = findOrCreatePayment(credit, id)
+            payment = self.findOrCreatePayment(credit, id)
             payment.setCreatedAt(self.parseDate(self._svars.get(str(i) + '_payments_' + 'createdAt')))
             payment.setAmount(float(self._svars.get(str(i) + '_payments_' + 'amount')))
             if remove:
