@@ -43,6 +43,7 @@ class BankCreditManager(Container):
             payment = BankCreditPayment()
             payment.setBankCredit(credit)
             credit.getPayments().add(payment)
+            self._entityManager.persist(payment)
         else:
             payment = self.findById("BankCreditPayment", id);
         return payment
@@ -50,5 +51,4 @@ class BankCreditManager(Container):
     def removePayment(self, credit, payment):
         credit.getPayments().remove(payment)
         payment.setBankCredit(None)
-        if self._entityManager.contains(payment):
-            self._entityManager.remove(payment)
+        self._entityManager.remove(payment)
