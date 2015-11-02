@@ -34,6 +34,7 @@ class BankCreditManager(Container):
         for credit in credits:
             credit.setAccount(newAccount)
             self._entityManager.persist(credit)
+            self._entityManager.flush()
         
     def updatePayments(self, credit):
         for i in range(int(self._svars.get('paymentsCount'))): 
