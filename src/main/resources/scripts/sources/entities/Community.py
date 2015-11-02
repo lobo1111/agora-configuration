@@ -60,6 +60,7 @@ class CommunityManager(Container):
                 self._svars.put('accountNumber', self._svars.get('repairFundAccountNumber'))
                 self._svars.put('accountType', 'REPAIR_FUND')
                 account = AccountManager().createNewAccount(community)
+                BankCreditManager().switchAccounts(community.getRepairFundAccount(), account)
                 community.setRepairFundAccount(account)
                 if community.getDefaultAccount() != None:
                     community.getDefaultAccount().setType(DictionaryManager().findDictionaryInstance('ACCOUNT_TYPE', 'RENT'))
@@ -78,6 +79,7 @@ class CommunityManager(Container):
             else:
                 self._svars.put('accountType', 'RENT')
             account = AccountManager().createNewAccount(community)
+            BankCreditManager().switchAccounts(community.getDefaultAccount(), account)
             if community.getRepairFundAccount() == None and not repairFundAccountNoChanges:
                 AccountManager().createRentZpk(account)
             community.setDefaultAccount(account)

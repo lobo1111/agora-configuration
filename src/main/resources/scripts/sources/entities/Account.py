@@ -100,7 +100,6 @@ class AccountManager(Container):
             self._logger.info("Can't close account(%d), types mismatch" % (oldAccount.getId()))    
         self.saveAccount(oldAccount)
         self.saveAccount(newAccount)
-        BankCreditManager().switchAccounts(oldAccount, newAccount)
         
     def book(self, zpkCredit, zpkDebit, amount):
         self._logger.info("Closing account - booking credit(%d), debit(%d) amount %f" % (zpkCredit.getId(), zpkDebit.getId(), amount))    
