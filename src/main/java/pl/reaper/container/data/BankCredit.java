@@ -36,6 +36,9 @@ public class BankCredit implements Serializable {
     @JoinColumn(name = "contractor_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Contractor contractor;
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Account account;
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
@@ -52,6 +55,14 @@ public class BankCredit implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Community getCommunity() {

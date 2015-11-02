@@ -10,6 +10,7 @@ class BankCreditManager(Container):
         credit.setAmount(float(self._svars.get("amount")))
         credit.setCommunity(self.findById("Community", self._svars.get("communityId")))
         credit.setContractor(self.findById("Contractor", self._svars.get("contractorId")))
+        credit.setAccount(self.findById("Account", self._svars.get("accountId")))
         self.updatePayments(credit)
         self.saveEntity(credit)
         

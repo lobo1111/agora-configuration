@@ -2,6 +2,11 @@
 <bankCredit>
     <id>$!entity.getId()</id>
     <createdAt>$!entity.getCreatedAt().getTime()</createdAt>
+    <account>
+        <id>$!entity.getAccount().getId()</id>
+        <name>$!account.getName()</name>
+        <number>$!account.getNumber()</number>
+    </account>
     <community>
         <id>$!entity.getCommunity().getId()</id>
         <company>

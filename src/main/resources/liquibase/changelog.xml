@@ -1693,4 +1693,18 @@
             ADD COLUMN `booked` tinyint(1) DEFAULT 0
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-credit-account-column'>
+        <sql>                   
+            ALTER TABLE `bank_credit`
+            ADD COLUMN `account_id` int(11) NOT NULL
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-credit-account-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_credit`
+            ADD CONSTRAINT `bank_credit_account_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
