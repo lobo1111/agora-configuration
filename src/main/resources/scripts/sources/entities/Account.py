@@ -1,6 +1,7 @@
 from pl.reaper.container.data import Account
 from base.Container import Container
 from entities.Bank import BankManager
+from entities.BankCredit import BankCreditManager
 from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
 from entities.Zpk import ZpkManager
@@ -99,6 +100,7 @@ class AccountManager(Container):
             self._logger.info("Can't close account(%d), types mismatch" % (oldAccount.getId()))    
         self.saveAccount(oldAccount)
         self.saveAccount(newAccount)
+        BankCreditManager().switchAccounts(oldAccount, newAccount)
         
     def book(self, zpkCredit, zpkDebit, amount):
         self._logger.info("Closing account - booking credit(%d), debit(%d) amount %f" % (zpkCredit.getId(), zpkDebit.getId(), amount))    

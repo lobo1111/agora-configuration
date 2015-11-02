@@ -29,6 +29,12 @@ class BankCreditManager(Container):
         credit.setPayed(True)
         self.saveEntity(credit)
         
+    def switchAccounts(self, oldAccount, newAccount):
+        credits = self._entityManager.createQuery('Select c From BankCredit c Where c.account.id = %d' % oldAccount.getId()).getResultList()
+        for credit in credits:
+            credit.setAccount(newAccount)
+            self._entityManager.persist(credit)
+        
     def updatePayments(self, credit):
         for i in range(int(self._svars.get('paymentsCount'))): 
             id = int(self._svars.get(str(i) + '_payments_' + 'paymentId'))
