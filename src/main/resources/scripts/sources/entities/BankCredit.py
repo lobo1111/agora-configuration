@@ -50,5 +50,4 @@ class BankCreditManager(Container):
     
     def removePayment(self, credit, payment):
         credit.getPayments().remove(payment)
-        payment.setBankCredit(None)
         self._entityManager.remove(payment)
