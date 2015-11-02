@@ -30,8 +30,11 @@ class BankCreditManager(Container):
         self.saveEntity(credit)
         
     def switchAccounts(self, oldAccount, newAccount):
+        self._logger.info("Switching accounts on credits from %d to %d" % (oldAccount.getId(), newAccount.getId()))
         credits = self._entityManager.createQuery('Select c From BankCredit c Where c.account.id = %d' % oldAccount.getId()).getResultList()
+        self._logger.info("Found %d credits to change" % len(credits))
         for credit in credits:
+            self._logger.info("Changing account on credit %d" % credit.getId())
             credit.setAccount(newAccount)
             self._entityManager.persist(credit)
             self._entityManager.flush()
