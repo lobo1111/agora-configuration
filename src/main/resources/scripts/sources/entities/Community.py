@@ -10,6 +10,7 @@ from entities.Element import ElementManager
 from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
 from entities.AccountProvision import AccountProvisionManager
+from entities.BankCredit import BankCreditManager
 
 class CommunityManager(Container):
     _prefix = ''
