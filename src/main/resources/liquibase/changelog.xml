@@ -1707,4 +1707,40 @@
             ADD CONSTRAINT `bank_credit_account_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-credit-payment-internal-payment'>
+        <sql>                   
+            ALTER TABLE `bank_credit_payment`
+            ADD COLUMN `internal_payment_id` int(11)
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-credit-payment-internal-payment-fkey'>
+        <sql>                   
+            ALTER TABLE `bank_credit_payment`
+            ADD CONSTRAINT `bank_credit_payment_internal_payment_id_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-credit-account-fkey-drop'>
+        <sql>
+            ALTER TABLE `bank_credit`
+            DROP FOREIGN KEY `bank_credit_account_fkey` 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-credit-account-column-drop'>
+        <sql>                   
+            ALTER TABLE `bank_credit`
+            DROP COLUMN `account_id`
+        </sql>
+    </changeSet>
+    
+        
+    <changeSet author='tkopacki' id='bank-credit-charge-default-account'>
+        <sql>                   
+            ALTER TABLE `bank_credit`
+            ADD COLUMN `charge_default_account` tinyint(1) DEFAULT 1
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

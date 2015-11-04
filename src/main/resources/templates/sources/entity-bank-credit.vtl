@@ -2,11 +2,6 @@
 <bankCredit>
     <id>$!entity.getId()</id>
     <createdAt>$!entity.getCreatedAt().getTime()</createdAt>
-    <account>
-        <id>$!entity.getAccount().getId()</id>
-        <name>$!entity.getAccount().getName()</name>
-        <number>$!entity.getAccount().getNumber()</number>
-    </account>
     <community>
         <id>$!entity.getCommunity().getId()</id>
         <company>
@@ -21,6 +16,7 @@
     </contractor>
     <amount>$!entity.getAmount()</amount>
     <payed>$!entity.isPayed()</payed>
+    <chargeDefaultAccount>$!entity.isChargeDefaultAccount()</chargeDefaultAccount>
     <payments>
         #foreach($payment in $!entity.getPayments())
         <payment>

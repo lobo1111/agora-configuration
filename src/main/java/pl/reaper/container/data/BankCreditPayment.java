@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +38,17 @@ public class BankCreditPayment implements Serializable {
     private double amount;
     @Column(name = "booked")
     private boolean booked;
+    @JoinColumn(name = "internal_payment_id", referencedColumnName = "id")
+    @OneToOne
+    private InternalPayment internalPayment;
+
+    public InternalPayment getInternalPayment() {
+        return internalPayment;
+    }
+
+    public void setInternalPayment(InternalPayment internalPayment) {
+        this.internalPayment = internalPayment;
+    }
 
     public Integer getId() {
         return id;

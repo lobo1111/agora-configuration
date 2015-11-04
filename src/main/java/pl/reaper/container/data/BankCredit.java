@@ -36,14 +36,13 @@ public class BankCredit implements Serializable {
     @JoinColumn(name = "contractor_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Contractor contractor;
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Account account;
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
     @Column(name = "payed")
     private boolean payed;
+    @Column(name = "charge_default_account")
+    private boolean chargeDefaultAccount;
     @Column(name = "amount")
     private double amount;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "bankCredit")
@@ -57,12 +56,12 @@ public class BankCredit implements Serializable {
         this.id = id;
     }
 
-    public Account getAccount() {
-        return account;
+    public boolean isChargeDefaultAccount() {
+        return chargeDefaultAccount;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setChargeDefaultAccount(boolean chargeDefaultAccount) {
+        this.chargeDefaultAccount = chargeDefaultAccount;
     }
 
     public Community getCommunity() {
