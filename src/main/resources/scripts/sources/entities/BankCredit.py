@@ -8,7 +8,10 @@ class BankCreditManager(Container):
         credit = BankCredit()
         credit.setCreatedAt(self.parseDate(self._svars.get("createdAt")))
         credit.setAmount(float(self._svars.get("amount")))
-        credit.setChargeDefaultAccount(float(self._svars.get("defaultAccount")))
+        if self._svars.get("defaultAccount") == 'true':
+            credit.setChargeDefaultAccount(True)
+        else:
+            credit.setChargeDefaultAccount(False)
         credit.setCommunity(self.findById("Community", self._svars.get("communityId")))
         credit.setContractor(self.findById("Contractor", self._svars.get("contractorId")))
         self.updatePayments(credit)
