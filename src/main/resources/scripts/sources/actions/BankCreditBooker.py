@@ -30,7 +30,7 @@ class BankCreditBooker(Container):
         manager.book()
 
     def collectZpks(self, cPayment):
-        zpkCredit = self.findCreditZpk(cPayment.getContractor().getZpks())
+        zpkCredit = self.findCreditZpk(cPayment.getCredit().getContractor().getZpks())
         zpkDebit = self.findDebitZpk(cPayment.getCredit().getCommunity().getZpks(), cPayment.getCredit().isChargeDefaultAccount())
         return zpkCredit, zpkDebit
 
