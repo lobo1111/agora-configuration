@@ -40,8 +40,8 @@ class BankCreditBooker(Container):
         else:
             return self.findZpk(zpks, 'REPAIR_FUND')
     
-    def findCreditZpk(self, community):
-        return self.findZpk(community.getZpks(), 'CONTRACTOR')
+    def findCreditZpk(self, zpks):
+        return self.findZpk(zpks, 'CONTRACTOR')
     
     def findZpk(self, zpks, typeKey):
         zpkType = self.findZpkType(typeKey)
