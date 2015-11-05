@@ -31,14 +31,17 @@ class BankCreditBooker(Container):
 
     def collectZpks(self, cPayment):
         zpkCredit = self.findCreditZpk(cPayment.getContractor().getZpks())
-        zpkDebit = self.findDebitZpk(cPayment.getCredit().getAccount().getZpks())
+        zpkDebit = self.findDebitZpk(cPayment.getCredit().getCommunity().getZpks(), cPayment.getCredit().isChargeDefaultAccount())
         return zpkCredit, zpkDebit
 
-    def getZpkRent(self, zpks):
-        return self.findZpk(zpks, 'POSSESSION')
+    def findDebitZpk(self, zpks, chargeFromDefault):
+        if chargeFromDefault:
+            return self.findZpk(zpks, 'RENT')
+        else:
+            return self.findZpk(zpks, 'REPAIR_FUND')
     
-    def findRentCreditZpk(self, community):
-        return self.findZpk(community.getZpks(), 'CHARGING_RENT')
+    def findCreditZpk(self, community):
+        return self.findZpk(community.getZpks(), 'CONTRACTOR')
     
     def findZpk(self, zpks, typeKey):
         zpkType = self.findZpkType(typeKey)
