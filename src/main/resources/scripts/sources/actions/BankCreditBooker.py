@@ -5,7 +5,7 @@ class BankCreditBooker(Container):
     
     def bookAllCredits(self):
         self._logger.info("Bank Credit Booker starts...")
-        [self.bookCredit(note) for note in self.collectCredits()]
+        [self.bookCredit(cPayment) for cPayment in self.collectCredits()]
         self._logger.info("All bank credits booked")
         
     def collectCredits(self):
@@ -14,7 +14,7 @@ class BankCreditBooker(Container):
     def bookCredit(self, cPayment):
         self._logger.info("Booking credit payment %d" % cPayment.getId())
         zpkCredit, zpkDebit = self.collectZpks(cPayment)
-        self.createAndBookPayment(note, zpkCredit, zpkDebit)
+        self.createAndBookPayment(cPayment, zpkCredit, zpkDebit)
 
     def createAndBookPayment(self, cPayment, zpkCredit, zpkDebit):
         self._svars.put('creditZpkId', str(zpkCredit.getId()))
