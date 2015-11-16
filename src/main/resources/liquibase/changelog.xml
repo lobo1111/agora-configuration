@@ -1743,4 +1743,11 @@
             ADD COLUMN `charge_default_account` tinyint(1) DEFAULT 1
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='dictionary-positions'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('INVOICE_POSITIONS');
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

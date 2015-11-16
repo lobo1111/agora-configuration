@@ -20,6 +20,7 @@ class InvoiceManager(Container):
         self.addPayments(invoice)
         self.calculateToPay(invoice)
         self.calculatePayed(invoice)
+        self.checkForNewPositions(invoice.getContractor().getCompany().getId(), invoice.getPositions())
         self.saveInvoice(invoice)
         
     def update(self):
@@ -30,6 +31,7 @@ class InvoiceManager(Container):
         self.addPayments(invoice)
         self.calculateToPay(invoice)
         self.calculatePayed(invoice)
+        self.checkForNewPositions(invoice.getContractor().getCompany().getId(), invoice.getPositions())
         self.saveInvoice(invoice)
 
     def accept(self):
@@ -146,3 +148,22 @@ class InvoiceManager(Container):
 
     def findPaymentById(self, id):
         return self._entityManager.createQuery('Select i From InvoicePayment i Where i.id = ' + str(id)).getSingleResult()
+    
+    def checkForNewPositions(self, companyId, positions):
+        for position in positions:
+            if self.isNewPosition(companyId, position):
+                self.storePosition(companyId, position)
+                
+    def isNewPosition(self, companyId, position):
+        count = self._entityManager.createQuery('Select count(p) From Dictionary p Where p.key = %s and p.value = %s' % (str(companyId), position.getName())).getSingleResult()
+        if count == 0:
+            return True
+        else:
+            return False
+        
+    def storePosition(self, companyId, position):
+        d = Dictionary();
+        d.setType(self.findBy("DictionaryType", "type", "INVOICE_POSITIONS"))
+        d.setKey(companyId)
+        d.setValue(position.getName())
+        self._entityManager.persist(d)
