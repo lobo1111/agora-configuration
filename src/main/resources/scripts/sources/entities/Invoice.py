@@ -165,6 +165,6 @@ class InvoiceManager(Container):
     def storePosition(self, companyId, position):
         d = Dictionary();
         d.setType(self.findBy("DictionaryType", "type", "INVOICE_POSITIONS"))
-        d.setKey(companyId)
+        d.setKey(str(companyId))
         d.setValue(position.getName())
         self._entityManager.persist(d)
