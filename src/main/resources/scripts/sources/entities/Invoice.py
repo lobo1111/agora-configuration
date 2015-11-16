@@ -155,7 +155,7 @@ class InvoiceManager(Container):
                 self.storePosition(companyId, position)
                 
     def isNewPosition(self, companyId, position):
-        count = self._entityManager.createQuery('Select count(p) From Dictionary p Where p.key = %s and p.value = %s' % (str(companyId), position.getName())).getSingleResult()
+        count = self._entityManager.createQuery("Select count(p) From Dictionary p Where p.key = %s and p.value = '%s'" % (str(companyId), position.getName())).getSingleResult()
         if count == 0:
             return True
         else:
