@@ -167,4 +167,7 @@ class InvoiceManager(Container):
         d.setType(self.findBy("DictionaryType", "type", "INVOICE_POSITIONS"))
         d.setKey(str(companyId))
         d.setValue(position.getName())
-        self._entityManager.persist(d)
+        self._logger.info(d)
+        self._logger.info(d.getType())
+        #self._entityManager.persist(d)
+        
