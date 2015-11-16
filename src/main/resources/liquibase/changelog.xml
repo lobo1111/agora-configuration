@@ -1750,10 +1750,4 @@
             ('INVOICE_POSITIONS');
         </sql>
     </changeSet>
-    
-    <changeSet author='tkopacki' id='dictionary-type-key-unique-drop'>
-        <sql>
-            ALTER TABLE `dictionary` DROP INDEX `type_id`
-        </sql>
-    </changeSet>
 </databaseChangeLog> 
