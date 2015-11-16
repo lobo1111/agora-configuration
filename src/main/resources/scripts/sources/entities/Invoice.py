@@ -1,3 +1,4 @@
+from pl.reaper.container.data import Dictionary
 from pl.reaper.container.data import Invoice
 from pl.reaper.container.data import InvoicePosition
 from pl.reaper.container.data import InvoicePayment
