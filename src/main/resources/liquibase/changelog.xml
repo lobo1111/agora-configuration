@@ -1750,4 +1750,28 @@
             ('INVOICE_POSITIONS');
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='dictionary-positions-remove'>
+        <sql>
+            DELETE FROM `dictionary_type` WHERE `type` = 'INVOICE_POSITIONS'
+        </sql>
+    </changeSet>
+         
+    <changeSet author='tkopacki' id='invoice-positions-dictionary'>
+        <sql>        
+            CREATE TABLE `invoice_position_dictionary` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `company_id` int(11) NOT NULL,
+            `position` varchar(255) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='invoice-positions-dictionary-company_id_fkey'>
+        <sql>                   
+            ALTER TABLE `invoice_position_dictionary`
+            ADD CONSTRAINT `invoice_position_dictionary_company_id_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

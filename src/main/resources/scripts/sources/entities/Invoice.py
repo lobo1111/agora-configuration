@@ -21,7 +21,7 @@ class InvoiceManager(Container):
         self.addPayments(invoice)
         self.calculateToPay(invoice)
         self.calculatePayed(invoice)
-        self.checkForNewPositions(invoice.getContractor().getCompany().getId(), invoice.getPositions())
+        self.checkForNewPositions(invoice.getContractor().getCompany(), invoice.getPositions())
         self.saveInvoice(invoice)
         
     def update(self):
@@ -32,7 +32,7 @@ class InvoiceManager(Container):
         self.addPayments(invoice)
         self.calculateToPay(invoice)
         self.calculatePayed(invoice)
-        self.checkForNewPositions(invoice.getContractor().getCompany().getId(), invoice.getPositions())
+        self.checkForNewPositions(invoice.getContractor().getCompany(), invoice.getPositions())
         self.saveInvoice(invoice)
 
     def accept(self):
@@ -150,24 +150,21 @@ class InvoiceManager(Container):
     def findPaymentById(self, id):
         return self._entityManager.createQuery('Select i From InvoicePayment i Where i.id = ' + str(id)).getSingleResult()
     
-    def checkForNewPositions(self, companyId, positions):
+    def checkForNewPositions(self, company, positions):
         for position in positions:
-            if self.isNewPosition(companyId, position):
-                self.storePosition(companyId, position)
+            if self.isNewPosition(company, position):
+                self.storePosition(company, position)
                 
-    def isNewPosition(self, companyId, position):
-        count = self._entityManager.createQuery("Select count(p) From Dictionary p Where p.key Like '%s\\%' and p.value = '%s'" % (str(companyId), position.getName())).getSingleResult()
+    def isNewPosition(self, company, position):
+        count = self._entityManager.createQuery("Select count(p) From InvoicePositionDictionary p Where p.company.id = %d and p.value = '%s'" % (company.getId(), position.getName())).getSingleResult()
         if count == 0:
             return True
         else:
             return False
         
-    def storePosition(self, companyId, position):
-        d = Dictionary();
-        d.setType(self.findBy("DictionaryType", "type", "'INVOICE_POSITIONS'"))
-        d.setKey(str(companyId) + ":" + position.getName())
-        d.setValue(position.getName())
-        self._logger.info(d)
-        self._logger.info(d.getType())
+    def storePosition(self, company, position):
+        d = InvoicePositionDictionary();
+        d.setCompany(company)
+        d.setPosition(position.getName())
         self._entityManager.persist(d)
         
