@@ -1,6 +1,7 @@
 from pl.reaper.container.data import Dictionary
 from pl.reaper.container.data import Invoice
 from pl.reaper.container.data import InvoicePosition
+from pl.reaper.container.data import InvoicePositionDictionary
 from pl.reaper.container.data import InvoicePayment
 from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
