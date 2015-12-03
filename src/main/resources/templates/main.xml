@@ -1257,6 +1257,8 @@
                     p.position
                     FROM
                     InvoicePositionDictionary p
+                    WHERE
+                    p.company.id = {:companyId}
                     ORDER BY
                     p.position ASC
                 </data>
