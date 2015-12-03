@@ -1248,7 +1248,7 @@
     
     <template>
         <name>list-invoice-position-names</name>
-        <source>simple-string-list.vtl</source>
+        <source>simple-list.vtl</source>
         <variables>
             <var>
                 <name>list</name>
