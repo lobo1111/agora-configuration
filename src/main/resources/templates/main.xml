@@ -1247,6 +1247,24 @@
     <!-- ################### SIMPLE LISTS ########################## -->
     
     <template>
+        <name>list-invoice-position-names</name>
+        <source>simple-string-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    0, 
+                    p.position) 
+                    FROM
+                    InvoicePositionDictionary p
+                    ORDER BY
+                    p.position ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-booking-periods</name>
         <source>simple-list.vtl</source>
         <variables>
