@@ -1248,14 +1248,13 @@
     
     <template>
         <name>list-invoice-position-names</name>
-        <source>simple-list.vtl</source>
+        <source>simple-string-list.vtl</source>
         <variables>
             <var>
                 <name>list</name>
                 <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    0, 
-                    p.position) 
+                    SELECT 
+                    p.position
                     FROM
                     InvoicePositionDictionary p
                     ORDER BY
