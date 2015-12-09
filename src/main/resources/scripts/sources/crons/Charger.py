@@ -2,6 +2,8 @@ from pl.reaper.container.data import Charging
 from pl.reaper.container.data import ChargingElement
 from base.Container import Container
 from entities.ChargingQueue import ChargingQueueManager
+from actions.ChargingPossessionRentDocumentManager import ChargingPossessionRentDocumentManager
+from actions.ChargingPossessionRepairFundDocumentManager import ChargingPossessionRepairFundDocumentManager
 from java.util import Date
 import re
 
@@ -85,8 +87,13 @@ class ChargeManager(Container):
                 charging.getChargingElements().add(self.calculate(charging, possession, possessionElement))
             if charging.getChargingElements().size() > 0:
                 self._entityManager.persist(charging)
+                ChargingPossessionRentDocumentManager().createDocument(charging, self.calculate(charging.getChargingElements(), false), "Koszty eksploatacji")
+                ChargingPossessionRepairFundDocumentManager().createDocument(charging, self.calculate(charging.getChargingElements(), true), "Fundusz remontowy")
         else:
             self._logger.info('Looks like possession %s is already charged, omitting...' % str(possession.getId()))
+            
+    def calculate(self, elements, repairFund):
+        return sum([element.getValue() for element in elements if (element.getGroup().getKey() == 'REPAIR_FUND') == repairFund])        
     
     def chargeCommunity(self, community):
         for possession in community.getPossessions():

@@ -1,6 +1,7 @@
 from base.Container import Container
 from pl.reaper.container.data import BankCredit
 from pl.reaper.container.data import BankCreditPayment
+from actions.BankNoteDocumentManager import BankNoteDocumentManager
 
 class BankCreditManager(Container):
 
@@ -16,6 +17,7 @@ class BankCreditManager(Container):
         credit.setContractor(self.findById("Contractor", self._svars.get("contractorId")))
         self.updatePayments(credit)
         self.saveEntity(credit)
+        BankNoteDocumentManager().createDocument(credit, credit.getAmount(), "Kredyt bankowy")
         
     def update(self):
         credit = self.findById("BankCredit", self._svars.get('id'))

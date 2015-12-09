@@ -1774,4 +1774,18 @@
             ADD CONSTRAINT `invoice_position_dictionary_company_id_fkey` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-internal-payment'>
+        <sql>                   
+            ALTER TABLE `invoice`
+            ADD COLUMN `internal_payment_id` int(11)
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-internal-payment-fkey'>
+        <sql>                   
+            ALTER TABLE `invoice`
+            ADD CONSTRAINT `invoice_internal_payment_id_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

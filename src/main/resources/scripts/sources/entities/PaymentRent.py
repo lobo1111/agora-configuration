@@ -1,8 +1,10 @@
-from pl.reaper.container.data import PaymentRent
-from pl.reaper.container.data import PaymentRentDetails
-from java.text import SimpleDateFormat
+from actions.PaymentRentDocumentManager import PaymentRentDocumentManager
+from actions.PaymentRepairFundDocumentManager import PaymentRepairFundDocumentManager
 from base.Container import Container
 from entities.InternalPayment import InternalPaymentManager
+from java.text import SimpleDateFormat
+from pl.reaper.container.data import PaymentRent
+from pl.reaper.container.data import PaymentRentDetails
 
 class PaymentRentManager(Container):
     
@@ -10,6 +12,10 @@ class PaymentRentManager(Container):
         paymentRent = PaymentRent()
         self.setPaymentRentData(paymentRent)
         self.savePaymentRent(paymentRent)
+        if paymentRent.isRepairFund():
+            PaymentRepairFundDocumentManager().createDocument(paymentRent, paymentRent.calculateValue(), "Fundusz remontowy")
+        else:
+            PaymentRentDocumentManager().createDocument(paymentRent, paymentRent.calculateValue(), "Koszty eksploatacji")
         
     def remove(self):
         paymentRent = self.findPaymentRentById(self._svars.get('id'))
@@ -42,6 +48,10 @@ class PaymentRentManager(Container):
         paymentRent.setPossession(self.getPossession())
         paymentRent.setMonth(self.getCurrentMonth())
         paymentRent.setBookingPeriod(self.getBookingPeriod())
+        if self._svars.get('repairFund') == 'true':
+            paymentRent.setRepairFund(True)
+        else:
+            paymentRent.setRepairFund(False)
         paymentRentDetails.setTitle(self._svars.get('title'))
         paymentRentDetails.setBookingDate(self.parseDate(self._svars.get('bookingDate')))
         paymentRentDetails.setRequestDate(self.parseDate(self._svars.get('requestDate')))

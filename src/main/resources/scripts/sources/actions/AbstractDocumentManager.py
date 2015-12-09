@@ -1,38 +1,20 @@
 from base.Container import Container
 from entities.InternalPayment import InternalPaymentManager
 
-class AccountProvisionBooker(Container):
+class AbstractDocumentManager(Container):
     
-    def bookAllProvisions(self):
-        self._logger.info("Accont Provision Booker starts...")
-        [self.bookProvision(provision) for provision in self.collectProvisions()]
-        self._logger.info("All account provisions booked")
-        
-    def collectProvisions(self):
-        return self._entityManager.createQuery('Select c From AccountProvision c Where c.internalPayment is null').getResultList()
-    
-    def bookProvision(self, provision):
-        self._logger.info("Booking provision %d" % provision.getId())
-        zpkCredit, zpkDebit = self.collectZpks(provision)
-        self.createAndBookPayment(provision, zpkCredit, zpkDebit)
-
-    def createAndBookPayment(self, provision, zpkCredit, zpkDebit):
+    def createDocument(self, entity, value, comment):
+        zpkCredit, zpkDebit = self.collectZpks(entity)
         self._svars.put('creditZpkId', str(zpkCredit.getId()))
         self._svars.put('debitZpkId', str(zpkDebit.getId()))
-        self._svars.put('amount', str(provision.getProvisionValue()))
-        self._svars.put('comment', 'Prowizja')
+        self._svars.put('amount', str(value))
+        self._svars.put('comment', comment)
         manager = InternalPaymentManager()
         payment = manager.create()
-        provision.setInternalPayment(payment)
+        entity.setInternalPayment(payment)
         self.saveEntity(payment)
         self._entityManager.flush()
         self._svars.put('paymentId', str(payment.getId()))
-        manager.book()
-
-    def collectZpks(self, provision):
-        zpkCredit = self.findCreditZpk(provision.getAccount().getCommunity())
-        zpkDebit = self.findDebitZpk(provision.getAccount().getBankContractor().getZpks())
-        return zpkCredit, zpkDebit
 
     def findDebitZpk(self, zpks):
         return self.findZpk(zpks, 'CONTRACTOR')

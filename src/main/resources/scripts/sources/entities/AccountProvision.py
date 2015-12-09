@@ -1,6 +1,7 @@
 from pl.reaper.container.data import AccountProvision
 from entities.BookingPeriod import BookingPeriodManager
 from base.Container import Container
+from actions.AccountProvisionDocumentManager import AccountProvisionDocumentManager
 
 class AccountProvisionManager(Container):
 
@@ -15,6 +16,8 @@ class AccountProvisionManager(Container):
         self.saveEntity(note)
         account.getAccountProvisions().add(note)
         self._entityManager.persist(account)
+        AccountProvisionDocumentManager().createDocument(note, note.getProvisionValue(), "Prowizja")
+        return note
 
     def remove(self):
         note = self.findById("AccountProvision", self._svars.get('id'))

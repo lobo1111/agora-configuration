@@ -1,4 +1,5 @@
-from pl.reaper.container.data import Dictionary
+from actions.InvoiceCostDocumentManager import InvoiceCostDocumentManager
+from actions.InvoicePaymentDocumentManager import InvoicePaymentDocumentManager
 from pl.reaper.container.data import Invoice
 from pl.reaper.container.data import InvoicePosition
 from pl.reaper.container.data import InvoicePositionDictionary
@@ -23,18 +24,21 @@ class InvoiceManager(Container):
         self.calculateToPay(invoice)
         self.calculatePayed(invoice)
         self.checkForNewPositions(invoice.getContractor().getCompany(), invoice.getPositions())
+        InvoiceCostDocumentManager().createDocument(invoice, invoice.getToPay(), "Faktura")
         self.saveInvoice(invoice)
         
     def update(self):
         invoice = self.findInvoice()
-        if not invoice.isAccepted():
-            invoice.setNumber(self._svars.get('number'))
-            self.addPositions(invoice)
-        self.addPayments(invoice)
-        self.calculateToPay(invoice)
-        self.calculatePayed(invoice)
-        self.checkForNewPositions(invoice.getContractor().getCompany(), invoice.getPositions())
-        self.saveInvoice(invoice)
+        if not invoice.isBooked():
+            if not invoice.isAccepted():
+                invoice.setNumber(self._svars.get('number'))
+                self.addPositions(invoice)
+            self.addPayments(invoice)
+            self.calculateToPay(invoice)
+            invoice.getInternalPayment().setAmmount(invoice.getToPay())
+            self.calculatePayed(invoice)
+            self.checkForNewPositions(invoice.getContractor().getCompany(), invoice.getPositions())
+            self.saveInvoice(invoice)
 
     def accept(self):
         invoice = self.findInvoice()
@@ -122,6 +126,7 @@ class InvoiceManager(Container):
                 payment.setBooked(self.parseBoolean(self._svars.get(str(i) + '_payments_booked')))
                 payment.setCreateDate(self.parseDate(self._svars.get(str(i) + '_payments_createDate')))
                 payment.setValuePayment(float(self._svars.get(str(i) + '_payments_value')))
+                InvoicePaymentDocumentManager().createDocument(payment, payment.getValuePayment(), "Faktura - płatność")
                 if paymentId == '0':
                     payment.setInvoice(invoice)
                     invoice.getPayments().add(payment)

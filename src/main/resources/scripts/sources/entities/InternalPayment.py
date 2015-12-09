@@ -17,15 +17,14 @@ class InternalPaymentManager(Container):
         self.saveEntity(payment)
         return payment
     
-    def book(self):
-        payment = self.findById('InternalPayment', self._svars.get('paymentId'))
+    def book(self, payment):
         if not payment.isBooked():
             self.increaseDebit(self.getCurrentBalance(payment.getDebitZpk()), payment.getAmount())
             self.increaseCredit(self.getCurrentBalance(payment.getCreditZpk()), payment.getAmount())
             payment.setBookedDate(Date())
             payment.setBooked(True)
             self._entityManager.persist(payment)
-    
+            
     def canCancel(self):
         payment = self.findById('InternalPayment', self._svars.get('id'))
         return not payment.isBooked()

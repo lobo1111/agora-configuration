@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -56,6 +57,17 @@ public class Invoice implements Serializable {
     private List<InvoicePosition> positions = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
     private List<InvoicePayment> payments = new ArrayList<>();
+    @JoinColumn(name = "internal_payment_id", referencedColumnName = "id")
+    @OneToOne
+    private InternalPayment internalPayment;
+
+    public InternalPayment getInternalPayment() {
+        return internalPayment;
+    }
+
+    public void setInternalPayment(InternalPayment internalPayment) {
+        this.internalPayment = internalPayment;
+    }
 
     public int getId() {
         return id;

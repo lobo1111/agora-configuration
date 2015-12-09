@@ -1,6 +1,7 @@
 from pl.reaper.container.data import BankNote
 from entities.BookingPeriod import BookingPeriodManager
 from base.Container import Container
+from actions.BankNoteDocumentManager import BankNoteDocumentManager
 
 class BankNoteManager(Container):
 
@@ -14,6 +15,7 @@ class BankNoteManager(Container):
         note.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
         note.setMonth(self.getCurrentMonth())
         self.saveEntity(note)
+        BankNoteDocumentManager().createDocument(note, note.getNoteValue(), "Nota")
 
     def remove(self):
         note = self.findById("BankNote", self._svars.get('id'))
