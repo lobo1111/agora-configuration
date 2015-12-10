@@ -1,11 +1,5 @@
 from base.Container import Container
 from entities.Dictionary import DictionaryManager
-from actions.ChargingBooker import ChargingBooker
-from actions.PaymentBooker import PaymentBooker
-from actions.InvoiceBooker import InvoiceBooker
-from actions.BankNoteBooker import BankNoteBooker
-from actions.BankCreditBooker import BankCreditBooker
-from actions.AccountProvisionBooker import AccountProvisionBooker
 
 class Close(Container):
     
@@ -38,15 +32,4 @@ class Close(Container):
         self._entityManager.flush()
         
     def bookAll(self):
-        cBooker = ChargingBooker()
-        cBooker.bookAllChargings()
-        pBooker = PaymentBooker()
-        pBooker.bookAllPayments()
-        iBooker = InvoiceBooker()
-        iBooker.bookAllInvoices()
-        nBooker = BankNoteBooker()
-        nBooker.bookAllNotes()
-        bcBooker = BankCreditBooker()
-        bcBooker.bookAllCredits()
-        apBooker = AccountProvisionBooker()
-        apBooker.bookAllProvisions()
+        pass#...

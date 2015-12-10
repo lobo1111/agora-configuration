@@ -6,14 +6,11 @@ class BankCredit(Document):
     
     def create(self):
         credit = self.initDocument(BankCredit(), BankCredit.TYPE)
-        if self._svars.get("defaultAccount") == 'true':
-            credit.setChargeDefaultAccount(True)
-        else:
-            credit.setChargeDefaultAccount(False)
         credit.setContractor(self.findById("Contractor", self._svars.get("contractorId")))
         positionCost = self.initPosition(credit, BankCreditPosition())
         positionCost.setZpkCredit(self.findZpk(credit.getContractor().getZpks(), 'CONTRACTOR'))
-        if credit.isChargeDefaultAccount():
+        chargeDefaultAccount = self._svars.get("defaultAccount") == 'true'
+        if chargeDefaultAccount:
             type = 'RENT'
         else:
             type = 'REPAIR_FUND'

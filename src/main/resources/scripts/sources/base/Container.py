@@ -51,3 +51,4 @@ class Container:
         self._entityManager.flush()
         if hasattr(entity, 'getId'):
             self._svars.put('output', str(entity.getId()))
+        return entity

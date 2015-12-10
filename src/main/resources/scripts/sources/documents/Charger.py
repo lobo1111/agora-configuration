@@ -1,9 +1,16 @@
 from document.Document import Document
 from document.Document.helpers.Calculator import Calculator
 from entities.BookingPeriod import BookingPeriodManager
+from entities.Dictionary import DictionaryManager
+from pl.reaper.container.data import Charging
+from pl.reaper.container.data import ChargingPosition
 
 class Charger(Document):
     self._calculator = Calculator()
+    
+    def remove(self):
+        charging = self.findById("Charging", self._svars.get('id'))
+        self.cancelDocument(charging)
     
     def chargeAll(self):
         self._queue = ChargingQueueManager()

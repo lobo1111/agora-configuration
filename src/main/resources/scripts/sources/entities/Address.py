@@ -10,8 +10,7 @@ class AddressManager(Container):
     def getAddress(self, entity):
         address = self.getOrCreateAddress(entity)
         self.setAddressData(address)
-        self.saveAddress(address)
-        return address
+        return self.saveEntity(address)
     
     def setAddressData(self, address):
         address.setStreet(self._svars.get(self._prefix + 'street'))
@@ -25,7 +24,3 @@ class AddressManager(Container):
             return entity.getAddress()
         else:
             return Address()
-    
-    def saveAddress(self, address):
-        self._logger.info(address.longDescription())
-        self.saveEntity(address)
