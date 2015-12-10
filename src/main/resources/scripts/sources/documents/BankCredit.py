@@ -19,12 +19,12 @@ class BankCredit(Document):
             type = 'REPAIR_FUND'
         positionCost.setZpkDebit(self.findZpk(credit.getCommunity().getZpks(), type))
         self.updatePayments(credit)
-        self.saveDocument(credit)
+        return self.saveDocument(credit)
         
     def update(self):
         credit = self.findById("BankCredit", self._svars.get('id'))
         self.updatePayments(credit)
-        self.saveDocument(credit)
+        return self.saveDocument(credit)
         
     def remove(self):
         credit = self.findById("BankCredit", self._svars.get('id'))

@@ -2,12 +2,12 @@
 <schedulers>
     <scheduler>
         <script>check-email</script>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
     <scheduler>
         <script>file-watchdog</script>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
     <scheduler>                     
@@ -17,7 +17,7 @@
     </scheduler>
     <scheduler>
         <script>bind-documents-to-payments</script>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
 </schedulers>

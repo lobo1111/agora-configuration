@@ -1788,4 +1788,11 @@
             ADD CONSTRAINT `invoice_internal_payment_id_fkey` FOREIGN KEY (`internal_payment_id`) REFERENCES `internal_payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='property-repair-fund-element-group'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'elements.repairFundGroup', '79' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
