@@ -1,20 +1,19 @@
-from documents.Document import Document
-from pl.reaper.container.data import BankNote
-from pl.reaper.container.data import BankNotePosition
+from documents.Document import DocumentManager
 
-class BankNote(Document):
+class BankNoteManager(DocumentManager):
+    _type = "BANK_NOTE"
     
     def create(self):
-        note = self.initDocument(BankNote(), BankNote.TYPE)
+        note = self.initDocument(self._type)
         note.setPossession(self.findById("Possession", self._svars.get('possessionId')))
-        note.setElement(self.findById("Element", self._svars.get('elementId')))
-        notePosition = self.initPosition(note, BankNotePosition())
+        note.addAttribute("ELEMENT_ID", self._svars.get('elementId'))
+        notePosition = self.initPosition(note)
         notePosition.setCreditZpk(self.findZpk(note.getCommunity().getZpks(), 'CHARGING_RENT'))
         notePosition.setDebitZpk(self.findZpk(note.getPossession().getZpks(), 'POSSESSION'))
         return self.saveDocument(note)
     
     def remove(self):
-        note = self.findById("BankNote", self._svars.get('id'))
-        self.cancelNote(note)
+        note = self.findById("Document", self._svars.get('id'))
+        self.cancelDocument(note)
         
         

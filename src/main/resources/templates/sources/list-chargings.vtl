@@ -1,34 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<chargings>
+<documents>
     #foreach($item in $items)
     <item>
-        #if($!item[9] == "CHARGE")
-        <id>-$!item[0]</id>
-        #else
-        <id>$!item[0]</id>
-        #end
-        <month>$!item[1]</month>
-        <bookingPeriodName>$!item[2]</bookingPeriodName>
-        <timestamp>$!item[3].getTime()</timestamp>
-        <communityName>$!item[4]</communityName>
-        #if($!item[6] != "")
-        <possessionName>$!item[5] $!item[7]/$!item[6]</possessionName>
-        #else
-        <possessionName>$!item[5] $!item[7]</possessionName>
-        #end
-        <value>$!item[8]</value>
-        #if($!item[9] == "PAYMENT_RENT")
-        #if($!item[10] == 1)
-            <type>$!item[9]_RF</type>
-        #else
-            <type>$!item[9]_PR</type>
-        #end
-        #else
-        <type>$!item[9]</type>
-        #end
+        <id>$!item.getId()</id>
+        <month>$!item.getMonth()</month>
+        <bookingPeriodName>#!item.getBookingPeriod().getName()</bookingPeriodName>
+        <createdAt>#!item.getCreateAt().getTime()</createdAt>
+        <communityName>#!item.getDocument().getCommunity().getName()</communityName>
+        <possessionName>#!item.getPossession().getFullAddress()</possessionName>
+        <value>#!item.getValue()</value>
+        <type>#!item.getType()</type>
     </item>
     #end
     <settings>
         <maxResults>$!countRows</maxResults>
     </settings>
-</chargings>
+</documents>

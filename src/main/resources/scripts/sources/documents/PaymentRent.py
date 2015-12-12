@@ -1,27 +1,38 @@
 from document.Document import Document
-from pl.reaper.container.data import PossessionPayment
-from pl.reaper.container.data import PossessionPaymentPosition
 
-class PaymentRent(Document):
+class PaymentRentManager(Document):
+    _type = "POSSESSION_PAYMENT"
     
-     def create(self):
-        payment = self.initDocument(PossessionPayment(), PaymentRent.TYPE)
+    def create(self):
+        payment = self.initDocument(self._type)
         payment.setPossession(self.findById("Possession", self._svars.get("possessionId")))
-        payment.setRepairFund(isRepairFund)
-        paymentPosition = self.initPosition(payment, PossessionPaymentPosition())
-        paymentPosition.setClientName(self._svars.get('clientName'))
-        paymentPosition.setAccount(self.findById("Account", self._svars.get("accountId")))
-        isRepairFund = self._svars.get('repairFund') == 'true'
-        if isRepairFund():
-            paymentPosition.setCreditZpk(self.findZpk(payment.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
-            paymentPosition.setDebitZpk(self.findZpk(paymentPosition.getAccount().getZpks(), 'REPAIR_FUND'))
-        else:
-            paymentPosition.setCreditZpk(self.findZpk(payment.getPossession().getZpks(), 'POSSESSION'))
-            paymentPosition.setDebitZpk(self.findZpk(paymentPosition.getAccount().getZpks(), 'RENT', 'DEFAULT'))
+        account = self.findById('Account', self._svars.get('accountId'))
+        if account.getType().getKey() in ['RENT', 'DEFAULT']:
+            if account.getType().getKey() == 'RENT':
+                value = float(self._svars.get('rent'))
+            else:
+                float(self._svars.get('value'))
+            if value != 0:
+                paymentPosition = self.initPosition(payment)
+                paymentPosition.setClientName(self._svars.get('clientName'))
+                paymentPosition.setAccount(account)
+                paymentPosition.setCreditZpk(self.findZpk(payment.getPossession().getZpks(), 'POSSESSION'))
+                paymentPosition.setDebitZpk(self.findZpk(paymentPosition.getAccount().getZpks(), 'RENT', 'DEFAULT'))
+        if account.getType().getKey() in ['REPAIR_FUND', 'DEFAULT']:
+            if account.getType().getKey() == 'REPAIR_FUND':
+                value = float(self._svars.get('repairFund'))
+            else:
+                float(self._svars.get('value'))
+            if value != 0:
+                paymentPosition = self.initPosition(payment)
+                paymentPosition.setClientName(self._svars.get('clientName'))
+                paymentPosition.setAccount(account)
+                paymentPosition.setCreditZpk(self.findZpk(payment.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
+                paymentPosition.setDebitZpk(self.findZpk(paymentPosition.getAccount().getZpks(), 'REPAIR_FUND'))
         self.saveDocument(payment)
-        
+    
     def remove(self):
-        payment = self.findById("PossessionPayment", self._svars.get('id'))
+        payment = self.findById("Document", self._svars.get('id'))
         self.cancelDocument(payment)
         
     def findZpk(self, zpks, typeKey, alternative = ''):

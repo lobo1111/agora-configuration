@@ -1,16 +1,20 @@
 from java.util import Date
 from entities.BookingPeriod import BookingPeriodManager
+from pl.reaper.container.data import Document
+from pl.reaper.container.data import DocumentPosition
 
 class DocumentManager(Container):
     
-    def initDocument(self, document, type):
+    def initDocument(self, type):
+        document = Document()
         document.setCreatedAt(Date())
         document.setType(type)
         document.setCommunity(self.findById("Community", int(self._svars.get('community_id'))))
         document.setDescription(self._svars.put('document_description', comment))
         return document
         
-    def initPosition(self, document, position, prefix = ''):
+    def initPosition(self, document, prefix = ''):
+        position = DocumentPosition()
         position.setCreatedAt(Date())
         position.setType(document.getType())
         document.getPositions().add(position)

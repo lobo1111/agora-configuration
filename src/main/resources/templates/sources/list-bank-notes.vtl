@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <bankNotes>
-    #foreach($row in $items)
+    ##Single item in a element is a two-elements array
+    ##First element is a Document, second is an Element
+    #foreach($tuple in $items)
     <item>
-        <id>$!row.getId()</id>
-        <value>$!row.getNoteValue()</value>
-        <createdAt>$!row.getCreatedAt().getTime()</createdAt>
-        <description>$!row.getDescription()</description>
-        #if($row.getInternalPayment())
+        <id>$!tuple[0].getId()</id>
+        <value>$!tuple[0].getPositions().get(0).getValue()</value>
+        <createdAt>$!tuple[0].getCreatedAt().getTime()</createdAt>
+        <description>$!tuple[0].getDescription()</description>
+        #if($tuple[0].getPositions().get(0).isBooked())
         <booked>1</booked>
         #else
         <booked>0</booked>
         #end
         <element>
-            <id>$!row.getElement().getId()</id>
-            <groupValue>$!row.getElement().getGroup().getValue()</groupValue>
-            <name>$!row.getElement().getName()</name>
-            <globalValue>$!row.getNoteValue()</globalValue>
+            <id>$!tuple[1].getId()</id>
+            <groupValue>$!tuple[1].getGroup().getValue()</groupValue>
+            <name>$!tuple[1].getName()</name>
+            <globalValue>$!tuple[0].getPositions().get(0).getValue()</globalValue>
         </element>
         <possession>
-            <id>$!row.getPossession().getId()</id>
+            <id>$!tuple[0].getPossession().getId()</id>
             <address>
-                <street>$!row.getPossession().getAddress().getStreet()</street>
-                <houseNumber>$!row.getPossession().getAddress().getHouseNumber()</houseNumber>
-                <flatNumber>$!row.getPossession().getAddress().getFlatNumber()</flatNumber>
-                <postalCode>$!row.getPossession().getAddress().getPostalCode()</postalCode>
-                <city>$!row.getPossession().getAddress().getCity()</city>
+                <street>$!tuple[0].getPossession().getAddress().getStreet()</street>
+                <houseNumber>$!tuple[0].getPossession().getAddress().getHouseNumber()</houseNumber>
+                <flatNumber>$!tuple[0].getPossession().getAddress().getFlatNumber()</flatNumber>
+                <postalCode>$!tuple[0].getPossession().getAddress().getPostalCode()</postalCode>
+                <city>$!tuple[0].getPossession().getAddress().getCity()</city>
             </address>
         </possession>
         <community>
-            <id>$!row.getPossession().getCommunity().getId()</id>
+            <id>$!tuple[0].getCommunity().getId()</id>
             <company>
-                <name>$!row.getPossession().getCommunity().getCompany().getName()</name>
+                <name>$!tuple[0].getCommunity().getCompany().getName()</name>
             </company>
         </community>
     </item>

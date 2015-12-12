@@ -1,15 +1,15 @@
-from document.Document import Document
+from documents.Document import DocumentManager
+from pl.reaper.container.data import Document
 from document.Document.helpers.Calculator import Calculator
 from entities.BookingPeriod import BookingPeriodManager
 from entities.Dictionary import DictionaryManager
-from pl.reaper.container.data import Charging
-from pl.reaper.container.data import ChargingPosition
 
-class Charger(Document):
-    self._calculator = Calculator()
+class ChargerManager(DocumentManager):
+    _calculator = Calculator()
+    _type = "CHARGING"
     
     def remove(self):
-        charging = self.findById("Charging", self._svars.get('id'))
+        charging = self.findById("Document", self._svars.get('id'))
         self.cancelDocument(charging)
     
     def chargeAll(self):
@@ -38,14 +38,14 @@ class Charger(Document):
             
     def chargePossession(self, possession):
         if not self.alreadyCharged(possession) and possession.getElements().size() > 0:
-            charging = self.initDocument(Charging(), Charging.TYPE)
+            charging = self.initDocument(self._type)
             charging.setPossession(possession)
             for possessionElement in possession.getElements():
                 element = possessionElement.getElement()
                 element.setGlobalValue(self.discoverValue(possessionElement))
-                chargingPosition = self.initPosition(charging, ChargingPosition())
-                chargingPosition.setDescription(element)
-                chargingPosition.setGroup(element.getGroup())
+                chargingPosition = self.initPosition(charging)
+                chargingPosition.setDescription(element.getName())
+                chargingPosition.addAttribute("CHARGING_ELEMENT_ID", self.createChargingElement(possessionElement.getElement(), self._calculator.calculate(element, possession)))
                 chargingPosition.setValue(self._calculator.calculate(element, possession))
                 if self.isRepairFundElement(element):
                     chargingPosition.setCreditZpk(self.findZpk(charging.getCommunity().getZpks(), 'CHARGING_RENT'))
@@ -54,6 +54,16 @@ class Charger(Document):
                     chargingPosition.setCreditZpk(self.findZpk(charging.getCommunity().getZpks(), 'CHARGING_REPAIR_FUND'))
                     chargingPosition.setDebitZpk(self.findZpk(possession.getZpks(), 'POSSESSION_REPAIR_FUND'))
             return self.saveDocument(charging)
+        
+    def createChargingElement(self, element, value):
+        cElement = ChargingElement()
+        cElement.setKey(element.getKey())
+        cElement.setName(element.getName())
+        cElement.setGroup(element.getGroup())
+        cElement.setValue(value)
+        self._entityManager.persist(cElement)
+        self._entityManager.flush()
+        return cElement.getId()
             
    def chargeCommunity(self, community):
         for possession in community.getPossessions():

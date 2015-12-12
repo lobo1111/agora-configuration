@@ -1,12 +1,10 @@
 from document.Document import Document
-from pl.reaper.container.data import Invoice
-from pl.reaper.container.data import InvoiceItemPosition
-from pl.reaper.container.data import InvoicePaymentPosition
 
-class Invoice(Document):
+class InvoiceManager(Document):
+    _type = "INVOICE"
     
     def create(self):
-        invoice = self.initDocument(Invoice(), Invoice.TYPE)
+        invoice = self.initDocument(self._type)
         self.updateInvoiceData(invoice)
         self.updatePositions(invoice)
         self.updatePayments(invoice)
@@ -14,7 +12,7 @@ class Invoice(Document):
         return self.saveDocument(invoice)
     
     def update(self):
-        invoice = self.findById("Invoice", self._svars.get("id"))
+        invoice = self.findById("Document", self._svars.get("id"))
         if not invoice.isAccepted():
             self.updateInvoiceData(invoice)
             self.updatePositions(invoice)
@@ -23,10 +21,10 @@ class Invoice(Document):
         return self.saveDocument(invoice)
     
     def updateInvoiceData(self, invoice):
-        invoice.setNumber(self._svars.get('number'))
-        invoice.setContractor(self.findContractor(self._svars.get('contractorId')))
-        invoice.setPaymentDate(self.parseDate(self._svars.get('paymentDate')))
-        invoice.setCreateDate(self.parseDate(self._svars.get('createDate')))
+        invoice.addAttribute("NUMBER", self._svars.get('number'))
+        invoice.addAttribute("PAYMENT_DATE", self.parseDate(self._svars.get('paymentDate')))
+        invoice.addAttribute("CREATE_DATE", self.parseDate(self._svars.get('createDate')))
+        invoice.addAttribute("ACCEPTED", False)
         
     def updatePositions(self, invoice):
         for i in range(int(self._svars.get('positionsCount'))):
@@ -37,39 +35,42 @@ class Invoice(Document):
                 self.cancelPosition(position)
             else:
                 position = self.findOrCreatePosition(invoice, positionId)
+                position.addAttribute("NUMBER", self._svars.get(str(i) + '_positions_number'))
+                position.addAttribute("TAX_ID", self._svars.get(str(i) + '_positions_taxId'))
+                position.addAttribute("VOLUME", float(self._svars.get(str(i) + '_positions_volume')))
+                position.addAttribute("VALUE_NET", float(self._svars.get(str(i) + '_positions_netValue')))
+                position.addAttribute("VALUE_GROSS", float(self._svars.get(str(i) + '_positions_grossValue')))
                 position.setDescription(self._svars.get(str(i) + '_positions_name'))
-                position.setVolume(float(self._svars.get(str(i) + '_positions_volume')))
-                position.setNumber(int(self._svars.get(str(i) + '_positions_number')))
-                position.setUnitValueNet(float(self._svars.get(str(i) + '_positions_unitValueNet')))
-                position.setValueNet(float(self._svars.get(str(i) + '_positions_netValue')))
-                position.setValueGross(float(self._svars.get(str(i) + '_positions_grossValue')))
-                position.setTax(self.findTax(self._svars.get(str(i) + '_positions_taxId')))
+                position.setValue(float(self._svars.get(str(i) + '_positions_unitValueNet')))
                 position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
                 position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))
     
     def updatePayments(self, invoice):
         for i in range(int(self._svars.get('paymentsCount'))):
-            paymentId = self._svars.get(str(i) + '_payments_paymentId')
-            remove = self._svars.get(str(i) + '_payments_remove') == 'true'
-            if remove and paymentId != 0:
-                payment = self.findById("InvoicePaymentPosition", paymentId)
-                self.cancelPosition(payment)
-            else:
-                payment = self.findOrCreatePayment(invoice, paymentId)
-                payment.setCreditZpk(self.findZpk(invoice.getCommunity().getZpks(), 'RENT'))
-                payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
+            self.updatePayment(invoice, str(i), '_payments_')
+                
+    def updatePayment(self, invoice, counter = '', prefix = ''):
+        paymentId = int(self._svars.get(counter + prefix + 'paymentId'))
+        remove = self._svars.get(counter + prefix + 'remove') == 'true'
+        if remove and paymentId != 0:
+            payment = self.findById("InvoicePaymentPosition", paymentId)
+            self.cancelPosition(payment)
+        else:
+            payment = self.findOrCreatePayment(invoice, paymentId, prefix)
+            payment.setCreditZpk(self.findZpk(invoice.getCommunity().getZpks(), 'RENT'))
+            payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
     
     def findOrCreatePosition(self, invoice, positionId):
         if positionId == 0:
-            return self.initPosition(invoice, InvoiceItemPosition(), '_positions_')
+            return self.initPosition(invoice, '_positions_')
         else:
-            return self.findById("InvoiceItemPosition", positionId)
+            return self.findById("DocumentPosition", positionId)
     
-    def findOrCreatePayment(self, invoice, paymentId):
+    def findOrCreatePayment(self, invoice, paymentId, prefix):
         if paymentId == 0:
-            return self.initPosition(invoice, InvoicePaymentPosition(), '_payments_')
+            return self.initPosition(invoice, prefix)
         else:
-            return self.findById("InvoicePaymentPosition", paymentId)
+            return self.findById("DocumentPosition", paymentId)
     
     def updatePositionsDictionary(self, company, positions):
         for position in positions:

@@ -48,7 +48,7 @@
                     SELECT 
                     e
                     FROM 
-                    BankCredit e
+                    BankCreditDocument e
                     WHERE 
                     e.id = {:id}
                 </data>
@@ -66,7 +66,7 @@
                     SELECT 
                     e
                     FROM 
-                    BankNote e
+                    BankNoteDocument e
                     WHERE 
                     e.id = {:id}
                 </data>
@@ -84,7 +84,7 @@
                     SELECT 
                     e
                     FROM 
-                    Invoice e
+                    InvoiceDocument e
                     WHERE 
                     e.id = {:id}
                 </data>
@@ -138,7 +138,7 @@
                     SELECT 
                     e
                     FROM 
-                    Charging e
+                    ChargingDocument e
                     WHERE 
                     e.id = {:id}
                 </data>
@@ -156,7 +156,7 @@
                     SELECT 
                     e
                     FROM 
-                    PaymentRent e
+                    PaymentRentDocument e
                     WHERE 
                     e.id = {:id}
                 </data>
@@ -375,24 +375,6 @@
         </variables>
     </template>
     <template>
-        <name>entity-internal-payment</name>
-        <source>entity-internal-payment.vtl</source>
-        <variables>
-            <var>
-                <name>entity</name>
-                <data>
-                    {:single}
-                    SELECT 
-                    p
-                    FROM 
-                    InternalPayment p
-                    WHERE
-                    p.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
         <name>entity-override-elements</name>
         <source>entity-override-elements.vtl</source>
         <variables>
@@ -411,46 +393,6 @@
         </variables>
     </template>
     <!-- LISTS -->
-    <template>
-        <name>list-community-charging</name>
-        <source>list-community-charging.vtl</source>
-        <variables>
-            <var>
-                <name>items</name>
-                <data>
-                    SELECT
-                        community,
-                        COUNT(possession.id) as counter
-                    FROM
-                        Community community
-                        JOIN community.possessions possession
-                    WHERE
-                        possession.id NOT IN(
-                            SELECT 
-                                charged.id 
-                            FROM 
-                                Charging charging
-                                JOIN charging.possession charged
-                            WHERE
-                                charging.month IN(
-                                    SELECT
-                                        dict.value
-                                    FROM
-                                        Dictionary dict
-                                        JOIN dict.type dtype
-                                    WHERE
-                                        dtype.type = "PERIODS"
-                                        AND dict.key = "CURRENT"))
-                    GROUP BY
-                        community.id
-                    HAVING
-                        counter > 0
-                    ORDER BY
-                        community.name ASC
-                </data>
-            </var>
-        </variables>
-    </template>
     <template>
         <name>list-default-contractors</name>
         <source>list-default-contractors.vtl</source>
@@ -697,7 +639,7 @@
                     SELECT 
                     bc
                     FROM 
-                    BankCredit bc
+                    BankCreditDocument bc
                     JOIN bc.community community
                     JOIN bc.contractor contractor
                     WHERE {:where}
@@ -711,7 +653,7 @@
                     SELECT 
                     count(bc.id)
                     FROM 
-                    BankCredit bc
+                    BankCreditDocument bc
                     JOIN bc.community community
                     JOIN bc.contractor contractor
                     WHERE {:where}
@@ -811,103 +753,25 @@
                 <name>items</name>
                 <data>
                     {:limit}
-                    {:native}
-                    (SELECT 
-                    charging.id,
-                    charging.month,
-                    bookingPeriod.name,
-                    charging.timestamp,
-                    community.name,
-                    possessionAddress.street,
-                    possessionAddress.flat_number,
-                    possessionAddress.house_number,
-                    SUM(chargingElement.element_value),
-                    \'CHARGE\',
-                    0
-                    FROM 
-                    charging AS charging
-                    JOIN charging_element AS chargingElement ON (charging.id = chargingElement.charging_id)
-                    JOIN possession AS possession ON (possession.id = charging.possession_id)
-                    JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
-                    JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = charging.booking_period_id)
-                    JOIN community AS community ON (community.id = possession.community_id)
-                    WHERE {:where} AND community.out_date is NULL
-                    GROUP BY charging.id)
-                    UNION ALL (
                     SELECT
-                    paymentRent.id,
-                    paymentRent.month,
-                    bookingPeriod.name,
-                    paymentRent.timestamp,
-                    community.name,
-                    possessionAddress.street,
-                    possessionAddress.flat_number,
-                    possessionAddress.house_number,
-                    paymentRentDetails.rent_value,
-                    \'PAYMENT_RENT\',
-                    paymentRent.repair_fund
-                    FROM payment_rent AS paymentRent
-                    JOIN payment_rent_details AS paymentRentDetails ON(paymentRent.id = paymentRentDetails.payment_rent_id)
-                    JOIN possession AS possession ON(possession.id = paymentRent.possession_id)
-                    JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
-                    JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = paymentRent.booking_period_id)
-                    JOIN community AS community ON (community.id = possession.community_id)
-                    WHERE {:where} AND community.out_date is NULL
-                    ) UNION ALL (
-                    SELECT
-                        bankNote.id,
-                        bankNote.month,
-                        bookingPeriod.name,
-                        bankNote.created_at AS timestamp,
-                        community.name,
-                        possessionAddress.street,
-                        possessionAddress.flat_number,
-                        possessionAddress.house_number,
-                        bankNote.note_value,
-                        \'BANK_NOTE\',
-                        0
-                    FROM bank_note AS bankNote
-                    JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = bankNote.booking_period_id)
-                    JOIN possession AS possession ON(possession.id = bankNote.possession_id)
-                    JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
-                    JOIN community AS community ON (community.id = possession.community_id)
-                    WHERE {:where} AND community.out_date is NULL
-                    ) ORDER BY timestamp DESC
+                        dp
+                    FROM
+                        DocumentPosition dp
+                    WHERE
+                        dp.type in ('CHARGING', 'PAYMENT_RENT', 'BANK_NOTE')
+                    ORDER BY dp.createdAt DESC
                 </data>
             </var>
             <var>
                 <name>countRows</name>
                 <data>
                     {:single}
-                    {:native}
-                    SELECT count(*)
-                    FROM (
-                        SELECT DISTINCT charging.id
-                        FROM charging AS charging
-                        JOIN charging_element AS chargingElement ON (charging.id = chargingElement.charging_id)
-                        JOIN possession AS possession ON (possession.id = charging.possession_id)
-                        JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
-                        JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = charging.booking_period_id)
-                        JOIN community AS community ON (community.id = possession.community_id)
-                        WHERE {:where} AND community.out_date is NULL
-                        UNION ALL
-                        SELECT paymentRent.id
-                        FROM payment_rent AS paymentRent
-                        JOIN payment_rent_details AS paymentRentDetails ON(paymentRent.id = paymentRentDetails.payment_rent_id)
-                        JOIN possession AS possession ON(possession.id = paymentRent.possession_id)
-                        JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
-                        JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = paymentRent.booking_period_id)
-                        JOIN community AS community ON (community.id = possession.community_id)
-                        WHERE {:where} AND community.out_date is NULL
-                        UNION ALL
-                        SELECT bankNote.id
-                        FROM bank_note AS bankNote
-                        JOIN booking_period AS bookingPeriod ON(bookingPeriod.id = bankNote.booking_period_id)
-                        JOIN possession AS possession ON(possession.id = bankNote.possession_id)
-                        JOIN address AS possessionAddress ON(possessionAddress.id = possession.address_id)
-                        JOIN community AS community ON (community.id = possession.community_id)
-                        WHERE {:where} AND community.out_date is NULL
-                    ) AS tmp
+                    SELECT 
+                        COUNT(dp.id)
+                    FROM 
+                        DocumentPosition dp
+                    WHERE 
+                        dp.type in ('CHARGING', 'PAYMENT_RENT', 'BANK_NOTE')
                 </data>
             </var>
         </variables>
@@ -921,22 +785,32 @@
                 <data>
                     {:limit}
                     SELECT 
-                    element
+                    cElement
                     FROM 
-                    ChargingElement element
-                    JOIN element.charging charging
-                    WHERE charging.id = {:where}
-                    ORDER BY element.key ASC
+                    Document charging
+                    Join charging.positions position
+                    Join position.attributes attribute,
+                    ChargingElement cElement
+                    WHERE 
+                    charging.id = {:where}
+                    AND cElement.id IN (SELECT attribute.value WHERE attribute.name = "CHARGING_ELEMENT_ID")
+                    ORDER BY cElement.key ASC
                 </data>
+            </var>
+            <var>
                 <name>countRows</name>
                 <data>
                     {:single}
                     SELECT 
-                    COUNT(element.id)
+                    COUNT(cElement.id)
                     FROM 
-                    ChargingElement element
-                    JOIN element.charging charging
-                    WHERE charging.id = {:where}
+                    Document charging
+                    Join charging.positions position
+                    Join position.attributes attribute,
+                    ChargingElement cElement
+                    WHERE 
+                    charging.id = {:where}
+                    AND cElement.id IN (SELECT attribute.value WHERE attribute.name = "CHARGING_ELEMENT_ID")
                 </data>
             </var>
         </variables>
@@ -950,13 +824,15 @@
                 <data>
                     {:limit}
                     SELECT 
-                    note
+                    note,
+                    element
                     FROM 
-                    BankNote note
-                    JOIN note.element element
-                    JOIN note.possession possession
-                    JOIN possession.community community
+                    Document note
+                    Join note.positions position
+                    Join position.attributes attribute,
+                    Element element
                     WHERE {:where}
+                    AND element.id IN (SELECT attribute.value FROM attribute WHERE attribute.name = "ELEMENT_ID")
                     ORDER BY note.createdAt DESC
                 </data>
             </var>
@@ -967,11 +843,12 @@
                     SELECT 
                     count(note.id)
                     FROM 
-                    BankNote note
-                    JOIN note.element element
-                    JOIN note.possession possession
-                    JOIN possession.community community
+                    Document note
+                    Join note.positions position
+                    Join position.attributes attribute,
+                    Element element
                     WHERE {:where}
+                    AND element.id IN (SELECT attribute.value FROM attribute WHERE attribute.name = "ELEMENT_ID")
                 </data>
             </var>
         </variables>
