@@ -1808,7 +1808,7 @@
             `closed` tinyint(1) NOT NULL,
             `closed_at` date,
             `description` varchar(255) COLLATE utf8_polish_ci,
-            `canceled` tinyiny(1) NOT NULL,
+            `canceled` tinyint(1) NOT NULL,
             `canceled_at` date,
             PRIMARY KEY (`id`),
             KEY `document_community_fkey` (`community_id`),
