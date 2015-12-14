@@ -12,15 +12,6 @@ class ChargerManager(DocumentManager):
         charging = self.findById("Document", self._svars.get('id'))
         self.cancelDocument(charging)
     
-    def chargeAll(self):
-        self._queue = ChargingQueueManager()
-        self._bookingPeriod = BookingPeriodManager().findDefaultBookingPeriod()
-        item = self._queue.popFromQueue()
-        while not item is None:
-            self._logger.info('charging: %s' % item.getType())
-            self.charge(item)
-            item = self._queue.popFromQueue()
-        
     def alreadyCharged(self, possession):
         try:
             self._entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId()) + " and c.month = %s)" % self._currentMonth).getSingleResult()
@@ -28,14 +19,6 @@ class ChargerManager(DocumentManager):
         except:
             return False
         
-    def charge(self, item):
-        if item.getType().toString() == "ALL":
-            self.chargeAllUncharged()
-        elif item.getType().toString() == "COMMUNITY":
-            self.chargeCommunity(item.getCommunity())
-        elif item.getType().toString() == "POSSESSION":
-            self.chargePossession(item.getPossession())
-            
     def chargePossession(self, possession):
         if not self.alreadyCharged(possession) and possession.getElements().size() > 0:
             charging = self.initDocument(self._type)
@@ -69,7 +52,7 @@ class ChargerManager(DocumentManager):
         for possession in community.getPossessions():
             self.chargePossession(possession)
             
-    def chargeAllUncharged(self):
+    def chargeAll(self):
         for possession in self.findAllUncharged():
             self.chargePossession(possession)
             

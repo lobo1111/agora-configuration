@@ -10,11 +10,6 @@
         <enabled>false</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
-    <scheduler>                     
-        <script>charge-all</script>
-        <enabled>true</enabled>
-        <fireAt>* * * * *</fireAt>
-    </scheduler>
     <scheduler>
         <script>bind-documents-to-payments</script>
         <enabled>false</enabled>
