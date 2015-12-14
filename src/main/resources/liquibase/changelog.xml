@@ -1931,7 +1931,7 @@
             `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             `value` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             PRIMARY KEY (`id`),
-            KEY `document_position_attribute_document_position_fkey` (`document_id`)
+            KEY `document_position_attribute_document_position_fkey` (`document_position_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         </sql>
     </changeSet>
