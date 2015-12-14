@@ -128,24 +128,6 @@
         </variables>
     </template>
     <template>
-        <name>entity-charging</name>
-        <source>entity-charging.vtl</source>
-        <variables>
-            <var>
-                <name>entity</name>
-                <data>
-                    {:single}
-                    SELECT 
-                    e
-                    FROM 
-                    ChargingDocument e
-                    WHERE 
-                    e.id = {:id}
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
         <name>entity-payment-rent</name>
         <source>entity-payment-rent.vtl</source>
         <variables>

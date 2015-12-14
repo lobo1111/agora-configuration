@@ -14,7 +14,15 @@
             <name>$!entity.getContractor().getName()</name>
         </company>
     </contractor>
-    <value>$!entity.getValue()</value>
+    <account>
+        <id>$!entity.getAccount().getId()</id>
+        <number>$!entity.getAccount().getNumber()</number>
+    </account>
+    #foreach($payment in $!entity.getPositions())
+    #if($payment.getType() == "BANK_CREDIT_COST")
+    <value>$!payment.getValue()</value>
+    #end
+    #end
     <closed>$!entity.isClosed()</closed>
     <payments>
         #foreach($payment in $!entity.getPositions())
