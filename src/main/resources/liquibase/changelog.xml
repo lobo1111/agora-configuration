@@ -1807,7 +1807,7 @@
             `created_at` date NOT NULL,
             `closed` tinyint(1) NOT NULL,
             `closed_at` date,
-            `description` COLLATE utf8_polish_ci varchar(255),
+            `description` varchar(255) COLLATE utf8_polish_ci,
             `canceled` tinyiny(1) NOT NULL,
             `canceled_at` date,
             PRIMARY KEY (`id`),
