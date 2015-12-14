@@ -1795,4 +1795,151 @@
             SELECT id, 'elements.repairFundGroup', '79' FROM `dictionary_type` WHERE `type` = 'PROPERTIES';
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='document-table'>
+        <sql>        
+            CREATE TABLE `document` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `type` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `community_id` int(11) NOT NULL,
+            `possession_id` int(11),
+            `contractor_id` int(11),
+            `created_at` date NOT NULL,
+            `closed` tinyint(1) NOT NULL,
+            `closed_at` date,
+            `description` COLLATE utf8_polish_ci varchar(255),
+            `canceled` tinyiny(1) NOT NULL,
+            `canceled_at` date,
+            PRIMARY KEY (`id`),
+            KEY `document_community_fkey` (`community_id`),
+            KEY `document_possession_fkey` (`possession_id`),
+            KEY `document_contractor_fkey` (`contractor_id`),
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-community-fkey'>
+        <sql>                   
+            ALTER TABLE `document`
+            ADD CONSTRAINT `document_community_id_fkey` FOREIGN KEY (`community_id`) REFERENCES `community` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-possession-fkey'>
+        <sql>                   
+            ALTER TABLE `document`
+            ADD CONSTRAINT `document_possession_id_fkey` FOREIGN KEY (`possession_id`) REFERENCES `possession` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-contractor-fkey'>
+        <sql>                   
+            ALTER TABLE `document`
+            ADD CONSTRAINT `document_contractor_id_fkey` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-attribute-table'>
+        <sql>        
+            CREATE TABLE `document_attribute` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `document_id` int(11) NOT NULL,
+            `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `value` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `document_attribute_document_fkey` (`document_id`),
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-attribute-document-fkey'>
+        <sql>                   
+            ALTER TABLE `document_attribute`
+            ADD CONSTRAINT `document_attribute_document_id_fkey` FOREIGN KEY (`document_id`) REFERENCES `document` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-position-table'>
+        <sql>        
+            CREATE TABLE `document_position` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `type` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `document_id` int(11) NOT NULL,
+            `account_id` int(11),
+            `booking_period_id` int(11) NOT NULL,
+            `zpk_debit_id` int(11) NOT NULL,
+            `zpk_credit_id` int(11) NOT NULL,
+            `month` int(2) NOT NULL,
+            `value` decimal(10,2) NOT NULL,
+            `booked` tinyint(1) NOT NULL,
+            `created_at` date NOT NULL,
+            `booked_at` date,
+            `description` COLLATE utf8_polish_ci varchar(255),
+            `client_name` COLLATE utf8_polish_ci varchar(255),
+            `canceled` tinyint(1),
+            `canceled_at` date,
+            PRIMARY KEY (`id`),
+            KEY `document_position_document_fkey` (`document_id`),
+            KEY `document_position_account_fkey` (`account_id`),
+            KEY `document_position_booking_period_fkey` (`booking_period_id`),
+            KEY `document_position_zpk_debit_fkey` (`zpk_debit_id`),
+            KEY `document_position_zpk_credit_fkey` (`zpk_credit_id`),
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-position-document-fkey'>
+        <sql>                   
+            ALTER TABLE `document_position`
+            ADD CONSTRAINT `document_position_document_id_fkey` FOREIGN KEY (`document_id`) REFERENCES `document` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-position-account-fkey'>
+        <sql>                   
+            ALTER TABLE `document_position`
+            ADD CONSTRAINT `document_position_account_id_fkey` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-position-booking_period-fkey'>
+        <sql>                   
+            ALTER TABLE `document_position`
+            ADD CONSTRAINT `document_position_booking_period_id_fkey` FOREIGN KEY (`booking_period_id`) REFERENCES `booking_period` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-position-zpk_debit-fkey'>
+        <sql>                   
+            ALTER TABLE `document_position`
+            ADD CONSTRAINT `document_position_zpk_debit_id_fkey` FOREIGN KEY (`zpk_debit_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-position-zpk_credit-fkey'>
+        <sql>                   
+            ALTER TABLE `document_position`
+            ADD CONSTRAINT `document_position_zpk_credit_id_fkey` FOREIGN KEY (`zpk_credit_id`) REFERENCES `zpk` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='document-position-attribute-table'>
+        <sql>        
+            CREATE TABLE `document_position_attribute` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `document_position_id` int(11) NOT NULL,
+            `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `value` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`),
+            KEY `document_position_attribute_document_position_fkey` (`document_id`),
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='document-position-attribute-document-fkey'>
+        <sql>                   
+            ALTER TABLE `document_position_attribute`
+            ADD CONSTRAINT `document_position_attribute_document_position_id_fkey` FOREIGN KEY (`document_position_id`) REFERENCES `document_position` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
