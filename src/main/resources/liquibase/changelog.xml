@@ -1813,7 +1813,7 @@
             PRIMARY KEY (`id`),
             KEY `document_community_fkey` (`community_id`),
             KEY `document_possession_fkey` (`possession_id`),
-            KEY `document_contractor_fkey` (`contractor_id`),
+            KEY `document_contractor_fkey` (`contractor_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         </sql>
     </changeSet>
@@ -1847,7 +1847,7 @@
             `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             `value` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             PRIMARY KEY (`id`),
-            KEY `document_attribute_document_fkey` (`document_id`),
+            KEY `document_attribute_document_fkey` (`document_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         </sql>
     </changeSet>
@@ -1883,7 +1883,7 @@
             KEY `document_position_account_fkey` (`account_id`),
             KEY `document_position_booking_period_fkey` (`booking_period_id`),
             KEY `document_position_zpk_debit_fkey` (`zpk_debit_id`),
-            KEY `document_position_zpk_credit_fkey` (`zpk_credit_id`),
+            KEY `document_position_zpk_credit_fkey` (`zpk_credit_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         </sql>
     </changeSet>
@@ -1931,7 +1931,7 @@
             `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             `value` varchar(150) COLLATE utf8_polish_ci NOT NULL,
             PRIMARY KEY (`id`),
-            KEY `document_position_attribute_document_position_fkey` (`document_id`),
+            KEY `document_position_attribute_document_position_fkey` (`document_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         </sql>
     </changeSet>
