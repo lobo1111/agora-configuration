@@ -1,6 +1,6 @@
 from documents.Document import DocumentManager
 from pl.reaper.container.data import Document
-from document.Document.helpers.Calculator import Calculator
+from documents.helpers.Calculator import Calculator
 from entities.BookingPeriod import BookingPeriodManager
 from entities.Dictionary import DictionaryManager
 
