@@ -722,7 +722,7 @@
                     FROM
                         DocumentPosition dp
                     WHERE
-                        dp.type in ('CHARGING', 'PAYMENT_RENT', 'BANK_NOTE')
+                        dp.type in (\'CHARGING\', \'PAYMENT_RENT\', \'BANK_NOTE\')
                     ORDER BY dp.createdAt DESC
                 </data>
             </var>
@@ -735,7 +735,7 @@
                     FROM 
                         DocumentPosition dp
                     WHERE 
-                        dp.type in ('CHARGING', 'PAYMENT_RENT', 'BANK_NOTE')
+                        dp.type in (\'CHARGING\', \'PAYMENT_RENT\', \'BANK_NOTE\')
                 </data>
             </var>
         </variables>
