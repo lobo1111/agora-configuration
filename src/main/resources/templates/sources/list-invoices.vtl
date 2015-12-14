@@ -2,24 +2,23 @@
 <invoices>
     #foreach($row in $invoices)
     <item>
-        <invoiceId>$!row.getId()</invoiceId>
-        <number>$!row.getNumber()</number>
-        <booked>$!row.isBooked()</booked>
-        <createDate>$!row.getCreateDate().getTime()</createDate>
-        <paymentDate>$!row.getPaymentDate().getTime()</paymentDate>
-        <toPay>$!row.getToPay()</toPay>
-        #if($!row.getPaymentsSum() > $!row.getToPay())
-        <payed>OVERPAYED</payed>
-        #elseif($!row.getPaymentsSum() == $!row.getToPay())
-        <payed>PAYED</payed>
-        #else
-        <payed>UNDERPAYED</payed>
-        #end
+        <id>$!row.getId()</id>
         <contractorId>$!row.getContractor().getId()</contractorId>
         <companyId>$!row.getContractor().getCompany().getId()</companyId>
         <companyName>$!row.getContractor().getCompany().getName()</companyName>
         <communityId>$!row.getCommunity().getId()</communityId>
         <communityName>$!row.getCommunity().getName()</communityName>
+        #foreach($attr in $row.getAttributes)
+            #if($attr.getName() == "NUMBER")
+            <number>$attr.getValue()</number>
+            #end
+            #if($attr.getName() == "CREATE_DATE")
+            <createDate>$attr.getValue()</createDate>
+            #end
+            #if($attr.getName() == "PAYMENT_DATE")
+            <paymentDate>$attr.getValue()</paymentDate>
+            #end
+        #end
     </item>
     #end
     <settings>

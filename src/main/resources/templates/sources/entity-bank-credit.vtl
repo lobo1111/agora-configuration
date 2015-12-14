@@ -14,17 +14,18 @@
             <name>$!entity.getContractor().getName()</name>
         </company>
     </contractor>
-    <amount>$!entity.getAmount()</amount>
-    <payed>$!entity.isPayed()</payed>
-    <chargeDefaultAccount>$!entity.isChargeDefaultAccount()</chargeDefaultAccount>
+    <value>$!entity.getValue()</value>
+    <closed>$!entity.isClosed()</closed>
     <payments>
-        #foreach($payment in $!entity.getPayments())
+        #foreach($payment in $!entity.getPositions())
+        #if($payment.getType() == "BANK_CREDIT_PAYMENT")
         <payment>
             <id>$!payment.getId()</id>
             <createdAt>$!payment.getCreatedAt().getTime()</createdAt>
-            <amount>$!payment.getAmount()</amount>
+            <value>$!payment.getValue()</value>
             <booked>$!payment.isBooked()</booked>
         </payment>
+        #end
         #end
     </payments>
 </bankCredit>

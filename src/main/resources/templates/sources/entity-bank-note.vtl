@@ -3,12 +3,11 @@
     <id>$!entity.getId()</id>
     <createdAt>$!entity.getCreatedAt().getTime()</createdAt>
     <description>$!entity.getDescription()</description>
-    <element>
-        <id>$!entity.getElement().getId()</id>
-        <groupValue>$!entity.getElement().getGroup().getValue()</groupValue>
-        <name>$!entity.getElement().getName()</name>
-        <globalValue>$!entity.getElement().getGlobalValue()</globalValue>
-    </element>
+    #foreach($attr in $!entity.getAttributes()
+        #if($attr.getName() == "ELEMENT_ID")
+        <elementId>#!attr.getValue()</elementId>
+        #end
+    #end
     <possession>
         <id>$!entity.getPossession().getId()</id>
         <address>

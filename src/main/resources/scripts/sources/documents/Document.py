@@ -16,7 +16,7 @@ class DocumentManager(Container):
     def initPosition(self, document, prefix = ''):
         position = DocumentPosition()
         position.setCreatedAt(Date())
-        position.setType(document.getType())
+        position.setType(document.getType() + "_POSITION")
         document.getPositions().add(position)
         position.setDocument(document)
         position.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <invoice>
     <id>$!entity.getId()</id>
-    <number>$!entity.getNumber()</number>
-    <createDate>$!entity.getCreateDate().getTime()</createDate>
-    <paymentDate>$!entity.getPaymentDate().getTime()</paymentDate>
-    <toPay>$!entity.getToPay()</toPay>
-    <accepted>$!entity.isAccepted()</accepted>
-    <paymentsSum>$!entity.getPaymentsSum()</paymentsSum>
+    #foreach($attr in $!entity.getAttributes)
+        #if($attr.getName() = "NUMBER")
+            <number>$!attr.getValue()</number>
+        #end
+        #if($attr.getName() = "CREATE_DATE")
+            <createDate>$!attr.getValue()</createDate>
+        #end
+        #if($attr.getName() = "PAYMENT_DATE")
+            <paymentDate>$!attr.getValue()</paymentDate>
+        #end
+        #if($attr.getName() = "ACCEPTED")
+            <accepted>$!attr.getValue()</accepted>
+        #end
+    #end
     <community>
         <id>$!entity.getCommunity().getId()</id>
         <name>$!entity.getCommunity().getName()</name>
@@ -21,28 +29,32 @@
     </contractor>
     <positions>
         #foreach($position in $!entity.getPositions())
+        #if($position.getType() = "INVOICE_COST")
         <position>
             <id>$!position.getId()</id>
-            <position>$!position.getPosition()</position>
-            <name>$!position.getName()</name>
-            <tax>
-                <id>$!position.getTax().getId()</id>
-                <key>$!position.getTax().getKey()</key>
-                <value>$!position.getTax().getValue()</value>
-            </tax>
+            <number>$!position.getPosition()</number>
+            <name>$!position.getDescription()</name>
+            #foreach($attr in $position.getAttributes)
+            #if($attr.getName() = "TAX_ID")
+                <tax_id>$attr.getValue()</tax_id>
+            #end
+            #end
             <volume>$!position.getVolume()</volume>
-            <unitValueNet>$!position.getUnitValueNet()</unitValueNet>
+            <unitValueNet>$!position.getValue()</unitValueNet>
             <valueNet>$!position.getValueNet()</valueNet>
             <valueGross>$!position.getValueGross()</valueGross>
         </position>
         #end
+        #end
     </positions>
+    
     <invoice-payments>
         #foreach($payment in $!entity.getPayments())
+        #if($position.getType() = "INVOICE_PAYMENT")
         <payment>
             <id>$!payment.getId()</id>
             <value>$!payment.getValuePayment()</value>
-            <createDate>$!payment.getCreateDate().getTime()</createDate>
+            <createdAt>$!payment.getCreatedAt().getTime()</createdAt>
             <booked>$!payment.isBooked()</booked>
         </payment>
         #end

@@ -7,6 +7,7 @@ class BankCreditManager(DocumentManager):
         credit = self.initDocument(self._type)
         credit.setContractor(self.findById("Contractor", self._svars.get("contractorId")))
         positionCost = self.initPosition(credit)
+        positionCost.setType("BANK_CREDIT_COST")
         positionCost.setZpkCredit(self.findZpk(credit.getContractor().getZpks(), 'CONTRACTOR'))
         chargeDefaultAccount = self._svars.get("defaultAccount") == 'true'
         if chargeDefaultAccount:
@@ -35,7 +36,8 @@ class BankCreditManager(DocumentManager):
             id = int(self._svars.get(str(i) + '_payments_' + 'paymentId'))
             remove = self._svars.get(str(i) + '_payments_' + 'remove') == 'true'
             if id == 0 and not remove:
-                self.initPosition(credit, '_payments_')
+                position = self.initPosition(credit, '_payments_')
+                position.setType("BANK_CREDIT_PAYMENT")
             if id != 0 and remove:
                 position = self.findById("DocumentPosition", id);
                 self.cancelPosition(position)

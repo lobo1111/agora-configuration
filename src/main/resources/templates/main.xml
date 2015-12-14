@@ -922,42 +922,6 @@
         </variables>
     </template>
     <template>
-        <name>list-internal-payments</name>
-        <source>list-internal-payments.vtl</source>
-        <variables>
-            <var>
-                <name>payments</name>
-                <data>
-                    {:limit}
-                    SELECT
-                    payment
-                    FROM 
-                    InternalPayment payment
-                    JOIN payment.creditZpk cZpk
-                    JOIN payment.debitZpk dZpk
-                    JOIN payment.bookingPeriod bookingPeriod
-                    JOIN cZpk.community community
-                    WHERE {:where} AND community.outDate is NULL
-                    ORDER BY payment.createdDate DESC
-                </data>
-            </var>
-            <var>
-                <name>countRows</name>
-                <data>
-                    {:single}
-                    SELECT count(payment.id)
-                    FROM 
-                    InternalPayment payment
-                    JOIN payment.creditZpk cZpk
-                    JOIN payment.debitZpk dZpk
-                    JOIN payment.bookingPeriod bookingPeriod
-                    JOIN cZpk.community community
-                    WHERE {:where} AND community.outDate is NULL
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
         <name>list-invoices</name>
         <source>list-invoices.vtl</source>
         <variables>
@@ -968,10 +932,9 @@
                     SELECT
                     invoice
                     FROM 
-                    Invoice invoice
-                    JOIN invoice.community community
-                    WHERE {:where} AND community.outDate is NULL
-                    ORDER BY invoice.createDate DESC
+                    Document invoice
+                    WHERE {:where} AND invoice.community.outDate is NULL
+                    ORDER BY invoice.createdAt DESC
                 </data>
             </var>
             <var>
@@ -980,9 +943,8 @@
                     {:single}
                     SELECT count(invoice.id)
                     FROM 
-                    Invoice invoice
-                    JOIN invoice.community community
-                    WHERE {:where} AND community.outDate is NULL
+                    Document invoice
+                    WHERE {:where} AND invoice.community.outDate is NULL
                 </data>
             </var>
         </variables>
@@ -1390,125 +1352,6 @@
         </variables>
     </template>
     <template>
-        <name>can-close-month-chargings</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                        COUNT(possession.id) as counter
-                    FROM
-                        Community community
-                        JOIN community.possessions possession
-                    WHERE
-                        possession.id NOT IN(
-                            SELECT 
-                                charged.id 
-                            FROM 
-                                Charging charging
-                                JOIN charging.possession charged
-                                JOIN charging.bookingPeriod bp
-                            WHERE
-                                bp.defaultPeriod = true
-                                AND charging.month IN(
-                                    SELECT
-                                        dict.value
-                                    FROM
-                                        Dictionary dict
-                                        JOIN dict.type dtype
-                                    WHERE
-                                        dtype.type = "PERIODS"
-                                        AND dict.key = "CURRENT"))
-                        AND community.outDate is NULL
-                        AND CURRENT_DATE >= community.inDate
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>can-close-month-book</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                        COUNT(payment.id) as counter
-                    FROM
-                        InternalPayment payment
-                    WHERE
-                        payment.booked = false
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>can-close-month-invoices</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                        COUNT(i.id) as counter
-                    FROM
-                        Invoice i
-                        JOIN i.community community
-                    WHERE
-                        i.accepted = false
-                        AND community.outDate is null
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>can-close-month-accounts</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    Select 
-                        count(c.id)
-                    From 
-                        Community c
-                        Join c.defaultAccount ra 
-                        Join ra.type rat
-                        Join c.repairFundAccount rfa 
-                    Where 
-                        rfa Is Null 
-                        and rat.key = \'RENT\'
-                        AND c.outDate is NULL
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>current-charge-month</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                        dict.value
-                    FROM
-                        Dictionary dict
-                        JOIN dict.type dtype
-                    WHERE
-                        dtype.type = "PERIODS"
-                        AND dict.key = "CURRENT"
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
         <name>list-contractors-with-invoices</name>
         <source>list-invoices.vtl</source>
         <variables>
@@ -1519,126 +1362,13 @@
                     SELECT
                     invoice
                     FROM
-                    Invoice invoice
+                    Document invoice
                     JOIN invoice.contractor contractor
-                    JOIN contractor.community community
+                    JOIN invoice.community community
                     WHERE {:where}
-                    AND invoice.paymentsSum != invoice.toPay
                     AND community.outDate is NULL
                     ORDER BY
                     contractor.name ASC
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>possession-rent-payments-calculations</name>
-        <source>simple-double-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                        Sum(prd.value)
-                    FROM
-                        PaymentRent pr
-                        Join pr.paymentRentDetails prd
-                        Join pr.possession p
-                        Join pr.bookingPeriod bp
-                    WHERE
-                        p.id = {:id}
-                        And bp.defaultPeriod = 1
-                        And pr.repairFund = 0
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>possession-repair-fund-payments-calculations</name>
-        <source>simple-double-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                        Sum(prd.value)
-                    FROM
-                        PaymentRent pr
-                        Join pr.paymentRentDetails prd
-                        Join pr.possession p
-                        Join pr.bookingPeriod bp
-                    WHERE
-                        p.id = {:id}
-                        And bp.defaultPeriod = 1
-                        And pr.repairFund = 1
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>possession-rent-chargings-calculations</name>
-        <source>simple-double-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                        Sum(ce.value)
-                    FROM
-                        Charging c
-                        Join c.chargingElements ce
-                        Join c.bookingPeriod bp
-                        Join c.possession p
-                    WHERE
-                        p.id = {:id}
-                        And bp.defaultPeriod = 1
-                        And ce.group.id NOT IN (Select d.id from Dictionary d Join d.type dt Where dt.type = \'ELEMENTS\' And d.key = \'REPAIR_FUND\')
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>possession-repair-fund-chargings-calculations</name>
-        <source>simple-double-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                        Sum(ce.value)
-                    FROM
-                        Charging c
-                        Join c.chargingElements ce
-                        Join c.bookingPeriod bp
-                        Join c.possession p
-                    WHERE
-                        p.id = {:id}
-                        And bp.defaultPeriod = 1
-                        And ce.group.id IN (Select d.id from Dictionary d Join d.type dt Where dt.type = \'ELEMENTS\' And d.key = \'REPAIR_FUND\')
-                </data>
-            </var>
-        </variables>
-    </template>
-    <template>
-        <name>booked-payments-in-invoice</name>
-        <source>simple-long-response.vtl</source>
-        <variables>
-            <var>
-                <name>response</name>
-                <data>
-                    {:single}
-                    SELECT
-                        Count(ip.id)
-                    FROM
-                        Invoice i
-                        Join i.payments ip
-                    WHERE
-                        i.id = {:id}
-                        And ip.booked = 1
                 </data>
             </var>
         </variables>
