@@ -13,16 +13,24 @@ class Container:
         self._properties = helpers.properties
         
     def startTransaction(self):
+        if self._transaction != None:
+            self._transaction.rollback()
         self._transaction = self._entityManager.getTransaction(); 
         self._transaction.begin()
         
     def commitTransaction(self):
-        self._transaction.commit()
-        self._transaction = None
+        if self._transaction != None:
+            self._transaction.commit()
+            self._transaction = None
         
     def cancelTransaction(self):
-        self._transaction.rollback()
-        self._transaction = None
+        print "Rolling back transaction due to:"
+        print "Unexpected error:", sys.exc_info()[0]
+        print "Unexpected error:", sys.exc_info()[1]
+        print "Unexpected error:", sys.exc_info()[2]
+        if self._transaction != None:
+            self._transaction.rollback()
+            self._transaction = None
 
     def findBy(self, entityName, field, value):
         try:
