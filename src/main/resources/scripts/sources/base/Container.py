@@ -22,7 +22,7 @@ class Container:
         self._logger.info('Transaction rolled back due to:')
         self._logger.info("Error message: %s" % sys.exc_info()[0])
         self._logger.info("Error message: %s" % sys.exc_info()[1])
-        self._transaction.rollback()
+        #self._transaction.rollback()
     
     def __init__(self):
         self._svars = helpers.svars
