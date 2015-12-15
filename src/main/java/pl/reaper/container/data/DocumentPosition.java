@@ -2,8 +2,11 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -65,6 +69,8 @@ public class DocumentPosition implements Serializable {
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "document")
+    private List<DocumentPositionAttribute> attributes = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -194,4 +200,20 @@ public class DocumentPosition implements Serializable {
         this.createdAt = createdAt;
     }
 
+    public List<DocumentPositionAttribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<DocumentPositionAttribute> attributes) {
+        this.attributes = attributes;
+    }
+
+    public DocumentPositionAttribute addAttribute(String name, String value) {
+        DocumentPositionAttribute attr = new DocumentPositionAttribute();
+        attr.setDocumentPosition(this);
+        attr.setName(name);
+        attr.setValue(value);
+        this.getAttributes().add(attr);
+        return attr;
+    }
 }

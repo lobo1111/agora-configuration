@@ -165,4 +165,12 @@ public class Document implements Serializable {
         this.positions = positions;
     }
 
+    public DocumentAttribute addAttribute(String name, String value) {
+        DocumentAttribute attr = new DocumentAttribute();
+        attr.setDocument(this);
+        attr.setName(name);
+        attr.setValue(value);
+        this.getAttributes().add(attr);
+        return attr;
+    }
 }
