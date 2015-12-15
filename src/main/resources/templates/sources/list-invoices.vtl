@@ -8,7 +8,7 @@
         <companyName>$!row.getContractor().getCompany().getName()</companyName>
         <communityId>$!row.getCommunity().getId()</communityId>
         <communityName>$!row.getCommunity().getName()</communityName>
-        #foreach($attr in $row.getAttributes)
+        #foreach($attr in $row.getAttributes())
             #if($attr.getName() == "NUMBER")
             <number>$attr.getValue()</number>
             #end

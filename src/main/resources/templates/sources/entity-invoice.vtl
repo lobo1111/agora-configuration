@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <invoice>
     <id>$!entity.getId()</id>
-    #foreach($attr in $!entity.getAttributes)
+    #foreach($attr in $!entity.getAttributes())
         #if($attr.getName() == "NUMBER")
             <number>$!attr.getValue()</number>
         #end
@@ -47,9 +47,8 @@
         #end
         #end
     </positions>
-    
     <invoice-payments>
-        #foreach($payment in $!entity.getPayments())
+        #foreach($payment in $!entity.getPositions())
         #if($position.getType() == "INVOICE_PAYMENT")
         <payment>
             <id>$!payment.getId()</id>
