@@ -68,7 +68,7 @@ class InvoiceManager(DocumentManager):
     def findOrCreatePosition(self, invoice, positionId, prefix):
         if positionId == 0:
             position = self.initPosition(invoice, prefix)
-            posiiton.setType("INVOICE_COST")
+            position.setType("INVOICE_COST")
             return position
         else:
             return self.findById("DocumentPosition", positionId)
