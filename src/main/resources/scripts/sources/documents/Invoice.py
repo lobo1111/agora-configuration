@@ -29,7 +29,7 @@ class InvoiceManager(DocumentManager):
         invoice.addAttribute("NUMBER", self._svars.get('number'))
         invoice.addAttribute("PAYMENT_DATE", self._svars.get('paymentDate'))
         invoice.addAttribute("CREATE_DATE", self._svars.get('createDate'))
-        invoice.addAttribute("ACCEPTED", self._svars.get('accepted') == True)
+        invoice.addAttribute("ACCEPTED", self._svars.get('accepted'))
         
     def updatePositions(self, invoice):
         for i in range(int(self._svars.get('positionsCount'))):
