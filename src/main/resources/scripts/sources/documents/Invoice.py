@@ -1,6 +1,6 @@
-from documents.Document import Document
+from documents.Document import DocumentManager
 
-class InvoiceManager(Document):
+class InvoiceManager(DocumentManager):
     _type = "INVOICE"
     
     def create(self):
