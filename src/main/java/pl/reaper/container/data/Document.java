@@ -54,7 +54,7 @@ public class Document implements Serializable {
     @Column(name = "canceled_at")
     @Temporal(TemporalType.DATE)
     private Date canceledAt;
-    @Column(name = "descirption")
+    @Column(name = "description")
     private String description;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "document")
     private List<DocumentAttribute> attributes = new ArrayList<>();
