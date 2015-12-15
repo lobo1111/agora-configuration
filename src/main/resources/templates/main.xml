@@ -84,7 +84,7 @@
                     SELECT 
                     e
                     FROM 
-                    InvoiceDocument e
+                    Document e
                     WHERE 
                     e.id = {:id}
                 </data>

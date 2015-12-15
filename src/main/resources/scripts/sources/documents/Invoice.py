@@ -20,6 +20,11 @@ class InvoiceManager(Document):
         self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
         return self.saveDocument(invoice)
     
+    def accept(self):
+        invoice = self.findById("Document", self._svars.get("id"))
+        invoice.setAccepted(True)
+        self.saveDocument(invoice)
+    
     def updateInvoiceData(self, invoice):
         invoice.addAttribute("NUMBER", self._svars.get('number'))
         invoice.addAttribute("PAYMENT_DATE", self.parseDate(self._svars.get('paymentDate')))
