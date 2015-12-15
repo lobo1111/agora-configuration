@@ -6,9 +6,5 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>
-    <properties>
-      <property name="eclipselink.target-server" value="WebSphere_7"/>
-      <!--<property name="openjpa.Compatibility" value="QuotedNumbersInQueries=true"/>-->
-    </properties>
   </persistence-unit>
 </persistence>
