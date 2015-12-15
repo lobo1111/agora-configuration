@@ -9,6 +9,7 @@ class InvoiceManager(DocumentManager):
         self.updateInvoiceData(invoice)
         self.updatePositions(invoice)
         self.updatePayments(invoice)
+        self.checkIfPayed(invoice)
         self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
         return self.saveDocument(invoice)
     
@@ -18,19 +19,34 @@ class InvoiceManager(DocumentManager):
             self.updateInvoiceData(invoice)
             self.updatePositions(invoice)
         self.updatePayments(invoice)
+        self.checkIfPayed(invoice)
         self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
         return self.saveDocument(invoice)
     
     def accept(self):
         invoice = self.findById("Document", self._svars.get("id"))
-        invoice.setAccepted(True)
+        invoice.putAttribute("ACCEPTED", 'true')
         self.saveDocument(invoice)
     
     def updateInvoiceData(self, invoice):
-        invoice.addAttribute("NUMBER", self._svars.get('number'))
-        invoice.addAttribute("PAYMENT_DATE", self._svars.get('paymentDate'))
-        invoice.addAttribute("CREATE_DATE", self._svars.get('createDate'))
-        invoice.addAttribute("ACCEPTED", self._svars.get('accepted'))
+        invoice.putAttribute("NUMBER", self._svars.get('number'))
+        invoice.putAttribute("PAYMENT_DATE", self._svars.get('paymentDate'))
+        invoice.putAttribute("CREATE_DATE", self._svars.get('createDate'))
+        invoice.putAttribute("ACCEPTED", self._svars.get('accepted'))
+        invoice.putAttribute("PAYED", 'false')
+        
+    def checkIfPayed(self, invoice):
+        costs = 0.0
+        payments = 0.0
+        for position in invoice.getPositions():
+            if position.getType() == "INVOICE_COST":
+                costs = costs + position.getAttribute("VALUE_GROSS")
+            elif position.getType() == "INVOICE_PAYMENT":
+                payments = payments + position.getValue()
+        if costs == payments:
+            invoice.putAttribute("PAYED", 'true')
+        else:
+            invoice.putAttribute("PAYED", 'false')
         
     def updatePositions(self, invoice):
         for i in range(int(self._svars.get('positionsCount'))):
@@ -41,11 +57,11 @@ class InvoiceManager(DocumentManager):
                 self.cancelPosition(position)
             else:
                 position = self.findOrCreatePosition(invoice, positionId, str(i) + '_positions_')
-                position.addAttribute("NUMBER", self._svars.get(str(i) + '_positions_number'))
-                position.addAttribute("TAX_ID", self._svars.get(str(i) + '_positions_taxId'))
-                position.addAttribute("VOLUME", self._svars.get(str(i) + '_positions_volume'))
-                position.addAttribute("VALUE_NET", self._svars.get(str(i) + '_positions_netValue'))
-                position.addAttribute("VALUE_GROSS", self._svars.get(str(i) + '_positions_grossValue'))
+                position.putAttribute("NUMBER", self._svars.get(str(i) + '_positions_number'))
+                position.putAttribute("TAX_ID", self._svars.get(str(i) + '_positions_taxId'))
+                position.putAttribute("VOLUME", self._svars.get(str(i) + '_positions_volume'))
+                position.putAttribute("VALUE_NET", self._svars.get(str(i) + '_positions_netValue'))
+                position.putAttribute("VALUE_GROSS", self._svars.get(str(i) + '_positions_grossValue'))
                 position.setDescription(self._svars.get(str(i) + '_positions_positionDescription'))
                 position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
                 position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))

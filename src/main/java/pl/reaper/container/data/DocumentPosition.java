@@ -208,12 +208,24 @@ public class DocumentPosition implements Serializable {
         this.attributes = attributes;
     }
 
-    public DocumentPositionAttribute addAttribute(String name, String value) {
-        DocumentPositionAttribute attr = new DocumentPositionAttribute();
+    public DocumentPositionAttribute putAttribute(String name, String value) {
+        DocumentPositionAttribute attr = getAttribute(name);
+        attr = attr == null ? new DocumentPositionAttribute() : attr;
         attr.setDocumentPosition(this);
         attr.setName(name);
         attr.setValue(value);
-        this.getAttributes().add(attr);
+        if (!getAttributes().contains(attr)) {
+            getAttributes().add(attr);
+        }
         return attr;
+    }
+
+    public DocumentPositionAttribute getAttribute(String name) {
+        for (DocumentPositionAttribute attr : attributes) {
+            if (attr.getName().equals(name)) {
+                return attr;
+            }
+        }
+        return null;
     }
 }
