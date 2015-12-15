@@ -1,4 +1,5 @@
 from documents.Document import DocumentManager
+from pl.reaper.container.data import InvoicePositionDictionary
 
 class InvoiceManager(DocumentManager):
     _type = "INVOICE"
