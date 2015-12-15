@@ -2,16 +2,16 @@
 <invoice>
     <id>$!entity.getId()</id>
     #foreach($attr in $!entity.getAttributes)
-        #if($attr.getName() = "NUMBER")
+        #if($attr.getName() == "NUMBER")
             <number>$!attr.getValue()</number>
         #end
-        #if($attr.getName() = "CREATE_DATE")
+        #if($attr.getName() == "CREATE_DATE")
             <createDate>$!attr.getValue()</createDate>
         #end
-        #if($attr.getName() = "PAYMENT_DATE")
+        #if($attr.getName() == "PAYMENT_DATE")
             <paymentDate>$!attr.getValue()</paymentDate>
         #end
-        #if($attr.getName() = "ACCEPTED")
+        #if($attr.getName() == "ACCEPTED")
             <accepted>$!attr.getValue()</accepted>
         #end
     #end
@@ -29,13 +29,13 @@
     </contractor>
     <positions>
         #foreach($position in $!entity.getPositions())
-        #if($position.getType() = "INVOICE_COST")
+        #if($position.getType() == "INVOICE_COST")
         <position>
             <id>$!position.getId()</id>
             <number>$!position.getPosition()</number>
             <name>$!position.getDescription()</name>
             #foreach($attr in $position.getAttributes)
-            #if($attr.getName() = "TAX_ID")
+            #if($attr.getName() == "TAX_ID")
                 <tax_id>$attr.getValue()</tax_id>
             #end
             #end
@@ -50,7 +50,7 @@
     
     <invoice-payments>
         #foreach($payment in $!entity.getPayments())
-        #if($position.getType() = "INVOICE_PAYMENT")
+        #if($position.getType() == "INVOICE_PAYMENT")
         <payment>
             <id>$!payment.getId()</id>
             <value>$!payment.getValuePayment()</value>
