@@ -45,8 +45,7 @@ class InvoiceManager(DocumentManager):
                 position.addAttribute("VOLUME", self._svars.get(str(i) + '_positions_volume'))
                 position.addAttribute("VALUE_NET", self._svars.get(str(i) + '_positions_netValue'))
                 position.addAttribute("VALUE_GROSS", self._svars.get(str(i) + '_positions_grossValue'))
-                position.setDescription(self._svars.get(str(i) + '_positions_name'))
-                position.setValue(float(self._svars.get(str(i) + '_positions_unitValueNet')))
+                position.setDescription(self._svars.get(str(i) + '_positions_positionDescription'))
                 position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
                 position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))
     
@@ -87,7 +86,7 @@ class InvoiceManager(DocumentManager):
                 self.storePosition(company, position)
                 
     def isNewPosition(self, company, position):
-        count = self._entityManager.createQuery("Select count(p) From InvoicePositionDictionary p Where p.company.id = %d and p.position = '%s'" % (company.getId(), position.getName())).getSingleResult()
+        count = self._entityManager.createQuery("Select count(p) From InvoicePositionDictionary p Where p.company.id = %d and p.position = '%s'" % (company.getId(), position.getDescription())).getSingleResult()
         return count == 0
         
     def storePosition(self, company, position):
