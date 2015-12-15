@@ -1,4 +1,5 @@
 from java.util import Date
+from base.Container import Container
 from entities.BookingPeriod import BookingPeriodManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
