@@ -12,9 +12,9 @@ class DocumentManager(Container):
         document.setCreatedAt(Date())
         document.setType(type)
         document.setCommunity(self.findById("Community", int(self._svars.get('communityId'))))
-        if int(self._svars.get('possessionId')) != 0:
+        if self._svars.get('possessionId') != 'null':
             document.setCommunity(self.findById("Possession", int(self._svars.get('possessionId'))))
-        if int(self._svars.get('contractorId')) != 0:
+        if self._svars.get('contractorId') != 'null':
             document.setCommunity(self.findById("Contractor", int(self._svars.get('contractorId'))))
         document.setDescription(self._svars.get('documentDescription'))
         return document
