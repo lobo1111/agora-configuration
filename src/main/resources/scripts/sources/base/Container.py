@@ -13,8 +13,6 @@ class Container:
         self._properties = helpers.properties
         
     def startTransaction(self):
-        if self._transaction != None:
-            self._transaction.rollback()
         self._transaction = self._entityManager.getTransaction(); 
         self._transaction.begin()
         
