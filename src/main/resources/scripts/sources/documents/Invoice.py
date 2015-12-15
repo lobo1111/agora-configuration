@@ -1,4 +1,4 @@
-from document.Document import Document
+from documents.Document import Document
 
 class InvoiceManager(Document):
     _type = "INVOICE"
