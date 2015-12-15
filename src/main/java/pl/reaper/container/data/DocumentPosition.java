@@ -44,10 +44,10 @@ public class DocumentPosition implements Serializable {
     private BookingPeriod bookingPeriod;
     @ManyToOne
     @JoinColumn(name = "zpk_debit_id", referencedColumnName = "id")
-    private ZakladowyPlanKont zpkDebit;
+    private ZakladowyPlanKont debitZpk;
     @ManyToOne
     @JoinColumn(name = "zpk_credit_id", referencedColumnName = "id")
-    private ZakladowyPlanKont zpkCredit;
+    private ZakladowyPlanKont creditZpk;
     @Column(name = "month")
     private String month;
     @Column(name = "description")
@@ -112,20 +112,20 @@ public class DocumentPosition implements Serializable {
         this.bookingPeriod = bookingPeriod;
     }
 
-    public ZakladowyPlanKont getZpkDebit() {
-        return zpkDebit;
+    public ZakladowyPlanKont getDebitZpk() {
+        return debitZpk;
     }
 
-    public void setZpkDebit(ZakladowyPlanKont zpkDebit) {
-        this.zpkDebit = zpkDebit;
+    public void setDebitZpk(ZakladowyPlanKont debitZpk) {
+        this.debitZpk = debitZpk;
     }
 
-    public ZakladowyPlanKont getZpkCredit() {
-        return zpkCredit;
+    public ZakladowyPlanKont getCreditZpk() {
+        return creditZpk;
     }
 
-    public void setZpkCredit(ZakladowyPlanKont zpkCredit) {
-        this.zpkCredit = zpkCredit;
+    public void setCreditZpk(ZakladowyPlanKont creditZpk) {
+        this.creditZpk = creditZpk;
     }
 
     public String getMonth() {
