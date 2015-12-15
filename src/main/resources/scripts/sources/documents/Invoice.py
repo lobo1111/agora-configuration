@@ -15,7 +15,7 @@ class InvoiceManager(DocumentManager):
             self.commitTransaction()
             return invoice
         except:
-            self.rollbackTransaction()
+            self.cancelTransaction()
             return None
     
     def update(self):
@@ -31,7 +31,7 @@ class InvoiceManager(DocumentManager):
             self.commitTransaction()
             return invoice
         except:
-            self.rollbackTransaction()
+            self.cancelTransaction()
             return None
     
     def accept(self):
@@ -42,7 +42,7 @@ class InvoiceManager(DocumentManager):
             self.saveDocument(invoice)
             self.commitTransaction()
         except:
-            self.rollbackTransaction()
+            self.cancelTransaction()
             return None
     
     def updateInvoiceData(self, invoice):
