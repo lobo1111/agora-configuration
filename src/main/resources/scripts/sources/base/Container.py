@@ -11,6 +11,20 @@ class Container:
         self._svars = helpers.svars
         self._entityManager = helpers.entityManager
         self._properties = helpers.properties
+        
+    def startTransaction(self):
+        if self._transaction != None:
+            self._transaction.rollback()
+        self._transaction = self._entityManager.getTransaction(); 
+        self._transaction.begin()
+        
+    def commitTransaction(self):
+        self._transaction.commit()
+        self._transaction = None
+        
+    def cancelTransaction(self):
+        self._transaction.rollback()
+        self._transaction = None
 
     def findBy(self, entityName, field, value):
         try:

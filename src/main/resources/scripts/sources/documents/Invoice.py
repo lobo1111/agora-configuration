@@ -4,26 +4,46 @@ class InvoiceManager(DocumentManager):
     _type = "INVOICE"
     
     def create(self):
-        invoice = self.initDocument(self._type)
-        self.updateInvoiceData(invoice)
-        self.updatePositions(invoice)
-        self.updatePayments(invoice)
-        self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
-        return self.saveDocument(invoice)
-    
-    def update(self):
-        invoice = self.findById("Document", self._svars.get("id"))
-        if not invoice.isAccepted():
+        try:
+            self.startTransaction()
+            invoice = self.initDocument(self._type)
             self.updateInvoiceData(invoice)
             self.updatePositions(invoice)
-        self.updatePayments(invoice)
-        self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
-        return self.saveDocument(invoice)
+            self.updatePayments(invoice)
+            self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
+            invoice = self.saveDocument(invoice)
+            self.commitTransaction()
+            return invoice
+        except:
+            self.rollbackTransaction()
+            return None
+    
+    def update(self):
+        try:
+            self.startTransaction()
+            invoice = self.findById("Document", self._svars.get("id"))
+            if not invoice.isAccepted():
+                self.updateInvoiceData(invoice)
+                self.updatePositions(invoice)
+            self.updatePayments(invoice)
+            self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
+            invoice = self.saveDocument(invoice)
+            self.commitTransaction()
+            return invoice
+        except:
+            self.rollbackTransaction()
+            return None
     
     def accept(self):
-        invoice = self.findById("Document", self._svars.get("id"))
-        invoice.setAccepted(True)
-        self.saveDocument(invoice)
+        try:
+            self.startTransaction()
+            invoice = self.findById("Document", self._svars.get("id"))
+            invoice.setAccepted(True)
+            self.saveDocument(invoice)
+            self.commitTransaction()
+        except:
+            self.rollbackTransaction()
+            return None
     
     def updateInvoiceData(self, invoice):
         invoice.addAttribute("NUMBER", self._svars.get('number'))
