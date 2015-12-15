@@ -7,6 +7,18 @@ import sys
 class Container:
     _logger = Logger()
     
+    def startTransaction(self):
+        self._transaction = self._entityManager.beginTransaction()
+        
+    def commitTransaction(self):
+        self._transaction.commit()
+        
+    def cancelTransaction(self):
+        self._transaction.rollback()
+        self._logger.info('Transaction rolled back due to:')
+        self._logger.info("Error message: %s" % sys.exc_info()[0])
+        self._logger.info("Error message: %s" % sys.exc_info()[1])
+    
     def __init__(self):
         self._svars = helpers.svars
         self._entityManager = helpers.entityManager

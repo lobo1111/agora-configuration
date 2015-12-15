@@ -30,14 +30,21 @@ class DocumentManager(Container):
         position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
         return position
+    
+    def save(self, entity):
+        try:
+            self.startTransaction()
+            self.saveEntity(entity)
+            self.commitTransaction()
+            return entity
+        except:
+            self.cancelTransaction()
 
     def saveDocument(self, document):
-        self.saveEntity(document)
-        return document
+        return self.save(document)
 
     def savePosition(self, position):
-        self.saveEntity(position)
-        return position
+        return self.save(position)
         
     def closeDocument(self, document):
         if self.isEditable(document) and self.positionsAreBooked(document.getPositions()):
