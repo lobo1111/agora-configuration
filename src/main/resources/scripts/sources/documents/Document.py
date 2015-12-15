@@ -38,6 +38,10 @@ class DocumentManager(Container):
             self.commitTransaction()
             return entity
         except:
+            import sys
+            self._logger.info('Can\'t start transaction due to:')
+            self._logger.info("Error message: %s" % sys.exc_info()[0])
+            self._logger.info("Error message: %s" % sys.exc_info()[1])
             self.cancelTransaction()
 
     def saveDocument(self, document):
