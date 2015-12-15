@@ -68,9 +68,9 @@ class InvoiceManager(DocumentManager):
     
     def updatePayments(self, invoice):
         for i in range(int(self._svars.get('paymentsCount'))):
-            self.updatePayment(invoice, str(i), '_payments_')
+            self.updatePayment(invoice, str(i) + '_payments_')
                 
-    def updatePayment(self, invoice, counter = '', prefix = ''):
+    def updatePayment(self, invoice, prefix = ''):
         paymentId = int(self._svars.get(counter + prefix + 'paymentId'))
         remove = self._svars.get(counter + prefix + 'remove') == 'true'
         if remove and paymentId != 0:
