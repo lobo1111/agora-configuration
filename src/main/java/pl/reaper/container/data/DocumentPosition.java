@@ -69,7 +69,7 @@ public class DocumentPosition implements Serializable {
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "document")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "documentPosition")
     private List<DocumentPositionAttribute> attributes = new ArrayList<>();
 
     public int getId() {
