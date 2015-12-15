@@ -93,6 +93,6 @@ class InvoiceManager(DocumentManager):
     def storePosition(self, company, position):
         d = InvoicePositionDictionary();
         d.setCompany(company)
-        d.setPosition(position.getName())
+        d.setPosition(position.getDescription())
         self._entityManager.persist(d)
         
