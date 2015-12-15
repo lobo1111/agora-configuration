@@ -39,7 +39,7 @@ class InvoiceManager(DocumentManager):
                 position = self.findById("InvoiceItemPosition", positionId)
                 self.cancelPosition(position)
             else:
-                position = self.findOrCreatePosition(invoice, positionId)
+                position = self.findOrCreatePosition(invoice, positionId, str(i) + '_positions_')
                 position.addAttribute("NUMBER", self._svars.get(str(i) + '_positions_number'))
                 position.addAttribute("TAX_ID", self._svars.get(str(i) + '_positions_taxId'))
                 position.addAttribute("VOLUME", float(self._svars.get(str(i) + '_positions_volume')))
@@ -65,9 +65,9 @@ class InvoiceManager(DocumentManager):
             payment.setCreditZpk(self.findZpk(invoice.getCommunity().getZpks(), 'RENT'))
             payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
     
-    def findOrCreatePosition(self, invoice, positionId):
+    def findOrCreatePosition(self, invoice, positionId, prefix):
         if positionId == 0:
-            position = self.initPosition(invoice, '_positions_')
+            position = self.initPosition(invoice, prefix)
             posiiton.setType("INVOICE_COST")
             return position
         else:
