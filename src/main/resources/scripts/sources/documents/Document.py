@@ -10,8 +10,8 @@ class DocumentManager(Container):
         document = Document()
         document.setCreatedAt(Date())
         document.setType(type)
-        document.setCommunity(self.findById("Community", int(self._svars.get('community_id'))))
-        document.setDescription(self._svars.put('document_description', comment))
+        document.setCommunity(self.findById("Community", int(self._svars.get('communityId'))))
+        document.setDescription(self._svars.put('documentDescription', comment))
         return document
         
     def initPosition(self, document, prefix = ''):
@@ -23,7 +23,7 @@ class DocumentManager(Container):
         position.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
         position.setMonth(BookingPeriodManager().getCurrentMonth())
         position.setValue(float(self._svars.get(prefix + 'value')))
-        position.setDescription(self._svars.put(prefix + 'position_description', comment))
+        position.setDescription(self._svars.put(prefix + 'positionDescription', comment))
         return position
 
     def saveDocument(self, document):
