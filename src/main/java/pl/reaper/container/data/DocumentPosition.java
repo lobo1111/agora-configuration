@@ -41,7 +41,7 @@ public class DocumentPosition implements Serializable {
     private Account account;
     @ManyToOne
     @JoinColumn(name = "booking_period_id", referencedColumnName = "id")
-    private BookingPeriod booking_period;
+    private BookingPeriod bookingPeriod;
     @ManyToOne
     @JoinColumn(name = "zpk_debit_id", referencedColumnName = "id")
     private ZakladowyPlanKont zpkDebit;
@@ -104,12 +104,12 @@ public class DocumentPosition implements Serializable {
         this.account = account;
     }
 
-    public BookingPeriod getBooking_period() {
-        return booking_period;
+    public BookingPeriod getBookingPeriod() {
+        return bookingPeriod;
     }
 
-    public void setBooking_period(BookingPeriod booking_period) {
-        this.booking_period = booking_period;
+    public void setBookingPeriod(BookingPeriod bookingPeriod) {
+        this.bookingPeriod = bookingPeriod;
     }
 
     public ZakladowyPlanKont getZpkDebit() {
