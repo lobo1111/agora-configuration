@@ -9,20 +9,20 @@ class Container:
     
     def startTransaction(self):
         try:
-            self._transaction = self._entityManager.beginTransaction()
+            self._entityManager.getTransaction().begin()
         except:
             self._logger.info('Can\'t start transaction due to:')
             self._logger.info("Error message: %s" % sys.exc_info()[0])
             self._logger.info("Error message: %s" % sys.exc_info()[1])
         
     def commitTransaction(self):
-        self._transaction.commit()
+        self._entityManager.getTransaction().commit()
         
     def cancelTransaction(self):
         self._logger.info('Transaction rolled back due to:')
         self._logger.info("Error message: %s" % sys.exc_info()[0])
         self._logger.info("Error message: %s" % sys.exc_info()[1])
-        self._transaction.rollback()
+        self._entityManager.getTransaction().rollback()
     
     def __init__(self):
         self._svars = helpers.svars

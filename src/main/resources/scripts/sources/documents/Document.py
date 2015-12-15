@@ -38,7 +38,6 @@ class DocumentManager(Container):
             self.commitTransaction()
             return entity
         except:
-            self._logger.into('Cancelling transaction...')
             self.cancelTransaction()
 
     def saveDocument(self, document):
