@@ -114,7 +114,4 @@ class DocumentManager(Container):
     
     def findZpkSettingId(self, typeKey):
         return self._entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = '%s'" % typeKey).getSingleResult()
-            
-
-                
-            
+        
