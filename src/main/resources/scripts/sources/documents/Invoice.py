@@ -65,6 +65,10 @@ class InvoiceManager(DocumentManager):
                 position.putAttribute("VOLUME", self.getParameter(str(i) + '_positions_volume'))
                 position.putAttribute("VALUE_NET", self.getParameter(str(i) + '_positions_netValue'))
                 position.putAttribute("VALUE_GROSS", self.getParameter(str(i) + '_positions_grossValue'))
+                print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                print str(i) + '_positions_positionDescription'
+                print self.getParameter(str(i) + '_positions_positionDescription')
+                print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                 position.setDescription(self.getParameter(str(i) + '_positions_positionDescription'))
                 position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
                 position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))
