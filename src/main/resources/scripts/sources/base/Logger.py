@@ -16,10 +16,8 @@ class Logger:
             log.setThreadName(self._svars.get('_threadName'))
             log.setUuid(self._svars.get('_uuid'))
             print '[JYTHON][%s][%s][%s]' % (self._svars.get('_uuid'), level, message)
-        log.setLevel(level)
-        log.setMessage(unicode(message, errors = 'replace')[0:1023])
-        if level in ['WARNING', 'ERROR']:
-            self._entityManager.persist(log)
+        else:
+            print '[JYTHON][NOT SET][%s][%s]' % (level, message)
 
     def info(self, message):
         self.appendLog('INFO', message)
