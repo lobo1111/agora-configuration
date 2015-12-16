@@ -73,8 +73,11 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
             return output;
         } catch (Exception ex) {
             try {
+                Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, "Exception occured during script execution, rolling back last transaction...");
                 transaction.rollback();
+                Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, "Transaction rolled back.");
             } catch (IllegalStateException | SecurityException | SystemException ex1) {
+                Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, "Can't rollback last transaction !", ex1);
                 Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex1);
             }
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);

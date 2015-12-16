@@ -113,5 +113,6 @@ class InvoiceManager(DocumentManager):
         d = InvoicePositionDictionary();
         d.setCompany(company)
         d.setPosition(position.getDescription())
+        self._logger.info('Registering new position on invoice dictionary: %s' % d.getPosition())
         self.saveEntity(d, putId = False)
         
