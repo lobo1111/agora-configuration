@@ -23,7 +23,6 @@ import pl.reaper.container.ws.wrappers.MapWrapper;
 @WebService(endpointInterface = "pl.reaper.container.beans.JythonBeanRemote")
 @Stateless
 @Path("/JythonBeanService")
-@TransactionManagement(TransactionManagementType.BEAN)
 public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
     @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
