@@ -1,5 +1,6 @@
 from documents.Document import DocumentManager
 from pl.reaper.container.data import InvoicePositionDictionary
+from java.math import BigDecimal
 
 class InvoiceManager(DocumentManager):
     _type = "INVOICE"
@@ -36,14 +37,14 @@ class InvoiceManager(DocumentManager):
         invoice.putAttribute("PAYED", 'false')
         
     def checkIfPayed(self, invoice):
-        costs = 0.0
-        payments = 0.0
+        costs = BigDecimal(0.0)
+        payments = BigDecimal(0.0)
         for position in invoice.getPositions():
             if position.getType() == "INVOICE_COST":
-                costs = costs + float(position.getAttribute("VALUE_GROSS").getValue())
+                costs = costs.add(BigDecimal(position.getAttribute("VALUE_GROSS").getValue()))
             elif position.getType() == "INVOICE_PAYMENT":
-                payments = payments + position.getValue()
-        if costs == payments:
+                payments = payments.add(position.getValue())
+        if costs.equals(payments):
             invoice.putAttribute("PAYED", 'true')
         else:
             invoice.putAttribute("PAYED", 'false')
