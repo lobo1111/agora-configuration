@@ -69,8 +69,20 @@ class Container:
             return None
 
     def saveEntity(self, entity):
+        self.startTransaction()
         self._entityManager.persist(entity)
-        self._entityManager.flush()
+        self.commitTransaction()
         if hasattr(entity, 'getId'):
             self._svars.put('output', str(entity.getId()))
+        return entity
+    
+    def saveAtomic(self, entity, putId = False):
+        try:
+            self.startTransaction()
+            self._entityManager.persist(entity)
+            self.commitTransaction()
+            if hasattr(entity, 'getId') and putId:
+                self._svars.put('output', str(entity.getId()))
+        except:
+            self.rollbackTransaction()
         return entity
