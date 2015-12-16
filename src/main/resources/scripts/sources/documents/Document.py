@@ -28,10 +28,12 @@ class DocumentManager(Container):
         position.setMonth(BookingPeriodManager().getCurrentMonth())
         position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
-        document.getPositions().add(position)
-        position.setDocument(document)
         self._logger.info("New document position of type %s created" % position.getType())
         return position
+    
+    def bound(self, document, position):
+        document.getPositions().add(position)
+        position.setDocument(document)
     
     def save(self, entity):
         self.saveEntity(entity)
