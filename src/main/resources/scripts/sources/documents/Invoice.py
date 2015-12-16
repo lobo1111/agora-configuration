@@ -40,7 +40,7 @@ class InvoiceManager(DocumentManager):
         payments = 0.0
         for position in invoice.getPositions():
             if position.getType() == "INVOICE_COST":
-                costs = costs + position.getAttribute("VALUE_GROSS")
+                costs = costs + float(position.getAttribute("VALUE_GROSS").getValue())
             elif position.getType() == "INVOICE_PAYMENT":
                 payments = payments + position.getValue()
         if costs == payments:
