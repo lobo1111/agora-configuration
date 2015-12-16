@@ -14,7 +14,7 @@ class Container:
         self._context = helpers.context
         
     def startTransaction(self):
-        self._transaction = self._context.getUserTransaction()
+        self._transaction = self._entityManager.getTransaction()
         self._transaction.begin()
         
     def commitTransaction(self):

@@ -10,12 +10,9 @@ import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.jws.WebService;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.UserTransaction;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.ws.rs.Path;
 import pl.reaper.container.jython.ScriptEngineWrapper;
 import pl.reaper.container.ws.wrappers.MapWrapper;
@@ -25,8 +22,8 @@ import pl.reaper.container.ws.wrappers.MapWrapper;
 @Path("/JythonBeanService")
 public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
-    @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
-    private EntityManager entityManager;
+    @PersistenceUnit(name = "jdbc/agora_erp")
+    EntityManagerFactory entityManagerFactory;
     @EJB
     private PropertyBeanLocal propertyBean;
     @EJB
@@ -38,7 +35,7 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     @PostConstruct
     public void initScripting() {
         engineBuilder = new ScriptEngineWrapper()
-                .setEntityManager(entityManager)
+                .setEntityManager(entityManagerFactory.createEntityManager())
                 .setPropertyBean(propertyBean)
                 .setLoader(loaderBean)
                 .setContext(context);
