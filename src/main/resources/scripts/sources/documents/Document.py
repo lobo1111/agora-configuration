@@ -17,6 +17,7 @@ class DocumentManager(Container):
         if self._svars.get('contractorId') != None:
             document.setContractor(self.findById("Contractor", int(self._svars.get('contractorId'))))
         document.setDescription(self._svars.get('documentDescription'))
+        self._logger.info("New document of type %s created" % document.getType())
         return document
         
     def initPosition(self, document, prefix = ''):
@@ -29,6 +30,8 @@ class DocumentManager(Container):
         position.setMonth(BookingPeriodManager().getCurrentMonth())
         position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
+        self._logger.info("New document position of type %s created" % position.getType())
+        self._logger.info(position.getMonth())
         return position
     
     def save(self, entity):
