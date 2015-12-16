@@ -11,7 +11,6 @@ class Container:
         self._svars = helpers.svars
         self._entityManager = helpers.entityManager
         self._properties = helpers.properties
-        self._context = helpers.context
         
     def findBy(self, entityName, field, value):
         try:
