@@ -50,8 +50,8 @@ class DocumentManager(Container):
     def cancelDocument(self, document):
         if self.isEditable(document) and not self.positionsAreBooked(document.getPositions()):
             self.cancelPositions(document.getPositions())
-            self.setCanceled(True)
-            self.setCanceledAt(Date())
+            document.setCanceled(True)
+            document.setCanceledAt(Date())
             self.saveDocument(document)
             
     def isEditable(self, document):
@@ -82,6 +82,7 @@ class DocumentManager(Container):
     def cancelPosition(self, position):
         if not position.isBooked() and not position.isCanceled():
             position.setCanceled(True)
+            position.setCanceledAt(Date())
             self.savePosition(position)
             
     def bookDocument(self, document):
