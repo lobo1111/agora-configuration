@@ -11,8 +11,9 @@ class InvoiceManager(DocumentManager):
         self.updatePositions(invoice)
         self.updatePayments(invoice)
         self.checkIfPayed(invoice)
+        self.saveDocument(invoice)
         self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
-        return self.saveDocument(invoice)
+        return invoice
     
     def update(self):
         invoice = self.findById("Document", self.getParameter("id"))
@@ -21,8 +22,9 @@ class InvoiceManager(DocumentManager):
             self.updatePositions(invoice)
         self.updatePayments(invoice)
         self.checkIfPayed(invoice)
+        self.saveDocument(invoice)
         self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
-        return self.saveDocument(invoice)
+        return invoice
     
     def accept(self):
         invoice = self.findById("Document", self.getParameter("id"))
