@@ -3,6 +3,7 @@ from pl.reaper.container.data import ZpkBalance
 from base.Container import Container
 from entities.Dictionary import DictionaryManager
 from java.util import Calendar
+import sys
 
 class BookingPeriodManager(Container):
     
@@ -14,7 +15,12 @@ class BookingPeriodManager(Container):
         return self._entityManager.createQuery('Select period From BookingPeriod period Where period.id = ' + str(id)).getSingleResult()
 
     def findDefaultBookingPeriod(self):
-        return self._entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
+        try:
+            return self._entityManager.createQuery('Select period From BookingPeriod period Where period.defaultPeriod = true').getSingleResult()
+        except:
+            self._logger.info("Can't find default booking period:")
+            self._logger.info("Error message: %s" % sys.exc_info()[0])
+            self._logger.info("Error message: %s" % sys.exc_info()[1])
 
     def findChild(self, bookingPeriod):
         try:
