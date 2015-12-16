@@ -80,7 +80,7 @@ class DocumentManager(Container):
             self.savePosition(position)
             
     def cancelPosition(self, position):
-        if not position.isBooked() and not positions.isCanceled():
+        if not position.isBooked() and not position.isCanceled():
             position.setCanceled(True)
             self.savePosition(position)
             
