@@ -71,8 +71,8 @@ class InvoiceManager(DocumentManager):
             self.updatePayment(invoice, str(i) + '_payments_')
                 
     def updatePayment(self, invoice, prefix = ''):
-        paymentId = int(self.getParameter(counter + prefix + 'paymentId'))
-        remove = self.getParameter(counter + prefix + 'remove') == 'true'
+        paymentId = int(self.getParameter(prefix + 'paymentId'))
+        remove = self.getParameter(prefix + 'remove') == 'true'
         if remove and paymentId != 0:
             payment = self.findById("InvoicePaymentPosition", paymentId)
             self.cancelPosition(payment)
