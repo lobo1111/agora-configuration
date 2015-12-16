@@ -13,15 +13,6 @@ class Container:
         self._properties = helpers.properties
         self._context = helpers.context
         
-    def getParameter(self, name):
-        value = self._svars.get(name)
-        if value == None:
-            self._logger.info("Param '%s' not set, assuming None" % name)
-            return None
-        else:
-            self._logger.info("Getting parameter '%s' from session" % name)
-            return value
-        
     def findBy(self, entityName, field, value):
         try:
             self._logger.info('Searching for %s/%s with value %s' % (entityName, field, value))
