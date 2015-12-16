@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -65,8 +66,8 @@ public class DocumentAttribute implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + this.id;
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -79,7 +80,7 @@ public class DocumentAttribute implements Serializable {
             return false;
         }
         final DocumentAttribute other = (DocumentAttribute) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;

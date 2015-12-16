@@ -166,12 +166,16 @@ public class Document implements Serializable {
     }
 
     public DocumentAttribute putAttribute(String name, String value) {
+        boolean isNew = false;
         DocumentAttribute attr = getAttribute(name);
-        attr = attr == null ? new DocumentAttribute() : attr;
-        attr.setDocument(this);
-        attr.setName(name);
+        if (attr == null) {
+            attr = new DocumentAttribute();
+            attr.setDocument(this);
+            attr.setName(name);
+            isNew = true;
+        }
         attr.setValue(value);
-        if (!getAttributes().contains(attr)) {
+        if (isNew) {
             getAttributes().add(attr);
         }
         return attr;
