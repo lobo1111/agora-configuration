@@ -102,7 +102,7 @@ class InvoiceManager(DocumentManager):
     
     def updatePositionsDictionary(self, company, positions):
         for position in positions:
-            if position.getType() == "INVOICE_PAYMENT" and self.isNewPosition(company, position):
+            if position.getType() == "INVOICE_COST" and self.isNewPosition(company, position):
                 self.storePosition(company, position)
                 
     def isNewPosition(self, company, position):
