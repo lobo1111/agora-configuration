@@ -53,6 +53,7 @@ class DocumentManager(Container):
             document.setCanceled(True)
             document.setCanceledAt(Date())
             self.saveDocument(document)
+            self._logger.info("Document %d canceled" % document.getId())
         else:
             self._logger.info("Document %d can't be canceled" % document.getId())
             
@@ -86,6 +87,7 @@ class DocumentManager(Container):
             position.setCanceled(True)
             position.setCanceledAt(Date())
             self.savePosition(position)
+            self._logger.info("Document position %d canceled" % position.getId())
         else:
             self._logger.info("Document position %d can't be canceled" % position.getId())
             
