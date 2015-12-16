@@ -1,4 +1,10 @@
 entityManager = None
 svars = None
 properties = None
-context = globals()['context']
+context = None
+
+def init(params):
+    entityManager = params['entityManager']
+    svars = params['svars']
+    properties = params['properties']
+    context = params['context']
