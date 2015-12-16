@@ -13,18 +13,6 @@ class Container:
         self._properties = helpers.properties
         self._context = helpers.context
         
-    def startTransaction(self):
-        self._transaction = self._entityManager.getTransaction()
-        self._transaction.begin()
-        
-    def commitTransaction(self):
-        self._transaction.commit()
-        
-    def rollbackTransaction(self):
-        self._logger.info("Error message: %s" % sys.exc_info()[0])
-        self._logger.info("Error message: %s" % sys.exc_info()[1])
-        self._transaction.rollback()
-        
     def getParameter(self, name):
         value = self._svars.get(name)
         if value == None:
@@ -68,21 +56,9 @@ class Container:
         except:
             return None
 
-    def saveEntity(self, entity):
-        self.startTransaction()
+    def saveEntity(self, entity, putId = True):
         self._entityManager.persist(entity)
-        self.commitTransaction()
-        if hasattr(entity, 'getId'):
+        if hasattr(entity, 'getId') and putId:
             self._svars.put('output', str(entity.getId()))
         return entity
     
-    def saveAtomic(self, entity, putId = False):
-        try:
-            self.startTransaction()
-            self._entityManager.persist(entity)
-            self.commitTransaction()
-            if hasattr(entity, 'getId') and putId:
-                self._svars.put('output', str(entity.getId()))
-        except:
-            self.rollbackTransaction()
-        return entity

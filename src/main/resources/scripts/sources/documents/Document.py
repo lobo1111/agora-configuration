@@ -32,12 +32,7 @@ class DocumentManager(Container):
         return position
     
     def save(self, entity):
-        try:
-            self.startTransaction()
-            self.saveEntity(entity)
-            self.commitTransaction()
-        except:
-            self.rollbackTransaction()
+        self.saveEntity(entity)
         return entity
 
     def saveDocument(self, document):

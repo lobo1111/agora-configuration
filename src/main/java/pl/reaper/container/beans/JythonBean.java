@@ -10,9 +10,13 @@ import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.jws.WebService;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 import javax.ws.rs.Path;
 import pl.reaper.container.jython.ScriptEngineWrapper;
 import pl.reaper.container.ws.wrappers.MapWrapper;
@@ -20,22 +24,25 @@ import pl.reaper.container.ws.wrappers.MapWrapper;
 @WebService(endpointInterface = "pl.reaper.container.beans.JythonBeanRemote")
 @Stateless
 @Path("/JythonBeanService")
+@TransactionManagement(TransactionManagementType.BEAN)
 public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
-    @PersistenceUnit(name = "jdbc/agora_erp")
-    EntityManagerFactory entityManagerFactory;
+    @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
+    private EntityManager entityManager;
     @EJB
     private PropertyBeanLocal propertyBean;
     @EJB
     private ScriptsLoaderLocal loaderBean;
     @Resource
     private SessionContext context;
+    @Resource
+    private UserTransaction transaction;
     private ScriptEngineWrapper engineBuilder;
 
     @PostConstruct
     public void initScripting() {
         engineBuilder = new ScriptEngineWrapper()
-                .setEntityManager(entityManagerFactory.createEntityManager())
+                .setEntityManager(entityManager)
                 .setPropertyBean(propertyBean)
                 .setLoader(loaderBean)
                 .setContext(context);
@@ -57,12 +64,19 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     @Override
     public String executeScript(String scriptName, Map variables) {
         try {
+            transaction.begin();
             String output = "";
             engineBuilder.resetVariables().addVariables(variables);
             output = (String) engineBuilder.eval(scriptName);
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, output.length() > 256 ? output.substring(0, 256) : output);
+            transaction.commit();
             return output;
         } catch (Exception ex) {
+            try {
+                transaction.rollback();
+            } catch (IllegalStateException | SecurityException | SystemException ex1) {
+                Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             Logger.getLogger(JythonBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";

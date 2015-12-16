@@ -113,5 +113,5 @@ class InvoiceManager(DocumentManager):
         d = InvoicePositionDictionary();
         d.setCompany(company)
         d.setPosition(position.getDescription())
-        self.saveAtomic(d)
+        self.saveEntity(d, putId = False)
         
