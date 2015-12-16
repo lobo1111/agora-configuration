@@ -1,7 +1,5 @@
 import helpers
-helpers.entityManager = globals()['entityManager']
-helpers.svars = globals()['svars']
-helpers.properties = globals()['properties']
+helpers.init(globals())
 
 from entities.ZpksSettings import ZpksSettings
 manager = ZpksSettings()
