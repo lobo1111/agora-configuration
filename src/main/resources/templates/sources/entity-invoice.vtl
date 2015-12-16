@@ -63,7 +63,7 @@
         #if($payment.getType() == "INVOICE_PAYMENT")
         <payment>
             <id>$!payment.getId()</id>
-            <value>$!payment.getValuePayment()</value>
+            <value>$!payment.getValue()</value>
             <createdAt>$!payment.getCreatedAt().getTime()</createdAt>
             <booked>$!payment.isBooked()</booked>
         </payment>
