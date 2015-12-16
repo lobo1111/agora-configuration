@@ -21,6 +21,7 @@ class BookingPeriodManager(Container):
             self._logger.info("Can't find default booking period:")
             self._logger.info("Error message: %s" % sys.exc_info()[0])
             self._logger.info("Error message: %s" % sys.exc_info()[1])
+            return None
 
     def findChild(self, bookingPeriod):
         try:
@@ -30,7 +31,13 @@ class BookingPeriodManager(Container):
             return None
 
     def getCurrentMonth(self):
-        return self._entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
+        try:
+            return self._entityManager.createQuery('SELECT dict.value FROM Dictionary dict JOIN dict.type dtype WHERE dtype.type = "PERIODS" AND dict.key = "CURRENT"').getSingleResult()
+        except:
+            self._logger.info("Can't find current month:")
+            self._logger.info("Error message: %s" % sys.exc_info()[0])
+            self._logger.info("Error message: %s" % sys.exc_info()[1])
+            return None
 
     def closeYear(self):
         if self.canCloseYear():
