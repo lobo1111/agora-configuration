@@ -899,7 +899,7 @@
                     Document invoice
                     WHERE {:where} 
                     AND invoice.community.outDate is NULL
-                    AND invoice.isCanceled = 0
+                    AND invoice.canceled = 0
                     ORDER BY invoice.createdAt DESC
                 </data>
             </var>
@@ -912,7 +912,7 @@
                     Document invoice
                     WHERE {:where} 
                     AND invoice.community.outDate is NULL
-                    AND invoice.isCanceled = 0
+                    AND invoice.canceled = 0
                 </data>
             </var>
         </variables>
