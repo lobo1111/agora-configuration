@@ -14,7 +14,7 @@ class InvoiceManager(DocumentManager):
         return self.saveDocument(invoice)
     
     def update(self):
-        invoice = self.findById("Document", self._svars.get("id"))
+        invoice = self.findById("Document", self.getParameter("id"))
         if not invoice.isAccepted():
             self.updateInvoiceData(invoice)
             self.updatePositions(invoice)
@@ -24,15 +24,15 @@ class InvoiceManager(DocumentManager):
         return self.saveDocument(invoice)
     
     def accept(self):
-        invoice = self.findById("Document", self._svars.get("id"))
+        invoice = self.findById("Document", self.getParameter("id"))
         invoice.putAttribute("ACCEPTED", 'true')
         self.saveDocument(invoice)
     
     def updateInvoiceData(self, invoice):
-        invoice.putAttribute("NUMBER", self._svars.get('number'))
-        invoice.putAttribute("PAYMENT_DATE", self._svars.get('paymentDate'))
-        invoice.putAttribute("CREATE_DATE", self._svars.get('createDate'))
-        invoice.putAttribute("ACCEPTED", self._svars.get('accepted'))
+        invoice.putAttribute("NUMBER", self.getParameter('number'))
+        invoice.putAttribute("PAYMENT_DATE", self.getParameter('paymentDate'))
+        invoice.putAttribute("CREATE_DATE", self.getParameter('createDate'))
+        invoice.putAttribute("ACCEPTED", self.getParameter('accepted'))
         invoice.putAttribute("PAYED", 'false')
         
     def checkIfPayed(self, invoice):
@@ -49,30 +49,30 @@ class InvoiceManager(DocumentManager):
             invoice.putAttribute("PAYED", 'false')
         
     def updatePositions(self, invoice):
-        for i in range(int(self._svars.get('positionsCount'))):
-            positionId = int(self._svars.get(str(i) + '_positions_positionId'))
-            remove = self._svars.get(str(i) + '_positions_remove') == 'true'
+        for i in range(int(self.getParameter('positionsCount'))):
+            positionId = int(self.getParameter(str(i) + '_positions_positionId'))
+            remove = self.getParameter(str(i) + '_positions_remove') == 'true'
             if remove and positionId != 0:
                 position = self.findById("InvoiceItemPosition", positionId)
                 self.cancelPosition(position)
             else:
                 position = self.findOrCreatePosition(invoice, positionId, str(i) + '_positions_')
-                position.putAttribute("NUMBER", self._svars.get(str(i) + '_positions_number'))
-                position.putAttribute("TAX_ID", self._svars.get(str(i) + '_positions_taxId'))
-                position.putAttribute("VOLUME", self._svars.get(str(i) + '_positions_volume'))
-                position.putAttribute("VALUE_NET", self._svars.get(str(i) + '_positions_netValue'))
-                position.putAttribute("VALUE_GROSS", self._svars.get(str(i) + '_positions_grossValue'))
-                position.setDescription(self._svars.get(str(i) + '_positions_positionDescription'))
+                position.putAttribute("NUMBER", self.getParameter(str(i) + '_positions_number'))
+                position.putAttribute("TAX_ID", self.getParameter(str(i) + '_positions_taxId'))
+                position.putAttribute("VOLUME", self.getParameter(str(i) + '_positions_volume'))
+                position.putAttribute("VALUE_NET", self.getParameter(str(i) + '_positions_netValue'))
+                position.putAttribute("VALUE_GROSS", self.getParameter(str(i) + '_positions_grossValue'))
+                position.setDescription(self.getParameter(str(i) + '_positions_positionDescription'))
                 position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
                 position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))
     
     def updatePayments(self, invoice):
-        for i in range(int(self._svars.get('paymentsCount'))):
+        for i in range(int(self.getParameter('paymentsCount'))):
             self.updatePayment(invoice, str(i) + '_payments_')
                 
     def updatePayment(self, invoice, prefix = ''):
-        paymentId = int(self._svars.get(counter + prefix + 'paymentId'))
-        remove = self._svars.get(counter + prefix + 'remove') == 'true'
+        paymentId = int(self.getParameter(counter + prefix + 'paymentId'))
+        remove = self.getParameter(counter + prefix + 'remove') == 'true'
         if remove and paymentId != 0:
             payment = self.findById("InvoicePaymentPosition", paymentId)
             self.cancelPosition(payment)
