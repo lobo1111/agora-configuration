@@ -17,7 +17,7 @@ class InvoiceManager(DocumentManager):
     
     def update(self):
         invoice = self.findById("Document", self._svars.get("id"))
-        if not invoice.isAccepted():
+        if invoice.getAttribute("ACCEPTED") == 'false':
             self.updateInvoiceData(invoice)
             self.updatePositions(invoice)
         self.updatePayments(invoice)
