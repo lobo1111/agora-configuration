@@ -49,7 +49,7 @@ class DocumentManager(Container):
             
     def cancelDocument(self, document):
         if self.isEditable(document) and not self.positionsAreBooked(document.getPositions()):
-            self.cancelChildren(document.getPositions())
+            self.cancelPositions(document.getPositions())
             self.setCanceled(True)
             self.setCanceledAt(Date())
             self.saveDocument(document)
