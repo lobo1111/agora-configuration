@@ -897,7 +897,9 @@
                     invoice
                     FROM 
                     Document invoice
-                    WHERE {:where} AND invoice.community.outDate is NULL
+                    WHERE {:where} 
+                    AND invoice.community.outDate is NULL
+                    AND invoice.isCanceled = 0
                     ORDER BY invoice.createdAt DESC
                 </data>
             </var>
@@ -908,7 +910,9 @@
                     SELECT count(invoice.id)
                     FROM 
                     Document invoice
-                    WHERE {:where} AND invoice.community.outDate is NULL
+                    WHERE {:where} 
+                    AND invoice.community.outDate is NULL
+                    AND invoice.isCanceled = 0
                 </data>
             </var>
         </variables>

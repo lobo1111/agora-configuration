@@ -32,7 +32,7 @@
     </contractor>
     <positions>
         #foreach($position in $!entity.getPositions())
-        #if($position.getType() == "INVOICE_COST")
+        #if($position.getType() == "INVOICE_COST" && !$position.isCanceled())
         <position>
             <id>$!position.getId()</id>
             <name>$!position.getDescription()</name>
@@ -60,7 +60,7 @@
     </positions>
     <invoice-payments>
         #foreach($payment in $!entity.getPositions())
-        #if($payment.getType() == "INVOICE_PAYMENT")
+        #if($payment.getType() == "INVOICE_PAYMENT" && !$position.isCanceled())
         <payment>
             <id>$!payment.getId()</id>
             <value>$!payment.getValue()</value>

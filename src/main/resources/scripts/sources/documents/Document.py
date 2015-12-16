@@ -53,6 +53,8 @@ class DocumentManager(Container):
             document.setCanceled(True)
             document.setCanceledAt(Date())
             self.saveDocument(document)
+        else:
+            self._logger.info("Document %d can't be canceled" % document.getId())
             
     def isEditable(self, document):
         return (not document.isClosed() and not document.isCanceled())
@@ -84,6 +86,8 @@ class DocumentManager(Container):
             position.setCanceled(True)
             position.setCanceledAt(Date())
             self.savePosition(position)
+        else:
+            self._logger.info("Document position %d can't be canceled" % position.getId())
             
     def bookDocument(self, document):
         if self.isEditable(document):
