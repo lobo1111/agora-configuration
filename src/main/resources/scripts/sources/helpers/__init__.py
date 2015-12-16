@@ -4,7 +4,7 @@ properties = None
 context = None
 
 def init(params):
-    print params
+    global entityManager, svars, properties, context
     entityManager = params['entityManager']
     svars = params['svars']
     properties = params['properties']
