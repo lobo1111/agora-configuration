@@ -31,7 +31,7 @@ class InvoiceManager(DocumentManager):
         invoice.putAttribute("ACCEPTED", 'true')
         self.saveDocument(invoice)
         
-    def remove(self):
+    def cancel(self):
         invoice = self.findById("Document", self._svars.get("id"))
         self.cancelDocument(invoice)
     
