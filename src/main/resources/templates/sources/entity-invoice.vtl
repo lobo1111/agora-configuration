@@ -38,7 +38,7 @@
             <name>$!position.getDescription()</name>
             #foreach($attr in $position.getAttributes())
             #if($attr.getName() == "TAX_ID")
-                <tax_id>$attr.getValue()</tax_id>
+                <taxId>$attr.getValue()</taxId>
             #end
             #if($attr.getName() == "NUMBER")
                 <number>$attr.getValue()</number>
