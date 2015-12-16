@@ -72,7 +72,7 @@ class InvoiceManager(DocumentManager):
                 position.setDescription(self._svars.get(str(i) + '_positions_positionDescription'))
                 position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
                 position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))
-                self.bound(document, position)
+                self.bound(document, invoice)
     
     def updatePayments(self, invoice):
         for i in range(int(self._svars.get('paymentsCount'))):
@@ -88,7 +88,7 @@ class InvoiceManager(DocumentManager):
             payment = self.findOrCreatePayment(invoice, paymentId, prefix)
             payment.setCreditZpk(self.findZpk(invoice.getCommunity().getZpks(), 'RENT'))
             payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
-            self.bound(document, position)
+            self.bound(invoice, position)
     
     def findOrCreatePosition(self, invoice, positionId, prefix):
         if positionId == 0:
