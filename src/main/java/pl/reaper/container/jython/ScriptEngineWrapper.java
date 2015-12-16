@@ -7,12 +7,14 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
 import javax.script.Bindings;
 import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import javax.transaction.UserTransaction;
 import pl.reaper.container.beans.PropertyBeanLocal;
 import pl.reaper.container.beans.ScriptsLoaderLocal;
 
@@ -23,6 +25,7 @@ public class ScriptEngineWrapper {
     private Map<String, Object> variables = new HashMap<>();
     private ScriptEngine engine;
     private ScriptsLoaderLocal loader;
+    private SessionContext context;
 
     public ScriptEngineWrapper() {
         engine = new ScriptEngineManager().getEngineByName("python");
@@ -38,6 +41,7 @@ public class ScriptEngineWrapper {
         Bindings binding = engine.createBindings();
         putMetaVars();
         binding.put("entityManager", entityManager);
+        binding.put("context", context);
         binding.put("svars", variables);
         binding.put("properties", propertyBean);
         return binding;
@@ -119,5 +123,10 @@ public class ScriptEngineWrapper {
 
     private CompiledScript findScript(String scriptName) throws ScriptException, Exception {
         return loader.getScript(scriptName);
+    }
+
+    public ScriptEngineWrapper setContext(SessionContext context) {
+        this.context = context;
+        return this;
     }
 }

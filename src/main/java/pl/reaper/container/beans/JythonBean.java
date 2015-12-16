@@ -5,12 +5,17 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 import javax.ws.rs.Path;
 import pl.reaper.container.jython.ScriptEngineWrapper;
 import pl.reaper.container.ws.wrappers.MapWrapper;
@@ -18,6 +23,7 @@ import pl.reaper.container.ws.wrappers.MapWrapper;
 @WebService(endpointInterface = "pl.reaper.container.beans.JythonBeanRemote")
 @Stateless
 @Path("/JythonBeanService")
+@TransactionManagement(TransactionManagementType.BEAN)
 public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
 
     @PersistenceContext(name = "agora_erp", unitName = "agora_erp")
@@ -26,6 +32,8 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     private PropertyBeanLocal propertyBean;
     @EJB
     private ScriptsLoaderLocal loaderBean;
+    @Resource
+    private SessionContext context;
     private ScriptEngineWrapper engineBuilder;
 
     @PostConstruct
@@ -33,7 +41,8 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
         engineBuilder = new ScriptEngineWrapper()
                 .setEntityManager(entityManager)
                 .setPropertyBean(propertyBean)
-                .setLoader(loaderBean);
+                .setLoader(loaderBean)
+                .setContext(context);
     }
 
     @PermitAll

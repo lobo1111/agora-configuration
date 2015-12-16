@@ -11,6 +11,19 @@ class Container:
         self._svars = helpers.svars
         self._entityManager = helpers.entityManager
         self._properties = helpers.properties
+        self._context = helpers.context
+        
+    def startTransaction(self):
+        self._transaction = self._context.getUserTransaction()
+        self._transaction.begin()
+        
+    def commitTransaction(self):
+        self._transaction.commit()
+        
+    def rollbackTransaction(self):
+        self._logger.info("Error message: %s" % sys.exc_info()[0])
+        self._logger.info("Error message: %s" % sys.exc_info()[1])
+        self._transaction.rollback()
         
     def getParameter(self, name):
         value = self._svars.get(name)
