@@ -60,7 +60,7 @@
     </positions>
     <invoice-payments>
         #foreach($payment in $!entity.getPositions())
-        #if($payment.getType() == "INVOICE_PAYMENT" && !$position.isCanceled())
+        #if($payment.getType() == "INVOICE_PAYMENT" && !$payment.isCanceled())
         <payment>
             <id>$!payment.getId()</id>
             <value>$!payment.getValue()</value>
