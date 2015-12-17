@@ -48,15 +48,15 @@ class InvoiceManager(DocumentManager):
         costs = BigDecimal(0.0)
         payments = BigDecimal(0.0)
         for position in invoice.getPositions():
-            if position.getType() == "INVOICE_COST":
+            if position.getType() == "INVOICE_COST" and not position.isCanceled():
                 costs = costs.add(BigDecimal(position.getAttribute("VALUE_GROSS").getValue()))
-            elif position.getType() == "INVOICE_PAYMENT":
+            elif position.getType() == "INVOICE_PAYMENT" and not position.isCanceled():
                 payments = payments.add(position.getValue())
         if costs.equals(payments):
             self._logger.info("Costs equals payments, marking as payed...")
             invoice.putAttribute("PAYED", 'true')
         else:
-            self._logger.info("Costs(%f) doesn't equal payments(%f), marking as payed..." % (costs.floatValue(), payments.floatValue()))
+            self._logger.info("Costs(%f) doesn't equal payments(%f), marking as unpayed..." % (costs.floatValue(), payments.floatValue()))
             invoice.putAttribute("PAYED", 'false')
         
     def updatePositions(self, invoice):
