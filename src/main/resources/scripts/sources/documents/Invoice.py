@@ -53,8 +53,10 @@ class InvoiceManager(DocumentManager):
             elif position.getType() == "INVOICE_PAYMENT":
                 payments = payments.add(position.getValue())
         if costs.equals(payments):
+            self._logger.info("Costs equals payments, marking as payed...")
             invoice.putAttribute("PAYED", 'true')
         else:
+            self._logger.info("Costs(%f) doesn't equal payments(%f), marking as payed..." % (costs.floatValue(), payments.floatValue()))
             invoice.putAttribute("PAYED", 'false')
         
     def updatePositions(self, invoice):
