@@ -793,10 +793,8 @@
                     FROM 
                     Element element,
                     Document note
-                    Join note.positions position
-                    Join position.attributes attribute
                     WHERE {:where}
-                    AND element.id IN (SELECT attribute.value FROM attribute WHERE attribute.name = "ELEMENT_ID")
+                    AND element.id IN (SELECT note.positions.attributes.value FROM note.positions.attributes WHERE note.positions.attributes.name = "ELEMENT_ID")
                     ORDER BY note.createdAt DESC
                 </data>
             </var>
@@ -810,6 +808,7 @@
                     Element element,
                     Document note
                     WHERE {:where}
+                    AND element.id IN (SELECT note.positions.attributes.value FROM note.positions.attributes WHERE note.positions.attributes.name = "ELEMENT_ID")
                 </data>
             </var>
         </variables>
