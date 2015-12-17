@@ -62,7 +62,7 @@ class InvoiceManager(DocumentManager):
             positionId = int(self._svars.get(str(i) + '_positions_positionId'))
             remove = self._svars.get(str(i) + '_positions_remove') == 'true'
             if remove and positionId != 0:
-                position = self.findById("InvoiceItemPosition", positionId)
+                position = self.findById("DocumentPosition", positionId)
                 self.cancelPosition(position)
             else:
                 position = self.findOrCreatePosition(invoice, positionId, str(i) + '_positions_')
@@ -84,7 +84,7 @@ class InvoiceManager(DocumentManager):
         paymentId = int(self._svars.get(prefix + 'paymentId'))
         remove = self._svars.get(prefix + 'remove') == 'true'
         if remove and paymentId != 0:
-            payment = self.findById("InvoicePaymentPosition", paymentId)
+            payment = self.findById("DocumentPosition", paymentId)
             self.cancelPosition(payment)
         else:
             payment = self.findOrCreatePayment(invoice, paymentId, prefix)
