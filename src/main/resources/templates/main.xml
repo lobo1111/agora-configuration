@@ -805,7 +805,7 @@
                 <data>
                     {:single}
                     SELECT 
-                    count(*)
+                    count(note)
                     FROM 
                     Element element,
                     Document note
