@@ -64,7 +64,7 @@ class InvoiceManager(DocumentManager):
             if remove and positionId != 0:
                 position = self.findById("DocumentPosition", positionId)
                 self.cancelPosition(position)
-            else:
+            elif not remove:
                 position = self.findOrCreatePosition(invoice, positionId, str(i) + '_positions_')
                 position.putAttribute("NUMBER", self._svars.get(str(i) + '_positions_number'))
                 position.putAttribute("TAX_ID", self._svars.get(str(i) + '_positions_taxId'))
@@ -86,7 +86,7 @@ class InvoiceManager(DocumentManager):
         if remove and paymentId != 0:
             payment = self.findById("DocumentPosition", paymentId)
             self.cancelPosition(payment)
-        else:
+        elif not remove:
             payment = self.findOrCreatePayment(invoice, paymentId, prefix)
             payment.setCreditZpk(self.findZpk(invoice.getCommunity().getZpks(), 'RENT'))
             payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
