@@ -21,7 +21,7 @@ class InvoiceManager(DocumentManager):
             self.updateInvoiceData(invoice)
             self.updatePositions(invoice)
         else:
-            self._logger.info("Invoice already accepted, not updating details and positions")
+            self._logger.info("Invoice already accepted(%s), not updating details and positions" % invoice.getAttribute("ACCEPTED"))
         self.updatePayments(invoice)
         self.checkIfPayed(invoice)
         self.saveDocument(invoice)
