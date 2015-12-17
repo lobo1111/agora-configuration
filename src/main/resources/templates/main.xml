@@ -788,7 +788,7 @@
                 <data>
                     {:limit}
                     SELECT 
-                    note,
+                    note
                     FROM 
                     Document note
                     WHERE {:where}
