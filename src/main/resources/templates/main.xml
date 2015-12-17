@@ -791,10 +791,10 @@
                     note,
                     element
                     FROM 
+                    Element element,
                     Document note
                     Join note.positions position
-                    Join position.attributes attribute,
-                    Element element
+                    Join position.attributes attribute
                     WHERE {:where}
                     AND element.id IN (SELECT attribute.value FROM attribute WHERE attribute.name = "ELEMENT_ID")
                     ORDER BY note.createdAt DESC
@@ -807,10 +807,10 @@
                     SELECT 
                     count(note.id)
                     FROM 
+                    Element element,
                     Document note
                     Join note.positions position
-                    Join position.attributes attribute,
-                    Element element
+                    Join position.attributes attribute
                     WHERE {:where}
                     AND element.id IN (SELECT attribute.value FROM attribute WHERE attribute.name = "ELEMENT_ID")
                 </data>
