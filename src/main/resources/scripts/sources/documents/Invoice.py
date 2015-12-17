@@ -17,11 +17,11 @@ class InvoiceManager(DocumentManager):
     
     def update(self):
         invoice = self.findById("Document", self._svars.get("id"))
-        if invoice.getAttribute("ACCEPTED") == 'false':
+        if invoice.getAttribute("ACCEPTED").getValue() == 'false':
             self.updateInvoiceData(invoice)
             self.updatePositions(invoice)
         else:
-            self._logger.info("Invoice already accepted(%s), not updating details and positions" % invoice.getAttribute("ACCEPTED"))
+            self._logger.info("Invoice already accepted, not updating details and positions")
         self.updatePayments(invoice)
         self.checkIfPayed(invoice)
         self.saveDocument(invoice)
