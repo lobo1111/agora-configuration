@@ -789,14 +789,10 @@
                     {:limit}
                     SELECT 
                     note,
-                    element
                     FROM 
-                    Element element,
                     Document note
-                    Join note.positions position
-                    Join position.attributes attribute
                     WHERE {:where}
-                    AND element.id IN (SELECT attr.value FROM DocumentPositionAttribute attr WHERE attr.name = "ELEMENT_ID" AND attr.id = attribute.id)
+                    AND document.type = 'BANK_NOTE'
                     ORDER BY note.createdAt DESC
                 </data>
             </var>
@@ -807,12 +803,9 @@
                     SELECT 
                     count(note)
                     FROM 
-                    Element element,
                     Document note
-                    Join note.positions position
-                    Join position.attributes attribute
                     WHERE {:where}
-                    AND element.id IN (SELECT attr.value FROM DocumentPositionAttribute attr WHERE attr.name = "ELEMENT_ID" AND attr.id = attribute.id)
+                    AND document.type = 'BANK_NOTE'
                 </data>
             </var>
         </variables>
