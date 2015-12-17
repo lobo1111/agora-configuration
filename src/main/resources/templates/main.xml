@@ -792,7 +792,7 @@
                     FROM 
                     Document note
                     WHERE {:where}
-                    AND document.type = 'BANK_NOTE'
+                    AND document.type = \'BANK_NOTE\'
                     ORDER BY note.createdAt DESC
                 </data>
             </var>
@@ -805,7 +805,7 @@
                     FROM 
                     Document note
                     WHERE {:where}
-                    AND document.type = 'BANK_NOTE'
+                    AND document.type = \'BANK_NOTE\'
                 </data>
             </var>
         </variables>
