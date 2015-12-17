@@ -809,10 +809,7 @@
                     FROM 
                     Element element,
                     Document note
-                    Join note.positions position
-                    Join position.attributes attribute
                     WHERE {:where}
-                    AND element.id IN (SELECT attribute.value FROM attribute WHERE attribute.name = "ELEMENT_ID")
                 </data>
             </var>
         </variables>
