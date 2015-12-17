@@ -41,6 +41,7 @@ class DocumentManager(Container):
         return entity
 
     def saveDocument(self, document):
+        self._logger.info("Saving document %s with %d position(s)" % (document.getType(), document.getPositions().size()))
         return self.save(document)
 
     def savePosition(self, position):
