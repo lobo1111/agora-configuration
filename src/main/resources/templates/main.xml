@@ -793,6 +793,7 @@
                     Document note
                     WHERE {:where}
                     AND note.type = \'BANK_NOTE\'
+                    AND note.canceled = 0
                     ORDER BY note.createdAt DESC
                 </data>
             </var>
@@ -806,6 +807,7 @@
                     Document note
                     WHERE {:where}
                     AND note.type = \'BANK_NOTE\'
+                    AND note.canceled = 0
                 </data>
             </var>
         </variables>
