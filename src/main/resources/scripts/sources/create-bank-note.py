@@ -1,6 +1,6 @@
 import helpers
 helpers.init(globals())
 
-from entities.BankNote import BankNoteManager
+from documents.BankNote import BankNoteManager
 bankNoteManager = BankNoteManager()
 bankNoteManager.create()
