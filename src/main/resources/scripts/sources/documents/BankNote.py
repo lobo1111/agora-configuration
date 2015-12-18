@@ -5,8 +5,10 @@ class BankNoteManager(DocumentManager):
     
     def create(self):
         note = self.initDocument(self._type)
+        element = self.findById("ELEMENT", self._svars.get('elementId'))
         notePosition = self.initPosition(note)
-        notePosition.putAttribute("ELEMENT_GROUP", self._svars.get('elementGroup'))
+        notePosition.setDescription(element.getName())
+        notePosition.putAttribute("ELEMENT_GROUP", element.getGroup().getValue())
         notePosition.setCreditZpk(self.findZpk(note.getCommunity().getZpks(), 'CHARGING_RENT'))
         notePosition.setDebitZpk(self.findZpk(note.getPossession().getZpks(), 'POSSESSION'))
         self.bound(note, notePosition)
