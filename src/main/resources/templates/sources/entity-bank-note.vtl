@@ -3,13 +3,12 @@
     <id>$!entity.getId()</id>
     <createdAt>$!entity.getCreatedAt().getTime()</createdAt>
     <description>$!entity.getDescription()</description>
-    <value>$entity.getPositions().get(0).getValue()</value>
     <booked>$entity.getPositions().get(0).isBooked()</booked>
-    #foreach($attr in $!entity.getAttributes()
-        #if($attr.getName() == "ELEMENT_ID")
-        <elementId>#!attr.getValue()</elementId>
-        #end
-    #end
+    <element>
+        <groupValue>$!entity.getPositions().get(0).getAttribute("ELEMENT_GROUP")</groupValue>
+        <name>$!entity.getPositions().get(0).getDescription()</name>
+        <globalValue>$!entity.getPositions().get(0).getValue()</globalValue>
+    </element>
     <possession>
         <id>$!entity.getPossession().getId()</id>
         <address>
