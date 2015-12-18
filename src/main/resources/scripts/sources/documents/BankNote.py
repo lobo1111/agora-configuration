@@ -14,7 +14,7 @@ class BankNoteManager(DocumentManager):
         self.bound(note, notePosition)
         return self.saveDocument(note)
     
-    def remove(self):
+    def cancel(self):
         note = self.findById("Document", self._svars.get('id'))
         self.cancelDocument(note)
         
