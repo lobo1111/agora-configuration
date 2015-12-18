@@ -5,7 +5,7 @@ class BankNoteManager(DocumentManager):
     
     def create(self):
         note = self.initDocument(self._type)
-        element = self.findById("ELEMENT", self._svars.get('elementId'))
+        element = self.findById("Element", self._svars.get('elementId'))
         notePosition = self.initPosition(note)
         notePosition.setDescription(element.getName())
         notePosition.putAttribute("ELEMENT_GROUP", element.getGroup().getValue())
