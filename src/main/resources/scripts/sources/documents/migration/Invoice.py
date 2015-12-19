@@ -1,3 +1,4 @@
+from base.Container import Container
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
 
