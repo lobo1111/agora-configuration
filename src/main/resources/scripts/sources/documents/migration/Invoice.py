@@ -23,7 +23,7 @@ class InvoiceMigrator(Container):
                 document.putAttribute('MIGRATED', str(invoice.getId()))
                 self.addPositions(document, invoice)
                 self.addPayments(document, invoice)
-                InvoiceManager.checkIfPayed(document)
+                InvoiceManager().checkIfPayed(document)
                 self.saveEntity(document)
             else:
                 self._logger.info('Invoice %d already migrated, skipping...' % invoice.getId())
