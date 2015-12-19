@@ -6,19 +6,23 @@ class InvoiceMigrator(Container):
     
     def migrateAll(self):
         for invoice in self.collect():
-            document = Document()
-            document.setType('INVOICE')
-            document.setCommunity(invoice.getCommunity())
-            document.setContractor(invoice.getContractor())
-            document.setCreatedAt(invoice.getCreateDate())
-            document.putAttribute('NUMBER', invoice.getNumber())
-            document.putAttribute('CREATE_DATE', str(invoice.getCreateDate()))
-            document.putAttribute('ACCEPTED', str(invoice.isAccepted()))
-            document.putAttribute('PAYED', str(invoice.isPayed()))
-            document.putAttribute('MIGRATED', str(invoice.getId()))
-            self.addPositions(document, invoice)
-            self.addPayments(document, invoice)
-            self.saveEntity(document)
+            if not self.alreadyMigrated(invoice.getId()):
+                self._logger.info('Migrating invoice %d...' % invoice.getId())
+                document = Document()
+                document.setType('INVOICE')
+                document.setCommunity(invoice.getCommunity())
+                document.setContractor(invoice.getContractor())
+                document.setCreatedAt(invoice.getCreateDate())
+                document.putAttribute('NUMBER', invoice.getNumber())
+                document.putAttribute('CREATE_DATE', str(invoice.getCreateDate()))
+                document.putAttribute('ACCEPTED', str(invoice.isAccepted()))
+                document.putAttribute('PAYED', str(invoice.isPayed()))
+                document.putAttribute('MIGRATED', str(invoice.getId()))
+                self.addPositions(document, invoice)
+                self.addPayments(document, invoice)
+                self.saveEntity(document)
+            else:
+                self._logger.info('Invoice %d already migrated, skipping...' % invoice.getId())
             
     def addPositions(self, document, invoice):
         for position in invoice.getPositions():
@@ -51,6 +55,10 @@ class InvoiceMigrator(Container):
             documentPosition.setDocument(document)
     
     def collect(self):
-        sql = "Select i From Invoice i Where i.id Not In (Select CAST(attr.value AS int(11))  From Document d Join d.attributes attr Where d.type = 'INVOICE' And attr.name = 'MIGRATED')"
+        sql = "Select i From Invoice i"
         return self._entityManager.createQuery(sql).getResultList()
+    
+    def alreadyMigrated(self, id):
+        sql = "Select count(a) From Document d Join d.attributes a Where d.type = 'INVOICE' And a.name = 'MIGRATED' And a.value = %s" % str(id)
+        return self._entityManager.createQuery(sql).getSingleResult() > 0
     
