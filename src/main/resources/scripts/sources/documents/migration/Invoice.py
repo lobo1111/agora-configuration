@@ -1,6 +1,7 @@
 from base.Container import Container
 from java.math import BigDecimal
 from documents.Invoice import InvoiceManager
+from documents.Document import DocumentManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
 from entities.BookingPeriod import BookingPeriodManager
@@ -42,8 +43,8 @@ class InvoiceMigrator(Container):
             documentPosition.putAttribute('VOLUME', str(position.getVolume()))
             documentPosition.putAttribute('VALUE_NET', str(position.getValueNet()))
             documentPosition.putAttribute('VALUE_GROSS', str(position.getValueGross()))
-            documentPosition.setCreditZpk(document.findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
-            documentPosition.setDebitZpk(document.findZpk(document.getContractor().getZpks(), 'CONTRACTOR_COST'))
+            documentPosition.setCreditZpk(DocumentManager().findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
+            documentPosition.setDebitZpk(DocumentManager().findZpk(document.getContractor().getZpks(), 'CONTRACTOR_COST'))
             documentPosition.setDocument(document)
             
     def addPayments(self, document, invoice):
@@ -59,8 +60,8 @@ class InvoiceMigrator(Container):
             else:
                 documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
                 documentPosition.setMonth('0')
-            documentPosition.setCreditZpk(document.findZpk(document.getCommunity().getZpks(), 'RENT'))
-            documentPosition.setDebitZpk(document.findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
+            documentPosition.setCreditZpk(DocumentManager().findZpk(document.getCommunity().getZpks(), 'RENT'))
+            documentPosition.setDebitZpk(DocumentManager().findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
             documentPosition.setDocument(document)
     
     def collect(self):
