@@ -1,4 +1,5 @@
 from base.Container import Container
+from java.math import BigDecimal
 from documents.Invoice import InvoiceManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
@@ -32,7 +33,7 @@ class InvoiceMigrator(Container):
             documentPosition.setType('INVOICE_COST')
             documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
             documentPosition.setMonth('0')
-            documentPosition.setValue(position.getUnitValueNet())
+            documentPosition.setValue(BigDecimal(position.getUnitValueNet()))
             documentPosition.setBooked(False)
             documentPosition.setCreatedAt(invoice.getCreateDate())
             documentPosition.setDescription(position.getName())
@@ -50,7 +51,7 @@ class InvoiceMigrator(Container):
             documentPosition = DocumentPosition()
             documentPosition.setType('INVOICE_PAYMENT')
             documentPosition.setCreatedAt(payment.getCreateDate())
-            documentPosition.setValue(payment.getValuePayment())
+            documentPosition.setValue(BigDecimal(payment.getValuePayment()))
             documentPosition.setBooked(False)
             if(payment.getInternalPayment() != None):
                 documentPosition.setBookingPeriod(payment.getInternalPayment().getBookingPeriod())
