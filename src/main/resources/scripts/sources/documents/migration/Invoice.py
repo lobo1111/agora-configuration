@@ -31,7 +31,7 @@ class InvoiceMigrator(Container):
             documentPosition = DocumentPosition()
             documentPosition.setType('INVOICE_COST')
             documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
-            documentPosition.setMonth(0)
+            documentPosition.setMonth('0')
             documentPosition.setValue(position.getUnitValueNet())
             documentPosition.setBooked(False)
             documentPosition.setCreatedAt(invoice.getCreateDate())
@@ -57,7 +57,7 @@ class InvoiceMigrator(Container):
                 documentPosition.setMonth(payment.getInternalPayment().getMonth())
             else:
                 documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
-                documentPosition.setMonth(0)
+                documentPosition.setMonth('0')
             documentPosition.setCreditZpk(document.findZpk(document.getCommunity().getZpks(), 'RENT'))
             documentPosition.setDebitZpk(document.findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
             documentPosition.setDocument(document)
