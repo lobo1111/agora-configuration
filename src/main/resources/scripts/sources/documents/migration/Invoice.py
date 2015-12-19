@@ -45,7 +45,7 @@ class InvoiceMigrator(Container):
             documentPosition.putAttribute('VALUE_GROSS', str(position.getValueGross()))
             documentPosition.setCreditZpk(DocumentManager().findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
             documentPosition.setDebitZpk(DocumentManager().findZpk(document.getContractor().getZpks(), 'CONTRACTOR_COST'))
-            documentPosition.setDocument(document)
+            DocumentManager().bound(document, documentPosition)
             
     def addPayments(self, document, invoice):
         for payment in invoice.getPayments():
@@ -62,7 +62,7 @@ class InvoiceMigrator(Container):
                 documentPosition.setMonth('0')
             documentPosition.setCreditZpk(DocumentManager().findZpk(document.getCommunity().getZpks(), 'RENT'))
             documentPosition.setDebitZpk(DocumentManager().findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
-            documentPosition.setDocument(document)
+            DocumentManager().bound(document, documentPosition)
     
     def collect(self):
         sql = "Select i From Invoice i"
