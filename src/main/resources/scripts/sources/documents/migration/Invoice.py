@@ -5,7 +5,7 @@ from pl.reaper.container.data import DocumentPosition
 class InvoiceMigrator(Container):
     
     def migrateAll(self):
-        for invoice in collect():
+        for invoice in self.collect():
             document = Document()
             document.setType('INVOICE')
             document.setCommunity(invoice.getCommunity())
