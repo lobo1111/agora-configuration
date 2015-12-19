@@ -1,4 +1,5 @@
 from base.Container import Container
+from documents.Invoice import InvoiceManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
 
@@ -16,10 +17,10 @@ class InvoiceMigrator(Container):
                 document.putAttribute('NUMBER', invoice.getNumber())
                 document.putAttribute('CREATE_DATE', str(invoice.getCreateDate()))
                 document.putAttribute('ACCEPTED', str(invoice.isAccepted()))
-                document.putAttribute('PAYED', str(invoice.isPayed()))
                 document.putAttribute('MIGRATED', str(invoice.getId()))
                 self.addPositions(document, invoice)
                 self.addPayments(document, invoice)
+                InvoiceManager.checkIfPayed(document)
                 self.saveEntity(document)
             else:
                 self._logger.info('Invoice %d already migrated, skipping...' % invoice.getId())
