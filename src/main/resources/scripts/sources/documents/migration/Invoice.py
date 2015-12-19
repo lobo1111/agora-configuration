@@ -2,6 +2,7 @@ from base.Container import Container
 from documents.Invoice import InvoiceManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
+from entities.BookingPeriod import BookingPeriodManager
 
 class InvoiceMigrator(Container):
     
@@ -29,7 +30,7 @@ class InvoiceMigrator(Container):
         for position in invoice.getPositions():
             documentPosition = DocumentPosition()
             documentPosition.setType('INVOICE_COST')
-            documentPosition.setBookingPeriod(invoice.getBookingPeriod())
+            documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
             documentPosition.setMonth(0)
             documentPosition.setValue(position.getUnitValueNet())
             documentPosition.setBooked(False)
@@ -51,6 +52,12 @@ class InvoiceMigrator(Container):
             documentPosition.setCreatedAt(payment.getCreateDate())
             documentPosition.setValue(payment.getValuePayment())
             documentPosition.setBooked(False)
+            if(payment.getInternalPayment() != None):
+                documentPosition.setBookingPeriod(payment.getInternalPayment().getBookingPeriod())
+                documentPosition.setMonth(payment.getInternalPayment().getMonth())
+            else:
+                documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
+                documentPosition.setMonth(0)
             documentPosition.setCreditZpk(document.findZpk(document.getCommunity().getZpks(), 'RENT'))
             documentPosition.setDebitZpk(document.findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
             documentPosition.setDocument(document)
