@@ -51,6 +51,6 @@ class InvoiceMigrator(Container):
             documentPosition.setDocument(document)
     
     def collect(self):
-        sql = "Select i From Invoice i Where i.id Not In (Select attr.value From Document d Join d.attributes attr Where d.type = 'INVOICE' And attr.name = 'MIGRATED')"
+        sql = "Select i From Invoice i Where i.id Not In (Select FUNC('TO_NUMBER', attr.value) From Document d Join d.attributes attr Where d.type = 'INVOICE' And attr.name = 'MIGRATED')"
         return self._entityManager.createQuery(sql).getResultList()
     
