@@ -19,7 +19,7 @@ class BankNoteMigrator(Container):
                 note.setPossession(note.getPossession())
                 note.setCreatedAt(note.getCreatedAt())
                 note.setDescription(note.getDescription())
-                note.putAttribute('MIGRATED', str(invoice.getId()))
+                note.putAttribute('MIGRATED', str(note.getId()))
                 notePosition = DocumentPosition()
                 notePosition.setType('BANK_NOTE')
                 notePosition.setCreatedAt(note.getCreatedAt())
@@ -38,7 +38,7 @@ class BankNoteMigrator(Container):
                 self.bound(note, notePosition)
                 self.saveEntity(note)
             else:
-                self._logger.info('Note %d already migrated, skipping...' % invoice.getId())
+                self._logger.info('Note %d already migrated, skipping...' % note.getId())
             
     def collect(self):
         sql = "Select i From BankNote i"
