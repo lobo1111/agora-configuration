@@ -18,8 +18,12 @@ class InvoiceMigrator(Container):
                 document.setContractor(invoice.getContractor())
                 document.setCreatedAt(invoice.getCreateDate())
                 document.putAttribute('NUMBER', invoice.getNumber())
-                document.putAttribute('CREATE_DATE', str(invoice.getCreateDate()))
-                document.putAttribute('ACCEPTED', str(invoice.isAccepted()))
+                document.putAttribute('CREATE_DATE', str(SimpleDateFormat('dd-MM-yyyy').format(invoice.getCreateDate())))
+                document.putAttribute('PAYMENT_DATE', str(SimpleDateFormat('dd-MM-yyyy').format(invoice.getPaymentDate())))
+                if invoice.isAccepted():
+                    document.putAttribute('ACCEPTED', 'true')
+                else:
+                    document.putAttribute('ACCEPTED', 'false')
                 document.putAttribute('MIGRATED', str(invoice.getId()))
                 self.addPositions(document, invoice)
                 self.addPayments(document, invoice)
@@ -63,7 +67,7 @@ class InvoiceMigrator(Container):
             documentPosition.setCreditZpk(DocumentManager().findZpk(document.getCommunity().getZpks(), 'RENT'))
             documentPosition.setDebitZpk(DocumentManager().findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
             DocumentManager().bound(document, documentPosition)
-    
+   
     def collect(self):
         sql = "Select i From Invoice i"
         return self._entityManager.createQuery(sql).getResultList()
