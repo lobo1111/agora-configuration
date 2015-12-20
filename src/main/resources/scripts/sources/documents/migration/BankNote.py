@@ -25,7 +25,7 @@ class BankNoteMigrator(Container):
                 documentPosition.setCreatedAt(note.getCreatedAt())
                 if note.getInternalPayment() != None:
                     documentPosition.setBookingPeriod(note.getInternalPayment().getBookingPeriod())
-                    documentPosition.setMonth(note.getInternalPayment().getMonth())
+                    documentPosition.setMonth(note.getMonth())
                     documentPosition.setBooked(True)
                 else:
                     documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())

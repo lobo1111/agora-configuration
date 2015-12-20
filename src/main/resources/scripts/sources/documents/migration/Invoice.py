@@ -39,12 +39,11 @@ class InvoiceMigrator(Container):
             documentPosition.setType('INVOICE_COST')
             if invoice.getInternalPayment() != None:
                 documentPosition.setBookingPeriod(invoice.getInternalPayment().getBookingPeriod())
-                documentPosition.setMonth(invoice.getInternalPayment().getMonth)
                 documentPosition.setBooked(True)
             else:
                 documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
-                documentPosition.setMonth('0')
                 documentPosition.setBooked(False)
+            documentPosition.setMonth('0')
             documentPosition.setValue(BigDecimal(position.getUnitValueNet()))
             documentPosition.setCreatedAt(invoice.getCreateDate())
             documentPosition.setDescription(position.getName())
@@ -66,12 +65,11 @@ class InvoiceMigrator(Container):
             documentPosition.setValue(BigDecimal(payment.getValuePayment()))
             if(payment.getInternalPayment() != None):
                 documentPosition.setBookingPeriod(payment.getInternalPayment().getBookingPeriod())
-                documentPosition.setMonth(payment.getInternalPayment().getMonth())
                 documentPosition.setBooked(True)
             else:
                 documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
-                documentPosition.setMonth('0')
                 documentPosition.setBooked(False)
+            documentPosition.setMonth('0')
             documentPosition.setCreditZpk(DocumentManager().findZpk(document.getCommunity().getZpks(), 'RENT'))
             documentPosition.setDebitZpk(DocumentManager().findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
             DocumentManager().bound(document, documentPosition)
