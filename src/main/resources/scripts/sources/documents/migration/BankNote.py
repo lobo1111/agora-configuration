@@ -35,7 +35,7 @@ class BankNoteMigrator(Container):
                 documentPosition.putAttribute("ELEMENT_GROUP", note.getElement().getGroup().getValue())
                 documentPosition.setCreditZpk(DocumentManager().findZpk(note.getPossession().getCommunity().getZpks(), 'CHARGING_RENT'))
                 documentPosition.setDebitZpk(DocumentManager().findZpk(note.getPossession().getZpks(), 'POSSESSION'))
-                self.bound(document, documentPosition)
+                DocumentManager().bound(document, documentPosition)
                 self.saveEntity(document)
             else:
                 self._logger.info('Note %d already migrated, skipping...' % note.getId())
