@@ -1,7 +1,5 @@
-from java.text import SimpleDateFormat
 from base.Container import Container
 from java.math import BigDecimal
-from documents.Invoice import InvoiceManager
 from documents.Document import DocumentManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
@@ -23,6 +21,7 @@ class BankNoteMigrator(Container):
                 documentPosition = DocumentPosition()
                 documentPosition.setType('BANK_NOTE')
                 documentPosition.setCreatedAt(note.getCreatedAt())
+                documentPosition.setValue(BigDecimal(note.getNoteValue()))
                 if note.getInternalPayment() != None:
                     documentPosition.setBookingPeriod(note.getInternalPayment().getBookingPeriod())
                     documentPosition.setMonth(note.getMonth())
