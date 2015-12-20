@@ -33,7 +33,7 @@ class BankNoteMigrator(Container):
                     documentPosition.setBooked(False)
                 documentPosition.setDescription(note.getElement().getName())
                 documentPosition.putAttribute("ELEMENT_GROUP", note.getElement().getGroup().getValue())
-                documentPosition.setCreditZpk(DocumentManager().findZpk(note.getCommunity().getZpks(), 'CHARGING_RENT'))
+                documentPosition.setCreditZpk(DocumentManager().findZpk(note.getPossession().getCommunity().getZpks(), 'CHARGING_RENT'))
                 documentPosition.setDebitZpk(DocumentManager().findZpk(note.getPossession().getZpks(), 'POSSESSION'))
                 self.bound(document, documentPosition)
                 self.saveEntity(document)
