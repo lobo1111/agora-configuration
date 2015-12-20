@@ -64,8 +64,12 @@
         <payment>
             <id>$!payment.getId()</id>
             <value>$!payment.getValue()</value>
-            <createdAt>$!payment.getCreatedAt().getTime()</createdAt>
             <booked>$!payment.isBooked()</booked>
+            #foreach($attr in $payment.getAttributes())
+            #if($attr.getName() == "CREATE_DATE")
+            <createDate>$!attr.getValue()</createDate>
+            #end
+            #end
         </payment>
         #end
         #end

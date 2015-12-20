@@ -90,6 +90,7 @@ class InvoiceManager(DocumentManager):
             self.cancelPosition(payment)
         elif not remove:
             payment = self.findOrCreatePayment(invoice, paymentId, prefix)
+            payment.putAttribute("CREATE_DATE", self._svars.get(prefix + 'createDate'))
             payment.setCreditZpk(self.findZpk(invoice.getCommunity().getZpks(), 'RENT'))
             payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
             self.bound(invoice, payment)

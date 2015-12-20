@@ -37,10 +37,15 @@ class InvoiceMigrator(Container):
         for position in invoice.getPositions():
             documentPosition = DocumentPosition()
             documentPosition.setType('INVOICE_COST')
-            documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
-            documentPosition.setMonth('0')
+            if invoice.getInternalPayment() != None:
+                documentPosition.setBookingPeriod(invoice.getInternalPayment().getBookingPeriod())
+                documentPosition.setMonth(invoice.getInternalPayment().getMonth)
+                documentPosition.setBooked(True)
+            else:
+                documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
+                documentPosition.setMonth('0')
+                documentPosition.setBooked(False)
             documentPosition.setValue(BigDecimal(position.getUnitValueNet()))
-            documentPosition.setBooked(False)
             documentPosition.setCreatedAt(invoice.getCreateDate())
             documentPosition.setDescription(position.getName())
             documentPosition.putAttribute('NUMBER', str(position.getPosition()))
@@ -57,14 +62,16 @@ class InvoiceMigrator(Container):
             documentPosition = DocumentPosition()
             documentPosition.setType('INVOICE_PAYMENT')
             documentPosition.setCreatedAt(payment.getCreateDate())
+            documentPosition.putAttribute('CREATE_DATE', str(SimpleDateFormat('dd-MM-yyyy').format(invoice.getCreateDate())))
             documentPosition.setValue(BigDecimal(payment.getValuePayment()))
-            documentPosition.setBooked(False)
             if(payment.getInternalPayment() != None):
                 documentPosition.setBookingPeriod(payment.getInternalPayment().getBookingPeriod())
                 documentPosition.setMonth(payment.getInternalPayment().getMonth())
+                documentPosition.setBooked(True)
             else:
                 documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
                 documentPosition.setMonth('0')
+                documentPosition.setBooked(False)
             documentPosition.setCreditZpk(DocumentManager().findZpk(document.getCommunity().getZpks(), 'RENT'))
             documentPosition.setDebitZpk(DocumentManager().findZpk(document.getContractor().getZpks(), 'CONTRACTOR'))
             DocumentManager().bound(document, documentPosition)
