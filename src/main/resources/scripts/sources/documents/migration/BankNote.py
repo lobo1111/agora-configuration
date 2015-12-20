@@ -15,7 +15,7 @@ class BankNoteMigrator(Container):
                 self._logger.info('Migrating note %d...' % note.getId())
                 document = Document()
                 document.setType('BANK_NOTE')
-                document.setCommunity(note.getCommunity())
+                document.setCommunity(note.getPossession().getCommunity())
                 document.setPossession(note.getPossession())
                 document.setCreatedAt(note.getCreatedAt())
                 document.setDescription(note.getDescription())
