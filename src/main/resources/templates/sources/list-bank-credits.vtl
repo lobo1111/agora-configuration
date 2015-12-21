@@ -4,10 +4,8 @@
     <item>
         <id>$!row.getId()</id>
         <value>$!row.getPositions().get(0).getValue()</value>
+        <closed>$!attr.isClosed()</closed>
         #foreach($attr in $row.getAttributes())
-        #if($attr.getName() == "PAYED")
-        <payed>$!attr.getValue()()</payed>
-        #end
         #if($attr.getName() == "CREATE_DATE")
         <createdAt>$!attr.getValue()</createdAt>
         #end
