@@ -3,9 +3,15 @@
     #foreach($row in $items)
     <item>
         <id>$!row.getId()</id>
-        <payed>$!row.isPayed()</payed>
-        <amount>$!row.getAmount()</amount>
-        <createdAt>$!row.getCreatedAt().getTime()</createdAt>
+        <value>$!row.getPositions().get(0).getValue()</value>
+        #foreach($attr in $row.getAttributes())
+        #if($attr.getName() == "PAYED")
+        <payed>$!attr.getValue()()</payed>
+        #end
+        #if($attr.getName() == "CREATE_DATE")
+        <createdAt>$!attr.getValue()</createdAt>
+        #end
+        #end
         <community>
             <id>$!row.getCommunity().getId()</id>
             <company>

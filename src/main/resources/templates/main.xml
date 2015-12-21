@@ -603,10 +603,11 @@
                     SELECT 
                     bc
                     FROM 
-                    BankCreditDocument bc
+                    Document bc
                     JOIN bc.community community
                     JOIN bc.contractor contractor
                     WHERE {:where}
+                    AND bc.type = \'BANK_CREDIT\'
                     ORDER BY bc.createdAt DESC
                 </data>
             </var>
@@ -617,10 +618,11 @@
                     SELECT 
                     count(bc.id)
                     FROM 
-                    BankCreditDocument bc
+                    Document bc
                     JOIN bc.community community
                     JOIN bc.contractor contractor
                     WHERE {:where}
+                    AND bc.type = \'BANK_CREDIT\'
                 </data>
             </var>
         </variables>
