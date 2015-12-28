@@ -29,7 +29,7 @@
         #if($payment.getType() == "BANK_CREDIT_PAYMENT")
         <payment>
             <id>$!payment.getId()</id>
-            <createdAt>$!payment.getCreatedAt().getTime()</createdAt>
+            <createdAt>$!payment.getAttribute("CREATE_DATE").getValue()</createdAt>
             <value>$!payment.getValue()</value>
             <booked>$!payment.isBooked()</booked>
         </payment>
