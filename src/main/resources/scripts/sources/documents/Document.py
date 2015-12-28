@@ -73,7 +73,7 @@ class DocumentManager(Container):
     
     def positionsAreBooked(self, positions):
         for position in positions:
-            if not position.isBooked() or not position.isCanceled():
+            if not position.isBooked():
                 return False
         return True
     
