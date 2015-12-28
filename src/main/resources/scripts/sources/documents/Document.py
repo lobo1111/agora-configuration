@@ -54,6 +54,9 @@ class DocumentManager(Container):
             document.setClosed(True)
             document.setClosedAt(Date())
             self.saveDocument(document)
+            self._logger.info("Document %d closed" % document.getId())
+        else:
+            self._logger.info("Document %d can't be closed" % document.getId())
             
     def cancelDocument(self, document):
         if self.isEditable(document) and not self.positionsAreBooked(document.getPositions()):
@@ -70,7 +73,7 @@ class DocumentManager(Container):
     
     def positionsAreBooked(self, positions):
         for position in positions:
-            if not position.isBooked() and not position.isCanceled():
+            if not position.isBooked() or position.isCanceled():
                 return False
         return True
     
