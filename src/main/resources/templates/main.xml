@@ -899,6 +899,7 @@
                     WHERE {:where} 
                     AND invoice.community.outDate is NULL
                     AND invoice.canceled = 0
+                    AND invoice.type = \'INVOICE\'
                     ORDER BY invoice.createdAt DESC
                 </data>
             </var>
@@ -912,6 +913,7 @@
                     WHERE {:where} 
                     AND invoice.community.outDate is NULL
                     AND invoice.canceled = 0
+                    AND invoice.type = \'INVOICE\'
                 </data>
             </var>
         </variables>
