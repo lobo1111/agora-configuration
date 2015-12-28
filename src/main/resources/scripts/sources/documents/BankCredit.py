@@ -42,7 +42,7 @@ class BankCreditManager(DocumentManager):
                 position.setType("BANK_CREDIT_PAYMENT")
                 position.putAttribute("CREATE_DATE", self._svars.get(str(i) + '_payments_' + 'createdAt'))
                 position.setCreditZpk(self.findZpk(credit.getContractor().getZpks(), "CONTRACTOR"))
-                position.setDebitZpk(self.findZpk(credit.getCommunity().getZpks(), credit.getAttribute('CHARGE_TYPE')))
+                position.setDebitZpk(self.findZpk(credit.getCommunity().getZpks(), credit.getAttribute('CHARGE_TYPE').getValue()))
                 self.bound(credit, position)
             if id != 0 and remove:
                 position = self.findById("DocumentPosition", id);
