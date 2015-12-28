@@ -608,6 +608,7 @@
                     JOIN bc.contractor contractor
                     WHERE {:where}
                     AND bc.type = \'BANK_CREDIT\'
+                    AND bc.canceled = 0
                     ORDER BY bc.createdAt DESC
                 </data>
             </var>
@@ -623,6 +624,7 @@
                     JOIN bc.contractor contractor
                     WHERE {:where}
                     AND bc.type = \'BANK_CREDIT\'
+                    AND bc.canceled = 0
                 </data>
             </var>
         </variables>
