@@ -25,7 +25,7 @@ class BankCreditManager(DocumentManager):
         self.updatePayments(credit)
         return self.saveDocument(credit)
         
-    def remove(self):
+    def cancel(self):
         credit = self.findById("Document", self._svars.get('id'))
         self.cancelDocument(credit)
         
