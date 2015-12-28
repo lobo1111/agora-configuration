@@ -113,27 +113,31 @@
         #end
     </mainCounters>
     <accountProvisions>
-        #foreach($ap in $!community.getDefaultAccount().getAccountProvisions())
+        #foreach($ap in $!community.getDefaultAccount().getDocuments())
+        #if($ap.getType() == "ACCOUNT_PROVISION")
         <accountProvision>
             <account>
-                <id>$!ap.getAccount().getId()</id>
-                <number>$!ap.getAccount().getNumber()</number>
+                <id>$!ap.getPositions().get(0).getAccount().getId()</id>
+                <number>$!ap.getPositions().get(0).getAccount().getNumber()</number>
             </account>
             <id>$!ap.getId()</id>
-            <createdAt>$!ap.getCreatedAt().getTime()</createdAt>
-            <value>$!ap.getProvisionValue()</value>
+            <createdAt>$!ap.getAttribute("CREATE_DATE").getValue()</createdAt>
+            <value>$!ap.getPositions().get(0).getValue()</value>
         </accountProvision>
         #end
-        #foreach($ap in $!community.getRepariFundAccount().getAccountProvisions())
+        #end
+        #foreach($ap in $!community.getRepairFundAccount().getDocuments())
+        #if($ap.getType() == "ACCOUNT_PROVISION")
         <accountProvision>
             <account>
-                <id>$!ap.getAccount().getId()</id>
-                <number>$!ap.getAccount().getNumber()</number>
+                <id>$!ap.getPositions().get(0).getAccount().getId()</id>
+                <number>$!ap.getPositions().get(0).getAccount().getNumber()</number>
             </account>
             <id>$!ap.getId()</id>
-            <createdAt>$!ap.getCreatedAt().getTime()</createdAt>
-            <value>$!ap.getProvisionValue()</value>
+            <createdAt>$!ap.getAttribute("CREATE_DATE").getValue()</createdAt>
+            <value>$!ap.getPositions().get(0).getValue()</value>
         </accountProvision>
+        #end
         #end
     </accountProvisions>
 </community>

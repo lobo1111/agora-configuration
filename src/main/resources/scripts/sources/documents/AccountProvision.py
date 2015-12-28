@@ -6,11 +6,11 @@ class AccountProvisionManager(DocumentManager):
     def create(self):
         provision = self.initDocument(self._type)
         position = self.initPosition(provision)
-        position.setAccount(self.findById("Account", self._svars.get('accountId')))
         position.setZpkCredit(self.findZpk(provision.getCommunity().getZpks(), 'RENT'))
         position.setZpkDebit(self.findZpk(provision.getAccount().getBankContractor().getZpks(), 'CONTRACTOR'))
+        self.bound(provision, position)
         return self.saveDocument(provision)
     
-    def remove(self):
+    def cancel(self):
         provision = self.findById("Document", self._svars.get('id'))
         self.cancelDocument(provision)

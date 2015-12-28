@@ -3,4 +3,4 @@ helpers.init(globals())
 
 from documents.AccountProvision import AccountProvisionManager
 manager = AccountProvisionManager()
-manager.create()
+manager.cancel()
