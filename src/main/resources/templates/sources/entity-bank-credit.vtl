@@ -26,7 +26,7 @@
     <closed>$!entity.isClosed()</closed>
     <payments>
         #foreach($payment in $!entity.getPositions())
-        #if($payment.getType() == "BANK_CREDIT_PAYMENT" && !$position.isCanceled())
+        #if($payment.getType() == "BANK_CREDIT_PAYMENT" && !$payment.isCanceled())
         <payment>
             <id>$!payment.getId()</id>
             <createdAt>$!payment.getAttribute("CREATE_DATE").getValue()</createdAt>
