@@ -9,7 +9,7 @@ class BankCreditManager(DocumentManager):
         positionCost.setType("BANK_CREDIT_COST")
         chargeDefaultAccount = self._svars.get("defaultAccount") == 'true'
         if chargeDefaultAccount:
-            type = 'RENT'
+            type = 'DEFAULT'
         else:
             type = 'REPAIR_FUND'
         credit.putAttribute("CHARGE_TYPE", type)
