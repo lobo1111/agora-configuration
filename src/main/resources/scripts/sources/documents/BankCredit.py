@@ -13,6 +13,7 @@ class BankCreditManager(DocumentManager):
         else:
             type = 'REPAIR_FUND'
         credit.putAttribute("CHARGE_TYPE", type)
+        credit.putAttribute("CREATE_DATE", self_svars.get('createdAt'))
         positionCost.setDebitZpk(self.findZpk(credit.getContractor().getZpks(), "CONTRACTOR_COST"))
         positionCost.setCreditZpk(self.findZpk(credit.getCommunity().getZpks(), type))
         self.bound(credit, positionCost)

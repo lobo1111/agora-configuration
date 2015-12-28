@@ -48,7 +48,7 @@
                     SELECT 
                     e
                     FROM 
-                    BankCreditDocument e
+                    Document e
                     WHERE 
                     e.id = {:id}
                 </data>
