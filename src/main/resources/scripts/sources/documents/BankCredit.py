@@ -37,7 +37,7 @@ class BankCreditManager(DocumentManager):
         for i in range(int(self._svars.get('paymentsCount'))): 
             id = int(self._svars.get(str(i) + '_payments_' + 'paymentId'))
             remove = self._svars.get(str(i) + '_payments_' + 'remove') == 'true'
-            if id == 0 and not remove:
+            if not remove:
                 position = self.initPosition(credit, str(i) + '_payments_')
                 position.setType("BANK_CREDIT_PAYMENT")
                 position.putAttribute("CREATE_DATE", self._svars.get(str(i) + '_payments_' + 'createdAt'))
