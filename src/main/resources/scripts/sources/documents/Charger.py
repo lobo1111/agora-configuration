@@ -31,8 +31,8 @@ class ChargerManager(DocumentManager):
                 chargingPosition = self.initPosition(charging)
                 chargingPosition.setDescription(possessionElement.getElement().getName())
                 chargingPosition.putAttribute("ELEMENT_KEY", possessionElement.getElement().getKey())
-                chargingPosition.putAttribute("ELEMENT_GROUP_ID", possessionElement.getElement().getGroup().getId())
-                chargingPosition.putAttribute("ELEMENT_GROUP_Name", possessionElement.getElement().getGroup().getValue())
+                chargingPosition.putAttribute("ELEMENT_GROUP_ID", str(possessionElement.getElement().getGroup().getId()))
+                chargingPosition.putAttribute("ELEMENT_GROUP_NAME", str(possessionElement.getElement().getGroup().getValue()))
                 if self.isRepairFundElement(element):
                     chargingPosition.setCreditZpk(self.findZpk(charging.getCommunity().getZpks(), 'CHARGING_RENT'))
                     chargingPosition.setDebitZpk(self.findZpk(possession.getZpks(), 'POSSESSION'))
