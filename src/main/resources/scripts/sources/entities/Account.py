@@ -4,7 +4,6 @@ from entities.Bank import BankManager
 from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
 from entities.Zpk import ZpkManager
-from entities.InternalPayment import InternalPaymentManager
 
 class AccountManager(Container):
     
@@ -32,84 +31,6 @@ class AccountManager(Container):
         account = self.findAccount()
         self.setAccountData(account)
         self.saveAccount(account)
-        
-    def close(self):
-        oldAccount = self.findById('Account', self._svars.get('id'))
-        oldAccount.setClosed(1)
-        community = oldAccount.getCommunity()
-        newAccount = None
-        if oldAccount.getType().getKey() == "DEFAULT":
-            newAccount = community.getDefaultAccount()
-            if newAccount.getType().getKey() == "DEFAULT":
-                self._logger.info("Closing account - DEFAULT to DEFAULT")    
-                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT", community)
-                zpkDebit = self.findZpk("RENT", oldAccount)
-                amount = zpkDebit.getCurrentBalance().getCredit()
-                self.book(zpkCredit, zpkDebit, amount)
-                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT", community)
-                zpkCredit = self.findZpk("RENT", newAccount)
-                self.book(zpkCredit, zpkDebit, amount)
-                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT_RF", community)
-                zpkDebit = self.findZpk("REPAIR_FUND", oldAccount)
-                amount = zpkDebit.getCurrentBalance().getCredit()
-                self.book(zpkCredit, zpkDebit, amount)
-                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT_RF", community)
-                zpkCredit = self.findZpk("REPAIR_FUND", newAccount)
-                self.book(zpkCredit, zpkDebit, amount)
-            elif newAccount.getType().getKey() == "RENT":
-                self._logger.info("Closing account - DEFAULT to RENT")    
-                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT", community)
-                zpkDebit = self.findZpk("RENT", oldAccount)
-                amount = zpkDebit.getCurrentBalance().getCredit()
-                self.book(zpkCredit, zpkDebit, amount)
-                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT", community)
-                zpkCredit = self.findZpk("RENT", newAccount)
-                self.book(zpkCredit, zpkDebit, amount)
-                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT", community)
-                zpkDebit = self.findZpk("REPAIR_FUND", oldAccount)
-                amount = zpkDebit.getCurrentBalance().getCredit()
-                self.book(zpkCredit, zpkDebit, amount)
-                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT", community)
-                zpkCredit = self.findZpk("RENT", newAccount)
-                self.book(zpkCredit, zpkDebit, amount)
-        elif oldAccount.getType().getKey() == "RENT":
-            newAccount = community.getDefaultAccount()
-            if newAccount.getType().getKey() == "RENT" or newAccount.getType().getKey() == "DEFAULT":
-                self._logger.info("Closing account - RENT to RENT/DEFAULT")    
-                zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT", community)
-                zpkDebit = self.findZpk("RENT", oldAccount)
-                amount = zpkDebit.getCurrentBalance().getCredit()
-                self.book(zpkCredit, zpkDebit, amount)
-                zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT", community)
-                zpkCredit = self.findZpk("RENT", newAccount)
-                if zpkCredit == None:
-                    zpkCredit = self.findZpk("DEFAULT", newAccount)
-                self.book(zpkCredit, zpkDebit, amount)
-        elif oldAccount.getType().getKey() == "REPAIR_FUND":
-            self._logger.info("Closing account - RF to RF")    
-            newAccount = community.getRepairFundAccount()
-            zpkCredit = self.findZpk("WAITING_FOR_ACCOUNT_RF", community)
-            zpkDebit = self.findZpk("REPAIR_FUND", oldAccount)
-            amount = zpkDebit.getCurrentBalance().getCredit()
-            self.book(zpkCredit, zpkDebit, amount)
-            zpkDebit = self.findZpk("WAITING_FOR_ACCOUNT_RF", community)
-            zpkCredit = self.findZpk("REPAIR_FUND", newAccount)
-            self.book(zpkCredit, zpkDebit, amount)
-        else:
-            self._logger.info("Can't close account(%d), types mismatch" % (oldAccount.getId()))    
-        self.saveAccount(oldAccount)
-        self.saveAccount(newAccount)
-        
-    def book(self, zpkCredit, zpkDebit, amount):
-        self._logger.info("Closing account - booking credit(%d), debit(%d) amount %f" % (zpkCredit.getId(), zpkDebit.getId(), amount))    
-        self._svars.put('creditZpkId', str(zpkCredit.getId()))
-        self._svars.put('debitZpkId', str(zpkDebit.getId()))
-        self._svars.put('amount', str(amount))
-        self._svars.put('comment', 'Zamkniecie konta')
-        manager = InternalPaymentManager()
-        payment = manager.create()
-        self._svars.put('paymentId', str(payment.getId()))
-        manager.book()
         
     def findZpk(self, key, entity):
         zpkType = self.findZpkType(key)
