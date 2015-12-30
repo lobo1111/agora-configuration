@@ -41,7 +41,7 @@ class ChargerManager(DocumentManager):
                 self.bound(charging, chargingPosition)
             return self.saveDocument(charging)
         
-   def chargeCommunity(self, community):
+    def chargeCommunity(self, community):
         for possession in community.getPossessions():
             self.chargePossession(possession)
             
