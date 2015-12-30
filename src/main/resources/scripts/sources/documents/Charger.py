@@ -20,6 +20,7 @@ class ChargerManager(DocumentManager):
         
     def chargePossession(self, possession):
         if not self.alreadyCharged(possession) and possession.getElements().size() > 0:
+            self._svars.put("communityId", possession.getCommunity().getId())
             charging = self.initDocument(self._type)
             charging.setCommunity(possession.getCommunity())
             charging.setPossession(possession)
