@@ -724,7 +724,7 @@
                     SELECT
                         dp
                     FROM
-                        DocumentPosition dp
+                        Document dp
                     WHERE
                         dp.type in (\'CHARGING\', \'PAYMENT_RENT\', \'BANK_NOTE\')
                     ORDER BY dp.createdAt DESC
@@ -735,9 +735,9 @@
                 <data>
                     {:single}
                     SELECT 
-                        COUNT(dp.id)
+                        COUNT(dp)
                     FROM 
-                        DocumentPosition dp
+                        Document dp
                     WHERE 
                         dp.type in (\'CHARGING\', \'PAYMENT_RENT\', \'BANK_NOTE\')
                 </data>

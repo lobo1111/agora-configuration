@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -188,5 +189,13 @@ public class Document implements Serializable {
             }
         }
         return null;
+    }
+    
+    public BigDecimal sumValues() {
+        BigDecimal sum = new BigDecimal(0);
+        for(DocumentPosition position: positions) {
+            sum = sum.add(position.getValue());
+        }
+        return sum;
     }
 }
