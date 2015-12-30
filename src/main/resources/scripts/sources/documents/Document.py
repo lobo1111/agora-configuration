@@ -7,6 +7,9 @@ from pl.reaper.container.data import DocumentPosition
 
 class DocumentManager(Container):
     
+    def __init__(self):
+        self._currentMonth = BookingPeriodManager().getCurrentMonth()
+    
     def initDocument(self, type):
         document = Document()
         document.setCreatedAt(Date())
@@ -25,7 +28,7 @@ class DocumentManager(Container):
         position.setCreatedAt(Date())
         position.setType(document.getType() + "_POSITION")
         position.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
-        position.setMonth(BookingPeriodManager().getCurrentMonth())
+        position.setMonth(self._currentMonth)
         position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
         if self._svars.get('accountId') != None:
@@ -108,9 +111,8 @@ class DocumentManager(Container):
             self.saveDocument(document)
         
     def bookAllPositions(self):
-        currentMonth = BookingPeriodManager().getCurrentMonth()
         currentBookingPeriod = BookingPeriodManager().findDefaultBookingPeriod()
-        sql = "Select document From Document document Where document.month = '%s' and document.bookingPeriod.id = %d" % (currentMonth, currentBookingPeriod.getId())
+        sql = "Select document From Document document Where document.month = '%s' and document.bookingPeriod.id = %d" % (self._currentMonth, currentBookingPeriod.getId())
         for document in self._entityManager.createQuery(sql).getResultList():
             self.bookDocument(document)
             
