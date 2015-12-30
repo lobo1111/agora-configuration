@@ -1,5 +1,6 @@
 from base.Container import Container
 from java.math import BigDecimal
+from java.text import SimpleDateFormat
 from documents.Document import DocumentManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
@@ -15,7 +16,7 @@ class AccountProvisionMigrator(Container):
                 document.setType('ACCOUNT_PROVISION')
                 document.setCommunity(ap.getAccount().getCommunity())
                 document.setCreatedAt(ap.getCreatedAt())
-                document.putAttribute('CREATE_DATE', str(ap.getCreatedAt()))
+                document.putAttribute('CREATE_DATE', str(SimpleDateFormat('dd-MM-yyyy').format(ap.getCreatedAt())))
                 document.putAttribute('MIGRATED', str(ap.getId()))
                 documentPosition = DocumentPosition()
                 documentPosition.setAccount(ap.getAccount())
