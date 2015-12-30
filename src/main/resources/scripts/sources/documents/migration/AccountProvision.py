@@ -30,7 +30,7 @@ class AccountProvisionMigrator(Container):
                     documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
                     documentPosition.setMonth('0')
                     documentPosition.setBooked(False)
-                documentPosition.setCreditZpk(DocumentManager().findZpk(ap.getAccount().getCommunity().getZpks(), 'DEFAULT'))
+                documentPosition.setCreditZpk(DocumentManager().findZpk(ap.getAccount().getCommunity().getZpks(), 'RENT'))
                 documentPosition.setDebitZpk(DocumentManager().findZpk(ap.getAccount().getBankContractor().getZpks(), 'CONTRACTOR'))
                 DocumentManager().bound(document, documentPosition)
                 self.saveEntity(document)
