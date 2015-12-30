@@ -9,8 +9,7 @@ from entities.Zpk import ZpkManager
 from entities.Element import ElementManager
 from entities.Contractor import ContractorManager
 from entities.Dictionary import DictionaryManager
-from entities.AccountProvision import AccountProvisionManager
-from entities.BankCredit import BankCreditManager
+from documents.AccountProvision import AccountProvisionManager
 
 class CommunityManager(Container):
     _prefix = ''
@@ -145,7 +144,7 @@ class CommunityManager(Container):
     def addAccountProvisions(self, community):
         for i in range(int(self._svars.get(self._prefix + 'accountProvisionsCount'))): 
             self._svars.put('accountId', self._svars.get(self._prefix + str(i) + '_ap_accountId'))
-            self._svars.put('createdAt', self._svars.get(self._prefix + str(i) + '_ap_date'))
+            self._svars.put('createDate', self._svars.get(self._prefix + str(i) + '_ap_date'))
             self._svars.put('value', self._svars.get(self._prefix + str(i) + '_ap_value'))
             AccountProvisionManager().create()
 
