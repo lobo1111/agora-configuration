@@ -1,6 +1,5 @@
 from documents.Document import DocumentManager
 from documents.helpers.Calculator import Calculator
-from entities.BookingPeriod import BookingPeriodManager
 from entities.Dictionary import DictionaryManager
 
 class ChargerManager(DocumentManager):
