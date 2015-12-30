@@ -5,7 +5,7 @@ class AccountProvisionManager(DocumentManager):
     
     def create(self):
         provision = self.initDocument(self._type)
-        provision.putAttributes("CREATE_DATE", self._svars.get('createDate'))
+        provision.putAttribute("CREATE_DATE", self._svars.get('createDate'))
         position = self.initPosition(provision)
         position.setZpkCredit(self.findZpk(provision.getCommunity().getZpks(), 'RENT'))
         position.setZpkDebit(self.findZpk(provision.getAccount().getBankContractor().getZpks(), 'CONTRACTOR'))
