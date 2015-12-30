@@ -7,7 +7,7 @@
         <bookingPeriodName>$!item.getPositions().get(0).getBookingPeriod().getName()</bookingPeriodName>
         <createdAt>$!item.getAttribute("CREATE_DATE").getValue()</createdAt>
         <communityName>$!item.getCommunity().getName()</communityName>
-        <possessionName>$!item.getFullAddress()</possessionName>
+        <possessionName>$!item.getPossession().getFullAddress()</possessionName>
         <value>$!item.sumValues().floatValue()</value>
         <type>$!item.getType()</type>
     </item>
