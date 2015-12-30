@@ -1,6 +1,6 @@
 import helpers
 helpers.init(globals())
 
-from crons.Charger import ChargeManager
+from documents.Charger import ChargeManager
 chargeManager = ChargeManager()
 chargeManager.chargeAll()
