@@ -15,7 +15,7 @@ class AccountProvisionMigrator(Container):
                 document.setType('ACCOUNT_PROVISION')
                 document.setCommunity(ap.getAccount().getCommunity())
                 document.setCreatedAt(ap.getCreatedAt())
-                document.putAttribute('CREATE_DATE', str(ap.getId()))
+                document.putAttribute('CREATE_DATE', str(ap.getCreatedAt()))
                 document.putAttribute('MIGRATED', str(ap.getId()))
                 documentPosition = DocumentPosition()
                 documentPosition.setAccount(ap.getAccount())
@@ -35,7 +35,7 @@ class AccountProvisionMigrator(Container):
                 DocumentManager().bound(document, documentPosition)
                 self.saveEntity(document)
             else:
-                self._logger.info('Note %d already migrated, skipping...' % note.getId())
+                self._logger.info('Account provision %d already migrated, skipping...' % note.getId())
             
     def collect(self):
         sql = "Select i From AccountProvision i"
