@@ -30,7 +30,6 @@ class ChargerManager(DocumentManager):
                 self._svars.put("value", self._calculator.calculate(element, possession))
                 chargingPosition = self.initPosition(charging)
                 chargingPosition.setDescription(possessionElement.getElement().getName())
-                chargingPosition.putAttribute("ELEMENT_KEY", possessionElement.getElement().getKey())
                 chargingPosition.putAttribute("ELEMENT_GROUP_ID", str(possessionElement.getElement().getGroup().getId()))
                 chargingPosition.putAttribute("ELEMENT_GROUP_NAME", str(possessionElement.getElement().getGroup().getValue()))
                 if self.isRepairFundElement(element):
