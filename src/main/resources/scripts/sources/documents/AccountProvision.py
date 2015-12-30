@@ -7,8 +7,8 @@ class AccountProvisionManager(DocumentManager):
         provision = self.initDocument(self._type)
         provision.putAttribute("CREATE_DATE", self._svars.get('createDate'))
         position = self.initPosition(provision)
-        position.setZpkCredit(self.findZpk(provision.getCommunity().getZpks(), 'RENT'))
-        position.setZpkDebit(self.findZpk(provision.getAccount().getBankContractor().getZpks(), 'CONTRACTOR'))
+        position.setCreditZpk(self.findZpk(provision.getCommunity().getZpks(), 'RENT'))
+        position.setDebitZpk(self.findZpk(provision.getAccount().getBankContractor().getZpks(), 'CONTRACTOR'))
         self.bound(provision, position)
         return self.saveDocument(provision)
     
