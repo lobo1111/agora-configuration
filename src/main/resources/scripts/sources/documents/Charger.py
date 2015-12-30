@@ -1,6 +1,7 @@
 from documents.Document import DocumentManager
 from documents.helpers.Calculator import Calculator
 from entities.Dictionary import DictionaryManager
+from entities.BookingPeriod import BookingPeriodManager
 
 class ChargerManager(DocumentManager):
     _calculator = Calculator()
@@ -12,7 +13,7 @@ class ChargerManager(DocumentManager):
     
     def alreadyCharged(self, possession):
         try:
-            self._entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId()) + " and c.month = %s)" % self._currentMonth).getSingleResult()
+            self._entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId()) + " and c.month = %s)" % BookingPeriodManager().getCurrentMonth()).getSingleResult()
             return True
         except:
             return False
@@ -57,7 +58,7 @@ class ChargerManager(DocumentManager):
             return possessionElement.getElement().getGlobalValue()
         
     def findAllUncharged(self):
-        return self._entityManager.createQuery("Select p From Possession p Join p.community co Where co.inDate <= CURRENT_DATE AND p.id not in(Select ped.id From Charging c Join c.bookingPeriod bp Join c.possession ped Where bp.defaultPeriod = 1 AND c.month = %s) and p.community.outDate is null" % self._currentMonth).getResultList()
+        return self._entityManager.createQuery("Select p From Possession p Join p.community co Where co.inDate <= CURRENT_DATE AND p.id not in(Select ped.id From Charging c Join c.bookingPeriod bp Join c.possession ped Where bp.defaultPeriod = 1 AND c.month = %s) and p.community.outDate is null" % BookingPeriodManager().getCurrentMonth()).getResultList()
      
     def isRepairFundElement(self, element):
         return DictionaryManager.findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue() == element.getGroup().getId()

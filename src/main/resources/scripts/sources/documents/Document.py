@@ -8,7 +8,6 @@ from pl.reaper.container.data import DocumentPosition
 class DocumentManager(Container):
     
     def initDocument(self, type):
-        self._currentMonth = BookingPeriodManager().getCurrentMonth()
         document = Document()
         document.setCreatedAt(Date())
         document.setType(type)
