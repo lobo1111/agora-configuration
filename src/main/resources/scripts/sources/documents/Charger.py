@@ -1,3 +1,4 @@
+from java.text import SimpleDateFormat
 from documents.Document import DocumentManager
 from documents.helpers.Calculator import Calculator
 from entities.Dictionary import DictionaryManager
@@ -24,6 +25,7 @@ class ChargerManager(DocumentManager):
             charging = self.initDocument(self._type)
             charging.setCommunity(possession.getCommunity())
             charging.setPossession(possession)
+            charging.putAttribute("CREATE_DATE", str(SimpleDateFormat('dd-MM-yyyy').format(charging.getCreatedAt())))
             for possessionElement in possession.getElements():
                 element = possessionElement.getElement()
                 element.setGlobalValue(self.discoverValue(possessionElement))
