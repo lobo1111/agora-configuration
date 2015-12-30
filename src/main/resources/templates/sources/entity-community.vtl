@@ -113,29 +113,29 @@
         #end
     </mainCounters>
     <accountProvisions>
-        #foreach($ap in $!community.getDefaultAccount().getDocuments())
-        #if($ap.getType() == "ACCOUNT_PROVISION")
+        #foreach($ap in $!community.getDefaultAccount().getDocumentPositions())
+        #if($ap.getType() == "ACCOUNT_PROVISION_POSITION")
         <accountProvision>
             <account>
-                <id>$!ap.getPositions().get(0).getAccount().getId()</id>
-                <number>$!ap.getPositions().get(0).getAccount().getNumber()</number>
+                <id>$!ap.getAccount().getId()</id>
+                <number>$!ap.getAccount().getNumber()</number>
             </account>
-            <id>$!ap.getId()</id>
-            <createdAt>$!ap.getAttribute("CREATE_DATE").getValue()</createdAt>
-            <value>$!ap.getPositions().get(0).getValue()</value>
+            <id>$!ap.getDocument().getId()</id>
+            <createdAt>$!ap.getDocument().getAttribute("CREATE_DATE").getValue()</createdAt>
+            <value>$!ap.getValue()</value>
         </accountProvision>
         #end
         #end
-        #foreach($ap in $!community.getRepairFundAccount().getDocuments())
-        #if($ap.getType() == "ACCOUNT_PROVISION")
+        #foreach($ap in $!community.getRepairFundAccount().getDocumentPositions())
+        #if($ap.getType() == "ACCOUNT_PROVISION_POSITION")
         <accountProvision>
             <account>
-                <id>$!ap.getPositions().get(0).getAccount().getId()</id>
-                <number>$!ap.getPositions().get(0).getAccount().getNumber()</number>
+                <id>$!ap.getAccount().getId()</id>
+                <number>$!ap.getAccount().getNumber()</number>
             </account>
-            <id>$!ap.getId()</id>
-            <createdAt>$!ap.getAttribute("CREATE_DATE").getValue()</createdAt>
-            <value>$!ap.getPositions().get(0).getValue()</value>
+            <id>$!ap.getDocument().getId()</id>
+            <createdAt>$!ap.getDocument().getAttribute("CREATE_DATE").getValue()</createdAt>
+            <value>$!ap.getValue()</value>
         </accountProvision>
         #end
         #end

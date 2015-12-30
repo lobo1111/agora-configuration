@@ -63,7 +63,7 @@ public class Account implements Serializable {
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
-    private Collection<AccountProvision> accountProvisions = new ArrayList<>();
+    private Collection<DocumentPosition> documentPositions = new ArrayList<>();
 
     public Account() {
     }
@@ -86,12 +86,12 @@ public class Account implements Serializable {
         this.closed = closed;
     }
 
-    public Collection<AccountProvision> getAccountProvisions() {
-        return accountProvisions;
+    public Collection<DocumentPosition> getDocumentPositions() {
+        return documentPositions;
     }
 
-    public void setAccountProvisions(Collection<AccountProvision> accountProvisions) {
-        this.accountProvisions = accountProvisions;
+    public void setDocumentPositions(Collection<DocumentPosition> documentPositions) {
+        this.documentPositions = documentPositions;
     }
 
     public Contractor getBankContractor() {
