@@ -30,7 +30,7 @@ class ChargerMigrator(Container):
                     documentPosition.putAttribute("ELEMENT_GROUP_NAME", str(element.getGroup().getValue()))
                     if charging.getInternalPayment() != None:
                         documentPosition.setBookingPeriod(charging.getInternalPayment().getBookingPeriod())
-                        documentPosition.setMonth(charging.getInternalPayment().getMonth())
+                        documentPosition.setMonth(charging.getMonth())
                         documentPosition.setBooked(True)
                     else:
                         documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
