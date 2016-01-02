@@ -37,11 +37,11 @@ class ChargerMigrator(Container):
                         documentPosition.setMonth('0')
                         documentPosition.setBooked(False)
                     if self.isRepairFundElement(element):
-                        documentPosition.setCreditZpk(self.findZpk(charging.getPossession().getCommunity().getZpks(), 'CHARGING_RENT'))
-                        documentPosition.setDebitZpk(self.findZpk(charging.getPossession().getZpks(), 'POSSESSION'))
+                        documentPosition.setCreditZpk(DocumentManager().findZpk(charging.getPossession().getCommunity().getZpks(), 'CHARGING_RENT'))
+                        documentPosition.setDebitZpk(DocumentManager().findZpk(charging.getPossession().getZpks(), 'POSSESSION'))
                     else:
-                        documentPosition.setCreditZpk(self.findZpk(charging.getPossession().getCommunity().getZpks(), 'CHARGING_REPAIR_FUND'))
-                        documentPosition.setDebitZpk(self.findZpk(charging.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
+                        documentPosition.setCreditZpk(DocumentManager().findZpk(charging.getPossession().getCommunity().getZpks(), 'CHARGING_REPAIR_FUND'))
+                        documentPosition.setDebitZpk(DocumentManager().findZpk(charging.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
                     DocumentManager().bound(document, documentPosition)
                 self.saveEntity(document)
             else:
