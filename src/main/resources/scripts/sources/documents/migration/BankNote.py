@@ -19,7 +19,7 @@ class BankNoteMigrator(Container):
                 document.setDescription(note.getDescription())
                 document.putAttribute('MIGRATED', str(note.getId()))
                 documentPosition = DocumentPosition()
-                documentPosition.setType('BANK_NOTE')
+                documentPosition.setType('BANK_NOTE_POSITION')
                 documentPosition.setCreatedAt(note.getCreatedAt())
                 documentPosition.setValue(BigDecimal(note.getNoteValue()))
                 if note.getInternalPayment() != None:
