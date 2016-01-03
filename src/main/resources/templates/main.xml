@@ -123,7 +123,6 @@
                     Document e
                     WHERE 
                     e.id = {:id}
-                    AND e.type = \'CHARGING\'
                 </data>
             </var>
         </variables>

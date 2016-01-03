@@ -20,7 +20,7 @@
     <elements>
         #foreach($item in $entity.getPositions())
         <element>
-            <groupValue>$!item.getAttribute("GROUP_NAME").getValue()</groupValue>
+            <groupValue>$!item.getAttribute("ELEMENT_GROUP_NAME").getValue()</groupValue>
             <name>$!item.getDescription()</name>
             <globalValue>$!item.getValue()</globalValue>
         </element>
