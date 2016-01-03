@@ -92,8 +92,8 @@
         </variables>
     </template>
     <template>
-        <name>entity-counter</name>
-        <source>entity-counter.vtl</source>
+        <name>entity-invoice</name>
+        <source>entity-invoice.vtl</source>
         <variables>
             <var>
                 <name>entity</name>
@@ -102,9 +102,28 @@
                     SELECT 
                     e
                     FROM 
-                    Counter e
+                    Document e
                     WHERE 
                     e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-charging</name>
+        <source>entity-charging.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Document e
+                    WHERE 
+                    e.id = {:id}
+                    AND e.type = \'CHARGING\'
                 </data>
             </var>
         </variables>
