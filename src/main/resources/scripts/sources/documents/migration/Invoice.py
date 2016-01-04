@@ -37,9 +37,13 @@ class InvoiceMigrator(Container):
         for position in invoice.getPositions():
             documentPosition = DocumentPosition()
             documentPosition.setType('INVOICE_COST')
-            if invoice.getInternalPayment() != None:
-                documentPosition.setBookingPeriod(invoice.getInternalPayment().getBookingPeriod())
-                documentPosition.setBooked(True)
+            if invoice.isBooked():
+                if invoice.getInternalPayment() != None:
+                    documentPosition.setBookingPeriod(invoice.getInternalPayment().getBookingPeriod())
+                    documentPosition.setBooked(True)
+                else:
+                    documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
+                    documentPosition.setBooked(True)
             else:
                 documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
                 documentPosition.setBooked(False)
