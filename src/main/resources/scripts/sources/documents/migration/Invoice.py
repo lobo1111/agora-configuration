@@ -63,9 +63,13 @@ class InvoiceMigrator(Container):
             documentPosition.setCreatedAt(payment.getCreateDate())
             documentPosition.putAttribute('CREATE_DATE', str(SimpleDateFormat('dd-MM-yyyy').format(invoice.getCreateDate())))
             documentPosition.setValue(BigDecimal(payment.getValuePayment()))
-            if(payment.getInternalPayment() != None):
-                documentPosition.setBookingPeriod(payment.getInternalPayment().getBookingPeriod())
-                documentPosition.setBooked(True)
+            if payment.isBooked():
+                if(payment.getInternalPayment() != None):
+                    documentPosition.setBookingPeriod(payment.getInternalPayment().getBookingPeriod())
+                    documentPosition.setBooked(True)
+                else:
+                    documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
+                    documentPosition.setBooked(True)
             else:
                 documentPosition.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
                 documentPosition.setBooked(False)
