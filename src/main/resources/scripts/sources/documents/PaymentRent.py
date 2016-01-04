@@ -36,7 +36,5 @@ class PaymentRentManager(DocumentManager):
         self.cancelDocument(payment)
         
     def findZpk(self, zpks, typeKey, alternative = ''):
-        zpkType = self.findZpkType(typeKey)
-        for zpk in zpks:
-            if zpk.getType().getKey() == zpkType.getKey() or zpk.getType().getKey() == alternative:
-                return zpk
+        zpkType = self.findDictionary(str(self.findZpkSettingId(typeKey)))
+        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkType.getKey() or zpk.getType().getKey() == alternative][0]
