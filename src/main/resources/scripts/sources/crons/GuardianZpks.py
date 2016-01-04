@@ -1,4 +1,6 @@
 from base.Container import Container
+from java.math import BigDecimal
+from  java.math import RoundingMode
 
 class GuardianZpk(Container):
     
@@ -29,7 +31,7 @@ class GuardianZpk(Container):
         if result == None:
             return 0
         else:
-            return float(int(result.floatValue() * 100)) / 100
+            return result.setScale(2, RoundingMode.HALF_UP).floatValue()
     
     def sumDebit(self, zpkId):
         sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
@@ -37,7 +39,7 @@ class GuardianZpk(Container):
         if result == None:
             return 0
         else:
-            return float(int(result.floatValue() * 100)) / 100
+            return result.setScale(2, RoundingMode.HALF_UP).floatValue()
             
     def collect(self):
         sql = "Select e From ZakladowyPlanKont e"
