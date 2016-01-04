@@ -22,11 +22,11 @@ class GuardianZpk(Container):
             self._logger.info("\\t expected: %f" % expectedDebit)
             
     def sumCredit(self, zpkId):
-        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.default = 1" % zpkId
+        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
         return self._entityManager.createQuery(sql).getSingleResult()
     
     def sumDebit(self, zpkId):
-        sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.default = 1" % zpkId
+        sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
         return self._entityManager.createQuery(sql).getSingleResult()
             
     def collect(self):
