@@ -58,5 +58,5 @@ class ChargerMigrator(Container):
         return self._entityManager.createQuery(sql).getSingleResult() > 0
     
     def isRepairFundElement(self, element):
-        return DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue() == element.getGroup().getId()
+        return int(DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue()) == element.getGroup().getId()
     
