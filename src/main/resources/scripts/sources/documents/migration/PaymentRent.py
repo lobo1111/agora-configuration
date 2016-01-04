@@ -4,6 +4,7 @@ from documents.Document import DocumentManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
 from entities.BookingPeriod import BookingPeriodManager
+from java.text import SimpleDateFormat
 
 class PaymentRentMigrator(Container):
     
@@ -32,8 +33,8 @@ class PaymentRentMigrator(Container):
                 documentPosition.setDescription(pr.getPaymentRentDetails().getTitle())
                 documentPosition.setClientName(pr.getPaymentRentDetails().getClientName())
                 documentPosition.setAccount(pr.getPaymentRentDetails().getAccount())
-                documentPosition.putAttribute('CREATE_DATE', pr.getPaymentRentDetails().getRequestDate())
-                documentPosition.putAttribute('BOOKING_DATE', pr.getPaymentRentDetails().getBookingDate())
+                documentPosition.putAttribute('CREATE_DATE', str(SimpleDateFormat('dd-MM-yyyy').format(pr.getPaymentRentDetails().getRequestDate())))
+                documentPosition.putAttribute('BOOKING_DATE', str(SimpleDateFormat('dd-MM-yyyy').format(pr.getPaymentRentDetails().getBookingDate())))
                 if pr.isRepairFund():
                     paymentPosition.setCreditZpk(self.findZpk(pr.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
                     paymentPosition.setDebitZpk(self.findZpk(pr.getPaymentRentDetails().getAccount().getZpks(), 'REPAIR_FUND'))
