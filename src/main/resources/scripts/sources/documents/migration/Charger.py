@@ -37,9 +37,11 @@ class ChargerMigrator(Container):
                         documentPosition.setMonth('0')
                         documentPosition.setBooked(False)
                     if self.isRepairFundElement(element):
+                        self._logger.info("Element of group %d assumed as repair fund" % element.getGroup().getId())
                         documentPosition.setCreditZpk(DocumentManager().findZpk(charging.getPossession().getCommunity().getZpks(), 'CHARGING_REPAIR_FUND'))
                         documentPosition.setDebitZpk(DocumentManager().findZpk(charging.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
                     else:
+                        self._logger.info("Element of group %d assumed as rent" % element.getGroup().getId())
                         documentPosition.setCreditZpk(DocumentManager().findZpk(charging.getPossession().getCommunity().getZpks(), 'CHARGING_RENT'))
                         documentPosition.setDebitZpk(DocumentManager().findZpk(charging.getPossession().getZpks(), 'POSSESSION'))
                     DocumentManager().bound(document, documentPosition)
