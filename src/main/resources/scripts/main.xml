@@ -15,4 +15,9 @@
         <enabled>false</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
+    <scheduler>
+        <script>guardian-zpk</script>
+        <enabled>true</enabled>
+        <fireAt>* * * * *</fireAt>
+    </scheduler>
 </schedulers>
