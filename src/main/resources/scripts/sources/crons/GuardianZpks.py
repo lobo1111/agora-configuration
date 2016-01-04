@@ -18,12 +18,12 @@ class GuardianZpk(Container):
         expectedDebit = BigDecimal(balance.getDebit())
         if not expectedCredit.equals(calculatedCredit):
             self._logger.info("On zpk %d found wrongly calculated credit:" % zpk.getId())
-            self._logger.info("\\t calculated: %f" % calculatedCredit.floatValue())
-            self._logger.info("\\t expected: %f" % expectedCredit.floatValue())
+            self._logger.info("\\t calculated: %s" % calculatedCredit.toPlainString())
+            self._logger.info("\\t expected: %s" % expectedCredit.toPlainString())
         if not expectedDebit.equals(calculatedDebit):
             self._logger.info("On zpk %d found wrongly calculated debit:" % zpk.getId())
-            self._logger.info("\\t calculated: %f" % calculatedDebit.floatValue())
-            self._logger.info("\\t expected: %f" % expectedDebit.floatValue())
+            self._logger.info("\\t calculated: %s" % calculatedDebit.toPlainString())
+            self._logger.info("\\t expected: %s" % expectedDebit.toPlainString())
             
     def sumCredit(self, zpkId):
         sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
