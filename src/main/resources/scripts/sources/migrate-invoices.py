@@ -7,12 +7,12 @@ from documents.migration.Invoice import InvoiceMigrator
 from documents.migration.Charger import ChargerMigrator
 from documents.migration.PaymentRent import PaymentRentMigrator
 invoiceManager = InvoiceMigrator()
-#invoiceManager.migrateAll()
+invoiceManager.migrateAll()
 noteManager = BankNoteMigrator()
-#noteManager.migrateAll()
+noteManager.migrateAll()
 accountProvision = AccountProvisionMigrator()
-#accountProvision.migrateAll()
+accountProvision.migrateAll()
 charging = ChargerMigrator()
-#charging.migrateAll()
+charging.migrateAll()
 pr = PaymentRentMigrator()
 pr.migrateAll()
