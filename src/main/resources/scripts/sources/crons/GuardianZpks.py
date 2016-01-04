@@ -25,11 +25,19 @@ class GuardianZpk(Container):
             
     def sumCredit(self, zpkId):
         sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
-        return self._entityManager.createQuery(sql).getSingleResult()
+        result = self._entityManager.createQuery(sql).getSingleResult()
+        if result == None:
+            return 0
+        else:
+            return result
     
     def sumDebit(self, zpkId):
         sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
-        return self._entityManager.createQuery(sql).getSingleResult()
+        result = self._entityManager.createQuery(sql).getSingleResult()
+        if result == None:
+            return 0
+        else:
+            return result
             
     def collect(self):
         sql = "Select e From ZakladowyPlanKont e"
