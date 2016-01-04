@@ -29,7 +29,7 @@ class GuardianZpk(Container):
         if result == None:
             return 0
         else:
-            return result
+            return result.floatValue()
     
     def sumDebit(self, zpkId):
         sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
@@ -37,7 +37,7 @@ class GuardianZpk(Container):
         if result == None:
             return 0
         else:
-            return result
+            return result.floatValue()
             
     def collect(self):
         sql = "Select e From ZakladowyPlanKont e"
