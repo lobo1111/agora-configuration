@@ -9,10 +9,8 @@ class PaymentRentManager(DocumentManager):
         self._logger.info('Found account is type of %s' % account.getType().getKey())
         if account.getType().getKey() in ['RENT', 'DEFAULT']:
             if float(self._svars.get('rent')) > 0:
-                value = float(self._svars.get('rent'))
-            else:
-                value = float(self._svars.get('value'))
-            if value != 0:
+                self._svars.put('value', float(self._svars.get('rent')))
+            if float(self._svars.get('value')) != 0:
                 paymentPosition = self.initPosition(payment)
                 paymentPosition.setDescription(self._svars.get('title'))
                 paymentPosition.setClientName(self._svars.get('clientName'))
@@ -22,10 +20,8 @@ class PaymentRentManager(DocumentManager):
                 self.bound(payment, paymentPosition)
         if account.getType().getKey() in ['REPAIR_FUND', 'DEFAULT']:
             if float(self._svars.get('repairFund')) > 0:
-                value = float(self._svars.get('repairFund'))
-            else:
-                value = float(self._svars.get('value'))
-            if value != 0:
+                self._svars.put('value', float(self._svars.get('repairFund')))
+            if float(self._svars.get('value')) != 0:
                 paymentPosition = self.initPosition(payment)
                 paymentPosition.setDescription(self._svars.get('title'))
                 paymentPosition.setClientName(self._svars.get('clientName'))
