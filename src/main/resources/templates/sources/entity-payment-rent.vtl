@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<payment-rent>
+    <account>
+        <id>$!entity.getPaymentRentDetails().getAccount().getId()</id>
+        <number>$!entity.getPaymentRentDetails().getAccount().getNumber()</number>
+    </account>
+    <possession>
+        <id>$!entity.getPossession().getId()</id>
+        <address>
+            <street>$!entity.getPossession().getAddress().getStreet()</street>
+            <houseNumber>$!entity.getPossession().getAddress().getHouseNumber()</houseNumber>
+            <flatNumber>$!entity.getPossession().getAddress().getFlatNumber()</flatNumber>
+            <postalCode>$!entity.getPossession().getAddress().getPostalCode()</postalCode>
+            <city>$!entity.getPossession().getAddress().getCity()</city>
+        </address>
+    </possession>
+    <bookingDate>$!entity.getPaymentRentDetails().getBookingDate().getTime()</bookingDate>
+    <requestDate>$!entity.getPaymentRentDetails().getRequestDate().getTime()</requestDate>
+    <clientName>$!entity.getPaymentRentDetails().getClientName()</clientName>
+    <bookingPeriod>
+        <id>$!entity.getBookingPeriod().getId()</id>
+        <number>$!entity.getBookingPeriod().getName()</number>
+        <active>$!entity.getBookingPeriod().isActive()</active>
+        <defaultPeriod>$!entity.getBookingPeriod().isDefaultPeriod()</defaultPeriod>
+    </bookingPeriod>  
+    <month>$!entity.getMonth()</month>
+    <comment>$!entity.getComment()</comment>
+    <bookingPeriod>$!entity.getBookingPeriod().getName()</bookingPeriod>
+    <title>$!entity.getPaymentRentDetails().getTitle()</title>
+    <value>$!entity.getPaymentRentDetails().getValue()</value>
+</payment-rent>

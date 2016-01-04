@@ -374,6 +374,24 @@
             </var>
         </variables>
     </template>
+    <template>
+        <name>entity-payment-rent</name>
+        <source>entity-payment-rent.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Document e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
     <!-- LISTS -->
     <template>
         <name>list-default-contractors</name>
