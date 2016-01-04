@@ -1,17 +1,16 @@
-from document.Document import Document
+from documents.Document import Document
 
 class PaymentRentManager(Document):
     _type = "POSSESSION_PAYMENT"
     
     def create(self):
         payment = self.initDocument(self._type)
-        payment.setPossession(self.findById("Possession", self._svars.get("possessionId")))
         account = self.findById('Account', self._svars.get('accountId'))
         if account.getType().getKey() in ['RENT', 'DEFAULT']:
             if account.getType().getKey() == 'RENT':
                 value = float(self._svars.get('rent'))
             else:
-                float(self._svars.get('value'))
+                value = float(self._svars.get('value'))
             if value != 0:
                 paymentPosition = self.initPosition(payment)
                 paymentPosition.setClientName(self._svars.get('clientName'))
@@ -22,7 +21,7 @@ class PaymentRentManager(Document):
             if account.getType().getKey() == 'REPAIR_FUND':
                 value = float(self._svars.get('repairFund'))
             else:
-                float(self._svars.get('value'))
+                value = float(self._svars.get('value'))
             if value != 0:
                 paymentPosition = self.initPosition(payment)
                 paymentPosition.setClientName(self._svars.get('clientName'))
