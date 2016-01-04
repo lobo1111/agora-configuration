@@ -32,7 +32,7 @@ class PaymentRentMigrator(Container):
                 documentPosition.setDescription(pr.getPaymentRentDetails().getTitle())
                 documentPosition.setClientName(pr.getPaymentRentDetails().getClientName())
                 documentPosition.setAccount(pr.getPaymentRentDetails().getAccount())
-                documentPosition.putAttribute('CREATE_DATE', pr.getPaymentRentDetails().getCreateDate())
+                documentPosition.putAttribute('CREATE_DATE', pr.getPaymentRentDetails().getRequestDate())
                 documentPosition.putAttribute('BOOKING_DATE', pr.getPaymentRentDetails().getBookingDate())
                 if pr.isRepairFund():
                     paymentPosition.setCreditZpk(self.findZpk(pr.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
