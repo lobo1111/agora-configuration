@@ -18,6 +18,7 @@ class PaymentRentManager(DocumentManager):
                 paymentPosition.setAccount(account)
                 paymentPosition.setCreditZpk(self.findZpk(payment.getPossession().getZpks(), 'POSSESSION'))
                 paymentPosition.setDebitZpk(self.findZpk(paymentPosition.getAccount().getZpks(), 'RENT', 'DEFAULT'))
+                self.bound(payment, paymentPosition)
         if account.getType().getKey() in ['REPAIR_FUND', 'DEFAULT']:
             if account.getType().getKey() == 'REPAIR_FUND' and float(self._svars.get('repairFund')):
                 value = float(self._svars.get('repairFund'))
@@ -29,6 +30,7 @@ class PaymentRentManager(DocumentManager):
                 paymentPosition.setAccount(account)
                 paymentPosition.setCreditZpk(self.findZpk(payment.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
                 paymentPosition.setDebitZpk(self.findZpk(paymentPosition.getAccount().getZpks(), 'REPAIR_FUND'))
+                self.bound(payment, paymentPosition)
         self.saveDocument(payment)
     
     def remove(self):
