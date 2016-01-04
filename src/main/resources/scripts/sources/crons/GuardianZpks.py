@@ -12,15 +12,15 @@ class GuardianZpk(Container):
             
     def checkZpk(self, zpk):
         balance = zpk.getCurrentBalance();
-        calculatedCredit = self.sumCredit(zpk.getId()) + balance.getStartCredit()
-        calculatedDebit = self.sumDebit(zpk.getId()) + balance.getStartDebit()
-        expectedCredit = balance.getCredit()
-        expectedDebit = balance.getDebit()
-        if expectedCredit != calculatedCredit:
+        calculatedCredit = self.sumCredit(zpk.getId()).add(BigDecimal(balance.getStartCredit()))
+        calculatedDebit = self.sumDebit(zpk.getId()).add(BigDecimal(balance.getStartDebit()))
+        expectedCredit = BigDecimal(balance.getCredit())
+        expectedDebit = BigDecimal(balance.getDebit())
+        if not expectedCredit.equals(calculatedCredit):
             self._logger.info("On zpk %d found wrongly calculated credit:" % zpk.getId())
             self._logger.info("\\t calculated: %f" % calculatedCredit)
             self._logger.info("\\t expected: %f" % expectedCredit)
-        if expectedDebit != calculatedDebit:
+        if not expectedDebit.equals(calculatedDebit):
             self._logger.info("On zpk %d found wrongly calculated debit:" % zpk.getId())
             self._logger.info("\\t calculated: %f" % calculatedDebit)
             self._logger.info("\\t expected: %f" % expectedDebit)
@@ -31,7 +31,7 @@ class GuardianZpk(Container):
         if result == None:
             return 0
         else:
-            return result.setScale(2, RoundingMode.HALF_UP).floatValue()
+            return result
     
     def sumDebit(self, zpkId):
         sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
@@ -39,7 +39,7 @@ class GuardianZpk(Container):
         if result == None:
             return 0
         else:
-            return result.setScale(2, RoundingMode.HALF_UP).floatValue()
+            return result
             
     def collect(self):
         sql = "Select e From ZakladowyPlanKont e"
