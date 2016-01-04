@@ -36,11 +36,11 @@ class PaymentRentMigrator(Container):
                 documentPosition.putAttribute('CREATE_DATE', str(SimpleDateFormat('dd-MM-yyyy').format(pr.getPaymentRentDetails().getRequestDate())))
                 documentPosition.putAttribute('BOOKING_DATE', str(SimpleDateFormat('dd-MM-yyyy').format(pr.getPaymentRentDetails().getBookingDate())))
                 if pr.isRepairFund():
-                    paymentPosition.setCreditZpk(self.findZpk(pr.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
-                    paymentPosition.setDebitZpk(self.findZpk(pr.getPaymentRentDetails().getAccount().getZpks(), 'REPAIR_FUND'))
+                    documentPosition.setCreditZpk(self.findZpk(pr.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
+                    documentPosition.setDebitZpk(self.findZpk(pr.getPaymentRentDetails().getAccount().getZpks(), 'REPAIR_FUND'))
                 else:
-                    paymentPosition.setCreditZpk(self.findZpk(pr.getPossession().getZpks(), 'POSSESSION'))
-                    paymentPosition.setDebitZpk(self.findZpk(pr.getPaymentRentDetails().getAccount().getZpks(), 'RENT', 'DEFAULT'))
+                    documentPosition.setCreditZpk(self.findZpk(pr.getPossession().getZpks(), 'POSSESSION'))
+                    documentPosition.setDebitZpk(self.findZpk(pr.getPaymentRentDetails().getAccount().getZpks(), 'RENT', 'DEFAULT'))
                 DocumentManager().bound(document, documentPosition)
                 self.saveEntity(document)
             else:
