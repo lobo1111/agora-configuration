@@ -1,6 +1,6 @@
-from documents.Document import Document
+from documents.Document import DocumentManager
 
-class PaymentRentManager(Document):
+class PaymentRentManager(DocumentManager):
     _type = "POSSESSION_PAYMENT"
     
     def create(self):
