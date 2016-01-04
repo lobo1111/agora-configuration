@@ -29,7 +29,7 @@ class GuardianZpk(Container):
         sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
         result = self._entityManager.createQuery(sql).getSingleResult()
         if result == None:
-            return 0
+            return BigDecimal(0)
         else:
             return result
     
@@ -37,7 +37,7 @@ class GuardianZpk(Container):
         sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1" % zpkId
         result = self._entityManager.createQuery(sql).getSingleResult()
         if result == None:
-            return 0
+            return BigDecimal(0)
         else:
             return result
             
