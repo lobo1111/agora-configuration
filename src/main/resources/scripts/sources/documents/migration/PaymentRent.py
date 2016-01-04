@@ -21,7 +21,7 @@ class PaymentRentMigrator(Container):
                 documentPosition = DocumentPosition()
                 documentPosition.setType('POSSESSION_PAYMENT_POSITION')
                 documentPosition.setCreatedAt(pr.getTimestamp())
-                documentPosition.setValue(BigDecimal(pr.getPaymentRentDetails.getValue()))
+                documentPosition.setValue(BigDecimal(pr.getPaymentRentDetails().getValue()))
                 documentPosition.setMonth(pr.getMonth())
                 if pr.getInternalPayment() != None:
                     documentPosition.setBookingPeriod(pr.getInternalPayment().getBookingPeriod())
