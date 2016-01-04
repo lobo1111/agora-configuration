@@ -12,8 +12,8 @@ class GuardianZpk(Container):
             
     def checkZpk(self, zpk):
         balance = zpk.getCurrentBalance();
-        calculatedCredit = self.sumCredit(zpk.getId()).add(BigDecimal(balance.getStartCredit()))
-        calculatedDebit = self.sumDebit(zpk.getId()).add(BigDecimal(balance.getStartDebit()))
+        calculatedCredit = (self.sumCredit(zpk.getId()).add(BigDecimal(balance.getStartCredit()))).setScale(2, RoundingMode.HALF_UP)
+        calculatedDebit = (self.sumDebit(zpk.getId()).add(BigDecimal(balance.getStartDebit()))).setScale(2, RoundingMode.HALF_UP)
         expectedCredit = BigDecimal(balance.getCredit()).setScale(2, RoundingMode.HALF_UP)
         expectedDebit = BigDecimal(balance.getDebit()).setScale(2, RoundingMode.HALF_UP)
         if not expectedCredit.equals(calculatedCredit):
