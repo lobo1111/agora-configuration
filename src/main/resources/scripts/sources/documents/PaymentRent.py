@@ -5,7 +5,7 @@ class PaymentRentManager(DocumentManager):
     
     def create(self):
         payment = self.initDocument(self._type)
-        account = payment.getAccount()
+        account = self.findById('Account', self._svars.get('accountId'))
         if account.getType().getKey() in ['RENT', 'DEFAULT']:
             if account.getType().getKey() == 'RENT':
                 value = float(self._svars.get('rent'))
