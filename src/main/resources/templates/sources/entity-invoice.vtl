@@ -49,11 +49,11 @@
             #if($attr.getName() == "VALUE_NET")
                 <valueNet>$attr.getValue()</valueNet>
             #end
-            #if($attr.getName() == "VALUE_GROSS")
-                <valueGross>$attr.getValue()</valueGross>
+            #if($attr.getName() == "VALUE_UNIT")
+                <unitValueNet>$attr.getValue()</unitValueNet>
             #end
             #end
-            <unitValueNet>$!position.getValue()</unitValueNet>
+            <valueGross>$!position.getValue()</valueGross>
         </position>
         #end
         #end
