@@ -49,7 +49,7 @@ class InvoiceManager(DocumentManager):
         payments = BigDecimal(0.0)
         for position in invoice.getPositions():
             if position.getType() == "INVOICE_COST" and not position.isCanceled():
-                costs = costs.add(BigDecimal(position.getValue()))
+                costs = costs.add(position.getValue())
             elif position.getType() == "INVOICE_PAYMENT" and not position.isCanceled():
                 payments = payments.add(position.getValue())
         if costs.equals(payments):
