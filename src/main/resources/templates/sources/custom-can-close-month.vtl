@@ -2,7 +2,8 @@
 <can-close-month>
     <restrictions>
         ${lol}
-        ${restrictions[0]}
+        ${restrictions[0].countActivePossessions}
+        ${restrictions[0].countActivePossessions()}
         #foreach($restriction in $restrictions)
         <restriction>
             <name>$restriction.getTemplateName()</name>
