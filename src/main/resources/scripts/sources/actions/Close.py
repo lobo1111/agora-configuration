@@ -15,7 +15,7 @@ class Close(Container):
     
     def printRestrictionsResult(self):
         template = self.findBy("Template", "name", "'custom-can-close-month'")
-        output = self.compileTemplate(template, possession, calculatedElements)
+        output = self.compileTemplate(template)
         self._svars.put("output", output)
         return output
     
