@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <can-close-month>
     <restrictions>
-        ${restrictions[0].getTemplateName()}
+        ${lol}
+        ${restrictions[0]}
         #foreach($restriction in $restrictions)
         <restriction>
             <name>$restriction.getTemplateName()</name>

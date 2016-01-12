@@ -33,6 +33,7 @@ class Close(Container):
             restriction.calculate()
             self._logger.info("Restriction result %s" % str(restriction.getResult()))
         context.put("restrictions", self._restrictions)
+        context.put("lol", dir(self._restrictions[0]))
         writer = StringWriter()
         ve.evaluate(context, writer, template.getName(), unicode(template.getSource()))
         evaluatedTemplate = writer.toString()
