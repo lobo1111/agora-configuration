@@ -12,6 +12,7 @@ class PaymentRentManager(DocumentManager):
                 self._svars.put('value', float(self._svars.get('rent')))
             if float(self._svars.get('value')) != 0:
                 paymentPosition = self.initPosition(payment)
+                paymentPosition.setType("POSSESSION_PAYMENT_RENT")
                 paymentPosition.setDescription(self._svars.get('title'))
                 paymentPosition.setClientName(self._svars.get('clientName'))
                 paymentPosition.setAccount(account)
@@ -25,6 +26,7 @@ class PaymentRentManager(DocumentManager):
                 self._svars.put('value', float(self._svars.get('repairFund')))
             if float(self._svars.get('value')) != 0:
                 paymentPosition = self.initPosition(payment)
+                paymentPosition.setType("POSSESSION_PAYMENT_RF")
                 paymentPosition.setDescription(self._svars.get('title'))
                 paymentPosition.setClientName(self._svars.get('clientName'))
                 paymentPosition.setAccount(account)

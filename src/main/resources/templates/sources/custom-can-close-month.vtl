@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<can-close-month>
+    <restrictions>
+        #foreach($i in [0..$restrictionsCount - 1])
+        <restriction>
+            #set ($name = "${i}_name")
+            #set ($result = "${i}_result")
+            #set ($message = "${i}_message")
+            <name>#evaluate($name)</name>
+            <result>#evaluate($result)</result>
+            <message>#evaluate($message)</message>
+        </restriction>
+        #end
+    </restrictions>
+</can-close-month>

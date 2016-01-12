@@ -23,7 +23,6 @@ class ChargerManager(DocumentManager):
         if not self.alreadyCharged(possession) and possession.getElements().size() > 0:
             self._svars.put("communityId", possession.getCommunity().getId())
             charging = self.initDocument(self._type)
-            charging.setCommunity(possession.getCommunity())
             charging.setPossession(possession)
             charging.putAttribute("CREATE_DATE", str(SimpleDateFormat('dd-MM-yyyy').format(charging.getCreatedAt())))
             for possessionElement in possession.getElements():
