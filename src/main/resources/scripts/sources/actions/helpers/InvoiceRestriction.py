@@ -11,7 +11,7 @@ class InvoiceRestriction(Restriction):
             self._result = False
         
     def countNotAcceptedInvoices(self):
-        sql = "Select count(invoice) From Invoice invoice Join invoice.attributes attr Where attr.name = 'ACCEPTED', And attr.value = 'false'"
+        sql = "Select count(invoice) From Invoice invoice Join invoice.attributes attr Where attr.name = 'ACCEPTED' And attr.value = 'false'"
         return self._entityManager.createQuery(sql).getSingleResult()
     
     def getTemplateName(self):
