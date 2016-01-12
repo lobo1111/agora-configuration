@@ -6,35 +6,47 @@ from org.apache.velocity import VelocityContext
 from org.apache.velocity.app import VelocityEngine
 from actions.helpers.ChargingRestriction import ChargingRestriction
 from actions.helpers.MonthRestriction import MonthRestriction
+from actions.helpers.YearRestriction import YearRestriction
 from actions.helpers.InvoiceRestriction import InvoiceRestriction
 
 class Close(Container):
     
-    _restrictions = [ChargingRestriction(), MonthRestriction(), InvoiceRestriction()]
+    _yearRestrictions = [ChargingRestriction(), YearRestriction(), InvoiceRestriction()]
+    _monthRestrictions = [ChargingRestriction(), MonthRestriction(), InvoiceRestriction()]
     _output = dict([])
     
     def canCloseMonth(self):
-        for restriction in self._restrictions:
+        return self.canClose(self._monthRestrictions)
+    
+    def canCloseYear(self):
+        return self.canClose(self._yearRestrictions)
+    
+    def canClose(self, restrictions):
+        for restriction in restrictions:
             if not restriction.canProceed():
                 return False
         return True
     
-    def printRestrictionsResult(self):
+    def printMonthRestrictionsResult(self):
+        self.printRestrictionsResult(self._monthRestrictions)
+        
+    def printYearRestrictionsResult(self):
+        self.printRestrictionsResult(self._yearRestrictions)
+        
+    def printRestrictionsResult(self, restrictions):
         template = self.findBy("Template", "name", "'custom-can-close-month'")
-        output = self.compileTemplate(template)
+        output = self.compileTemplate(template, restrictions)
         self._svars.put("output", output)
         return output
     
-    def compileTemplate(self, template):
+    def compileTemplate(self, template, restrictions):
         ve = VelocityEngine()
         ve.init()
         context = VelocityContext()
         context.put("restrictions", self._output)
-        for restriction in self._restrictions:
-            self._logger.info("Checking restriction %s for closing month..." % restriction.getTemplateName())
+        for restriction in restrictions:
             restriction.calculate()
             self._output[restriction.getTemplateName()] = [restriction.getTemplateName(), restriction.getResult(), restriction.getMessage()]
-            self._logger.info("Restriction result %s" % str(restriction.getResult()))
         writer = StringWriter()
         ve.evaluate(context, writer, template.getName(), unicode(template.getSource()))
         evaluatedTemplate = writer.toString()
