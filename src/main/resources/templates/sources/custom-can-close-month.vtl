@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+$restrictions
 <can-close-month>
     <restrictions>
         #foreach($restriction in $restrictions)
+        $!restriction
         <restriction>
-            <name>$restriction.getTemplateName()</name>
-            <result>$restriction.getResult()</result>
-            <message>$restriction.getMessage()</message>
+            <name>$!restriction.getTemplateName()</name>
+            <result>$!restriction.getResult()</result>
+            <message>$!restriction.getMessage()</message>
         </restriction>
         #end
     </restrictions>
