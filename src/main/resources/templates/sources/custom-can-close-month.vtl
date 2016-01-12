@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <can-close-month>
     <restrictions>
-        #foreach($restriction in $restrictions())
+        #foreach($restriction in $restrictions)
         <restriction>
             <name>$restriction.getTemaplateName()</name>
             <result>$restriction.getResult()</result>
