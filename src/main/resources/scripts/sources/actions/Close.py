@@ -11,6 +11,7 @@ from actions.helpers.InvoiceRestriction import InvoiceRestriction
 class Close(Container):
     
     _restrictions = [ChargingRestriction(), MonthRestriction(), InvoiceRestriction()]
+    _output = dict([])
     
     def canCloseMonth(self):
         for restriction in self._restrictions:
@@ -28,12 +29,12 @@ class Close(Container):
         ve = VelocityEngine()
         ve.init()
         context = VelocityContext()
+        context.put("restrictions", self._output)
         for restriction in self._restrictions:
             self._logger.info("Checking restriction %s for closing month..." % restriction.getTemplateName())
             restriction.calculate()
+            self._output.put([restriction.getTemplateName(), restriction.getResult(), restriction.getMessage()])
             self._logger.info("Restriction result %s" % str(restriction.getResult()))
-        context.put("restrictions", self._restrictions)
-        context.put("lol", dir(self._restrictions[0]))
         writer = StringWriter()
         ve.evaluate(context, writer, template.getName(), unicode(template.getSource()))
         evaluatedTemplate = writer.toString()

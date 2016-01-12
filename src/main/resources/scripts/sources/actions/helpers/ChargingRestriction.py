@@ -1,8 +1,7 @@
-from base.Container import Container
 from actions.helpers.Restriction import Restriction
 from entities.BookingPeriod import BookingPeriodManager
 
-class ChargingRestriction(Container):
+class ChargingRestriction(Restriction):
     
     def calculate(self):
         activePossessions = self.countActivePossessions()
@@ -26,10 +25,4 @@ class ChargingRestriction(Container):
     
     def getTemplateName(self):
         return "charging"
-    
-    def getResult(self):
-        return self._result
-    
-    def getMessage(self):
-        return self._message
     

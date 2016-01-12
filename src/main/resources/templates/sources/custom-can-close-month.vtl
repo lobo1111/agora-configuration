@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <can-close-month>
     <restrictions>
-        ${lol}
-        ${restrictions[0]}
-        ${restrictions[0].countActivePossessions}
-        ${restrictions[0].countActivePossessions()}
         #foreach($restriction in $restrictions)
         <restriction>
-            <name>$restriction.getTemplateName()</name>
-            <result>$restriction.getResult</result>
-            <message>$restriction._message</message>
+            <name>$restriction[0]</name>
+            <result>$restriction[1]</result>
+            <message>$restriction[2]</message>
         </restriction>
         #end
     </restrictions>
