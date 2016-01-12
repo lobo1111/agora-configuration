@@ -3,14 +3,14 @@ from entities.BookingPeriod import BookingPeriodManager
 
 class ChargingRestriction(Restriction):
     
-    def canProceed(self):
+    def calculate(self):
         activePossessions = self.countActivePossessions()
         createdChargings = self.countChargings()
         if activePossessions == createdChargings:
-           return True
+           self._result = True
         else:
             self._message = "Brakuje %d naliczen" % (createdChargings - activePossessions)
-            return False
+            self._result = False
         
     def countActivePossessions(self):
         sql = "Select count(possession) From Possession possession Join possession.community community Where community.outDate is Null"

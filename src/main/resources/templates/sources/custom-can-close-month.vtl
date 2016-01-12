@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <can-close-month>
     <restrictions>
-        #set ($counter = $restrictionsCount - 1)
-        #foreach($i in [0..$counter])
+        #foreach($restriction in $restrictions())
         <restriction>
-            #set ($name = "${i}_name")
-            #set ($result = "${i}_result")
-            #set ($message = "${i}_message")
-            <name>#evaluate($name)</name>
-            <result>#evaluate($result)</result>
-            <message>#evaluate($message)</message>
+            <name>$restriction.getTemaplateName()</name>
+            <result>$restriction.getResult()</result>
+            <message>$restriction.getMessage()</message>
         </restriction>
         #end
     </restrictions>
