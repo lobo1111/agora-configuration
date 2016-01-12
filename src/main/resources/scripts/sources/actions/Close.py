@@ -28,8 +28,8 @@ class Close(Container):
         context = VelocityContext()
         context.put("restrictionsCount", len(self._restrictions))
         for i in range(len(self._restrictions)):
-            self._logger.info("Checking restriction %s for closing month..." % restriction.getTemplateName())
             restriction = self._restrictions[i]
+            self._logger.info("Checking restriction %s for closing month..." % restriction.getTemplateName())
             result = restriction.canProceed()
             context.put(str(i) + "_name", restriction.getTemplateName())
             context.put(str(i) +  "_result", result)
