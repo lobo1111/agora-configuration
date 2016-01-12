@@ -33,7 +33,7 @@ class Close(Container):
         for restriction in self._restrictions:
             self._logger.info("Checking restriction %s for closing month..." % restriction.getTemplateName())
             restriction.calculate()
-            self._output.put([restriction.getTemplateName(), restriction.getResult(), restriction.getMessage()])
+            self._output[restriction.getTemplateName()] = [restriction.getTemplateName(), restriction.getResult(), restriction.getMessage()]
             self._logger.info("Restriction result %s" % str(restriction.getResult()))
         writer = StringWriter()
         ve.evaluate(context, writer, template.getName(), unicode(template.getSource()))
