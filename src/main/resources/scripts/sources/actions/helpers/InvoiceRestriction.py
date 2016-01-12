@@ -7,7 +7,7 @@ class InvoiceRestriction(Restriction):
         if notAcceptedInvoices == 0:
            self._result = True
         else:
-            self._message = "Należy zatwierdzić wszystkie faktury - brakuje %d akceptacji" % (notAcceptedInvoices)
+            self._message = "Nalezy zatwierdzic wszystkie faktury - brakuje %d akceptacji" % (notAcceptedInvoices)
             self._result = False
         
     def countNotAcceptedInvoices(self):
