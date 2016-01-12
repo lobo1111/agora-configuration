@@ -7,7 +7,7 @@ class MonthRestriction(Restriction):
         if int(BookingPeriodManager().getCurrentMonth()) < 12:
            self._result = True
         else:
-            self._message = "To już jest ostatni miesiac rozliczeniowy, nalezy wykonac zamkniecie roku"
+            self._message = "To juz jest ostatni miesiac rozliczeniowy, nalezy wykonac zamkniecie roku"
             self._result = False
         
     def getTemplateName(self):
