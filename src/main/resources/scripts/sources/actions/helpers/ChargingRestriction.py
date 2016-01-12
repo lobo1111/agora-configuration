@@ -27,3 +27,9 @@ class ChargingRestriction(Container):
     def getTemplateName(self):
         return "charging"
     
+    def getResult(self):
+        return self._result
+    
+    def getMessage(self):
+        return self._message
+    
