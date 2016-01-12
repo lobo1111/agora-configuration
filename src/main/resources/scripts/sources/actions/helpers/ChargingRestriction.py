@@ -9,7 +9,7 @@ class ChargingRestriction(Restriction):
         if activePossessions == createdChargings:
            self._result = True
         else:
-            self._message = "Brakuje %d naliczen" % (createdChargings - activePossessions)
+            self._message = "Brakuje %d naliczen" % (activePossessions - createdChargings)
             self._result = False
         
     def countActivePossessions(self):
