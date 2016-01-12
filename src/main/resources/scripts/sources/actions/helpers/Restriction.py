@@ -11,8 +11,5 @@ class Restriction(Container):
     def getResult(self):
         return self._result
     
-    def getTemplateName(self):
-        return "unset"
-    
     def getMessage(self):
         return self._message

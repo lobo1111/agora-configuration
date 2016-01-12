@@ -3,9 +3,9 @@
     <restrictions>
         #foreach($restriction in $restrictions)
         <restriction>
-            <name>$!{restriction.getTemplateName()}</name>
-            <result>$!{restriction.getResult}</result>
-            <message>$!{restriction._message}</message>
+            <name>$restriction.getTemplateName()</name>
+            <result>$restriction.getResult</result>
+            <message>$restriction._message</message>
         </restriction>
         #end
     </restrictions>
