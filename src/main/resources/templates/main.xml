@@ -1402,4 +1402,9 @@
         <source>custom-charging-report.vtl</source>
         <variables />
     </template>
+    <template>
+        <name>custom-can-close-month</name>
+        <source>custom-can-close-month.vtl</source>
+        <variables />
+    </template>
 </templates>
