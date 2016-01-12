@@ -9,7 +9,7 @@ class ChargingRestriction(Restriction):
         if activePossessions == createdChargings:
            return True
         else:
-            self._message = "Brakuje %d naliczeń" % (createdChargings - activePossessions)
+            self._message = "Brakuje %d naliczen" % (createdChargings - activePossessions)
             return False
         
     def countActivePossessions(self):
@@ -25,3 +25,4 @@ class ChargingRestriction(Restriction):
     
     def getTemplateName(self):
         return "charging"
+    

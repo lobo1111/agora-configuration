@@ -50,4 +50,5 @@ class Close(Container):
         self._saveEntity(dict)
         
     def bookAll(self):
-        pass#...
+        pass
+    
