@@ -2,6 +2,9 @@ from base.Container import Container
 from entities.Dictionary import DictionaryManager
 from entities.BookingPeriod import BookingPeriodManager
 from actions.helpers.ChargingRestriction import ChargingRestriction
+from java.io import StringWriter
+from org.apache.velocity import VelocityContext
+from org.apache.velocity.app import VelocityEngine
 
 class Close(Container):
     
