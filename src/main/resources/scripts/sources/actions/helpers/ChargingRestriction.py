@@ -9,6 +9,7 @@ class ChargingRestriction(Restriction):
         if activePossessions == createdChargings:
            self._result = True
         else:
+            self._loger.info("Found %d chargins but there are %d active possessions" % (createdChargings, activePossessions))
             self._message = "Brakuje %d naliczen" % (activePossessions - createdChargings)
             self._result = False
         
