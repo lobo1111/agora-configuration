@@ -22,7 +22,7 @@ class ChargingRestriction(Restriction):
         sql += " From Document document"
         sql += " Where document.type = 'CHARGING'"
         sql += " Group By document.id"
-        sql += (" Having position.month = %s" % currentMonth)
+        sql += (" Having document.position.month = %s" % currentMonth)
         return len(self._entityManager.createQuery(sql).getResultList())
     
     def getTemplateName(self):
