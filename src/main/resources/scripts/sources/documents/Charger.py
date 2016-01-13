@@ -19,7 +19,7 @@ class ChargerManager(DocumentManager):
         sql += " Join document.possession possession"
         sql += " Where possession.id = %d" % (possession.getId())
         sql += " and position.month = %s" % (BookingPeriodManager().getCurrentMonth())
-        sql += " and position.bookingPeriod.default = true"
+        sql += " and position.bookingPeriod.defaultPeriod = true"
         sql += " Group By possession.id"
         result = self._entityManager.createQuery(sql).getResultList()
         return len(result) > 0
