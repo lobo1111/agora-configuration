@@ -8,6 +8,7 @@ from actions.helpers.ChargingRestriction import ChargingRestriction
 from actions.helpers.MonthRestriction import MonthRestriction
 from actions.helpers.YearRestriction import YearRestriction
 from actions.helpers.InvoiceRestriction import InvoiceRestriction
+from documents.Document import DocumentManager
 
 class Close(Container):
     
@@ -55,7 +56,7 @@ class Close(Container):
     def closeMonth(self):
         if self.canCloseMonth():
             self._logger.info('Closing month...')
-            self.bookAll()
+            DocumentManager().bookAll()
             self.setNextMonth()
             self._logger.info('Month closed')
         else:
@@ -66,7 +67,4 @@ class Close(Container):
         dict = DictionaryManager().findDictionaryInstance("PERIODS", "CURRENT")
         dict.setValue(str(self._nextMonth))
         self._saveEntity(dict)
-        
-    def bookAll(self):
-        pass
     

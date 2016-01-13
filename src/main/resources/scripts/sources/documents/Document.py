@@ -107,7 +107,7 @@ class DocumentManager(Container):
             self.bookPositions(document.getPositions())
             self.saveDocument(document)
         
-    def bookAllPositions(self):
+    def bookAll(self):
         currentMonth = BookingPeriodManager().getCurrentMonth()
         currentBookingPeriod = BookingPeriodManager().findDefaultBookingPeriod()
         sql = "Select document From Document document Where document.month = '%s' and document.bookingPeriod.id = %d" % (currentMonth, currentBookingPeriod.getId())
