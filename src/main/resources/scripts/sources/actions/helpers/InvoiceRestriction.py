@@ -6,6 +6,7 @@ class InvoiceRestriction(Restriction):
         notAcceptedInvoices = self.countNotAcceptedInvoices()
         if notAcceptedInvoices == 0:
            self._result = True
+           self._message = "Zaakceptowany"
         else:
             self._message = "Nie zatwierdzono %d faktur" % (notAcceptedInvoices)
             self._result = False

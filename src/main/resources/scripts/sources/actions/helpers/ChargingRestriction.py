@@ -8,6 +8,7 @@ class ChargingRestriction(Restriction):
         createdChargings = self.countChargings()
         if activePossessions == createdChargings:
            self._result = True
+           self._message = "Zaakceptowany"
         else:
             self._logger.info("Found %d chargins but there are %d active possessions" % (createdChargings, activePossessions))
             self._message = "Brakuje %d naliczen" % (activePossessions - createdChargings)
