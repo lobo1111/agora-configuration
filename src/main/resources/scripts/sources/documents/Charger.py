@@ -14,7 +14,14 @@ class ChargerManager(DocumentManager):
     
     def alreadyCharged(self, possession):
         try:
-            sql = "Select d From Document document Join document.positions position Join position.possession possession Where possession.id = %d and position.month = %s and position.bookingPeriod.default = true" % (possession.getId(), BookingPeriodManager().getCurrentMonth())
+            sql = "Select possession.id "
+            sql += " From Document document"
+            sql += " Join document.positions position"
+            sql += " Join position.possession possession"
+            sql += " Where possession.id = %d" % (possession.getId())
+            sql += " and position.month = %s" % (BookingPeriodManager().getCurrentMonth())
+            sql += " and position.bookingPeriod.default = true"
+            sql += " GroupBy possession.id"
             self._entityManager.createQuery(sql).getSingleResult()
             return True
         except:
@@ -52,7 +59,7 @@ class ChargerManager(DocumentManager):
             self.chargePossession(possession)
             
     def chargeAll(self):
-        for possession in self.findAllUncharged():
+        for possession in self.findAllActive():
             self.chargePossession(possession)
             
     def discoverValue(self, possessionElement):
@@ -63,8 +70,8 @@ class ChargerManager(DocumentManager):
         else:
             return possessionElement.getElement().getGlobalValue()
         
-    def findAllUncharged(self):
-        return self._entityManager.createQuery("Select p From Possession p Join p.community co Where co.inDate <= CURRENT_DATE AND p.id not in(Select ped.id From Charging c Join c.bookingPeriod bp Join c.possession ped Where bp.defaultPeriod = 1 AND c.month = %s) and p.community.outDate is null" % BookingPeriodManager().getCurrentMonth()).getResultList()
+    def findAllActive(self):
+        return self._entityManager.createQuery("Select p From Possession p Join p.community co Where co.inDate <= CURRENT_DATE and p.community.outDate is null").getResultList()
      
     def isRepairFundElement(self, element):
         return DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue() == element.getGroup().getId()
