@@ -19,8 +19,8 @@ class ChargingRestriction(Restriction):
     def countChargings(self):
         currentMonth = BookingPeriodManager().getCurrentMonth()
         sql = "Select document"
-        sql += " From Document document Join document.positions position Join position.bookingPeriod bookingPeriod"
-        sql += (" Where bookingPeriod.defaultPeriod = 1 and position.month = %s and document.type = 'CHARGING'" % currentMonth)
+        sql += " From Document document"
+        sql += " Where document.type = 'CHARGING'"
         return len(self._entityManager.createQuery(sql).getResultList())
     
     def getTemplateName(self):
