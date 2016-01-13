@@ -21,7 +21,7 @@ class ChargerManager(DocumentManager):
             sql += " Where possession.id = %d" % (possession.getId())
             sql += " and position.month = %s" % (BookingPeriodManager().getCurrentMonth())
             sql += " and position.bookingPeriod.default = true"
-            sql += " GroupBy possession.id"
+            sql += " Group By possession.id"
             self._entityManager.createQuery(sql).getSingleResult()
             return True
         except:
