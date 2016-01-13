@@ -14,7 +14,7 @@ class ChargingRestriction(Restriction):
             self._result = False
         
     def countActivePossessions(self):
-        sql = "Select count(possession) From Possession possession Join possession.community community Where community.outDate is Null"
+        sql = "Select count(possession) From Possession possession Join possession.community community Where community.outDate is Null and (community.inDate <= CURRENT_DATE or community.inDate is null)"
         return self._entityManager.createQuery(sql).getSingleResult()
     
     def countChargings(self):
