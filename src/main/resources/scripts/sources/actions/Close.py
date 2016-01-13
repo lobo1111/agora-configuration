@@ -67,5 +67,5 @@ class Close(Container):
         self._nextMonth = int(BookingPeriodManager().getCurrentMonth()) + 1
         dict = DictionaryManager().findDictionaryInstance("PERIODS", "CURRENT")
         dict.setValue(str(self._nextMonth))
-        self._saveEntity(dict)
+        self.saveEntity(dict)
     
