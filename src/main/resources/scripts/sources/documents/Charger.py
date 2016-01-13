@@ -16,7 +16,7 @@ class ChargerManager(DocumentManager):
         sql = "Select possession.id "
         sql += " From Document document"
         sql += " Join document.positions position"
-        sql += " Join position.possession possession"
+        sql += " Join document.possession possession"
         sql += " Where possession.id = %d" % (possession.getId())
         sql += " and position.month = %s" % (BookingPeriodManager().getCurrentMonth())
         sql += " and position.bookingPeriod.default = true"
