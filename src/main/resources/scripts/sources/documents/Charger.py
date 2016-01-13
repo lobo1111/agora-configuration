@@ -20,6 +20,7 @@ class ChargerManager(DocumentManager):
         sql += " Where possession.id = %d" % (possession.getId())
         sql += " and position.month = %s" % (BookingPeriodManager().getCurrentMonth())
         sql += " and position.bookingPeriod.defaultPeriod = true"
+        sql += " and document.type = 'CHARGING'"
         result = self._entityManager.createQuery(sql).getResultList()
         return len(result) > 0
         
@@ -47,7 +48,7 @@ class ChargerManager(DocumentManager):
             return self.saveDocument(charging)
         else:
             self._logger.info("Possession %d omitted, reason:" % possession.getId())
-            self._logger.info("Already charted: %s" % str(self.alreadyCharged(possession)))
+            self._logger.info("Already charged: %s" % str(self.alreadyCharged(possession)))
             self._logger.info("Elements: %d" % possession.getElements().size())
         
     def chargeCommunity(self, community):
