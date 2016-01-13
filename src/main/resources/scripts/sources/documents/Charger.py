@@ -13,19 +13,16 @@ class ChargerManager(DocumentManager):
         self.cancelDocument(charging)
     
     def alreadyCharged(self, possession):
-        try:
-            sql = "Select possession.id "
-            sql += " From Document document"
-            sql += " Join document.positions position"
-            sql += " Join position.possession possession"
-            sql += " Where possession.id = %d" % (possession.getId())
-            sql += " and position.month = %s" % (BookingPeriodManager().getCurrentMonth())
-            sql += " and position.bookingPeriod.default = true"
-            sql += " Group By possession.id"
-            self._entityManager.createQuery(sql).getSingleResult()
-            return True
-        except:
-            return False
+        sql = "Select possession.id "
+        sql += " From Document document"
+        sql += " Join document.positions position"
+        sql += " Join position.possession possession"
+        sql += " Where possession.id = %d" % (possession.getId())
+        sql += " and position.month = %s" % (BookingPeriodManager().getCurrentMonth())
+        sql += " and position.bookingPeriod.default = true"
+        sql += " Group By possession.id"
+        result = self._entityManager.createQuery(sql).getResultList()
+        return len(result) > 0
         
     def chargePossession(self, possession):
         if not self.alreadyCharged(possession) and possession.getElements().size() > 0:
