@@ -41,6 +41,10 @@ class ChargerManager(DocumentManager):
                     chargingPosition.setDebitZpk(self.findZpk(possession.getZpks(), 'POSSESSION_REPAIR_FUND'))
                 self.bound(charging, chargingPosition)
             return self.saveDocument(charging)
+        else:
+            self._logger.info("Possession %d omitted, reason:" % possession.getId())
+            self._logger.info("Already charted: %s" % str(self.alreadyCharged(possession)))
+            self._logger.info("Elements: %d" % possession.getElements().size())
         
     def chargeCommunity(self, community):
         for possession in community.getPossessions():
