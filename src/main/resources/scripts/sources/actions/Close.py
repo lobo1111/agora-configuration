@@ -24,7 +24,8 @@ class Close(Container):
     
     def canClose(self, restrictions):
         for restriction in restrictions:
-            if not restriction.canProceed():
+            restriction.calculate()
+            if not restriction.getResult():
                 return False
         return True
     
