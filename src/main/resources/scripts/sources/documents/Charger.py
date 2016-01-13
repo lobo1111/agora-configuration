@@ -14,7 +14,8 @@ class ChargerManager(DocumentManager):
     
     def alreadyCharged(self, possession):
         try:
-            self._entityManager.createQuery("Select p From Charging c Join c.possession p Where p.id = " + str(possession.getId()) + " and c.month = %s)" % BookingPeriodManager().getCurrentMonth()).getSingleResult()
+            sql = "Select d From Document document Join document.positions position Join position.possession possession Where possession.id = %d and position.month = %s and position.bookingPeriod.default = true" % (possession.getId(), BookingPeriodManager().getCurrentMonth())
+            self._entityManager.createQuery(sql).getSingleResult()
             return True
         except:
             return False
