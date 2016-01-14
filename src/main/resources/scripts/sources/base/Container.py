@@ -1,5 +1,4 @@
 import helpers
-import traceback
 from base.Logger import Logger
 from java.text import SimpleDateFormat
 import sys
@@ -11,6 +10,7 @@ class Container:
         self._svars = helpers.svars
         self._entityManager = helpers.entityManager
         self._properties = helpers.properties
+        self._context = helpers.context
         
     def findBy(self, entityName, field, value):
         try:

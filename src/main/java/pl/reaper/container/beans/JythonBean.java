@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -13,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.SystemException;
 import javax.ws.rs.Path;
+import javax.xml.ws.WebServiceContext;
 import pl.reaper.container.jython.ScriptEngineWrapper;
 import pl.reaper.container.ws.wrappers.MapWrapper;
 
@@ -27,6 +29,8 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
     private PropertyBeanLocal propertyBean;
     @EJB
     private ScriptsLoaderLocal loaderBean;
+    @Resource
+    private WebServiceContext wsContext;
     private ScriptEngineWrapper engineBuilder;
 
     @PostConstruct
@@ -34,7 +38,8 @@ public class JythonBean implements JythonBeanLocal, JythonBeanRemote {
         engineBuilder = new ScriptEngineWrapper()
                 .setEntityManager(entityManager)
                 .setPropertyBean(propertyBean)
-                .setLoader(loaderBean);
+                .setLoader(loaderBean)
+                .setContext(wsContext);
     }
 
     @PermitAll

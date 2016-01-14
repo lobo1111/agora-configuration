@@ -1407,4 +1407,9 @@
         <source>custom-can-close-month.vtl</source>
         <variables />
     </template>
+    <template>
+        <name>user-information</name>
+        <source>custom-user-information.vtl</source>
+        <variables />
+    </template>
 </templates>
