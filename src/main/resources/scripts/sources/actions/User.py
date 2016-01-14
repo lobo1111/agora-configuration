@@ -15,7 +15,7 @@ class User(Container):
         person = self._entityManager.createQuery(sql).getSingleResult()
         return person
     
-    def parseOuput(self, person):
+    def parseOutput(self, person):
         template = self.findBy("Template", "name", "'user-information'")
         ve = VelocityEngine()
         ve.init()
