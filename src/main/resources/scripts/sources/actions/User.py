@@ -11,7 +11,7 @@ class User(Container):
     def collectUser(self):
         login = self._context.getUserPrincipal().getName()
         self._logger.info("Collection username for login information %s" % login)
-        sql = 'Select person From Person person Join person.users user Where user.login = %s' % login
+        sql = "Select person From Person person Join person.users user Where user.login = '%s'" % login
         person = self._entityManager.createQuery(sql).getSingleResult()
         return person
     
