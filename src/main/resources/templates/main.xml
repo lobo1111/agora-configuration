@@ -1409,7 +1409,7 @@
     </template>
     <template>
         <name>user-information</name>
-        <source>custom-user-information.vtl</source>
+        <source>entity-person.vtl</source>
         <variables />
     </template>
 </templates>
