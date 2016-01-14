@@ -9,7 +9,7 @@ class User(Container):
         person = self.collectUser()
         output = self.parseOutput(person)
         self._svars.put('output', output)
-        return userName
+        return person
     
     def collectUser(self):
         login = self._context.getUserPrincipal().getName()
