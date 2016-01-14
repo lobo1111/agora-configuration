@@ -16,7 +16,7 @@ class User(Container):
         return person
     
     def parseOuput(self, person):
-        template = self.findBy("Template", "name", "'entity-person'")
+        template = self.findBy("Template", "name", "'user-information'")
         ve = VelocityEngine()
         ve.init()
         context = VelocityContext()
