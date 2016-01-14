@@ -1,4 +1,7 @@
 from base.Container import Container
+from java.io import StringWriter
+from org.apache.velocity import VelocityContext
+from org.apache.velocity.app import VelocityEngine
 
 class User(Container):
     
