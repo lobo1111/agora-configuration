@@ -1350,6 +1350,7 @@
                     Community community 
                     WHERE
                     community.outDate is NULL
+                    AND {:where}
                     ORDER BY 
                     community.name ASC
                 </data>
