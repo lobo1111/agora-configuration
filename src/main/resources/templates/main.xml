@@ -1344,6 +1344,7 @@
             <var>
                 <name>list</name>
                 <data>
+                    {:limit}
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     community.id, community.name)
                     FROM 
