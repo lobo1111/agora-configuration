@@ -2,9 +2,6 @@
 <possessions>
     #foreach($possession in $possessions)
         <item>
-            <communityId>$!possession.getCommunity().getId()</communityId>
-            <communityName>$!possession.getCommunity().getName()</communityName>
-            <communityArea>$!possession.getCommunity().getArea().floatValue()</communityArea>
             <possessionId>$!possession.getId()</possessionId>
             <possessionStreet>$!possession.getAddress().getStreet()</possessionStreet>
             <possessionHouseNumber>$!possession.getAddress().getHouseNumber()</possessionHouseNumber>
