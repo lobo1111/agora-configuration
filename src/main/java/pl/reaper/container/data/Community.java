@@ -211,11 +211,19 @@ public class Community implements Serializable {
     }
 
     public String getFormattedInDate() {
-        return new SimpleDateFormat("dd-MM-yyyy").format(inDate);
+        if (inDate != null) {
+            return new SimpleDateFormat("dd-MM-yyyy").format(inDate);
+        } else {
+            return "";
+        }
     }
 
     public String getFormattedOutDate() {
-        return new SimpleDateFormat("dd-MM-yyyy").format(outDate);
+        if (outDate != null) {
+            return new SimpleDateFormat("dd-MM-yyyy").format(outDate);
+        } else {
+            return "";
+        }
     }
 
     public String longDescription() {
