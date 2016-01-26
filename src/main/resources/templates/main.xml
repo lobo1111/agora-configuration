@@ -257,7 +257,7 @@
     </template>
     <template>
         <name>entity-community</name>
-        <source>entity-community.vtl</source>
+        <source>entity-community-details.vtl</source>
         <variables>
             <var>
                 <name>community</name>
