@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -207,6 +208,14 @@ public class Community implements Serializable {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public String getFormattedInDate() {
+        return new SimpleDateFormat("dd-MM-yyyy").format(inDate);
+    }
+
+    public String getFormattedOutDate() {
+        return new SimpleDateFormat("dd-MM-yyyy").format(outDate);
     }
 
     public String longDescription() {
