@@ -15,9 +15,9 @@ class CompanyManager(Container):
         company.setRegon(self._svars.get('regon'))
         company.setEmail(self._svars.get('email'))
         company.setWww(self._svars.get('www'))
-        company.setPhoneNumber1(self._svars.get('phoneNumber1'))
-        company.setPhoneNumber2(self._svars.get('phoneNumber2'))
-        company.setPhoneNumber3(self._svars.get('phoneNumber3'))
+        company.setPhoneNumber1(self._svars.get('phone1'))
+        company.setPhoneNumber2(self._svars.get('phone2'))
+        company.setPhoneNumber3(self._svars.get('phone3'))
         AddressManager().set(company)
     
     def extractOrCreateCompany(self, entity):
