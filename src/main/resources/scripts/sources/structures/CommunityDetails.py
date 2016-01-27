@@ -14,7 +14,6 @@ class CommunityDetailsManager(Container):
             self.createElements(community)
             self.createContractors(community)
         self.saveEntity(community)
-        return community
     
     def initStructure(self):
         if self._svars.get('id') != '0':

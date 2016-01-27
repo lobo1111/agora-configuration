@@ -18,9 +18,6 @@ class CompanyManager(Container):
         company.setPhoneNumber1(self._svars.get('phoneNumber1'))
         company.setPhoneNumber2(self._svars.get('phoneNumber2'))
         company.setPhoneNumber3(self._svars.get('phoneNumber3'))
-        company.setAddress(self.getAddress(company))
-        
-    def getAddress(self, company):
         AddressManager().set(company)
     
     def extractOrCreateCompany(self, entity):
