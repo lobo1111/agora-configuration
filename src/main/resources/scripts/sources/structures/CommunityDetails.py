@@ -18,8 +18,10 @@ class CommunityDetailsManager(Container):
     
     def initStructure(self):
         if self._svars.get('id') != '0':
+            self._logger.info("Community persist - it's an update. Found id: %s" % self._svars.get('id'))
             return self.findById("Community", int(self._svars.get('id'))), False
         else:
+            self._logger.info("Community persist - it's a new community")
             return Community(), True
         
     def createZpkNumbers(self, community):

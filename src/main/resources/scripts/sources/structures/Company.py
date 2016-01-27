@@ -25,6 +25,8 @@ class CompanyManager(Container):
     
     def extractOrCreateCompany(self, entity):
         if entity.getCompany() is not None:
+            self._logger.info("Company extraction - company found id: %d" % entity.getCompany().getId())
             return entity.getCompany()
         else:
+            self._logger.info("Company extraction - company not found, creating...")
             return Company()
