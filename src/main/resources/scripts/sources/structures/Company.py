@@ -1,6 +1,6 @@
 from pl.reaper.container.data import Company
 from base.Container import Container
-from structures.Address import Address
+from structures.Address import AddressManager
 
 class CompanyManager(Container):
     
@@ -21,7 +21,7 @@ class CompanyManager(Container):
         company.setAddress(self.getAddress(company))
         
     def getAddress(self, company):
-        Address().set(company)
+        AddressManager().set(company)
     
     def extractOrCreateCompany(self, entity):
         if entity.getCompany() is not None:
