@@ -2,6 +2,7 @@ from pl.reaper.container.data import ZakladowyPlanKont
 from pl.reaper.container.data import ZpkBalance
 from base.Container import Container
 from structures.BookingPeriod import BookingPeriodManager
+from structures.Dictionary import DictionaryManager
 
 class ZpkManager(Container):
     
