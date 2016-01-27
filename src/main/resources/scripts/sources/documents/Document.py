@@ -117,7 +117,7 @@ class DocumentManager(Container):
         sql = "Select distinct document From Document document join document.positions position Where position.month = '%s' and position.bookingPeriod.id = %d" % (currentMonth, currentBookingPeriod.getId())
         for document in self._entityManager.createQuery(sql).getResultList():
             self.bookDocument(document)
-            
+        
     def findZpk(self, zpks, typeKey):
         zpkType = self.findDictionary(str(self.findZpkSettingId(typeKey)))
         return [zpk for zpk in zpks if zpk.getType().getKey() == zpkType.getKey()][0]
