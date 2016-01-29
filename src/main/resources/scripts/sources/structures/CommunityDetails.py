@@ -9,6 +9,7 @@ class CommunityDetailsManager(Container):
 
     def persist(self):
         (community, isNewStructure) = self.initStructure()
+        community.setName(self.parseDate(self._svars.get('name')))
         community.setInDate(self.parseDate(self._svars.get('inDate')))
         CompanyManager().set(community)
         if isNewStructure:
