@@ -4,6 +4,7 @@ from structures.Company import CompanyManager
 from structures.Zpk import ZpkManager
 from structures.Element import ElementManager
 from structures.Contractor import ContractorManager
+from java.util import Date 
 
 class CommunityDetailsManager(Container):
 
