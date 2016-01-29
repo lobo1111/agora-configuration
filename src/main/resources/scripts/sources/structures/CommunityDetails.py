@@ -30,11 +30,13 @@ class CommunityDetailsManager(Container):
         community = self.findById("Community", self._svars.get('id'))
         if community.getInDate() == None and community.getOutDate() == None:
             community.setInDate(Date())
+        self.saveEntity(community)
         
     def deactivate(self):
         community = self.findById("Community", self._svars.get('id'))
         if community.getInDate() != None and community.getOutDate() == None:
             community.setOutDate(Date())
+        self.saveEntity(community)
         
     def createZpkNumbers(self, community):
         ZpkManager().createDefaultZpkNumbersForCommunity(community)
