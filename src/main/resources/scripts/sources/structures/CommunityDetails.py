@@ -3,6 +3,7 @@ from pl.reaper.container.data import Community
 from structures.Company import CompanyManager
 from structures.Zpk import ZpkManager
 from structures.Element import ElementManager
+from structures.Contractor import ContractorManager
 
 class CommunityDetailsManager(Container):
 
