@@ -503,8 +503,8 @@
                     community
                     FROM
                     Community community
-                    WHERE {:where} AND community.outDate is NULL
-                    ORDER BY community.name ASC
+                    WHERE {:where}
+                    ORDER BY community.outDate ASC, community.name ASC
                 </data>
             </var>
             <var>
@@ -515,7 +515,7 @@
                     count(community.id)
                     FROM
                     Community community
-                    WHERE {:where} AND community.outDate is NULL
+                    WHERE {:where}
                 </data>
             </var>
         </variables>

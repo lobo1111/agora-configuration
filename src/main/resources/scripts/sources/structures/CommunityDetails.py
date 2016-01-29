@@ -10,13 +10,14 @@ class CommunityDetailsManager(Container):
 
     def persist(self):
         (community, isNewStructure) = self.initStructure()
-        community.setName(self._svars.get('name'))
-        CompanyManager().set(community)
-        if isNewStructure:
-            self.createZpkNumbers(community)
-            self.createElements(community)
-            self.createContractors(community)
-        self.saveEntity(community)
+        if self.isActive(community):
+            community.setName(self._svars.get('name'))
+            CompanyManager().set(community)
+            if isNewStructure:
+                self.createZpkNumbers(community)
+                self.createElements(community)
+                self.createContractors(community)
+            self.saveEntity(community)
     
     def initStructure(self):
         if self._svars.get('id') != '0':
@@ -25,6 +26,9 @@ class CommunityDetailsManager(Container):
         else:
             self._logger.info("Community persist - it's a new community")
             return Community(), True
+        
+    def isActive(self, community):
+        return community.outDate != None
         
     def activate(self):
         community = self.findById("Community", self._svars.get('id'))
