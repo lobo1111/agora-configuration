@@ -60,4 +60,4 @@ class ZpkManager(Container):
         return self.findById('Dictionary', id)
     
     def findZpkSettingId(self, typeKey):
-        return DictionaryManager().findDictionaryInstance('ZPKS_SETTINGS', typeKey)
+        return DictionaryManager().findDictionaryInstance('ZPKS_SETTINGS', typeKey).getId()
