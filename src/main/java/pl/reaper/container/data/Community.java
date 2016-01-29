@@ -32,7 +32,7 @@ public class Community implements Serializable {
     @Column(name = "area")
     private BigDecimal area;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Company company;
     private static final long serialVersionUID = 1L;
     @Id
