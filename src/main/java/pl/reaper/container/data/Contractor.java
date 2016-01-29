@@ -45,6 +45,8 @@ public class Contractor implements Serializable {
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "contractor")
     private Collection<Invoice> invoices = new ArrayList<>();
+    @Column(name = "disabled")
+    private boolean disabled;
 
     public Integer getId() {
         return id;
@@ -92,6 +94,14 @@ public class Contractor implements Serializable {
 
     public void setInvoices(Collection<Invoice> invoices) {
         this.invoices = invoices;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
 }

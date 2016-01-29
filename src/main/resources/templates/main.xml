@@ -424,11 +424,9 @@
                     contractor
                     FROM
                     Contractor contractor
-                    JOIN contractor.company company
-                    JOIN contractor.community community
-                    WHERE {:where} AND community.outDate is NULL
+                    WHERE {:where} AND contractor.disabled = false
                     ORDER BY
-                    community.name, contractor.name ASC
+                    contractor.name ASC
                 </data>
             </var>
             <var>
@@ -439,9 +437,7 @@
                     count(contractor.id)
                     FROM
                     Contractor contractor
-                    JOIN contractor.company company
-                    JOIN contractor.community community
-                    WHERE {:where} AND community.outDate is NULL
+                    WHERE {:where} AND contractor.disabled = false
                 </data>
             </var>
         </variables>
