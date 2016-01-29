@@ -27,12 +27,12 @@ class CommunityDetailsManager(Container):
             return Community(), True
         
     def activate(self):
-        community = self.findById(self._svars.get('id'))
+        community = self.findById("Community", self._svars.get('id'))
         if community.getInDate() == None and community.getOutDate() == None:
             community.setInDate(Date())
         
     def deactivate(self):
-        community = self.findById(self._svars.get('id'))
+        community = self.findById("Community", self._svars.get('id'))
         if community.getInDate() != None and community.getOutDate() == None:
             community.setOutDate(Date())
         
