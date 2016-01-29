@@ -13,7 +13,6 @@ class CommunityDetailsManager(Container):
         community.setName(self._svars.get('name'))
         CompanyManager().set(community)
         if isNewStructure:
-            community.setInDate(Date())
             self.createZpkNumbers(community)
             self.createElements(community)
             self.createContractors(community)
@@ -26,6 +25,16 @@ class CommunityDetailsManager(Container):
         else:
             self._logger.info("Community persist - it's a new community")
             return Community(), True
+        
+    def activate(self):
+        community = self.findById(self._svars.get('id'))
+        if community.getInDate() == None and community.getOutDate() == None:
+            community.setInDate(Date())
+        
+    def deactivate(self):
+        community = self.findById(self._svars.get('id'))
+        if community.getInDate() != None and community.getOutDate() == None:
+            community.setOutDate(Date())
         
     def createZpkNumbers(self, community):
         ZpkManager().createDefaultZpkNumbersForCommunity(community)
