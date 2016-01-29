@@ -424,7 +424,8 @@
                     contractor
                     FROM
                     Contractor contractor
-                    WHERE {:where} AND contractor.disabled = false
+                    JOIN contractor.community community
+                    WHERE {:where} AND contractor.disabled = false 
                     ORDER BY
                     contractor.name ASC
                 </data>
@@ -437,6 +438,7 @@
                     count(contractor.id)
                     FROM
                     Contractor contractor
+                    JOIN contractor.community community
                     WHERE {:where} AND contractor.disabled = false
                 </data>
             </var>
@@ -530,7 +532,7 @@
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    WHERE {:where} AND community.outDate is NULL
+                    WHERE {:where}
                     ORDER BY 
                     community.name, 
                     possessionAddress.street, 
@@ -548,7 +550,7 @@
                     Possession possession
                     JOIN possession.address possessionAddress
                     JOIN possession.community community
-                    WHERE {:where} AND community.outDate is NULL
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
