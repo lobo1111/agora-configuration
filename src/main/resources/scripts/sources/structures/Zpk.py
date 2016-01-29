@@ -33,7 +33,7 @@ class ZpkManager(Container):
             balance = ZpkBalance()
             balance.setBookingPeriod(bookingPeriod)
             balance.setZpk(zpk)
-            zpk.getZpkBalances().add(zpkBalance)
+            zpk.getZpkBalances().add(balance)
 
     def generateNumber(self, dict, community):
         zpks = []

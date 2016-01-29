@@ -12,3 +12,7 @@ class ContractorManager(Container):
             community.getContractors().add(contractor)
             ZpkManager().createZpksForContractor(contractor)
             
+    def collectDefaultCompanies(self):
+        sql = 'Select c From Company c Where c.defaultContractor = true'
+        return self._entityManager.createQuery(sql).getResultList()
+            
