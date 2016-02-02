@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <contractor>
-        <id>$!contractor.getId()</id>
-        <name>$!contractor.getName()</name>
-        <company>
-            <id>$!contractor.getCompany().getId()</id>
-            <name>$!contractor.getCompany().getName()</name>
-        </company>
-        <community>
-            <id>$!contractor.getCommunity().getId()</id>
-        </community>
+    <id>$!contractor.getId()</id>
+    <name>$!contractor.getCompany().getName()</name>
+    <nip>$!contractor.getCompany().getNip()</nip>
+    <regon>$!contractor.getCompany().getRegon()</regon>
+    <www>$!contractor.getCompany().getWww()</www>
+    <email>$!contractor.getCompany().getEmail()</email>
+    <phone1>$!contractor.getCompany().getPhoneNumber1()</phone1>
+    <phone2>$!contractor.getCompany().getPhoneNumber2()</phone2>
+    <phone3>$!contractor.getCompany().getPhoneNumber3()</phone3>
+    <street>$!contractor.getCompany().getAddress().getStreet()</street>
+    <houseNumber>$!contractor.getCompany().getAddress().getHouseNumber()</houseNumber>
+    <flatNumber>$!contractor.getCompany().getAddress().getFlatNumber()</flatNumber>
+    <postalCode>$!contractor.getCompany().getAddress().getPostalCode()</postalCode>
+    <city>$!contractor.getCompany().getAddress().getCity()</city>
 </contractor>
