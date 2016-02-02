@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -65,7 +66,7 @@ public class Company implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private Collection<Owner> owners;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-    private Collection<Contractor> contractors;
+    private Collection<Contractor> contractors = new ArrayList<>();
 
     public Company() {
     }
