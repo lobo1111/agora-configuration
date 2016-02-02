@@ -1366,7 +1366,7 @@
                     e.id, e.name)
                     FROM 
                     Company e
-                    AND {:where}
+                    WHERE {:where}
                     ORDER BY 
                     e.name ASC
                 </data>
