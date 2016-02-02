@@ -3,6 +3,9 @@ from base.Container import Container
 from entities.Zpk import ZpkManager
 
 class ContractorManager(Container):
+    
+    def persist(self):
+        pass
 
     def createDefaultContractorsForCommunity(self, community):
         for company in self.collectDefaultCompanies():
