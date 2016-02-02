@@ -39,7 +39,7 @@ public class Contractor implements Serializable {
     @ManyToOne
     private Community community;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Company company;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "contractor")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
