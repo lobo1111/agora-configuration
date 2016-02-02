@@ -5,12 +5,11 @@
         <id>$!company.getId()</id>
         <name>$!company.getName()</name>
         <nip>$!company.getNip()</nip>
-        <regon>$!company.getRegon()</regon>
-        #if($!company.isDefaultContractor())
-            <defaultContractor>Tak</defaultContractor>
-        #else
-            <defaultContractor>Nie</defaultContractor>
-        #end
+        <street>$!company.getAddress().getStreet()</street>
+        <houseNumber>$!company.getAddress().getHouseNumber()</houseNumber>
+        <flatNumber>$!company.getAddress().getFlatNumber()</flatNumber>
+        <postalCode>$!company.getAddress().getFlatNumber()</postalCode>
+        <city>$!company.getAddress().getFlatNumber()</city>
     </item>
     #end
     <settings>

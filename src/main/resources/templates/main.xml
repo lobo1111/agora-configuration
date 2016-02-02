@@ -964,7 +964,6 @@
                     company
                     FROM 
                     Company company
-                    JOIN company.address address
                     WHERE {:where}
                     ORDER BY company.name ASC
                 </data>
@@ -976,7 +975,6 @@
                     SELECT count(company.id)
                     FROM
                     Company company
-                    JOIN company.address address
                     WHERE {:where}
                 </data>
             </var>
