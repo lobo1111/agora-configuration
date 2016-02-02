@@ -9,8 +9,7 @@ class ContractorManager(Container):
     def persist(self):
         company = self.initStructure()
         CompanyManager().setData(company)
-        if not self.contractorExists(company):
-            contractor = self.createContractor(company)
+        contractor = self.getOrCreateContractor(company)
         return self.saveEntity(contractor)
 
     def createDefaultContractorsForCommunity(self, community):
@@ -25,7 +24,7 @@ class ContractorManager(Container):
         sql = 'Select c From Company c Where c.defaultContractor = true'
         return self._entityManager.createQuery(sql).getResultList()
     
-    def createContractor(self, company):
+    def getOrCreateContractor(self, company):
         for contractor in company.getContractors():
             if contractor.getCommunity().getId() == int(self._svars.get('communityId')):
                 self._logger.info("Contractor found for company(%d) and community(%d)" % (company.getId(), int(self._svars.get('communityId'))))
