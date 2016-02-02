@@ -1363,12 +1363,12 @@
                 <data>
                     {:limit}
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    community.id, community.name)
+                    company.id, company.name)
                     FROM 
-                    Company community
+                    Company company
                     WHERE {:where}
                     ORDER BY 
-                    community.name ASC
+                    company.name ASC
                 </data>
             </var>
         </variables>
