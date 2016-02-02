@@ -27,9 +27,9 @@ class ContractorManager(Container):
     def getOrCreateContractor(self, company):
         for contractor in company.getContractors():
             if contractor.getCommunity().getId() == int(self._svars.get('communityId')):
-                self._logger.info("Contractor found for company(%d) and community(%d)" % (company.getId(), int(self._svars.get('communityId'))))
+                self._logger.info("Contractor found for company(%s) and community(%d)" % (company.getName(), int(self._svars.get('communityId'))))
                 return contractor
-        self._logger.info("Contractor not found for company(%d) and community(%d), creating new one..." % (company.getId(), int(self._svars.get('communityId'))))
+        self._logger.info("Contractor not found for company(%s) and community(%d), creating new one..." % (company.getName(), int(self._svars.get('communityId'))))
         contractor = Contractor()
         contractor.setCommunity(self.findById("Community", int(self._svars.get('communityId'))))
         contractor.setCompany(company)
