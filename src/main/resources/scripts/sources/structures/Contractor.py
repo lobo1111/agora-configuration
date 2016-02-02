@@ -1,7 +1,7 @@
 from pl.reaper.container.data import Company
 from pl.reaper.container.data import Contractor
 from base.Container import Container
-from entities.Zpk import ZpkManager
+from structures.Zpk import ZpkManager
 from structures.Company import CompanyManager
 
 class ContractorManager(Container):
