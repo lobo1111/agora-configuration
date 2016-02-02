@@ -1355,6 +1355,25 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-companies-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    {:limit}
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    e.id, e.name)
+                    FROM 
+                    Company e
+                    AND {:where}
+                    ORDER BY 
+                    e.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-contractors-with-invoices</name>
         <source>list-invoices.vtl</source>
         <variables>
