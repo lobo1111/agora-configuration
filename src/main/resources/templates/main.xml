@@ -498,11 +498,11 @@
                 <data>
                     {:limit}
                     SELECT
-                    entity
+                    community
                     FROM
-                    Community entity
+                    Community community
                     WHERE {:where}
-                    ORDER BY entity.outDate ASC, entity.name ASC
+                    ORDER BY community.outDate ASC, community.name ASC
                 </data>
             </var>
             <var>
@@ -510,9 +510,9 @@
                 <data>
                     {:single}
                     SELECT
-                    count(entity.id)
+                    count(community.id)
                     FROM
-                    Community entity
+                    Community community
                     WHERE {:where}
                 </data>
             </var>
@@ -1363,12 +1363,12 @@
                 <data>
                     {:limit}
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    entity.id, entity.name)
+                    community.id, community.name)
                     FROM 
-                    Company entity
+                    Company community
                     WHERE {:where}
                     ORDER BY 
-                    entity.name ASC
+                    community.name ASC
                 </data>
             </var>
         </variables>
