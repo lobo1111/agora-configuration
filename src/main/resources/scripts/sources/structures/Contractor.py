@@ -7,7 +7,7 @@ from structures.Company import CompanyManager
 class ContractorManager(Container):
     
     def persist(self):
-        company = self.initStructure()
+        company = CompanyManager().findOrCreate()
         CompanyManager().setData(company)
         contractor = self.getOrCreateContractor(company)
         return self.saveEntity(contractor)
@@ -25,21 +25,20 @@ class ContractorManager(Container):
         return self._entityManager.createQuery(sql).getResultList()
     
     def getOrCreateContractor(self, company):
-        for contractor in company.getContractors():
+        contractor = self.findContractor(company.getContractors())
+        if contractor == None:
+            self._logger.info("Contractor not found for company(%s) and community(%d), creating new one..." % (company.getName(), int(self._svars.get('communityId'))))
+            contractor = Contractor()
+            contractor.setCommunity(self.findById("Community", int(self._svars.get('communityId'))))
+        self.setData(contractor, company)
+        return contractor
+    
+    def setData(self, contractor, company):
+        contractor.setCompany(company)
+        contractor.setName(company.getName())
+    
+    def findContractor(self, contractors):
+        for contractor in contractors:
             if contractor.getCommunity().getId() == int(self._svars.get('communityId')):
                 self._logger.info("Contractor found for company(%s) and community(%d)" % (company.getName(), int(self._svars.get('communityId'))))
                 return contractor
-        self._logger.info("Contractor not found for company(%s) and community(%d), creating new one..." % (company.getName(), int(self._svars.get('communityId'))))
-        contractor = Contractor()
-        contractor.setCommunity(self.findById("Community", int(self._svars.get('communityId'))))
-        contractor.setCompany(company)
-        return contractor
-    
-    def initStructure(self):
-        if self._svars.get('id') != '0':
-            self._logger.info("Company persist - it's an update. Found id: %s" % self._svars.get('id'))
-            return self.findById("Company", int(self._svars.get('id')))
-        else:
-            self._logger.info("Company persist - it's a new structure")
-            return Company()
-            

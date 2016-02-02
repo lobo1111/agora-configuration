@@ -27,3 +27,11 @@ class CompanyManager(Container):
         else:
             self._logger.info("Company extraction - company not found, creating...")
             return Company()
+        
+    def findOrCreate(self):
+        if self._svars.get('id') != '0':
+            self._logger.info("Company lookup - found id: %s" % self._svars.get('id'))
+            return self.findById("Company", int(self._svars.get('id')))
+        else:
+            self._logger.info("Company lookup - it's a new structure")
+            return Company()
