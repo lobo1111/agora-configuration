@@ -40,5 +40,4 @@ class ContractorManager(Container):
     def findContractor(self, contractors):
         for contractor in contractors:
             if contractor.getCommunity().getId() == int(self._svars.get('communityId')):
-                self._logger.info("Contractor found for company(%s) and community(%d)" % (company.getName(), int(self._svars.get('communityId'))))
                 return contractor
