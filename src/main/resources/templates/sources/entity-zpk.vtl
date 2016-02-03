@@ -3,6 +3,6 @@
     <id>$!zpk.getId()</id>
     <description>$!zpk.getDescription()</description>
     <number>$zpk.getType().getKey()-$!zpk.getNumber()</number>
-    <startCredit>$!zpk.getStartCredit()</startCredit>
-    <startDebit>$!zpk.getStartDebit()</startDebit>
+    <startCredit>$!zpk.getCurrentBalance().getStartCredit()</startCredit>
+    <startDebit>$!zpk.getCurrentBalance().getStartDebit()</startDebit>
 </zpk>
