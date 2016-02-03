@@ -2,7 +2,7 @@
 <zpks>
     #foreach($row in $zpks)
     <item>
-        <zpkId>$!row.getId()</zpkId>
+        <id>$!row.getId()</id>
         <number>$!row.getType().getKey()-$!row.getNumber()</number>
         #if($!row.getAccount())
             <description>$!row.getAccount().getNumber()</description>
@@ -13,18 +13,8 @@
         #if($!row.getContractor())
             <description>$!row.getContractor().getName()</description>
         #end
-        #foreach($balance in $row.getZpkBalances())
-        #if($balance.getBookingPeriod().isDefaultPeriod())
-        <credit>$balance.getCredit()</credit>
-        <debit>$balance.getDebit()</debit>
-        #end
-        #end
-        <community>
-            <id>$!row.getCommunity().getId()</id>
-            <company>
-                <name>$!row.getCommunity().getCompany().getName()</name>
-            </company>
-        </community>
+        <credit>$row.getCurrentBalance().getCredit()</credit>
+        <debit>$row.getCurrentBalance().getDebit()</debit>
     </item>
     #end
     <settings>

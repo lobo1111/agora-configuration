@@ -456,17 +456,9 @@
                     zpk
                     FROM
                     ZakladowyPlanKont zpk
-                    JOIN zpk.community community
-                    JOIN zpk.zpkBalances balance
-                    JOIN balance.bookingPeriod period
-                    JOIN zpk.type pool
-                    LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.contractor contractor
-                    WHERE {:where} AND
-                    period.defaultPeriod = true
-                    AND community.outDate is NULL
+                    WHERE {:where}
                     ORDER BY
-                    community.name, pool.key, zpk.number ASC
+                    zpk.type.key ASC, zpk.number ASC
                 </data>
             </var>
             <var>
@@ -477,14 +469,7 @@
                     count(zpk.id)
                     FROM
                     ZakladowyPlanKont zpk
-                    JOIN zpk.community community
-                    JOIN zpk.zpkBalances balance
-                    JOIN balance.bookingPeriod period
-                    LEFT OUTER JOIN zpk.possession possession
-                    LEFT OUTER JOIN zpk.contractor contractor
-                    WHERE {:where} AND
-                    period.defaultPeriod = true
-                    AND community.outDate is NULL
+                    WHERE {:where}
                 </data>
             </var>
         </variables>
