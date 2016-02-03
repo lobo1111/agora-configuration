@@ -19,7 +19,7 @@ class CommunityDetailsManager(Container):
                 self.createContractors(community)
             self.saveEntity(community)
         else:
-            self.logger.info("Community is not active, not updated.")
+            self._logger.info("Community is not active, not updated.")
     
     def initStructure(self):
         if self._svars.get('id') != '0':
