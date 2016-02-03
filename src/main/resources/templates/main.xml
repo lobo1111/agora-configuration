@@ -456,6 +456,7 @@
                     zpk
                     FROM
                     ZakladowyPlanKont zpk
+                    Join zpk.community community
                     WHERE {:where}
                     ORDER BY
                     zpk.type.key ASC, zpk.number ASC
@@ -469,6 +470,7 @@
                     count(zpk.id)
                     FROM
                     ZakladowyPlanKont zpk
+                    Join zpk.community community
                     WHERE {:where}
                 </data>
             </var>
