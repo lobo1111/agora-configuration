@@ -11,7 +11,7 @@ class CommunityDetailsManager(Container):
     def persist(self):
         (community, isNewStructure) = self.initStructure()
         if self.isActive(community):
-            community.setName(self._svars.get('name'))
+            community.setName(self.getShortName(community, self._svars.get('name')))
             CompanyManager().set(community)
             if isNewStructure:
                 self.createZpkNumbers(community)
@@ -31,6 +31,9 @@ class CommunityDetailsManager(Container):
         
     def isActive(self, community):
         return community.getOutDate() == None
+    
+    def getShortName(self, community, name):
+        return community.getShortName(name)
         
     def activate(self):
         community = self.findById("Community", self._svars.get('id'))
