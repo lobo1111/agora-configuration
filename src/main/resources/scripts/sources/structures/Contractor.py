@@ -43,5 +43,5 @@ class ContractorManager(Container):
     
     def findContractor(self, contractors):
         for contractor in contractors:
-            if contractor.getCommunity().getId() == int(self._svars.get('communityId')):
+            if not contractor.isDisabled() and contractor.getCommunity().getId() == int(self._svars.get('communityId')):
                 return contractor
