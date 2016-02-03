@@ -2,22 +2,7 @@
 <zpk>
     <id>$!zpk.getId()</id>
     <description>$!zpk.getDescription()</description>
-    <number>$!zpk.getNumber()</number>
-    <credit>$!zpk.getCredit()</credit>
-    <debit>$!zpk.getDebit()</debit>
-    <possession>
-        <id>$!zpk.getPossession().getId()</id>
-        <address>
-            <street>$!zpk.getPossession().getAddress().getStreet()</street>
-            <houseNumber>$!zpk.getPossession().getAddress().getHouseNumber()</houseNumber>
-            <flatNumber>$!zpk.getPossession().getAddress().getFlatNumber</flatNumber>
-        </address>
-    </possession>
-    <community>
-        <id>$!zpk.getCommunity().getId()</id>
-        <name>$!zpk.getCommunity().getName()</name>
-    </community>
-    <pool>
-        <id>$!zpk.getType().getId()</id>
-    </pool>
+    <number>$zpk.getType().getKey()-$!zpk.getNumber()</number>
+    <startCredit>$!zpk.getStartCredit()</startCredit>
+    <startDebit>$!zpk.getStartDebit()</startDebit>
 </zpk>
