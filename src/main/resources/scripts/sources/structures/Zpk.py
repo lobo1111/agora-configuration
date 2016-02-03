@@ -18,10 +18,11 @@ class ZpkManager(Container):
             
     def createZpk(self, community, type):
         dict = self.findDictionary(str(self.findZpkSettingId(type)))
-        number = self.generateNumber(dict, community)
+        type = self.findDictionary(dict.getValue())
+        number = self.generateNumber(type, community)
         zpk = ZakladowyPlanKont()
         zpk.setNumber(number)
-        zpk.setType(dict)
+        zpk.setType(type)
         zpk.setCommunity(community)
         community.getZpks().add(zpk)
         self.setAllBookingPeriods(zpk)
