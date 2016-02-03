@@ -30,7 +30,7 @@ class CommunityDetailsManager(Container):
             return Community(), True
         
     def isActive(self, community):
-        return community.getOutDate() != None
+        return community.getOutDate() == None
         
     def activate(self):
         community = self.findById("Community", self._svars.get('id'))
