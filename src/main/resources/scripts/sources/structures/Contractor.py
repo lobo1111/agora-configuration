@@ -1,4 +1,3 @@
-from pl.reaper.container.data import Company
 from pl.reaper.container.data import Contractor
 from base.Container import Container
 from structures.Zpk import ZpkManager
@@ -11,6 +10,11 @@ class ContractorManager(Container):
         CompanyManager().setData(company)
         contractor = self.getOrCreateContractor(company)
         return self.saveEntity(contractor)
+    
+    def remove(self):
+        contractor = self.findById("Contractor", self._svars.get('id'))
+        contractor.setDisabled(True)
+        self.saveEntity(contractor)
 
     def createDefaultContractorsForCommunity(self, community):
         for company in self.collectDefaultCompanies():
