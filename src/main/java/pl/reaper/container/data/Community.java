@@ -91,6 +91,14 @@ public class Community implements Serializable {
     public String getName() {
         return name;
     }
+    
+    public String getShortName() {
+        if(name.toLowerCase().startsWith("wspólnota mieszkaniowa")) {
+            return "WM " + name.substring("wspólnota mieszkaniowa".length());
+        } else {
+            return name;
+        }
+    }
 
     public void setName(String name) {
         this.name = name;
