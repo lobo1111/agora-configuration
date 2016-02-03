@@ -38,10 +38,11 @@ class ContractorManager(Container):
         return contractor
     
     def setData(self, contractor, company):
+        contractor.setDisabled(False)
         contractor.setCompany(company)
         contractor.setName(company.getName())
     
     def findContractor(self, contractors):
         for contractor in contractors:
-            if not contractor.isDisabled() and contractor.getCommunity().getId() == int(self._svars.get('communityId')):
+            if contractor.getCommunity().getId() == int(self._svars.get('communityId')):
                 return contractor
