@@ -94,7 +94,7 @@ public class Community implements Serializable {
     
     public String getShortName(String name) {
         if(name.toLowerCase().startsWith("wspólnota mieszkaniowa")) {
-            return "WM " + name.substring("wspólnota mieszkaniowa".length());
+            return "WM" + name.substring("wspólnota mieszkaniowa".length());
         } else {
             return name;
         }
