@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <zpk>
     <id>$!zpk.getId()</id>
-    <description>$!zpk.getDescription()</description>
+    #if($!zpk.getAccount())
+        <description>$!row.getAccount().getNumber()</description>
+    #end
+    #if($!zpk.getPossession())
+        <description>$!row.getPossession().getFullAddress()</description>
+    #end
+    #if($!zpk.getContractor())
+        <description>$!row.getContractor().getName()</description>
+    #end
     <number>$!zpk.getType().getKey()-$!zpk.getNumber()</number>
     <startCredit>$!zpk.getCurrentBalance().getStartCredit()</startCredit>
     <startDebit>$!zpk.getCurrentBalance().getStartDebit()</startDebit>
