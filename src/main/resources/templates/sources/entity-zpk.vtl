@@ -2,13 +2,13 @@
 <zpk>
     <id>$!zpk.getId()</id>
     #if($!zpk.getAccount())
-        <description>$!row.getAccount().getNumber()</description>
+        <description>$!zpk.getAccount().getNumber()</description>
     #end
     #if($!zpk.getPossession())
-        <description>$!row.getPossession().getFullAddress()</description>
+        <description>$!zpk.getPossession().getFullAddress()</description>
     #end
     #if($!zpk.getContractor())
-        <description>$!row.getContractor().getName()</description>
+        <description>$!zpk.getContractor().getName()</description>
     #end
     <number>$!zpk.getType().getKey()-$!zpk.getNumber()</number>
     <startCredit>$!zpk.getCurrentBalance().getStartCredit()</startCredit>
