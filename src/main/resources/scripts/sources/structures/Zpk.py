@@ -8,8 +8,8 @@ class ZpkManager(Container):
     
     def persist(self):
         zpk = self.findById("ZakladowyPlanKont", self._svars.get('id'))
-        self.updateStartCredit(zpk.getCurrentBalance(), self._svars.get('startCredit'))
-        self.updateStartDebit(zpk.getCurrentBalance(), self._svars.get('startDebit'))
+        self.updateStartCredit(zpk.getCurrentBalance(), float(self._svars.get('startCredit')))
+        self.updateStartDebit(zpk.getCurrentBalance(), float(self._svars.get('startDebit')))
         self.saveEntity(zpk)
     
     def createZpksForContractor(self, contractor):
