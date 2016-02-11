@@ -6,6 +6,12 @@ from structures.Dictionary import DictionaryManager
 
 class ZpkManager(Container):
     
+    def persist(self):
+        zpk = self.findById("ZakladowyPlanKont", self._svars.get('id'))
+        self.updateStartCredit(zpk.getCurrentBalance(), self._svars.get('startCredit'))
+        self.updateStartDebit(zpk.getCurrentBalance(), self._svars.get('startDebit'))
+        self.saveEntity(zpk)
+    
     def createZpksForContractor(self, contractor):
         contractor.getZpks().add(self.createZpk(contractor.getCommunity(), "CONTRACTOR"))
         contractor.getZpks().add(self.createZpk(contractor.getCommunity(), "CONTRACTOR_COST"))
@@ -15,6 +21,16 @@ class ZpkManager(Container):
         self.createZpk(community, "CHARGING_REPAIR_FUND")
         self.createZpk(community, "WAITING_FOR_ACCOUNT")
         self.createZpk(community, "WAITING_FOR_ACCOUNT_RF")
+        
+    def updateStartCredit(self, balance, startCredit):
+        oldStartCredit = balance.getStartCredit()
+        balance.setStartCredit(startCredit)
+        balance.setCredit(balance.getCredit() - oldStartCredit + startCredit)
+        
+    def updateStartDebit(self, balance, startDebit):
+        oldStartDebit = balance.getStartDebit()
+        balance.setStartDebit(startDebit)
+        balance.setDebit(balance.getDebit() - oldStartDebit + startDebit)
             
     def createZpk(self, community, type):
         dict = self.findDictionary(str(self.findZpkSettingId(type)))
