@@ -2,16 +2,10 @@
 <accounts>
     #foreach($row in $accounts)
     <item>
-        <bankId>$!row.getBank().getId()</bankId>
+        <id>$row.getId()</id>
         <bankName>$!row.getBank().getName()</bankName>
-        <parentAccountId>$!row.getParrentAccount().getId()</parentAccountId>
-        <parentAccountName>$!row.getParrentAccount().getName()</parentAccountName>
-        <parentAccountNumber>$!row.getParrentAccount().getNumber()</parentAccountNumber>
-        <accountId>$!row.getId()</accountId>
-        <accountName>$!row.getName()</accountName>
-        <accountNumber>$!row.getNumber()</accountNumber>
-        <accountType>$!row.getType().getValue()</accountType>
-        <accountTypeKey>$!row.getType().getKey()</accountTypeKey>
+        <number>$!row.getNumber()</number>
+        <type>$!row.getType().getValue()</type>
     </item>
     #end
     <settings>
