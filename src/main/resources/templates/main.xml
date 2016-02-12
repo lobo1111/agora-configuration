@@ -1226,21 +1226,32 @@
         </variables>
     </template>
     <template>
-        <name>simple-list-accounts-types-keys</name>
-        <source>simple-list.vtl</source>
+        <name>list-accounts-types</name>
+        <source>list-dictionary.vtl</source>
         <variables>
             <var>
-                <name>list</name>
+                <name>items</name>
                 <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    dic.id, dic.key)
+                    SELECT
+                    dic
                     FROM 
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ACCOUNT_TYPE\'
-                    {:where}
                     ORDER BY 
                     dic.value ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ACCOUNT_TYPE\'
                 </data>
             </var>
         </variables>
