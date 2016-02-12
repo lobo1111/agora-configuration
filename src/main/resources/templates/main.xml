@@ -1218,6 +1218,7 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ACCOUNT_TYPE\'
+                    AND {:where}
                     ORDER BY 
                     dic.value ASC
                 </data>
@@ -1237,6 +1238,7 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ACCOUNT_TYPE\'
+                    {:where}
                     ORDER BY 
                     dic.value ASC
                 </data>
