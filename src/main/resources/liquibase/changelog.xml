@@ -1942,12 +1942,18 @@
             ADD CONSTRAINT `document_position_attribute_document_position_id_fkey` FOREIGN KEY (`document_position_id`) REFERENCES `document_position` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
         </sql>
     </changeSet>
-    
         
     <changeSet author='tkopacki' id='contractor-disabled-column'>
         <sql>                   
             ALTER TABLE `contractor`
             ADD COLUMN `disabled` tinyint(1) DEFAULT 0
         </sql>
+    </changeSet>
+    
+    <changeSet id="accounts-types-unset-account" author="tkopacki"> 
+        <sql> 
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`) 
+            SELECT id, 'UNSET', 'Konto wolne' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
+        </sql> 
     </changeSet>
 </databaseChangeLog> 

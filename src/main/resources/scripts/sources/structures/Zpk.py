@@ -22,6 +22,21 @@ class ZpkManager(Container):
         self.createZpk(community, "WAITING_FOR_ACCOUNT")
         self.createZpk(community, "WAITING_FOR_ACCOUNT_RF")
         
+    def createZpksForAccount(self, account):
+        desiredTypes = self.getDesiredZpkTypesForAccount(account)
+        for type in desiredTypes:
+            if not self.hasZpk(type, account.getZpks()):
+                zpk = self.createZpk(account.getCommunity, type)
+                account.getZpks().add(zpk)
+                zpk.setAccount(account)
+                
+    def hasZpk(self, type, zpks):
+        dict = self.findDictionary(self.findZpkSettingId(type))
+        for zpk in zpks:
+            if zpk.getType() == dict:
+                return True
+        return False
+        
     def updateStartCredit(self, balance, startCredit):
         oldStartCredit = balance.getStartCredit()
         balance.setStartCredit(startCredit)
@@ -78,3 +93,13 @@ class ZpkManager(Container):
     
     def findZpkSettingId(self, typeKey):
         return DictionaryManager().findDictionaryInstance('ZPKS_SETTINGS', typeKey).getId()
+    
+    def getDesiredZpkTypesForAccount(self, account):
+        if account.getType().getKey() == "DEFAULT":
+            return ["RENT", "REPAIR_FUND"]
+        elif account.getType.getKey() == "RENT":
+            return ["RENT"]
+        elif account.getType.getKey() == "REPAIR_FUND":
+            return ["REPAIR_FUND"]
+        return []
+    
