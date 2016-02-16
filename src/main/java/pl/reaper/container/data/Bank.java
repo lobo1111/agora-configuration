@@ -41,7 +41,7 @@ public class Bank implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bank")
     private Collection<Account> accounts;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Company company;
 
     public Integer getId() {
