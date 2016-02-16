@@ -16,7 +16,7 @@ class AccountMapper(Mapper):
         self.cacheNewType()
         
     def cacheNewType(self):
-        self._newType = DictionaryManager().findByValue("ACCOUNT_TYPES", self.get('type'))
+        self._newType = DictionaryManager().findByValue("ACCOUNT_TYPE", self.get('type'))
         
     def setData(self):
         self.map("number")
@@ -36,5 +36,5 @@ class AccountMapper(Mapper):
         return not self._entity.getType().equals(self._newTyp)
     
     def unsetType(self, account):
-        unsetType = DictionaryManager().findDictionaryInstance("ACCOUNT_TYPES", "UNSET")
+        unsetType = DictionaryManager().findDictionaryInstance("ACCOUNT_TYPE", "UNSET")
         account.setType(unsetType)
