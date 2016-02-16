@@ -55,22 +55,16 @@ class AccountManager(Container):
         if mapper.isNew():
             '''
             New structure is created, account data is set by mapper,
-            ZpkManager generates new ZPK accounts.
             '''
             mapper.setData()
-        elif mapper.typeChanged():
+        if mapper.typeChanged():
             '''
-            Structure is changed and there is new type - workflow gets triggered.
-            Afterwards ZpkManager creates appropriate ZPKs if any is missing.
+            If there is a type change or new account - workflow gets triggered.
+            It's required to trigger that also for new structures in case
+            that newly create account is a functional account of type that
+            is already in use in the collection.
             '''
             TypeChangedFlow(mapper).trigger()
-        else:
-            '''
-            Structure already exists but account type remains, so likely
-            it was 'false' save or just Bank data was changed(which was
-            already applied above).
-            '''
-            pass
         '''
         BankDataHelper handles bank data based on bank code found in account
         number. If bank with that code already exists it just update it's
