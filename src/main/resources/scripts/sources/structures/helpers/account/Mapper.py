@@ -1,5 +1,4 @@
-from structures.common.Mapper import Mapper
-from structures.helpers.account.BankDataHelper import BankDataHelper
+from structures.helpers.common.Mapper import Mapper
 from pl.reaper.container.data import Account
 
 class AccountMapper(Mapper):

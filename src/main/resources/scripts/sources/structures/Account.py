@@ -40,6 +40,7 @@ structures.helpers.account.TypeChangedFlow
 from base.Container import Container
 from structures.helpers.account.Mapper import AccountMapper
 from structures.helpers.account.TypeChangedFlow import TypeChangedFlow
+from structures.helpers.account.BankDataHelper import BankDataHelper
 
 class AccountManager(Container):
 
