@@ -315,7 +315,7 @@
                 <name>bank</name>
                 <data>
                     {:single}
-                    SELECT c FROM Bank c WHERE c.id = {:id}
+                    SELECT c FROM Bank c WHERE {:where}
                 </data>
             </var>
         </variables>
