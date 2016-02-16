@@ -49,7 +49,8 @@ class AccountManager(Container):
         Mapper initializes account entity - creates new one in case of 'add' 
         action or loads existing one in case if 'edit' action
         '''
-        mapper = AccountMapper().initStructure()
+        mapper = AccountMapper()
+        mapper.initStructure()
         if mapper.isNew():
             '''
             New structure is created, account data is set by mapper,
