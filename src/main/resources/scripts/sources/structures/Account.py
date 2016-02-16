@@ -76,4 +76,4 @@ class AccountManager(Container):
         Creates missing ZPK accounts
         '''
         ZpkManager().createZpksForAccount(mapper.getEntity())
-        self.saveEntity()
+        self.saveEntity(mapper.getEntity())
