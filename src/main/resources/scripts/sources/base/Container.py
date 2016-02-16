@@ -1,6 +1,7 @@
 import helpers
 from base.Logger import Logger
 from java.text import SimpleDateFormat
+from java.lang import Class
 import sys
 
 class Container:
@@ -27,7 +28,7 @@ class Container:
             return None
 
     def findById(self, entityName, id):
-        return self._entityManager.find(entityName, int(id))
+        return self._entityManager.find(Class.forName("pl.reaper.container.data." + entityName), int(id))
     
     def setSvars(self, svars):
         self._svars = svars
