@@ -31,11 +31,6 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
-    @Column(name = "name")
-    private String name;
     @Column(name = "closed")
     private boolean closed;
     @Basic(optional = false)
@@ -72,9 +67,8 @@ public class Account implements Serializable {
         this.id = id;
     }
 
-    public Account(Integer id, String name, String number) {
+    public Account(Integer id, String number) {
         this.id = id;
-        this.name = name;
         this.number = number;
     }
 
@@ -108,14 +102,6 @@ public class Account implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getNumber() {
@@ -193,11 +179,6 @@ public class Account implements Serializable {
             return false;
         }
         return true;
-    }
-
-    public String longDescription() {
-        return "[name:" + name + "]"
-                + "[number:" + number + "]";
     }
 
     @Override
