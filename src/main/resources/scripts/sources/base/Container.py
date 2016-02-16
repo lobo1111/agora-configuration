@@ -27,7 +27,7 @@ class Container:
             return None
 
     def findById(self, entityName, id):
-        return self.findBy(entityName, 'id', id)
+        return self._entityManager.find(entityName, int(id))
     
     def setSvars(self, svars):
         self._svars = svars
