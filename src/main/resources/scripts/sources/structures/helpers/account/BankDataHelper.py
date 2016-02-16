@@ -12,6 +12,7 @@ class BankDataHelper(Container):
     
     def handleData(self, account):
         bank = BankManager().getBankFromAccountNumber(account.getNumber())
+        self._logger.info("Assigned Bank - %s, for acount: %s" % (bank.getName(), account.getNumber()))
         contractor = ContractorManager().getOrCreateContractor(bank.getCompany())
         account.setBank(bank)
         account.setBankContractor(contractor)
