@@ -97,9 +97,9 @@ class ZpkManager(Container):
     def getDesiredZpkTypesForAccount(self, account):
         if account.getType().getKey() == "DEFAULT":
             return ["RENT", "REPAIR_FUND"]
-        elif account.getType.getKey() == "RENT":
+        elif account.getType().getKey() == "RENT":
             return ["RENT"]
-        elif account.getType.getKey() == "REPAIR_FUND":
+        elif account.getType().getKey() == "REPAIR_FUND":
             return ["REPAIR_FUND"]
         return []
     
