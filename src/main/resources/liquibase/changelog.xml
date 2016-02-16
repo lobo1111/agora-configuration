@@ -1956,4 +1956,11 @@
             SELECT id, 'UNSET', 'Konto wolne' FROM `dictionary_type` WHERE `type` = 'ACCOUNT_TYPE'; 
         </sql> 
     </changeSet>
+    
+    <changeSet author='tkopacki' id='account-name-column-drop'>
+        <sql>                   
+            ALTER TABLE `account`
+            DROP COLUMN `name`
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
