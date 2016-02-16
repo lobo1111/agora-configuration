@@ -3,7 +3,7 @@ from pl.reaper.container.data import Account
 
 class AccountMapper(Mapper):
     
-    def __init__(self):
+    def initStructure(self):
         if self.get('id') != '0':
             self._logger.info("Account persist - it's an update. Found id: %s" % self.get('id'))
             self._entity = self.findById("Account", int(self.get('id')))
