@@ -60,6 +60,8 @@ public class Community implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<ElementCommunity> elements = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
+    private Collection<Account> account = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<Counter> counters = new ArrayList<>();
     @JoinColumn(name = "default_account_id", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -91,9 +93,9 @@ public class Community implements Serializable {
     public String getName() {
         return name;
     }
-    
+
     public String getShortName(String name) {
-        if(name.toLowerCase().startsWith("wspólnota mieszkaniowa")) {
+        if (name.toLowerCase().startsWith("wspólnota mieszkaniowa")) {
             return "WM" + name.substring("wspólnota mieszkaniowa".length());
         } else {
             return name;
@@ -106,6 +108,14 @@ public class Community implements Serializable {
 
     public Date getInDate() {
         return inDate;
+    }
+
+    public Collection<Account> getAccount() {
+        return account;
+    }
+
+    public void setAccount(Collection<Account> account) {
+        this.account = account;
     }
 
     public void setInDate(Date inDate) {
