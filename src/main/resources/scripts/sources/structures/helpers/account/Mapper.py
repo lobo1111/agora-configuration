@@ -33,7 +33,7 @@ class AccountMapper(Mapper):
         return self._newType.getKey()
         
     def typeChanged(self):
-        return not self._entity.getType().equals(self._newTyp)
+        return not self._entity.getType().equals(self._newType)
     
     def unsetType(self, account):
         unsetType = DictionaryManager().findDictionaryInstance("ACCOUNT_TYPE", "UNSET")
