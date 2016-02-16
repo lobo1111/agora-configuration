@@ -34,13 +34,10 @@ class ContractorManager(Container):
             self._logger.info("Contractor not found for company(%s) and community(%d), creating new one..." % (company.getName(), int(self._svars.get('communityId'))))
             contractor = Contractor()
             contractor.setCommunity(self.findById("Community", int(self._svars.get('communityId'))))
-        self.setData(contractor, company)
+            contractor.setDisabled(False)
+            contractor.setCompany(company)
+            contractor.setName(company.getName())
         return contractor
-    
-    def setData(self, contractor, company):
-        contractor.setDisabled(False)
-        contractor.setCompany(company)
-        contractor.setName(company.getName())
     
     def findContractor(self, contractors):
         for contractor in contractors:

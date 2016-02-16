@@ -13,7 +13,6 @@ class AccountMapper(Mapper):
             self._logger.info("Account persist - it's a new account")
             self._entity = Account()
             self._isNew = True
-        BankDataHelper().handleData(self._entity)
         self.cacheNewType()
         
     def cacheNewType(self):

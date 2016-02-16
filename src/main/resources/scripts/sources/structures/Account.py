@@ -44,10 +44,14 @@ from structures.helpers.account.TypeChangedFlow import TypeChangedFlow
 class AccountManager(Container):
 
     def persist(self):
+        '''
+        Mapper initializes account entity - creates new one in case of 'add' 
+        action or loads existing one in case if 'edit' action
+        '''
         mapper = AccountMapper()
         if mapper.isNew():
             '''
-            New structure is created, account type is set by mapper,
+            New structure is created, account data is set by mapper,
             ZpkManager generates new ZPK accounts.
             '''
             mapper.setData()
@@ -66,3 +70,10 @@ class AccountManager(Container):
             already applied above).
             '''
             pass
+        '''
+        BankDataHelper handles bank data based on bank code found in account
+        number. If bank with that code already exists it just update it's
+        company record(both CompanyManager and ContractorManager supports
+        getOrCreate method) otherwise it creates a new Bank with provided data.
+        '''
+        BankDataHelper().handleData(self._entity)
