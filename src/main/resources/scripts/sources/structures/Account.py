@@ -38,6 +38,7 @@ Full flow of changed type process is explained in
 structures.helpers.account.TypeChangedFlow
 '''
 from base.Container import Container
+from structures.Zpk import ZpkManager
 from structures.helpers.account.Mapper import AccountMapper
 from structures.helpers.account.TypeChangedFlow import TypeChangedFlow
 from structures.helpers.account.BankDataHelper import BankDataHelper
