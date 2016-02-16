@@ -60,7 +60,7 @@ public class Community implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<ElementCommunity> elements = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
-    private Collection<Account> account = new ArrayList<>();
+    private Collection<Account> accounts = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "community")
     private Collection<Counter> counters = new ArrayList<>();
     @JoinColumn(name = "default_account_id", referencedColumnName = "id")
@@ -110,12 +110,12 @@ public class Community implements Serializable {
         return inDate;
     }
 
-    public Collection<Account> getAccount() {
-        return account;
+    public Collection<Account> getAccounts() {
+        return accounts;
     }
 
-    public void setAccount(Collection<Account> account) {
-        this.account = account;
+    public void setAccounts(Collection<Account> accounts) {
+        this.accounts = accounts;
     }
 
     public void setInDate(Date inDate) {
