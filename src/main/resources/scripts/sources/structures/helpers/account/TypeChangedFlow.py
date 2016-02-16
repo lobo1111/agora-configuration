@@ -90,7 +90,7 @@ class TypeChangedFlow(Container):
             toDegradate = ["DEFAULT", "RENT"]
         elif self._mapper.getNewTypeKey() == "REPAIR_FUND":
             toDegradate = ["DEFAULT", "REPAIR_FUND"]
-        for account in self._getEntity().getCommunity().getAccounts():
+        for account in self._mapper.getEntity().getCommunity().getAccounts():
             if not account.equals(self._mapper.getEntity()) and self.toDegradate(account, toDegradate):
                 self._logger.info('Degradating account(%d) of type %s' % (account.getId(), account.getType().getKey()))
                 self._mapper.unsetType(account)
