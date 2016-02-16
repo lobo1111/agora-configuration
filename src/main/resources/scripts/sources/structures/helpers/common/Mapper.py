@@ -11,3 +11,6 @@ class Mapper(Container):
         
     def isNew(self):
         return self._isNew
+    
+    def get(self, property):
+        return self._svars.get(property)

@@ -4,9 +4,9 @@ from pl.reaper.container.data import Account
 class AccountMapper(Mapper):
     
     def __init__(self):
-        if self._svars.get('id') != '0':
-            self._logger.info("Account persist - it's an update. Found id: %s" % self._svars.get('id'))
-            self._entity = self.findById("Account", int(self._svars.get('id')))
+        if self.get('id') != '0':
+            self._logger.info("Account persist - it's an update. Found id: %s" % self.get('id'))
+            self._entity = self.findById("Account", int(self.get('id')))
             self._isNew = False
         else:
             self._logger.info("Account persist - it's a new account")
@@ -15,7 +15,7 @@ class AccountMapper(Mapper):
         self.cacheNewType()
         
     def cacheNewType(self):
-        self._newType = DictionaryManager().findByValue("ACCOUNT_TYPES", self._svars.get('type'))
+        self._newType = DictionaryManager().findByValue("ACCOUNT_TYPES", self.get('type'))
         
     def setData(self):
         self.map("number")
@@ -26,7 +26,7 @@ class AccountMapper(Mapper):
         self._entity.setType(self._newType)
         
     def getTypeValue(self):
-        return self._svars.get('type')
+        return self.get('type')
     
     def getNewTypeKey(self):
         return self._newType.getKey()
