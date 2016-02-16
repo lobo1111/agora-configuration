@@ -1,5 +1,6 @@
 from base.Container import Container
 from pl.reaper.container.data import Bank
+from structures.Company import CompanyManager
 
 class BankManager(Container):
 
