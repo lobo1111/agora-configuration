@@ -14,3 +14,6 @@ class Mapper(Container):
     
     def get(self, property):
         return self._svars.get(property)
+    
+    def getEntity(self):
+        return self._entity
