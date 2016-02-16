@@ -58,14 +58,12 @@ class AccountManager(Container):
             ZpkManager generates new ZPK accounts.
             '''
             mapper.setData()
-            ZpkManager().createZpksForAccount(mapper.getEntity())
         elif mapper.typeChanged():
             '''
             Structure is changed and there is new type - workflow gets triggered.
             Afterwards ZpkManager creates appropriate ZPKs if any is missing.
             '''
             TypeChangedFlow(mapper).trigger()
-            ZpkManager().createZpksForAccount(mapper.getEntity())
         else:
             '''
             Structure already exists but account type remains, so likely
@@ -80,3 +78,7 @@ class AccountManager(Container):
         getOrCreate method) otherwise it creates a new Bank with provided data.
         '''
         BankDataHelper().handleData(mapper.getEntity())
+        '''
+        Creates missing ZPK accounts
+        '''
+        ZpkManager().createZpksForAccount(mapper.getEntity())
