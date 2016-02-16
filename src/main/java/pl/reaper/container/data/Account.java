@@ -44,13 +44,12 @@ public class Account implements Serializable {
     @OneToMany(mappedBy = "parrentAccount")
     private Collection<Account> childAccounts;
     @JoinColumn(name = "bank_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Bank bank;
     @JoinColumn(name = "bank_contractor_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Contractor bankContractor;
     @JoinColumn(name = "parrent_account_id", referencedColumnName = "id")
-    @ManyToOne
     private Account parrentAccount;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.PERSIST)
