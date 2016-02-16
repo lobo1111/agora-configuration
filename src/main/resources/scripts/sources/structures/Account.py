@@ -57,7 +57,7 @@ class AccountManager(Container):
             New structure is created, account data is set by mapper,
             '''
             mapper.setData()
-        if mapper.typeChanged():
+        if mapper.typeChanged() or mapper.isNew():
             '''
             If there is a type change or new account - workflow gets triggered.
             It's required to trigger that also for new structures in case
