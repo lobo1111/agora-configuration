@@ -26,7 +26,7 @@ class ZpkManager(Container):
         desiredTypes = self.getDesiredZpkTypesForAccount(account)
         for type in desiredTypes:
             if not self.hasZpk(type, account.getZpks()):
-                zpk = self.createZpk(account.getCommunity, type)
+                zpk = self.createZpk(account.getCommunity(), type)
                 account.getZpks().add(zpk)
                 zpk.setAccount(account)
                 
