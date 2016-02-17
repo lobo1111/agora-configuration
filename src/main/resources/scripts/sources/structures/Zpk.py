@@ -24,7 +24,7 @@ class ZpkManager(Container):
         
     def createZpksForAccount(self, account):
         desiredTypes = self.getDesiredZpkTypesForAccount(account)
-        self._logger.info("Desired types for account(%s)" % account.getNumber)
+        self._logger.info("Desired types for account(%s)" % account.getNumber())
         self._logger.info(desiredTypes)
         for type in desiredTypes:
             if not self.hasZpk(type, account.getZpks()):
@@ -37,7 +37,10 @@ class ZpkManager(Container):
         dict = self.findDictionary(self.findZpkSettingId(type))
         for zpk in zpks:
             if zpk.getType().getKey() == dict.getKey():
+                self._logger.info("ZPK is already there, not creating that one - %s" % zpk.getType().getKey())
                 return True
+            else:
+                self._logger.info("Found type %s, omitting..." % zpk.getType().getKey())
         return False
         
     def updateStartCredit(self, balance, startCredit):
