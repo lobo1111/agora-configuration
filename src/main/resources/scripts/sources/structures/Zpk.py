@@ -24,8 +24,11 @@ class ZpkManager(Container):
         
     def createZpksForAccount(self, account):
         desiredTypes = self.getDesiredZpkTypesForAccount(account)
+        self._logger.info("Desired types for account(%s)" % account.getNumber)
+        self._logger.info(desiredTypes)
         for type in desiredTypes:
             if not self.hasZpk(type, account.getZpks()):
+                self._logger.info("Account doesn't have ZPK of type %s, creating..." % type)
                 zpk = self.createZpk(account.getCommunity(), type)
                 account.getZpks().add(zpk)
                 zpk.setAccount(account)
@@ -33,7 +36,7 @@ class ZpkManager(Container):
     def hasZpk(self, type, zpks):
         dict = self.findDictionary(self.findZpkSettingId(type))
         for zpk in zpks:
-            if zpk.getType() == dict:
+            if zpk.getType().equals(dict):
                 return True
         return False
         
