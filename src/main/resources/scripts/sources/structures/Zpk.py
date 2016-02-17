@@ -36,7 +36,7 @@ class ZpkManager(Container):
     def hasZpk(self, type, zpks):
         dict = self.findDictionary(self.findZpkSettingId(type))
         for zpk in zpks:
-            if zpk.getType().equals(dict):
+            if zpk.getType().getKey() == dict.getKey():
                 return True
         return False
         
