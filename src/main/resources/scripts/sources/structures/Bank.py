@@ -10,12 +10,10 @@ class BankManager(Container):
     '''
     def getBankFromAccountNumber(self, number):
         bankCode = number[2:6]
-        company = CompanyManager().findOrCreate()
-        CompanyManager().setData(company)
         bank = self.findBy('Bank', 'key', '"' + bankCode + '"')
         if bank == None:
             bank = Bank()
             bank.setKey(bankCode)
-            bank.setCompany(company)
             bank.setName(company.getName())
+        CompanyManager().set(bank)
         return bank
