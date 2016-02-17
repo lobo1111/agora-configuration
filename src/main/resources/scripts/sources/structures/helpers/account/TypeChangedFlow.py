@@ -94,7 +94,7 @@ class TypeChangedFlow(Container):
             if not account.equals(self._mapper.getEntity()) and self.toDegradate(account, toDegradate):
                 self._logger.info('Degradating account(%d) of type %s' % (account.getId(), account.getType().getKey()))
                 self._mapper.unsetType(account)
-        self._logger.info('Promoting account(%d)' % (account.getId()))
+        self._logger.info('Promoting account(%d)' % (self._mapper.getEntity().getId()))
         self._mapper.mapType()
         
     def toDegradate(self, account, toDegradate):
