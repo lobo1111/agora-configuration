@@ -3,7 +3,7 @@
     #foreach($row in $accounts)
     <item>
         <id>$row.getId()</id>
-        <bankName>$!row.getBank().getName()</bankName>
+        <bankName>$!row.getBank().getCompany().getName()</bankName>
         <number>$!row.getNumber()</number>
         <type>$!row.getType().getValue()</type>
     </item>
