@@ -1,34 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <account>
     <id>$!account.getId()</id>
-    <communityId>$!account.getCommunity().getId()</communityId>
-    <name>$!account.getName()</name>
     <number>$!account.getNumber()</number>
-    <typeId>$!account.getType().getId()</typeId>
-    <typeValue>$!account.getType().getValue()</typeValue>
-    <bank>
-        <id>$!account.getBank().getId()</id>
-        <name>$!account.getBank().getName()</name>
-        <key>$!account.getBank().getKey()</key>
-        <company>
-            <name>$!account.getBank().getCompany().getName()</name>
-            <nip>$!account.getBank().getCompany().getNip()</nip>
-            <regon>$!account.getBank().getCompany().getRegon()</regon>
-            <www>$!account.getBank().getCompany().getWww()</www>
-            <email>$!account.getBank().getCompany().getEmail()</email>
-            <phone1>$!account.getBank().getCompany().getPhoneNumber1()</phone1>
-            <phone2>$!account.getBank().getCompany().getPhoneNumber2()</phone2>
-            <phone3>$!account.getBank().getCompany().getPhoneNumber3()</phone3>
-            <address>
-                <street>$!account.getBank().getCompany().getAddress().getStreet()</street>
-                <houseNumber>$!account.getBank().getCompany().getAddress().getHouseNumber()</houseNumber>
-                <flatNumber>$!account.getBank().getCompany().getAddress().getFlatNumber()</flatNumber>
-                <postalCode>$!account.getBank().getCompany().getAddress().getPostalCode()</postalCode>
-                <city>$!account.getBank().getCompany().getAddress().getCity()</city>
-            </address>
-        </company>
-    </bank>
-    <parentId>$!account.getParrentAccount().getId()</parentId>
-    <parentName>$!account.getParrentAccount().getName()</parentName>
-    <parentNumber>$!account.getParrentAccount().getNumber()</parentNumber>
+    <accountType>$!account.getType().getValue()</accountType>
+    <name>$!account.getBank().getCompany().getName()</name>
+    <nip>$!account.getBank().getCompany().getNip()</nip>
+    <regon>$!account.getBank().getCompany().getRegon()</regon>
+    <www>$!account.getBank().getCompany().getWww()</www>
+    <email>$!account.getBank().getCompany().getEmail()</email>
+    <phone1>$!account.getBank().getCompany().getPhoneNumber1()</phone1>
+    <phone2>$!account.getBank().getCompany().getPhoneNumber2()</phone2>
+    <phone3>$!account.getBank().getCompany().getPhoneNumber3()</phone3>
+    <street>$!account.getBank().getCompany().getAddress().getStreet()</street>
+    <houseNumber>$!account.getBank().getCompany().getAddress().getHouseNumber()</houseNumber>
+    <flatNumber>$!account.getBank().getCompany().getAddress().getFlatNumber()</flatNumber>
+    <postalCode>$!account.getBank().getCompany().getAddress().getPostalCode()</postalCode>
+    <city>$!account.getBank().getCompany().getAddress().getCity()</city>
 </account>
