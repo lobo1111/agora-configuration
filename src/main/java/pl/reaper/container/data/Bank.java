@@ -31,11 +31,6 @@ public class Bank implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
-    @Column(name = "name")
-    private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 150)
     @Column(name = "bankKey")
     private String key;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bank")
@@ -50,14 +45,6 @@ public class Bank implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getKey() {
@@ -82,9 +69,5 @@ public class Bank implements Serializable {
 
     public void setCompany(Company company) {
         this.company = company;
-    }
-
-    public String longDescription() {
-        return "[name:" + name + "]";
     }
 }

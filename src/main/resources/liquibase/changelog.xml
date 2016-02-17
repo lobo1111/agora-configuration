@@ -1963,4 +1963,11 @@
             DROP COLUMN `name`
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='bank-name-column-drop'>
+        <sql>                   
+            ALTER TABLE `bank`
+            DROP COLUMN `name`
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

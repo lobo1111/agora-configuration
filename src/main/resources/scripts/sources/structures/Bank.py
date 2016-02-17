@@ -14,6 +14,5 @@ class BankManager(Container):
         if bank == None:
             bank = Bank()
             bank.setKey(bankCode)
-            bank.setName(company.getName())
         CompanyManager().set(bank)
         return bank
