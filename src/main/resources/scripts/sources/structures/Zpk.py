@@ -35,6 +35,7 @@ class ZpkManager(Container):
                 
     def hasZpk(self, type, zpks):
         dict = self.findDictionary(self.findZpkSettingId(type))
+        self._logger.info("Desired account of type %s mapped to number %s" % (type, dict.getKey()))
         for zpk in zpks:
             if zpk.getType().getKey() == dict.getKey():
                 self._logger.info("ZPK is already there, not creating that one - %s" % zpk.getType().getKey())
