@@ -15,9 +15,9 @@ class Logger:
             log.setThreadId(self._svars.get('_threadId'))
             log.setThreadName(self._svars.get('_threadName'))
             log.setUuid(self._svars.get('_uuid'))
-            print '[JYTHON][%s]' % (self._svars.get('_uuid'), level, message)
+            print '[JYTHON][%s]' % (message)
         else:
-            print '[JYTHON][%s]' % (level, message)
+            print '[JYTHON][%s]' % (message)
 
     def info(self, message):
         self.appendLog('INFO', message)
