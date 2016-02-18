@@ -4,4 +4,4 @@ class ValidationError(Exception):
         self.value = value
     
     def __str__(self):
-        return self.value.encode('utf8')
+        return unicode(self.value).encode('utf8')

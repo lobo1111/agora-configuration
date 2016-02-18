@@ -14,10 +14,10 @@ class CommunityDetailsManager(Container):
             self._mapper.initStructure()
             self._mapper.setData()
             if self._mapper.isNew():
-                self.createZpkNumbers(community)
-                self.createElements(community)
-                self.createContractors(community)
-            self.saveEntity(community)
+                self.createZpkNumbers(self._mapper.getEntity())
+                self.createElements(self._mapper.getEntity())
+                self.createContractors(self._mapper.getEntity())
+            self.saveEntity(self._mapper.getEntity())
         except ValidationError, e:
             self.setError(e)
     
