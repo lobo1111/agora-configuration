@@ -4,14 +4,18 @@ from base.Container import Container
 from structures.BookingPeriod import BookingPeriodManager
 from structures.Dictionary import DictionaryManager
 from structures.validators.common.DecimalValidator import DecimalValidator
+from structures.validators.common.ValidationError import ValidationError
 
 class ZpkManager(Container):
     
     def persist(self):
-        zpk = self.findById("ZakladowyPlanKont", self._svars.get('id'))
-        self.updateStartCredit(zpk.getCurrentBalance(), DecimalValidator("Bilans otwarcia - 'Ma'").validate(self._svars.get('startCredit')))
-        self.updateStartDebit(zpk.getCurrentBalance(), DecimalValidator("Bilans otwarcia - 'Winien'").validate(self._svars.get('startDebit')))
-        self.saveEntity(zpk)
+        try:
+            zpk = self.findById("ZakladowyPlanKont", self._svars.get('id'))
+            self.updateStartCredit(zpk.getCurrentBalance(), DecimalValidator("Bilans otwarcia - 'Ma'").validate(self._svars.get('startCredit')))
+            self.updateStartDebit(zpk.getCurrentBalance(), DecimalValidator("Bilans otwarcia - 'Winien'").validate(self._svars.get('startDebit')))
+            self.saveEntity(zpk)
+        except ValidationError, error:
+            setError(error)
     
     def createZpksForContractor(self, contractor):
         contractor.getZpks().add(self.createZpk(contractor.getCommunity(), "CONTRACTOR"))
