@@ -1,8 +1,8 @@
+from pl.reaper.container.data import Account
 from structures.Dictionary import DictionaryManager
 from structures.helpers.common.Mapper import Mapper
-from pl.reaper.container.data import Account
-from structures.validators.common.LengthValidator import LengthValidator
 from structures.validators.common.DictionaryValidator import DictionaryValidator
+from structures.validators.common.LengthValidator import LengthValidator
 
 class AccountMapper(Mapper):
     
@@ -18,15 +18,14 @@ class AccountMapper(Mapper):
         self.cacheNewType()
         
     def cacheNewType(self):
-        self._newType = DictionaryManager().findByValue("ACCOUNT_TYPE", self.get('type'))
+        self._newType = DictionaryValidator(dictionary="ACCOUNT_TYPE", messageParameter="Typ konta").validate(self._newType)
         
     def setData(self):
-        self.map("number", [LengthValidator(minLength = 26, maxLength = 26, messageParameter = "Numer konta")])
+        self.map("number", [LengthValidator(minLength=26, maxLength=26, messageParameter="Numer konta")])
         self.setCommunity()
         self.mapType()
         
     def mapType(self):
-        DictionaryValidator(messageParameter="Typ konta").validate(self._newType)
         self._entity.setType(self._newType)
         
     def getTypeValue(self):
