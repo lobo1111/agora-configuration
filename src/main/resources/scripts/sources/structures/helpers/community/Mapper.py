@@ -1,5 +1,6 @@
 from structures.Company import CompanyManager
 from structures.helpers.common.Mapper import Mapper
+from structures.validators.community.UniqueCommunityNameValidator import UniqueCommunityNameValidator
 from pl.reaper.container.data import Community
 
 class CommunityMapper(Mapper):
@@ -22,7 +23,8 @@ class CommunityMapper(Mapper):
     There is a LengthValidator set on company name already.
     '''
     def setData(self):
-        self._entity.setName(self._entity.getShortName(self._svars.get('name')))
+        self.map("name" [UniqueCommunityNameValidator()])
+        self._entity.setName(self._entity.getShortName(self._entity.getName()))
         CompanyManager().set(self._entity)
             
     def isNew(self):
