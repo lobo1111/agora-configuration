@@ -1,4 +1,5 @@
 from structures.validators.common.Validator import Validator
+from structures.validators.common.ValidationError import ValidationError
 
 class LengthValidator(Validator):
     _messageMin = "validators.lengthValidatorMin"
