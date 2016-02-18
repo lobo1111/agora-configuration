@@ -18,7 +18,7 @@ class CommunityDetailsManager(Container):
                 self.createElements(community)
                 self.createContractors(community)
             self.saveEntity(community)
-        except ValidationError as e:
+        except ValidationError, e:
             self.setError(e)
     
     def activate(self):

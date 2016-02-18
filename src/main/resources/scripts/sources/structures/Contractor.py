@@ -12,7 +12,7 @@ class ContractorManager(Container):
             CompanyManager().setData(company)
             contractor = self.getOrCreateContractor(company)
             return self.saveEntity(contractor)
-        except ValidationError as error:
+        except ValidationError, error:
             self.setError(error)
     
     def remove(self):

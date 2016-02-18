@@ -79,5 +79,5 @@ class AccountManager(Container):
             '''
             ZpkManager().createZpksForAccount(mapper.getEntity())
             self.saveEntity(mapper.getEntity())
-        except ValidationError as error:
+        except ValidationError, error:
             self.setError(error)
