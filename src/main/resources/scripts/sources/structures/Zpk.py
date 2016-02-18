@@ -3,13 +3,14 @@ from pl.reaper.container.data import ZpkBalance
 from base.Container import Container
 from structures.BookingPeriod import BookingPeriodManager
 from structures.Dictionary import DictionaryManager
+from structures.validators.common.DecimalValidator import DecimalValidator
 
 class ZpkManager(Container):
     
     def persist(self):
         zpk = self.findById("ZakladowyPlanKont", self._svars.get('id'))
-        self.updateStartCredit(zpk.getCurrentBalance(), float(self._svars.get('startCredit')))
-        self.updateStartDebit(zpk.getCurrentBalance(), float(self._svars.get('startDebit')))
+        self.updateStartCredit(zpk.getCurrentBalance(), DecimalValidator("Bilans otwarcia - 'Ma'").validate(self._svars.get('startCredit')))
+        self.updateStartDebit(zpk.getCurrentBalance(), DecimalValidator("Bilans otwarcia - 'Winien'").validate(self._svars.get('startDebit')))
         self.saveEntity(zpk)
     
     def createZpksForContractor(self, contractor):
