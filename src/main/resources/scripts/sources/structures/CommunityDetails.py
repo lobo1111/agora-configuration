@@ -13,7 +13,7 @@ class CommunityDetailsManager(Container):
         try:
             self._mapper.initStructure()
             self._mapper.setData()
-            if self_mapper.isNew():
+            if self._mapper.isNew():
                 self.createZpkNumbers(community)
                 self.createElements(community)
                 self.createContractors(community)
