@@ -4,7 +4,7 @@ class Mapper(Container):
     def map(self, propertyName, validators):
         for validator in validators:
             validator.validate(self._svars.get(propertyName))
-        methodName = "set" + propertyName.capitalize()
+        methodName = "set" + propertyName.title()
         getattr(self._entity, methodName)(self._svars.get(propertyName))
         
     def setCommunity(self):
