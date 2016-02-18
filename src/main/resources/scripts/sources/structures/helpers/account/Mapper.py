@@ -1,5 +1,4 @@
 from pl.reaper.container.data import Account
-from structures.Dictionary import DictionaryManager
 from structures.helpers.common.Mapper import Mapper
 from structures.validators.common.DictionaryValidator import DictionaryValidator
 from structures.validators.common.LengthValidator import LengthValidator

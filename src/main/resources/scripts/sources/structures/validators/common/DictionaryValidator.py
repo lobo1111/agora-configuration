@@ -1,3 +1,4 @@
+from structures.Dictionary import DictionaryManager
 from structures.validators.common.Validator import Validator
 from structures.validators.common.ValidationError import ValidationError
 
