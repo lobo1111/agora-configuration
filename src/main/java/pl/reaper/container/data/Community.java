@@ -125,7 +125,7 @@ public class Community implements Serializable {
     public Date getOutDate() {
         return outDate;
     }
-
+    
     public void setOutDate(Date outDate) {
         this.outDate = outDate;
     }
