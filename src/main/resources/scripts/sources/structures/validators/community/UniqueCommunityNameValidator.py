@@ -1,7 +1,7 @@
 from structures.validators.common.Validator import Validator
 from structures.validators.common.ValidationError import ValidationError
 
-class DecimalValidator(Validator):
+class UniqueCommunityNameValidator(Validator):
     _message = "validators.community.notUniqueName"
     
     def validate(self, attribute):
