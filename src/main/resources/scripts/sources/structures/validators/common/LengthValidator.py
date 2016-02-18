@@ -19,4 +19,6 @@ class LengthValidator(Validator):
                 raise ValidationError(self._label.get(self._messageMin) % (self._messageParameter, self._minLength))
             if self._minLength != None and self._minLength != None:
                 raise ValidationError(self._label.get(self._messageMinMax) % (self._messageParameter, self._minLength, self._maxLength))
+        self._logger.info("Validation passed:")
+        self._logger.info("min: - %s, max - %s, attribute - %s" % (self._minLength, self._maxLength, self._messageParameter))
         
