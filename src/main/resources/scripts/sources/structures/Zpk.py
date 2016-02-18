@@ -15,7 +15,7 @@ class ZpkManager(Container):
             self.updateStartDebit(zpk.getCurrentBalance(), DecimalValidator("Bilans otwarcia - 'Winien'").validate(self._svars.get('startDebit')))
             self.saveEntity(zpk)
         except ValidationError, error:
-            setError(error)
+            self.setError(error)
     
     def createZpksForContractor(self, contractor):
         contractor.getZpks().add(self.createZpk(contractor.getCommunity(), "CONTRACTOR"))
