@@ -1,7 +1,9 @@
 from base.Container import Container
 
 class Mapper(Container):
-    def map(self, propertyName):
+    def map(self, propertyName, validators):
+        for validator in validators:
+            validator.validate(self._svars.get(propertyName))
         methodName = "set" + propertyName.capitalize()
         getattr(self._entity, methodName)(self._svars.get(propertyName))
         

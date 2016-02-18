@@ -1970,4 +1970,23 @@
             DROP COLUMN `name`
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='labels-table'>
+        <sql>        
+            CREATE TABLE `label` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(150) COLLATE utf8_polish_ci NOT NULL,
+            `message` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-insert-validators-length">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('validators.lengthValidatorMin', 'Zawartość pola %s musi mieć co najmniej %d znaków');
+            INSERT INTO `label`(`name`, `message`)VALUES('validators.lengthValidatorMax', 'Zawartość pola %s nie może miec więcej niż %d znaków');
+            INSERT INTO `label`(`name`, `message`)VALUES('validators.lengthValidatorMinMax', 'Zawartość pola %s musi mieć co najmniej %d i nie więcej niż %d znaków');
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

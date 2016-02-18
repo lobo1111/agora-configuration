@@ -1,24 +1,11 @@
-from pl.reaper.container.data import Address
 from base.Container import Container
+from structures.helpers.address.Mapper import AddressMapper
 
 class AddressManager(Container):
+    _mapper = AddressMapper()
 
     def set(self, entity):
-        address = self.extractOrCreateAddress(entity)
-        self.setData(address)
-        entity.setAddress(address)
+        self._mapper.extractOrCreateAddress(entity)
+        self._mapper.setData()
+        entity.setAddress(self._mapper.getEntity())
     
-    def setData(self, address):
-        address.setStreet(self._svars.get('street'))
-        address.setHouseNumber(self._svars.get('houseNumber'))
-        address.setFlatNumber(self._svars.get('flatNumber'))
-        address.setPostalCode(self._svars.get('postalCode'))
-        address.setCity(self._svars.get('city'))
-        
-    def extractOrCreateAddress(self, entity):
-        if entity.getAddress() is not None:
-            self._logger.info("Address extraction - address found id: %d" % entity.getAddress().getId())
-            return entity.getAddress()
-        else:
-            self._logger.info("Address extraction - address not found, creating...")
-            return Address()

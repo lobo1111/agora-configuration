@@ -1,40 +1,26 @@
 from base.Container import Container
-from pl.reaper.container.data import Community
-from structures.Company import CompanyManager
+from structures.helpers.community.Mapper import CommunityMapper
 from structures.Zpk import ZpkManager
 from structures.Element import ElementManager
 from structures.Contractor import ContractorManager
+from structures.validators.common.ValidationError import ValidationError
 from java.util import Date 
 
 class CommunityDetailsManager(Container):
+    _mapper = CommunityMapper()
 
     def persist(self):
-        (community, isNewStructure) = self.initStructure()
-        if self.isActive(community):
-            community.setName(self.getShortName(community, self._svars.get('name')))
-            CompanyManager().set(community)
-            if isNewStructure:
+        try:
+            self._mapper.initStructure()
+            self._mapper.setData()
+            if self_mapper.isNew():
                 self.createZpkNumbers(community)
                 self.createElements(community)
                 self.createContractors(community)
             self.saveEntity(community)
-        else:
-            self._logger.info("Community is not active, not updated.")
+        except ValidationError as e:
+            self.setError(e)
     
-    def initStructure(self):
-        if self._svars.get('id') != '0':
-            self._logger.info("Community persist - it's an update. Found id: %s" % self._svars.get('id'))
-            return self.findById("Community", int(self._svars.get('id'))), False
-        else:
-            self._logger.info("Community persist - it's a new community")
-            return Community(), True
-        
-    def isActive(self, community):
-        return community.getOutDate() == None
-    
-    def getShortName(self, community, name):
-        return community.getShortName(name)
-        
     def activate(self):
         community = self.findById("Community", self._svars.get('id'))
         if community.getInDate() == None and community.getOutDate() == None:

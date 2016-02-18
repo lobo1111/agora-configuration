@@ -42,6 +42,7 @@ from structures.Zpk import ZpkManager
 from structures.helpers.account.Mapper import AccountMapper
 from structures.helpers.account.TypeChangedFlow import TypeChangedFlow
 from structures.helpers.account.BankDataHelper import BankDataHelper
+from structures.validators.common.ValidationError import ValidationError
 
 class AccountManager(Container):
 
@@ -50,30 +51,33 @@ class AccountManager(Container):
         Mapper initializes account entity - creates new one in case of 'add' 
         action or loads existing one in case if 'edit' action
         '''
-        mapper = AccountMapper()
-        mapper.initStructure()
-        if mapper.isNew():
+        try:
+            mapper = AccountMapper()
+            mapper.initStructure()
+            if mapper.isNew():
+                '''
+                New structure is created, account data is set by mapper,
+                '''
+                mapper.setData()
+            if mapper.typeChanged() or mapper.isNew():
+                '''
+                If there is a type change or new account - workflow gets triggered.
+                It's required to trigger that also for new structures in case
+                that newly create account is a functional account of type that
+                is already in use in the collection.
+                '''
+                TypeChangedFlow(mapper).trigger()
             '''
-            New structure is created, account data is set by mapper,
+            BankDataHelper handles bank data based on bank code found in account
+            number. If bank with that code already exists it just update it's
+            company record(both CompanyManager and ContractorManager supports
+            getOrCreate method) otherwise it creates a new Bank with provided data.
             '''
-            mapper.setData()
-        if mapper.typeChanged() or mapper.isNew():
+            BankDataHelper().handleData(mapper.getEntity())
             '''
-            If there is a type change or new account - workflow gets triggered.
-            It's required to trigger that also for new structures in case
-            that newly create account is a functional account of type that
-            is already in use in the collection.
+            Creates missing ZPK accounts
             '''
-            TypeChangedFlow(mapper).trigger()
-        '''
-        BankDataHelper handles bank data based on bank code found in account
-        number. If bank with that code already exists it just update it's
-        company record(both CompanyManager and ContractorManager supports
-        getOrCreate method) otherwise it creates a new Bank with provided data.
-        '''
-        BankDataHelper().handleData(mapper.getEntity())
-        '''
-        Creates missing ZPK accounts
-        '''
-        ZpkManager().createZpksForAccount(mapper.getEntity())
-        self.saveEntity(mapper.getEntity())
+            ZpkManager().createZpksForAccount(mapper.getEntity())
+            self.saveEntity(mapper.getEntity())
+        except ValidationError as error:
+            self.setError(error)

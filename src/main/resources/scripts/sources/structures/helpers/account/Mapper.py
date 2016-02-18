@@ -1,6 +1,7 @@
 from structures.Dictionary import DictionaryManager
 from structures.helpers.common.Mapper import Mapper
 from pl.reaper.container.data import Account
+from structures.validators.common.LengthValidator import LengthValidator
 
 class AccountMapper(Mapper):
     
@@ -19,7 +20,7 @@ class AccountMapper(Mapper):
         self._newType = DictionaryManager().findByValue("ACCOUNT_TYPE", self.get('type'))
         
     def setData(self):
-        self.map("number")
+        self.map("number", [LengthValidator(minLength = 26, maxLength = 26, messageParameter = "Numer konta")])
         self.setCommunity()
         self.mapType()
         

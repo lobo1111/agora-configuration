@@ -1,5 +1,5 @@
-import helpers
 from base.Logger import Logger
+import helpers
 from java.text import SimpleDateFormat
 import sys
 
@@ -46,10 +46,15 @@ class Container:
         except:
             return None
 
-    def saveEntity(self, entity, putId = True):
+    def saveEntity(self, entity, putId=True):
         self._entityManager.persist(entity)
         self._entityManager.flush()
         if hasattr(entity, 'getId') and putId:
             self._svars.put('output', str(entity.getId()))
         return entity
+    
+    def setError(self, error):
+        self._logger.info(error)
+        self._svars.put('output', str(error))
+
     

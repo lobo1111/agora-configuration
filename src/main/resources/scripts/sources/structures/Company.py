@@ -1,37 +1,12 @@
-from pl.reaper.container.data import Company
 from base.Container import Container
-from structures.Address import AddressManager
+from structures.helpers.company.Mapper import CompanyMapper
 
 class CompanyManager(Container):
+    _mapper = CompanyMapper()
     
     def set(self, entity):
-        company = self.extractOrCreateCompany(entity)
-        self.setData(company)
-        entity.setCompany(company)
+        self._mapper.extractOrCreateCompany(entity)
+        self._mapper.setData()
+        entity.setCompany(self._mapper.getEntity())
     
-    def setData(self, company):
-        company.setName(self._svars.get('name'))
-        company.setNip(self._svars.get('nip'))
-        company.setRegon(self._svars.get('regon'))
-        company.setEmail(self._svars.get('email'))
-        company.setWww(self._svars.get('www'))
-        company.setPhoneNumber1(self._svars.get('phone1'))
-        company.setPhoneNumber2(self._svars.get('phone2'))
-        company.setPhoneNumber3(self._svars.get('phone3'))
-        AddressManager().set(company)
     
-    def extractOrCreateCompany(self, entity):
-        if entity.getCompany() is not None:
-            self._logger.info("Company extraction - company found id: %d" % entity.getCompany().getId())
-            return entity.getCompany()
-        else:
-            self._logger.info("Company extraction - company not found, creating...")
-            return Company()
-        
-    def findOrCreate(self):
-        if self._svars.get('id') != '0':
-            self._logger.info("Company lookup - found id: %s" % self._svars.get('id'))
-            return self.findById("Company", int(self._svars.get('id')))
-        else:
-            self._logger.info("Company lookup - it's a new structure")
-            return Company()
