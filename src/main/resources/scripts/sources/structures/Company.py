@@ -8,5 +8,8 @@ class CompanyManager(Container):
         self._mapper.extractOrCreateCompany(entity)
         self._mapper.setData()
         entity.setCompany(self._mapper.getEntity())
+        
+    def getMapper(self):
+        return self._mapper
     
     

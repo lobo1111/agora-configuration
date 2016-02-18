@@ -8,8 +8,8 @@ class ContractorManager(Container):
     
     def persist(self):
         try:
-            company = CompanyManager().findOrCreate()
-            CompanyManager().setData(company)
+            company = CompanyManager().getMapper().findOrCreate()
+            CompanyManager().getMapper().setData(company)
             contractor = self.getOrCreateContractor(company)
             return self.saveEntity(contractor)
         except ValidationError, error:
