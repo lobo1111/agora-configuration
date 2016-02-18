@@ -9,7 +9,7 @@ class ContractorManager(Container):
     def persist(self):
         try:
             company = CompanyManager().getMapper().findOrCreate()
-            CompanyManager().getMapper().setData(company)
+            CompanyManager().getMapper().setData()
             contractor = self.getOrCreateContractor(company)
             return self.saveEntity(contractor)
         except ValidationError, error:
