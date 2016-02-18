@@ -17,7 +17,7 @@
     </scheduler>
     <scheduler>
         <script>guardian-zpk</script>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
 </schedulers>
