@@ -6,7 +6,6 @@ class LengthValidator(Validator):
     _messageMinMax = "validators.lengthValidatorMinMax"
     
     def __init__(self, minLength = None, maxLength = None, messageParameter = ""):
-        super(LengthValidator, self).__init__()
         self._minLength = minLength
         self._maxLength = maxLength
         self._messageParameter = messageParameter
