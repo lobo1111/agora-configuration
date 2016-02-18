@@ -10,7 +10,7 @@ class DictionaryValidator(Validator):
         
     def validate(self, attribute):
         try:
-            dict = DictionaryManager().findByValue(dictionary, attribute)
+            dict = DictionaryManager().findByValue(self._dictionary, attribute)
             self._logger.info("Validation passed:")
             self._logger.info("attribute - %s" % (self._messageParameter))
             return dict
