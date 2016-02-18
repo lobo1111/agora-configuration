@@ -2,6 +2,7 @@ from structures.Dictionary import DictionaryManager
 from structures.helpers.common.Mapper import Mapper
 from pl.reaper.container.data import Account
 from structures.validators.common.LengthValidator import LengthValidator
+from structures.validators.common.DictionaryValidator import DictionaryValidator
 
 class AccountMapper(Mapper):
     
@@ -25,6 +26,7 @@ class AccountMapper(Mapper):
         self.mapType()
         
     def mapType(self):
+        DictionaryValidator(messageParameter="Typ konta").validate(self._newType)
         self._entity.setType(self._newType)
         
     def getTypeValue(self):
