@@ -23,7 +23,7 @@ class CommunityMapper(Mapper):
     There is a LengthValidator set on company name already.
     '''
     def setData(self):
-        self.map("name" [UniqueCommunityNameValidator()])
+        self.map("name", [UniqueCommunityNameValidator()])
         self._entity.setName(self._entity.getShortName(self._entity.getName()))
         CompanyManager().set(self._entity)
             
