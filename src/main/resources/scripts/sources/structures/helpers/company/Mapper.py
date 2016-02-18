@@ -1,3 +1,4 @@
+from structures.Address import AddressManager
 from structures.helpers.common.Mapper import Mapper
 from pl.reaper.container.data import Company
 from structures.validators.common.LengthValidator import LengthValidator
