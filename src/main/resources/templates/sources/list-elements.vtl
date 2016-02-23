@@ -3,16 +3,13 @@
     #foreach($item in $items)
     <item>
         <id>$!item.getId()</id>
-        <groupKey>$!item.getGroup().getKey()</groupKey>
-        <groupValue>$!item.getGroup().getValue()</groupValue>
-        <key>$!item.getKey()</key>
+        <group>$!item.getGroup().getValue()</group>
         <name>$!item.getName()</name>
-        <algorithm>$!item.getAlgorithm().getName()</algorithm>
-        <globalValue>$!item.getGlobalValue()</globalValue>
+        <value>$!item.getGlobalValue()</value>
         #if($!item.isDefaultElement())
-            <defaultValue>Tak</defaultValue>
+            <defaultElement>Tak</defaultElement>
         #{else}
-            <defaultValue>Nie</defaultValue>
+            <defaultElement>Nie</defaultElement>
         #end
     </item>
     #end
