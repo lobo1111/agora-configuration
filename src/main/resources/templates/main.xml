@@ -363,7 +363,7 @@
         </variables>
     </template>
     <template>
-        <name>simple-list-element-types</name>
+        <name>list-element-types</name>
         <source>list-dictionary.vtl</source>
         <variables>
             <var>
@@ -388,6 +388,25 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ELEMENTS\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-element-types</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ELEMENTS\'
+                    ORDER BY 
+                    dic.value ASC
                 </data>
             </var>
         </variables>
@@ -465,6 +484,25 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ACCOUNT_TYPE\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-accounts-types</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ACCOUNT_TYPE\'
+                    ORDER BY 
+                    dic.value ASC
                 </data>
             </var>
         </variables>
