@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -63,6 +64,8 @@ public class Company implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Address address;
+    @OneToOne(cascade = CascadeType.PERSIST, mappedBy = "company")
+    private Community community;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     private Collection<Owner> owners;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "company")
@@ -80,6 +83,14 @@ public class Company implements Serializable {
         this.nip = nip;
         this.regon = regon;
         this.name = name;
+    }
+
+    public Community getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Community community) {
+        this.community = community;
     }
 
     public Integer getId() {
