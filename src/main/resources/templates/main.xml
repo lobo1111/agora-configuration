@@ -364,13 +364,12 @@
     </template>
     <template>
         <name>simple-list-element-types</name>
-        <source>simple-list.vtl</source>
+        <source>list-dictionary.vtl</source>
         <variables>
             <var>
                 <name>list</name>
                 <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    dic.id, dic.value)
+                    SELECT dic
                     FROM 
                     Dictionary dic
                     WHERE 
@@ -379,21 +378,42 @@
                     dic.value ASC
                 </data>
             </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ELEMENTS\'
+                </data>
+            </var>
         </variables>
     </template>
     <template>
         <name>simple-list-element-algorithms</name>
-        <source>simple-list.vtl</source>
+        <source>list-element-algorithms.vtl</source>
         <variables>
             <var>
                 <name>list</name>
                 <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    pa.id, pa.name)
+                    SELECT pa
                     FROM 
                     PaymentAlgorithm pa
                     ORDER BY 
                     pa.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(pa.id)
+                    FROM 
+                    PaymentAlgorithm pa
                 </data>
             </var>
         </variables>
