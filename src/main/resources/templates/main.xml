@@ -363,7 +363,7 @@
         </variables>
     </template>
     <template>
-        <name>simple-list-elements-types</name>
+        <name>simple-list-element-types</name>
         <source>simple-list.vtl</source>
         <variables>
             <var>
@@ -382,7 +382,7 @@
         </variables>
     </template>
     <template>
-        <name>simple-list-payment-algorithms</name>
+        <name>simple-list-element-algorithms</name>
         <source>simple-list.vtl</source>
         <variables>
             <var>
