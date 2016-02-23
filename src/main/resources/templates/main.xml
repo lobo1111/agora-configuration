@@ -397,7 +397,7 @@
         <source>simple-list.vtl</source>
         <variables>
             <var>
-                <name>items</name>
+                <name>list</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     dic.id, dic.value)
@@ -405,6 +405,7 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ELEMENTS\'
+                    AND {:where}
                     ORDER BY 
                     dic.value ASC
                 </data>
@@ -501,6 +502,7 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ACCOUNT_TYPE\'
+                    AND {:where}
                     ORDER BY 
                     dic.value ASC
                 </data>
