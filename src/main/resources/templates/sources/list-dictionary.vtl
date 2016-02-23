@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <dictionary-list>
+    <items>
     #foreach($row in $items)
     <item>
         <id>$!row.getId()</id>
@@ -7,6 +8,7 @@
         <value>$!row.getValue()</value>
     </item>
     #end
+    </items>
     <settings>
         <maxResults>$countRows</maxResults>
     </settings>
