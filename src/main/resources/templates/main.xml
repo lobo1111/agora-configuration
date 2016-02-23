@@ -419,6 +419,26 @@
         </variables>
     </template>
     <template>
+        <name>current-charge-month</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        dict.value
+                    FROM
+                        Dictionary dict
+                        JOIN dict.type dtype
+                    WHERE
+                        dtype.type = "PERIODS"
+                        AND dict.key = "CURRENT"
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-accounts-types</name>
         <source>list-dictionary.vtl</source>
         <variables>
