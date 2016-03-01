@@ -4,6 +4,10 @@
     <group>$!entity.getGroup().getValue()</group>
     <name>$!entity.getName()</name>
     <value>$!entity.getGlobalValue()</value>
-    <defaultElement>$!entity.isDefaultElement()</defaultElement>
+    #if($!entity.isDefaultElement())
+    <defaultElement>1</defaultElement>
+    #else
+    <defaultElement>0</defaultElement>
+    #end
     <algorithm>$!entity.getAlgorithm().getName()</algorithm>
 </global-element>
