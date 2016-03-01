@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <element>
     <id>$!entity.getId()</id>
-    <groupKey>$!entity.getGroup().getId()</groupKey>
-    <groupValue>$!entity.getGroup().getValue()</groupValue>
-    <key>$!entity.getKey()</key>
+    <group>$!entity.getGroup().getValue()</group>
     <name>$!entity.getName()</name>
-    <globalValue>$!entity.getGlobalValue()</globalValue>
-    <defaultValue>$!entity.isDefaultElement()</defaultValue>
-    <algorithmId>$!entity.getAlgorithm().getId()</algorithmId>
+    <value>$!entity.getGlobalValue()</value>
+    <defaultElement>$!entity.isDefaultElement()</defaultElement>
+    <algorithm>$!entity.getAlgorithm().getName()</algorithm>
 </element>
