@@ -413,7 +413,7 @@
         </variables>
     </template>
     <template>
-        <name>simple-list-element-algorithms</name>
+        <name>list-element-algorithms</name>
         <source>list-element-algorithms.vtl</source>
         <variables>
             <var>
@@ -485,6 +485,23 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ACCOUNT_TYPE\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-element-algorithms</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.name)
+                    FROM 
+                    PaymentAlgorithm dic
+                    ORDER BY 
+                    dic.name ASC
                 </data>
             </var>
         </variables>
