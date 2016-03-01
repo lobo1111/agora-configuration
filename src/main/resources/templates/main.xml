@@ -2,7 +2,7 @@
 <templates>
     <template>
         <name>entity-global-element</name>
-        <source>entity-element.vtl</source>
+        <source>global-entity-element.vtl</source>
         <variables>
             <var>
                 <name>entity</name>
