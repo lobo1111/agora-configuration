@@ -500,6 +500,8 @@
                     dic.id, dic.name)
                     FROM 
                     PaymentAlgorithm dic
+                    WHERE
+                    {:where}
                     ORDER BY 
                     dic.name ASC
                 </data>
