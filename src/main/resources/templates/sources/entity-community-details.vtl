@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<communityDetails>
-    <id>$!community.getId()</id>
-    <inDate>$!community.getFormattedInDate()</inDate>
-    <outDate>$!community.getFormattedOutDate()</outDate>
-    <name>$!community.getCompany().getName()</name>
-    <nip>$!community.getCompany().getNip()</nip>
-    <regon>$!community.getCompany().getRegon()</regon>
-    <www>$!community.getCompany().getWww()</www>
-    <email>$!community.getCompany().getEmail()</email>
-    <phone1>$!community.getCompany().getPhoneNumber1()</phone1>
-    <phone2>$!community.getCompany().getPhoneNumber2()</phone2>
-    <phone3>$!community.getCompany().getPhoneNumber3()</phone3>
-    <street>$!community.getCompany().getAddress().getStreet()</street>
-    <houseNumber>$!community.getCompany().getAddress().getHouseNumber()</houseNumber>
-    <flatNumber>$!community.getCompany().getAddress().getFlatNumber()</flatNumber>
-    <postalCode>$!community.getCompany().getAddress().getPostalCode()</postalCode>
-    <city>$!community.getCompany().getAddress().getCity()</city>
-</communityDetails>
-
-
+<entity name="community">
+    <property name="id" type="Integer">$!community.getId()</property>
+    <property name="inDate" type="String">$!community.getFormattedInDate()</property>
+    <property name="outDate" type="String">$!community.getFormattedOutDate()</property>
+    <property name="name" type="String">$!community.getCompany().getName()</property>
+    <property name="nip" type="String">$!community.getCompany().getNip()</property>
+    <property name="regon" type="String">$!community.getCompany().getRegon()</property>
+    <property name="www" type="String">$!community.getCompany().getWww()</property>
+    <property name="email" type="String">$!community.getCompany().getEmail()</property>
+    <property name="phone1" type="String">$!community.getCompany().getPhoneNumber1()</property>
+    <property name="phone2" type="String">$!community.getCompany().getPhoneNumber2()</property>
+    <property name="phone3" type="String">$!community.getCompany().getPhoneNumber3()</property>
+    <property name="street" type="String">$!community.getCompany().getAddress().getStreet()</property>
+    <property name="houseNumber" type="String">$!community.getCompany().getAddress().getHouseNumber()</property>
+    <property name="flatNumber" type="String">$!community.getCompany().getAddress().getFlatNumber()</property>
+    <property name="postalCode" type="String">$!community.getCompany().getAddress().getPostalCode()</property>
+    <property name="city" type="String">$!community.getCompany().getAddress().getCity()</property>
+</entity>

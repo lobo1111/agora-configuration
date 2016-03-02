@@ -3,7 +3,7 @@
     <property name="maxResult" type="Integer">$countRows</property>
     <list name="items">
         #foreach($row in $communities)
-        <entity name="account">
+        <entity name="community">
             <property name="id" type="Integer">$row.getId()</property>
             <property name="name" type="String">$!row.getName()</property>
             <property name="inDate" type="String">$!row.getFormattedInDate()</property>
