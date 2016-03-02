@@ -548,6 +548,25 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-communities-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>list</name>
+                <data>
+                    {:limit}
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    community.id, community.name)
+                    FROM 
+                    Community community
+                    WHERE {:where}
+                    ORDER BY 
+                    community.outDate ASC community.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>user-information</name>
         <source>entity-person.vtl</source>
         <variables />
