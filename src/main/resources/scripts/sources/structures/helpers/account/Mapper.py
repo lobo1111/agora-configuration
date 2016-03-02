@@ -6,7 +6,7 @@ from structures.validators.common.LengthValidator import LengthValidator
 class AccountMapper(Mapper):
     
     def initStructure(self):
-        if self.get('id') != '0':
+        if self.get('id') != '-1':
             self._logger.info("Account persist - it's an update. Found id: %s" % self.get('id'))
             self._entity = self.findById("Account", int(self.get('id')))
             self._isNew = False
