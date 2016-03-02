@@ -6,7 +6,7 @@ from pl.reaper.container.data import Community
 class CommunityMapper(Mapper):
     
     def initStructure(self):
-        if self._svars.get('id') != '-1':
+        if int(self.get('id')) > 0:
             self._logger.info("Community persist - it's an update. Found id: %s" % self._svars.get('id'))
             self._entity = self.findById("Community", int(self._svars.get('id')))
             self._isNewStructure = False
