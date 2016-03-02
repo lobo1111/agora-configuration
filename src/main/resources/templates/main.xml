@@ -67,7 +67,7 @@
                     FROM 
                     Bank o
                     WHERE 
-                    o.id = {:id}
+                    o.key = {:key}
                 </data>
             </var>
         </variables>
