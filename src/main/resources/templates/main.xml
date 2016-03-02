@@ -55,6 +55,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-bank</name>
+        <source>entity-bank.vtl</source>
+        <variables>
+            <var>
+                <name>bank</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    o
+                    FROM 
+                    Bank o
+                    WHERE 
+                    o.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-zpk</name>
         <source>entity-zpk.vtl</source>
         <variables>
