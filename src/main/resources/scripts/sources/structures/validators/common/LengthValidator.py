@@ -13,7 +13,7 @@ class LengthValidator(Validator):
         
     def validate(self, attribute):
         if (self._minLength != None and len(attribute) < self._minLength) or (self._maxLength != None and len(attribute) > self._maxLength):
-            if self._minLength == None and self._maxLength != None and attribute != None:
+            if self._minLength == None and self._maxLength != None:
                 raise ValidationError(self._label.get(self._messageMax) % (self._messageParameter, self._maxLength))
             if self._minLength != None and self._maxLength == None:
                 raise ValidationError(self._label.get(self._messageMin) % (self._messageParameter, self._minLength))
