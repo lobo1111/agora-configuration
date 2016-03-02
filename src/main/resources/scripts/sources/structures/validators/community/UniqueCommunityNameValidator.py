@@ -7,6 +7,6 @@ class UniqueCommunityNameValidator(Validator):
     def validate(self, attribute):
         companies = self.findAllBy("Company", "name", "'%s'" % attribute)
         for company in companies:
-            if company != None and company.getCommunity().getOutDate() == None:
+            if company.getCommunity() != None and company.getCommunity().getOutDate() == None and company.getCommunity().getId() != int(self._svars.get('id')):
                 raise ValidationError(self._label.get(self._message))
         
