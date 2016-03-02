@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<account>
-    <id>$!account.getId()</id>
-    <number>$!account.getNumber()</number>
-    <accountType>$!account.getType().getValue()</accountType>
-    <name>$!account.getBank().getCompany().getName()</name>
-    <nip>$!account.getBank().getCompany().getNip()</nip>
-    <regon>$!account.getBank().getCompany().getRegon()</regon>
-    <www>$!account.getBank().getCompany().getWww()</www>
-    <email>$!account.getBank().getCompany().getEmail()</email>
-    <phone1>$!account.getBank().getCompany().getPhoneNumber1()</phone1>
-    <phone2>$!account.getBank().getCompany().getPhoneNumber2()</phone2>
-    <phone3>$!account.getBank().getCompany().getPhoneNumber3()</phone3>
-    <street>$!account.getBank().getCompany().getAddress().getStreet()</street>
-    <houseNumber>$!account.getBank().getCompany().getAddress().getHouseNumber()</houseNumber>
-    <flatNumber>$!account.getBank().getCompany().getAddress().getFlatNumber()</flatNumber>
-    <postalCode>$!account.getBank().getCompany().getAddress().getPostalCode()</postalCode>
-    <city>$!account.getBank().getCompany().getAddress().getCity()</city>
-</account>
+<entity name="account">
+    <property name="id" type="Integer">$!account.getId()</property>
+    <property name="number" type="String">$!account.getNumber()</property>
+    <property name="accountType" type="String">$!account.getType().getValue()</property>
+    <property name="name" type="String">$!account.getBank().getCompany().getName()</property>
+    <property name="nip" type="String">$!account.getBank().getCompany().getNip()</property>
+    <property name="regon" type="String">$!account.getBank().getCompany().getRegon()</property>
+    <property name="www" type="String">$!account.getBank().getCompany().getWww()</property>
+    <property name="email" type="String">$!account.getBank().getCompany().getEmail()</property>
+    <property name="phone1" type="String">$!account.getBank().getCompany().getPhoneNumber1()</property>
+    <property name="phone2" type="String">$!account.getBank().getCompany().getPhoneNumber2()</property>
+    <property name="phone3" type="String">$!account.getBank().getCompany().getPhoneNumber3()</property>
+    <property name="street" type="String">$!account.getBank().getCompany().getAddress().getStreet()</property>
+    <property name="houseNumber" type="String">$!account.getBank().getCompany().getAddress().getHouseNumber()</property>
+    <property name="flatNumber" type="String">$!account.getBank().getCompany().getAddress().getFlatNumber()</property>
+    <property name="postalCode" type="String">$!account.getBank().getCompany().getAddress().getPostalCode()</property>
+    <property name="city" type="String">$!account.getBank().getCompany().getAddress().getCity()</property>
+</entity>
