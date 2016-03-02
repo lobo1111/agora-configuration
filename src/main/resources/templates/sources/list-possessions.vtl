@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<possessions>
-    #foreach($possession in $possessions)
-        <item>
-            <possessionId>$!possession.getId()</possessionId>
-            <possessionStreet>$!possession.getAddress().getStreet()</possessionStreet>
-            <possessionHouseNumber>$!possession.getAddress().getHouseNumber()</possessionHouseNumber>
-            <possessionFlatNumber>$!possession.getAddress().getFlatNumber()</possessionFlatNumber>
-            <possessionArea>$!possession.getArea().floatValue()</possessionArea>
-            <owners>$!possession.getOwnersAsString()</owners>
-        </item>
-    #end
-        <settings>
-            <maxResults>$countRows</maxResults>
-        </settings>
-</possessions>
+<entity name="possessions">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $possessions)
+        <entity name="possession">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="street" type="String">$!row.getAddress().getStreet()</property>
+            <property name="houseNumber" type="String">$!row.getAddress().getHouseNumber()</property>
+            <property name="flatNumber" type="String">$!row.getAddress().getFlatNumber()</property>
+            <property name="postalCode" type="String">$!row.getAddress().getPostalCode()</property>
+            <property name="city" type="String">$!row.getAddress().getCity()</property>
+        </entity>
+        #end
+    </list>
+</entity>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<simple-double-response>
+<entity name="simple-double-response">
     #if($!response)
-    <value>$!response</value>
+    <property name="value" type="Double">$!response</property>
     #else
-    <value>0.0</value>
+    <property name="value" type="Double">0.0</property>
     #end
-</simple-double-response>
+</entity>

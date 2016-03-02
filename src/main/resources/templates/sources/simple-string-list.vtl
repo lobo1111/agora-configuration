@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<string-list>
-    #foreach($row in $list)
-        <item>$row</item>
-    #end
-</string-list>
+<entity name="simple-string-list">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $items)
+        <entity name="item">
+            <property name="item" type="String">$row</property>
+        </entity>
+        #end
+    </list>
+</entity>

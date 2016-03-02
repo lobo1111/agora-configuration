@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<zpks>
-    #foreach($row in $zpks)
-    <item>
-        <id>$!row.getId()</id>
-        <number>$!row.getType().getKey()-$!row.getNumber()</number>
-        #if($!row.getAccount())
-            <description>$!row.getAccount().getNumber()</description>
+<entity name="zpks">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $zpks)
+        <entity name="zpk">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="number" type="String">$!row.getType().getKey()-$!row.getNumber()</property>
+            <property name="credit" type="String">$row.getCurrentBalance().getCredit()</property>
+            <property name="debit" type="String">$row.getCurrentBalance().getDebit()</property>
+            #if($!row.getAccount())
+            <property name="description" type="String">$!row.getAccount().getNumber()</property>
+            #end
+            #if($!row.getPossession())
+            <property name="description" type="String">$!row.getPossession().getFullAddress()</property>
+            #end
+            #if($!row.getContractor())
+            <property name="description" type="String">$!row.getContractor().getName()</property>
+            #end
+        </entity>
         #end
-        #if($!row.getPossession())
-            <description>$!row.getPossession().getFullAddress()</description>
-        #end
-        #if($!row.getContractor())
-            <description>$!row.getContractor().getName()</description>
-        #end
-        <credit>$row.getCurrentBalance().getCredit()</credit>
-        <debit>$row.getCurrentBalance().getDebit()</debit>
-    </item>
-    #end
-    <settings>
-        <maxResults>$countRows</maxResults>
-    </settings>
-</zpks>
+    </list>
+</entity>

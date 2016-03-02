@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<companies>
-    #foreach($company in $companies)
-    <item>
-        <id>$!company.getId()</id>
-        <name>$!company.getName()</name>
-        <nip>$!company.getNip()</nip>
-        <street>$!company.getAddress().getStreet()</street>
-        <houseNumber>$!company.getAddress().getHouseNumber()</houseNumber>
-        <flatNumber>$!company.getAddress().getFlatNumber()</flatNumber>
-        <postalCode>$!company.getAddress().getFlatNumber()</postalCode>
-        <city>$!company.getAddress().getFlatNumber()</city>
-    </item>
-    #end
-    <settings>
-        <maxResults>$countRows</maxResults>
-    </settings>
-</companies>
+<entity name="companies">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $companies)
+        <entity name="company">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="name" type="String">$!row.getName()</property>
+            <property name="nip" type="String">$!row.getNip()</property>
+            <property name="street" type="String">$!row.getAddress().getStreet()</property>
+            <property name="houseNumber" type="String">$!row.getAddress().getHouseNumber()</property>
+            <property name="flatNumber" type="String">$!row.getAddress().getFlatNumber()</property>
+            <property name="postalCode" type="String">$!row.getAddress().getPostalCode()</property>
+            <property name="city" type="String">$!row.getAddress().getCity()</property>
+        </entity>
+        #end
+    </list>
+</entity>

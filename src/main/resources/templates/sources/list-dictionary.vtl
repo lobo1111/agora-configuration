@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<dictionary-list>
-    #foreach($row in $items)
-    <item>
-        <id>$!row.getId()</id>
-        <key>$!row.getKey()</key>
-        <value>$!row.getValue()</value>
-    </item>
-    #end
-    <settings>
-        <maxResults>$countRows</maxResults>
-    </settings>
-</dictionary-list>
+<entity name="dictionary-list">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $items)
+        <entity name="dictionary">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="key" type="String">$!row.getKey()</property>
+            <property name="value" type="String">$!row.getValue()</property>
+        </entity>
+        #end
+    </list>
+</entity>

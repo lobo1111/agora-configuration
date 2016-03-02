@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<elements>
-    #foreach($item in $items)
-    <item>
-        <id>$!item.getId()</id>
-        <group>$!item.getGroup().getValue()</group>
-        <name>$!item.getName()</name>
-        <value>$!item.getGlobalValue()</value>
-        #if($!item.isDefaultElement())
-            <defaultElement>Tak</defaultElement>
-        #{else}
-            <defaultElement>Nie</defaultElement>
+<entity name="elements">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $items)
+        <entity name="element-algorithm">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="group" type="String">$!row.getGroup().getValue()</property>
+            <property name="name" type="String">$!row.getName()</property>
+            <property name="value" type="String">$!row.getGlobalValue()</property>
+            #if($!item.isDefaultElement())
+            <property name="defaultElement" type="String">Tak</property>
+            #else
+            <property name="defaultElement" type="String">Nie</property>
+            #end
+        </entity>
         #end
-    </item>
-    #end
-    <settings>
-        <maxResults>$countRows</maxResults>
-    </settings>
-</elements>
-
+    </list>
+</entity>

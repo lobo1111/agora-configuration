@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<global-element>
-    <id>$!entity.getId()</id>
-    <group>$!entity.getGroup().getValue()</group>
-    <name>$!entity.getName()</name>
-    <value>$!entity.getGlobalValue()</value>
+<entity name="global-element">
+    <property name="id" type="Integer">$!entity.getId()</property>
+    <property name="group" type="String">$!entity.getGroup().getValue()</property>
+    <property name="name" type="String">$!entity.getName()</property>
+    <property name="value" type="String">$!entity.getGlobalValue()</property>
     #if($!entity.isDefaultElement())
-    <defaultElement>1</defaultElement>
+    <property name="defaultElement" type="Boolean">1</property>
     #else
-    <defaultElement>0</defaultElement>
+    <property name="defaultElement" type="String">0</property>
     #end
-    <algorithm>$!entity.getAlgorithm().getName()</algorithm>
-</global-element>
+    <property name="algorithm" type="String">$!entity.getAlgorithm().getName()</property>
+</entity>

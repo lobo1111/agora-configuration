@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<list>
-    #foreach($row in $list)
-        <item>
-            <id>$row.getId()</id>
-            <label>$row.getLabel()</label>
-        </item>
-    #end
-</list>
+<entity name="simple-list">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $items)
+        <entity name="element">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="label" type="String">$row.getLabel()</property>
+        </entity>
+        #end
+    </list>
+</entity>
