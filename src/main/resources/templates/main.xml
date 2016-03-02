@@ -561,7 +561,7 @@
                     Community community
                     WHERE {:where}
                     ORDER BY 
-                    community.outDate ASC community.name ASC
+                    community.outDate ASC, community.name ASC
                 </data>
             </var>
         </variables>
