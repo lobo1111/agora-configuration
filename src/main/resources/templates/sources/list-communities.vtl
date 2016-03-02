@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<communities>
-    #foreach($community in $communities)
-        <item>
-            <id>$!community.getId()</id>
-            <name>$!community.getName()</name>
-            <inDate>$!community.getFormattedInDate()</inDate>
-            <outDate>$!community.getFormattedOutDate()</outDate>
-        </item>
-    #end
-        <settings>
-            <maxResults>$countRows</maxResults>
-        </settings>
-</communities>
+<entity name="communities">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $communities)
+        <entity name="account">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="name" type="String">$!row.getName()</property>
+            <property name="inDate" type="String">$!row.getFormattedInDate()</property>
+            <property name="outDate" type="String">$!row.getFormattedInDate()</property>
+        </entity>
+        #end
+    </list>
+</entity>
