@@ -41,6 +41,7 @@ class ContractorManager(Container):
             contractor.setDisabled(False)
             contractor.setCompany(company)
             contractor.setName(company.getName())
+        contractor.setDisabled(False)
         return contractor
     
     def findContractor(self, contractors):

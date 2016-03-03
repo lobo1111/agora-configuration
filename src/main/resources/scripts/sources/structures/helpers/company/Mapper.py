@@ -15,7 +15,7 @@ class CompanyMapper(Mapper):
         return self._entity
         
     def findOrCreate(self):
-        if self._svars.get('id') != '0':
+        if int(self._svars.get('id')) > 0:
             self._logger.info("Company lookup - found id: %s" % self._svars.get('id'))
             self._entity = self.findById("Company", int(self._svars.get('id')))
         else:
