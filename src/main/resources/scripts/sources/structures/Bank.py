@@ -9,10 +9,13 @@ class BankManager(Container):
     exists it's created.
     '''
     def getBankFromAccountNumber(self, number):
-        bankCode = number[2:6]
-        bank = self.findBy('Bank', 'key', '"' + bankCode + '"')
-        if bank == None:
-            bank = Bank()
-            bank.setKey(bankCode)
-        CompanyManager().set(bank)
-        return bank
+        if len(number > 5) :
+            bankCode = number[2:6]
+            bank = self.findBy('Bank', 'key', '"' + bankCode + '"')
+            if bank == None:
+                bank = Bank()
+                bank.setKey(bankCode)
+            CompanyManager().set(bank)
+            return bank
+        else:
+            return None
