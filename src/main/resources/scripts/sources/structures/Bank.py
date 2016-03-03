@@ -9,7 +9,7 @@ class BankManager(Container):
     exists it's created.
     '''
     def getBankFromAccountNumber(self, number):
-        if len(number > 5) :
+        if len(number) > 5:
             bankCode = number[2:6]
             bank = self.findBy('Bank', 'key', '"' + bankCode + '"')
             if bank == None:
