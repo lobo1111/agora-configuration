@@ -4,10 +4,6 @@
     <property name="group" type="String">$!entity.getGroup().getValue()</property>
     <property name="name" type="String">$!entity.getName()</property>
     <property name="value" type="String">$!entity.getGlobalValue()</property>
-    #if($!entity.isDefaultElement())
-    <property name="defaultElement" type="Boolean">1</property>
-    #else
-    <property name="defaultElement" type="String">0</property>
-    #end
+    <property name="defaultElement" type="Boolean">$!entity.isDefaultElement()</property>
     <property name="algorithm" type="String">$!entity.getAlgorithm().getName()</property>
 </entity>
