@@ -415,7 +415,7 @@
         <source>simple-list.vtl</source>
         <variables>
             <var>
-                <name>list</name>
+                <name>items</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
                     dic.id, dic.value)
