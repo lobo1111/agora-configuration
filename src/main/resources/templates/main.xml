@@ -519,14 +519,14 @@
                 <name>items</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    pa.id, pa.key)
+                    dic.id, dic.key)
                     FROM 
-                    Dictionary pa
+                    Dictionary dic
                     WHERE
-                    pa.type.type = \'ELEMENT_ALGORITHMS\'
+                    dic.type.type = \'ELEMENT_ALGORITHMS\'
                     AND {:where}
                     ORDER BY 
-                    pa.key ASC
+                    dic.key ASC
                 </data>
             </var>
         </variables>
