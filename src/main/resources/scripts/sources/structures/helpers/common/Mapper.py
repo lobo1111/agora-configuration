@@ -17,5 +17,8 @@ class Mapper(Container):
     def get(self, property):
         return self._svars.get(property)
     
+    def hasAttribute(self, attributeName):
+        return attributeName in self._svars
+    
     def getEntity(self):
         return self._entity

@@ -71,13 +71,12 @@ class AccountManager(Container):
             It's required to trigger that also for new structures in case
             that newly create account is a functional account of type that
             is already in use in the collection.
+            ZpkManager creates only missing ZPKs.
             '''
             if mapper.typeChanged() or mapper.isNew():
                 TypeChangedFlow(mapper).trigger()
-            '''
-            Creates missing ZPK accounts
-            '''
-            ZpkManager().createZpksForAccount(mapper.getEntity())
+                ZpkManager().createZpksForAccount(mapper.getEntity())
+
             self.saveEntity(mapper.getEntity())
         except ValidationError, error:
             self.setError(error)
