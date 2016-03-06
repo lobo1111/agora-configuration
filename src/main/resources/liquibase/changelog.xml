@@ -2061,4 +2061,10 @@
             DROP TABLE `payment_algorithm`
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='element-algorithms-migration-not-null'>
+        <sql>                   
+            ALTER TABLE `element` MODIFY `element_algorithm_id` int(11) NOT NULL
+        </sql>
+    </changeSet>
 </databaseChangeLog> 

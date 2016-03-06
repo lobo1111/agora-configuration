@@ -36,9 +36,9 @@ public class Element implements Serializable {
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     @ManyToOne
     private Dictionary group;
-    @JoinColumn(name = "algorithm_id", referencedColumnName = "id")
+    @JoinColumn(name = "element_algorithm_id", referencedColumnName = "id")
     @ManyToOne
-    private PaymentAlgorithm algorithm;
+    private Dictionary algorithm;
     @Column(name = "global_value")
     private double globalValue;
     @Column(name = "default_element")
@@ -56,11 +56,11 @@ public class Element implements Serializable {
         this.defaultElement = defaultElement;
     }
 
-    public PaymentAlgorithm getAlgorithm() {
+    public Dictionary getAlgorithm() {
         return algorithm;
     }
 
-    public void setAlgorithm(PaymentAlgorithm algorithm) {
+    public void setAlgorithm(Dictionary algorithm) {
         this.algorithm = algorithm;
     }
 
