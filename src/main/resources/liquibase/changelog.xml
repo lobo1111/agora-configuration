@@ -2048,4 +2048,17 @@
             (SELECT `dictionary`.id FROM `dictionary` JOIN `payment_algorithm` ON(`dictionary`.dictionaryKey = `payment_algorithm`.name) WHERE `element`.algorithm_id = `payment_algorithm`.id)
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='element-algorithm-as-dict-column-drop'>
+        <sql>                   
+            ALTER TABLE `element`
+            DROP COLUMN `algorithm_id`
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='payment_algorithm-drop-table'>
+        <sql>                   
+            DROP TABLE `payment_algorithm`
+        </sql>
+    </changeSet>
 </databaseChangeLog> 
