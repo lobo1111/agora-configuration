@@ -2021,7 +2021,14 @@
         </sql>
     </changeSet>
     
-        <changeSet author='tkopacki' id='element-algorithm-as-dict-column'>
+    <changeSet author='tkopacki' id='element-algorithm-as-dict-column-key-drop'>
+        <sql>
+            ALTER TABLE `element`
+            DROP FOREIGN KEY `element_algorithm_id_fkey` 
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='element-algorithm-as-dict-column'>
         <sql>                   
             ALTER TABLE `element`
             ADD COLUMN `element_algorithm_id` int(11)
