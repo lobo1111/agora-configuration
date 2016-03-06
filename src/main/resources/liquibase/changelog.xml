@@ -1735,7 +1735,6 @@
             DROP COLUMN `account_id`
         </sql>
     </changeSet>
-    
         
     <changeSet author='tkopacki' id='bank-credit-charge-default-account'>
         <sql>                   
@@ -2019,6 +2018,27 @@
         <sql>
             INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
             SELECT dt.id, pa.name, pa.algorithm FROM `payment_algorithm` AS pa JOIN dictionary_type AS dt WHERE dt.type = 'ELEMENT_ALGORITHMS';
+        </sql>
+    </changeSet>
+    
+        <changeSet author='tkopacki' id='element-algorithm-as-dict-column'>
+        <sql>                   
+            ALTER TABLE `element`
+            ADD COLUMN `element_algorithm_id` int(11)
+        </sql>
+    </changeSet>
+
+    <changeSet author='tkopacki' id='element-algorithm-as-dict-column-key'>
+        <sql>       
+            ALTER TABLE `element`
+            ADD CONSTRAINT `element_algorithm_id_fkey` FOREIGN KEY (`element_algorithm_id`) REFERENCES `dictionary` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='element-algorithms-migration'>
+        <sql>
+            UPDATE `element` SET `element_algorithm_id` =
+            (SELECT id FROM `dictionary` JOIN `payment_algorithm` ON(`dictionart`.dictionaryKey = `payment_algorithm`.name) WHERE `element`.algorithm.id = `payment_algorithm`.id)
         </sql>
     </changeSet>
 </databaseChangeLog> 
