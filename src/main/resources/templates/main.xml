@@ -439,9 +439,11 @@
                 <data>
                     SELECT pa
                     FROM 
-                    PaymentAlgorithm pa
+                    Dictionary pa
+                    WHERE
+                    pa.type.type = \'ELEMENT_ALGORITHMS\'
                     ORDER BY 
-                    pa.name ASC
+                    pa.dictionaryKey ASC
                 </data>
             </var>
             <var>
@@ -451,7 +453,9 @@
                     SELECT
                     count(pa.id)
                     FROM 
-                    PaymentAlgorithm pa
+                    Dictionary pa
+                    WHERE
+                    pa.type.type = \'ELEMENT_ALGORITHMS\'
                 </data>
             </var>
         </variables>
@@ -515,13 +519,14 @@
                 <name>items</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    dic.id, dic.name)
+                    dic.id, dic.dictionaryType)
                     FROM 
-                    PaymentAlgorithm dic
+                    Dictionary pa
                     WHERE
-                    {:where}
+                    pa.type.type = \'ELEMENT_ALGORITHMS\'
+                    AND {:where}
                     ORDER BY 
-                    dic.name ASC
+                    dic.dictionaryType ASC
                 </data>
             </var>
         </variables>

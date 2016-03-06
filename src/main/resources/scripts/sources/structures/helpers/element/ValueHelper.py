@@ -1,3 +1,5 @@
+from base.Container import Container
+
 class ValueHelper(Container):
     
     def getValue(self, element):

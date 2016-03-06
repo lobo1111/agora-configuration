@@ -1,3 +1,6 @@
+from base.Container import Container
+from pl.reaper.container.data import ElementCommunity
+
 class DefaultElementsHelper(Container):
     
     def createDefaultElementsForCommunity(self, community):

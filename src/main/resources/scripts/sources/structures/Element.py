@@ -1,4 +1,7 @@
 from base.Container import Container
+from structures.helpers.element.DefaultElementsHelper import DefaultElementsHelper
+from structures.helpers.element.Mapper import ElementMapper
+from structures.helpers.element.ValueHelper import ValueHelper
 
 '''
 ELEMENT HIERARCHY:

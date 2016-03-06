@@ -5,7 +5,7 @@
         #foreach($row in $items)
         <entity name="element-algorithm">
             <property name="id" type="Integer">$row.getId()</property>
-            <property name="name" type="String">$!row.getName()</property>
+            <property name="name" type="String">$!row.getDictionaryKey()</property>
         </entity>
         #end
     </list>

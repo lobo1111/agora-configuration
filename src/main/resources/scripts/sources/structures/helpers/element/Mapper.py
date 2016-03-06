@@ -1,3 +1,11 @@
+from pl.reaper.container.data import Element
+from pl.reaper.container.data import ElementCommunity
+from pl.reaper.container.data import ElementPossession
+from structures.helpers.common.Mapper import Mapper
+from structures.validators.DictionaryValidator import DictionaryValidator
+from structures.validators.LengthValidator import LengthValidator
+from structures.validators.DecimalValidator import DecimalValidator
+
 class ElementMapper(Mapper):
     
     def initStructure(self):
