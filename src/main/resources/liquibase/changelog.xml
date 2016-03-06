@@ -2045,7 +2045,7 @@
     <changeSet author='tkopacki' id='element-algorithms-migration'>
         <sql>
             UPDATE `element` SET `element_algorithm_id` =
-            (SELECT `dictionary`.id FROM `dictionary` JOIN `payment_algorithm` ON(`dictionart`.dictionaryKey = `payment_algorithm`.name) WHERE `element`.algorithm_id = `payment_algorithm`.id)
+            (SELECT `dictionary`.id FROM `dictionary` JOIN `payment_algorithm` ON(`dictionary`.dictionaryKey = `payment_algorithm`.name) WHERE `element`.algorithm_id = `payment_algorithm`.id)
         </sql>
     </changeSet>
 </databaseChangeLog> 
