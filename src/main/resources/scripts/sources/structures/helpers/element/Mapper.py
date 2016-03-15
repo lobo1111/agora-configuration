@@ -15,7 +15,7 @@ class ElementMapper(Mapper):
             self._isNew = False
         else:
             self._logger.info("Element persist - it's a new element")
-            self._entity = self.initEntity(int(self.get('type')))
+            self._entity = self.initEntity(self.get('type'))
             self._isNew = True
             
     def setData(self):
