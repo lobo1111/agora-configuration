@@ -335,9 +335,9 @@
                     element
                     FROM 
                     Element element
-                    Join element.group group
+                    Join element.group elgroup
                     WHERE {:where}
-                    ORDER BY group.value ASC, element.name ASC
+                    ORDER BY elgroup.value ASC, element.name ASC
                 </data>
             </var>
             <var>
@@ -348,7 +348,7 @@
                     count(element.id)
                     FROM 
                     Element element
-                    Join element.group group
+                    Join element.group elgroup
                     WHERE {:where}
                 </data>
             </var>
@@ -366,10 +366,10 @@
                     element
                     FROM 
                     ElementCommunity element
-                    Join element.group group
+                    Join element.group elgroup
                     Join element.community community
                     WHERE {:where}
-                    ORDER BY group.value ASC, element.name ASC
+                    ORDER BY elgroup.value ASC, element.name ASC
                 </data>
             </var>
             <var>
@@ -380,7 +380,7 @@
                     count(element.id)
                     FROM 
                     ElementCommunity element
-                    Join element.group group
+                    Join element.group elgroup
                     Join element.community community
                     WHERE {:where}
                 </data>
