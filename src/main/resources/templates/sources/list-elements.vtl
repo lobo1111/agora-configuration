@@ -8,7 +8,7 @@
             <property name="group" type="String">$!row.getGroup().getValue()</property>
             <property name="name" type="String">$!row.getName()</property>
             <property name="value" type="String">$!row.getGlobalValue()</property>
-            #if($!item.isDefaultElement())
+            #if($!row.isDefaultElement())
             <property name="defaultElement" type="String">Tak</property>
             #else
             <property name="defaultElement" type="String">Nie</property>
