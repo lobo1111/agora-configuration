@@ -11,7 +11,7 @@ class Mapper(Container):
         getattr(self._entity, methodName)(self._svars.get(propertyName))
         
     def mapDictionary(self, propertyName, dictionaryValidator):
-        entity = dictionaryValidator.validate(self._svars.get(self._svars.get(propertyName + 'Id')))
+        entity = dictionaryValidator.validate(self._svars.get(propertyName + 'Id'))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         getattr(self._entity, methodName)(entity)
         
