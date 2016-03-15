@@ -21,7 +21,7 @@ class AccountMapper(Mapper):
         self._newType = DictionaryValidator(dictionary="ACCOUNT_TYPE", messageParameter="Typ konta").validate(self._svars.get('accountType'))
         
     def setData(self):
-        self.map("number", [LengthValidator(minLength=26, maxLength=26, messageParameter="Numer konta")])
+        self.map("number", [LengthValidator(minLength=26, maxLength=26, messageParameter=self._label.get('field.accountNumber'))])
         self.setCommunity()
         self.mapType()
         

@@ -5,6 +5,7 @@ import sys
 
 class Container:
     _logger = Logger()
+    _label = LabelManager()
     
     def __init__(self):
         self._svars = helpers.svars

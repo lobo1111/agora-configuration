@@ -2,9 +2,9 @@ from pl.reaper.container.data import Element
 from pl.reaper.container.data import ElementCommunity
 from pl.reaper.container.data import ElementPossession
 from structures.helpers.common.Mapper import Mapper
+from structures.validators.DecimalValidator import DecimalValidator
 from structures.validators.DictionaryValidator import DictionaryValidator
 from structures.validators.LengthValidator import LengthValidator
-from structures.validators.DecimalValidator import DecimalValidator
 
 class ElementMapper(Mapper):
     
@@ -20,13 +20,13 @@ class ElementMapper(Mapper):
             
     def setData(self):
         if self.hasAttribute("algorithm"):
-            self.map("algorithm", [DictionaryValidator(dictionary="ELEMENT_ALGORITHMS", messageParameter="Algorytm")])
+            self.map("algorithm", [DictionaryValidator(dictionary="ELEMENT_ALGORITHMS", messageParameter = self._label.get('field.algorithm'))])
         if self.hasAttribute("group"):
-            self.map("group", [DictionaryValidator(dictionary="ELEMENTS", messageParameter="Grupa")])
+            self.map("group", [DictionaryValidator(dictionary="ELEMENTS", messageParameter=self._label.get('field.group'))])
         if self.hasAttribute("name"):
-            self.map("name", [LengthValidator(minLength=1, maxLength=255, messageParameter="Nazwa składnika")])
+            self.map("name", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.elementName'))])
         if self.hasAttribute("globalValue"):
-            self.map("globalValue", [DecimalValidator(messageParameter="Wartość")])
+            self.map("globalValue", [DecimalValidator(messageParameter=self._label.get('field.value'))])
         if self.hasAttribute("defaultElement"):
             self.map("defaultElement")
         if self.hasAttribute("overrideParentValue"):

@@ -24,12 +24,12 @@ class CompanyMapper(Mapper):
         return self._entity
         
     def setData(self):
-        self.map("name", [LengthValidator(minLength = 1, maxLength = 150, messageParameter = "Nazwa firmy")])
-        self.map("nip", [LengthValidator(maxLength = 150, messageParameter = "NIP")])
-        self.map("regon", [LengthValidator(maxLength = 150, messageParameter = "REGON")])
-        self.map("email", [LengthValidator(maxLength = 150, messageParameter = "e-mail")])
-        self.map("www", [LengthValidator(maxLength = 150, messageParameter = "WWW")])
-        self.map("phoneNumber1", [LengthValidator(maxLength = 150, messageParameter = "Numer telefonu 1")])
-        self.map("phoneNumber2", [LengthValidator(maxLength = 150, messageParameter = "Numer telefonu 2")])
-        self.map("phoneNumber3", [LengthValidator(maxLength = 150, messageParameter = "Numer telefonu 3")])
+        self.map("name", [LengthValidator(minLength = 1, maxLength = 150, messageParameter = self._label.get('field.companyName'))])
+        self.map("nip", [LengthValidator(maxLength = 150, messageParameter = self._label.get('field.nip'))])
+        self.map("regon", [LengthValidator(maxLength = 150, messageParameter = self._label.get('field.regon'))])
+        self.map("email", [LengthValidator(maxLength = 150, messageParameter = self._label.get('field.email'))])
+        self.map("www", [LengthValidator(maxLength = 150, messageParameter = self._label.get('field.www'))])
+        self.map("phoneNumber1", [LengthValidator(maxLength = 150, messageParameter = self._label.get('field.phoneNumber1'))])
+        self.map("phoneNumber2", [LengthValidator(maxLength = 150, messageParameter = self._label.get('field.phoneNumber2'))])
+        self.map("phoneNumber3", [LengthValidator(maxLength = 150, messageParameter = self._label.get('field.phoneNumber3'))])
         AddressManager().set(self._entity)
