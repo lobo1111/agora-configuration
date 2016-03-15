@@ -368,7 +368,7 @@
                     ElementCommunity element
                     Join element.element globalElement
                     Join globalElement.group elgroup
-                    Join globalElement.community community
+                    Join element.community community
                     WHERE {:where}
                     ORDER BY elgroup.value ASC, element.name ASC
                 </data>
@@ -383,7 +383,7 @@
                     ElementCommunity element
                     Join element.element globalElement
                     Join globalElement.group elgroup
-                    Join globalElement.community community
+                    Join element.community community
                     WHERE {:where}
                 </data>
             </var>
