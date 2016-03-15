@@ -5,9 +5,9 @@ class Mapper(Container):
     _label = LabelManager()
 
     def map(self, propertyName, validators):
-            for validator in validators:
-                validator.validate(self._svars.get(propertyName))
-            methodName = "set" + propertyName[0].upper() + propertyName[1:]
+        for validator in validators:
+            validator.validate(self._svars.get(propertyName))
+        methodName = "set" + propertyName[0].upper() + propertyName[1:]
         try:
             getattr(self._entity, methodName)(self._svars.get(propertyName))
         except TypeError:
