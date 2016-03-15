@@ -1,6 +1,9 @@
 from base.Container import Container
+from helpers.Label import LabelManager
 
 class Mapper(Container):
+    _label = LabelManager()
+
     def map(self, propertyName, validators):
         for validator in validators:
             validator.validate(self._svars.get(propertyName))

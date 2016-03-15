@@ -1,12 +1,10 @@
 from base.Logger import Logger
-from helpers.Label import LabelManager
 import helpers
 from java.text import SimpleDateFormat
 import sys
 
 class Container:
     _logger = Logger()
-    _label = LabelManager()
     
     def __init__(self):
         self._svars = helpers.svars
