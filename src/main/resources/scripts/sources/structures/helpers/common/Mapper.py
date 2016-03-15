@@ -8,10 +8,14 @@ class Mapper(Container):
         for validator in validators:
             validator.validate(self._svars.get(propertyName))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
-        try:
+        if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleIntegerProperty':
+            getattr(self._entity, methodName)(int(self._svars.get(propertyName)))
+        if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleStringProperty':
             getattr(self._entity, methodName)(self._svars.get(propertyName))
-        except TypeError:
+        if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleDoubleProperty':
             getattr(self._entity, methodName)(float(self._svars.get(propertyName)))
+        if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleBooleanProperty':
+            getattr(self._entity, methodName)(self._svars.get(propertyName) == 'true')
             
         
     def mapDictionary(self, propertyName, dictionaryValidator):
