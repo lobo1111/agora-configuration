@@ -1,4 +1,3 @@
-from structures.Dictionary import DictionaryManager
 from structures.validators.common.Validator import Validator
 from structures.validators.common.ValidationError import ValidationError
 
@@ -9,12 +8,13 @@ class DictionaryValidator(Validator):
         self._dictionary = dictionary
         self._messageParameter = messageParameter
         
-    def validate(self, attribute):
-        try:
-            dict = DictionaryManager().findByValue(self._dictionary, attribute)
+    def validate(self, attributeId):
+        dict = self.findById("Dictionary", attributeId)
+        if dict != None and dict.getType().getType() == self._dictionary:
             self._logger.info("Validation passed:")
             self._logger.info("attribute - %s" % (self._messageParameter))
             return dict
-        except:
+        else:
             raise ValidationError(self._label.get(self._message) % (self._messageParameter))
+
         

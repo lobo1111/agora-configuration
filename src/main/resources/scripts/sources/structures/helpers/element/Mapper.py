@@ -20,9 +20,9 @@ class ElementMapper(Mapper):
             
     def setData(self):
         if self.hasAttribute("algorithm"):
-            self.map("algorithm", [DictionaryValidator(dictionary="ELEMENT_ALGORITHMS", messageParameter = self._label.get('field.algorithm'))])
+            self.mapDictionary("algorithm", [DictionaryValidator(dictionary="ELEMENT_ALGORITHMS", messageParameter = self._label.get('field.algorithm'))])
         if self.hasAttribute("group"):
-            self.map("group", [DictionaryValidator(dictionary="ELEMENTS", messageParameter=self._label.get('field.group'))])
+            self.mapDictionary("group", [DictionaryValidator(dictionary="ELEMENTS", messageParameter=self._label.get('field.group'))])
         if self.hasAttribute("name"):
             self.map("name", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.elementName'))])
         if self.hasAttribute("globalValue"):

@@ -18,7 +18,7 @@ class AccountMapper(Mapper):
         self.cacheNewType()
         
     def cacheNewType(self):
-        self._newType = DictionaryValidator(dictionary="ACCOUNT_TYPE", messageParameter="Typ konta").validate(self._svars.get('accountType'))
+        self._newType = DictionaryValidator(dictionary="ACCOUNT_TYPE", messageParameter="Typ konta").validate(self._svars.get('accountTypeId'))
         
     def setData(self):
         self.map("number", [LengthValidator(minLength=26, maxLength=26, messageParameter=self._label.get('field.accountNumber'))])

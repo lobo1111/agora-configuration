@@ -10,6 +10,11 @@ class Mapper(Container):
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         getattr(self._entity, methodName)(self._svars.get(propertyName))
         
+    def mapDictionary(self, propertyName, dictionaryValidator):
+        entity = dictionaryValidator.validate(self._svars.get(self._svars.get(propertyName + 'Id')))
+        methodName = "set" + propertyName[0].upper() + propertyName[1:]
+        getattr(self._entity, methodName)(entity)
+        
     def setCommunity(self):
         community = self.findById("Community", self._svars.get("communityId"))
         self._entity.setCommunity(community)
