@@ -75,6 +75,14 @@ public class ElementCommunity implements Serializable {
         return globalValue;
     }
 
+    public double calculateGlobalValue() {
+        if (isOverrideParentValue()) {
+            return globalValue;
+        } else {
+            return element.calculateGlobalValue();
+        }
+    }
+
     public void setGlobalValue(double globalValue) {
         this.globalValue = globalValue;
     }

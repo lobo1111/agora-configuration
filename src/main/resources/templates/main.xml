@@ -353,6 +353,35 @@
         </variables>
     </template>
     <template>
+        <name>list-community-elements</name>
+        <source>list-elements.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    element
+                    FROM 
+                    ElementCommunity element
+                    WHERE {:where}
+                    ORDER BY element.key ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(element.id)
+                    FROM 
+                    ElementCommunity element
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-companies</name>
         <source>list-companies.vtl</source>
         <variables>

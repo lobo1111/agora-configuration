@@ -7,7 +7,7 @@
             <property name="id" type="Integer">$row.getId()</property>
             <property name="group" type="String">$!row.getGroup().getValue()</property>
             <property name="name" type="String">$!row.getName()</property>
-            <property name="value" type="String">$!row.getGlobalValue()</property>
+            <property name="value" type="String">$!row.calculateGlobalValue()</property>
             #if($!row.isDefaultElement())
             <property name="defaultElement" type="String">Tak</property>
             #else

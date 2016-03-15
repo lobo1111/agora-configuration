@@ -100,6 +100,10 @@ public class Element implements Serializable {
         return globalValue;
     }
 
+    public double calculateGlobalValue() {
+        return globalValue;
+    }
+
     public void setGlobalValue(double globalValue) {
         this.globalValue = globalValue;
     }
