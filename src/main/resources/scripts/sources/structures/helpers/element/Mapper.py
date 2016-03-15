@@ -27,9 +27,9 @@ class ElementMapper(Mapper):
             self.map("name", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.elementName'))])
         if self.hasAttribute("globalValue"):
             self.map("globalValue", [DecimalValidator(messageParameter=self._label.get('field.value'))])
-        if self.hasAttribute("defaultElement"):
+        if self.hasAttribute("defaultElement", []):
             self.map("defaultElement")
-        if self.hasAttribute("overrideParentValue"):
+        if self.hasAttribute("overrideParentValue", []):
             self.map("overrideParentValue")
             
     def loadEntity(self, type, id):
