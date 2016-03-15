@@ -94,4 +94,12 @@ public class ElementCommunity implements Serializable {
     public void setPossessionsElements(Collection<ElementPossession> possessionsElements) {
         this.possessionsElements = possessionsElements;
     }
+    
+    public Dictionary getGroup() {
+        return element.getGroup();
+    }
+    
+    public String getName() {
+        return element.getName();
+    }
 }

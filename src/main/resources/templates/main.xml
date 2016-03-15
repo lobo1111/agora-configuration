@@ -370,7 +370,7 @@
                     Join globalElement.group elgroup
                     Join element.community community
                     WHERE {:where}
-                    ORDER BY elgroup.value ASC, element.name ASC
+                    ORDER BY elgroup.value ASC, globalElement.name ASC
                 </data>
             </var>
             <var>

@@ -93,4 +93,12 @@ public class ElementPossession implements Serializable {
     public void setGlobalValue(double globalValue) {
         this.globalValue = globalValue;
     }
+
+    public Dictionary getGroup() {
+        return element.getGroup();
+    }
+
+    public String getName() {
+        return element.getName();
+    }
 }
