@@ -2,9 +2,9 @@ from pl.reaper.container.data import Element
 from pl.reaper.container.data import ElementCommunity
 from pl.reaper.container.data import ElementPossession
 from structures.helpers.common.Mapper import Mapper
-from structures.validators.DecimalValidator import DecimalValidator
-from structures.validators.DictionaryValidator import DictionaryValidator
-from structures.validators.LengthValidator import LengthValidator
+from structures.validators.common.DecimalValidator import DecimalValidator
+from structures.validators.common.DictionaryValidator import DictionaryValidator
+from structures.validators.common.LengthValidator import LengthValidator
 
 class ElementMapper(Mapper):
     
