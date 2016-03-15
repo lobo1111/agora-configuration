@@ -364,6 +364,7 @@
                     element
                     FROM 
                     ElementCommunity element
+                    Join element.community community
                     WHERE {:where}
                     ORDER BY element.key ASC
                 </data>
@@ -376,6 +377,7 @@
                     count(element.id)
                     FROM 
                     ElementCommunity element
+                    Join element.community community
                     WHERE {:where}
                 </data>
             </var>
