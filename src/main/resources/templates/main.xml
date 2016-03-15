@@ -366,8 +366,9 @@
                     element
                     FROM 
                     ElementCommunity element
-                    Join element.group elgroup
-                    Join element.community community
+                    Join element.element globalElement
+                    Join globalElement.group elgroup
+                    Join globalElement.community community
                     WHERE {:where}
                     ORDER BY elgroup.value ASC, element.name ASC
                 </data>
@@ -380,8 +381,9 @@
                     count(element.id)
                     FROM 
                     ElementCommunity element
-                    Join element.group elgroup
-                    Join element.community community
+                    Join element.element globalElement
+                    Join globalElement.group elgroup
+                    Join globalElement.community community
                     WHERE {:where}
                 </data>
             </var>
