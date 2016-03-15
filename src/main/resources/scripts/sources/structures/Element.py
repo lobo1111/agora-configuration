@@ -2,6 +2,7 @@ from base.Container import Container
 from structures.helpers.element.DefaultElementsHelper import DefaultElementsHelper
 from structures.helpers.element.Mapper import ElementMapper
 from structures.helpers.element.ValueHelper import ValueHelper
+from structures.validators.common.ValidationError import ValidationError
 
 '''
 ELEMENT HIERARCHY:
@@ -35,10 +36,13 @@ class ElementManager(Container):
     attributes. In case of element every field can be changed.
     '''
     def persist(self):
-        mapper = ElementMapper()
-        mapper.initStructure()
-        mapper.setData()
-        self.saveEntity(mapper.getEntity())
+        try:
+            mapper = ElementMapper()
+            mapper.initStructure()
+            mapper.setData()
+            self.saveEntity(mapper.getEntity())
+        except ValidationError, error:
+            self.setError(error)
 
     '''
     For given community creates default Community Elements based on Element
