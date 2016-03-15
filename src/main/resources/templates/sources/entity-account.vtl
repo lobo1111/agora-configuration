@@ -2,7 +2,7 @@
 <entity name="account">
     <property name="id" type="Integer">$!account.getId()</property>
     <property name="number" type="String">$!account.getNumber()</property>
-    <property name="accountTypeId" type="String">$!account.getType().getValue()</property>
+    <property name="accountTypeId" type="Integer">$!account.getType().getValue()</property>
     <property name="accountType" type="String">$!account.getType().getValue()</property>
     <property name="name" type="String">$!account.getBank().getCompany().getName()</property>
     <property name="nip" type="String">$!account.getBank().getCompany().getNip()</property>
