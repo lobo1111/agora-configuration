@@ -19,6 +19,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-community-element</name>
+        <source>entity-community-element.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    ElementCommunity e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-default-booking-period</name>
         <source>entity-default-booking-period.vtl</source>
         <variables>

@@ -19,18 +19,14 @@ class ElementMapper(Mapper):
             self._isNew = True
             
     def setData(self):
-        if self.hasAttribute("algorithm"):
+        if self.get('type') == 'GLOBAL':
             self.mapDictionary("algorithm", DictionaryValidator(dictionary="ELEMENT_ALGORITHMS", messageParameter = self._label.get('field.algorithm')))
-        if self.hasAttribute("group"):
             self.mapDictionary("group", DictionaryValidator(dictionary="ELEMENTS", messageParameter=self._label.get('field.group')))
-        if self.hasAttribute("name"):
             self.map("name", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.elementName'))])
-        if self.hasAttribute("globalValue"):
-            self.map("globalValue", [DecimalValidator(messageParameter=self._label.get('field.value'))])
-        if self.hasAttribute("defaultElement"):
             self.map("defaultElement")
-        if self.hasAttribute("overrideParentValue"):
+        if self.get('type') == 'COMMUNITY' or self.get('type') == 'POSSESSION':
             self.map("overrideParentValue")
+        self.map("globalValue", [DecimalValidator(messageParameter=self._label.get('field.value'))])
             
     def loadEntity(self, type, id):
         if type == 'GLOBAL':
