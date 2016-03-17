@@ -32,14 +32,7 @@ class ElementMapper(Mapper):
             return None
         
     def getEntity(self):
-        print "!!!!!!!!!!!!!!"
-        print self._mapper._isNew
-        print self._mapper.getSpecializedMapper()
         if self._mapper._isNew and self._mapper.getSpecializedMapper() != None:
-            print "1111111111111111111111"
-            print self._mapper.getSpecializedMapper().getEntity()
             return self._mapper.getSpecializedMapper().getEntity()
         else:
-            print "2222222222222222222222"
-            print self._mapper.getEntity()
             return self._mapper.getEntity()

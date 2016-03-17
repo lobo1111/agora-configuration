@@ -30,7 +30,7 @@ public class ElementCommunity implements Serializable {
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Community community;
     @JoinColumn(name = "element_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Element element;
     @Column(name = "override_parent_value")
     private boolean overrideParentValue;

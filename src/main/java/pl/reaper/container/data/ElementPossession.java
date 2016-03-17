@@ -28,7 +28,7 @@ public class ElementPossession implements Serializable {
     @ManyToOne(optional = false)
     private Possession possession;
     @JoinColumn(name = "element_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Element element;
     @JoinColumn(name = "element_community_id", referencedColumnName = "id")
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
