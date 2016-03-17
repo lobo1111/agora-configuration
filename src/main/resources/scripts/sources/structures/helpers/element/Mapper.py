@@ -32,4 +32,7 @@ class ElementMapper(Mapper):
             return None
         
     def getEntity(self):
-        return self._mapper.getEntity()
+        if self._mapper._isNew and self._mapper.getSpecializedMapper() != None:
+            return self._mapper.getSpecializedMapper().getEntity()
+        else:
+            return self._mapper.getEntity()

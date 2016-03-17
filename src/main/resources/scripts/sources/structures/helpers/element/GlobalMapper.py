@@ -18,6 +18,9 @@ class GlobalMapper(Mapper):
     
     def setSpecializedMapper(self, specializedMapper):
         self._specializedMapper = specializedMapper
+        
+    def getSpecializedMapper(self):
+        return self._specializedMapper
     
     def setData(self):
         if self._specializedMapper != None:
