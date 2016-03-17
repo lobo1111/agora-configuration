@@ -8,7 +8,7 @@ class PossessionMapper(Mapper):
         self._entity = ElementPossession()
     
     def loadEntity(self):
-        self._entity = self.findById("ElementPossession", self_svars.get('id'))
+        self._entity = self.findById("ElementPossession", self._svars.get('id'))
     
     def setData(self):
         self.map("overrideParentValue")

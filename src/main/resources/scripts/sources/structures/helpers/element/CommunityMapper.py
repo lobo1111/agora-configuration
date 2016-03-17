@@ -8,7 +8,7 @@ class CommunityMapper(Mapper):
         self._entity = ElementCommunity()
     
     def loadEntity(self):
-        self._entity = self.findById("ElementCommunity", self_svars.get('id'))
+        self._entity = self.findById("ElementCommunity", self._svars.get('id'))
     
     def setData(self):
         self.map("overrideParentValue")
