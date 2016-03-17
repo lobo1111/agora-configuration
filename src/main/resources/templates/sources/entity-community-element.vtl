@@ -2,9 +2,11 @@
 <entity name="community-element">
     <property name="id" type="Integer">$!entity.getId()</property>
     <property name="group" type="String">$!entity.getElement().getGroup().getValue()</property>
+    <property name="groupId" type="Integer">$!entity.getElement().getGroup().getId()</property>
     <property name="name" type="String">$!entity.getElement().getName()</property>
     <property name="parentValue" type="Double">$!entity.getElement().getGlobalValue()</property>
     <property name="globalValue" type="Double">$!entity.getGlobalValue()</property>
     <property name="overrideParentValue" type="Boolean">$!entity.isOverrideParentValue()</property>
     <property name="algorithm" type="String">$!entity.getElement().getAlgorithm().getKey()</property>
+    <property name="algorithmId" type="String">$!entity.getElement().getAlgorithm().getId()</property>
 </entity>
