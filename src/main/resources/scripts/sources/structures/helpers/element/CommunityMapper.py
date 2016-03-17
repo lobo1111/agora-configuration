@@ -11,6 +11,7 @@ class CommunityMapper(Mapper):
         self._entity = self.findById("ElementCommunity", self._svars.get('id'))
     
     def setData(self):
+        self._entity.setCommunity(self.findById('Community', self._svars.get('communityId')))
         self.map("overrideParentValue")
         self.map("globalValue", [DecimalValidator(messageParameter=self._label.get('field.value'))])
     
