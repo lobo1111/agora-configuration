@@ -55,7 +55,7 @@ class AccountManager(Container):
             mapper = AccountMapper()
             mapper.initStructure()
             '''
-            New structure is created, account data is set by mapper,
+            If new structure is created, account data is set by mapper,
             '''
             if mapper.isNew():
                 mapper.setData()
@@ -76,7 +76,6 @@ class AccountManager(Container):
             if mapper.typeChanged() or mapper.isNew():
                 TypeChangedFlow(mapper).trigger()
                 ZpkManager().createZpksForAccount(mapper.getEntity())
-
             self.saveEntity(mapper.getEntity())
         except ValidationError, error:
             self.setError(error)

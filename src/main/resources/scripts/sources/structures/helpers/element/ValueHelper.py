@@ -7,7 +7,10 @@ class ValueHelper(Container):
             if element.isOverrideParentValue():
                 return element.getGlobalValue()
             else:
-                element = element.getCommunityElement()
+                if element.getCommunityElement() != None:
+                    element = element.getCommunityElement()
+                else:
+                    element = element.getElement()
         elif self.isCommunityElement(element):
             if element.isOverrideParentValue():
                 return element.getGlobalValue()
