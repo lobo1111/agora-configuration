@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -44,9 +45,9 @@ public class Element implements Serializable {
     @Column(name = "default_element")
     private boolean defaultElement;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "element")
-    private Collection<ElementCommunity> communityElements;
+    private Collection<ElementCommunity> communityElements = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "element")
-    private Collection<ElementPossession> possessionElements;
+    private Collection<ElementPossession> possessionElements = new ArrayList<>();
 
     public boolean isDefaultElement() {
         return defaultElement;
