@@ -5,6 +5,7 @@ from structures.validators.common.DictionaryValidator import DictionaryValidator
 from structures.validators.common.LengthValidator import LengthValidator
 
 class GlobalMapper(Mapper):
+    _specializedMapper = None
     
     def initStructure(self):
         self._entity = Element()
