@@ -7,15 +7,15 @@ class ElementMapper(Mapper):
     
     def initStructure(self):
         if int(self.get('id')) > 0:
+            self._mapper._isNew = False
             self._logger.info("Element persist - it's an update. Found id: %s, of type %s" % (self.get('id'), self.get('type')))
             self._mapper = self.getSpecializedMapper()
-            self._mapper._isNew = False
             self._mapper.loadEntity()
         else:
+            self._mapper._isNew = True
             self._logger.info("Element persist - it's a new element")
             self._mapper = GlobalMapper()
             self._mapper.setSpecializedMapper(self.getSpecializedMapper(skipGlobal = True))
-            self._mapper._isNew = self._mapper.initStructure()
             
     def setData(self):
         self._mapper.setData()
