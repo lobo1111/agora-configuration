@@ -44,9 +44,9 @@ public class Element implements Serializable {
     private double globalValue;
     @Column(name = "default_element")
     private boolean defaultElement;
-    @OneToMany(mappedBy = "element")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "element")
     private Collection<ElementCommunity> communityElements = new ArrayList<>();
-    @OneToMany(mappedBy = "element")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "element")
     private Collection<ElementPossession> possessionElements = new ArrayList<>();
 
     public boolean isDefaultElement() {
