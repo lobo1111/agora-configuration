@@ -9,6 +9,7 @@ class GlobalMapper(Mapper):
     
     def initStructure(self):
         if self.nameAlreadyExists():
+            self._logger.info('Global element named %s already exists, changing action to "update"...' % self._svars.get('name'))
             self.loadEntity()
         else:
             self.newEntity()
