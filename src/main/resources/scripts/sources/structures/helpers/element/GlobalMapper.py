@@ -25,7 +25,7 @@ class GlobalMapper(Mapper):
         self._entity = self.findById("Element", self._svars.get('id'))
         
     def nameAlreadyExists(self):
-        self._entity = self.findBy("Element", "name", "'" + self._svars.get('name') + "'") != None
+        self._entity = self.findBy("Element", "name", "'" + self._svars.get('name') + "'")
         self._isNew = False
         return self._entity != None
     
