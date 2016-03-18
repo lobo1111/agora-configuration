@@ -35,7 +35,7 @@ public class ElementCommunity implements Serializable {
     @Column(name = "override_parent_value")
     private boolean overrideParentValue;
     @Column(name = "value")
-    private double globalValue;
+    private double localValue;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "elementCommunity")
     private Collection<ElementPossession> possessionsElements;
 
@@ -71,20 +71,20 @@ public class ElementCommunity implements Serializable {
         this.overrideParentValue = overrideParentValue;
     }
 
-    public double getGlobalValue() {
-        return globalValue;
+    public double getLocalValue() {
+        return localValue;
     }
 
     public double calculateGlobalValue() {
         if (isOverrideParentValue()) {
-            return globalValue;
+            return localValue;
         } else {
             return element.calculateGlobalValue();
         }
     }
 
-    public void setGlobalValue(double globalValue) {
-        this.globalValue = globalValue;
+    public void setLocalValue(double localValue) {
+        this.localValue = localValue;
     }
 
     public Collection<ElementPossession> getPossessionsElements() {

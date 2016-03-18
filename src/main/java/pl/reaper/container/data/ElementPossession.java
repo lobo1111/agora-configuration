@@ -36,7 +36,7 @@ public class ElementPossession implements Serializable {
     @Column(name = "override_parent_value")
     private boolean overrideParentValue;
     @Column(name = "value")
-    private double globalValue;
+    private double localValue;
 
     public Integer getId() {
         return id;
@@ -78,20 +78,20 @@ public class ElementPossession implements Serializable {
         this.overrideParentValue = overrideParentValue;
     }
 
-    public double getGlobalValue() {
-        return globalValue;
-    }
-
     public double calculateGlobalValue() {
         if (isOverrideParentValue()) {
-            return globalValue;
+            return localValue;
         } else {
-            return elementCommunity.calculateGlobalValue();
+            return elementCommunity != null ? elementCommunity.calculateGlobalValue() : element.getGlobalValue();
         }
     }
 
-    public void setGlobalValue(double globalValue) {
-        this.globalValue = globalValue;
+    public double getLocalValue() {
+        return localValue;
+    }
+
+    public void setLocalValue(double localValue) {
+        this.localValue = localValue;
     }
 
     public Dictionary getGroup() {
