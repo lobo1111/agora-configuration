@@ -14,9 +14,8 @@ class ElementMapper(Mapper):
         else:
             self._logger.info("Element persist - it's a new element")
             self._mapper = GlobalMapper()
-            self._mapper._isNew = True
             self._mapper.setSpecializedMapper(self.getSpecializedMapper(skipGlobal = True))
-            self._mapper.initStructure()
+            self._mapper._isNew = self._mapper.initStructure()
             
     def setData(self):
         self._mapper.setData()

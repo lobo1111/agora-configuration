@@ -10,19 +10,23 @@ class GlobalMapper(Mapper):
     def initStructure(self):
         if self.nameAlreadyExists():
             self._logger.info('Global element named %s already exists, changing action to "update"...' % self._svars.get('name'))
-            self._isNew = False
+            self.loadEntity()
         else:
             self.newEntity()
         if self._specializedMapper != None:
             self._specializedMapper.initStructure()
+        return self._isNew
     
     def newEntity(self):
         self._isNew = True
         self._entity = Element()
     
+    def loadEntity(self):
+        self._isNew = False
+        self._entity = self.findById("Element", self._svars.get('id'))
+        
     def nameAlreadyExists(self):
-        self._entity = self.findBy("Element", "name", "'" + self._svars.get('name') + "'")
-        return self._entity != None
+        return self.findBy("Element", "name", "'" + self._svars.get('name') + "'") != None
     
     def setSpecializedMapper(self, specializedMapper):
         self._specializedMapper = specializedMapper
