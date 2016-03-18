@@ -67,6 +67,9 @@ class Container:
             self._svars.put('output', str(entity.getId()))
         return entity
     
+    def removeEntity(self, entity):
+        self._entityManager.remove(entity)
+    
     def setError(self, error):
         self._logger.info(error)
         self._svars.put('output', str(error))

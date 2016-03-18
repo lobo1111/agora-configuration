@@ -59,6 +59,10 @@ class ElementManager(Container):
         except ValidationError, error:
             self.setError(error)
 
+    def remove(self):
+        mapper = ElementMapper()
+        mapper.initStructure()
+        self.removeEntity(mapper.getEntity())
     '''
     For given community creates default Community Elements based on Element
     entity configuration - every Element marked as 'default' will added

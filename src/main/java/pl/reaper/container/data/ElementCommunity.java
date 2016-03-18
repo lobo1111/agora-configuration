@@ -36,7 +36,7 @@ public class ElementCommunity implements Serializable {
     private boolean overrideParentValue;
     @Column(name = "value")
     private double localValue;
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "elementCommunity")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "elementCommunity")
     private Collection<ElementPossession> possessionsElements;
 
     public Integer getId() {
