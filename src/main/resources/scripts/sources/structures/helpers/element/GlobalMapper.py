@@ -15,7 +15,6 @@ class GlobalMapper(Mapper):
             self.newEntity()
         if self._specializedMapper != None:
             self._specializedMapper.initStructure()
-            self._specializedMapper.bind(self._entity)
     
     def newEntity(self):
         self._isNew = True
@@ -34,6 +33,7 @@ class GlobalMapper(Mapper):
     def setData(self):
         if self._specializedMapper != None:
             self._specializedMapper.setData()
+            self._specializedMapper.bind(self._entity)
         if self._specializedMapper == None or self._isNew:
             self.map("defaultElement")
             self.map("name", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.elementName'))])
