@@ -8,13 +8,24 @@ class GlobalMapper(Mapper):
     _specializedMapper = None
     
     def initStructure(self):
-        self._entity = Element()
+        if self.nameAlreadyExists():
+            self.loadEntity()
+        else:
+            self.newEntity()
         if self._specializedMapper != None:
             self._specializedMapper.initStructure()
             self._specializedMapper.bind(self._entity)
     
+    def newEntity(self):
+        self._isNew = True
+        self._entity = Element()
+    
     def loadEntity(self):
+        self._isNew = False
         self._entity = self.findById("Element", self._svars.get('id'))
+        
+    def nameAlreadyExists(self):
+        self.findBy("Element", "'name'", self._svars.get('name')) != None
     
     def setSpecializedMapper(self, specializedMapper):
         self._specializedMapper = specializedMapper
