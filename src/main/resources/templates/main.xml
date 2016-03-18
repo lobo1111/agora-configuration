@@ -486,6 +486,25 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-element-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    element.id, element.name)
+                    FROM 
+                    Element element
+                    WHERE 
+                    AND {:where}
+                    ORDER BY 
+                    element.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-element-algorithms</name>
         <source>list-element-algorithms.vtl</source>
         <variables>
