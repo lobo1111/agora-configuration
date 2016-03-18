@@ -497,7 +497,7 @@
                     FROM 
                     Element element
                     WHERE 
-                    AND {:where}
+                    {:where}
                     ORDER BY 
                     element.name ASC
                 </data>
