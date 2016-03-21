@@ -252,7 +252,7 @@
                     WHERE {:where}
                     and counter.replacementOf IS NULL
                     ORDER BY
-                    zpk.serialNumber ASC
+                    counter.serialNumber ASC
                 </data>
             </var>
             <var>
