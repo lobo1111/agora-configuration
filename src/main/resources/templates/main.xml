@@ -237,6 +237,40 @@
         </variables>
     </template>
     <template>
+        <name>list-counters</name>
+        <source>list-counters.vtl</source>
+        <variables>
+            <var>
+                <name>counters</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    counter
+                    FROM
+                    Counter counter
+                    Join counter.community community
+                    WHERE {:where}
+                    and counter.replacementOf IS NULL
+                    ORDER BY
+                    zpk.serialNumber ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(counter.id)
+                    FROM
+                    Counter counter
+                    Join counter.community community
+                    WHERE {:where}
+                    and counter.replacementOf IS NULL
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-communities</name>
         <source>list-communities.vtl</source>
         <variables>
