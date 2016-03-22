@@ -137,6 +137,19 @@
         </variables>
     </template>
     <template>
+        <name>entity-counter</name>
+        <source>entity-counter.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT c FROM Counter c WHERE c.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-person</name>
         <source>entity-person.vtl</source>
         <variables>
