@@ -284,6 +284,40 @@
         </variables>
     </template>
     <template>
+        <name>list-counters-parents</name>
+        <source>list-counters.vtl</source>
+        <variables>
+            <var>
+                <name>counters</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    counter
+                    FROM
+                    Counter counter
+                    Join counter.community community
+                    WHERE {:where}
+                    and counter.parent IS NULL
+                    ORDER BY
+                    counter.serialNumber ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(counter.id)
+                    FROM
+                    Counter counter
+                    Join counter.community community
+                    WHERE {:where}
+                    and counter.parent IS NULL
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-communities</name>
         <source>list-communities.vtl</source>
         <variables>
@@ -568,6 +602,27 @@
                     AND {:where}
                     ORDER BY 
                     dic.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-counter-parents</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    counter.id, counter.serialNumber)
+                    FROM 
+                    Counter counter
+                    Join counter.community community
+                    WHERE 
+                    {:where} AND
+                    counter.parent is NULL
+                    ORDER BY 
+                    counter.serialNumber ASC
                 </data>
             </var>
         </variables>
