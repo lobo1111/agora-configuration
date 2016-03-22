@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -113,6 +114,14 @@ public class Counter implements Serializable {
 
     public Date getInstallation() {
         return installation;
+    }
+
+    public String getFormattedInstallation() {
+        if (installation != null) {
+            return new SimpleDateFormat("dd-MM-yyyy").format(installation);
+        } else {
+            return "";
+        }
     }
 
     public void setInstallation(Date installation) {
