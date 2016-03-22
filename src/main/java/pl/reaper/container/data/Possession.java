@@ -48,6 +48,8 @@ public class Possession implements Serializable {
     private String comment1;
     @Column(name = "comment2")
     private String comment2;
+    @Column(name = "full_address")
+    private String fullAddress;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "possession")
     private Collection<Owner> owners = new ArrayList<>();
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "possession")
@@ -255,7 +257,11 @@ public class Possession implements Serializable {
     }
 
     public String getFullAddress() {
-        return address.getFullAddress();
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
     }
 
     public double calculateStartCredit() {
