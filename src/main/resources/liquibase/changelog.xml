@@ -2113,13 +2113,4 @@
             WHERE p.address_id = a.id and a.flat_number is null
         </sql>
     </changeSet>
-</databaseChangeLog> 
-
-UPDATE table 
-SET Col1 = i.Col1, 
-    Col2 = i.Col2 
-FROM (
-    SELECT ID, Col1, Col2 
-    FROM other_table) i
-WHERE 
-    i.ID = table.ID
+</databaseChangeLog>
