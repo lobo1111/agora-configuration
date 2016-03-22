@@ -10,9 +10,9 @@
             <property name="possession" type="String">$!row.getPossession().getFullAddress()</property>
             <property name="mainCounterNo" type="String">$!row.getParent().getSerialNumber()</property>
             #if($row.getParent())
-            <property name="type" type="String">MAIN</property>
+            <property name="counterType" type="String">MAIN</property>
             #else
-            <property name="type" type="String">LOCAL</property>
+            <property name="counterType" type="String">LOCAL</property>
             #end
         </entity>
         #end
