@@ -2100,19 +2100,26 @@
     
     <changeSet author='tkopacki' id='possession-full-address-migration-1'>
         <sql>                   
-            UPDATE TABLE `possession`
-            SET full_address
-            (SELECT concat(street, houseNumber, '/', flatNumber) From address Where flatNumber is not null)
-            Where address.id = possession.address_id
+            UPDATE possession AS p, address AS a
+            SET p.full_address = concat(a.street, ' ', a.house_number, '/', a.flat_number)
+            WHERE p.address_id = a.id and a.flat_number is not null
         </sql>
     </changeSet>
     
     <changeSet author='tkopacki' id='possession-full-address-migration-2'>
         <sql>                   
-            UPDATE TABLE `possession`
-            SET full_address
-            (SELECT concat(street, houseNumber) From address Where flatNumber is null)
-            Where address.id = possession.address_id
+            UPDATE possession AS p, address AS a
+            SET p.full_address = concat(a.street, ' ', a.house_number)
+            WHERE p.address_id = a.id and a.flat_number is null
         </sql>
     </changeSet>
 </databaseChangeLog> 
+
+UPDATE table 
+SET Col1 = i.Col1, 
+    Col2 = i.Col2 
+FROM (
+    SELECT ID, Col1, Col2 
+    FROM other_table) i
+WHERE 
+    i.ID = table.ID
