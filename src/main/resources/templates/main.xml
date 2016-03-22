@@ -500,6 +500,46 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-years</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'YEARS\'
+                    AND {:where}
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-counter-types</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'COUNTERS_TYPES\'
+                    AND {:where}
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-element-types</name>
         <source>simple-list.vtl</source>
         <variables>
@@ -615,6 +655,68 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'ACCOUNT_TYPE\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-counters-types</name>
+        <source>list-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT
+                    dic
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'COUNTERS_TYPES\'
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'COUNTERS_TYPES\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-years</name>
+        <source>list-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT
+                    dic
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'YEARS\'
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'YEARS\'
                 </data>
             </var>
         </variables>
