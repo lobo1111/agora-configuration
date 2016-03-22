@@ -2102,7 +2102,7 @@
         <sql>                   
             UPDATE possession AS p, address AS a
             SET p.full_address = concat(a.street, ' ', a.house_number, '/', a.flat_number)
-            WHERE p.address_id = a.id and a.flat_number <> ''
+            WHERE p.address_id = a.id and a.flat_number != ''
         </sql>
     </changeSet>
     
