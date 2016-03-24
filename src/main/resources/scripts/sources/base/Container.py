@@ -32,7 +32,7 @@ class Container:
             sql = 'Select entity From %s entity where entity.%s = %s' % (entityName, field, value)
             self._logger.info(sql)
             result = self._entityManager.createQuery(sql).getResultList()
-            self._logger.info('Entity found: %s' % str(result))
+            self._logger.info('Entities found: %s' % str(result))
             return result
         except:
             self._logger.info('Entity not found %s/%s with value %s' % (entityName, field, value))
