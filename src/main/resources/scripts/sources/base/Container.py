@@ -38,7 +38,7 @@ class Container:
             self._logger.info('Entity not found %s/%s with value %s' % (entityName, field, value))
             self._logger.info("Error message: %s" % sys.exc_info()[0])
             self._logger.info("Error message: %s" % sys.exc_info()[1])
-            return None
+            return []
 
     def findById(self, entityName, id):
         return self.findBy(entityName, 'id', id)
