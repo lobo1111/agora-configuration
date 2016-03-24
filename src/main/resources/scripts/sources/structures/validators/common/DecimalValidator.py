@@ -12,6 +12,7 @@ class DecimalValidator(Validator):
             value = float(attribute)
             self._logger.info("Validation passed:")
             self._logger.info("attribute - %s" % (self._messageParameter))
+            self._logger.info("value - %s" % (str(attribute)))
             return value
         except:
             raise ValidationError(self._label.get(self._message) % (self._messageParameter))
