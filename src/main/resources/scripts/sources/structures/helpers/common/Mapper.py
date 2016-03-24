@@ -4,7 +4,9 @@ from helpers.Label import LabelManager
 class Mapper(Container):
     _label = LabelManager()
 
-    def map(self, propertyName, validators = [], mappedEntity = self._entity):
+    def map(self, propertyName, validators = [], mappedEntity = None):
+        if mappedEntity == None:
+            mappedEntity = self._entity
         for validator in validators:
             validator.validate(self._svars.get(propertyName))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
