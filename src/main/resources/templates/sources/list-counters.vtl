@@ -12,7 +12,7 @@
             <property name="mainCounterNo" type="String">$!row.getParent().getSerialNumber()</property>
             <property name="seal" type="String">$!row.getSeal()</property>
             <property name="legalization" type="String">$!row.getLegalization().getValue()</property>
-            <property name="installation" type="String">$!row.getFormattedIntallation()</property>
+            <property name="installation" type="String">$!row.getFormattedInstallation()</property>
             #if($row.getParent())
             <property name="counterType" type="String">LOCAL</property>
             #else

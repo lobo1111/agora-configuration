@@ -12,12 +12,16 @@ class Mapper(Container):
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleIntegerProperty':
             getattr(mappedEntity, methodName)(int(self._svars.get(propertyName)))
+            self._logger.info("Mapped %s as Integer" % (propertyName, str(int(self._svars.get(propertyName)))))
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleStringProperty':
             getattr(mappedEntity, methodName)(self._svars.get(propertyName))
+            self._logger.info("Mapped %s as String" % (propertyName, str(int(self._svars.get(propertyName)))))
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleDoubleProperty':
             getattr(mappedEntity, methodName)(float(self._svars.get(propertyName)))
+            self._logger.info("Mapped %s as Double" % (propertyName, str(int(self._svars.get(propertyName)))))
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleBooleanProperty':
             getattr(mappedEntity, methodName)(self._svars.get(propertyName) == 'true')
+            self._logger.info("Mapped %s as Boolean" % (propertyName, str(int(self._svars.get(propertyName)))))
             
         
     def mapDictionary(self, propertyName, dictionaryValidator, mappedEntity = None):
