@@ -22,7 +22,7 @@ class CounterMapper(Mapper):
     
     def setData(self):
         self.setCommunity()
-        self.map("serialNumber", [UniqueValidator("Counter", "serialNumber"), LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSerialNumber'))])
+        self.map("serialNumber", [UniqueValidator("Counter", "serialNumber", messageParameter=self._label.get('field.counterSeal')), LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSerialNumber'))])
         self.map("seal", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSeal'))])
         self.mapDate("installation", [NotNoneValidator(messageParameter=self._label.get('field.installation'))])
         self.mapDictionary("type", DictionaryValidator(dictionary="COUNTERS_TYPES", messageParameter=self._label.get('field.counterType')))
