@@ -1,3 +1,10 @@
+from pl.reaper.container.data import Counter
+from structures.helpers.common.Mapper import Mapper
+from structures.validators.common.DictionaryValidator import DictionaryValidator
+from structures.validators.common.LengthValidator import LengthValidator
+from structures.validators.common.DecimalValidator import DecimalValidator
+from structures.validators.common.BindValidator import BindValidator
+
 class CounterMapper(Mapper):
     
     def initStructure(self):
