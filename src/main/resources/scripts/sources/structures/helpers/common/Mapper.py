@@ -20,12 +20,16 @@ class Mapper(Container):
             getattr(mappedEntity, methodName)(self._svars.get(propertyName) == 'true')
             
         
-    def mapDictionary(self, propertyName, dictionaryValidator, mappedEntity = self._entity):
+    def mapDictionary(self, propertyName, dictionaryValidator, mappedEntity = None):
+        if mappedEntity == None:
+            mappedEntity = self._entity
         entity = dictionaryValidator.validate(self._svars.get(propertyName + 'Id'))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         getattr(mappedEntity, methodName)(entity)
         
-    def mapDate(self, propertyName, validators, mappedEntity = self._entity):
+    def mapDate(self, propertyName, validators, mappedEntity = None):
+        if mappedEntity == None:
+            mappedEntity = self._entity
         date = self.parseDate(self.get(propertyName))
         for validator in validators:
             validator.validate(date)
