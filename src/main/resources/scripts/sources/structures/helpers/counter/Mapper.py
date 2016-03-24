@@ -36,6 +36,7 @@ class CounterMapper(Mapper):
         status = CounterStatus()
         self._svars.put('timestamp', self.get('installation'))
         self._svars.put('status', self.get('startStatus'))
+        self._svars.put('statusType', self.get('startStatusType'))
         self.mapDate("timestamp", [NotNoneValidator(messageParameter=self._label.get('field.installation'))], status)
         self.map("status", [DecimalValidator(messageParameter=self._label.get('field.counterStatus'))], status)
         status.setPredicted(False)
