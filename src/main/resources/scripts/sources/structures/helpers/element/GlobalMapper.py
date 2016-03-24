@@ -41,8 +41,8 @@ class GlobalMapper(Mapper):
         if self._specializedMapper == None or self._isNew:
             self.map("defaultElement")
             self.map("name", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.elementName'))])
-            self.mapDictionary("group", [DictionaryValidator(dictionary="ELEMENTS", messageParameter=self._label.get('field.group'))])
-            self.mapDictionary("algorithm", [DictionaryValidator(dictionary="ELEMENT_ALGORITHMS", messageParameter = self._label.get('field.algorithm'))])
+            self.mapDictionary("group", DictionaryValidator(dictionary="ELEMENTS", messageParameter=self._label.get('field.group')))
+            self.mapDictionary("algorithm", DictionaryValidator(dictionary="ELEMENT_ALGORITHMS", messageParameter = self._label.get('field.algorithm')))
             self.map("globalValue", [DecimalValidator(messageParameter=self._label.get('field.value'))])
     
     
