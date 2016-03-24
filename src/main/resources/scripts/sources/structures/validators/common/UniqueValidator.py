@@ -5,7 +5,7 @@ from structures.validators.common.ValidationError import ValidationError
 class UniqueValidator(Validator):
     _message = "validators.common.notUniqueField"
     
-    def __init__(self, entity, attribute, id = -1, messageParameter):
+    def __init__(self, entity, attribute, id = -1, messageParameter = ''):
         self._entity = entity
         self._attribute = attribute
         self._id = int(id)
