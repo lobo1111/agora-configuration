@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Counter
+from pl.reaper.container.data import CounterStatus
 from structures.helpers.common.Mapper import Mapper
 from structures.validators.common.DictionaryValidator import DictionaryValidator
 from structures.validators.common.LengthValidator import LengthValidator
