@@ -27,11 +27,12 @@ class Mapper(Container):
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         getattr(mappedEntity, methodName)(entity)
         
-    def mapDate(self, propertyName, validator, mappedEntity = None):
+    def mapDate(self, propertyName, validators, mappedEntity = None):
         if mappedEntity == None:
             mappedEntity = self._entity
         date = self.parseDate(self.get(propertyName))
-        validator.validate(date)
+        for validator in validators:
+            validator.validate(date)
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         getattr(mappedEntity, methodName)(date)
     
