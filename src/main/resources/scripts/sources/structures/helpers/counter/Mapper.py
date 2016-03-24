@@ -5,6 +5,7 @@ from structures.validators.common.LengthValidator import LengthValidator
 from structures.validators.common.DecimalValidator import DecimalValidator
 from structures.validators.common.BindValidator import BindValidator
 from structures.validators.common.UniqueValidator import UniqueValidator
+from structures.validators.common.NotNoneValidator import NotNoneValidator
 
 class CounterMapper(Mapper):
     
@@ -22,7 +23,7 @@ class CounterMapper(Mapper):
         self.setCommunity()
         self.map("serialNumber", [UniqueValidator("Counter", "serialNumber"), LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSerialNumber'))])
         self.map("seal", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSerialNumber'))])
-        self.mapDate("installation", [LengthValidator(minLength=1, messageParameter=self._label.get('field.installation'))])
+        self.mapDate("installation", [NotNoneValidator(messageParameter=self._label.get('field.installation'))])
         self.mapDictionary("type", [DictionaryValidator(dictionary="COUNTERS_TYPES", messageParameter=self._label.get('field.counterType'))])
         self.mapDictionary("legalization", [DictionaryValidator(dictionary="YEARS", messageParameter=self._label.get('field.legalization'))])
         if self.get("counterType") == "LOCAL":
@@ -34,7 +35,7 @@ class CounterMapper(Mapper):
         status = CounterStatus()
         self._svars.put('timestamp', self.get('installation'))
         self._svars.put('status', self.get('startStatus'))
-        self.map("timestamp", [LengthValidator(minLength=1, messageParameter=self._label.get('field.installation'))], status)
+        self.mapDate("timestamp", [NotNoneValidator(messageParameter=self._label.get('field.installation'))], status)
         self.map("status", [DecimalValidator(messageParameter=self._label.get('field.counterStatus'))], status)
         status.setPredicted(False)
         status.setCounter(self._entity)
