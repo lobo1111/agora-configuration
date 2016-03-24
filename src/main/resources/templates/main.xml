@@ -640,7 +640,7 @@
                     Possession possession
                     Join possession.community community
                     WHERE 
-                    {:where} AND
+                    {:where}
                     ORDER BY 
                     possession.fullAddress ASC
                 </data>
