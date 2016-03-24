@@ -4,25 +4,32 @@ from helpers.Label import LabelManager
 class Mapper(Container):
     _label = LabelManager()
 
-    def map(self, propertyName, validators = []):
+    def map(self, propertyName, validators = [], mappedEntity = self._entity):
         for validator in validators:
             validator.validate(self._svars.get(propertyName))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleIntegerProperty':
-            getattr(self._entity, methodName)(int(self._svars.get(propertyName)))
+            getattr(mappedEntity, methodName)(int(self._svars.get(propertyName)))
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleStringProperty':
-            getattr(self._entity, methodName)(self._svars.get(propertyName))
+            getattr(mappedEntity, methodName)(self._svars.get(propertyName))
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleDoubleProperty':
-            getattr(self._entity, methodName)(float(self._svars.get(propertyName)))
+            getattr(mappedEntity, methodName)(float(self._svars.get(propertyName)))
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleBooleanProperty':
-            getattr(self._entity, methodName)(self._svars.get(propertyName) == 'true')
+            getattr(mappedEntity, methodName)(self._svars.get(propertyName) == 'true')
             
         
-    def mapDictionary(self, propertyName, dictionaryValidator):
+    def mapDictionary(self, propertyName, dictionaryValidator, mappedEntity = self._entity):
         entity = dictionaryValidator.validate(self._svars.get(propertyName + 'Id'))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
-        getattr(self._entity, methodName)(entity)
+        getattr(mappedEntity, methodName)(entity)
         
+    def mapDate(self, propertyName, validators, mappedEntity = self._entity):
+        date = self.parseDate(self.get(propertyName))
+        for validator in validators:
+            validator.validate(date)
+        methodName = "set" + propertyName[0].upper() + propertyName[1:]
+        getattr(mappedEntity, methodName)(date)
+    
     def setCommunity(self):
         community = self.findById("Community", self._svars.get("communityId"))
         self._entity.setCommunity(community)

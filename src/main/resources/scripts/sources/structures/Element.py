@@ -23,7 +23,22 @@ have to be bind to Community Element(!) - it can be created directly on Possessi
 level. In that case it's a two level structure.
 
 PERSIST ALGORITHM:
-
+Element usaes 4 mappers. Global, Community, Possession and one to agregate them.
+It's necessary because element can be created or edited on three levels.
+1) Global level - handled by GlobalMapper. It's possible to update all attributes
+at edition time. Changes will affect all children 1
+2) Community level - Creating new entity on community level is possible with
+attaching it to existing global element or can create two elements - one on
+global level and one on community level. In case of found existing global element
+only two attributes are available for edition: override global value and local value.
+Other attributes are loaded too but not possible to edit. They are there just
+for information. In case user wants to create a new element, it is possible
+to use edit form on community level to provided data for new global element
+and community element. In that case all field are available for edition.
+* In case that user will provide name of existing element(but won't load it !)
+it will be still possible to edit other attributes but persist algorithm will
+ignore those changes and attach community element to existing global element.
+3) Possession level - TODO
 
 ELEMENT VALUE EXTRACTION ALGORITHM:
 Depends on provided element type. Value is extracted from the lowest level.
