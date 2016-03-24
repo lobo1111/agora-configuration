@@ -4,6 +4,7 @@ from structures.validators.common.DictionaryValidator import DictionaryValidator
 from structures.validators.common.LengthValidator import LengthValidator
 from structures.validators.common.DecimalValidator import DecimalValidator
 from structures.validators.common.BindValidator import BindValidator
+from structures.validators.common.UniqueValidator import UniqueValidator
 
 class CounterMapper(Mapper):
     
