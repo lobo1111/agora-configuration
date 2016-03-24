@@ -262,10 +262,11 @@
                     FROM
                     Counter counter
                     Join counter.community community
+                    left outer join counter.possession possession
                     WHERE {:where}
                     and counter.replacementOf IS NULL
                     ORDER BY
-                    counter.serialNumber ASC
+                    possession.fullAddress ASC, counter.serialNumber ASC
                 </data>
             </var>
             <var>
@@ -277,6 +278,7 @@
                     FROM
                     Counter counter
                     Join counter.community community
+                    left outer join counter.possession possession
                     WHERE {:where}
                     and counter.replacementOf IS NULL
                 </data>
