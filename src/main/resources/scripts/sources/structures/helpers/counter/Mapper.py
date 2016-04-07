@@ -50,7 +50,7 @@ class CounterMapper(Mapper):
         self.mapDate("installation", [NotNoneValidator(messageParameter=self._label.get('field.installation'))])
         self.mapDictionary("legalization", DictionaryValidator(dictionary="YEARS", messageParameter=self._label.get('field.legalization')))
         oldCounter = self.findBy("Counter", "serialNumber", "'" + self.get("replacementOf") + "'")
-        oldCounter.setDecomissioned(self._entity.getInstallation())
+        oldCounter.setDecomission(self._entity.getInstallation())
         self._entity.setCommunity(oldCounter.getCommunity())
         self._entity.setType(oldCounter.getType())
         self._entity.setPossession(oldCounter.getPossession())
