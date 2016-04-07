@@ -8,9 +8,9 @@ class CounterManager(Container):
         try:
             mapper = CounterMapper()
             mapper.initStructure()
-            if mapper.isNew():
+            if mapper.get('counterType') in ['LOCAL', 'GLOBAL']:
                 mapper.setData()
-            else:
+            elif mapper.get('counterType') in ['REPLACE']:
                 mapper.replace()
             self.saveEntity(mapper.getEntity())
         except ValidationError, error:

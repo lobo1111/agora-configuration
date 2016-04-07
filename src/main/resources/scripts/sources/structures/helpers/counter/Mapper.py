@@ -46,4 +46,17 @@ class CounterMapper(Mapper):
         return status
     
     def replace(self):
-        pass
+        self.map("seal", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSeal'))])
+        self.mapDate("installation", [NotNoneValidator(messageParameter=self._label.get('field.installation'))])
+        self.mapDictionary("legalization", DictionaryValidator(dictionary="YEARS", messageParameter=self._label.get('field.legalization')))
+        oldCounter = self.findBy("Counter", "serialNumber", "'" + self.get("replacementOf") + "'")
+        oldCounter.setDecomissioned(self._entity.getInstallation())
+        self._entity.setCommunity(oldCounter.getCommunity())
+        self._entity.setType(oldCounter.getType())
+        self._entity.setPossession(oldCounter.getPossession())
+        self._entity.setParent(oldCounter.getParent())
+        self._entity.setReplacementOf(oldCounter)
+        status = self.createStatus()
+        self._entity.getStatuses().add(status)
+        oldCounter.getStatuses().add(status)
+        
