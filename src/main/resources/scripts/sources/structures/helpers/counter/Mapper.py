@@ -46,6 +46,7 @@ class CounterMapper(Mapper):
         return status
     
     def replace(self):
+        self.map("serialNumber", [UniqueValidator("Counter", "serialNumber", messageParameter=self._label.get('field.counterSerialNumber')), LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSerialNumber'))])
         self.map("seal", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSeal'))])
         self.mapDate("installation", [NotNoneValidator(messageParameter=self._label.get('field.installation'))])
         self.mapDictionary("legalization", DictionaryValidator(dictionary="YEARS", messageParameter=self._label.get('field.legalization')))
