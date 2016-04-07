@@ -64,6 +64,6 @@ class CounterMapper(Mapper):
     def mapChildren(self, oldCounter, newCounter):
         for child in oldCounter.getChildren():
             child.setParent(newCounter)
-            newCounter.getChildren(child)
+            newCounter.getChildren().add(child)
         oldCounter().getChildren().clear()
         
