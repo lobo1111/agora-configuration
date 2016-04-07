@@ -31,7 +31,7 @@ class CounterMapper(Mapper):
         if self.get("counterType") == "LOCAL":
             self.mapDictionary("parent", BindValidator(entity = "Counter", messageParameter=self._label.get('field.parentCounter')))
             self.mapDictionary("possession", BindValidator(entity = "Possession", messageParameter=self._label.get('field.possession')))
-            self.setType(self.getParent().getType)
+            self.getEntity().setType(self.getParent().getType)
         self._entity.getStatuses().add(self.createStatus())
         
     def createStatus(self):
