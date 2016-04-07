@@ -45,6 +45,17 @@ class CounterMapper(Mapper):
         status.setCounter(self._entity)
         return status
     
+    def createEndStatus(self):
+        status = CounterStatus()
+        self._svars.put('timestamp', self.get('installation'))
+        self._svars.put('status', self.get('endStatus'))
+        self._svars.put('statusType', self.get('endStatusType'))
+        self.mapDate("timestamp", [NotNoneValidator(messageParameter=self._label.get('field.installation'))], status)
+        self.map("status", [DecimalValidator(messageParameter=self._label.get('field.counterStatus'))], status)
+        status.setPredicted(False)
+        status.setCounter(self._entity)
+        return status
+    
     def replace(self):
         self.map("serialNumber", [UniqueValidator("Counter", "serialNumber", messageParameter=self._label.get('field.counterSerialNumber')), LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSerialNumber'))])
         self.map("seal", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSeal'))])
@@ -57,9 +68,8 @@ class CounterMapper(Mapper):
         self._entity.setPossession(oldCounter.getPossession())
         self._entity.setParent(oldCounter.getParent())
         self._entity.setReplacementOf(oldCounter)
-        status = self.createStatus()
-        self._entity.getStatuses().add(status)
-        oldCounter.getStatuses().add(status)
+        self._entity.getStatuses().add(self.createStatus())
+        oldCounter.getStatuses().add(self.createEndStatus())
         self.mapChildren(oldCounter, self._entity)
         
     def mapChildren(self, oldCounter, newCounter):

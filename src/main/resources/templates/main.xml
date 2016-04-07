@@ -264,7 +264,7 @@
                     Join counter.community community
                     left outer join counter.possession possession
                     WHERE {:where}
-                    and counter.replacementOf IS NULL
+                    and counter.decomission IS NULL
                     ORDER BY
                     possession.fullAddress ASC, counter.serialNumber ASC
                 </data>
@@ -280,7 +280,7 @@
                     Join counter.community community
                     left outer join counter.possession possession
                     WHERE {:where}
-                    and counter.replacementOf IS NULL
+                    and counter.decomission IS NULL
                 </data>
             </var>
         </variables>
