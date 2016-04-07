@@ -59,4 +59,11 @@ class CounterMapper(Mapper):
         status = self.createStatus()
         self._entity.getStatuses().add(status)
         oldCounter.getStatuses().add(status)
+        self.mapChildren(oldCounter, self._entity)
+        
+    def mapChildren(self, oldCounter, newCounter):
+        for child in oldCounter.getChildren():
+            child.setParent(newCounter)
+            newCounter.getChildren(child)
+        oldCounter().getChildren().clear()
         
