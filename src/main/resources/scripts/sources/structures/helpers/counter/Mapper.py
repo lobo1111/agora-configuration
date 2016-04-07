@@ -25,11 +25,13 @@ class CounterMapper(Mapper):
         self.map("serialNumber", [UniqueValidator("Counter", "serialNumber", messageParameter=self._label.get('field.counterSerialNumber')), LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSerialNumber'))])
         self.map("seal", [LengthValidator(minLength=1, maxLength=255, messageParameter=self._label.get('field.counterSeal'))])
         self.mapDate("installation", [NotNoneValidator(messageParameter=self._label.get('field.installation'))])
-        self.mapDictionary("type", DictionaryValidator(dictionary="COUNTERS_TYPES", messageParameter=self._label.get('field.counterType')))
         self.mapDictionary("legalization", DictionaryValidator(dictionary="YEARS", messageParameter=self._label.get('field.legalization')))
+        if self.get("counterType") == "GLOBAL":
+            self.mapDictionary("type", DictionaryValidator(dictionary="COUNTERS_TYPES", messageParameter=self._label.get('field.counterType')))
         if self.get("counterType") == "LOCAL":
             self.mapDictionary("parent", BindValidator(entity = "Counter", messageParameter=self._label.get('field.parentCounter')))
             self.mapDictionary("possession", BindValidator(entity = "Possession", messageParameter=self._label.get('field.possession')))
+            self.setType(self.getParent().getType)
         self._entity.getStatuses().add(self.createStatus())
         
     def createStatus(self):
