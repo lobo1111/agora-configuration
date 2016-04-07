@@ -65,5 +65,5 @@ class CounterMapper(Mapper):
         for child in oldCounter.getChildren():
             child.setParent(newCounter)
             newCounter.getChildren().add(child)
-        oldCounter().getChildren().clear()
+        oldCounter.getChildren().clear()
         
