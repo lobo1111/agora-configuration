@@ -1,5 +1,6 @@
 from structures.validators.common.Validator import Validator
 from structures.validators.common.ValidationError import ValidationError
+from base.Container import Container
 
 class BindValidator(Validator):
     _message = "validators.common.bindNotFound"
@@ -9,7 +10,7 @@ class BindValidator(Validator):
         self._messageParameter = messageParameter
     
     def validate(self, value):
-        entity = self.findById(self._entity, int(value))
+        entity = Container().findById(self._entity, int(value))
         if entity == None:
             raise ValidationError(self._label.get(self._message) % self._messageParameter)
         else:
