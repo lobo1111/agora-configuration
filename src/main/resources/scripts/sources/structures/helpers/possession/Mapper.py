@@ -19,6 +19,7 @@ class PossessionMapper(Mapper):
             return self._entity
 
     def setData(self):
+        self.setCommunity()
         AddressManager().set(self._entity)
         self.mapDecimal("area", [DecimalValidator(messageParameter=self._label.get('field.area'))])
         self.map("declaredArea", [DecimalValidator(messageParameter=self._label.get('field.bookArea'))], self._entity.getAdditionalData())
