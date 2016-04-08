@@ -20,10 +20,8 @@ class PossessionMapper(Mapper):
     def setData(self):
         AddressManager().set(self._entity)
         self.mapDecimal("area", [DecimalValidator(messageParameter=self._label.get('field.area'))])
-        self._svars.put('area', self._svars.get('bookArea'))
-        self._svars.put('share', self._svars.get('bookShare'))
-        self.mapDecimal("area", [DecimalValidator(messageParameter=self._label.get('field.bookArea'))], self._entity.getAdditionalData())
-        self.mapDecimal("share", [DecimalValidator(messageParameter=self._label.get('field.bookShare'))], self._entity.getAdditionalData())
+        self.mapDecimal("declaredArea", [DecimalValidator(messageParameter=self._label.get('field.bookArea'))], self._entity.getAdditionalData())
+        self.mapDecimal("declaredShare", [DecimalValidator(messageParameter=self._label.get('field.bookShare'))], self._entity.getAdditionalData())
         self.mapDecimal("people", [DecimalValidator(messageParameter=self._label.get('field.people'))], self._entity.getAdditionalData())
         self.mapDecimal("hotWater", [DecimalValidator(messageParameter=self._label.get('field.hotWater'))], self._entity.getAdditionalData())
         self.mapDecimal("coldWater", [DecimalValidator(messageParameter=self._label.get('field.coldWater'))], self._entity.getAdditionalData())
