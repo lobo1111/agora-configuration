@@ -44,7 +44,7 @@ class CommunityDetailsManager(Container):
         ContractorManager().createDefaultContractorsForCommunity(community)
         
     def recalculateShares(self, community):
-        totalArea = BigDecimal()
+        totalArea = BigDecimal(0)
         for possession in community.getPossessions():
             totalArea = totalArea.add(possession.getArea())
         for possession in community.getPossessions():
