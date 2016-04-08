@@ -26,7 +26,7 @@ class Mapper(Container):
         else:
             self._logger.info("Type %s not found of attribute %s" % (self._svars.get(propertyName + "Type"), self._svars.get(propertyName)))
             
-    def mapDecimal(self, propertyName, validators, mappedEntity):
+    def mapDecimal(self, propertyName, validators, mappedEntity=None):
         if mappedEntity == None:
             mappedEntity = self._entity
         for validator in validators:
