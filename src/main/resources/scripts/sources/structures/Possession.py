@@ -1,4 +1,5 @@
 from base.Container import Container
+from structures.CommunityDetails import CommunityDetailsManager
 from structures.Element import ElementManager
 from structures.Zpk import ZpkManager
 from structures.helpers.possession.Mapper import PossessionMapper

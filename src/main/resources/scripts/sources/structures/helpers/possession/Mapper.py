@@ -19,8 +19,6 @@ class PossessionMapper(Mapper):
             return self._entity
 
     def setData(self):
-        self.setCommunity()
-        AddressManager().set(self._entity)
         self.mapDecimal("area", [DecimalValidator(messageParameter=self._label.get('field.area'))])
         self.map("declaredArea", [DecimalValidator(messageParameter=self._label.get('field.bookArea'))], self._entity.getAdditionalData())
         self.map("declaredShare", [DecimalValidator(messageParameter=self._label.get('field.bookShare'))], self._entity.getAdditionalData())
@@ -29,6 +27,8 @@ class PossessionMapper(Mapper):
         self.map("coldWater", [DecimalValidator(messageParameter=self._label.get('field.coldWater'))], self._entity.getAdditionalData())
         self.map("heat", [DecimalValidator(messageParameter=self._label.get('field.heat'))], self._entity.getAdditionalData())
         self.map("heatArea", [DecimalValidator(messageParameter=self._label.get('field.heatArea'))], self._entity.getAdditionalData())
+        AddressManager().set(self._entity)
+        self.setCommunity()
     
     def isNew(self):
         return self._isNewStructure
