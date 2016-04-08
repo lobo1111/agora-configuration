@@ -19,7 +19,7 @@ class PossessionManager(Container):
         except ValidationError, e:
             self.setError(e)
             
-    def createZpkNumber(self, entity):
+    def createZpkNumbers(self, entity):
         ZpkManager().createZpksForPossession(entity)
     
     def createElements(self, entity):
