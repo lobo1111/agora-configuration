@@ -12,7 +12,7 @@ class Mapper(Container):
             validator.validate(self._svars.get(propertyName))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleIntegerProperty':
-            getattr(mappedEntity, methodName)(self._svars.get(propertyName))
+            getattr(mappedEntity, methodName)(int(self._svars.get(propertyName)))
             self._logger.info("Mapped %s=%s as Integer" % (propertyName, self._svars.get(propertyName)))
         elif self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleStringProperty':
             getattr(mappedEntity, methodName)(self._svars.get(propertyName))
