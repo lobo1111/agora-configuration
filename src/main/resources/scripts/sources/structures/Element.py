@@ -78,6 +78,7 @@ class ElementManager(Container):
         mapper = ElementMapper()
         mapper.initStructure()
         self.removeEntity(mapper.getEntity())
+    
     '''
     For given community creates default Community Elements based on Element
     entity configuration - every Element marked as 'default' will added
@@ -86,6 +87,13 @@ class ElementManager(Container):
     '''
     def createDefaultElementsForCommunity(self, community):
         DefaultElementsHelper().createDefaultElementsForCommunity(community)
+    
+    '''
+    For given possession cascades current set of elements from community of that
+    possession
+    '''
+    def createDefaultElementsForPossession(self, possession):
+        DefaultElementsHelper().createDefaultElementsForPossession(possession)
         
     '''
     Helper method for obtaining value of the element. Entity provided in parameter

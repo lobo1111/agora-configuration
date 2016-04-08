@@ -20,6 +20,10 @@ class ZpkManager(Container):
     def createZpksForContractor(self, contractor):
         contractor.getZpks().add(self.createZpk(contractor.getCommunity(), "CONTRACTOR"))
         contractor.getZpks().add(self.createZpk(contractor.getCommunity(), "CONTRACTOR_COST"))
+    
+    def createZpksForPossession(self, possession):
+        possession.getZpks().add(self.createZpk(possession.getCommunity(), "POSSESSION"))
+        possession.getZpks().add(self.createZpk(possession.getCommunity(), "POSSESSION_REPAIR_FUND"))
 
     def createDefaultZpkNumbersForCommunity(self, community):
         self.createZpk(community, "CHARGING_RENT")

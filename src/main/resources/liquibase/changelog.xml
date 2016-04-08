@@ -2139,4 +2139,17 @@
             INSERT INTO `label`(`name`, `message`)VALUES('field.counterSeal', 'Plomba');
         </sql>
     </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-insert-possession-fields">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('field.area', 'Powierzchnia');
+            INSERT INTO `label`(`name`, `message`)VALUES('field.bookArea', 'Powierzchnia w sekcji Księga Wieczysta');
+            INSERT INTO `label`(`name`, `message`)VALUES('field.bookShare', 'Udział w sekcji Księga Wieczysta');
+            INSERT INTO `label`(`name`, `message`)VALUES('field.people', 'Osoby');
+            INSERT INTO `label`(`name`, `message`)VALUES('field.hotWater', 'Ciepła woda');
+            INSERT INTO `label`(`name`, `message`)VALUES('field.coldWater', 'Zimna woda');
+            INSERT INTO `label`(`name`, `message`)VALUES('field.heat', 'Ciepło');
+            INSERT INTO `label`(`name`, `message`)VALUES('field.heatArea', 'Ogrzewana powierzchnia');
+        </sql>
+    </changeSet>
 </databaseChangeLog>

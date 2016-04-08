@@ -1,10 +1,11 @@
 from base.Container import Container
-from structures.helpers.community.Mapper import CommunityMapper
-from structures.Zpk import ZpkManager
-from structures.Element import ElementManager
+from java.math import BigDecimal
+from java.util import Date
 from structures.Contractor import ContractorManager
+from structures.Element import ElementManager
+from structures.Zpk import ZpkManager
+from structures.helpers.community.Mapper import CommunityMapper
 from structures.validators.common.ValidationError import ValidationError
-from java.util import Date 
 
 class CommunityDetailsManager(Container):
     _mapper = CommunityMapper()
@@ -41,4 +42,11 @@ class CommunityDetailsManager(Container):
         
     def createContractors(self, community):
         ContractorManager().createDefaultContractorsForCommunity(community)
+        
+    def recalculateShares(self, community):
+        totalArea = BigDecimal()
+        for possession in community.getPossessions():
+            totalArea = totalArea.add(possession.getArea())
+        for possession in community.getPossessions():
+            possession.setShare(BigDecimal(possession.getArea().divide(totalArea).multiply(100)))
         

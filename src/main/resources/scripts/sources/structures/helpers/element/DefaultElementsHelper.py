@@ -3,6 +3,14 @@ from pl.reaper.container.data import ElementCommunity
 
 class DefaultElementsHelper(Container):
     
+    def createDefaultElementsForPossession(self, possession):
+        for communityElement in self.collectCommunityElements(possession.getCommunity()):
+            possessionElement = ElementPossession()
+            possessionElement.setElement(communityElement.getElement())
+            communityElement.getElement().getPossessionElements().add(possessionElement)
+            possessionElement.setElementCommunity(communityElement)
+            communityElement.getPossessionsElements().add(possessionElement)
+    
     def createDefaultElementsForCommunity(self, community):
         for element in self.collectDefaultElements():
             communityElement = ElementCommunity()
