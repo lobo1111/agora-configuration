@@ -1,5 +1,6 @@
 from base.Container import Container
 from pl.reaper.container.data import ElementCommunity
+from pl.reaper.container.data import ElementPossession
 
 class DefaultElementsHelper(Container):
     
