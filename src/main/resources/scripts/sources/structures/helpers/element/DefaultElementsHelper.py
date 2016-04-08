@@ -11,6 +11,8 @@ class DefaultElementsHelper(Container):
             communityElement.getElement().getPossessionElements().add(possessionElement)
             possessionElement.setElementCommunity(communityElement)
             communityElement.getPossessionsElements().add(possessionElement)
+            possessionElement.setPossession(possession)
+            possession.getElements().add(possessionElement)
     
     def createDefaultElementsForCommunity(self, community):
         for element in self.collectDefaultElements():

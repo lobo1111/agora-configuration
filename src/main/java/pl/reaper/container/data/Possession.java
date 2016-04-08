@@ -55,7 +55,7 @@ public class Possession implements Serializable {
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy = "possession")
     private PossessionAdditionalData additionalData = new PossessionAdditionalData();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
-    private Collection<ElementPossession> elements;
+    private Collection<ElementPossession> elements = new ArrayList();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<ZakladowyPlanKont> zpks = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
