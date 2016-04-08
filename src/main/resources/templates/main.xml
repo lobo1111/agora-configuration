@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <template>
+        <name>entity-possession</name>
+        <source>entity-possession.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Possession e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-global-element</name>
         <source>entity-global-element.vtl</source>
         <variables>
