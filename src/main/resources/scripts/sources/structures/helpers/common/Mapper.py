@@ -1,10 +1,11 @@
 from base.Container import Container
 from helpers.Label import LabelManager
+from java.math import BigDecimal
 
 class Mapper(Container):
     _label = LabelManager()
 
-    def map(self, propertyName, validators = [], mappedEntity = None):
+    def map(self, propertyName, validators=[], mappedEntity=None):
         if mappedEntity == None:
             mappedEntity = self._entity
         for validator in validators:
@@ -25,15 +26,22 @@ class Mapper(Container):
         else:
             self._logger.info("Type %s not found of attribute %s" % (self._svars.get(propertyName + "Type"), self._svars.get(propertyName)))
             
+    def mapDecimal(self, propertyName, validators, mappedEntity):
+        if mappedEntity == None:
+            mappedEntity = self._entity
+        for validator in validators:
+            validator.validate(self._svars.get(propertyName))
+        methodName = "set" + propertyName[0].upper() + propertyName[1:]    
+        getattr(mappedEntity, methodName)(BigDecimal(self._svars.get(propertyName)))
         
-    def mapDictionary(self, propertyName, dictionaryValidator, mappedEntity = None):
+    def mapDictionary(self, propertyName, dictionaryValidator, mappedEntity=None):
         if mappedEntity == None:
             mappedEntity = self._entity
         entity = dictionaryValidator.validate(self._svars.get(propertyName + 'Id'))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         getattr(mappedEntity, methodName)(entity)
         
-    def mapDate(self, propertyName, validators, mappedEntity = None):
+    def mapDate(self, propertyName, validators, mappedEntity=None):
         if mappedEntity == None:
             mappedEntity = self._entity
         date = self.parseDate(self.get(propertyName))
