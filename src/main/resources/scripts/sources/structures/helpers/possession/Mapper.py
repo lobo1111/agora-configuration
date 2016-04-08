@@ -20,13 +20,13 @@ class PossessionMapper(Mapper):
     def setData(self):
         AddressManager().set(self._entity)
         self.mapDecimal("area", [DecimalValidator(messageParameter=self._label.get('field.area'))])
-        self.mapDecimal("declaredArea", [DecimalValidator(messageParameter=self._label.get('field.bookArea'))], self._entity.getAdditionalData())
-        self.mapDecimal("declaredShare", [DecimalValidator(messageParameter=self._label.get('field.bookShare'))], self._entity.getAdditionalData())
-        self.mapDecimal("people", [DecimalValidator(messageParameter=self._label.get('field.people'))], self._entity.getAdditionalData())
-        self.mapDecimal("hotWater", [DecimalValidator(messageParameter=self._label.get('field.hotWater'))], self._entity.getAdditionalData())
-        self.mapDecimal("coldWater", [DecimalValidator(messageParameter=self._label.get('field.coldWater'))], self._entity.getAdditionalData())
-        self.mapDecimal("heat", [DecimalValidator(messageParameter=self._label.get('field.heat'))], self._entity.getAdditionalData())
-        self.mapDecimal("heatArea", [DecimalValidator(messageParameter=self._label.get('field.heatArea'))], self._entity.getAdditionalData())
+        self.map("declaredArea", [DecimalValidator(messageParameter=self._label.get('field.bookArea'))], self._entity.getAdditionalData())
+        self.map("declaredShare", [DecimalValidator(messageParameter=self._label.get('field.bookShare'))], self._entity.getAdditionalData())
+        self.map("people", [DecimalValidator(messageParameter=self._label.get('field.people'))], self._entity.getAdditionalData())
+        self.map("hotWater", [DecimalValidator(messageParameter=self._label.get('field.hotWater'))], self._entity.getAdditionalData())
+        self.map("coldWater", [DecimalValidator(messageParameter=self._label.get('field.coldWater'))], self._entity.getAdditionalData())
+        self.map("heat", [DecimalValidator(messageParameter=self._label.get('field.heat'))], self._entity.getAdditionalData())
+        self.map("heatArea", [DecimalValidator(messageParameter=self._label.get('field.heatArea'))], self._entity.getAdditionalData())
     
     def isNew(self):
         return self._isNewStructure
