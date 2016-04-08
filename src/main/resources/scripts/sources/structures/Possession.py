@@ -2,6 +2,7 @@ from base.Container import Container
 from structures.Element import ElementManager
 from structures.Zpk import ZpkManager
 from structures.helpers.possession.Mapper import PossessionMapper
+from structures.validators.common.ValidationError import ValidationError
 
 class PossessionManager(Container):
     _mapper = PossessionMapper()
