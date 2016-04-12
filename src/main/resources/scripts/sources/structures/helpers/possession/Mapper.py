@@ -16,6 +16,7 @@ class PossessionMapper(Mapper):
             self._logger.info("Possession persist - it's a new possession")
             self._isNewStructure = True
             self._entity = Possession()
+            self._entity.getAdditionalData().setPossession(self._entity)
             return self._entity
 
     def setData(self):
