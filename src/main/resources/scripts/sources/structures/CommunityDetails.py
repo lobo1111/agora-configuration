@@ -46,11 +46,13 @@ class CommunityDetailsManager(Container):
         
     def recalculateShares(self, community):
         totalArea = BigDecimal(0)
+        percent = BigDecimal(100)
         for possession in community.getPossessions():
             totalArea = totalArea.add(possession.getArea())
         self._logger.info("Total area of community %s calculated as %f" % (community.getName(), totalArea.floatValue()))
         for possession in community.getPossessions():
-            possessionArea = BigDecimal(possession.getArea().divide(totalArea, 2, RoundingMode.HALF_UP).multiply(BigDecimal(100)))
+            tmpPossessionArea = possession.getArea().divide(totalArea, 2, RoundingMode.HALF_UP)
+            possessionArea = tmpPossessionArea.multiply(percent)
             self._logger.info("Possession area for %d calculated as %f" % (possession.getId(), possessionArea))
             possession.setShare(possessionArea)
         
