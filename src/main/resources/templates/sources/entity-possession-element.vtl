@@ -4,7 +4,11 @@
     <property name="group" type="String">$!entity.getElement().getGroup().getValue()</property>
     <property name="groupId" type="Integer">$!entity.getElement().getGroup().getId()</property>
     <property name="name" type="String">$!entity.getElement().getName()</property>
-    <property name="globalValue" type="Double">$!entity.getElement().getGlobalValue()</property>
+    #if($!entity.getCommunityElement() and $!entity.getCommunityElement().isOverrideParentValue())
+        <property name="globalValue" type="Double">$!entity.getCommunityElement().getLocalValue()</property>
+    #else
+        <property name="globalValue" type="Double">$!entity.getElement().getGlobalValue()</property>
+    #end
     <property name="localValue" type="Double">$!entity.getLocalValue()</property>
     <property name="overrideParentValue" type="Boolean">$!entity.isOverrideParentValue()</property>
     <property name="algorithm" type="String">$!entity.getElement().getAlgorithm().getKey()</property>
