@@ -1,4 +1,5 @@
 from pl.reaper.container.data import Possession
+from pl.reaper.container.data import PossessionAdditionalData
 from structures.Address import AddressManager
 from structures.helpers.common.Mapper import Mapper
 from structures.validators.common.DecimalValidator import DecimalValidator
@@ -16,7 +17,9 @@ class PossessionMapper(Mapper):
             self._logger.info("Possession persist - it's a new possession")
             self._isNewStructure = True
             self._entity = Possession()
-            self._entity.getAdditionalData().setPossession(self._entity)
+            additionalData = PossessionAdditionalData()
+            additionalData.setPossession(self._entity)
+            self._entity.setAdditionalData(additionalData)
             return self._entity
 
     def setData(self):
