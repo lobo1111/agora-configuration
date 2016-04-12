@@ -12,10 +12,10 @@ class PossessionManager(Container):
         try:
             self._mapper.initStructure()
             self._mapper.setData()
-            if self._mapper.isNew():
-                self.createZpkNumbers(self._mapper.getEntity())
-                self.createElements(self._mapper.getEntity())
-            CommunityDetailsManager().recalculateShares(self._mapper.getEntity().getCommunity())
+#            if self._mapper.isNew():
+#                self.createZpkNumbers(self._mapper.getEntity())
+#                self.createElements(self._mapper.getEntity())
+#            CommunityDetailsManager().recalculateShares(self._mapper.getEntity().getCommunity())
             self.saveEntity(self._mapper.getEntity())
         except ValidationError, e:
             self.setError(e)
