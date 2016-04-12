@@ -42,7 +42,7 @@ public class Possession implements Serializable {
     @ManyToOne(optional = false)
     private Community community;
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Address address;
     @Column(name = "comment1")
     private String comment1;
