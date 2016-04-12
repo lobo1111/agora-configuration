@@ -55,6 +55,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-possession-element</name>
+        <source>entity-possession-element.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    ElementPossession e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-default-booking-period</name>
         <source>entity-default-booking-period.vtl</source>
         <variables>

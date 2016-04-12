@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="possession-element">
+    <property name="id" type="Integer">$!entity.getId()</property>
+    <property name="group" type="String">$!entity.getElement().getGroup().getValue()</property>
+    <property name="groupId" type="Integer">$!entity.getElement().getGroup().getId()</property>
+    <property name="name" type="String">$!entity.getElement().getName()</property>
+    <property name="globalValue" type="Double">$!entity.getElement().getGlobalValue()</property>
+    <property name="localValue" type="Double">$!entity.getLocalValue()</property>
+    <property name="overrideParentValue" type="Boolean">$!entity.isOverrideParentValue()</property>
+    <property name="algorithm" type="String">$!entity.getElement().getAlgorithm().getKey()</property>
+    <property name="algorithmId" type="Integer">$!entity.getElement().getAlgorithm().getId()</property>
+</entity>
