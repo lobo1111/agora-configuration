@@ -26,5 +26,5 @@ class DefaultElementsHelper(Container):
         return self._entityManager.createQuery(sql).getResultList()
             
     def collectCommunityElements(self, community):
-        sql = 'Select e from ElementCommunity e Where e.id = %d' % community.getId()
+        sql = 'Select e from ElementCommunity e Where e.community.id = %d' % community.getId()
         return self._entityManager.createQuery(sql).getResultList()
