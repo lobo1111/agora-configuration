@@ -474,6 +474,41 @@
         </variables>
     </template>
     <template>
+        <name>list-possession-elements</name>
+        <source>list-elements.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    element
+                    FROM 
+                    ElementPossession element
+                    Join element.element globalElement
+                    Join globalElement.group elgroup
+                    Join element.possession possession
+                    WHERE {:where}
+                    ORDER BY elgroup.value ASC, globalElement.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(element.id)
+                    FROM 
+                    ElementPossession element
+                    Join element.element globalElement
+                    Join globalElement.group elgroup
+                    Join element.possession possession
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-community-elements</name>
         <source>list-elements.vtl</source>
         <variables>
