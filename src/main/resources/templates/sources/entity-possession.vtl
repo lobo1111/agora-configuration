@@ -6,8 +6,8 @@
     <property name="flatNumber" type="String">$!entity.getAddress().getFlatNumber()</property>
     <property name="postalCode" type="String">$!entity.getAddress().getPostalCode()</property>
     <property name="city" type="String">$!entity.getAddress().getCity()</property>
-    <property name="area" type="Double">$!entity.getArea()</property>
-    <property name="share" type="Double">$!entity.getShare()</property>
+    <property name="area" type="Double">$!entity.getArea().floatValue()</property>
+    <property name="share" type="Double">$!entity.getShare().floatValue()</property>
     <property name="people" type="Integer">$!entity.getAdditionalData().getPeople()</property>
     <property name="declaredShare" type="Double">$!entity.getAdditionalData().getShare()</property>
     <property name="declaredArea" type="Double">$!entity.getAdditionalData().getArea()</property>
