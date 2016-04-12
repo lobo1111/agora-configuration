@@ -51,7 +51,7 @@ class CommunityDetailsManager(Container):
             totalArea = totalArea.add(possession.getArea())
         self._logger.info("Total area of community %s calculated as %f" % (community.getName(), totalArea.floatValue()))
         for possession in community.getPossessions():
-            tmpPossessionArea = possession.getArea().divide(totalArea, 2, RoundingMode.HALF_UP)
+            tmpPossessionArea = possession.getArea().divide(totalArea, 6, RoundingMode.HALF_UP)
             possessionArea = tmpPossessionArea.multiply(percent)
             self._logger.info("Possession area for %d calculated as %f" % (possession.getId(), possessionArea.floatValue()))
             possession.setShare(possessionArea)
