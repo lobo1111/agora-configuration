@@ -1,5 +1,6 @@
 from base.Container import Container
 from java.math import BigDecimal
+from java.math import RoundingMode
 from java.util import Date
 from structures.Contractor import ContractorManager
 from structures.Element import ElementManager
@@ -49,7 +50,7 @@ class CommunityDetailsManager(Container):
             totalArea = totalArea.add(possession.getArea())
         self._logger.info("Total area of community %s calculated as %f" % (community.getName(), totalArea.floatValue()))
         for possession in community.getPossessions():
-            possessionArea = BigDecimal(possession.getArea().divide(totalArea).multiply(100.0))
+            possessionArea = BigDecimal(possession.getArea().divide(totalArea, 2, RoundingMode.HALF_UP).multiply(100.0))
             self._logger.info("Possession area for %d calculated as %f" % (possession.getId(), possessionArea))
             possession.setShare(possessionArea)
         
