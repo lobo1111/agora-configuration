@@ -11,6 +11,7 @@ class PossessionMapper(Mapper):
         self._entity = self.findById("ElementPossession", self._svars.get('id'))
     
     def setData(self):
+        self._entity.setPossession(self.findById('Possession', self._svars.get('possessionId')))
         self.map("overrideParentValue")
         self.map("localValue", [DecimalValidator(messageParameter=self._label.get('field.value'))])
     
