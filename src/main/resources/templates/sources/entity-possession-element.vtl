@@ -5,7 +5,7 @@
     <property name="groupId" type="Integer">$!entity.getElement().getGroup().getId()</property>
     <property name="name" type="String">$!entity.getElement().getName()</property>
     #if($!entity.getElementCommunity() and $!entity.getElementCommunity().isOverrideParentValue())
-        <property name="globalValue" type="Double">$!entity.getCommunityElement().getLocalValue()</property>
+        <property name="globalValue" type="Double">$!entity.getElementCommunity().getLocalValue()</property>
     #else
         <property name="globalValue" type="Double">$!entity.getElement().getGlobalValue()</property>
     #end
