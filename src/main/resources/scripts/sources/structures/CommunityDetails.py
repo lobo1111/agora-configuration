@@ -47,6 +47,9 @@ class CommunityDetailsManager(Container):
         totalArea = BigDecimal(0)
         for possession in community.getPossessions():
             totalArea = totalArea.add(possession.getArea())
+        self._logger.info("Total area of community %s calculated as %f" % (community.getName(), totalArea.floatValue()))
         for possession in community.getPossessions():
-            possession.setShare(BigDecimal(possession.getArea().divide(totalArea).multiply(100)))
+            possessionArea = BigDecimal(possession.getArea().divide(totalArea).multiply(100.0))
+            self._logger.info("Possession area for %d calculated as %f" % (possession.getId(), possessionArea))
+            possession.setShare(possessionArea)
         
