@@ -13,6 +13,7 @@ class NoteManager(Container):
             if self._mapper.isNew():
                 self._mapper.setUser(User().collectUser())
                 self._mapper.setDate()
+                self._mapper.bind()
             self.saveEntity(self._mapper.getEntity())
         except ValidationError, e:
             self.setError(e)
