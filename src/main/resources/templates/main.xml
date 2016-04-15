@@ -972,7 +972,7 @@
                     FROM 
                     Possession possession
                     Join possession.notes note
-                    WHERE {:where}
+                    WHERE {:where} AND note.removed = 0
                     ORDER BY 
                     note.date Desc
                 </data>

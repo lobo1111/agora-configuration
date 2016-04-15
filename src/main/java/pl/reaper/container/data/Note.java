@@ -34,6 +34,8 @@ public class Note implements Serializable {
     private String title;
     @Column(name = "note")
     private String note;
+    @Column(name = "removed")
+    private boolean removed;
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Person person;
@@ -76,6 +78,14 @@ public class Note implements Serializable {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
     }
 
     public String getFormattedDate() {
