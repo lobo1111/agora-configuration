@@ -35,6 +35,6 @@ class NoteMapper(Mapper):
         
     def bind(self):
         if self.get("type") == "POSSESSION":
-            possession = self.findById("Possession", self.get("possessionId"))
+            possession = self.findById("Possession", self.get("entityId"))
             possession.getNotes().add(self._entity)
         
