@@ -2185,7 +2185,7 @@
             CREATE TABLE `note_possession` (
             `note_id` int(11) NOT NULL,
             `possession_id` int(11) NOT NULL,
-            KEY `author_fkey` (`note_id`)
+            KEY `author_fkey` (`note_id`),
             KEY `author_fkey` (`possession_id`)
             ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
         </sql>
