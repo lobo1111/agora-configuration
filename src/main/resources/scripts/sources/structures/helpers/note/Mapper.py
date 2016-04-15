@@ -33,3 +33,8 @@ class NoteMapper(Mapper):
     def markAsRemoved(self):
         self._entity.setRemoved(True)
         
+    def bind(self):
+        if self.get("type") == "POSSESSION":
+            possession = self.findById("Possession", self.get("possessionId"))
+            possession.getNotes().add(self._entity)
+        
