@@ -25,7 +25,7 @@ class NoteMapper(Mapper):
         return self._isNewStructure
     
     def setUser(self, user):
-        self._entity.setAuthor(user)
+        self._entity.setPerson(user)
         
     def setDate(self):
         self._entity.setDate(Date())
