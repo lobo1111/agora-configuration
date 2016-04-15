@@ -6,6 +6,7 @@ from structures.validators.common.LengthValidator import LengthValidator
 class NoteMapper(Mapper):
     
     def initStructure(self):
+        self._logger.info("ID: %s" % self.get('id'))
         if int(self.get('id')) > 0:
             self._logger.info("Note persist - it's an update. Found id: %s" % self._svars.get('id'))
             self._entity = self.findById("Note", int(self._svars.get('id')))
