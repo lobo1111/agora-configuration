@@ -961,6 +961,25 @@
         </variables>
     </template>
     <template>
+        <name>possession-notes</name>
+        <source>list-notes.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT note
+                    FROM 
+                    Possession possession
+                    Join possession.notes note
+                    WHERE {:where}
+                    ORDER BY 
+                    note.date Desc
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>user-information</name>
         <source>entity-person.vtl</source>
         <variables />

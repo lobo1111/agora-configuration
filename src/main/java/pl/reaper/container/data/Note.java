@@ -1,6 +1,7 @@
 package pl.reaper.container.data;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -77,4 +78,11 @@ public class Note implements Serializable {
         this.person = person;
     }
 
+    public String getFormattedDate() {
+        if (date != null) {
+            return new SimpleDateFormat("dd-MM-yyyy").format(date);
+        } else {
+            return "";
+        }
+    }
 }
