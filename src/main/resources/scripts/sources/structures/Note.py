@@ -1,3 +1,4 @@
+from actions.User import User
 from base.Container import Container
 from structures.helpers.note.Mapper import NoteMapper
 from structures.validators.common.ValidationError import ValidationError
