@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -66,6 +66,12 @@ public class Possession implements Serializable {
     private Collection<Counter> counters = new ArrayList<>();
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "possession")
     private Collection<BankNote> bankNotes = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "note_possession",
+            joinColumns = @JoinColumn(name = "possession_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "note_id", referencedColumnName = "id"))
+    private List<Note> notes;
 
     public Possession() {
     }
@@ -279,4 +285,21 @@ public class Possession implements Serializable {
         }
         return startDebit;
     }
+
+    public Collection<BankNote> getBankNotes() {
+        return bankNotes;
+    }
+
+    public void setBankNotes(Collection<BankNote> bankNotes) {
+        this.bankNotes = bankNotes;
+    }
+
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
 }
