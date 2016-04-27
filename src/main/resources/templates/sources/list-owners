@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="notes">
+    <list name="items">
+        #foreach($row in $items)
+        <entity name="owner">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="name" type="String">$!row.getName()</property>
+            #if($row.isPerson())
+            <property name="type" type="String">PERSON</property>
+            #else
+            <property name="type" type="String">COMPANY</property>
+            #end
+        </entity>
+        #end
+    </list>
+</entity>

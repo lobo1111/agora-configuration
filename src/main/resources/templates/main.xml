@@ -385,6 +385,36 @@
         </variables>
     </template>
     <template>
+        <name>list-owners</name>
+        <source>list-owners.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    owner
+                    FROM
+                    Owner owner
+                    Join owner.possession possession
+                    WHERE {:where}
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(owner.id)
+                    FROM
+                    Owner owner
+                    Join owner.possession possession
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-possessions</name>
         <source>list-possessions.vtl</source>
         <variables>
