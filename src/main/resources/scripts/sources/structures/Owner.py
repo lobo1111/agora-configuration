@@ -12,3 +12,7 @@ class OwnerManager(Container):
             self.saveEntity(self._mapper.getEntity())
         except ValidationError, e:
             self.setError(e)
+            
+    def remove(self):
+        self._mapper.initStructure()
+        self.removeEntity(self._mapper.getEntity())
