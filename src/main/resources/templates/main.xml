@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <template>
+        <name>entity-owner-company</name>
+        <source>entity-owner-company.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Company e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-owner-person</name>
+        <source>entity-owner-person.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Person e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-possession</name>
         <source>entity-possession.vtl</source>
         <variables>
