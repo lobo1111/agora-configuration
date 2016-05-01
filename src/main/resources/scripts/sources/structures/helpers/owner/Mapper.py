@@ -10,8 +10,11 @@ class OwnerMapper(Mapper):
             self._mapper = PersonMapper()
         elif self.get("type") == "COMPANY":
             self._mapper = CompanyMapper()
-        self._mapper.initStructure()
-        self._entity = self._mapper.getEntity()
+        if self._mapper != None:
+            self._mapper.initStructure()
+            self._entity = self._mapper.getEntity()
+        else:
+            self._entity = self.findById("Owner", self.get("id"))
         self._isNew = True
             
     def setData(self):
@@ -19,4 +22,4 @@ class OwnerMapper(Mapper):
         self.mapDictionary("possession", BindValidator(entity = "Possession", messageParameter=self._label.get('field.possession')))
         
     def getEntity(self):
-        return self._mapper.getEntity()
+        return self._entity
