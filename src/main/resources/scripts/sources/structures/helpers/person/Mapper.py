@@ -25,7 +25,7 @@ class PersonMapper(Mapper):
         
     def setData(self):
         self.map("firstName", [LengthValidator(minLength = 1, maxLength = 150, messageParameter = self._label.get('field.firstName'))])
-        self.map("LastName", [LengthValidator(minLength = 1, maxLength = 150, messageParameter = self._label.get('field.lastName'))])
+        self.map("lastName", [LengthValidator(minLength = 1, maxLength = 150, messageParameter = self._label.get('field.lastName'))])
         self.map("email", [LengthValidator(maxLength = 150, messageParameter = self._label.get('field.email'))])
         self.map("phoneNumber1", [LengthValidator(maxLength = 150, messageParameter = self._label.get('field.phoneNumber1'))])
         AddressManager().set(self._entity)
