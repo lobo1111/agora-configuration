@@ -2,6 +2,7 @@ package pl.reaper.container.data;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,10 +28,10 @@ public class Owner implements Serializable {
     @ManyToOne(optional = true)
     private Address address;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = true, cascade = CascadeType.PERSIST)
     private Company company;
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = true, cascade = CascadeType.PERSIST)
     private Person person;
     @JoinColumn(name = "possession_id", referencedColumnName = "id")
     @ManyToOne

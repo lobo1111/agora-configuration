@@ -58,7 +58,7 @@ public class Person implements Serializable {
     @Column(name = "email")
     private String email;
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Address address;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     private Collection<User> users;
