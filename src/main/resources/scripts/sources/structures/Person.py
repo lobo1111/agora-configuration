@@ -1,5 +1,5 @@
 from base.Container import Container
-from structures.helpers.company.Mapper import PersonMapper
+from structures.helpers.person.Mapper import PersonMapper
 
 class PersonManager(Container):
     _mapper = PersonMapper()

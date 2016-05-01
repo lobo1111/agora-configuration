@@ -3,7 +3,7 @@ from structures.helpers.owner.CompanyMapper import CompanyMapper
 from structures.helpers.owner.PersonMapper import PersonMapper
 from structures.validators.common.BindValidator import BindValidator
 
-class ElementMapper(Mapper):
+class OwnerMapper(Mapper):
     
     def initStructure(self):
         if self.get("type") == "PERSON":
