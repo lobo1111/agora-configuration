@@ -4,6 +4,7 @@ from structures.helpers.owner.PersonMapper import PersonMapper
 from structures.validators.common.BindValidator import BindValidator
 
 class OwnerMapper(Mapper):
+    _mapper = None
     
     def initStructure(self):
         if self.get("type") == "PERSON":
