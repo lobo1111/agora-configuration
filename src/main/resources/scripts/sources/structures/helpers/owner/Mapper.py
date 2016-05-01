@@ -10,8 +10,8 @@ class OwnerMapper(Mapper):
             self._mapper = PersonMapper()
         elif self.get("type") == "COMPANY":
             self._mapper = CompanyMapper()
-        self._entity = self._mapper.getEntity()
         self._mapper.initStructure()
+        self._entity = self._mapper.getEntity()
         self._isNew = True
             
     def setData(self):
