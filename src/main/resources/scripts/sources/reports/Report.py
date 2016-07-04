@@ -17,13 +17,13 @@ class Report(Container):
         
     def additionalData(self):
         self._context.put("date", str(SimpleDateFormat('dd-MM-yyyy').format(Date())))
+        self._context.put("label", LabelManager())
     
     def initTemplate(self):
         self._template = self.findBy("Template", "name", "'" + self.getTemplateName() + "'")
         self._ve = VelocityEngine()
         self._ve.init()
         self._context = VelocityContext()
-        self._context.put("label", LabelManager())
         
     def generateReport(self):
         writer = StringWriter()
