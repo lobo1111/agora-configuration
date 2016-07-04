@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="report-zpks-status">
+    <property name="today" type="String">$date</property>
+    <property name="statusDate" type="String">$statusDate</property>
+    <property name="communityName" type="String">$community.getCompany().getName()</property>
+    <property name="communityAddress" type="String">$community.getCompany().getAddress().getFullAddress()</property>
+    <list name="zpks">
+        #foreach($row in $zpks)
+        <entity name="zpk">
+            <property name="number" type="String">$!row.getType().getKey()-$!row.getNumber()</property>
+            <property name="credit" type="String">$row.getCurrentBalance().getCredit()</property>
+            <property name="debit" type="String">$row.getCurrentBalance().getDebit()</property>
+            #if($!row.getAccount())
+            <property name="description" type="String">$!row.getAccount().getNumber()</property>
+            #end
+            #if($!row.getPossession())
+            <property name="description" type="String">$!row.getPossession().getFullAddress()</property>
+            #end
+            #if($!row.getContractor())
+            <property name="description" type="String">$!row.getContractor().getName()</property>
+            #end
+        </entity>
+        #end
+    </list>
+</entity>

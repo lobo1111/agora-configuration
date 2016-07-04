@@ -1098,4 +1098,9 @@
         <source>entity-person.vtl</source>
         <variables />
     </template>
+    <template>
+        <name>report-zpks-status</name>
+        <source>report-zpks-status.vtl</source>
+        <variables />
+    </template>
 </templates>
