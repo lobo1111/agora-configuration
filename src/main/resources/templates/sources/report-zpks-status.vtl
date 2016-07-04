@@ -41,6 +41,7 @@
     </list>
     <list name="data">
         #foreach($row in $zpks)
+        <entity name="item">
             <property name="number" type="String">$!row.getType().getKey()-$!row.getNumber()</property>
             <property name="credit" type="String">$row.getCurrentBalance().getCredit()</property>
             <property name="debit" type="String">$row.getCurrentBalance().getDebit()</property>
@@ -53,6 +54,7 @@
             #if($!row.getContractor())
             <property name="description" type="String">$!row.getContractor().getName()</property>
             #end
+        </entity>
         #end
     </list>
     <list name="footer">
