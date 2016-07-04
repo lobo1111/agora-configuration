@@ -2230,4 +2230,18 @@
             INSERT INTO `label`(`name`, `message`)VALUES('field.lastName', 'Nazwisko');
         </sql>
     </changeSet>
+        
+    <changeSet author="tkopacki" id="labels-report-zpks-status">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.documentCreationDate', 'Data wystawienia dokumentu');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.zpkStatus', 'Raport stanu kont ZPK');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.statusDate', 'Stan kont na dzień');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.community', 'Wspólnota');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.address', 'Adres');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.number', 'Numer');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.credit', 'Ma');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.debit', 'Winien');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.description', 'Opis');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
