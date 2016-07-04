@@ -9,5 +9,8 @@ class ZpksStatusReport(Report):
     def fillTemplate(self):
         self._context.put("community", self._community)
         self._context.put("statusDate", self._statusDate)
+        
+    def getTemplateName(self):
+        return "report-zpks-status"
     
    

@@ -17,8 +17,8 @@ class Report(Container):
     def additionalData(self):
         self._context.put("date", str(SimpleDateFormat('dd-MM-yyyy').format(Date())))
     
-    def initTemplate(self, templateName):
-        self._template = self.findBy("Template", "name", templateName)
+    def initTemplate(self):
+        self._template = self.findBy("Template", "name", self.getTemplateName())
         self._ve = VelocityEngine()
         self._ve.init()
         self._context = VelocityContext()
