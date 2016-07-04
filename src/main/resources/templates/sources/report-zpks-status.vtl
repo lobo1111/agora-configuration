@@ -47,12 +47,12 @@
             <property name="debit" type="String">$row.getCurrentBalance().getDebit()</property>
             #if($!row.getAccount())
             <property name="description" type="String">$!row.getAccount().getNumber()</property>
-            #end
-            #if($!row.getPossession())
+            #elseif($!row.getPossession())
             <property name="description" type="String">$!row.getPossession().getFullAddress()</property>
-            #end
-            #if($!row.getContractor())
+            #elseif($!row.getContractor())
             <property name="description" type="String">$!row.getContractor().getName()</property>
+            #else
+            <property name="description" type="String"></property>
             #end
         </entity>
         #end
