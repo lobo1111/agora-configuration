@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <entity name="report-zpks-status">
-    <property name="today" type="String">$date</property>
-    <property name="statusDate" type="String">$statusDate</property>
-    <property name="communityName" type="String">$community.getCompany().getName()</property>
-    <property name="communityAddress" type="String">$community.getCompany().getAddress().getFullAddress()</property>
-    <list name="zpks">
+    <list name="header">
+        <entity name="createDate">
+            <property name="label" type="String">Data wystawienia dokumentu</property>
+            <property name="value" type="String">$date</property>
+        </entity>
+    </list>
+    <list name="title">
+        <entity name="title">
+            <property name="label" type="String">Raport stanu kont ZPK</property>
+        </entity>
+    </list>
+    <list name="introduction">
+        <entity name="statusDate">
+            <property name="label" type="String">Stan kont na dzień</property>
+            <property name="value" type="String">$statusDate</property>
+        </entity>
+        <entity name="communityName">
+            <property name="label" type="String">Wspólnota</property>
+            <property name="value" type="String">$community.getCompany().getName()</property>
+        </entity>
+        <entity name="address">
+            <property name="label" type="String">Adres</property>
+            <property name="value" type="String">$community.getCompany().getAddress().getFullAddress()</property>
+        </entity>
+    </list>
+    <list name="data-headers">
+        <entity name="number">
+            <property name="label" type="String">Numer</property>
+        </entity>
+        <entity name="credit">
+            <property name="label" type="String">Ma</property>
+        </entity>
+        <entity name="debit">
+            <property name="label" type="String">Winien</property>
+        </entity>
+        <entity name="description">
+            <property name="label" type="String">Opis konta</property>
+        </entity>
+    </list>
+    <list name="data">
         #foreach($row in $zpks)
-        <entity name="zpk">
             <property name="number" type="String">$!row.getType().getKey()-$!row.getNumber()</property>
             <property name="credit" type="String">$row.getCurrentBalance().getCredit()</property>
             <property name="debit" type="String">$row.getCurrentBalance().getDebit()</property>
@@ -19,7 +53,8 @@
             #if($!row.getContractor())
             <property name="description" type="String">$!row.getContractor().getName()</property>
             #end
-        </entity>
         #end
+    </list>
+    <list name="footer">
     </list>
 </entity>
