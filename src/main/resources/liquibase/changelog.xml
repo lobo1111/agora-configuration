@@ -2244,4 +2244,11 @@
             INSERT INTO `label`(`name`, `message`)VALUES('report.description', 'Opis');
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-label-add-column'>
+        <sql>                   
+            ALTER TABLE `zpk`
+            ADD COLUMN `label` varchar(255)
+        </sql>
+    </changeSet>
 </databaseChangeLog>

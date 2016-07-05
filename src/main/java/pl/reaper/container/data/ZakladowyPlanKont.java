@@ -33,6 +33,9 @@ public class ZakladowyPlanKont implements Serializable {
     @NotNull
     @Column(name = "number")
     private String number;
+    @Basic(optional = true)
+    @Column(name = "label")
+    private String label;
     @JoinColumn(name = "community_id", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Community community;
@@ -57,6 +60,14 @@ public class ZakladowyPlanKont implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getNumber() {
@@ -102,10 +113,10 @@ public class ZakladowyPlanKont implements Serializable {
     public Collection<ZpkBalance> getZpkBalances() {
         return zpkBalances;
     }
-    
+
     public ZpkBalance getCurrentBalance() {
-        for(ZpkBalance balance: zpkBalances) {
-            if(balance.getBookingPeriod().isDefaultPeriod()) {
+        for (ZpkBalance balance : zpkBalances) {
+            if (balance.getBookingPeriod().isDefaultPeriod()) {
                 return balance;
             }
         }
