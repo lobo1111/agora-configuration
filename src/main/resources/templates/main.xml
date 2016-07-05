@@ -1124,8 +1124,8 @@
         <variables />
     </template>
     <template>
-        <name>report-zpks-transactions</name>
-        <source>report-zpks-transactions.vtl</source>
+        <name>report-zpk-transactions</name>
+        <source>report-zpk-transactions.vtl</source>
         <variables />
     </template>
 </templates>
