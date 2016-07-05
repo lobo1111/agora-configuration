@@ -17,7 +17,7 @@ class ZpksStatusReport(Report):
         return output
         
     def getStatusDate(self):
-        if self._statusDate == '':
+        if self._svars.get('statusDate') == '':
             return str(SimpleDateFormat('dd-MM-yyyy').format(Date()))
         else:
             return self._svars.get('statusDate')
