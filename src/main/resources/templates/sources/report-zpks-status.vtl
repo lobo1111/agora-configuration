@@ -30,13 +30,13 @@
             <property name="width" type="Double">1</property>
             <property name="label" type="String">$labelNumber</property>
         </entity>
-        <entity name="credit">
-            <property name="width" type="Double">1</property>
-            <property name="label" type="String">$labelCredit</property>
-        </entity>
         <entity name="debit">
             <property name="width" type="Double">1</property>
             <property name="label" type="String">$labelDebit</property>
+        </entity>
+        <entity name="credit">
+            <property name="width" type="Double">1</property>
+            <property name="label" type="String">$labelCredit</property>
         </entity>
         <entity name="description">
             <property name="width" type="Double">7</property>
@@ -47,8 +47,8 @@
         #foreach($row in $zpks)
         <entity name="item">
             <property name="number" type="String">$row.get('number')</property>
-            <property name="credit" type="String">$row.get('credit')</property>
             <property name="debit" type="String">$row.get('debit')</property>
+            <property name="credit" type="String">$row.get('credit')</property>
             <property name="description" type="String">$row.get('description')</property>
         </entity>
         #end
