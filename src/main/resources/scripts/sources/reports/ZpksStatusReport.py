@@ -12,8 +12,7 @@ class ZpksStatusReport(Report):
     def collectZpks(self, zpks):
         output = []
         for zpk in zpks:
-            tmp = tmpZpk(zpk)
-            output.append(tmp)
+            output.append(tmpZpk(zpk))
         return output
         
     def getStatusDate(self):
