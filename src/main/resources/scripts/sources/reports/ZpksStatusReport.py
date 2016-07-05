@@ -44,12 +44,12 @@ class tmpZpk:
     
     def __init__(self, zpk):
         self._number = zpk.getType().getKey() + "-" + zpk.getNumber()
-        print self._number
         self._debit = 0.0
         self._credit = 0.0
         self._decription = self.obtainDescription(zpk)
     
     def getNumber(self):
+        print self._number
         return self._number
     
     def getDebit(self):
