@@ -46,7 +46,7 @@
     <list name="data">
         #foreach($row in $zpks)
         <entity name="item">
-            <property name="number" type="String">$row.get('number;)</property>
+            <property name="number" type="String">$row.get('number')</property>
             <property name="credit" type="String">$row.get('credit')</property>
             <property name="debit" type="String">$row.get('debit')</property>
             <property name="description" type="String">$row.get('description')</property>
