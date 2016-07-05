@@ -4,6 +4,7 @@ from java.util import Date
 from java.util import HashMap
 from java.math import BigDecimal
 from java.math import RoundingMode
+from javax.persistence import TemporalType
 
 class ZpksStatusReport(Report):
     
@@ -32,7 +33,7 @@ class ZpksStatusReport(Report):
     
     def sumCredit(self, zpkId, statusDate):
         date = SimpleDateFormat('dd-MM-yyyy').parse(statusDate)
-        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= '%s'" % (zpkId, date)
+        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= '%s'" % (zpkId, statusDate)
         result = self._entityManager.createQuery(sql).getSingleResult()
         if result == None:
             return BigDecimal(0)
@@ -41,8 +42,11 @@ class ZpksStatusReport(Report):
     
     def sumDebit(self, zpkId, statusDate):
         date = SimpleDateFormat('dd-MM-yyyy').parse(statusDate)
-        sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= '%s'" % (zpkId, date)
-        result = self._entityManager.createQuery(sql).getSingleResult()
+        sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = :debitId and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= :date"
+        query = self._entityManager.createQuery(sql)
+        query.setParameter("debitId", zpkId)
+        query.setParameter("date", date, TemporalType.DATE)
+        result = query.getSingleResult()
         if result == None:
             return BigDecimal(0)
         else:
