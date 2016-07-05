@@ -33,8 +33,11 @@ class ZpksStatusReport(Report):
     
     def sumCredit(self, zpkId, statusDate):
         date = SimpleDateFormat('dd-MM-yyyy').parse(statusDate)
-        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= '%s'" % (zpkId, statusDate)
-        result = self._entityManager.createQuery(sql).getSingleResult()
+        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = :debitId and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= :date"
+        query = self._entityManager.createQuery(sql)
+        query.setParameter("debitId", zpkId)
+        query.setParameter("date", date, TemporalType.DATE)
+        result = query.getSingleResult()
         if result == None:
             return BigDecimal(0)
         else:
