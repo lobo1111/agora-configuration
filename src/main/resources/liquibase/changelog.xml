@@ -2269,4 +2269,16 @@
             INSERT INTO `label`(`name`, `message`)VALUES('report.value', 'Wartość');
         </sql>
     </changeSet>
+        
+    <changeSet author="tkopacki" id="labels-report-zpk-transactions-2">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.subject', 'Podmiot');
+        </sql>
+    </changeSet>
+        
+    <changeSet author="tkopacki" id="labels-report-zpk-transactions-3">
+        <sql>
+            UPDATE label set name = 'report.from' where name = 'report.from '
+        </sql>
+    </changeSet>
 </databaseChangeLog>
