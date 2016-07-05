@@ -2,6 +2,8 @@ from reports.Report import Report
 from java.text import SimpleDateFormat
 from java.util import Date
 from java.util import HashMap
+from java.math import BigDecimal
+from java.math import RoundingMode
 
 class ZpksStatusReport(Report):
     
@@ -15,11 +17,34 @@ class ZpksStatusReport(Report):
         for zpk in zpks:
             tmp = HashMap()
             tmp.put('number', zpk.getType().getKey() + "-" + zpk.getNumber())
-            tmp.put('debit', 0.0)
-            tmp.put('credit', 0.0)
+            debit, credit = self.calculate(zpk, self._statusDate)
+            tmp.put('debit', debit)
+            tmp.put('credit', credit)
             tmp.put('description', self.obtainDescription(zpk))
             output.append(tmp)
         return output
+    
+    def calculate(self, zpk, statusDate):
+        balance = zpk.getCurrentBalance();
+        calculatedDebit = (self.sumDebit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartDebit()))).setScale(2, RoundingMode.HALF_UP)
+        calculatedCredit = (self.sumCredit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartCredit()))).setScale(2, RoundingMode.HALF_UP)
+        return calculatedDebit, calculatedCredit
+    
+    def sumCredit(self, zpkId, statusDate):
+        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and createdAt <= %s" % (zpkId, statusDate)
+        result = self._entityManager.createQuery(sql).getSingleResult()
+        if result == None:
+            return BigDecimal(0)
+        else:
+            return result
+    
+    def sumDebit(self, zpkId, statusDate):
+        sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and createdAt <= %s" % (zpkId, statusDate)
+        result = self._entityManager.createQuery(sql).getSingleResult()
+        if result == None:
+            return BigDecimal(0)
+        else:
+            return result
         
     def getStatusDate(self):
         if self._svars.get('statusDate') == '':
