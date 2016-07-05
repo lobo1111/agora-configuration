@@ -41,10 +41,6 @@ class ZpksStatusReport(Report):
         return "report-zpks-status"
     
 class tmpZpk:
-    _number = ''
-    _debit = 0
-    _credit = 0
-    _description = ''
     
     def __init__(self, zpk):
         self._number = zpk.getType().getKey() + "-" + zpk.getNumber()
