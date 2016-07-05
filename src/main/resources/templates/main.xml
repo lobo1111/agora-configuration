@@ -816,6 +816,26 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-zpks</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    zpk.id, concat(zpk.type.key, '-', zpk.number))
+                    FROM 
+                    ZakladowyPlanKont zpk
+                    Join zpk.community community
+                    WHERE 
+                    {:where}
+                    ORDER BY 
+                    zpk.type.key ASC, zpk.number
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-element-names</name>
         <source>simple-list.vtl</source>
         <variables>
