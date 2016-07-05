@@ -13,19 +13,21 @@ class ZpkTransactionsReport(Report):
         self._from = self._svars.get('from')
         self._to = self._svars.get('to')
         self._zpk = self.findById("ZakladowyPlanKont", self._svars.get('zpkId'))
-        self._transactions = []
+        self._transactions = self.collectTransactions()
         
     def collectZpks(self, zpks):
         output = []
-        for zpk in zpks:
-            tmp = HashMap()
-            tmp.put('number', zpk.getType().getKey() + "-" + zpk.getNumber())
-            debit, credit = self.calculate(zpk, self._statusDate)
-            tmp.put('debit', debit)
-            tmp.put('credit', credit)
-            tmp.put('description', self.obtainDescription(zpk))
-            output.append(tmp)
-        output = sorted(output, key=lambda item: item.get('number'))
+        transaction = dict([])
+        transaction['type'] = 'Faktura'
+        transaction['subject'] = 'ACME'
+        transaction['createdAt'] = '03-05-2014'
+        transaction['value'] = '52.63'
+        transaction['zpkDebit'] = '131-001'
+        transaction['zpkCredit'] = '200-004'
+        transaction['zpkDebitStatus'] = '100.42'
+        transaction['zpkCreditStatus'] = '75.26'
+        transaction['description'] = 'Opis konta ZPK'
+        output.append(transaction)
         return output
     
     def fillTemplate(self):
