@@ -822,16 +822,7 @@
             <var>
                 <name>items</name>
                 <data>
-                    SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    zpk.id, concat(type.key, '-', zpk.number))
-                    FROM 
-                    ZakladowyPlanKont zpk
-                    Join zpk.type type
-                    Join zpk.community community
-                    WHERE 
-                    {:where}
-                    ORDER BY 
-                    type.key ASC, zpk.number
+                    aaa
                 </data>
             </var>
         </variables>
