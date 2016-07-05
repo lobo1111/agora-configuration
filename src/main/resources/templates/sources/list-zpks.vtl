@@ -6,6 +6,7 @@
         <entity name="zpk">
             <property name="id" type="Integer">$row.getId()</property>
             <property name="number" type="String">$!row.getType().getKey()-$!row.getNumber()</property>
+            <property name="label" type="String">$!row.getType().getKey()-$!row.getNumber()</property>
             <property name="credit" type="String">$row.getCurrentBalance().getCredit()</property>
             <property name="debit" type="String">$row.getCurrentBalance().getDebit()</property>
             #if($!row.getAccount())
