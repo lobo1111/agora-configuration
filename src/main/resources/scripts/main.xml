@@ -17,12 +17,12 @@
     </scheduler>
     <scheduler>
         <script>guardian-zpk</script>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
     <scheduler>
         <script>migrate-all</script>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
         <fireAt>* * * * *</fireAt>
     </scheduler>
 </schedulers>
