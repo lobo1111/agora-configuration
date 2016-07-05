@@ -2251,4 +2251,10 @@
             ADD COLUMN `label` varchar(255)
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='zpk-label-init'>
+        <sql>                   
+            Update zpk, dictionary set label = concat(dictionary.dictionaryKey, '-', zpk.number) where zpk.type_id = dictionary.id
+        </sql>
+    </changeSet>
 </databaseChangeLog>
