@@ -35,40 +35,36 @@
     </list>
     <list name="data-headers">
         <entity name="type">
-            <property name="width" type="Double">10</property>
+            <property name="width" type="Double">15</property>
             <property name="label" type="String">$labelType</property>
         </entity>
         <entity name="subject">
-            <property name="width" type="Double">10</property>
+            <property name="width" type="Double">20</property>
             <property name="label" type="String">$labelSubject</property>
         </entity>
         <entity name="createdAt">
-            <property name="width" type="Double">5</property>
+            <property name="width" type="Double">15</property>
             <property name="label" type="String">$labelCreatedAt</property>
         </entity>
         <entity name="value">
-            <property name="width" type="Double">5</property>
+            <property name="width" type="Double">10</property>
             <property name="label" type="String">$labelValue</property>
         </entity>
         <entity name="zpkDebit">
-            <property name="width" type="Double">5</property>
+            <property name="width" type="Double">10</property>
             <property name="label" type="String">$labelDebit</property>
         </entity>
         <entity name="zpkCredit">
-            <property name="width" type="Double">5</property>
+            <property name="width" type="Double">10</property>
             <property name="label" type="String">$labelCredit</property>
         </entity>
         <entity name="zpkDebitStatus">
-            <property name="width" type="Double">5</property>
+            <property name="width" type="Double">10</property>
             <property name="label" type="String">$labelDebit</property>
         </entity>
         <entity name="zpkCreditStatus">
-            <property name="width" type="Double">5</property>
+            <property name="width" type="Double">10</property>
             <property name="label" type="String">$labelCredit</property>
-        </entity>
-        <entity name="description">
-            <property name="width" type="Double">50</property>
-            <property name="label" type="String">$labelDescription</property>
         </entity>
     </list>
     <list name="data">
@@ -82,7 +78,6 @@
             <property name="zpkCredit" type="String">$row.get('zpkCredit')</property>
             <property name="zpkDebitStatus" type="String">$row.get('zpkDebitStatus')</property>
             <property name="zpkCreditStatus" type="String">$row.get('zpkCreditStatus')</property>
-            <property name="description" type="String">$row.get('description')</property>
         </entity>
         #end
     </list>

@@ -26,7 +26,6 @@ class ZpkTransactionsReport(Report):
         transaction['zpkCredit'] = '200-004'
         transaction['zpkDebitStatus'] = '100.42'
         transaction['zpkCreditStatus'] = '75.26'
-        transaction['description'] = 'Opis konta ZPK'
         output.append(transaction)
         return output
     
