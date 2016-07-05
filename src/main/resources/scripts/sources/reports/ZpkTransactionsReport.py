@@ -35,6 +35,7 @@ class ZpkTransactionsReport(Report):
         self._context.put("fromDate", self._from)
         self._context.put("toDate", self._to)
         self._context.put("zpk", self._zpk)
+        self._context.put("transactions", self._transactions)
         self._context.put("labelDocumentCreationDate", self._label.get('report.documentCreationDate'))
         self._context.put("labelZpkTransactions", self._label.get('report.zpkTransactions'))
         self._context.put("labelCommunity", self._label.get('report.community'))
