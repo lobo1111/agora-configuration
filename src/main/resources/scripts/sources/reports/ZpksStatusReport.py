@@ -31,7 +31,7 @@ class ZpksStatusReport(Report):
         return calculatedDebit, calculatedCredit
     
     def sumCredit(self, zpkId, statusDate):
-        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and createdAt <= '%s'" % (zpkId, statusDate)
+        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= '%s'" % (zpkId, statusDate)
         result = self._entityManager.createQuery(sql).getSingleResult()
         if result == None:
             return BigDecimal(0)
@@ -39,7 +39,7 @@ class ZpksStatusReport(Report):
             return result
     
     def sumDebit(self, zpkId, statusDate):
-        sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and createdAt <= '%s'" % (zpkId, statusDate)
+        sql = "Select sum(e.value) From DocumentPosition e Where e.debitZpk.id = %d and e.booked = 1 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= '%s'" % (zpkId, statusDate)
         result = self._entityManager.createQuery(sql).getSingleResult()
         if result == None:
             return BigDecimal(0)
