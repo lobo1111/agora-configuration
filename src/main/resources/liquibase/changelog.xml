@@ -2257,4 +2257,16 @@
             Update zpk, dictionary set label = concat(dictionary.dictionaryKey, '-', zpk.number) where zpk.type_id = dictionary.id
         </sql>
     </changeSet>
+        
+    <changeSet author="tkopacki" id="labels-report-zpks-status">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.zpkTransactions', 'Lista transakcji na koncie ZPK');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.zpk', 'Konto ZPK');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.from ', 'Od');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.to', 'Do');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.documentType', 'Dokument');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.createdAt', 'Data utworzenia');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.value', 'Wartość');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
