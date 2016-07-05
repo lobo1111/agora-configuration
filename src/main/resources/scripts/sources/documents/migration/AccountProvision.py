@@ -36,7 +36,7 @@ class AccountProvisionMigrator(Container):
                 DocumentManager().bound(document, documentPosition)
                 self.saveEntity(document)
             else:
-                self._logger.info('Account provision %d already migrated, skipping...' % note.getId())
+                self._logger.info('Account provision %d already migrated, skipping...' % ap.getId())
             
     def collect(self):
         sql = "Select i From AccountProvision i"
