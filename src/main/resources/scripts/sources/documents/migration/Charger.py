@@ -47,7 +47,7 @@ class ChargerMigrator(Container):
                     DocumentManager().bound(document, documentPosition)
                 self.saveEntity(document)
             else:
-                self._logger.info('Note %d already migrated, skipping...' % note.getId())
+                self._logger.info('Charge %d already migrated, skipping...' % charging.getId())
             
     def collect(self):
         sql = "Select i From Charging i"
