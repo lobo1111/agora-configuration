@@ -1,6 +1,7 @@
 from reports.Report import Report
 from java.text import SimpleDateFormat
 from java.util import Date
+from java.util import HashMap
 
 class ZpksStatusReport(Report):
     
@@ -12,7 +13,12 @@ class ZpksStatusReport(Report):
     def collectZpks(self, zpks):
         output = []
         for zpk in zpks:
-            output.append(tmpZpk(zpk))
+            tmp = HashMap()
+            tmp.put('number', zpk.getType().getKey() + "-" + zpk.getNumber())
+            tmp.put('debit', 0.0)
+            tmp.put('credit', 0.0)
+            tmp.put('description', 'a')
+            output.append(tmp)
         return output
         
     def getStatusDate(self):
