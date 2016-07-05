@@ -15,7 +15,7 @@ class ZpkTransactionsReport(Report):
         self._zpk = self.findById("ZakladowyPlanKont", self._svars.get('zpkId'))
         self._transactions = self.collectTransactions()
         
-    def collectZpks(self, zpks):
+    def collectTransactions(self):
         output = []
         transaction = dict([])
         transaction['type'] = 'Faktura'
