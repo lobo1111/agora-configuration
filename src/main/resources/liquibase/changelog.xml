@@ -2258,7 +2258,7 @@
         </sql>
     </changeSet>
         
-    <changeSet author="tkopacki" id="labels-report-zpks-status">
+    <changeSet author="tkopacki" id="labels-report-zpk-transactions">
         <sql>
             INSERT INTO `label`(`name`, `message`)VALUES('report.zpkTransactions', 'Lista transakcji na koncie ZPK');
             INSERT INTO `label`(`name`, `message`)VALUES('report.zpk', 'Konto ZPK');
