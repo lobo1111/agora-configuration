@@ -17,7 +17,7 @@ class ZpksStatusReport(Report):
             tmp.put('number', zpk.getType().getKey() + "-" + zpk.getNumber())
             tmp.put('debit', 0.0)
             tmp.put('credit', 0.0)
-            tmp.put('description', 'a')
+            tmp.put('description', self.obtainDescription(zpk))
             output.append(tmp)
         return output
         
@@ -26,6 +26,16 @@ class ZpksStatusReport(Report):
             return str(SimpleDateFormat('dd-MM-yyyy').format(Date()))
         else:
             return self._svars.get('statusDate')
+        
+    def obtainDescription(self, zpk):
+        if zpk.getAccount() != None:
+            return zpk.getAccount().getNumber()
+        elif zpk.getPossession() != None:
+            return zpk.getPossession().getFullAddress()
+        elif zpk.getContractor() != None:
+            return zpk.getContractor().getName()
+        else:
+            return ''
     
     def fillTemplate(self):
         self._context.put("community", self._community)
@@ -44,40 +54,3 @@ class ZpksStatusReport(Report):
         
     def getTemplateName(self):
         return "report-zpks-status"
-    
-class tmpZpk:
-    
-    def __init__(self, zpk):
-        self._number = zpk.getType().getKey() + "-" + zpk.getNumber()
-        self._debit = 0.0
-        self._credit = 0.0
-        self._decription = self.obtainDescription(zpk)
-    
-    def getNumber(self):
-        print self._number
-        return self._number
-    
-    def getDebit(self):
-        return self._debit
-    
-    def getCredit(self):
-        return self._credit
-    
-    def getDescription(self):
-        return self._description
-    
-    def obtainDescription(self, zpk):
-        if zpk.getAccount() != None:
-            return zpk.getAccount().getNumber()
-        elif zpk.getPossession() != None:
-            return zpk.getPossession().getFullAddress()
-        elif zpk.getContractor() != None:
-            return zpk.getContractor().getName()
-        else:
-            return ''
-    
-    def addToCredit(self, amount):
-        self._credit = self._credit + amount
-        
-    def addToDebit(self, amount):
-        self._debit = self._debit + amount
