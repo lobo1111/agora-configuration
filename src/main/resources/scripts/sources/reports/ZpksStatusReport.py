@@ -23,6 +23,7 @@ class ZpksStatusReport(Report):
             tmp.put('credit', credit)
             tmp.put('description', self.obtainDescription(zpk))
             output.append(tmp)
+        output = sorted(output, key=lambda item: item.get('number'))
         return output
     
     def calculate(self, zpk, statusDate):
