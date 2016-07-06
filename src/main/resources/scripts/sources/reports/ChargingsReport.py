@@ -17,7 +17,7 @@ class ChargingsReport(Report):
     def getStartBalance(self):
         balance = BigDecimal(0)
         for zpk in self._possession.getZpks():
-            balance = balance.add(zpk.getCurrentBalance().getDebit() - zpk.getCurrentBalance().getDebit())
+            balance = balance.add(BigDecimal(zpk.getCurrentBalance().getDebit() - zpk.getCurrentBalance().getDebit()))
         return balance
         
     def collectTransactions(self):
