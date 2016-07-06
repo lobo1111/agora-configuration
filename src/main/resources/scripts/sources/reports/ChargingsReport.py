@@ -36,6 +36,7 @@ class ChargingsReport(Report):
         self._context.put("labelStartBalance", self._label.get('report.startBalance'))
         self._context.put("labelCreatedAt", self._label.get('report.createdAt'))
         self._context.put("labelValue", self._label.get('report.value'))
+        self._context.put("labelType", self._label.get('report.documentType'))
         
     def getTemplateName(self):
         return "report-chargings"
