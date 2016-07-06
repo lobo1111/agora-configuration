@@ -1128,4 +1128,9 @@
         <source>report-zpk-transactions.vtl</source>
         <variables />
     </template>
+    <template>
+        <name>report-chargings</name>
+        <source>report-chargings.vtl</source>
+        <variables />
+    </template>
 </templates>

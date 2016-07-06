@@ -2291,4 +2291,14 @@
             INSERT INTO `label`(`name`, `message`)VALUES('document.possessionPayment', 'Wpłata');
         </sql>
     </changeSet>
+        
+    <changeSet author="tkopacki" id="labels-report-chargings">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.chargings', 'Naliczenie');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.possession', 'Mieszkanie');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.owners', 'Właściciele');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.balance', 'Bilans');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.startBalance', 'Bilans początkowy');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
