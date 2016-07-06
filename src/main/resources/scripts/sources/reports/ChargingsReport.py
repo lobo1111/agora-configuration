@@ -25,7 +25,7 @@ class ChargingsReport(Report):
                 item['type'] = self.getType(document)
                 item['date'] = self.getCreateDate(document)
                 item['value'] = self.calculateValue(document)
-                item['balance'] = self._startBalance
+                item['balance'] = item['value'].add(self._startBalance)
                 output.append(item)
                 processed.append(document)
         output = sorted(output, key=lambda item: SimpleDateFormat('dd-MM-yyyy').parse(item['date']).getTime())
