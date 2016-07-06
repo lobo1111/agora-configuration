@@ -19,19 +19,18 @@ class ChargingsReport(Report):
     def collectTransactions(self):
         processed = []
         output = []
-        balance = self._startBalance
         for document in self.getQuery().getResultList():
             if document not in processed:
                 item = dict([])
                 item['type'] = self.getType(document)
                 item['date'] = self.getCreateDate(document)
-                calculatedValue = self.calculateValue(document)
-                item['value'] = calculatedValue
-                balance = balance.add(calculatedValue)
-                item['balance'] = balance
+                item['value'] = self.calculateValue(document)
+                item['balance'] = self._startBalance
                 output.append(item)
                 processed.append(document)
         output = sorted(output, key=lambda item: SimpleDateFormat('dd-MM-yyyy').parse(item['date']).getTime())
+        for i in range(1, len(output)):
+            output[i]['balance'] = output[i - 1]['balance'].add(output[i]['value'])
         return output
     
     def getCreateDate(self, document):
