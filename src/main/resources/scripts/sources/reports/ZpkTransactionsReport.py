@@ -3,7 +3,7 @@ from javax.persistence import TemporalType
 from structures.BookingPeriod import BookingPeriodManager
 from java.text import SimpleDateFormat
 from java.util import Date
-from java.math import BigDecimal
+from reports.ZpksStatusReport import ZpksStatusReport
 
 class ZpkTransactionsReport(Report):
     
@@ -33,7 +33,7 @@ class ZpkTransactionsReport(Report):
         return output
     
     def calculateCurrentStatus(self):
-        return BigDecimal(0), BigDecimal(0)
+        return ZpksStatusReport().calculate(self._zpk, self._from)
     
     def getType(self, transaction):
         if transaction.getDocument().getType() == "INVOICE":

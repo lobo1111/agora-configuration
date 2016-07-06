@@ -42,7 +42,7 @@ class ZpksStatusReport(Report):
         if result == None:
             return BigDecimal(0)
         else:
-            return result
+            return BigDecimal(result)
     
     def sumDebit(self, zpkId, statusDate):
         date = SimpleDateFormat('dd-MM-yyyy').parse(statusDate)
