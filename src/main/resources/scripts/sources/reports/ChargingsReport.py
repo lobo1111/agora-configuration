@@ -6,6 +6,11 @@ from java.math import BigDecimal
 from java.math import RoundingMode
 from javax.persistence import TemporalType
 
+def comparator(x, y):
+    fDate = SimpleDateFormat('dd-MM-yyyy').format(x)
+    sDate = SimpleDateFormat('dd-MM-yyyy').format(y)
+    return sDate.before(sDate)
+
 class ChargingsReport(Report):
     
     def obtainData(self):
@@ -35,7 +40,7 @@ class ChargingsReport(Report):
                 item['balance'] = balance
                 output.append(item)
                 processed.append(document)
-        output = sorted(output, key=lambda item: item.get('date'))
+        output = sorted(output, cmp=comparator)
         return output
     
     def getCreateDate(self, document):
