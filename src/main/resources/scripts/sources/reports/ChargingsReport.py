@@ -22,7 +22,34 @@ class ChargingsReport(Report):
         
     def collectTransactions(self):
         output = []
+        balance = self._startBalance
+        for document in self.getQuery().getResultList():
+            item = dict([])
+            item['type'] = self.getType(document)
+            item['date'] = str(SimpleDateFormat('dd-MM-yyyy').format(document.getCreatedAt()))
+            calculatedValue = self.calculateValue(document)
+            item['value'] = calculatedValue
+            balance = balance.add(calculatedValue)
+            item['balance'] = balance
+            output.append(item)
         return output
+    
+    def getType(self, document):
+        if document.getType() == "BANK_NOTE":
+            return self._label.get('document.bankNote')
+        elif document == "POSSESSION_PAYMENT":
+            return self._label.get('document.possessionPayment')
+        elif document == "CHARGING":
+            return self._label.get('document.charging')
+    
+    def calculateValue(self, document):
+        return BigDecimal(0)
+    
+    def getQuery(self):
+        sql = "Select d From Document d Join d.positions p Join p.bookinPeriod bp Where d.possession.id = :pid And bp.currentPeriod = 1 Order by d.createdAt"
+        query = self._entityManager.createQuery(sql)
+        query.setParameter("pid", self._possession.getId())
+        return query
     
     def fillTemplate(self):
         self._context.put("community", self._community)
