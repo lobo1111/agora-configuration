@@ -14,6 +14,9 @@ class ChargingsReport(Report):
         self._startBalance = self.getStartBalance()
         self._transactions = self.collectTransactions()
         
+    def getStartBalance(self):
+        return BigDecimal(0)
+        
     def collectTransactions(self):
         output = []
         return output
