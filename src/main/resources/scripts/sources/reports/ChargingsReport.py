@@ -40,7 +40,7 @@ class ChargingsReport(Report):
                 item['balance'] = balance
                 output.append(item)
                 processed.append(document)
-        output = sorted(output, cmp=comparator)
+        output = output.sort(comparator)
         return output
     
     def getCreateDate(self, document):
