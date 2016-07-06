@@ -28,7 +28,7 @@ class ChargingsReport(Report):
             if document not in processed:
                 item = dict([])
                 item['type'] = self.getType(document)
-                item['date'] = str(SimpleDateFormat('dd-MM-yyyy').format(document.getPositions().get(0).getAttribute('CREATE_DATE')))
+                item['date'] = str(SimpleDateFormat('dd-MM-yyyy').format(self.getCreateDate(document)))
                 calculatedValue = self.calculateValue(document)
                 item['value'] = calculatedValue
                 balance = balance.add(calculatedValue)
@@ -36,6 +36,12 @@ class ChargingsReport(Report):
                 output.append(item)
                 processed.append(document)
         return output
+    
+    def getCreateDate(self, document):
+        for position in document.getPositions():
+            if position.getAttribute("CREATE_DATE") != None:
+                return position.getAttribute("CREATE_DATE")
+        return "not set"
     
     def getType(self, document):
         if document.getType() == "BANK_NOTE":
