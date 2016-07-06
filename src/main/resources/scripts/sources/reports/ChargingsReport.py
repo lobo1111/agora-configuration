@@ -5,7 +5,7 @@ from java.math import BigDecimal
 def comparator(x, y):
     fDate = SimpleDateFormat('dd-MM-yyyy').parse(x['date'])
     sDate = SimpleDateFormat('dd-MM-yyyy').parse(y['date'])
-    return fDate.before(sDate)
+    return fDate.after(sDate)
 
 class ChargingsReport(Report):
     
@@ -67,7 +67,7 @@ class ChargingsReport(Report):
         return value
     
     def getQuery(self):
-        sql = "Select d From Document d Join d.positions p Join p.bookingPeriod bp Where d.possession.id = :pid And bp.defaultPeriod = 1 Order by d.createdAt"
+        sql = "Select d From Document d Join d.positions p Join p.bookingPeriod bp Where d.possession.id = :pid And bp.defaultPeriod = 1"
         query = self._entityManager.createQuery(sql)
         query.setParameter("pid", self._possession.getId())
         return query
