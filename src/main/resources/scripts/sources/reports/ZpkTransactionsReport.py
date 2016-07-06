@@ -20,7 +20,7 @@ class ZpkTransactionsReport(Report):
             item = dict([])
             item['type'] = self.getType(transaction)
             item['subject'] = self.getSubject(transaction)
-            item['createdAt'] = transaction.getCreatedAt()
+            item['createdAt'] = SimpleDateFormat('dd-MM-yyyy').parse(transaction.getCreatedAt())
             item['value'] = transaction.getValue()
             item['zpkDebit'] = transaction.getDebitZpk().getLabel()
             item['zpkCredit'] = transaction.getCreditZpk().getLabel()
@@ -35,16 +35,36 @@ class ZpkTransactionsReport(Report):
         return 0, 0
     
     def getType(self, transaction):
-        pass
+        if transaction.getDocument().getType() == "INVOICE":
+            return self._label.get('document.invoice')
+        elif transaction.getDocument().getType() == "BANK_NOTE":
+            return self._label.get('document.bankNote')
+        elif transaction.getDocument().getType() == "ACCOUNT_PROVISION":
+            return self._label.get('document.accountProvision')
+        elif transaction.getDocument().getType() == "POSSESSION_PAYMENT":
+            return self._label.get('document.possessionPayment')
+        elif transaction.getDocument().getType() == "CHARGING":
+            return self._label.get('document.charging')
     
     def getSubject(self, transaction):
-        pass
+        if transaction.getDocument().getPossession() != None:
+            return transaction.getDocument().getPossession().getFullAddress()
+        elif transaction.getDocument().getContractor() != None:
+            return transaction.getDocument().getContractor().getName()
+        else:
+            return ""
     
     def calculateDebitStatus(self, currentDebit, transaction):
-        pass
+        if self._zpk.getId() == transaction.getDebitZpk().getId():
+            return currentDebit + transaction.getValue()
+        else:
+            return currentDebit
     
     def calculateCreditStatus(self, currentCredit, transaction):
-        pass
+        if self._zpk.getId() == transaction.getCreditZpk().getId():
+            return currentCredit + transaction.getValue()
+        else:
+            return currentCredit
     
     def getQuery(self):
         sql = "Select dp From DocumentPosition dp Where (dp.debitZpk.id = :did or dp.creditZpk.id = :cid) and dp.bookingPeriod.defaultPeriod = 1 and dp.createdAt >= :from and dp.createdAt <= :to Order By dp.createdAt ASC"

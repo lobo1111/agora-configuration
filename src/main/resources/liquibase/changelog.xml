@@ -2281,4 +2281,14 @@
             UPDATE label set name = 'report.from' where name = 'report.from '
         </sql>
     </changeSet>
+        
+    <changeSet author="tkopacki" id="labels-documents-types">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('document.invoice', 'Faktura');
+            INSERT INTO `label`(`name`, `message`)VALUES('document.bankNote', 'Nota');
+            INSERT INTO `label`(`name`, `message`)VALUES('document.accountProvision', 'Prowizja');
+            INSERT INTO `label`(`name`, `message`)VALUES('document.charging', 'Naliczenie');
+            INSERT INTO `label`(`name`, `message`)VALUES('document.possessionPayment', 'Wpłata');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
