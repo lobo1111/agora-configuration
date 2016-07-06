@@ -40,7 +40,7 @@ class ChargingsReport(Report):
     def getCreateDate(self, document):
         for position in document.getPositions():
             if position.getAttribute("CREATE_DATE") != None:
-                return SimpleDateFormat('dd-MM-yyyy').format(position.getAttribute("CREATE_DATE"))
+                return position.getAttribute("CREATE_DATE")
         return "not set"
     
     def getType(self, document):
