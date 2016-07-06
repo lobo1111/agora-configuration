@@ -1,6 +1,7 @@
 from reports.Report import Report
 from java.text import SimpleDateFormat
 from java.math import BigDecimal
+from java.math import RoundingMode
 
 class ChargingsReport(Report):
     
@@ -13,7 +14,7 @@ class ChargingsReport(Report):
     def getStartBalance(self):
         balance = BigDecimal(0)
         for zpk in self._possession.getZpks():
-            balance = balance.add(BigDecimal(zpk.getCurrentBalance().getStartDebit() - zpk.getCurrentBalance().getStartCredit()))
+            balance = balance.add(BigDecimal(zpk.getCurrentBalance().getStartCredit() - zpk.getCurrentBalance().getStartDebit()).setScale(2, RoundingMode.HALF_UP))
         return balance
         
     def collectTransactions(self):
