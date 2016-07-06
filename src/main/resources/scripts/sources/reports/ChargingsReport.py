@@ -5,6 +5,10 @@ from java.math import BigDecimal
 def comparator(x, y):
     fDate = SimpleDateFormat('dd-MM-yyyy').parse(x['date'])
     sDate = SimpleDateFormat('dd-MM-yyyy').parse(y['date'])
+    print "----------------------------------"
+    print fDate
+    print sDate
+    print fDate.after(sDate)
     return fDate.after(sDate)
 
 class ChargingsReport(Report):
