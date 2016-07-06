@@ -35,6 +35,7 @@ class ChargingsReport(Report):
                 item['balance'] = balance
                 output.append(item)
                 processed.append(document)
+        output = sorted(output, key=lambda item: item.get('date'))
         return output
     
     def getCreateDate(self, document):
@@ -43,7 +44,7 @@ class ChargingsReport(Report):
         for position in document.getPositions():
             if position.getAttribute("CREATE_DATE") != None:
                 return position.getAttribute("CREATE_DATE").getValue()
-        return "not set"
+        return str(SimpleDateFormat('dd-MM-yyyy').format(document.getCreatedAt()))
     
     def getType(self, document):
         if document.getType() == "BANK_NOTE":
