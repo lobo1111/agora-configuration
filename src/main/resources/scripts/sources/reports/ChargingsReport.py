@@ -54,7 +54,7 @@ class ChargingsReport(Report):
         return value
     
     def getQuery(self):
-        sql = "Select d From Document d Join d.positions p Join p.bookingPeriod bp Where d.possession.id = :pid And bp.defaultPeriod = 1 Order by d.createdAt"
+        sql = "Select distinct d From Document d Join d.positions p Join p.bookingPeriod bp Where d.possession.id = :pid And bp.defaultPeriod = 1 Order by d.createdAt"
         query = self._entityManager.createQuery(sql)
         query.setParameter("pid", self._possession.getId())
         return query
