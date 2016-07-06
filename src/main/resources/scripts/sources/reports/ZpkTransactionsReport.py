@@ -1,33 +1,69 @@
 from reports.Report import Report
+from javax.persistence import TemporalType
+from structures.BookingPeriod import BookingPeriodManager
 from java.text import SimpleDateFormat
 from java.util import Date
-from java.util import HashMap
-from java.math import BigDecimal
-from java.math import RoundingMode
-from javax.persistence import TemporalType
 
 class ZpkTransactionsReport(Report):
     
     def obtainData(self):
         self._community = self.findById("Community", self._svars.get('communityId'))
-        self._from = self._svars.get('from')
+        self._from = self.getFrom(self._svars.get('from'))
         self._to = self._svars.get('to')
         self._zpk = self.findById("ZakladowyPlanKont", self._svars.get('zpkId'))
         self._transactions = self.collectTransactions()
         
     def collectTransactions(self):
         output = []
-        transaction = dict([])
-        transaction['type'] = 'Faktura'
-        transaction['subject'] = 'ACME'
-        transaction['createdAt'] = '03-05-2014'
-        transaction['value'] = '52.63'
-        transaction['zpkDebit'] = '131-001'
-        transaction['zpkCredit'] = '200-004'
-        transaction['zpkDebitStatus'] = '100.42'
-        transaction['zpkCreditStatus'] = '75.26'
-        output.append(transaction)
+        currentDebit, currentCredit = self.calculateCurrentStatus()
+        for transaction in self.getQuery().getResultList():
+            item = dict([])
+            item['type'] = self.getType(transaction)
+            item['subject'] = self.getSubject(transaction)
+            item['createdAt'] = transaction.getCreatedAt()
+            item['value'] = transaction.getValue()
+            item['zpkDebit'] = transaction.getDebitZpk().getLabel()
+            item['zpkCredit'] = transaction.getCreditZpk().getLabel()
+            currentDebit = self.calculateDebitStatus(currentDebit, transaction)
+            currentCredit = self.calculateCreditStatus(currentCredit, transaction)
+            item['zpkDebitStatus'] = currentDebit
+            item['zpkCreditStatus'] = currentCredit
+        output.append(item)
         return output
+    
+    def getType(self, transaction):
+        pass
+    
+    def getSubject(self, transaction):
+        pass
+    
+    def calculateDebitStatus(self, currentDebit, transaction):
+        pass
+    
+    def calculateCreditStatus(self, currentCredit, transaction):
+        pass
+    
+    def getQuery(self):
+        sql = "Select dp From DocumentPosition dp Where (dp.debitZpk.id = :did or dp.creditZpk.id = :cid) and dp.bookingPeriod.defaultPeriod = 1 and dp.createdAt >= :from and dp.createdAt <= :to Order By dp.createdAt ASC"
+        query = self._entityManager.createQuery(sql)
+        query.setParameter("did", self._zpk.getId())
+        query.setParameter("cid", self._zpk.getId())
+        query.setParameter("from", SimpleDateFormat('dd-MM-yyyy').parse(self._from), TemporalType.DATE)
+        query.setParameter("to", SimpleDateFormat('dd-MM-yyyy').parse(self._to), TemporalType.DATE)
+        return query
+    
+    def getFrom(self):
+        if self._svars.get('from') == '':
+            year = BookingPeriodManager().findDefaultBookingPeriod().getName()
+            return "01-01-%s" % year
+        else:
+            return self._svars.get('from')
+    
+    def getTo(self):
+        if self._svars.get('to') == '':
+            return str(SimpleDateFormat('dd-MM-yyyy').format(Date()))
+        else:
+            return self._svars.get('to')
     
     def fillTemplate(self):
         self._context.put("community", self._community)
