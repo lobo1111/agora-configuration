@@ -1135,7 +1135,7 @@
     </template>
     <template>
         <name>report-charging-prediction</name>
-        <source>report-chargings-prediction.vtl</source>
+        <source>report-charging-prediction.vtl</source>
         <variables />
     </template>
 </templates>
