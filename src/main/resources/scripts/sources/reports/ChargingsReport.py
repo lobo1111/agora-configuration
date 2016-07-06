@@ -38,9 +38,11 @@ class ChargingsReport(Report):
         return output
     
     def getCreateDate(self, document):
+        if document.getAttribute("CREATE_DATE") != None:
+            return document.getAttribute("CREATE_DATE").getValue()
         for position in document.getPositions():
             if position.getAttribute("CREATE_DATE") != None:
-                return position.getAttribute("CREATE_DATE")
+                return position.getAttribute("CREATE_DATE").getValue()
         return "not set"
     
     def getType(self, document):
