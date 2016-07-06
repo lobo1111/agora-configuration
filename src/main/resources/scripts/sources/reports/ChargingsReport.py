@@ -37,13 +37,18 @@ class ChargingsReport(Report):
     def getType(self, document):
         if document.getType() == "BANK_NOTE":
             return self._label.get('document.bankNote')
-        elif document == "POSSESSION_PAYMENT":
+        elif document.getType() == "POSSESSION_PAYMENT":
             return self._label.get('document.possessionPayment')
-        elif document == "CHARGING":
+        elif document.getType() == "CHARGING":
             return self._label.get('document.charging')
+        else:
+            return document.getType()
     
     def calculateValue(self, document):
-        return BigDecimal(0)
+        value = BigDecimal(0)
+        for position in document.getPositions():
+            value = value.add(position.getValue())
+        return value
     
     def getQuery(self):
         sql = "Select d From Document d Join d.positions p Join p.bookingPeriod bp Where d.possession.id = :pid And bp.defaultPeriod = 1 Order by d.createdAt"
