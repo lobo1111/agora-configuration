@@ -1,15 +1,11 @@
 from reports.Report import Report
 from java.text import SimpleDateFormat
-from java.util import Date
-from java.util import HashMap
 from java.math import BigDecimal
-from java.math import RoundingMode
-from javax.persistence import TemporalType
 
 def comparator(x, y):
     fDate = SimpleDateFormat('dd-MM-yyyy').parse(x['date'])
     sDate = SimpleDateFormat('dd-MM-yyyy').parse(y['date'])
-    return sDate.before(sDate)
+    return fDate.before(sDate)
 
 class ChargingsReport(Report):
     
