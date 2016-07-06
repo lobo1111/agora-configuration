@@ -31,6 +31,9 @@ class ZpkTransactionsReport(Report):
         output.append(item)
         return output
     
+    def calculateCurrentStatus(self):
+        return 0, 0
+    
     def getType(self, transaction):
         pass
     
