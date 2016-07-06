@@ -3,6 +3,7 @@ from javax.persistence import TemporalType
 from structures.BookingPeriod import BookingPeriodManager
 from java.text import SimpleDateFormat
 from java.util import Date
+from java.math import BigDecimal
 
 class ZpkTransactionsReport(Report):
     
@@ -32,7 +33,7 @@ class ZpkTransactionsReport(Report):
         return output
     
     def calculateCurrentStatus(self):
-        return 0, 0
+        return BigDecimal(0), BigDecimal(0)
     
     def getType(self, transaction):
         if transaction.getDocument().getType() == "INVOICE":
@@ -56,13 +57,13 @@ class ZpkTransactionsReport(Report):
     
     def calculateDebitStatus(self, currentDebit, transaction):
         if self._zpk.getId() == transaction.getDebitZpk().getId():
-            return currentDebit + transaction.getValue()
+            return currentDebit.add(transaction.getValue())
         else:
             return currentDebit
     
     def calculateCreditStatus(self, currentCredit, transaction):
         if self._zpk.getId() == transaction.getCreditZpk().getId():
-            return currentCredit + transaction.getValue()
+            return currentCredit.add(transaction.getValue())
         else:
             return currentCredit
     
