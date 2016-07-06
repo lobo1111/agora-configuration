@@ -8,8 +8,8 @@ class ZpkTransactionsReport(Report):
     
     def obtainData(self):
         self._community = self.findById("Community", self._svars.get('communityId'))
-        self._from = self.getFrom(self._svars.get('from'))
-        self._to = self._svars.get('to')
+        self._from = self.getFrom()
+        self._to = self.getTo()
         self._zpk = self.findById("ZakladowyPlanKont", self._svars.get('zpkId'))
         self._transactions = self.collectTransactions()
         
