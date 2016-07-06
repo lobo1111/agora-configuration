@@ -28,7 +28,7 @@ class ChargingsReport(Report):
             if document not in processed:
                 item = dict([])
                 item['type'] = self.getType(document)
-                item['date'] = str(SimpleDateFormat('dd-MM-yyyy').format(document.getPositions().get(0).getAttribuate('CREATE_DATE')))
+                item['date'] = str(SimpleDateFormat('dd-MM-yyyy').format(document.getPositions().get(0).getAttribute('CREATE_DATE')))
                 calculatedValue = self.calculateValue(document)
                 item['value'] = calculatedValue
                 balance = balance.add(calculatedValue)
