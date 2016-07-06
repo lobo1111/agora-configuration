@@ -84,7 +84,7 @@ class ZpkTransactionsReport(Report):
     
     def getTo(self):
         if self._svars.get('to') == '':
-            return str(SimpleDateFormat('dd-MM-yyyy').parse(Date()))
+            return str(SimpleDateFormat('dd-MM-yyyy').format(Date()))
         else:
             return self._svars.get('to')
     
