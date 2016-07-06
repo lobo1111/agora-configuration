@@ -2304,8 +2304,8 @@
     
     <changeSet author="tkopacki" id="labels-report-chargings-2">
         <sql>
-            UPDATE label set message = 'Naliczenia i wpłaty' where name = 'report.chargings'
-            UPDATE label set message = 'Stan na dzień' where name = 'report.statusDate '
+            UPDATE label set message = 'Naliczenia i wpłaty' where name = 'report.chargings';
+            UPDATE label set message = 'Stan na dzień' where name = 'report.statusDate ';
         </sql>
     </changeSet>
 </databaseChangeLog>
