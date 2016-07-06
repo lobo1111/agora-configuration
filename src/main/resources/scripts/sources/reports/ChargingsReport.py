@@ -21,17 +21,20 @@ class ChargingsReport(Report):
         return balance
         
     def collectTransactions(self):
+        processed = []
         output = []
         balance = self._startBalance
         for document in self.getQuery().getResultList():
-            item = dict([])
-            item['type'] = self.getType(document)
-            item['date'] = str(SimpleDateFormat('dd-MM-yyyy').format(document.getCreatedAt()))
-            calculatedValue = self.calculateValue(document)
-            item['value'] = calculatedValue
-            balance = balance.add(calculatedValue)
-            item['balance'] = balance
-            output.append(item)
+            if document not in processed:
+                item = dict([])
+                item['type'] = self.getType(document)
+                item['date'] = str(SimpleDateFormat('dd-MM-yyyy').format(document.getCreatedAt()))
+                calculatedValue = self.calculateValue(document)
+                item['value'] = calculatedValue
+                balance = balance.add(calculatedValue)
+                item['balance'] = balance
+                output.append(item)
+                processed.append(document)
         return output
     
     def getType(self, document):
@@ -54,7 +57,7 @@ class ChargingsReport(Report):
         return value
     
     def getQuery(self):
-        sql = "Select distinct d From Document d Join d.positions p Join p.bookingPeriod bp Where d.possession.id = :pid And bp.defaultPeriod = 1 Order by d.createdAt"
+        sql = "Select d From Document d Join d.positions p Join p.bookingPeriod bp Where d.possession.id = :pid And bp.defaultPeriod = 1 Order by d.createdAt"
         query = self._entityManager.createQuery(sql)
         query.setParameter("pid", self._possession.getId())
         return query
