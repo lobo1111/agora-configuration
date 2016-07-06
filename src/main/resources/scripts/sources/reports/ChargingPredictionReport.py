@@ -17,7 +17,6 @@ class ChargingPredictionReport(Report):
     def fillTemplate(self):
         self._context.put("community", self._community)
         self._context.put("possession", self._possession)
-        self._context.put("startBalance", self._startBalance)
         self._context.put("transactions", self._transactions)
         self._context.put("labelDocumentCreationDate", self._label.get('report.documentCreationDate'))
         self._context.put("labelChargings", self._label.get('report.chargings'))
