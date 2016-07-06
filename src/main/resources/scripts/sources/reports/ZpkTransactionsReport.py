@@ -29,7 +29,7 @@ class ZpkTransactionsReport(Report):
             currentCredit = self.calculateCreditStatus(currentCredit, transaction)
             item['zpkDebitStatus'] = currentDebit
             item['zpkCreditStatus'] = currentCredit
-        output.append(item)
+            output.append(item)
         return output
     
     def calculateCurrentStatus(self):
