@@ -2301,4 +2301,11 @@
             INSERT INTO `label`(`name`, `message`)VALUES('report.startBalance', 'Bilans początkowy');
         </sql>
     </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-report-chargings-2">
+        <sql>
+            UPDATE label set message = 'Naliczenia i wpłaty' where name = 'report.chargings'
+            UPDATE label set message = 'Stan na dzień' where name = 'report.statusDate '
+        </sql>
+    </changeSet>
 </databaseChangeLog>
