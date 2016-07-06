@@ -47,7 +47,10 @@ class ChargingsReport(Report):
     def calculateValue(self, document):
         value = BigDecimal(0)
         for position in document.getPositions():
-            value = value.add(position.getValue())
+            if document.getType() == "CHARGING":
+                value = value.add(position.getValue().multiply(BigDecimal(-1)))
+            else:
+                value = value.add(position.getValue())
         return value
     
     def getQuery(self):
