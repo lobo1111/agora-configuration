@@ -2,15 +2,6 @@ from reports.Report import Report
 from java.text import SimpleDateFormat
 from java.math import BigDecimal
 
-def comparator(x, y):
-    fDate = SimpleDateFormat('dd-MM-yyyy').parse(x['date'])
-    sDate = SimpleDateFormat('dd-MM-yyyy').parse(y['date'])
-    print "----------------------------------"
-    print fDate
-    print sDate
-    print fDate.after(sDate)
-    return fDate.after(sDate)
-
 class ChargingsReport(Report):
     
     def obtainData(self):
@@ -40,7 +31,7 @@ class ChargingsReport(Report):
                 item['balance'] = balance
                 output.append(item)
                 processed.append(document)
-        output.sort(comparator)
+        output = sorted(output, key=lambda item: SimpleDateFormat('dd-MM-yyyy').parse(item['date']).getTime())
         return output
     
     def getCreateDate(self, document):
