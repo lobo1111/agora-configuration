@@ -7,8 +7,8 @@ from java.math import RoundingMode
 from javax.persistence import TemporalType
 
 def comparator(x, y):
-    fDate = SimpleDateFormat('dd-MM-yyyy').format(x)
-    sDate = SimpleDateFormat('dd-MM-yyyy').format(y)
+    fDate = SimpleDateFormat('dd-MM-yyyy').parse(x)
+    sDate = SimpleDateFormat('dd-MM-yyyy').parse(y)
     return sDate.before(sDate)
 
 class ChargingsReport(Report):
