@@ -38,4 +38,4 @@ class ChargingsReport(Report):
         self._context.put("labelValue", self._label.get('report.value'))
         
     def getTemplateName(self):
-        return "report-zpks-status"
+        return "report-chargings"
