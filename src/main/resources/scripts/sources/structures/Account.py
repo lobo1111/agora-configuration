@@ -81,7 +81,7 @@ class AccountManager(Container):
             self.setError(error)
             
     def makeReadable(self, accountNumber):
-        readable = accountNumber[0:2]
+        readable = str(accountNumber[0:2])
         for i in range(2, 23, 4):
-            readable += accountNumber[i, i + 4]
+            readable += " " + str(accountNumber[i, i + 4])
         return readable
