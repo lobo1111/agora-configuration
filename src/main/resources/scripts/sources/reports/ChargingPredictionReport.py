@@ -26,15 +26,15 @@ class ChargingPredictionReport(Report):
         for element in elements:
             if element.getGroup().getId() != lastGroupId and groupItems > 1:
                 item = dict([])
-                item['group'] = ''
+                item['group'] = ' '
                 item['element'] = self._label.get('report.totalValue')
                 item['value'] = groupTotal
                 groupTotal = BigDecimal(0)
                 output.append(item)
                 item = dict([])
-                item['group'] = ''
-                item['element'] = ''
-                item['value'] = ''
+                item['group'] = ' '
+                item['element'] = ' '
+                item['value'] = ' '
                 output.append(item)
                 lastGroupId = element.getGroup().getId()
                 groupItems = 0
