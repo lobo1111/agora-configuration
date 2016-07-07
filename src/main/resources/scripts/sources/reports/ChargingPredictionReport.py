@@ -24,49 +24,37 @@ class ChargingPredictionReport(Report):
         groupTotal = BigDecimal(0)
         groupItems = 0
         for element in elements:
-            if element.getGroup().getId() != lastGroupId and groupItems > 1:
-                item = dict([])
-                item['group'] = ' '
-                item['element'] = self._label.get('report.totalValue')
-                item['value'] = groupTotal
-                groupTotal = BigDecimal(0)
-                output.append(item)
-                item = dict([])
-                item['group'] = ' '
-                item['element'] = ' '
-                item['value'] = ' '
-                output.append(item)
+            if element.getGroup().getId() != lastGroupId:
+                if groupItems > 1:
+                    self.createTotalLine(output, groupTotal)
+                    groupTotal = BigDecimal(0)
+                self.createEmptyLine(output)
                 groupItems = 0
-            elif groupItems == 1:
-                item = dict([])
-                item['group'] = ' '
-                item['element'] = ' '
-                item['value'] = ' '
-                output.append(item)
-            lastGroupId = element.getGroup().getId()
+                lastGroupId = element.getGroup().getId()
             item = dict([])
             item['group'] = element.getGroup().getValue()
             item['element'] = element.getName()
             item['value'] = self.calculateValue(element)
             groupItems += 1
             output.append(item)
+        self.createTotalLine(output, groupTotal)
+        self.createEmptyLine(output)
+        self.createTotalLine(output, self._total)
+        return output
+    
+    def createTotalLine(self, output, total):
         item = dict([])
         item['group'] = ''
         item['element'] = self._label.get('report.totalValue')
-        item['value'] = groupTotal
-        self._groupTotal = BigDecimal(0)
+        item['value'] = total
         output.append(item)
+    
+    def createEmptyLine(self, output):
         item = dict([])
         item['group'] = ' '
         item['element'] = ' '
         item['value'] = ' '
         output.append(item)
-        item = dict([])
-        item['group'] = ' '
-        item['element'] = self._label.get('report.totalValue')
-        item['value'] = self._total
-        output.append(item)
-        return output
     
     def calculateValue(self, element):
         return BigDecimal(0)
