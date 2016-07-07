@@ -83,5 +83,5 @@ class AccountManager(Container):
     def makeReadable(self, accountNumber):
         readable = str(accountNumber[0:2])
         for i in range(2, 23, 4):
-            readable += " " + str(accountNumber[i, i + 4])
+            readable += " " + str(accountNumber[i:i + 4])
         return readable
