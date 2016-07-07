@@ -10,11 +10,11 @@ class ChargingPredictionReport(Report):
     def obtainData(self):
         self._community = self.findById("Community", self._svars.get('communityId'))
         self._possession = self.findById("Possession", self._svars.get('possessionId'))
+        self._total = BigDecimal(0)
         self._items = self.collectItems()
         self._paymentStartDate = self.getPaymentStartDate()
         self._chargingAccount = self.getChargingAccount()
         self._rfAccount = self.getRFAccount()
-        self._total = BigDecimal(0)
         
     def collectItems(self):
         output = []
