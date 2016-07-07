@@ -2,6 +2,7 @@ from java.math import BigDecimal
 from reports.Report import Report
 from structures.Account import AccountManager
 from structures.BookingPeriod import BookingPeriodManager
+from helpers.PaymentCalculator import PaymentCalculator
 
 class ChargingPredictionReport(Report):
     
