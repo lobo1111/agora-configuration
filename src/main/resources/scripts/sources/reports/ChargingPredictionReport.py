@@ -26,12 +26,12 @@ class ChargingPredictionReport(Report):
     def getChargingAccount(self):
         for account in self.community.getAccounts():
             if account.getType().getKey() in ["DEFAULT", "RENT"]:
-                return account
+                return account.getNumber()
     
     def getRFAccount(self):
         for account in self.community.getAccounts():
             if account.getType().getKey() in ["DEFAULT", "REPAIR_FUND"]:
-                return account
+                return account.getNumber()
     
     def fillTemplate(self):
         self._context.put("paymentStartDate", self._paymentStartDate)
