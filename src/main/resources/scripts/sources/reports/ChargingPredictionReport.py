@@ -2,6 +2,8 @@ from reports.Report import Report
 from java.text import SimpleDateFormat
 from java.math import BigDecimal
 from java.math import RoundingMode
+from structures.BookingPeriod import BookingPeriodManager
+from structures.Account import AccountManager
 
 class ChargingPredictionReport(Report):
     
@@ -26,12 +28,12 @@ class ChargingPredictionReport(Report):
     def getChargingAccount(self):
         for account in self.community.getAccounts():
             if account.getType().getKey() in ["DEFAULT", "RENT"]:
-                return account.getNumber()
+                return AccountManager().makeReadable(account.getNumber())
     
     def getRFAccount(self):
         for account in self.community.getAccounts():
             if account.getType().getKey() in ["DEFAULT", "REPAIR_FUND"]:
-                return account.getNumber()
+                return AccountManager().makeReadable(account.getNumber())
     
     def fillTemplate(self):
         self._context.put("paymentStartDate", self._paymentStartDate)
