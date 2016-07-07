@@ -10,16 +10,25 @@ class ChargingPredictionReport(Report):
     def obtainData(self):
         self._community = self.findById("Community", self._svars.get('communityId'))
         self._possession = self.findById("Possession", self._svars.get('possessionId'))
-        self._transactions = self.collectTransactions()
+        self._items = self.collectItems()
         self._paymentStartDate = self.getPaymentStartDate()
         self._chargingAccount = self.getChargingAccount()
         self._rfAccount = self.getRFAccount()
         self._groupTotal = BigDecimal(0)
         self._total = BigDecimal(0)
         
-    def collectTransactions(self):
+    def collectItems(self):
         output = []
+        for element in self._possession.getElements():
+            item = dict([])
+            item['group'] = element.getGroup().getValue()
+            item['element'] = element.getName()
+            item['value'] = self.calculateValue(element)
+            output.append(item)
         return output
+    
+    def calculateValue(self, element):
+        return BigDecimal(0)
     
     def getPaymentStartDate(self):
         bp = BookingPeriodManager()
@@ -42,7 +51,7 @@ class ChargingPredictionReport(Report):
         self._context.put("rfAccount", self._rfAccount)
         self._context.put("community", self._community)
         self._context.put("possession", self._possession)
-        self._context.put("transactions", self._transactions)
+        self._context.put("items", self._items)
         self._context.put("labelDocumentCreationDate", self._label.get('report.documentCreationDate'))
         self._context.put("labelChargingPrediction", self._label.get('report.chargingPrediction'))
         self._context.put("labelCommunity", self._label.get('report.community'))

@@ -44,7 +44,7 @@
         </entity>
     </list>
     <list name="data">
-        #foreach($row in $transactions)
+        #foreach($row in $items)
         <entity name="item">
             <property name="type" type="String">$row.get('group')</property>
             <property name="date" type="String">$row.get('element')</property>
