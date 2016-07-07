@@ -14,7 +14,6 @@ class ChargingPredictionReport(Report):
         self._paymentStartDate = self.getPaymentStartDate()
         self._chargingAccount = self.getChargingAccount()
         self._rfAccount = self.getRFAccount()
-        self._groupTotal = BigDecimal(0)
         self._total = BigDecimal(0)
         
     def collectItems(self):
@@ -22,13 +21,14 @@ class ChargingPredictionReport(Report):
         elements = self._possession.getElements()
         elements = sorted(elements, key=lambda item: item.getGroup().getValue() + item.getName())
         lastGroupId = elements[1].getGroup().getId()
+        groupTotal = BigDecimal(0)
         for element in elements:
             if element.getGroup().getId() != lastGroupId:
                 item = dict([])
                 item['group'] = ''
                 item['element'] = self._label.get('report.totalValue')
-                item['value'] = self._groupTotal
-                self._groupTotal = BigDecimal(0)
+                item['value'] = groupTotal
+                groupTotal = BigDecimal(0)
                 output.append(item)
                 item = dict([])
                 item['group'] = ''
@@ -43,7 +43,7 @@ class ChargingPredictionReport(Report):
         item = dict([])
         item['group'] = ''
         item['element'] = self._label.get('report.totalValue')
-        item['value'] = self._groupTotal
+        item['value'] = groupTotal
         self._groupTotal = BigDecimal(0)
         output.append(item)
         item = dict([])
