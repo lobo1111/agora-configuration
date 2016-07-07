@@ -1,4 +1,5 @@
 from java.math import BigDecimal
+from java.math import RoundingMode
 from reports.Report import Report
 from structures.Account import AccountManager
 from structures.BookingPeriod import BookingPeriodManager
@@ -57,7 +58,7 @@ class ChargingPredictionReport(Report):
     
     def calculateValue(self, element):
         calculator = PaymentCalculator()
-        return BigDecimal(calculator.calculate(element.getElement(), self._possession))
+        return BigDecimal(calculator.calculate(element.getElement(), self._possession)).setScale(2, RoundingMode.HALF_UP)
     
     def getPaymentStartDate(self):
         bp = BookingPeriodManager()
