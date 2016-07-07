@@ -55,7 +55,7 @@ class ChargingPredictionReport(Report):
         output.append(item)
     
     def calculateValue(self, element):
-        calculator = Calculator()
+        calculator = PaymentCalculator()
         return BigDecimal(calculator.calculate(element.getElement(), self._possession))
     
     def getPaymentStartDate(self):
