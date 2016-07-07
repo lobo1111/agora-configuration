@@ -51,9 +51,9 @@ class ChargingPredictionReport(Report):
         self._groupTotal = BigDecimal(0)
         output.append(item)
         item = dict([])
-        item['group'] = ''
-        item['element'] = ''
-        item['value'] = ''
+        item['group'] = ' '
+        item['element'] = ' '
+        item['value'] = ' '
         output.append(item)
         item = dict([])
         item['group'] = ' '
