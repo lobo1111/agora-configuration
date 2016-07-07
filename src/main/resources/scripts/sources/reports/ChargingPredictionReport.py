@@ -9,12 +9,35 @@ class ChargingPredictionReport(Report):
         self._community = self.findById("Community", self._svars.get('communityId'))
         self._possession = self.findById("Possession", self._svars.get('possessionId'))
         self._transactions = self.collectTransactions()
+        self._paymentStartDate = self.getPaymentStartDate()
+        self._chargingAccount = self.getChargingAccount()
+        self._rfAccount = self.getRFAccount()
+        self._groupTotal = BigDecimal(0)
+        self._total = BigDecimal(0)
         
     def collectTransactions(self):
         output = []
         return output
     
+    def getPaymentStartDate(self):
+        bp = BookingPeriodManager()
+        return bp.getCurrentMonth() + " " + bp.findDefaultBookingPeriod().getName()
+    
+    def getChargingAccount(self):
+        for account in self.community.getAccounts():
+            if account.getType().getKey() in ["DEFAULT", "RENT"]:
+                return account
+    
+    def getRFAccount(self):
+        for account in self.community.getAccounts():
+            if account.getType().getKey() in ["DEFAULT", "REPAIR_FUND"]:
+                return account
+    
     def fillTemplate(self):
+        self._context.put("paymentStartDate", self._paymentStartDate)
+        self._context.put("totalValue", self._total)
+        self._context.put("chargingAccount", self._chargingAccount)
+        self._context.put("rfAccount", self._rfAccount)
         self._context.put("community", self._community)
         self._context.put("possession", self._possession)
         self._context.put("transactions", self._transactions)
