@@ -26,12 +26,12 @@ class ChargingPredictionReport(Report):
         return bp.getCurrentMonth().getValue() + " " + bp.findDefaultBookingPeriod().getName()
     
     def getChargingAccount(self):
-        for account in self.community.getAccounts():
+        for account in self._community.getAccounts():
             if account.getType().getKey() in ["DEFAULT", "RENT"]:
                 return AccountManager().makeReadable(account.getNumber())
     
     def getRFAccount(self):
-        for account in self.community.getAccounts():
+        for account in self._community.getAccounts():
             if account.getType().getKey() in ["DEFAULT", "REPAIR_FUND"]:
                 return AccountManager().makeReadable(account.getNumber())
     
