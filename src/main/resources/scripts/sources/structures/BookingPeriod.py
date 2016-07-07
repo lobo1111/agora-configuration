@@ -22,6 +22,13 @@ class BookingPeriodManager(Container):
 
     def getCurrentMonth(self):
         return DictionaryManager().findDictionaryInstance('PERIODS', 'CURRENT')
+    
+    def getCurrentMonthName(self):
+        monthNumber = self.getCurrentMonth().getValue()
+        locale.set_locale(locale.LC_ALL, "")
+        monthName = datetime.datetime.strptime(monthNumber, "%m").strftime("%B")
+        locale.setlocale(locale.getdefaultlocale())
+        return monthName
 
     def closeYear(self):
         if self.getCurrentMonth() == '12':

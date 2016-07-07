@@ -23,7 +23,7 @@ class ChargingPredictionReport(Report):
     
     def getPaymentStartDate(self):
         bp = BookingPeriodManager()
-        return bp.getCurrentMonth().getValue() + " " + bp.findDefaultBookingPeriod().getName()
+        return bp.getCurrentMonthName() + " " + bp.findDefaultBookingPeriod().getName()
     
     def getChargingAccount(self):
         for account in self._community.getAccounts():
@@ -32,7 +32,7 @@ class ChargingPredictionReport(Report):
     
     def getRFAccount(self):
         for account in self._community.getAccounts():
-            if account.getType().getKey() in ["DEFAULT", "REPAIR_FUND"]:
+            if account.getType().getKey() in ["REPAIR_FUND"]:
                 return AccountManager().makeReadable(account.getNumber())
     
     def fillTemplate(self):
