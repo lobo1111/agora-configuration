@@ -36,7 +36,6 @@ class ChargingPredictionReport(Report):
                 item['element'] = ' '
                 item['value'] = ' '
                 output.append(item)
-                lastGroupId = element.getGroup().getId()
                 groupItems = 0
             elif groupItems == 1:
                 item = dict([])
@@ -44,6 +43,7 @@ class ChargingPredictionReport(Report):
                 item['element'] = ' '
                 item['value'] = ' '
                 output.append(item)
+            lastGroupId = element.getGroup().getId()
             item = dict([])
             item['group'] = element.getGroup().getValue()
             item['element'] = element.getName()
