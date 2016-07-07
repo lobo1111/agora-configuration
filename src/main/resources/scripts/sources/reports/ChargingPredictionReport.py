@@ -50,7 +50,7 @@ class ChargingPredictionReport(Report):
         item = dict([])
         item['group'] = ' '
         item['element'] = ' '
-        item['value'] = "=" + str(total)
+        item['value'] = "=" + str(total.setScale(2, RoundingMode.HALF_UP))
         output.append(item)
     
     def createEmptyLine(self, output):
