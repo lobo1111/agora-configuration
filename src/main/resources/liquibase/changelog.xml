@@ -2308,4 +2308,16 @@
             UPDATE label set message = 'Stan na dzień' where name = 'report.statusDate ';
         </sql>
     </changeSet>
+        
+    <changeSet author="tkopacki" id="labels-report-charging-prediction">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.chargingPrediction', 'Zaliczka na koszty eksploatacji');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.paymentStartDate', 'Obowiązuje od');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.group', 'Grupa');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.element', 'Składnik');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.totalValue', 'Łącznie');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.chargingAccount', 'Konto na zaliczkę');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.rfAccount', 'Konto na fundusz remontowy');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
