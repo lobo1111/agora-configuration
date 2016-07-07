@@ -3,8 +3,6 @@ from pl.reaper.container.data import ZpkBalance
 from base.Container import Container
 from structures.Dictionary import DictionaryManager
 from java.util import Calendar
-import locale
-import datetime
 
 class BookingPeriodManager(Container):
     
@@ -26,11 +24,8 @@ class BookingPeriodManager(Container):
         return DictionaryManager().findDictionaryInstance('PERIODS', 'CURRENT')
     
     def getCurrentMonthName(self):
-        monthNumber = self.getCurrentMonth().getValue()
-        locale.setlocale(locale.LC_ALL, "pl_PL.ISO8859-2")
-        monthName = datetime.datetime.strptime(monthNumber, "%m").strftime("%B")
-        locale.setlocale(locale.getdefaultlocale())
-        return monthName
+        months = ["", "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"]
+        return months[self.getCurrentMonth().getValue()]
 
     def closeYear(self):
         if self.getCurrentMonth() == '12':
