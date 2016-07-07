@@ -21,12 +21,35 @@ class ChargingPredictionReport(Report):
         output = []
         elements = self._possession.getElements()
         elements = sorted(elements, key=lambda item: item.getGroup().getValue() + item.getName())
+        lastGroupId = elements[1].getGroup().getId()
         for element in elements:
+            if element.getGroup().getId() != lastGroupId:
+                item = dict([])
+                item['group'] = ''
+                item['element'] = self._label.get('report.totalValue')
+                item['value'] = self._groupTotal
+                self._groupTotal = BigDecimal(0)
+                output.append(item)
+                item = dict([])
+                item['group'] = ''
+                item['element'] = ''
+                item['value'] = ''
+                lastGroupId = element.getGroup().getId()
             item = dict([])
             item['group'] = element.getGroup().getValue()
             item['element'] = element.getName()
             item['value'] = self.calculateValue(element)
             output.append(item)
+        item = dict([])
+        item['group'] = ''
+        item['element'] = self._label.get('report.totalValue')
+        item['value'] = self._groupTotal
+        self._groupTotal = BigDecimal(0)
+        output.append(item)
+        item = dict([])
+        item['group'] = ''
+        item['element'] = ''
+        item['value'] = ''
         return output
     
     def calculateValue(self, element):
