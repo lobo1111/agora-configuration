@@ -54,6 +54,12 @@ class ChargingPredictionReport(Report):
         item['group'] = ''
         item['element'] = ''
         item['value'] = ''
+        output.append(item)
+        item = dict([])
+        item['group'] = ' '
+        item['element'] = self._label.get('report.totalValue')
+        item['value'] = self._total
+        output.append(item)
         return output
     
     def calculateValue(self, element):
