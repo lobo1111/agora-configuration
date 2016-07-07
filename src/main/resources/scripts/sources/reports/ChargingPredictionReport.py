@@ -19,7 +19,9 @@ class ChargingPredictionReport(Report):
         
     def collectItems(self):
         output = []
-        for element in self._possession.getElements():
+        elements = self._possession.getElements()
+        elements = sorted(elements, key=lambda item: item.getGroup().getValue() + item.getName())
+        for element in elements:
             item = dict([])
             item['group'] = element.getGroup().getValue()
             item['element'] = element.getName()
