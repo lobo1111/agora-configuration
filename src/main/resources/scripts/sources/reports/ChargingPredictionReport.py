@@ -31,10 +31,14 @@ class ChargingPredictionReport(Report):
                 self.createEmptyLine(output)
                 groupItems = 0
                 lastGroupId = element.getGroup().getId()
+                groupTotal = BigDecimal(0)
             item = dict([])
             item['group'] = element.getGroup().getValue()
             item['element'] = element.getName()
-            item['value'] = self.calculateValue(element)
+            value = self.calculateValue(element)
+            item['value'] = value
+            groupTotal = groupTotal.add(value)
+            self._total = self._total.add(value)
             groupItems += 1
             output.append(item)
         self.createTotalLine(output, groupTotal)
