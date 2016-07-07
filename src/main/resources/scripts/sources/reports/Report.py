@@ -9,7 +9,6 @@ from java.util import Date
 class Report(Container):
     
     def getReport(self):
-        self._label = LabelManager()
         self.initTemplate()
         self.obtainData()
         self.fillTemplate()

@@ -25,7 +25,7 @@ class BookingPeriodManager(Container):
     
     def getCurrentMonthName(self):
         months = ["", "month.january", "month.february", "month.march", "month.april", "month.may", "month.june", "month.july", "month.august", "month.september", "month.october", "month.november", "month.december"]
-        return months[self.getCurrentMonth().getValue()]
+        return self._label.get(months[self.getCurrentMonth().getValue()])
 
     def closeYear(self):
         if self.getCurrentMonth() == '12':
