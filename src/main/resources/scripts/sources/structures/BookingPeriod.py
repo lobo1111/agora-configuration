@@ -27,7 +27,7 @@ class BookingPeriodManager(Container):
     
     def getCurrentMonthName(self):
         monthNumber = self.getCurrentMonth().getValue()
-        locale.setlocale(locale.LC_ALL, "pl_PL")
+        locale.setlocale(locale.LC_ALL, "polish")
         monthName = datetime.datetime.strptime(monthNumber, "%m").strftime("%B")
         locale.setlocale(locale.getdefaultlocale())
         return monthName
