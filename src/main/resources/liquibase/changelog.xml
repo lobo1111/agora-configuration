@@ -2320,4 +2320,21 @@
             INSERT INTO `label`(`name`, `message`)VALUES('report.rfAccount', 'Konto na fundusz remontowy');
         </sql>
     </changeSet>
+        
+    <changeSet author="tkopacki" id="labels-months">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('month.january', 'Styczeń');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.february', 'Luty');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.march', 'Marzec');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.april', 'Kwiecień');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.may', 'Maj');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.june', 'Czerwiec');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.july', 'Lipiec');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.august', 'Sierpień');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.september', 'Wrzesień');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.october', 'Październik');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.november', 'Listopad');
+            INSERT INTO `label`(`name`, `message`)VALUES('month.december', 'Grudzień');
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -24,7 +24,7 @@ class BookingPeriodManager(Container):
         return DictionaryManager().findDictionaryInstance('PERIODS', 'CURRENT')
     
     def getCurrentMonthName(self):
-        months = ["", "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"]
+        months = ["", "month.january", "month.february", "month.march", "month.april", "month.may", "month.june", "month.july", "month.august", "month.september", "month.october", "month.november", "month.december"]
         return months[self.getCurrentMonth().getValue()]
 
     def closeYear(self):
