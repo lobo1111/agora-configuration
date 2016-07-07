@@ -23,7 +23,7 @@ class ChargingPredictionReport(Report):
     
     def getPaymentStartDate(self):
         bp = BookingPeriodManager()
-        return bp.getCurrentMonthName() + " " + bp.findDefaultBookingPeriod().getName()
+        return self._label.get(bp.getCurrentMonthLabel()) + " " + bp.findDefaultBookingPeriod().getName()
     
     def getChargingAccount(self):
         for account in self._community.getAccounts():
