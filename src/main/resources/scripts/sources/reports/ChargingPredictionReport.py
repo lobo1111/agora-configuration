@@ -49,8 +49,8 @@ class ChargingPredictionReport(Report):
     def createTotalLine(self, output, total):
         item = dict([])
         item['group'] = ' '
-        item['element'] = ' '#self._label.get('report.totalValue')
-        item['value'] = "=" + str(total.floatValue())
+        item['element'] = ' '
+        item['value'] = "=" + str(total)
         output.append(item)
     
     def createEmptyLine(self, output):
