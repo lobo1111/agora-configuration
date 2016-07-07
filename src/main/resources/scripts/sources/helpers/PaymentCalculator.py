@@ -16,7 +16,7 @@ class PaymentCalculator(Container):
         entities = {"element" : element, "possession" : possession}
         if possession is not None:
             entities['possessionData'] = possession.getAdditionalData()
-        algorithm = element.getAlgorithm().getAlgorithm()
+        algorithm = element.getAlgorithm().getValue()
         occurences = re.findall('#\{(.+?)\.(.+?)\}', algorithm)
         for occurence in occurences:
             entity = occurence[0]
