@@ -3,6 +3,7 @@ from pl.reaper.container.data import ZpkBalance
 from base.Container import Container
 from structures.Dictionary import DictionaryManager
 from java.util import Calendar
+from helpers.Label import LabelManager
 
 class BookingPeriodManager(Container):
     
@@ -25,7 +26,7 @@ class BookingPeriodManager(Container):
     
     def getCurrentMonthName(self):
         months = ["", "month.january", "month.february", "month.march", "month.april", "month.may", "month.june", "month.july", "month.august", "month.september", "month.october", "month.november", "month.december"]
-        return self._label.get(months[self.getCurrentMonth().getValue()])
+        return LabelManager().get(months[self.getCurrentMonth().getValue()])
 
     def closeYear(self):
         if self.getCurrentMonth() == '12':

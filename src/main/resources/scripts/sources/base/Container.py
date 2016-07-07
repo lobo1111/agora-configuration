@@ -1,5 +1,4 @@
 from base.Logger import Logger
-from helpers.Label import LabelManager
 import helpers
 from java.text import SimpleDateFormat
 import sys
@@ -12,7 +11,6 @@ class Container:
         self._entityManager = helpers.entityManager
         self._properties = helpers.properties
         self._context = helpers.context
-        self._label = LabelManager()
         
     def findBy(self, entityName, field, value):
         try:
