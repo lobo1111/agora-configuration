@@ -1,3 +1,6 @@
+#foreach($attr in $row.getAttributes())
+$attr.getName() - $attr.getValue()
+#end
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <entity name="invoices">
     <property name="maxResult" type="Integer">$countRows</property>
