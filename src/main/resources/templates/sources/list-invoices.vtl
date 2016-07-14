@@ -1,6 +1,3 @@
-#foreach($attr in $row.getAttributes())
-$attr.getName() - $attr.getValue()
-#end
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <entity name="invoices">
     <property name="maxResult" type="Integer">$countRows</property>
@@ -11,9 +8,9 @@ $attr.getName() - $attr.getValue()
             <property name="number" type="String">$!row.getAttribute('NUMBER').getValue()</property>
             <property name="createdAt" type="String">$!row.getAttribute('CREATE_DATE').getValue()</property>
             <property name="contractor" type="String">$!row.getContractor().getName()</property>
-            <property name="value" type="String">$!row.getAttirbute('VALUE').getValue()</property>
-            <property name="payed" type="String">-$!row.getAttirbute('PAYED').getValue()-</property>
-            <property name="accepted" type="String">-$!row.getAttirbute('ACCEPTED').getValue()-</property>
+            <property name="value" type="String">$!row.getAttirbute('VALUE').getName() - $!row.getAttirbute('VALUE').getValue()</property>
+            <property name="payed" type="String">$!row.getAttirbute('PAYED').getName() - $!row.getAttirbute('PAYED').getValue()</property>
+            <property name="accepted" type="String">$!row.getAttirbute('ACCEPTED').getName() - $!row.getAttirbute('ACCEPTED').getValue()</property>
         </entity>
         #end
     </list>
