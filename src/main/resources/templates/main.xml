@@ -496,7 +496,7 @@
                 <data>
                     {:limit}
                     SELECT
-                    document
+                    doc
                     FROM 
                     Document doc
                     Join doc.community community
