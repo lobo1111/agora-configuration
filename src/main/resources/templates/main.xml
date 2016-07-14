@@ -488,6 +488,38 @@
         </variables>
     </template>
     <template>
+        <name>list-invoices</name>
+        <source>list-invoices.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    document
+                    FROM 
+                    Document doc
+                    WHERE {:where}
+                    AND doc.type = \'INVOICE\'
+                    ORDER BY 
+                    doc.createdAt DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(doc)
+                    FROM 
+                    Document doc
+                    WHERE {:where}
+                    AND doc.type = \'INVOICE\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-accounts</name>
         <source>list-accounts.vtl</source>
         <variables>

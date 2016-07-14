@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="invoices">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $items)
+        <entity name="invoice">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="number" type="String">$!row.getAttribute('NUMBER').getValue()</property>
+            <property name="createdAt" type="String">$!row.getAttribute('CREATE_DATE').getValue()</property>
+            <property name="contractor" type="String">$!row.getContractor().getName()</property>
+            <property name="value" type="String">0</property>
+            <property name="payed" type="String">Nie</property>
+            <property name="accepted" type="String">$!row.getAttirbute('ACCEPTED').getValue()</property>
+        </entity>
+        #end
+    </list>
+</entity>
