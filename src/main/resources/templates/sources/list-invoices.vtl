@@ -8,9 +8,17 @@
             <property name="number" type="String">$!row.getAttribute('NUMBER').getValue()</property>
             <property name="createdAt" type="String">$!row.getAttribute('CREATE_DATE').getValue()</property>
             <property name="contractor" type="String">$!row.getContractor().getName()</property>
-            <property name="value" type="String">0</property>
+            <property name="value" type="String">$!row.getAttirbute('VALUE').getValue()</property>
+            #if($!row.getAttirbute('PAYED').getValue() == 'true')
+            <property name="payed" type="String">Tak</property>
+            #else
             <property name="payed" type="String">Nie</property>
-            <property name="accepted" type="String">$!row.getAttirbute('ACCEPTED').getValue()</property>
+            #end
+            #if($!row.getAttirbute('ACCEPTED').getValue() == 'true')
+            <property name="accepted" type="String">Tak</property>
+            #else
+            <property name="accepted" type="String">Nie</property>
+            #end
         </entity>
         #end
     </list>

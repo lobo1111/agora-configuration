@@ -11,6 +11,7 @@ class InvoiceManager(DocumentManager):
         self.updatePositions(invoice)
         self.updatePayments(invoice)
         self.checkIfPayed(invoice)
+        self.calculateValue(invoice)
         self.saveDocument(invoice)
         self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
         return invoice
@@ -24,6 +25,7 @@ class InvoiceManager(DocumentManager):
             self._logger.info("Invoice already accepted, not updating details and positions")
         self.updatePayments(invoice)
         self.checkIfPayed(invoice)
+        self.calculateValue(invoice)
         self.saveDocument(invoice)
         self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
         return invoice
@@ -43,6 +45,13 @@ class InvoiceManager(DocumentManager):
         invoice.putAttribute("CREATE_DATE", self._svars.get('createDate'))
         invoice.putAttribute("ACCEPTED", self._svars.get('accepted'))
         invoice.putAttribute("PAYED", 'false')
+        
+    def calculateValue(self, invoice):
+        value = BigDecimal(0.0)
+        for position in invoice.getPositions():
+            if position.getType() == "INVOICE_COST" and not position.isCanceled():
+                value = value.add(position.getValue())
+        invoice.putAttribute("VALUE", str(value))
         
     def checkIfPayed(self, invoice):
         costs = BigDecimal(0.0)
