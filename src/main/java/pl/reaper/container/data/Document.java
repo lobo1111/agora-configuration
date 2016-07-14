@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -188,6 +189,7 @@ public class Document implements Serializable {
                 return attr;
             }
         }
+        Logger.getLogger(Document.class.getCanonicalName(), "Attribute " + name + " not found on document: " + id);
         return null;
     }
     
