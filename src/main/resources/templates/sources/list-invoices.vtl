@@ -15,9 +15,9 @@
                 <property name="payed" type="String">Nie</property>
             #end
             #if($!row.getAttribute('ACCEPTED').getValue() == 'true')
-                <property name="payed" type="String">Tak</property>
+                <property name="accepted" type="String">Tak</property>
             #else
-                <property name="payed" type="String">Nie</property>
+                <property name="accepted" type="String">Nie</property>
             #end
         </entity>
         #end
