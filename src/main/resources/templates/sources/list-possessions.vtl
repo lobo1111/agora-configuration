@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="possessions">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $possessions)
+        <entity name="possession">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="name" type="String">$!row.getFullAddress()</property>
+            <property name="street" type="String">$!row.getAddress().getStreet()</property>
+            <property name="houseNumber" type="String">$!row.getAddress().getHouseNumber()</property>
+            <property name="flatNumber" type="String">$!row.getAddress().getFlatNumber()</property>
+            <property name="postalCode" type="String">$!row.getAddress().getPostalCode()</property>
+            <property name="city" type="String">$!row.getAddress().getCity()</property>
+            <property name="area" type="String">$!row.getArea()</property>
+            <property name="share" type="String">$!row.getShare()</property>
+            <property name="owners" type="String">$!row.getOwnersAsString()</property>
+        </entity>
+        #end
+    </list>
+</entity>

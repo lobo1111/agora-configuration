@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="counter">
+    <property name="id" type="Integer">$!entity.getId()</property>
+    <property name="serialNumber" type="String">$!entity.getSerialNumber()</property>
+    <property name="seal" type="String">$!entity.getSeal()</property>
+    <property name="typeId" type="Integer">$!entity.getType().getId()</property>
+    <property name="type" type="String">$!entity.getType().getValue()</property>
+    <property name="legalizationId" type="Integer">$!entity.getLegalization().getId()</property>
+    <property name="legalization" type="String">$!entity.getLegalization().getValue()</property>
+    <property name="installation" type="String">$!entity.getFormattedIntallation()</property>
+    <property name="possession" type="String">$!entity.getPossession().getFullAddress()</property>
+    <property name="possessionId" type="Integer">$!entity.getPossession().getId()</property>
+    <property name="parent" type="String">$!entity.getParent().getSerialNumber()</property>
+    <property name="parentId" type="Integer">$!entity.getParent().getId()</property>
+    <property name="replacementOf" type="String">$!entity.getReplacementOf().getSerialNumber()</property>
+    <property name="startStatus" type="Double"></property>
+    <property name="endStatus" type="Double"></property>
+</entity>

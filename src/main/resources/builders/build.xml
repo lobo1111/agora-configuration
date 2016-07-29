@@ -1,0 +1,61 @@
+<project name="Scripting Container" basedir="." default="help">
+    <description>Scripting Container</description>
+  
+    <target name="help">
+        <echo>build-devel -Dbranch=_branch_</echo>
+        <echo>build-prod -Dbranch=_branch_</echo>
+        <echo></echo>
+        <echo>fast-update-devel -Darg0=_branch_</echo>
+        <echo>fast-update-prod -Darg0=_branch_</echo>
+    </target>
+  
+    <import file="properties.xml" />
+    <import file="glassfish.xml" />
+    <import file="application.xml" />
+    
+    <target name="fast-update-devel">
+        <property name="buildType" value="devel"/>
+        <antcall target="fast-update" />
+    </target>
+    
+    <target name="fast-update-prod" depends="confirm">
+        <property name="buildType" value="prod"/>
+        <antcall target="fast-update" />
+    </target>
+    
+    <target name="build-devel">
+        <property name="buildType" value="devel"/>
+        <antcall target="build" />
+    </target>
+    
+    <target name="build-prod" depends="confirm">
+        <property name="buildType" value="prod"/>
+        <antcall target="build" />
+    </target>
+    
+    <target name="fast-update">
+        <antcall>
+            <target name="init" />
+            <target name="app-download" />
+            <target name="app-templates-update" />
+            <target name="app-scripts-update" />
+            <target name="app-scripts-recompile" />
+        </antcall>
+    </target>
+    
+    <target name="build">
+        <antcall>
+            <target name="init" />
+            <target name="app-download" />
+            <target name="gf-undeploy" />
+            <target name="gf-stop" />
+            <target name="app-build" />
+            <target name="app-db-update" />
+            <target name="app-scripts-update" />
+            <target name="app-templates-update" />
+            <target name="gf-start" />
+            <target name="gf-deploy" />
+        </antcall>
+    </target>
+    
+</project>

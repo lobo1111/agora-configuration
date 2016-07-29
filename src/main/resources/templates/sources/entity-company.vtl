@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="company">
+    <property name="id" type="Integer">$!company.getId()</property>
+    <property name="name" type="String">$!company.getName()</property>
+    <property name="nip" type="String">$!company.getNip()</property>
+    <property name="regon" type="String">$!company.getRegon()</property>
+    <property name="email" type="String">$!company.getEmail()</property>
+    <property name="www" type="String">$!company.getWww()</property>
+    <property name="phoneNumber1" type="String">$!company.getPhoneNumber1()</property>
+    <property name="phoneNumber2" type="String">$!company.getPhoneNumber2()</property>
+    <property name="phoneNumber3" type="String">$!company.getPhoneNumber3()</property>
+    <property name="street" type="String">$!company.getAddress().getStreet()</property>
+    <property name="houseNumber" type="String">$!company.getAddress().getHouseNumber()</property>
+    <property name="flatNumber" type="String">$!company.getAddress().getFlatNumber()</property>
+    <property name="postalCode" type="String">$!company.getAddress().getPostalCode()</property>
+    <property name="city" type="String">$!company.getAddress().getCity()</property>
+</entity>

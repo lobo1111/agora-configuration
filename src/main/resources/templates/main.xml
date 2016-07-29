@@ -1,0 +1,1175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <template>
+        <name>entity-owner-company</name>
+        <source>entity-owner-company.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Company e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-owner-person</name>
+        <source>entity-owner-person.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Person e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-possession</name>
+        <source>entity-possession.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Possession e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-global-element</name>
+        <source>entity-global-element.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Element e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-community-element</name>
+        <source>entity-community-element.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    ElementCommunity e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-possession-element</name>
+        <source>entity-possession-element.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    ElementPossession e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-default-booking-period</name>
+        <source>entity-default-booking-period.vtl</source>
+        <variables>
+            <var>
+                <name>period</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    period
+                    FROM 
+                    BookingPeriod period
+                    WHERE 
+                    period.defaultPeriod = true
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-contractor</name>
+        <source>entity-contractor.vtl</source>
+        <variables>
+            <var>
+                <name>contractor</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    o
+                    FROM 
+                    Contractor o
+                    WHERE 
+                    o.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-bank</name>
+        <source>entity-bank.vtl</source>
+        <variables>
+            <var>
+                <name>bank</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    o
+                    FROM 
+                    Bank o
+                    WHERE 
+                    o.key = \'{:key}\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-zpk</name>
+        <source>entity-zpk.vtl</source>
+        <variables>
+            <var>
+                <name>zpk</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    zpk
+                    FROM 
+                    ZakladowyPlanKont zpk
+                    JOIN zpk.zpkBalances balance
+                    JOIN balance.bookingPeriod period
+                    WHERE 
+                    zpk.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-community</name>
+        <source>entity-community-details.vtl</source>
+        <variables>
+            <var>
+                <name>community</name>
+                <data>
+                    {:single}
+                    SELECT c FROM Community c WHERE c.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>    
+    <template>
+        <name>entity-account</name>
+        <source>entity-account.vtl</source>
+        <variables>
+            <var>
+                <name>account</name>
+                <data>
+                    {:single}
+                    SELECT c FROM Account c WHERE c.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-counter</name>
+        <source>entity-counter.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT c FROM Counter c WHERE c.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-person</name>
+        <source>entity-person.vtl</source>
+        <variables>
+            <var>
+                <name>person</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    p
+                    FROM 
+                    Person p
+                    WHERE
+                    p.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>entity-company</name>
+        <source>entity-company.vtl</source>
+        <variables>
+            <var>
+                <name>company</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    p
+                    FROM 
+                    Company p
+                    WHERE
+                    p.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-contractors</name>
+        <source>list-contractors.vtl</source>
+        <variables>
+            <var>
+                <name>contractors</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    contractor
+                    FROM
+                    Contractor contractor
+                    JOIN contractor.community community
+                    WHERE {:where} AND contractor.disabled = false 
+                    ORDER BY
+                    contractor.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(contractor.id)
+                    FROM
+                    Contractor contractor
+                    JOIN contractor.community community
+                    WHERE {:where} AND contractor.disabled = false
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-zpks</name>
+        <source>list-zpks.vtl</source>
+        <variables>
+            <var>
+                <name>zpks</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    zpk
+                    FROM
+                    ZakladowyPlanKont zpk
+                    Join zpk.community community
+                    WHERE {:where}
+                    ORDER BY
+                    zpk.type.key ASC, zpk.number ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(zpk.id)
+                    FROM
+                    ZakladowyPlanKont zpk
+                    Join zpk.community community
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-counters</name>
+        <source>list-counters.vtl</source>
+        <variables>
+            <var>
+                <name>counters</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    counter
+                    FROM
+                    Counter counter
+                    Join counter.community community
+                    left outer join counter.possession possession
+                    WHERE {:where}
+                    and counter.decomission IS NULL
+                    ORDER BY
+                    possession.fullAddress ASC, counter.serialNumber ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(counter.id)
+                    FROM
+                    Counter counter
+                    Join counter.community community
+                    left outer join counter.possession possession
+                    WHERE {:where}
+                    and counter.decomission IS NULL
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-counters-parents</name>
+        <source>list-counters.vtl</source>
+        <variables>
+            <var>
+                <name>counters</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    counter
+                    FROM
+                    Counter counter
+                    Join counter.community community
+                    WHERE {:where}
+                    and counter.parent IS NULL
+                    ORDER BY
+                    counter.serialNumber ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(counter.id)
+                    FROM
+                    Counter counter
+                    Join counter.community community
+                    WHERE {:where}
+                    and counter.parent IS NULL
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-communities</name>
+        <source>list-communities.vtl</source>
+        <variables>
+            <var>
+                <name>communities</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    community
+                    FROM
+                    Community community
+                    WHERE {:where}
+                    ORDER BY community.outDate ASC, community.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(community.id)
+                    FROM
+                    Community community
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-owners</name>
+        <source>list-owners.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    owner
+                    FROM
+                    Owner owner
+                    Join owner.possession possession
+                    WHERE {:where}
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(owner.id)
+                    FROM
+                    Owner owner
+                    Join owner.possession possession
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-possessions</name>
+        <source>list-possessions.vtl</source>
+        <variables>
+            <var>
+                <name>possessions</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    possession
+                    FROM 
+                    Possession possession
+                    JOIN possession.address possessionAddress
+                    JOIN possession.community community
+                    WHERE {:where}
+                    ORDER BY 
+                    community.name, 
+                    possessionAddress.street, 
+                    possessionAddress.houseNumber, 
+                    possessionAddress.flatNumber ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(possession.id)
+                    FROM 
+                    Possession possession
+                    JOIN possession.address possessionAddress
+                    JOIN possession.community community
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-invoices</name>
+        <source>list-invoices.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    doc
+                    FROM 
+                    Document doc
+                    Join doc.community community
+                    WHERE {:where}
+                    AND doc.type = \'INVOICE\'
+                    ORDER BY 
+                    doc.createdAt DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(doc)
+                    FROM 
+                    Document doc
+                    Join doc.community community
+                    WHERE {:where}
+                    AND doc.type = \'INVOICE\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-accounts</name>
+        <source>list-accounts.vtl</source>
+        <variables>
+            <var>
+                <name>accounts</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    account
+                    FROM 
+                    Account account
+                    LEFT OUTER JOIN account.community community
+                    JOIN account.type accountType
+                    JOIN account.bank bank
+                    JOIN bank.company company
+                    LEFT OUTER JOIN account.parrentAccount parentAccount
+                    WHERE {:where} AND account.closed = 0
+                    ORDER BY company.name ASC, account.number ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(account.id)
+                    FROM 
+                    Account account
+                    LEFT OUTER JOIN account.community community
+                    JOIN account.type accountType
+                    JOIN account.bank bank
+                    JOIN bank.company company
+                    LEFT OUTER JOIN account.parrentAccount parentAccount
+                    WHERE {:where} and account.closed = 0
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-people</name>
+        <source>list-people.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    person
+                    FROM 
+                    Person person
+                    WHERE {:where}
+                    ORDER BY person.lastName DESC, person.firstName DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(person.id)
+                    FROM 
+                    Person person
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-elements</name>
+        <source>list-elements.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    element
+                    FROM 
+                    Element element
+                    Join element.group elgroup
+                    WHERE {:where}
+                    ORDER BY elgroup.value ASC, element.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(element.id)
+                    FROM 
+                    Element element
+                    Join element.group elgroup
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-possession-elements</name>
+        <source>list-elements.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    element
+                    FROM 
+                    ElementPossession element
+                    Join element.element globalElement
+                    Join globalElement.group elgroup
+                    Join element.possession possession
+                    WHERE {:where}
+                    ORDER BY elgroup.value ASC, globalElement.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(element.id)
+                    FROM 
+                    ElementPossession element
+                    Join element.element globalElement
+                    Join globalElement.group elgroup
+                    Join element.possession possession
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-community-elements</name>
+        <source>list-elements.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    element
+                    FROM 
+                    ElementCommunity element
+                    Join element.element globalElement
+                    Join globalElement.group elgroup
+                    Join element.community community
+                    WHERE {:where}
+                    ORDER BY elgroup.value ASC, globalElement.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(element.id)
+                    FROM 
+                    ElementCommunity element
+                    Join element.element globalElement
+                    Join globalElement.group elgroup
+                    Join element.community community
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-companies</name>
+        <source>list-companies.vtl</source>
+        <variables>
+            <var>
+                <name>companies</name>
+                <data>
+                    {:limit}
+                    SELECT
+                    company
+                    FROM 
+                    Company company
+                    WHERE {:where}
+                    ORDER BY company.name ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(company.id)
+                    FROM
+                    Company company
+                    WHERE {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-element-types</name>
+        <source>list-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT dic
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ELEMENTS\'
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ELEMENTS\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-years</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'YEARS\'
+                    AND {:where}
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-counter-types</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'COUNTERS_TYPES\'
+                    AND {:where}
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-element-types</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ELEMENTS\'
+                    AND {:where}
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-counter-parents</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    counter.id, counter.serialNumber)
+                    FROM 
+                    Counter counter
+                    Join counter.community community
+                    WHERE 
+                    {:where} AND
+                    counter.parent is NULL
+                    ORDER BY 
+                    counter.serialNumber ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-possessions</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    possession.id, possession.fullAddress)
+                    FROM 
+                    Possession possession
+                    Join possession.community community
+                    WHERE 
+                    {:where}
+                    ORDER BY 
+                    possession.fullAddress ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-zpks</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    zpk.id, zpk.label)
+                    FROM 
+                    ZakladowyPlanKont zpk
+                    Join zpk.community community
+                    WHERE 
+                    {:where}
+                    ORDER BY 
+                    zpk.label ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-element-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    element.id, element.name)
+                    FROM 
+                    Element element
+                    WHERE 
+                    {:where}
+                    ORDER BY 
+                    element.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-element-algorithms</name>
+        <source>list-element-algorithms.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT pa
+                    FROM 
+                    Dictionary pa
+                    WHERE
+                    pa.type.type = \'ELEMENT_ALGORITHMS\'
+                    ORDER BY 
+                    pa.key ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(pa.id)
+                    FROM 
+                    Dictionary pa
+                    WHERE
+                    pa.type.type = \'ELEMENT_ALGORITHMS\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>current-charge-month</name>
+        <source>simple-long-response.vtl</source>
+        <variables>
+            <var>
+                <name>response</name>
+                <data>
+                    {:single}
+                    SELECT
+                        dict.value
+                    FROM
+                        Dictionary dict
+                        JOIN dict.type dtype
+                    WHERE
+                        dtype.type = "PERIODS"
+                        AND dict.key = "CURRENT"
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-accounts-types</name>
+        <source>list-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT
+                    dic
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ACCOUNT_TYPE\'
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ACCOUNT_TYPE\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-counters-types</name>
+        <source>list-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT
+                    dic
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'COUNTERS_TYPES\'
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'COUNTERS_TYPES\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-years</name>
+        <source>list-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT
+                    dic
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'YEARS\'
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT
+                    count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'YEARS\'
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-element-algorithms</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.key)
+                    FROM 
+                    Dictionary dic
+                    WHERE
+                    dic.type.type = \'ELEMENT_ALGORITHMS\'
+                    AND {:where}
+                    ORDER BY 
+                    dic.key ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-accounts-types</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'ACCOUNT_TYPE\'
+                    AND {:where}
+                    ORDER BY 
+                    dic.value ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-companies-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    company.id, company.name)
+                    FROM 
+                    Company company
+                    WHERE {:where}
+                    ORDER BY 
+                    company.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-people-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    person.id, person.lastName)
+                    FROM 
+                    Person person
+                    WHERE {:where}
+                    ORDER BY 
+                    person.lastName DESC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>simple-list-communities-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    community.id, community.name)
+                    FROM 
+                    Community community
+                    WHERE {:where}
+                    ORDER BY 
+                    community.outDate ASC, community.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>possession-notes</name>
+        <source>list-notes.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT note
+                    FROM 
+                    Possession possession
+                    Join possession.notes note
+                    WHERE {:where} AND note.removed = 0
+                    ORDER BY 
+                    note.date Desc
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>user-information</name>
+        <source>entity-person.vtl</source>
+        <variables />
+    </template>
+    <template>
+        <name>report-zpks-status</name>
+        <source>report-zpks-status.vtl</source>
+        <variables />
+    </template>
+    <template>
+        <name>report-zpk-transactions</name>
+        <source>report-zpk-transactions.vtl</source>
+        <variables />
+    </template>
+    <template>
+        <name>report-chargings</name>
+        <source>report-chargings.vtl</source>
+        <variables />
+    </template>
+    <template>
+        <name>report-charging-prediction</name>
+        <source>report-charging-prediction.vtl</source>
+        <variables />
+    </template>
+</templates>

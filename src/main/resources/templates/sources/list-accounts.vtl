@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="accounts">
+    <list name="items">
+        #foreach($row in $accounts)
+        <entity name="account">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="bankName" type="String">$!row.getBank().getCompany().getName()</property>
+            <property name="number" type="String">$!row.getNumber()</property>
+            <property name="type" type="String">$!row.getType().getValue()</property>
+        </entity>
+        #end
+    </list>
+    <property name="maxResult" type="Integer">$countRows</property>
+</entity>

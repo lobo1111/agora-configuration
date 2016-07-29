@@ -1,0 +1,131 @@
+from java.util import Date
+from java.math import BigDecimal
+from base.Container import Container
+from entities.BookingPeriod import BookingPeriodManager
+from pl.reaper.container.data import Document
+from pl.reaper.container.data import DocumentPosition
+
+class DocumentManager(Container):
+    
+    def initDocument(self, type):
+        document = Document()
+        document.setCreatedAt(Date())
+        document.setType(type)
+        document.setCommunity(self.findById("Community", int(self._svars.get('communityId'))))
+        if self._svars.get('possessionId') != None:
+            document.setPossession(self.findById("Possession", int(self._svars.get('possessionId'))))
+        if self._svars.get('contractorId') != None:
+            document.setContractor(self.findById("Contractor", int(self._svars.get('contractorId'))))
+        document.setDescription(self._svars.get('documentDescription'))
+        self._logger.info("New document of type %s created" % document.getType())
+        return document
+        
+    def initPosition(self, document, prefix = ''):
+        position = DocumentPosition()
+        position.setCreatedAt(Date())
+        position.setType(document.getType() + "_POSITION")
+        position.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
+        position.setMonth(BookingPeriodManager().getCurrentMonth())
+        position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
+        position.setDescription(self._svars.get(prefix + 'positionDescription'))
+        if self._svars.get('accountId') != None:
+            position.setAccount(self.findById("Account", int(self._svars.get('accountId'))))
+        self._logger.info("New document position of type %s created" % position.getType())
+        return position
+    
+    def bound(self, document, position):
+        document.getPositions().add(position)
+        position.setDocument(document)
+        self._logger.info("Document %s bound with %s position" % (document.getType(), position.getType()))
+    
+    def save(self, entity):
+        self.saveEntity(entity)
+        return entity
+
+    def saveDocument(self, document):
+        self._logger.info("Saving document %s with %d position(s)" % (document.getType(), document.getPositions().size()))
+        return self.save(document)
+
+    def savePosition(self, position):
+        return self.save(position)
+        
+    def closeDocument(self, document):
+        if self.isEditable(document) and self.positionsAreBooked(document.getPositions()):
+            document.setClosed(True)
+            document.setClosedAt(Date())
+            self.saveDocument(document)
+            self._logger.info("Document %d closed" % document.getId())
+        else:
+            self._logger.info("Document %d can't be closed" % document.getId())
+            
+    def cancelDocument(self, document):
+        if self.isEditable(document) and not self.positionsAreBooked(document.getPositions()):
+            self.cancelPositions(document.getPositions())
+            document.setCanceled(True)
+            document.setCanceledAt(Date())
+            self.saveDocument(document)
+            self._logger.info("Document %d canceled" % document.getId())
+        else:
+            self._logger.info("Document %d can't be canceled" % document.getId())
+            
+    def isEditable(self, document):
+        return (not document.isClosed() and not document.isCanceled())
+    
+    def positionsAreBooked(self, positions):
+        for position in positions:
+            if not position.isBooked():
+                return False
+        return True
+    
+    def cancelPositions(self, positions):
+        for position in positions:
+            self.cancelPosition(position)
+            
+    def bookPositions(self, positions):
+        for position in positions:
+            self.bookPosition(position)
+            
+    def bookPosition(self, position):
+        if not position.isCanceled() and not position.isBooked() and position.getCreditZpk() != None and position.getDebitZpk() != None:
+            debitBalance = position.getDebitZpk().getCurrentBalance()
+            creditBalance = position.getCreditZpk().getCurrentBalance()
+            debitBalance.setDebit(position.getValue().add(BigDecimal(debitBalance.getDebit())).floatValue())
+            creditBalance.setCredit(position.getValue().add(BigDecimal(creditBalance.getCredit())).floatValue())
+            position.setBooked(True)
+            position.setBookedAt(Date())
+            self.saveEntity(debitBalance)
+            self.saveEntity(creditBalance)
+            self.savePosition(position)
+            
+    def cancelPosition(self, position):
+        if not position.isBooked() and not position.isCanceled():
+            position.setCanceled(True)
+            position.setCanceledAt(Date())
+            self.savePosition(position)
+            self._logger.info("Document position %d canceled" % position.getId())
+        else:
+            self._logger.info("Document position %d can't be canceled" % position.getId())
+            
+    def bookDocument(self, document):
+        if self.isEditable(document):
+            self.bookPositions(document.getPositions())
+            self.saveDocument(document)
+        
+    def bookAll(self):
+        currentMonth = BookingPeriodManager().getCurrentMonth()
+        currentBookingPeriod = BookingPeriodManager().findDefaultBookingPeriod()
+        sql = "Select distinct document From Document document join document.positions position Where position.month = '%s' and position.bookingPeriod.id = %d" % (currentMonth, currentBookingPeriod.getId())
+        for document in self._entityManager.createQuery(sql).getResultList():
+            self.bookDocument(document)
+        
+    def findZpk(self, zpks, typeKey):
+        zpkType = self.findDictionary(str(self.findZpkSettingId(typeKey)))
+        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkType.getKey()][0]
+            
+    def findDictionary(self, id):
+        return self._entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % str(id)).getSingleResult()
+    
+    def findZpkSettingId(self, typeKey):
+        self._logger.info('Looking for ZPK of type %s' % str(typeKey))
+        return self._entityManager.createQuery("Select ds.value From Dictionary ds join ds.type ts Where ts.type = 'ZPKS_SETTINGS' and ds.key = '%s'" % typeKey).getSingleResult()
+        

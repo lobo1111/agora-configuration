@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+    <event name="entity-persist">
+        <actions>
+            <action>
+                <handler type="script">events.EntityPersistEvent</handler>
+            </action>
+        </actions>
+    </event>
+    <event name="entity-init">
+        <actions>
+            <action>
+                <handler type="script">events.EntityInitEvent</handler>
+            </action>
+        </actions>
+    </event>
+    <event name="entity-load">
+        <actions>
+            <action>
+                <handler type="script">events.EntityLoadEvent</handler>
+            </action>
+        </actions>
+    </event>
+</events>

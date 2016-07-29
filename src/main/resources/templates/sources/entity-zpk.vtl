@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="zpk">
+    <property name="id" type="Integer">$!zpk.getId()</property>
+    #if($!zpk.getAccount())
+        <property name="description" type="String">$!zpk.getAccount().getNumber()</property>
+    #end
+    #if($!zpk.getPossession())
+        <property name="description" type="String">$!zpk.getPossession().getFullAddress()</property>
+    #end
+    #if($!zpk.getContractor())
+        <property name="description" type="String">$!zpk.getContractor().getName()</property>
+    #end
+    <property name="number" type="String">$!zpk.getType().getKey()-$!zpk.getNumber()</property>
+    <property name="startCredit" type="String">$!zpk.getCurrentBalance().getStartCredit()</property>
+    <property name="startDebit" type="String">$!zpk.getCurrentBalance().getStartDebit()</property>
+</entity>

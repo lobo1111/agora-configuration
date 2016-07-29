@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="report-zpks-status">
+    <list name="header">
+        <entity name="createDate">
+            <property name="label" type="String">$labelDocumentCreationDate</property>
+            <property name="value" type="String">$date</property>
+        </entity>
+    </list>
+    <list name="title">
+        <entity name="title">
+            <property name="label" type="String">$labelChargingPrediction</property>
+        </entity>
+    </list>
+    <list name="introduction">
+        <entity name="community">
+            <property name="label" type="String">$labelCommunity</property>
+            <property name="value" type="String">$community.getCompany().getName()</property>
+        </entity>
+        <entity name="possession">
+            <property name="label" type="String">$labelPossession</property>
+            <property name="value" type="String">$possession.getFullAddress()</property>
+        </entity>
+        <entity name="owners">
+            <property name="label" type="String">$labelOwners</property>
+            <property name="value" type="String">$possession.getOwnersAsString()</property>
+        </entity>
+        <entity name="date">
+            <property name="label" type="String">$labelPaymentStartDate</property>
+            <property name="value" type="String">$paymentStartDate</property>
+        </entity>
+    </list>
+    <list name="data-headers">
+        <entity name="type">
+            <property name="width" type="Double">30</property>
+            <property name="label" type="String">$labelGroup</property>
+        </entity>
+        <entity name="date">
+            <property name="width" type="Double">50</property>
+            <property name="label" type="String">$labelElement</property>
+        </entity>
+        <entity name="value">
+            <property name="width" type="Double">20</property>
+            <property name="label" type="String">$labelValue</property>
+        </entity>
+    </list>
+    <list name="data">
+        #foreach($row in $items)
+        <entity name="item">
+            <property name="type" type="String">$row.get('group')</property>
+            <property name="date" type="String">$row.get('element')</property>
+            <property name="value" type="String">$row.get('value')</property>
+        </entity>
+        #end
+    </list>
+    <list name="footer">
+        <entity name="chargingAccount">
+            <property name="label" type="String">$labelChargingAccount</property>
+            <property name="value" type="String">$chargingAccount</property>
+        </entity>
+        #if($rfAccount)
+        <entity name="rfAccount">
+            <property name="label" type="String">$labelRFAccount</property>
+            <property name="value" type="String">$rfAccount</property>
+        </entity>
+        #end
+    </list>
+</entity>

@@ -1,0 +1,167 @@
+package pl.reaper.container.data;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@Entity
+@Table(name = "invoice")
+@XmlRootElement
+public class Invoice implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private int id;
+    @ManyToOne
+    @JoinColumn(name = "contractor_id", referencedColumnName = "id")
+    private Contractor contractor;
+    @ManyToOne
+    @JoinColumn(name = "community_id", referencedColumnName = "id")
+    private Community community;
+    @Column(name = "create_date")
+    @Temporal(TemporalType.DATE)
+    private Date createDate;
+    @Column(name = "payment_date")
+    @Temporal(TemporalType.DATE)
+    private Date paymentDate;
+    @Column(name = "to_pay")
+    private double toPay;
+    @Column(name = "accepted")
+    private boolean accepted;
+    @Column(name = "payments_sum")
+    private double paymentsSum;
+    @Column(name = "booked")
+    private boolean booked;
+    @Column(name = "number")
+    private String number;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
+    private List<InvoicePosition> positions = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "invoice")
+    private List<InvoicePayment> payments = new ArrayList<>();
+    @JoinColumn(name = "internal_payment_id", referencedColumnName = "id")
+    @OneToOne
+    private InternalPayment internalPayment;
+
+    public InternalPayment getInternalPayment() {
+        return internalPayment;
+    }
+
+    public void setInternalPayment(InternalPayment internalPayment) {
+        this.internalPayment = internalPayment;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Community getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Community community) {
+        this.community = community;
+    }
+
+    public Contractor getContractor() {
+        return contractor;
+    }
+
+    public void setContractor(Contractor contractor) {
+        this.contractor = contractor;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public double getToPay() {
+        return toPay;
+    }
+
+    public void setToPay(double toPay) {
+        this.toPay = toPay;
+    }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
+
+    public double getPaymentsSum() {
+        return paymentsSum;
+    }
+
+    public void setPaymentsSum(double paymentsSum) {
+        this.paymentsSum = paymentsSum;
+    }
+
+    public boolean isBooked() {
+        return booked;
+    }
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public List<InvoicePosition> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<InvoicePosition> positions) {
+        this.positions = positions;
+    }
+
+    public List<InvoicePayment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<InvoicePayment> payments) {
+        this.payments = payments;
+    }
+}
