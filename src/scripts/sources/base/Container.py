@@ -9,7 +9,6 @@ class Container:
     def __init__(self):
         self._svars = helpers.svars
         self._entityManager = helpers.entityManager
-        self._properties = helpers.properties
         self._context = helpers.context
         
     def findBy(self, entityName, field, value):
@@ -51,9 +50,6 @@ class Container:
         self._entityManager = entityManager
         self._logger.setEntityManager(entityManager)
         
-    def setProperties(self, properties):
-        self._properties = properties
-
     def parseDate(self, dateAsString):
         try:
             return SimpleDateFormat('dd-MM-yyyy').parse(dateAsString)
