@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="report-zpks-status">
+    <list name="header">
+        <entity name="createDate">
+            <property name="label" type="String">$labelDocumentCreationDate</property>
+            <property name="value" type="String">$date</property>
+        </entity>
+    </list>
+    <list name="title">
+        <entity name="title">
+            <property name="label" type="String">$labelZpkStatus</property>
+        </entity>
+    </list>
+    <list name="introduction">
+        <entity name="statusDate">
+            <property name="label" type="String">$labelStatusDate</property>
+            <property name="value" type="String">$statusDate</property>
+        </entity>
+        <entity name="communityName">
+            <property name="label" type="String">$labelCommunity</property>
+            <property name="value" type="String">$community.getCompany().getName()</property>
+        </entity>
+        <entity name="address">
+            <property name="label" type="String">$labelAddress</property>
+            <property name="value" type="String">$community.getCompany().getAddress().getFullAddress()</property>
+        </entity>
+    </list>
+    <list name="data-headers">
+        <entity name="number">
+            <property name="width" type="Double">15</property>
+            <property name="label" type="String">$labelNumber</property>
+        </entity>
+        <entity name="debit">
+            <property name="width" type="Double">15</property>
+            <property name="label" type="String">$labelDebit</property>
+        </entity>
+        <entity name="credit">
+            <property name="width" type="Double">15</property>
+            <property name="label" type="String">$labelCredit</property>
+        </entity>
+        <entity name="description">
+            <property name="width" type="Double">55</property>
+            <property name="label" type="String">$labelDescription</property>
+        </entity>
+    </list>
+    <list name="data">
+        #foreach($row in $zpks)
+        <entity name="item">
+            <property name="number" type="String">$row.get('number')</property>
+            <property name="debit" type="String">$row.get('debit')</property>
+            <property name="credit" type="String">$row.get('credit')</property>
+            <property name="description" type="String">$row.get('description')</property>
+        </entity>
+        #end
+    </list>
+    <list name="footer">
+    </list>
+</entity>

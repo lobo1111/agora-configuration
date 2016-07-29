@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedulers>
+    <scheduler>
+        <script>check-email</script>
+        <enabled>false</enabled>
+        <fireAt>* * * * *</fireAt>
+    </scheduler>
+    <scheduler>
+        <script>file-watchdog</script>
+        <enabled>false</enabled>
+        <fireAt>* * * * *</fireAt>
+    </scheduler>
+    <scheduler>
+        <script>bind-documents-to-payments</script>
+        <enabled>false</enabled>
+        <fireAt>* * * * *</fireAt>
+    </scheduler>
+    <scheduler>
+        <script>guardian-zpk</script>
+        <enabled>true</enabled>
+        <fireAt>* * * * *</fireAt>
+    </scheduler>
+    <scheduler>
+        <script>migrate-all</script>
+        <enabled>false</enabled>
+        <fireAt>* * * * *</fireAt>
+    </scheduler>
+</schedulers>

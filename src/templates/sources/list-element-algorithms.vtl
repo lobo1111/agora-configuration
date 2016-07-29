@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="element-algorithms">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $items)
+        <entity name="element-algorithm">
+            <property name="id" type="Integer">$row.getId()</property>
+            <property name="name" type="String">$!row.getKey()</property>
+        </entity>
+        #end
+    </list>
+</entity>

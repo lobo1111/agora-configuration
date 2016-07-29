@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="report-zpks-status">
+    <list name="header">
+        <entity name="createDate">
+            <property name="label" type="String">$labelDocumentCreationDate</property>
+            <property name="value" type="String">$date</property>
+        </entity>
+    </list>
+    <list name="title">
+        <entity name="title">
+            <property name="label" type="String">$labelZpkTransactions</property>
+        </entity>
+    </list>
+    <list name="introduction">
+        <entity name="communityName">
+            <property name="label" type="String">$labelCommunity</property>
+            <property name="value" type="String">$community.getCompany().getName()</property>
+        </entity>
+        <entity name="address">
+            <property name="label" type="String">$labelAddress</property>
+            <property name="value" type="String">$community.getCompany().getAddress().getFullAddress()</property>
+        </entity>
+        <entity name="zpk">
+            <property name="label" type="String">$labelZpk</property>
+            <property name="value" type="String">$zpk.getLabel()</property>
+        </entity>
+        <entity name="fromDate">
+            <property name="label" type="String">$labelFromDate</property>
+            <property name="value" type="String">$fromDate</property>
+        </entity>
+        <entity name="toDate">
+            <property name="label" type="String">$labelToDate</property>
+            <property name="value" type="String">$toDate</property>
+        </entity>
+    </list>
+    <list name="data-headers">
+        <entity name="type">
+            <property name="width" type="Double">15</property>
+            <property name="label" type="String">$labelType</property>
+        </entity>
+        <entity name="subject">
+            <property name="width" type="Double">20</property>
+            <property name="label" type="String">$labelSubject</property>
+        </entity>
+        <entity name="createdAt">
+            <property name="width" type="Double">15</property>
+            <property name="label" type="String">$labelCreatedAt</property>
+        </entity>
+        <entity name="value">
+            <property name="width" type="Double">10</property>
+            <property name="label" type="String">$labelValue</property>
+        </entity>
+        <entity name="zpkDebit">
+            <property name="width" type="Double">10</property>
+            <property name="label" type="String">$labelDebit</property>
+        </entity>
+        <entity name="zpkCredit">
+            <property name="width" type="Double">10</property>
+            <property name="label" type="String">$labelCredit</property>
+        </entity>
+        <entity name="zpkDebitStatus">
+            <property name="width" type="Double">10</property>
+            <property name="label" type="String">$zpk.getLabel() $labelDebit</property>
+        </entity>
+        <entity name="zpkCreditStatus">
+            <property name="width" type="Double">10</property>
+            <property name="label" type="String">$zpk.getLabel() $labelCredit</property>
+        </entity>
+    </list>
+    <list name="data">
+        #foreach($row in $transactions)
+        <entity name="item">
+            <property name="type" type="String">$row.get('type')</property>
+            <property name="subject" type="String">$row.get('subject')</property>
+            <property name="createdAt" type="String">$row.get('createdAt')</property>
+            <property name="value" type="String">$row.get('value')</property>
+            <property name="zpkDebit" type="String">$row.get('zpkDebit')</property>
+            <property name="zpkCredit" type="String">$row.get('zpkCredit')</property>
+            <property name="zpkDebitStatus" type="String">$row.get('zpkDebitStatus')</property>
+            <property name="zpkCreditStatus" type="String">$row.get('zpkCreditStatus')</property>
+        </entity>
+        #end
+    </list>
+    <list name="footer">
+    </list>
+</entity>
