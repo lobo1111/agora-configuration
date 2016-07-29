@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="agora">
+
+    <featureManager>
+        <feature>ejb-3.2</feature>
+        <feature>jpa-2.1</feature>
+        <feature>jaxws-2.2</feature>
+    </featureManager>
+    
+    <library id="DerbyLib">
+        <file name="${wlp.install.dir}/lib/ext/derby.jar"/>
+    </library>
+
+    <library id="MySQLLib">
+        <file name="${wlp.install.dir}/lib/ext/mysql-connector-java-5.1.39-bin.jar"/>
+    </library>
+    
+    <dataSource id="DefaultDataSource">
+        <jdbcDriver libraryRef="DerbyLib"/>
+        <properties.derby.embedded createDatabase="create" databaseName="${server.config.dir}/data/EJBTimerDB"/>
+    </dataSource>
+    
+    <dataSource id="agora" jndiName="jdbc/agora-erp">
+        <jdbcDriver libraryRef="MySQLLib"/>
+        <properties databaseName="agora" serverName="db" portNumber="3306" user="agora" password="agora.12"/>
+    </dataSource>
+    
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+                  
+    <applicationManager autoExpand="true"/>
+
+    <applicationMonitor updateTrigger="mbean"/>
+
+    <enterpriseApplication id="agora" location="ScriptingContainer.ear" name="agora" />
+
+    <keyStore id="defaultKeyStore" password="testtest"/>
+
+    <basicRegistry id="basic" realm="BasicRealm">
+        <user name="test" password="testtest"/>
+    </basicRegistry>
+    
+</server>
