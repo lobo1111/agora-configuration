@@ -16,8 +16,8 @@ class ConfigManager:
         return self._config.get(section, option)
 
 class DBManager:
-    def __init__(self, config, db):
-        self._connection = pymysql.connect(host=config.get('db', 'host'), port=3306, user=config.get('db', 'user'), passwd=config.get('db', 'password'), db=config.get('db', db))
+    def __init__(self, config, host, database, user, password):
+        self._connection = pymysql.connect(host=host, port=3306, user=user, passwd=password, db=database)
         self._config = config
            
     def isTemplateAvailable(self, templateName):
@@ -73,9 +73,9 @@ class DBManager:
         
 class TemplateLoader:
     
-    def __init__(self, db):
+    def __init__(self, host, database, user, password):
         self._config = ConfigManager()
-        self._dbManager = DBManager(self._config, db)
+        self._dbManager = DBManager(self._config, host, database, user, password)
         self._xml = ET.parse(self._config.get('paths', 'config')).getroot()
         
     def loadTemplates(self):
@@ -117,6 +117,6 @@ class TemplateLoader:
     def readFile(self, fullPath):
         return ''.join(open(fullPath, 'r').readlines())
     
-loader = TemplateLoader(sys.argv[1])
+loader = TemplateLoader(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
 loader.loadTemplates()
             
