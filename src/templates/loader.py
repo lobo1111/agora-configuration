@@ -84,6 +84,7 @@ class TemplateLoader:
             name = template.find('name')
             source = template.find('source')
             id = self.saveTemplate(self.getText(name), self.getText(source))
+            print "Template's ID: " + id
             self.saveVariables(id, template.findall('variables/var'))
             
     def saveTemplate(self, name, source):
