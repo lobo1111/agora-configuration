@@ -52,9 +52,8 @@ class DBManager:
         cursor = self._connection.cursor()
         cursor.execute(sql, (templateName, content))
         cursor.connection.commit()
-        user_id = cursor.connection.insert_id()
         cursor.close()
-        return user_id
+        return self.getTemplateId(templateName)
     
     def deleteTemplateVariables(self, templateId):
         sql = self._config.get('queries' ,'deleteTemplateVariables')
