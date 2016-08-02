@@ -15,8 +15,8 @@ class ConfigManager:
         return self._config.get(section, option)
 
 class DBManager:
-    def __init__(self, config, db):
-        self._connection = pymysql.connect(host=config.get('db', 'host'), port=3306, user=config.get('db', 'user'), passwd=config.get('db', 'password'), db=config.get('db', db))
+    def __init__(self, config, host, database, user, password):
+        self._connection = pymysql.connect(host=host, port=3306, user=user, passwd=password, db=database)
         self._config = config
            
     def deleteAllSchedulers(self):
@@ -35,9 +35,9 @@ class DBManager:
         
 class ScriptLoader:
     
-    def __init__(self, db):
+    def __init__(self, host, database, user, password):
         self._config = ConfigManager()
-        self._dbManager = DBManager(self._config, db)
+        self._dbManager = DBManager(self._config, host, database, user, password)
         self._xml = ET.parse(self._config.get('paths', 'config')).getroot()
         
     def loadSchedulers(self):
@@ -65,11 +65,11 @@ class ScriptLoader:
     
 class ScriptDeployer:
     
-    def deployScripts(self, dest):
+    def deployScripts(self):
         self._config = ConfigManager()
-        os.system("rm -Rf %s/*" % self._config.get('paths', dest))
-        os.system("cp -Rf %s/* %s/" % (self._config.get('paths', 'scripts'), self._config.get('paths', dest)))
+        os.system("rm -Rf %s/*" % self._config.get('paths', 'destination'))
+        os.system("cp -Rf %s/* %s/" % (self._config.get('paths', 'scripts'), self._config.get('paths', 'destination')))
         
-loader = ScriptLoader(sys.argv[1])
+loader = ScriptLoader(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
 loader.loadSchedulers()
-ScriptDeployer().deployScripts(sys.argv[2]) 
+ScriptDeployer().deployScripts() 
