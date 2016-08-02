@@ -66,7 +66,6 @@ class DBManager:
         sql = self._config.get('queries' ,'insetTemplateVariable')
         cursor = self._connection.cursor()
         fullsql = sql % (int(templateId), variableName, data)
-        print fullsql
         cursor.execute(fullsql)
         cursor.connection.commit()
         cursor.close()
@@ -83,7 +82,6 @@ class TemplateLoader:
             name = template.find('name')
             source = template.find('source')
             id = self.saveTemplate(self.getText(name), self.getText(source))
-            print "Template's ID: " + str(id)
             self.saveVariables(id, template.findall('variables/var'))
             
     def saveTemplate(self, name, source):
