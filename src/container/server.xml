@@ -2,23 +2,14 @@
 <server description="agora">
 
     <featureManager>
-        <feature>ejb-3.2</feature>
+        <feature>ejbLite-3.2</feature>
         <feature>jpa-2.1</feature>
         <feature>jaxws-2.2</feature>
     </featureManager>
     
-    <library id="DerbyLib">
-        <file name="${server.config.dir}/lib/derby.jar"/>
-    </library>
-
     <library id="MySQLLib">
         <file name="${server.config.dir}/lib/mysql-connector-java-5.1.39-bin.jar"/>
     </library>
-    
-    <dataSource id="DefaultDataSource">
-        <jdbcDriver libraryRef="DerbyLib"/>
-        <properties.derby.embedded createDatabase="create" databaseName="${server.config.dir}/data/EJBTimerDB"/>
-    </dataSource>
     
     <dataSource id="agora" jndiName="jdbc/agora-erp">
         <jdbcDriver libraryRef="MySQLLib"/>
