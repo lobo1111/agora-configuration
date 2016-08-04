@@ -8,11 +8,11 @@
     </featureManager>
     
     <library id="DerbyLib">
-        <file name="${wlp.install.dir}/lib/ext/derby.jar"/>
+        <file name="${server.config.dir}/lib/derby.jar"/>
     </library>
 
     <library id="MySQLLib">
-        <file name="${wlp.install.dir}/lib/ext/mysql-connector-java-5.1.39-bin.jar"/>
+        <file name="${server.config.dir}/lib/mysql-connector-java-5.1.39-bin.jar"/>
     </library>
     
     <dataSource id="DefaultDataSource">
