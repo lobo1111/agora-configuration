@@ -18,10 +18,7 @@
     <logging consoleLogLevel="INFO"/>
     <logging traceSpecification="*=info"/>
 
-    <variable name="defaultHostName" value="localhost"/>
-    
-    <basicRegistry id="agora">
-        <user name="admin" password="adminpwd" />
+    <basicRegistry id="agora" realm="agora">
         <user name="tk" password="test" />
         <user name="p.lukaszewski" password="test" />
         <user name="i.wisniowska" password="test" />
@@ -32,10 +29,6 @@
         </group>
     </basicRegistry>
 
-    <administrator-role>
-        <user>admin</user>
-    </administrator-role>
-    
     <httpEndpoint id="defaultHttpEndpoint"
                   host="*"
                   httpPort="9080"
@@ -53,27 +46,10 @@
     <enterpriseApplication id="agora" location="ScriptingContainer.ear" name="agora">
         <applicationMonitor dropins="${server.config.dir}/apps/" />
         <application-bnd>
-            <security-role name="user">
+            <security-role name="agora">
                 <group name="users" />
-            </security-role>
-            <security-role name="AllAuthenticated">
-                <special-subject type="ALL_AUTHENTICATED_USERS" />
             </security-role>
         </application-bnd>
     </enterpriseApplication>
-    
-    <!-- SECURITY CONSTRAINTS -->
-    <security-constraint>
-        <web-resource-collection>
-            <url-pattern>/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>user</role-name>
-        </auth-constraint>
-    </security-constraint>
 
-    <!-- AUTHENTICATION METHOD: Basic authentication -->
-    <login-config>
-        <auth-method>BASIC</auth-method>
-    </login-config> 
 </server>
