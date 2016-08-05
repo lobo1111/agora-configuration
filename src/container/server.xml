@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <server description="agora">
 
     <featureManager>
-        <feature>ejbLite-3.2</feature>
-        <feature>jpa-2.1</feature>
         <feature>jaxws-2.2</feature>
+        <feature>jpa-2.1</feature>
+        <feature>ejbLite-3.2</feature>
+        <feature>appSecurity-2.0</feature>
+        <feature>adminCenter-1.0</feature>
     </featureManager>
+
+    <variable name="defaultHostName" value="0.0.0.0" />
+
+    <basicRegistry id="agora">
+        <user name="admin" password="adminpwd" />
+        <user name="tk" password="test" />
+        <user name="p.lukaszewski" password="test" />
+        <user name="i.wisniowska" password="test" />
+        <group name="users">
+            <member name="tk" />
+            <member name="p.lukaszewski" />
+            <member name="i.wisniowska" />
+        </group>
+    </basicRegistry>
+
+    <administrator-role>
+        <user>admin</user>
+    </administrator-role>
     
+    <keyStore id="defaultKeyStore" password="keystorepasswordverysecret" />
+
+    <httpEndpoint id="defaultHttpEndpoint"
+                  host="*"
+                  httpPort="9080"
+                  httpsPort="9443" />
+
     <library id="MySQLLib">
         <file name="${server.config.dir}/lib/mysql-connector-java-5.1.39-bin.jar"/>
     </library>
@@ -16,18 +44,35 @@
         <properties databaseName="agora" serverName="db" portNumber="3306" user="agora" password="agora.12"/>
     </dataSource>
     
-    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
-                  
-    <applicationManager autoExpand="true"/>
-
     <enterpriseApplication id="agora" location="ScriptingContainer.ear" name="agora">
         <applicationMonitor dropins="${server.config.dir}/apps/" />
+        <application-bnd>
+            <security-role name="user">
+                <group name="users" />
+            </security-role>
+            <security-role name="AllAuthenticated">
+                <special-subject type="ALL_AUTHENTICATED_USERS" />
+            </security-role>
+        </application-bnd>
     </enterpriseApplication>
-
-    <keyStore id="defaultKeyStore" password="testtest"/>
-
-    <basicRegistry id="basic" realm="BasicRealm">
-        <user name="test" password="testtest"/>
-    </basicRegistry>
     
+    <!-- SECURITY ROLES -->
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+
+    <!-- SECURITY CONSTRAINTS -->
+    <security-constraint>
+        <web-resource-collection>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- AUTHENTICATION METHOD: Basic authentication -->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config> 
 </server>
