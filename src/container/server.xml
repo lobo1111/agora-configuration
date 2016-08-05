@@ -20,8 +20,6 @@
                   
     <applicationManager autoExpand="true"/>
 
-    <applicationMonitor updateTrigger="mbean"/>
-
     <enterpriseApplication id="agora" location="ScriptingContainer.ear" name="agora">
         <applicationMonitor dropins="${server.config.dir}/apps/" />
     </enterpriseApplication>
