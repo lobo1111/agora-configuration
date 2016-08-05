@@ -13,6 +13,8 @@
     <logging traceSpecification="*=info"/>
 
     <!--    <variable name="defaultHostName" value="kopacki.eu"/>-->
+    
+    <pluginConfiguration webserverPort="80"/>
 
     <basicRegistry id="agora">
         <user name="admin" password="adminpwd" />
