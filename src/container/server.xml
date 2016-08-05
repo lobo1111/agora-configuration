@@ -7,7 +7,6 @@
         <feature>jpa-2.1</feature>
         <feature>ejbLite-3.2</feature>
         <feature>appSecurity-2.0</feature>
-        <feature>adminCenter-1.0</feature>
     </featureManager>
     
     <logging consoleLogLevel="INFO"/>
@@ -15,8 +14,6 @@
 
     <variable name="defaultHostName" value="localhost"/>
     
-    <pluginConfiguration webserverPort="81"/>
-
     <basicRegistry id="agora">
         <user name="admin" password="adminpwd" />
         <user name="tk" password="test" />
