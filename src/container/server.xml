@@ -12,7 +12,7 @@
     <logging consoleLogLevel="INFO"/>
     <logging traceSpecification="*=info"/>
 
-    <variable name="defaultHostName" value="kopacki.eu"/>
+    <!--    <variable name="defaultHostName" value="kopacki.eu"/>-->
 
     <basicRegistry id="agora">
         <user name="admin" password="adminpwd" />
