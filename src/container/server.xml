@@ -9,7 +9,7 @@
         <feature>appSecurity-2.0</feature>
     </featureManager>
 
-    <variable name="defaultHostName" value="kopacki.eu" />
+    <variable name="defaultHostName" value="0.0.0.0"/>
 
     <basicRegistry id="agora">
         <user name="admin" password="adminpwd" />
