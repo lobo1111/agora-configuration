@@ -53,7 +53,7 @@
         </application-bnd>
     </enterpriseApplication>
     
-    <keyStore id="defaultKeyStore" password="testtest"/>
+    <keyStore id="defaultKeyStore" password="verysecretkeystorepassword"/>
 
     <!-- SECURITY CONSTRAINTS -->
     <security-constraint>
