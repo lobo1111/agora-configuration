@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <server description="agora">
-
     <featureManager>
         <feature>jaxws-2.2</feature>
         <feature>jpa-2.1</feature>
@@ -9,8 +7,7 @@
         <feature>appSecurity-2.0</feature>
         <feature>jsp-2.3</feature>
     </featureManager>
-    
-    <logging consoleLogLevel="INFO"/>
+
     <logging traceSpecification="*=info"/>
 
     <basicRegistry id="agora" realm="agora">
@@ -24,15 +21,12 @@
         </group>
     </basicRegistry>
 
-    <httpEndpoint id="defaultHttpEndpoint"
-                  host="*"
-                  httpPort="9080"
-                  httpsPort="9443" />
+    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="9080" httpsPort="9443" />
 
     <library id="MySQLLib">
         <file name="${server.config.dir}/lib/mysql-connector-java-5.1.39-bin.jar"/>
     </library>
-    
+
     <dataSource id="agora" jndiName="jdbc/agora-erp">
         <jdbcDriver libraryRef="MySQLLib"/>
         <properties databaseName="agora" serverName="db" portNumber="3306" user="agora" password="agora.12"/>
@@ -46,5 +40,4 @@
             </security-role>
         </application-bnd>
     </enterpriseApplication>
-
 </server>
