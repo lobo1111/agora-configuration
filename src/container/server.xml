@@ -53,8 +53,6 @@
         </application-bnd>
     </enterpriseApplication>
     
-    <keyStore id="defaultKeyStore" password="verysecretkeystorepassword"/>
-
     <!-- SECURITY CONSTRAINTS -->
     <security-constraint>
         <web-resource-collection>
