@@ -7,7 +7,6 @@
         <feature>jpa-2.1</feature>
         <feature>ejbLite-3.2</feature>
         <feature>appSecurity-2.0</feature>
-        <feature>adminCenter-1.0</feature>
     </featureManager>
 
     <variable name="defaultHostName" value="kopacki.eu" />
@@ -28,8 +27,6 @@
         <user>admin</user>
     </administrator-role>
     
-    <keyStore id="defaultKeyStore" password="keystorepasswordverysecret" />
-
     <httpEndpoint id="defaultHttpEndpoint"
                   host="*"
                   httpPort="9080"
@@ -56,10 +53,7 @@
         </application-bnd>
     </enterpriseApplication>
     
-    <!-- SECURITY ROLES -->
-    <security-role>
-        <role-name>user</role-name>
-    </security-role>
+    <keyStore id="defaultKeyStore" password="testtest"/>
 
     <!-- SECURITY CONSTRAINTS -->
     <security-constraint>
