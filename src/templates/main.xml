@@ -1078,7 +1078,7 @@
             <var>
                 <name>countRows</name>
                 <data>
-                    SELECT count(dic.id)
+                    SELECT count(dic.id)[0]
                     FROM 
                     Dictionary dic
                     WHERE 
