@@ -1082,6 +1082,7 @@
                     SELECT count(p.id)
                     FROM 
                     InvoicePositionDictionary p
+                    Join p.company company
                     WHERE 
                     {:where}
                 </data>
@@ -1093,6 +1094,7 @@
                     p.id, p.position)
                     FROM 
                     InvoicePositionDictionary p
+                    Join p.company company
                     WHERE 
                     {:where}
                     ORDER BY 
