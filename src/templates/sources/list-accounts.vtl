@@ -6,6 +6,7 @@
             <property name="id" type="Integer">$row.getId()</property>
             <property name="bankName" type="String">$!row.getBank().getCompany().getName()</property>
             <property name="number" type="String">$!row.getNumber()</property>
+            <property name="label" type="String">$!row.getNumber()</property>
             <property name="type" type="String">$!row.getType().getValue()</property>
         </entity>
         #end
