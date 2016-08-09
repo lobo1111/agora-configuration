@@ -1099,7 +1099,7 @@
                 <data>
                     {:limit}
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    account.id, account.name)
+                    account.id, account.number)
                     FROM 
                     Account account
                     Join account.community community
