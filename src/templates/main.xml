@@ -1076,6 +1076,17 @@
         <source>simple-list.vtl</source>
         <variables>
             <var>
+                <name>countRows</name>
+                <data>
+                    SELECT count(dic)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'TAXES\'
+                    AND {:where}
+                </data>
+            </var>
+            <var>
                 <name>items</name>
                 <data>
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
