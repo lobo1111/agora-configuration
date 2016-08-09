@@ -1098,7 +1098,7 @@
                     dic.type.type = \'TAXES\'
                     AND {:where}
                     ORDER BY 
-                    dic.value ASC
+                    dic.key ASC
                 </data>
             </var>
         </variables>
