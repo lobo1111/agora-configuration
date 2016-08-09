@@ -1091,6 +1091,26 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-account-numbers</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    account.id, account.name)
+                    FROM 
+                    Account account
+                    Join account.community community
+                    WHERE {:where}
+                    ORDER BY 
+                    company.name ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-people-names</name>
         <source>simple-list.vtl</source>
         <variables>
