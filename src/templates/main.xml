@@ -1091,7 +1091,7 @@
         </variables>
     </template>
     <template>
-        <name>simple-list-account-numbers</name>
+        <name>simple-list-accounts-numbers</name>
         <source>simple-list.vtl</source>
         <variables>
             <var>
