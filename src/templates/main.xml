@@ -1072,6 +1072,36 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-invoice-positions</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(p.id)
+                    FROM 
+                    InvoicePositionDictionary p
+                    WHERE 
+                    {:where}
+                </data>
+            </var>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    InvoicePositionDictionary p
+                    WHERE 
+                    {:where}
+                    ORDER BY 
+                    p.position ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-taxes-names</name>
         <source>simple-list.vtl</source>
         <variables>
