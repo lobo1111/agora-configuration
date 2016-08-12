@@ -19,6 +19,24 @@
         </variables>
     </template>
     <template>
+        <name>entity-invoice</name>
+        <source>entity-invoice.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Invoice e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-owner-person</name>
         <source>entity-owner-person.vtl</source>
         <variables>
