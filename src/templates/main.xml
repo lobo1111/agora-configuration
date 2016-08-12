@@ -29,9 +29,10 @@
                     SELECT 
                     e
                     FROM 
-                    Invoice e
+                    Document e
                     WHERE 
                     e.id = {:id}
+                    And e.type = \'INVOICE\'
                 </data>
             </var>
         </variables>
