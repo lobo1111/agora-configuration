@@ -12,7 +12,7 @@
         <entity name="invoice_position">
             <property name="id" type="Integer">$row.getId()</property>
             <property name="number" type="String">$row.getAttribute("NUMBER").getValue()</property>
-            <property name="name" type="String">$row.getDescription</property>
+            <property name="name" type="String">$row.getDescription()</property>
             <property name="taxId" type="Integer">$row.getAttribute("TAX_ID").getValue()</property>
             <property name="volume" type="String">$row.getAttribute("VOLUME").getValue()</property>
             <property name="valueUnit" type="String">$row.getAttribute("VALUE_UNIT").getValue()</property>
