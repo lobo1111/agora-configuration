@@ -14,8 +14,8 @@
             <property name="number" type="Integer">$row.getAttribute("NUMBER").getValue()</property>
             <property name="name" type="String">$row.getDescription()</property>
             <property name="taxId" type="Integer">$row.getAttribute("TAX_ID").getValue()</property>
-            <property name="volume" type="String">$row.getAttribute("VOLUME").getValue()</property>
-            <property name="valueUnit" type="String">$row.getAttribute("VALUE_UNIT").getValue()</property>
+            <property name="volume" type="Integer">$row.getAttribute("VOLUME").getValue()</property>
+            <property name="valueUnit" type="Double">$row.getAttribute("VALUE_UNIT").getValue()</property>
         </entity>
         #end
         #end
@@ -27,8 +27,8 @@
             <property name="id" type="Integer">$row.getId()</property>
             <property name="creationDate" type="String">$row.getAttribute("CREATE_DATE").getValue()</property>
             <property name="account" type="String">$row.getAccount().getNumber()</property>
-            <property name="accountId" type="String">$row.getAccount().getId()</property>
-            <property name="value" type="String">$row.getValue</property>
+            <property name="accountId" type="Integer">$row.getAccount().getId()</property>
+            <property name="value" type="Double">$row.getValue</property>
         </entity>
         #end
         #end
