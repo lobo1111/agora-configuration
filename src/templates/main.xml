@@ -1167,7 +1167,6 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'TAXES\'
-                    AND {:where}
                 </data>
             </var>
             <var>
@@ -1178,7 +1177,6 @@
                     Dictionary dic
                     WHERE 
                     dic.type.type = \'TAXES\'
-                    AND {:where}
                     ORDER BY 
                     dic.key ASC
                 </data>
