@@ -6,6 +6,7 @@
     <property name="contractorId" type="Integer">$!entity.getContractor().getId()</property>
     <property name="creationDate" type="String">$!entity.getAttribute("CREATE_DATE").getValue()</property>
     <property name="paymentDate" type="String">$!entity.getAttribute("PAYMENT_DATE").getValue()</property>
+    <property name="grossValue" type="Double">$!entity.getValue()</property>
     <list name="positions">
         #foreach($row in $entity.getPositions())
         #if($row.getType() == "INVOICE_COST")
