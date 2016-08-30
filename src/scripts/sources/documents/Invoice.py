@@ -19,7 +19,7 @@ class InvoiceManager(DocumentManager):
         self.checkIfPayed(invoice)
         self.calculateValue(invoice)
         self.saveDocument(invoice)
-        #self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
+        self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
         return invoice
     
     def update(self):
@@ -76,7 +76,10 @@ class InvoiceManager(DocumentManager):
         
     def updatePositions(self, invoice):
         for i in range(int(self._svars.get('positions_size'))):
-            positionId = int("positions_" + str(i) + "_" + 'id')
+            if self._svars.get("positions_" + str(i) + "_" + 'id') != None:
+                positionId = int(self._svars.get("positions_" + str(i) + "_" + 'id'))
+            else:
+                positionId = 0
             remove = self._svars.get("positions_" + str(i) + "_" + 'remove') == 'true'
             if remove and positionId != 0:
                 position = self.findById("DocumentPosition", positionId)
@@ -98,7 +101,10 @@ class InvoiceManager(DocumentManager):
             self.updatePayment(invoice, 'payments_' + str(i) + "_")
                 
     def updatePayment(self, invoice, prefix = ''):
-        paymentId = int(self._svars.get(prefix + 'paymentId'))
+        if self._svars.get("payments_" + str(i) + "_" + 'id') != None:
+            paymentId = int(self._svars.get("payments_" + str(i) + "_" + 'id'))
+        else:
+            paymentId = 0
         remove = self._svars.get(prefix + 'remove') == 'true'
         if remove and paymentId != 0:
             payment = self.findById("DocumentPosition", paymentId)
