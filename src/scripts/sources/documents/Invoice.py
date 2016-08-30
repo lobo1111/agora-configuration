@@ -101,8 +101,8 @@ class InvoiceManager(DocumentManager):
             self.updatePayment(invoice, 'payments_' + str(i) + "_")
                 
     def updatePayment(self, invoice, prefix = ''):
-        if self._svars.get("payments_" + str(i) + "_" + 'id') != None:
-            paymentId = int(self._svars.get("payments_" + str(i) + "_" + 'id'))
+        if self._svars.get(prefix + 'id') != None:
+            paymentId = int(self._svars.get(prefix + 'id'))
         else:
             paymentId = 0
         remove = self._svars.get(prefix + 'remove') == 'true'
