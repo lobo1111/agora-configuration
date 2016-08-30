@@ -6,7 +6,7 @@ class InvoiceManager(DocumentManager):
     _type = "INVOICE"
     
     def persist(self):
-        if self.findById("Document", self._svars.get("id")) == '0':
+        if self._svars.get("id") == '0':
             self.create()
         else:
             self.update()
