@@ -7,9 +7,9 @@ class InvoiceManager(DocumentManager):
     
     def persist(self):
         if self._svars.get("id") == '0':
-            self.create()
+            return self.create()
         else:
-            self.update()
+            return self.update()
     
     def create(self):
         invoice = self.initDocument(self._type)
@@ -19,7 +19,7 @@ class InvoiceManager(DocumentManager):
         self.checkIfPayed(invoice)
         self.calculateValue(invoice)
         self.saveDocument(invoice)
-        self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
+        #self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
         return invoice
     
     def update(self):
