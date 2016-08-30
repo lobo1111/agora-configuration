@@ -43,7 +43,7 @@ class InvoiceManager(DocumentManager):
         invoice.putAttribute("NUMBER", self._svars.get('number'))
         invoice.putAttribute("PAYMENT_DATE", self._svars.get('paymentDate'))
         invoice.putAttribute("CREATE_DATE", self._svars.get('createDate'))
-        invoice.putAttribute("ACCEPTED", self._svars.get('accepted'))
+        invoice.putAttribute("ACCEPTED", 'false')
         invoice.putAttribute("PAYED", 'false')
         
     def calculateValue(self, invoice):
@@ -69,27 +69,27 @@ class InvoiceManager(DocumentManager):
             invoice.putAttribute("PAYED", 'false')
         
     def updatePositions(self, invoice):
-        for i in range(int(self._svars.get('positionsCount'))):
-            positionId = int(self._svars.get(str(i) + '_positions_positionId'))
-            remove = self._svars.get(str(i) + '_positions_remove') == 'true'
+        for i in range(int(self._svars.get('positions_size'))):
+            positionId = int("positions_" + str(i) + "_" + 'id')
+            remove = self._svars.get("positions_" + str(i) + "_" + 'remove') == 'true'
             if remove and positionId != 0:
                 position = self.findById("DocumentPosition", positionId)
                 self.cancelPosition(position)
             elif not remove:
-                position = self.findOrCreatePosition(invoice, positionId, str(i) + '_positions_')
-                position.putAttribute("NUMBER", self._svars.get(str(i) + '_positions_number'))
-                position.putAttribute("TAX_ID", self._svars.get(str(i) + '_positions_taxId'))
-                position.putAttribute("VOLUME", self._svars.get(str(i) + '_positions_volume'))
-                position.putAttribute("VALUE_NET", self._svars.get(str(i) + '_positions_netValue'))
-                position.putAttribute("VALUE_UNIT", self._svars.get(str(i) + '_positions_unitValue'))
-                position.setDescription(self._svars.get(str(i) + '_positions_positionDescription'))
+                position = self.findOrCreatePosition(invoice, positionId, 'positions_' + str(i))
+                position.putAttribute("NUMBER", self._svars.get('positions_' + str(i) + "_" + 'number'))
+                position.putAttribute("TAX_ID", self._svars.get('positions_' + str(i) + "_" + 'taxId'))
+                position.putAttribute("VOLUME", self._svars.get('positions_' + str(i) + "_" + 'volume'))
+                position.putAttribute("VALUE_NET", self._svars.get('positions_' + str(i) + "_" + 'netValue'))
+                position.putAttribute("VALUE_UNIT", self._svars.get('positions_' + str(i) + "_" + 'unitValue'))
+                position.setDescription(self._svars.get('positions_' + str(i) + "_" + 'positionDescription'))
                 position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
                 position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))
                 self.bound(invoice, position)
     
     def updatePayments(self, invoice):
-        for i in range(int(self._svars.get('paymentsCount'))):
-            self.updatePayment(invoice, str(i) + '_payments_')
+        for i in range(int(self._svars.get('payments_size'))):
+            self.updatePayment(invoice, 'payments_' + str(i) + "_")
                 
     def updatePayment(self, invoice, prefix = ''):
         paymentId = int(self._svars.get(prefix + 'paymentId'))
