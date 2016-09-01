@@ -28,8 +28,8 @@ class DocumentManager(Container):
         position.setMonth(BookingPeriodManager().getCurrentMonth())
         position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
-        if self._svars.get('accountId') != None:
-            position.setAccount(self.findById("Account", int(self._svars.get('accountId'))))
+        if self._svars.get(prefix + 'accountId') != None:
+            position.setAccount(self.findById("Account", int(self._svars.get(prefix + 'accountId'))))
         self._logger.info("New document position of type %s created(%f)" % (position.getType(), position.getValue().floatValue()))
         return position
     
