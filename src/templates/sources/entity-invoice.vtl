@@ -10,7 +10,7 @@
     <property name="totalPayments" type="Double">0</property>
     <list name="positions">
         #foreach($row in $entity.getPositions())
-        #if($row.getType() == "INVOICE_COST")
+        #if($row.getType() == "INVOICE_COST" && !$row.isCanceled())
         <entity name="invoice_position">
             <property name="id" type="Integer">$row.getId()</property>
             <property name="number" type="String">$row.getAttribute("NUMBER").getValue()</property>
@@ -25,7 +25,7 @@
     </list>
     <list name="payments">
         #foreach($row in $entity.getPositions())
-        #if($row.getType() == "INVOICE_PAYMENT")
+        #if($row.getType() == "INVOICE_PAYMENT" && !$row.isCanceled())
         <entity name="invoice_payment">
             <property name="id" type="Integer">$row.getId()</property>
             <property name="createDate" type="String">$!row.getAttribute("CREATE_DATE").getValue()</property>
