@@ -30,6 +30,8 @@ class DocumentManager(Container):
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
         if self._svars.get(prefix + 'accountId') != None:
             position.setAccount(self.findById("Account", int(self._svars.get(prefix + 'accountId'))))
+        else:
+            self._logger.info("Position doesn't have accountID set under key %s" % (prefix + 'accountId'))
         self._logger.info("New document position of type %s created(%f)" % (position.getType(), position.getValue().floatValue()))
         return position
     
