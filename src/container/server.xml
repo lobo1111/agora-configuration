@@ -31,15 +31,7 @@
         <jdbcDriver libraryRef="MySQLLib"/>
         <connectionManager maxPoolSize="20" minPoolSize="3" 
                            connectionTimeout="10s" agedTimeout="30m"/>
-        <properties databaseName="agora" serverName="db" portNumber="3306" user="agora" password="agora.12"/>
-        <property>
-            <name>characterSetResults</name>
-            <value>UTF-8</value>
-        </property>
-        <property>
-            <name>characterEncoding</name>
-            <value>UTF-8</value>
-        </property>
+        <properties url="jdbc:mysql://db:3306/agora?user=agora&password=agora.12&characterSetResults=utf8&characterEncoding=UTF-8" />
     </dataSource>
     
     <enterpriseApplication id="agora" location="ScriptingContainer.ear" name="agora">
