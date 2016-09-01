@@ -34,9 +34,10 @@ class DocumentManager(Container):
         return position
     
     def bound(self, document, position):
-        document.getPositions().add(position)
-        position.setDocument(document)
-        self._logger.info("Document %s bound with %s position" % (document.getType(), position.getType()))
+        if not position in document.getPositions():
+            document.getPositions().add(position)
+            position.setDocument(document)
+            self._logger.info("Document %s bound with %s position" % (document.getType(), position.getType()))
     
     def save(self, entity):
         self.saveEntity(entity)
