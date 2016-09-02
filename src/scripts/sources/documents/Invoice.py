@@ -1,6 +1,7 @@
 from documents.Document import DocumentManager
 from pl.reaper.container.data import InvoicePositionDictionary
 from java.math import BigDecimal
+from java.math import RoundingMode
 
 class InvoiceManager(DocumentManager):
     _type = "INVOICE"
@@ -57,7 +58,7 @@ class InvoiceManager(DocumentManager):
         for position in invoice.getPositions():
             if position.getType() == "INVOICE_COST" and not position.isCanceled():
                 value = value.add(position.getValue())
-        #invoice.putAttribute("VALUE", str(value))
+        invoice.putAttribute("VALUE", str(value.setScale(2, RoundingMode.HALF_UP).floatValue()))
         
     def checkIfPayed(self, invoice):
         costs = BigDecimal(0.0)
@@ -89,8 +90,9 @@ class InvoiceManager(DocumentManager):
                 position.putAttribute("NUMBER", self._svars.get('positions_' + str(i) + "_" + 'number'))
                 position.putAttribute("TAX_ID", self._svars.get('positions_' + str(i) + "_" + 'taxId'))
                 position.putAttribute("VOLUME", self._svars.get('positions_' + str(i) + "_" + 'volume'))
-                position.putAttribute("VALUE_NET", self._svars.get('positions_' + str(i) + "_" + 'netValue'))
                 position.putAttribute("VALUE_UNIT", self._svars.get('positions_' + str(i) + "_" + 'unitValue'))
+                position.putAttribute("VALUE_NET", self.calculateValueNet(position.getAttribute("VOLUME"), position.getAttribute("VALUE_UNIT")))
+                position.setValue(self.calculateValueGross(position.getAttribute("VALUE_NET"), position.getAttribute("TAX_ID")))
                 position.setDescription(self._svars.get('positions_' + str(i) + "_" + 'positionDescription'))
                 position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
                 position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))
@@ -131,6 +133,17 @@ class InvoiceManager(DocumentManager):
             return position
         else:
             return self.findById("DocumentPosition", paymentId)
+        
+    def calculateValueNet(self, volume, unitPrice):
+        bdVolume = BigDecimal(volume).setScale(2, RoundingMode.HALF_UP)
+        bdUnitPrice = BigDecimal(unitPrice).setScale(2, RoundingMode.HALF_UP)
+        return str(bdVolume.multiply(bdUnitPrice).setScale(2, RoundingMode.HALF_UP).floatValue())
+    
+    def calculateValueGross(self, valueNet, taxId):
+        tax = self.findById("Dictionary", taxId)
+        bdValueNet = BigDecimal(valueNet)
+        bdTax = BigDecimal(tax.getKey())
+        return bdValueNet.add(bdValueNet.multiply(bdTax).setScale(2, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP)
     
     def updatePositionsDictionary(self, company, positions):
         for position in positions:
