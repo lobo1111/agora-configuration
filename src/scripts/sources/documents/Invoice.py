@@ -52,6 +52,7 @@ class InvoiceManager(DocumentManager):
         invoice.putAttribute("CREATE_DATE", self._svars.get('createDate'))
         invoice.putAttribute("ACCEPTED", 'false')
         invoice.putAttribute("PAYED", 'false')
+        invoice.putAttribute("VALUE", '0.0')
         
     def calculateValue(self, invoice):
         value = BigDecimal(0.0)
