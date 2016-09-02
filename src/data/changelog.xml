@@ -2343,4 +2343,21 @@
             INSERT INTO `label`(`name`, `message`)VALUES('month.december', 'Grudzień');
         </sql>
     </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-cost-type-new-dict'>
+        <sql>
+            INSERT INTO `dictionary_type` (`type`) VALUES
+            ('INVOICE_COST_TYPE');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='invoice-cost-type-dict-items'>
+        <sql>
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'RENT', 'Zaliczka' FROM `dictionary_type` WHERE `type` = 'INVOICE_COST_TYPE';
+            
+            INSERT INTO `dictionary` (`type_id`, `dictionaryKey`, `value`)
+            SELECT id, 'REPAIR_FUND', 'Fundusz remontowy' FROM `dictionary_type` WHERE `type` = 'INVOICE_COST_TYPE';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

@@ -1184,6 +1184,67 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-invoice-cost-types</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'INVOICE_COST_TYPE\'
+                    AND {:where}
+                </data>
+            </var>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    dic.id, dic.value)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'INVOICE_COST_TYPE\'
+                    AND {:where}
+                    ORDER BY 
+                    dic.key ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-invoice-cost-types</name>
+        <source>list-dictionary.vtl</source>
+        <variables>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT count(dic.id)
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'INVOICE_COST_TYPE\'
+                </data>
+            </var>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT dic
+                    FROM 
+                    Dictionary dic
+                    WHERE 
+                    dic.type.type = \'INVOICE_COST_TYPE\'
+                    ORDER BY 
+                    dic.key ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-companies-names</name>
         <source>simple-list.vtl</source>
         <variables>
