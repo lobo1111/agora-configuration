@@ -58,8 +58,7 @@ class InvoiceManager(DocumentManager):
         for position in invoice.getPositions():
             if position.getType() == "INVOICE_COST" and not position.isCanceled():
                 value = value.add(position.getValue().setScale(2, RoundingMode.HALF_UP))
-        #invoice.putAttribute("VALUE", str(value.setScale(2, RoundingMode.HALF_UP).floatValue()))
-        invoice.putAttribute("dupa", str(value.setScale(2, RoundingMode.HALF_UP).floatValue()))
+        invoice.putAttribute("VALUE", str(value.setScale(2, RoundingMode.HALF_UP).floatValue()))
         
     def checkIfPayed(self, invoice):
         costs = BigDecimal(0.0)
@@ -115,7 +114,10 @@ class InvoiceManager(DocumentManager):
         elif not remove:
             payment = self.findOrCreatePayment(invoice, paymentId, prefix)
             payment.putAttribute("CREATE_DATE", self._svars.get(prefix + 'createDate'))
-            payment.setCreditZpk(self.findZpk(payment.getAccount().getZpks(), 'RENT'))
+            payment.putAttribute("COST", self._svars.get(prefix + 'cost'))
+            payment.putAttribute("COST_ID", self._svars.get(prefix + 'costId'))
+            cost = self.findById("Dictionary", self._svars.get(prefix + 'costId'))
+            payment.setCreditZpk(self.findZpk(payment.getAccount().getZpks(), cost.getKey()))
             payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
             self.bound(invoice, payment)
     
