@@ -59,7 +59,7 @@ class InvoiceManager(DocumentManager):
             if position.getType() == "INVOICE_COST" and not position.isCanceled():
                 value = value.add(position.getValue().setScale(2, RoundingMode.HALF_UP))
         #invoice.putAttribute("VALUE", str(value.setScale(2, RoundingMode.HALF_UP).floatValue()))
-        invoice.putAttribute("PAYED", '0.0')
+        invoice.putAttribute("PAYED", str(value.setScale(2, RoundingMode.HALF_UP).floatValue()))
         
     def checkIfPayed(self, invoice):
         costs = BigDecimal(0.0)
