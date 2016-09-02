@@ -52,13 +52,13 @@ class InvoiceManager(DocumentManager):
         invoice.putAttribute("CREATE_DATE", self._svars.get('createDate'))
         invoice.putAttribute("ACCEPTED", 'false')
         invoice.putAttribute("PAYED", 'false')
-        invoice.putAttribute("VALUE", '0.0')
         
     def calculateValue(self, invoice):
         value = BigDecimal(0.0)
         for position in invoice.getPositions():
             if position.getType() == "INVOICE_COST" and not position.isCanceled():
                 value = value.add(position.getValue())
+        invoice.putAttribute("PAYED", 'false')
         invoice.putAttribute("VALUE", str(value.setScale(2, RoundingMode.HALF_UP).floatValue()))
         
     def checkIfPayed(self, invoice):
