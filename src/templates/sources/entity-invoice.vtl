@@ -29,8 +29,8 @@
         <entity name="invoice_payment">
             <property name="id" type="Integer">$row.getId()</property>
             <property name="createDate" type="String">$!row.getAttribute("CREATE_DATE").getValue()</property>
-            <property name="costId" type="String">$!row.getAttribute("COST_ID").getValue()</property>
-            <property name="cost" type="Integer">$!row.getAttribute("COST").getValue()</property>
+            <property name="costId" type="Integer">$!row.getAttribute("COST_ID").getValue()</property>
+            <property name="cost" type="String">$!row.getAttribute("COST").getValue()</property>
             <property name="account" type="String">$!row.getAccount().getNumber()</property>
             <property name="accountId" type="Integer">$!row.getAccount().getId()</property>
             <property name="value" type="String">$!row.getValue()</property>
