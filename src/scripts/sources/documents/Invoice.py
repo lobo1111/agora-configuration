@@ -144,15 +144,21 @@ class InvoiceManager(DocumentManager):
             return self.findById("DocumentPosition", paymentId)
         
     def calculateValueNet(self, volume, unitPrice):
-        bdVolume = BigDecimal(volume).setScale(2, RoundingMode.HALF_UP)
-        bdUnitPrice = BigDecimal(unitPrice).setScale(2, RoundingMode.HALF_UP)
-        return str(bdVolume.multiply(bdUnitPrice).setScale(2, RoundingMode.HALF_UP).floatValue())
+        try:
+            bdVolume = BigDecimal(volume).setScale(2, RoundingMode.HALF_UP)
+            bdUnitPrice = BigDecimal(unitPrice).setScale(2, RoundingMode.HALF_UP)
+            return str(bdVolume.multiply(bdUnitPrice).setScale(2, RoundingMode.HALF_UP).floatValue())
+        except:
+            return '0'
     
     def calculateValueGross(self, valueNet, taxId):
-        tax = self.findById("Dictionary", taxId)
-        bdValueNet = BigDecimal(valueNet)
-        bdTax = BigDecimal(tax.getKey())
-        return bdValueNet.add(bdValueNet.multiply(bdTax).setScale(2, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP)
+        try:
+            tax = self.findById("Dictionary", taxId)
+            bdValueNet = BigDecimal(valueNet)
+            bdTax = BigDecimal(tax.getKey())
+            return bdValueNet.add(bdValueNet.multiply(bdTax).setScale(2, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP)
+        except:
+            return BigDecimal(0)
     
     def updatePositionsDictionary(self, company, positions):
         for position in positions:
