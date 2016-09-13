@@ -9,7 +9,7 @@ class InvoiceValidator(Validator):
         self.validatePayments(document)
         
     def isAccepted(self, document):
-        return invoice.getAttribute("ACCEPTED").getValue() == 'true'
+        return document.getAttribute("ACCEPTED").getValue() == 'true'
         
     def validateAttributes(self, document):
         #self.check(document.getAttribute("NUMBER").getValue(), [LengthValidator(minLength = 1, maxLength = 250, messageParameter = self._label.get('field.invoiceNumber')), UniqueInvoiceNumber(currentId = document.getId())])
