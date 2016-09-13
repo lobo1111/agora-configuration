@@ -4,6 +4,7 @@ from structures.validators.common.NotNoneValidator import NotNoneValidator
 from structures.validators.common.DateValidator import DateValidator
 from structures.validators.common.DecimalValidator import DecimalValidator
 from structures.validators.common.IntValidator import IntValidator
+from structures.validators.common.PositiveIntValidator import PositiveIntValidator
 
 class InvoiceValidator(Validator):
     
@@ -30,7 +31,7 @@ class InvoiceValidator(Validator):
             
     def validatePosition(self, position):
         self.check(position.getAttribute("NUMBER").getValue(), [IntValidator(messageParameter = self._label.get('validators.invoice.position.number'))])
-        self.check(position.getAttribute("TAX_ID").getValue(), [IntValidator(messageParameter = self._label.get('validators.invoice.position.tax'))])
+        self.check(position.getAttribute("TAX_ID").getValue(), [PositiveIntValidator(messageParameter = self._label.get('validators.invoice.position.tax'))])
         self.check(position.getAttribute("VOLUME").getValue(), [DecimalValidator(messageParameter = self._label.get('validators.invoice.position.volume'))])
         self.check(position.getAttribute("VALUE_UNIT").getValue(), [DecimalValidator(messageParameter = self._label.get('validators.invoice.position.unitValueNet'))])
         self.check(position.getDescription(), [LengthValidator(minLength = 1, maxLength = 250, messageParameter = self._label.get('validators.invoice.position.name'))])
@@ -44,4 +45,4 @@ class InvoiceValidator(Validator):
         self.check(payment.getAttribute("CREATE_DATE").getValue(), [DateValidator(messageParameter = self._label.get('validators.invoice.payment.paymentDate'))])
         self.check(payment.getAccount(), [NotNoneValidator(messageParameter = self._label.get('validators.invoice.payment.account'))])
         self.check(payment.getValue().floatValue(), [DecimalValidator(messageParameter = self._label.get('validators.invoice.payment.value'))])
-        self.check(payment.getAttribute("COST_ID").getValue(), [NotNoneValidator(messageParameter = self._label.get('validators.invoice.payment.costType'))])
+        self.check(payment.getAttribute("COST_ID").getValue(), [PositiveIntValidator(messageParameter = self._label.get('validators.invoice.payment.costType'))])
