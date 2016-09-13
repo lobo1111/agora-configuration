@@ -1,4 +1,5 @@
 from documents.validators.Validator import Validator
+from structures.validators.common.LengthValidator import LengthValidator
 
 class InvoiceValidator(Validator):
     
