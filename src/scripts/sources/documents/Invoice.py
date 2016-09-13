@@ -1,4 +1,6 @@
 from documents.Document import DocumentManager
+from documents.validator.InvoiceValidator import InvoiceValidator
+from structures.validators.common.ValidationError import ValidationError
 from pl.reaper.container.data import InvoicePositionDictionary
 from java.math import BigDecimal
 from java.math import RoundingMode
@@ -7,10 +9,13 @@ class InvoiceManager(DocumentManager):
     _type = "INVOICE"
     
     def persist(self):
-        if self._svars.get("id") == '0':
-            return self.create()
-        else:
-            return self.update()
+        try:
+            if self._svars.get("id") == '0':
+                return self.create()
+            else:
+                return self.update()
+        except ValidationError, error:
+            self.setError(error)
     
     def create(self):
         invoice = self.initDocument(self._type)
@@ -19,6 +24,7 @@ class InvoiceManager(DocumentManager):
         self.updatePayments(invoice)
         self.checkIfPayed(invoice)
         self.calculateValue(invoice)
+        InvoiceValidator().validate(invoice)
         self.saveDocument(invoice)
         self.updatePositionsDictionary(invoice.getContractor().getCompany(), invoice.getPositions())
         return invoice
