@@ -3,6 +3,7 @@ from structures.validators.common.LengthValidator import LengthValidator
 from structures.validators.common.NotNoneValidator import NotNoneValidator
 from structures.validators.common.DateValidator import DateValidator
 from structures.validators.common.DecimalValidator import DecimalValidator
+from structures.validators.common.IntValidator import IntValidator
 
 class InvoiceValidator(Validator):
     
