@@ -4,6 +4,7 @@ from base.Container import Container
 from entities.BookingPeriod import BookingPeriodManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
+import numbers
 
 class DocumentManager(Container):
     
@@ -27,7 +28,7 @@ class DocumentManager(Container):
         position.setType(document.getType() + "_POSITION")
         position.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
         position.setMonth(BookingPeriodManager().getCurrentMonth())
-        if self._svars.get(prefix + 'value') != 'None':
+        if isinstance(self._svars.get(prefix + 'value'), numbers.Real):
             self._logger.info("Position's value='%s'" % str(self._svars.get(prefix + 'value')))
             position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
         else:
