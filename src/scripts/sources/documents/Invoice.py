@@ -124,7 +124,7 @@ class InvoiceManager(DocumentManager):
             payment.putAttribute("COST", self._svars.get(prefix + 'cost'))
             payment.putAttribute("COST_ID", self._svars.get(prefix + 'costId'))
             cost = self.findById("Dictionary", self._svars.get(prefix + 'costId'))
-            if payment.getAccount() != None and invoice.getContractor() != None:
+            if payment.getAccount() != None and invoice.getContractor() != None and cost != None:
                 payment.setCreditZpk(self.findZpk(payment.getAccount().getZpks(), cost.getKey()))
                 payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
             self.bound(invoice, payment)
