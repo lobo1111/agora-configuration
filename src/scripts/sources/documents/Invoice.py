@@ -100,8 +100,9 @@ class InvoiceManager(DocumentManager):
                 position.putAttribute("VALUE_NET", self.calculateValueNet(position.getAttribute("VOLUME").getValue(), position.getAttribute("VALUE_UNIT").getValue()))
                 position.setValue(self.calculateValueGross(position.getAttribute("VALUE_NET").getValue(), position.getAttribute("TAX_ID").getValue()))
                 position.setDescription(self._svars.get('positions_' + str(i) + "_" + 'positionDescription'))
-                position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
-                position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))
+                if invoice.getContractor() != None:
+                    position.setCreditZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
+                    position.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR_COST'))
                 self.bound(invoice, position)
     
     def updatePayments(self, invoice):
