@@ -44,4 +44,4 @@ class InvoiceValidator(Validator):
         self.check(payment.getAttribute("CREATE_DATE").getValue(), [DateValidator(messageParameter = self._label.get('validators.invoice.payment.paymentDate'))])
         self.check(payment.getAccount(), [NotNoneValidator(messageParameter = self._label.get('validators.invoice.payment.account'))])
         self.check(payment.getValue().floatValue(), [DecimalValidator(messageParameter = self._label.get('validators.invoice.payment.value'))])
-        self.check(payment.getAttribute("COST_ID").getValue(), [NotNoneValidator(messageParameter = self._label.get('validators.invoice.payment.cost'))])
+        self.check(payment.getAttribute("COST_ID").getValue(), [NotNoneValidator(messageParameter = self._label.get('validators.invoice.payment.costType'))])
