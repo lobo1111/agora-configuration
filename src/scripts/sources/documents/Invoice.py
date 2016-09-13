@@ -1,5 +1,5 @@
 from documents.Document import DocumentManager
-from documents.validator.InvoiceValidator import InvoiceValidator
+from documents.validators.InvoiceValidator import InvoiceValidator
 from structures.validators.common.ValidationError import ValidationError
 from pl.reaper.container.data import InvoicePositionDictionary
 from java.math import BigDecimal
