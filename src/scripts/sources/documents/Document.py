@@ -18,7 +18,6 @@ class DocumentManager(Container):
             document.setContractor(self.findById("Contractor", int(self._svars.get('contractorId'))))
         document.setDescription(self._svars.get('documentDescription'))
         self._logger.info("New document of type %s created" % document.getType())
-        self._entityManager.detach(document)
         return document
         
     def initPosition(self, document, prefix = ''):

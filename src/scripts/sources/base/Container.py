@@ -57,8 +57,7 @@ class Container:
             return None
 
     def saveEntity(self, entity, putId=True):
-        self._entityManager.merge(entity)
-        #self._entityManager.persist(entity)
+        self._entityManager.persist(entity)
         self._entityManager.flush()
         if hasattr(entity, 'getId') and putId:
             self._svars.put('output', str(entity.getId()))
