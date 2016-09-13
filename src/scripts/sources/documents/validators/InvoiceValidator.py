@@ -30,7 +30,7 @@ class InvoiceValidator(Validator):
             
     def validatePosition(self, position):
         self.check(position.getAttribute("NUMBER").getValue(), [IntValidator(messageParameter = self._label.get('validators.invoice.position.number'))])
-        self.check(position.getAttribute("TAX_ID").getValue(), [NotNoneValidator(messageParameter = self._label.get('validators.invoice.position.tax'))])
+        self.check(position.getAttribute("TAX_ID").getValue(), [IntValidator(messageParameter = self._label.get('validators.invoice.position.tax'))])
         self.check(position.getAttribute("VOLUME").getValue(), [DecimalValidator(messageParameter = self._label.get('validators.invoice.position.volume'))])
         self.check(position.getAttribute("VALUE_UNIT").getValue(), [DecimalValidator(messageParameter = self._label.get('validators.invoice.position.unitValueNet'))])
         self.check(position.getDescription(), [LengthValidator(minLength = 1, maxLength = 250, messageParameter = self._label.get('validators.invoice.position.name'))])
