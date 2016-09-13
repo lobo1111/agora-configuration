@@ -1,5 +1,8 @@
 from documents.validators.Validator import Validator
 from structures.validators.common.LengthValidator import LengthValidator
+from structures.validators.common.NotNoneValidator import NotNoneValidator
+from structures.validators.common.DateValidator import DateValidator
+from structures.validators.common.DecimalValidator import DecimalValidator
 
 class InvoiceValidator(Validator):
     
