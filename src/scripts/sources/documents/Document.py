@@ -27,7 +27,10 @@ class DocumentManager(Container):
         position.setType(document.getType() + "_POSITION")
         position.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
         position.setMonth(BookingPeriodManager().getCurrentMonth())
-        position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
+        if self._svars.get(prefix + 'value') != '':
+            position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
+        else:
+            position.setValue(0)
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
         if self._svars.get(prefix + 'accountId') != None:
             position.setAccount(self.findById("Account", int(self._svars.get(prefix + 'accountId'))))
