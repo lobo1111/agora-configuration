@@ -31,7 +31,7 @@ class DocumentManager(Container):
             self._logger.info("Position's value='%s'" % str(self._svars.get(prefix + 'value')))
             position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
         else:
-            position.setValue(0)
+            position.setValue(BigDecimal(0))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
         if self._svars.get(prefix + 'accountId') != None:
             position.setAccount(self.findById("Account", int(self._svars.get(prefix + 'accountId'))))
