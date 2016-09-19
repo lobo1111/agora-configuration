@@ -9,6 +9,7 @@ class InvoiceManager(DocumentManager):
     _type = "INVOICE"
     
     def persist(self):
+        tmp = helpers.Label.LabelManager().get('validators.invoice.noZPK')
         try:
             if self._svars.get("id") == '0':
                 return self.create()
