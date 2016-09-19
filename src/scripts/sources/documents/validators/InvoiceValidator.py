@@ -15,6 +15,9 @@ class InvoiceValidator(Validator):
             self.validatePositions(document)
         self.validatePayments(document)
         
+    def getNoZPKValidationError(self):
+        return LabelManager().get('validators.invoice.noZPK')
+        
     def isAccepted(self, document):
         return document.getAttribute("ACCEPTED").getValue() == 'true'
     
