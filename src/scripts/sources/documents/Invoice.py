@@ -2,7 +2,6 @@ from documents.Document import DocumentManager
 from documents.validators.InvoiceValidator import InvoiceValidator
 from structures.validators.common.ValidationError import ValidationError
 from pl.reaper.container.data import InvoicePositionDictionary
-from helpers.Label import LabelManager
 from java.math import BigDecimal
 from java.math import RoundingMode
 
@@ -18,7 +17,7 @@ class InvoiceManager(DocumentManager):
         except ValidationError, error:
             self.setError(error)
         except IndexError, error:
-            self.setError(LabelManager().get('validators.invoice.noZPK'))
+            self.setError(helpers.Label.LabelManager().get('validators.invoice.noZPK'))
     
     def create(self):
         invoice = self.initDocument(self._type)
