@@ -17,7 +17,8 @@ class InvoiceManager(DocumentManager):
         except ValidationError, error:
             self.setError(error)
         except IndexError, error:
-            self.setError(helpers.Label.LabelManager().get('validators.invoice.noZPK'))
+            #self.setError(helpers.Label.LabelManager().get('validators.invoice.noZPK'))
+            self.setError('WTF')
     
     def create(self):
         invoice = self.initDocument(self._type)
