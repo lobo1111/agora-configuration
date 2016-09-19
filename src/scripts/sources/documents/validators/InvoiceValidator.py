@@ -22,8 +22,7 @@ class InvoiceValidator(Validator):
         return document.getAttribute("ACCEPTED").getValue() == 'true'
     
     def validateAttributes(self, document):
-        #self.check(document.getAttribute("NUMBER").getValue(), [LengthValidator(minLength = 1, maxLength = 250, messageParameter = self._label.get('field.invoiceNumber')), UniqueInvoiceNumber(currentId = document.getId())])
-        self.check(document.getAttribute("NUMBER").getValue(), [LengthValidator(minLength = 1, maxLength = 250, messageParameter = self._label.get('validators.invoice.number'))])
+        self.check(document.getAttribute("NUMBER").getValue(), [LengthValidator(minLength = 1, maxLength = 250, messageParameter = self._label.get('field.invoiceNumber')), UniqueInvoiceNumber(document)])
         self.check(document.getContractor(), [NotNoneValidator(messageParameter = self._label.get('validators.invoice.contractor'))])
         self.check(document.getAttribute("CREATE_DATE").getValue(), [DateValidator(messageParameter = self._label.get('validators.invoice.createDate'))])
         self.check(document.getAttribute("PAYMENT_DATE").getValue(), [DateValidator(messageParameter = self._label.get('validators.invoice.paymentDate'))])
