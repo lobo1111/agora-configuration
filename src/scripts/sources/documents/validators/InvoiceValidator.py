@@ -1,4 +1,5 @@
 from documents.validators.Validator import Validator
+from documents.validators.UniqueInvoiceNumber import UniqueInvoiceNumber
 from structures.validators.common.LengthValidator import LengthValidator
 from structures.validators.common.NotNoneValidator import NotNoneValidator
 from structures.validators.common.DateValidator import DateValidator
