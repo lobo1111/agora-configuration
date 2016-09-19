@@ -23,7 +23,7 @@ class InvoiceValidator(Validator):
     
     def validateAttributes(self, document):
         self.check(document.getContractor(), [NotNoneValidator(messageParameter = self._label.get('validators.invoice.contractor'))])
-        self.check(document.getAttribute("NUMBER").getValue(), [LengthValidator(minLength = 1, maxLength = 250, messageParameter = self._label.get('field.invoiceNumber')), UniqueInvoiceNumber(document)])
+        self.check(document.getAttribute("NUMBER").getValue(), [LengthValidator(minLength = 1, maxLength = 250, messageParameter = self._label.get('validators.invoice.number')), UniqueInvoiceNumber(document)])
         self.check(document.getAttribute("CREATE_DATE").getValue(), [DateValidator(messageParameter = self._label.get('validators.invoice.createDate'))])
         self.check(document.getAttribute("PAYMENT_DATE").getValue(), [DateValidator(messageParameter = self._label.get('validators.invoice.paymentDate'))])
     
