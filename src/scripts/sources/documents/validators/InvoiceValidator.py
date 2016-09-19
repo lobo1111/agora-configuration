@@ -5,6 +5,7 @@ from structures.validators.common.DateValidator import DateValidator
 from structures.validators.common.DecimalValidator import DecimalValidator
 from structures.validators.common.IntValidator import IntValidator
 from structures.validators.common.PositiveIntValidator import PositiveIntValidator
+from helpers.Label import LabelManager
 
 class InvoiceValidator(Validator):
     
