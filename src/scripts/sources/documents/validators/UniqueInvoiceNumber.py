@@ -2,10 +2,10 @@ from structures.validators.common.Validator import Validator
 from structures.validators.common.ValidationError import ValidationError
 
 class UniqueInvoiceNumber(Validator):
-    _message = "validators.invoice.number"
     
     def __init__(self, document):
         self._documentToCheck = document
+        self._message = "validators.invoice.number"
     
     def validate(self, attribute):
         attributes = self.findAllBy("DocumentAttribute", "value", "'%s'" % attribute)
