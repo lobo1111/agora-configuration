@@ -640,6 +640,35 @@
         </variables>
     </template>
     <template>
+        <name>list-rent-notes</name>
+        <source>list-rent-notes.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    doc
+                    FROM 
+                    Document doc
+                    WHERE doc.type = \'BANK_NOTE\' AND {:where}
+                    ORDER BY doc.createdAt DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(doc.id)
+                    FROM 
+                    Document doc
+                    WHERE doc.type = \'BANK_NOTE\' AND {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>list-possession-elements</name>
         <source>list-elements.vtl</source>
         <variables>
