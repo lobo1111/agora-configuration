@@ -6,7 +6,7 @@
         <entity name="invoice">
             <property name="id" type="Integer">$row.getId()</property>
             <property name="createdAt" type="String">$_formatter.format($!row.getCreatedAt())</property>
-            <property name="possession" type="String">$!row.getPossession().getFullAdress()</property>
+            <property name="possession" type="String">$!row.getPossession().getAddress().getFullAdress()</property>
             <property name="element" type="String">$!row.getAttribute("ELEMENT_NAME").getValue()</property>
             <property name="value" type="String">$!row.getPositions().get(0).getValue()</property>
             <property name="description" type="String">$!row.getDescription()</property>
