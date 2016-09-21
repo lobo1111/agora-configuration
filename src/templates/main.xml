@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <template>
+        <name>entity-rent-note</name>
+        <source>entity-rent-note.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Document e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-owner-company</name>
         <source>entity-owner-company.vtl</source>
         <variables>

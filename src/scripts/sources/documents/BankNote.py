@@ -3,6 +3,9 @@ from documents.Document import DocumentManager
 class BankNoteManager(DocumentManager):
     _type = "BANK_NOTE"
     
+    def persist(self):
+        return self.create()
+    
     def create(self):
         note = self.initDocument(self._type)
         element = self.findById("Element", self._svars.get('elementId'))
