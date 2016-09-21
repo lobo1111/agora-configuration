@@ -13,11 +13,12 @@ class BankNoteManager(DocumentManager):
     
     def create(self):
         note = self.initDocument(self._type)
-        element = self.findById("Element", self._svars.get('elementId'))
         notePosition = self.initPosition(note)
-        notePosition.putAttribute("ELEMENT_GROUP", element.getGroup().getValue())
-        notePosition.putAttribute("ELEMENT_NAME", element.getName())
-        notePosition.putAttribute("ELEMENT_ID", str(element.getId()))
+        element = self.findById("Element", self._svars.get('elementId'))
+        if element != None:
+            notePosition.putAttribute("ELEMENT_GROUP", element.getGroup().getValue())
+            notePosition.putAttribute("ELEMENT_NAME", element.getName())
+            notePosition.putAttribute("ELEMENT_ID", str(element.getId()))
         notePosition.setCreditZpk(self.findZpk(note.getCommunity().getZpks(), 'CHARGING_RENT'))
         notePosition.setDebitZpk(self.findZpk(note.getPossession().getZpks(), 'POSSESSION'))
         self.bound(note, notePosition)
