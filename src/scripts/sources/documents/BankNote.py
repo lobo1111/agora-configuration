@@ -1,10 +1,15 @@
 from documents.Document import DocumentManager
+from documents.validators.BankNoteValidator import BankNoteValidator
+from structures.validators.common.ValidationError import ValidationError
 
 class BankNoteManager(DocumentManager):
     _type = "BANK_NOTE"
     
     def persist(self):
-        return self.create()
+        try:
+            return self.create()
+        except ValidationError, error:
+            self.setError(error)
     
     def create(self):
         note = self.initDocument(self._type)
@@ -16,6 +21,7 @@ class BankNoteManager(DocumentManager):
         notePosition.setCreditZpk(self.findZpk(note.getCommunity().getZpks(), 'CHARGING_RENT'))
         notePosition.setDebitZpk(self.findZpk(note.getPossession().getZpks(), 'POSSESSION'))
         self.bound(note, notePosition)
+        BankNoteValidator().validate(notePosition)
         return self.saveDocument(note)
     
     def cancel(self):
