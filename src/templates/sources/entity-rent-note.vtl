@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <entity name="rent-note">
-    <property name="id" type="Integer"></property>
-    <property name="value" type="String"></property>
-    <property name="possession" type="String"></property>
-    <property name="possessionId" type="Integer"></property>
-    <property name="element" type="String"></property>
-    <property name="elementId" type="Integer"></property>
+    <property name="id" type="Integer">$entity.getId()</property>
+    <property name="value" type="String">$entity.getPositions().get(0).getValue()</property>
+    <property name="possession" type="String">$entity.getPossession().getAddress().getFullAddress()</property>
+    <property name="possessionId" type="Integer">$entity.getPossession().getId()</property>
+    <property name="element" type="String">$entity.getElement().getName()</property>
+    <property name="elementId" type="Integer">$entity.getElement().getId()</property>
 </entity>
