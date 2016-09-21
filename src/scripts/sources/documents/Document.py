@@ -30,6 +30,7 @@ class DocumentManager(Container):
             self._logger.info("Position's value='%s'" % str(self._svars.get(prefix + 'value')))
             position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
         else:
+            self._logger.info("Position's value='%s' is not a float, assuming 0" % str(self._svars.get(prefix + 'value')))
             position.setValue(BigDecimal(0))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
         if self._svars.get(prefix + 'accountId') != None:
