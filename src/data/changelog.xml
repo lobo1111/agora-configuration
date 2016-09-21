@@ -2400,4 +2400,10 @@
         </sql>
     </changeSet>
     
+    <changeSet author="tkopacki" id="labels-validator-rentNote-2">
+        <sql>
+            UPDATE label SET message = 'Składnik' WHERE name = 'validators.rentNote.element'
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
