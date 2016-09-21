@@ -9,7 +9,7 @@
             <property name="possession" type="String">$row.getPossession().getAddress().getFullAddress()</property>
             <property name="element" type="String">$!row.getPositions().get(0).getAttribute("ELEMENT_NAME").getValue()</property>
             <property name="value" type="String">$!row.getPositions().get(0).getValue()</property>
-            <property name="description" type="String">$!row.getDescription()</property>
+            <property name="description" type="String">$!row.getPositions().get(0).getDescription()</property>
         </entity>
         #end
     </list>
