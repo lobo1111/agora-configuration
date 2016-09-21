@@ -669,6 +669,7 @@
                     doc
                     FROM 
                     Document doc
+                    Join doc.community community
                     WHERE doc.type = \'BANK_NOTE\' AND {:where}
                     ORDER BY doc.createdAt DESC
                 </data>
@@ -681,6 +682,7 @@
                     count(doc.id)
                     FROM 
                     Document doc
+                    Join doc.community community
                     WHERE doc.type = \'BANK_NOTE\' AND {:where}
                 </data>
             </var>
