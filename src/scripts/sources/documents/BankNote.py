@@ -20,7 +20,8 @@ class BankNoteManager(DocumentManager):
             notePosition.putAttribute("ELEMENT_NAME", element.getName())
             notePosition.putAttribute("ELEMENT_ID", str(element.getId()))
         notePosition.setCreditZpk(self.findZpk(note.getCommunity().getZpks(), 'CHARGING_RENT'))
-        notePosition.setDebitZpk(self.findZpk(note.getPossession().getZpks(), 'POSSESSION'))
+        if note.getPossession() != None:
+            notePosition.setDebitZpk(self.findZpk(note.getPossession().getZpks(), 'POSSESSION'))
         self.bound(note, notePosition)
         BankNoteValidator().validate(notePosition)
         return self.saveDocument(note)
