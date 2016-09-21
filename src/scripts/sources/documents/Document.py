@@ -26,7 +26,7 @@ class DocumentManager(Container):
         position.setType(document.getType() + "_POSITION")
         position.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
         position.setMonth(BookingPeriodManager().getCurrentMonth())
-        if isinstance(self._svars.get(prefix + 'value'), float):
+        if self._svars.get(prefix + 'value').isdigit():
             self._logger.info("Position's value='%s'" % str(self._svars.get(prefix + 'value')))
             position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
         else:
