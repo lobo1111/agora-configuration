@@ -69,5 +69,11 @@ class Container:
     def setError(self, error):
         self._logger.info(error)
         self._svars.put('output', str(error))
+        
+    def parseFloat(self, string):
+        try:
+            return float(string)
+        except ValueError:
+            return 0
 
     

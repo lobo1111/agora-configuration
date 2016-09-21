@@ -26,12 +26,8 @@ class DocumentManager(Container):
         position.setType(document.getType() + "_POSITION")
         position.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
         position.setMonth(BookingPeriodManager().getCurrentMonth())
-        if self._svars.get(prefix + 'value').isdigit():
-            self._logger.info("Position's value='%s'" % str(self._svars.get(prefix + 'value')))
-            position.setValue(BigDecimal(self._svars.get(prefix + 'value')))
-        else:
-            self._logger.info("Position's value='%s' is not a float, assuming 0" % str(self._svars.get(prefix + 'value')))
-            position.setValue(BigDecimal(0))
+        value = self.parseFloat(self._svars.get(prefix + 'value'))
+        position.setValue(BigDecimal(value))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
         if self._svars.get(prefix + 'accountId') != None:
             position.setAccount(self.findById("Account", int(self._svars.get(prefix + 'accountId'))))
