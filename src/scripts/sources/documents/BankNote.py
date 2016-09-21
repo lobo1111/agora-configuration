@@ -23,7 +23,7 @@ class BankNoteManager(DocumentManager):
         if note.getPossession() != None:
             notePosition.setDebitZpk(self.findZpk(note.getPossession().getZpks(), 'POSSESSION'))
         self.bound(note, notePosition)
-        BankNoteValidator().validate(notePosition)
+        BankNoteValidator().validate(note)
         return self.saveDocument(note)
     
     def cancel(self):
