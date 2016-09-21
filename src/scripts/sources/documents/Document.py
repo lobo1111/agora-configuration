@@ -1,5 +1,6 @@
 from java.util import Date
 from java.math import BigDecimal
+from java.math import RoundingMode
 from base.Container import Container
 from entities.BookingPeriod import BookingPeriodManager
 from pl.reaper.container.data import Document
@@ -27,7 +28,7 @@ class DocumentManager(Container):
         position.setBookingPeriod(BookingPeriodManager().findDefaultBookingPeriod())
         position.setMonth(BookingPeriodManager().getCurrentMonth())
         value = self.parseFloat(self._svars.get(prefix + 'value'))
-        position.setValue(BigDecimal(value))
+        position.setValue(BigDecimal(value).setScale(2, RoundingMode.HALF_UP))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
         if self._svars.get(prefix + 'accountId') != None:
             position.setAccount(self.findById("Account", int(self._svars.get(prefix + 'accountId'))))

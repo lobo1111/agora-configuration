@@ -72,7 +72,7 @@ class Container:
         
     def parseFloat(self, string):
         try:
-            return float(string)
+            return float(string.replace(",", "."))
         except ValueError:
             return 0
 

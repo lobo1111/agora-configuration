@@ -4,6 +4,7 @@
     <property name="value" type="String">$!entity.getPositions().get(0).getValue()</property>
     <property name="possession" type="String">$!entity.getPossession().getAddress().getFullAddress()</property>
     <property name="possessionId" type="Integer">$!entity.getPossession().getId()</property>
-    <property name="element" type="String">$!entity.getElement().getName()</property>
-    <property name="elementId" type="Integer">$!entity.getElement().getId()</property>
+    <property name="element" type="String">$!entity.getPositions().get(0).getAttribute("ELEMENT_NAME")</property>
+    <property name="elementId" type="Integer">$!entity.getPositions().get(0).getAttribute("ELEMENT_ID")</property>
+    <property name="description" type="Integer">$!entity.getPositions().get(0).getDescription</property>
 </entity>
