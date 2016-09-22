@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <template>
+        <name>entity-provision</name>
+        <source>entity-provision.vtl</source>
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    Document e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>entity-rent-note</name>
         <source>entity-rent-note.vtl</source>
         <variables>
@@ -684,6 +702,37 @@
                     Document doc
                     Join doc.community community
                     WHERE doc.type = \'BANK_NOTE\' AND {:where}
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
+        <name>list-provisions</name>
+        <source>list-provisions.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    {:limit}
+                    SELECT 
+                    doc
+                    FROM 
+                    Document doc
+                    Join doc.community community
+                    WHERE doc.type = \'PROVISION\' AND {:where}
+                    ORDER BY doc.createdAt DESC
+                </data>
+            </var>
+            <var>
+                <name>countRows</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    count(doc.id)
+                    FROM 
+                    Document doc
+                    Join doc.community community
+                    WHERE doc.type = \'PROVISION\' AND {:where}
                 </data>
             </var>
         </variables>

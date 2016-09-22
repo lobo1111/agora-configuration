@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<entity name="rentNotes">
+<entity name="provisions">
     <property name="maxResult" type="Integer">$countRows</property>
     <list name="items">
         #foreach($row in $items)
-        <entity name="rentNote">
+        <entity name="provision">
             <property name="id" type="Integer">$row.getId()</property>
             <property name="createdAt" type="String">$_formatter.format($!row.getCreatedAt())</property>
-            <property name="possession" type="String">$row.getPossession().getAddress().getFullAddress()</property>
-            <property name="element" type="String">$!row.getPositions().get(0).getAttribute("ELEMENT_NAME").getValue()</property>
+            <property name="account" type="String">$row.getPositions().get(0).getAccount().getNumber()</property>
             <property name="value" type="String">$!row.getPositions().get(0).getValue()</property>
-            <property name="description" type="String">$!row.getPositions().get(0).getDescription()</property>
         </entity>
         #end
     </list>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="provision">
+    <property name="id" type="Integer">$!entity.getId()</property>
+    <property name="value" type="String">$!entity.getPositions().get(0).getValue()</property>
+    <property name="account" type="String">$!entity.getPositions().get(0).getAccount().getNumber()</property>
+    <property name="accountId" type="Integer">$!$!entity.getPositions().get(0).getAccount().getId()</property>
+</entity>
