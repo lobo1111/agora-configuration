@@ -1,4 +1,6 @@
 from documents.Document import DocumentManager
+from documents.validators.AccountProvisionValidator import AccountProvisionValidator
+from structures.validators.common.ValidationError import ValidationError
 
 class AccountProvisionManager(DocumentManager):
     _type = "ACCOUNT_PROVISION"
@@ -15,6 +17,7 @@ class AccountProvisionManager(DocumentManager):
         position.setCreditZpk(self.findZpk(provision.getCommunity().getZpks(), 'RENT'))
         position.setDebitZpk(self.findZpk(position.getAccount().getBankContractor().getZpks(), 'CONTRACTOR'))
         self.bound(provision, position)
+        AccountProvisionValidator().validate(provision)
         return self.saveDocument(provision)
     
     def cancel(self):
