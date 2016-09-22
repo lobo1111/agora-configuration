@@ -15,7 +15,8 @@ class AccountProvisionManager(DocumentManager):
         provision = self.initDocument(self._type)
         position = self.initPosition(provision)
         position.setCreditZpk(self.findZpk(provision.getCommunity().getZpks(), 'RENT'))
-        position.setDebitZpk(self.findZpk(position.getAccount().getBankContractor().getZpks(), 'CONTRACTOR'))
+        if position.getAccount() != None:
+            position.setDebitZpk(self.findZpk(position.getAccount().getBankContractor().getZpks(), 'CONTRACTOR'))
         self.bound(provision, position)
         AccountProvisionValidator().validate(provision)
         return self.saveDocument(provision)
