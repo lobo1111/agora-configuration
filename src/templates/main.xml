@@ -688,7 +688,7 @@
                     FROM 
                     Document doc
                     Join doc.community community
-                    WHERE doc.type = \'BANK_NOTE\' AND {:where}
+                    WHERE doc.type = \'BANK_NOTE\' AND doc.canceled = 0 AND {:where}
                     ORDER BY doc.createdAt DESC
                 </data>
             </var>
@@ -701,7 +701,7 @@
                     FROM 
                     Document doc
                     Join doc.community community
-                    WHERE doc.type = \'BANK_NOTE\' AND {:where}
+                    WHERE doc.type = \'BANK_NOTE\' AND doc.canceled = 0 AND {:where}
                 </data>
             </var>
         </variables>
@@ -719,7 +719,7 @@
                     FROM 
                     Document doc
                     Join doc.community community
-                    WHERE doc.type = \'PROVISION\' AND {:where}
+                    WHERE doc.type = \'ACCOUNT_PROVISION\' AND doc.canceled = 0 AND {:where}
                     ORDER BY doc.createdAt DESC
                 </data>
             </var>
@@ -732,7 +732,7 @@
                     FROM 
                     Document doc
                     Join doc.community community
-                    WHERE doc.type = \'PROVISION\' AND {:where}
+                    WHERE doc.type = \'ACCOUNT_PROVISION\' AND doc.canceled = 0 AND {:where}
                 </data>
             </var>
         </variables>

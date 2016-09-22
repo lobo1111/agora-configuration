@@ -3,6 +3,12 @@ from documents.Document import DocumentManager
 class AccountProvisionManager(DocumentManager):
     _type = "ACCOUNT_PROVISION"
     
+    def persist(self):
+        try:
+            return self.create()
+        except ValidationError, error:
+            self.setError(error)
+    
     def create(self):
         provision = self.initDocument(self._type)
         position = self.initPosition(provision)
