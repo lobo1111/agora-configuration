@@ -120,7 +120,7 @@ class InvoiceManager(DocumentManager):
         if remove and paymentId != 0:
             payment = self.findById("DocumentPosition", paymentId)
             self.cancelPosition(payment)
-        elif not remove:
+        elif not remove and paymentId == 0:
             payment = self.findOrCreatePayment(invoice, paymentId, prefix)
             payment.putAttribute("CREATE_DATE", self._svars.get(prefix + 'createDate'))
             payment.putAttribute("COST", self._svars.get(prefix + 'cost'))
