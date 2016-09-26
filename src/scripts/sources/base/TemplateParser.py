@@ -3,6 +3,7 @@ from org.apache.velocity import VelocityContext
 from org.apache.velocity.app import VelocityEngine
 from base.Container import Container
 from java.text import SimpleDateFormat
+from helpers.label import LabelManager
 
 import sys
 
@@ -27,6 +28,7 @@ class TemplateParser(Container):
         ve.init()
         context = VelocityContext()
         context.put('_formatter', SimpleDateFormat("dd-MM-yyyy"))
+        context.put('_label', LabelManager())
         self._logger.info('Template contains %d variables' % len(template.getTemplateVariableCollection()))
         for var in template.getTemplateVariableCollection():
             self._logger.info('Preparing variable %s' % var.getName())

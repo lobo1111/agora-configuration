@@ -2406,4 +2406,11 @@
         </sql>
     </changeSet>
     
+    <changeSet author="tkopacki" id="labels-validator-charging-and-payments">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('documents.chargings', 'Naliczenie');
+            INSERT INTO `label`(`name`, `message`)VALUES('documents.payments', 'Wpłata');
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
