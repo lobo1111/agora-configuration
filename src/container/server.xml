@@ -31,7 +31,7 @@
         <jdbcDriver libraryRef="MySQLLib"/>
         <connectionManager maxPoolSize="20" minPoolSize="3" 
                            connectionTimeout="10s" agedTimeout="30m"/>
-        <properties url="jdbc:mysql://agora.csnt85vbsrp2.eu-west-1.rds.amazonaws.com:3306/agora?user=agora&amp;password=agora.12&amp;characterSetResults=utf8&amp;characterEncoding=UTF-8" />
+        <properties url="jdbc:mysql://agora.csnt85vbsrp2.eu-west-1.rds.amazonaws.com:3306/agora?user=root&amp;password=Enterprise.01&amp;characterSetResults=utf8&amp;characterEncoding=UTF-8" />
     </dataSource>
     
     <enterpriseApplication id="agora" location="ScriptingContainer.ear" name="agora">
