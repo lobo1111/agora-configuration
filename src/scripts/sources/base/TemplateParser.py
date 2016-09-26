@@ -3,7 +3,7 @@ from org.apache.velocity import VelocityContext
 from org.apache.velocity.app import VelocityEngine
 from base.Container import Container
 from java.text import SimpleDateFormat
-from helpers.label import LabelManager
+from helpers.Label import LabelManager
 
 import sys
 
