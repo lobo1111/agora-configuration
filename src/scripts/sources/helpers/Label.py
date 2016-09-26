@@ -8,4 +8,5 @@ class LabelManager(Container):
             self._logger.info("Label %s resolved to %s" % (name, value))
             return value
         except:
+            self._logger.info("Label %s not found !" % name)
             return name
