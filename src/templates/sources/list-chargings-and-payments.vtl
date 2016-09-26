@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="chargings-and-payments">
+    <property name="maxResult" type="Integer">$countRows</property>
+    <list name="items">
+        #foreach($row in $items)
+        <entity name="charging">
+            <property name="id" type="Integer">$!row.getId()</property>
+            <property name="createdAt" type="String">$!row.getCreatedAt()</property>
+            <property name="period" type="String">-- ----</property>
+            <property name="possession" type="String">$!row.getPossession().getAddress().getFullAddress()</property>
+            <property name="value" type="String">$!row.sumValues().floatValue()</property>
+            #if($!row.getType() == 'CHARGING')
+                <property name="type" type="String">Naliczenie</property>
+            #else
+                <property name="type" type="String">Wpłata</property>
+            #end
+        </entity>
+        #end
+    </list>
+</entity>
