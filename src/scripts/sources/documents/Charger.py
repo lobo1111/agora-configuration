@@ -15,11 +15,11 @@ class ChargerManager(DocumentManager):
     def alreadyCharged(self, possession):
         sql = "Select document "
         sql += " From Document document"
-        sql += " Join document.positions position"
+        sql += " Join document.positions pos"
         sql += " Join document.possession possession"
         sql += " Where possession.id = %d" % (possession.getId())
-        sql += " and position.month = %s" % (BookingPeriodManager().getCurrentMonth())
-        sql += " and position.bookingPeriod.defaultPeriod = true"
+        sql += " and pos.month = %s" % (BookingPeriodManager().getCurrentMonth())
+        sql += " and pos.bookingPeriod.defaultPeriod = true"
         sql += " and document.type = 'CHARGING'"
         result = self._entityManager.createQuery(sql).getResultList()
         return len(result) > 0
