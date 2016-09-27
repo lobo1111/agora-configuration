@@ -1,4 +1,6 @@
 from base.Container import Container
+import sys
+sys.path.append('/config/apps/lib/Lib')
 import re
 
 class Calculator(Container):
