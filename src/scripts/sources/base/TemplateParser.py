@@ -12,7 +12,7 @@ class TemplateParser(Container):
     _insertLimit = False
     _update = False
     _native = False
-    _label = True
+    _label = False
 
     def find(self, name):
         try:
