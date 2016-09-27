@@ -10,9 +10,9 @@
             <property name="possession" type="String">$!row.getPossession().getAddress().getFullAddress()</property>
             <property name="value" type="String">$!row.sumValues().floatValue()</property>
             #if($!row.getType() == 'CHARGING')
-                <property name="type" type="String">$_label $_label.get('documents.charging')</property>
+                <property name="type" type="String">$_label.get $_label.get('documents.charging')</property>
             #else
-                <property name="type" type="String">$_label $_label.get('documents.payment')</property>
+                <property name="type" type="String">$_label.get $_label.get('documents.payment')</property>
             #end
         </entity>
         #end
