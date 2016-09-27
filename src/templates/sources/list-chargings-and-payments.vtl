@@ -6,7 +6,7 @@
         <entity name="charging">
             <property name="id" type="Integer">$!row.getId()</property>
             <property name="createdAt" type="String">$_formatter.format($!row.getCreatedAt())</property>
-            #set(month = $!row.getPositions().get(0).getMonth() + 1)
+            #set($month = $!row.getPositions().get(0).getMonth() + 1)
             <property name="period" type="String">$month $!row.getPositions().get(0).getBookingPeriod().getName()</property>
             <property name="possession" type="String">$!row.getPossession().getAddress().getFullAddress()</property>
             <property name="value" type="String">$!row.sumValues().floatValue()</property>
