@@ -30,7 +30,7 @@ class TemplateParser(Container):
         context.put('_formatter', SimpleDateFormat("dd-MM-yyyy"))
         self._logger.info('Date formatter stored as _formatter')
         context.put('_label', LabelManager())
-        self._logger.info(LabelManager().get('documents.charging'))
+        self._logger.info(LabelManager().get('documents.chargings'))
         self._logger.info(dir(LabelManager()))
         self._logger.info('Label manager stored as _label')
         self._logger.info('Template contains %d variables' % len(template.getTemplateVariableCollection()))
