@@ -12,6 +12,7 @@ class TemplateParser(Container):
     _insertLimit = False
     _update = False
     _native = False
+    _label = True
 
     def find(self, name):
         try:
@@ -29,49 +30,50 @@ class TemplateParser(Container):
         context = VelocityContext()
         context.put('_formatter', SimpleDateFormat("dd-MM-yyyy"))
         self._logger.info('Date formatter stored as _formatter')
-        context.put('_label', LabelManager())
-        self._logger.info('Label manager stored as _label')
         self._logger.info('Template contains %d variables' % len(template.getTemplateVariableCollection()))
         for var in template.getTemplateVariableCollection():
             self._logger.info('Preparing variable %s' % var.getName())
-            context.put(var.getName(), self.loadData(var.getData()))
+            context.put(var.getName(), self.loadData(var.getData(), var.getName(), context))
             self._logger.info('Variable %s stored' % var.getName())
         writer = StringWriter()
         ve.evaluate(context, writer, template.getName(), unicode(template.getSource()))
         evaluatedTemplate = writer.toString()
         return evaluatedTemplate
 
-    def loadData(self, data):
+    def loadData(self, data, name, context):
         data = self.insertVariables(data)
         self._logger.info('Executing query [%s]' % data)
         query = None
-        if self._native:
-            query = self._entityManager.createNativeQuery(data)
-            self._native = False
+        if self._label:
+            self._label = False
+            context.put(name, LabelManager().get(data))
         else:
-            query = self._entityManager.createQuery(data)
-        if self._insertLimit:
-            query = self.insertLimit(query)
-            self._insertLimit = False
-        if self._update:
-            self._update = False
-            return query.executeUpdate()
-        else:
-            if self._single:
-                self._single = False
-                try:
-                    singleResult = query.getSingleResult()
-                    self._logger.info('Single result found: %s' % str(singleResult))
-                    return singleResult
-                except:
-                    self._logger.info(sys.exc_info()[1])
-                    return None
+            if self._native:
+                query = self._entityManager.createNativeQuery(data)
+                self._native = False
             else:
-                return query.getResultList()
+                query = self._entityManager.createQuery(data)
+            if self._insertLimit:
+                query = self.insertLimit(query)
+                self._insertLimit = False
+            if self._update:
+                self._update = False
+                return query.executeUpdate()
+            else:
+                if self._single:
+                    self._single = False
+                    try:
+                        singleResult = query.getSingleResult()
+                        self._logger.info('Single result found: %s' % str(singleResult))
+                        return singleResult
+                    except:
+                        self._logger.info(sys.exc_info()[1])
+                        return None
+                else:
+                    return query.getResultList()
 
     
     def insertLimit(self, query):
-        
         if self._svars.get('limit') != None:
             self._logger.info('Inserting limit %s' % self._svars.get('limit'))
             query.setMaxResults(int(self._svars.get('limit')))
@@ -81,7 +83,6 @@ class TemplateParser(Container):
         return query
     
     def insertVariables(self, data):
-        
         r = l = -1
         while data.find("{:") != -1:
             l = data.find("{:")
@@ -95,7 +96,7 @@ class TemplateParser(Container):
         return data
     
     def isSpecialVariable(self, variable):
-        if variable in ['limit', 'single', 'update', 'native']:
+        if variable in ['limit', 'single', 'update', 'native', 'label']:
             return True
         else:
             return False
@@ -113,6 +114,9 @@ class TemplateParser(Container):
         elif variable == 'update':
             self._logger.info('"update" marker found')
             self._update = True
+        elif variable == 'label':
+            self._logger.info('"label" marker found')
+            self._label = True
         data = data.replace('{:%s}' % variable, '')
         return data
 

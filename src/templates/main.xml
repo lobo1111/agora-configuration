@@ -608,6 +608,14 @@
                     AND doc.type IN (\'CHARGING\', \'POSSESSION_PAYMENT\')
                 </data>
             </var>
+            <var>
+                <name>chargings</name>
+                <data>{:label}documents.chargings</data>
+            </var>
+            <var>
+                <name>payments</name>
+                <data>{:label}documents.payments</data>
+            </var>
         </variables>
     </template>
     <template>
