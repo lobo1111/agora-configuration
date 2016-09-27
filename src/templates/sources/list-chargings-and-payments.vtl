@@ -10,9 +10,9 @@
             <property name="possession" type="String">$!row.getPossession().getAddress().getFullAddress()</property>
             <property name="value" type="String">$!row.sumValues().floatValue()</property>
             #if($!row.getType() == 'CHARGING')
-                <property name="type" type="String">$chargings.getValue()</property>
+                <property name="type" type="String">$chargings</property>
             #else
-                <property name="type" type="String">$payments.getValue()</property>
+                <property name="type" type="String">$payments</property>
             #end
         </entity>
         #end
