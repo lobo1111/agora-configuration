@@ -68,7 +68,7 @@ class ChargerManager(DocumentManager):
             return possessionElement.getElement().getGlobalValue()
         
     def findAllActive(self):
-        return self._entityManager.createQuery("Select p From Possession p Join p.community co Where (co.inDate <= CURRENT_DATE or co.inDate is null) and p.community.outDate is null").getResultList()
+        return self._entityManager.createQuery("Select p From Possession p Join p.community co Where co.inDate <= CURRENT_DATE and co.outDate is null").getResultList()
      
     def isRepairFundElement(self, element):
         return DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue() == element.getGroup().getId()
