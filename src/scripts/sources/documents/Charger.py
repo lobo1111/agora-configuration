@@ -60,12 +60,7 @@ class ChargerManager(DocumentManager):
             self.chargePossession(possession)
             
     def discoverValue(self, possessionElement):
-        if possessionElement.isOverrideParentValue():
-            return possessionElement.getGlobalValue()
-        elif possessionElement.getElementCommunity() != None and possessionElement.getElementCommunity().isOverrideParentValue():
-            return possessionElement.getElementCommunity().getGlobalValue()
-        else:
-            return possessionElement.getElement().getGlobalValue()
+        return possessionElement.calculateGlobalValue()
         
     def findAllActive(self):
         return self._entityManager.createQuery("Select p From Possession p Join p.community co Where co.inDate <= CURRENT_DATE and co.outDate is null").getResultList()
