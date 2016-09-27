@@ -33,7 +33,7 @@ class ChargerManager(DocumentManager):
             for possessionElement in possession.getElements():
                 element = possessionElement.getElement()
                 element.setGlobalValue(self.discoverValue(possessionElement))
-                self._svars.put("value", self._calculator.calculate(element, possession))
+                self._svars.put("value", str(self._calculator.calculate(element, possession)))
                 chargingPosition = self.initPosition(charging)
                 chargingPosition.setDescription(possessionElement.getElement().getName())
                 chargingPosition.putAttribute("ELEMENT_GROUP_ID", str(possessionElement.getElement().getGroup().getId()))
