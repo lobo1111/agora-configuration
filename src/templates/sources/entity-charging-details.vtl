@@ -5,7 +5,7 @@
     #set($Integer = 0)
     #set($month = $Integer.parseInt($!entity.getPositions().get(0).getMonth()) + 1)
     <property name="period" type="String">$month $!entity.getPositions().get(0).getBookingPeriod().getName()</property>
-    <property name="possession" type="String">$!entity.getPossession().getAddress().getFullAddress()</property>
+    <property name="possession" type="String">$!entity.getPossession() $!entity.getPossession().getAddress()</property>
     <property name="value" type="String">$!entity.sumValues().floatValue()</property>
     <list name="elements">
         #foreach($row in $entity.getPositions())
