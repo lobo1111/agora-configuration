@@ -47,8 +47,15 @@
         #foreach($row in $zpks)
         <entity name="item">
             <property name="number" type="String">$row.get('number')</property>
-            <property name="debit" type="String">$row.get('debit')</property>
-            <property name="credit" type="String">$row.get('credit')</property>
+            #if($row.get('debit') > $row.get('credit'))
+                #set($diff = $row.get('debit') - $row.get('credit')
+                <property name="debit" type="String">$diff</property>
+                <property name="credit" type="String">0</property>
+            #else
+                #set($diff = $row.get('credit') - $row.get('debit')
+                <property name="debit" type="String">0</property>
+                <property name="credit" type="String">$diff</property>
+            #end
             <property name="description" type="String">$row.get('description')</property>
         </entity>
         #end
