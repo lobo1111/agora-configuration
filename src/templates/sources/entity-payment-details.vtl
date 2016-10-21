@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <entity name="payment-details">
     <property name="id" type="Integer">$!entity.getId()</property>
-    <property name="createdAt" type="String">$!entity.getAttribute('BOOKING_DATE').getValue()</property>
+    <property name="createdAt" type="String">$!entity.getPositions().get(0).getAttribute('BOOKING_DATE').getValue()</property>
     #set($Integer = 0)
     #set($month = $Integer.parseInt($!entity.getPositions().get(0).getMonth()) + 1)
     <property name="period" type="String">$month $!entity.getPositions().get(0).getBookingPeriod().getName()</property>
     <property name="possession" type="String">$!entity.getPossession().getAddress().getFullAddress()</property>
     <property name="value" type="String">$!entity.sumValues().floatValue()</property>
-    <property name="title" type="String">$!entity.getDescription()</property>
-    <property name="sender" type="String">$!entity.getClientName()</property>
+    <property name="title" type="String">$!entity.getPositions().get(0).getDescription()</property>
+    <property name="sender" type="String">$!entity.getPositions().get(0).getClientName()</property>
 </entity>
