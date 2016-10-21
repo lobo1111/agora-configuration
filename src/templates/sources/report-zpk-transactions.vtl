@@ -73,16 +73,18 @@
         #set($currentMonth = $row.get('createdAt').substring(3, 5))
         #if($lastMonth != $currentMonth)
         #set($lastMonth = $currentMonth)
+        #if($lastMonth != "")
         <entity name="item">
-            <property name="createdAt" type="String"></property>
-            <property name="subject" type="String"></property>
-            <property name="type" type="String"></property>
-            <property name="value" type="String"></property>
-            <property name="zpkDebit" type="String"></property>
-            <property name="zpkCredit" type="String"></property>
-            <property name="zpkDebitStatus" type="String"></property>
-            <property name="zpkCreditStatus" type="String"></property>
+            <property name="createdAt" type="String"> </property>
+            <property name="subject" type="String"> </property>
+            <property name="type" type="String"> </property>
+            <property name="value" type="String"> </property>
+            <property name="zpkDebit" type="String"> </property>
+            <property name="zpkCredit" type="String"> </property>
+            <property name="zpkDebitStatus" type="String"> </property>
+            <property name="zpkCreditStatus" type="String"> </property>
         </entity>
+        #end
         #end
         <entity name="item">
             <property name="createdAt" type="String">$row.get('createdAt')</property>

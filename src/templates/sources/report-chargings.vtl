@@ -57,12 +57,14 @@
         #set($currentMonth = $row.get('date').substring(3, 5))
         #if($lastMonth != $currentMonth)
         #set($lastMonth = $currentMonth)
+        #if($lastMonth != "")
         <entity name="item">
-            <property name="type" type="String"></property>
-            <property name="date" type="String"></property>
-            <property name="value" type="String"></property>
-            <property name="balance" type="String"></property>
+            <property name="type" type="String"> </property>
+            <property name="date" type="String"> </property>
+            <property name="value" type="String"> </property>
+            <property name="balance" type="String"> </property>
         </entity>
+        #end
         #end
         <entity name="item">
             <property name="type" type="String">$row.get('type')</property>
