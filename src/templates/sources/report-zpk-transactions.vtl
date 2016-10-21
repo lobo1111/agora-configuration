@@ -76,8 +76,15 @@
             <property name="value" type="String">$row.get('value')</property>
             <property name="zpkDebit" type="String">$row.get('zpkDebit')</property>
             <property name="zpkCredit" type="String">$row.get('zpkCredit')</property>
-            <property name="zpkDebitStatus" type="String">$row.get('zpkDebitStatus')</property>
-            <property name="zpkCreditStatus" type="String">$row.get('zpkCreditStatus')</property>
+            #if($row.get('zpkDebitStatus') > $row.get('zpkCreditStatus'))
+                #set($diff = $row.get('zpkDebitStatus') - $row.get('zpkCreditStatus'))
+                <property name="zpkDebitStatus" type="String">$diff</property>
+                <property name="zpkCreditStatus" type="String">0.00</property>
+            #else
+                #set($diff = $row.get('zpkCreditStatus') - $row.get('zpkDebitStatus'))
+                <property name="zpkDebitStatus" type="String">0.00</property>
+                <property name="zpkCreditStatus" type="String">$diff</property>
+            #end
         </entity>
         #end
     </list>
