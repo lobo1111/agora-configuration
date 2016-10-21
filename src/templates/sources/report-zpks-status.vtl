@@ -48,11 +48,11 @@
         <entity name="item">
             <property name="number" type="String">$row.get('number')</property>
             #if($row.get('debit') > $row.get('credit'))
-                #set($diff = $row.get('debit') - $row.get('credit')
+                #set($diff = $row.get('debit') - $row.get('credit'))
                 <property name="debit" type="String">$diff</property>
                 <property name="credit" type="String">0</property>
             #else
-                #set($diff = $row.get('credit') - $row.get('debit')
+                #set($diff = $row.get('credit') - $row.get('debit'))
                 <property name="debit" type="String">0</property>
                 <property name="credit" type="String">$diff</property>
             #end
