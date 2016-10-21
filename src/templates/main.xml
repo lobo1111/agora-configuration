@@ -1487,7 +1487,7 @@
                 <data>
                     {:limit}
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    community.id, CONCAT(address.street, address.houseNumber))
+                    community.id, address.street, address.houseNumber)
                     FROM 
                     Community community
                     Join community.company company
