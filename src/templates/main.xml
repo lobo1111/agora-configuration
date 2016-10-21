@@ -1487,9 +1487,10 @@
                 <data>
                     {:limit}
                     SELECT new pl.reaper.container.data.helpers.SimpleList(
-                    community.id, CONCAT(community.address.street, community.address.houseNumber))
+                    community.id, CONCAT(address.street, address.houseNumber))
                     FROM 
                     Community community
+                    Join community.address address
                     WHERE {:where}
                     ORDER BY 
                     community.outDate ASC, community.name ASC
