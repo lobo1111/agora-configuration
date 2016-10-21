@@ -1492,7 +1492,7 @@
                     Community community
                     Join community.company company
                     Join company.address address
-                    WHERE {:where}
+                    WHERE {:where} AND community.outDate is NULL
                     ORDER BY 
                     community.outDate ASC, community.name ASC
                 </data>
