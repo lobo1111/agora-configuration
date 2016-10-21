@@ -8,6 +8,7 @@ class Mapper(Container):
     def map(self, propertyName, validators=[], mappedEntity=None):
         if mappedEntity == None:
             mappedEntity = self._entity
+            self._logger.info("Performing mapping on existing entity: %d" % mappedEntity.getId())
         for validator in validators:
             validator.validate(self._svars.get(propertyName))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
