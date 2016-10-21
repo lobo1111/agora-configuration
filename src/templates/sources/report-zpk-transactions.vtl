@@ -34,17 +34,17 @@
         </entity>
     </list>
     <list name="data-headers">
-        <entity name="type">
+        <entity name="createdAt">
             <property name="width" type="Double">15</property>
-            <property name="label" type="String">$labelType</property>
+            <property name="label" type="String">$labelCreatedAt</property>
         </entity>
         <entity name="subject">
             <property name="width" type="Double">20</property>
             <property name="label" type="String">$labelSubject</property>
         </entity>
-        <entity name="createdAt">
+        <entity name="type">
             <property name="width" type="Double">15</property>
-            <property name="label" type="String">$labelCreatedAt</property>
+            <property name="label" type="String">$labelType</property>
         </entity>
         <entity name="value">
             <property name="width" type="Double">10</property>
@@ -70,9 +70,9 @@
     <list name="data">
         #foreach($row in $transactions)
         <entity name="item">
-            <property name="type" type="String">$row.get('type')</property>
-            <property name="subject" type="String">$row.get('subject')</property>
             <property name="createdAt" type="String">$row.get('createdAt')</property>
+            <property name="subject" type="String">$row.get('subject')</property>
+            <property name="type" type="String">$row.get('type')</property>
             <property name="value" type="String">$row.get('value')</property>
             <property name="zpkDebit" type="String">$row.get('zpkDebit')</property>
             <property name="zpkCredit" type="String">$row.get('zpkCredit')</property>
