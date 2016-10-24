@@ -33,7 +33,9 @@ class InvoiceManager(DocumentManager):
     
     def update(self):
         invoice = self.findById("Document", self._svars.get("id"))
-        if invoice.getAttribute("ACCEPTED").getValue() == 'false':
+        accepted = invoice.getAttribute("ACCEPTED").getValue()
+        paymentOnly = self._svars.get("paymentOnly")
+        if accepted == 'false' and (paymentOnly == None or (paymentOnly != None and paymentOnly != 'true')):
             self.updateInvoiceData(invoice)
             self.updatePositions(invoice)
         else:

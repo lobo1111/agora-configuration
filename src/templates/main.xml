@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <template>
+        <name>entity-payment-rent</name>
+        <source>entity-payment-rent.vtl</source>
+        <variables />
+    </template>
+    <template>
+        <name>entity-payment-invoice</name>
+        <source>entity-payment-invoice.vtl</source>
+        <variables />
+    </template>
+    <template>
         <name>entity-provision</name>
         <source>entity-provision.vtl</source>
         <variables>
