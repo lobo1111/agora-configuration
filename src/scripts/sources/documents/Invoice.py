@@ -18,6 +18,10 @@ class InvoiceManager(DocumentManager):
             self.setError(error)
         except IndexError, error:
             self.setError(InvoiceValidator().getNoZPKValidationError())
+            
+    def persistPayment(self):
+        self._svars.put('id', self._svars.get('invoiceId'))
+        self.persist()
     
     def create(self):
         invoice = self.initDocument(self._type)
