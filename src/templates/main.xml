@@ -967,7 +967,7 @@
                     join invoice.attributes attr
                     WHERE 
                     invoice.type = \'INVOICE\' 
-                    AND {:where} and attr.key = \'NUMBER\'
+                    AND {:where} and attr.name = \'NUMBER\'
                     ORDER BY 
                     invoice.id ASC
                 </data>
