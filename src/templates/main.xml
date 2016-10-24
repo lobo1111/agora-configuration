@@ -965,6 +965,7 @@
                     FROM 
                     Document invoice
                     join invoice.attributes attr
+                    Join invoice.community community
                     WHERE 
                     invoice.type = \'INVOICE\' 
                     AND {:where} and attr.name = \'NUMBER\'
