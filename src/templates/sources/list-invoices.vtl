@@ -5,6 +5,7 @@
         #foreach($row in $items)
         <entity name="invoice">
             <property name="id" type="Integer">$row.getId()</property>
+            <property name="name" type="String">$!row.getAttribute('NUMBER').getValue()</property>
             <property name="number" type="String">$!row.getAttribute('NUMBER').getValue()</property>
             <property name="createdAt" type="String">$!row.getAttribute('CREATE_DATE').getValue()</property>
             <property name="contractor" type="String">$!row.getContractor().getName()</property>
