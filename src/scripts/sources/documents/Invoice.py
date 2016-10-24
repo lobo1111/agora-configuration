@@ -20,8 +20,12 @@ class InvoiceManager(DocumentManager):
             self.setError(InvoiceValidator().getNoZPKValidationError())
             
     def persistPayment(self):
-        self._svars.put('id', self._svars.get('invoiceId'))
-        self.persist()
+        try:
+            invoice = self.findById("Document", self._svars.get("invoiceId"))
+            self.updatePayment(invoice)
+            InvoiceValidator().validatePayments(invoice)
+        except ValidationError, error:
+            self.setError(error)
     
     def create(self):
         invoice = self.initDocument(self._type)
