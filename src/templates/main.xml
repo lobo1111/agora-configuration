@@ -954,6 +954,27 @@
         </variables>
     </template>
     <template>
+        <name>simple-invoice-number</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    invoice.id, attr.value)
+                    FROM 
+                    Document invoice
+                    join invoice.attributes attr
+                    WHERE 
+                    invoice.type = \'INVOICE\' 
+                    AND {:where} and attr.key = \'NUMBER\'
+                    ORDER BY 
+                    invoice.id ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-years</name>
         <source>simple-list.vtl</source>
         <variables>
