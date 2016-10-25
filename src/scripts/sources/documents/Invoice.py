@@ -129,7 +129,6 @@ class InvoiceManager(DocumentManager):
         else:
             paymentId = 0
         remove = self._svars.get(prefix + 'remove') == 'true'
-        self._logger.info(remove)
         if remove and paymentId != 0:
             payment = self.findById("DocumentPosition", paymentId)
             self.cancelPosition(payment)
@@ -138,7 +137,10 @@ class InvoiceManager(DocumentManager):
             payment.putAttribute("CREATE_DATE", self._svars.get(prefix + 'createDate'))
             payment.putAttribute("COST", self._svars.get(prefix + 'cost'))
             payment.putAttribute("COST_ID", self._svars.get(prefix + 'costId'))
-            cost = self.findById("Dictionary", self._svars.get(prefix + 'costId'))
+            if int(self._svars.get(prefix + 'costId')) > 0:
+                cost = self.findById("Dictionary", self._svars.get(prefix + 'costId'))
+            else:
+                cost = None
             if payment.getAccount() != None and invoice.getContractor() != None and cost != None:
                 payment.setCreditZpk(self.findZpk(payment.getAccount().getZpks(), cost.getKey()))
                 payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
