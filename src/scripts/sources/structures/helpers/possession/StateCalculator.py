@@ -1,4 +1,4 @@
-from documents.Document import Document
+from documents.Document import DocumentManager
 from reports.ZpksStatusReport import ZpksStatusReport
 
 class StateCalculator():
@@ -8,12 +8,12 @@ class StateCalculator():
     
     def calculateCurrentRentState(self):
         status = ZpksStatusReport()
-        debit, credit = status.calculate(Document().findZpk(self._possession.getZpks(), "POSSESSION"), Date())
+        debit, credit = status.calculate(DocumentManager().findZpk(self._possession.getZpks(), "POSSESSION"), Date())
         return credit - debit
     
     def calculateCurrentRFState(self):
         status = ZpksStatusReport()
-        debit, credit = status.calculate(Document().findZpk(self._possession.getZpks(), "POSSESSION_REPAIR_FUND"), Date())
+        debit, credit = status.calculate(DocumentManager().findZpk(self._possession.getZpks(), "POSSESSION_REPAIR_FUND"), Date())
         return credit - debit
     
     def calculateRentCharging(self):
