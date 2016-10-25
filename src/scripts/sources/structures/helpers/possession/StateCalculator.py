@@ -2,6 +2,7 @@ from documents.Document import DocumentManager
 from reports.ZpksStatusReport import ZpksStatusReport
 from java.util import Date
 from java.text import SimpleDateFormat
+from java.math import RoundingMode
 
 class StateCalculator():
     
@@ -11,12 +12,12 @@ class StateCalculator():
     def calculateCurrentRentState(self):
         status = ZpksStatusReport()
         debit, credit = status.calculate(DocumentManager().findZpk(self._possession.getZpks(), "POSSESSION"), SimpleDateFormat('dd-MM-yyyy').format(Date()))
-        return credit - debit
+        return credit.subtract(debit).setScale(2, RoundingMode.HALF_UP).floatValue()
     
     def calculateCurrentRFState(self):
         status = ZpksStatusReport()
         debit, credit = status.calculate(DocumentManager().findZpk(self._possession.getZpks(), "POSSESSION_REPAIR_FUND"), SimpleDateFormat('dd-MM-yyyy').format(Date()))
-        return credit - debit
+        return credit.subtract(debit).setScale(2, RoundingMode.HALF_UP).floatValue()
     
     def calculateRentCharging(self):
         return 1
