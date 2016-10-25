@@ -12,12 +12,12 @@ class StateCalculator():
     def calculateCurrentRentState(self):
         status = ZpksStatusReport()
         debit, credit = status.calculate(DocumentManager().findZpk(self._possession.getZpks(), "POSSESSION"), SimpleDateFormat('dd-MM-yyyy').format(Date()))
-        return credit.subtract(debit).setScale(2, RoundingMode.HALF_UP).floatValue()
+        return credit.subtract(debit).setScale(2, RoundingMode.HALF_UP).toString()
     
     def calculateCurrentRFState(self):
         status = ZpksStatusReport()
         debit, credit = status.calculate(DocumentManager().findZpk(self._possession.getZpks(), "POSSESSION_REPAIR_FUND"), SimpleDateFormat('dd-MM-yyyy').format(Date()))
-        return credit.subtract(debit).setScale(2, RoundingMode.HALF_UP).floatValue()
+        return credit.subtract(debit).setScale(2, RoundingMode.HALF_UP).toString()
     
     def calculateRentCharging(self):
         return 1
