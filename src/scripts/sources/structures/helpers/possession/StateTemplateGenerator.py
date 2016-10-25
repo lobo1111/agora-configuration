@@ -17,4 +17,4 @@ class StateTemplateGenerator(Container):
         self._ve.init()
         self._ve.evaluate(self._context, writer, self._template.getName(), unicode(self._template.getSource()))
         evaluatedTemplate = writer.toString()
-        return evaluatedTemplate
+        self._svars.put('output', evaluatedTemplate)
