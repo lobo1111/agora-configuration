@@ -1582,6 +1582,11 @@
         <variables />
     </template>
     <template>
+        <name>possession-account-state</name>
+        <source>possession-account-state.vtl</source>
+        <variables />
+    </template>
+    <template>
         <name>report-zpks-status</name>
         <source>report-zpks-status.vtl</source>
         <variables />

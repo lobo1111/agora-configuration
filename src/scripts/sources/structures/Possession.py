@@ -3,6 +3,8 @@ from structures.CommunityDetails import CommunityDetailsManager
 from structures.Element import ElementManager
 from structures.Zpk import ZpkManager
 from structures.helpers.possession.Mapper import PossessionMapper
+from structures.helpers.possession.StateCalculator import StateCalculator
+from structures.helpers.possession.StateTemplateGenerator import StateTemplateGenerator
 from structures.validators.common.ValidationError import ValidationError
 
 class PossessionManager(Container):
@@ -26,4 +28,11 @@ class PossessionManager(Container):
     
     def createElements(self, entity):
         ElementManager().createDefaultElementsForPossession(entity)
+        
+    def getAccountState(self):
+        possession = self.findById("Possession", self._svars.get('possessionId'))
+        calculator = StateCalculator(possession)
+        stateRent, stateRF = calculator.calculateCurrentState()
+        chargingRent, chargingRT = calculator.calculateCurrentCharging()
+        StateTemplateGenerator().generateTemplate(stateRent, stateRF, chargingRent, chargingRT)
         
