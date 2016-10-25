@@ -144,7 +144,7 @@ class InvoiceManager(DocumentManager):
             if payment.getAccount() != None and invoice.getContractor() != None and cost != None:
                 payment.setCreditZpk(self.findZpk(payment.getAccount().getZpks(), cost.getKey()))
                 payment.setDebitZpk(self.findZpk(invoice.getContractor().getZpks(), 'CONTRACTOR'))
-            self.bound(invoice, payment)
+                self.bound(invoice, payment)
     
     def findOrCreatePosition(self, invoice, positionId, prefix):
         if positionId == 0:
