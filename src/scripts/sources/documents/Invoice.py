@@ -123,6 +123,7 @@ class InvoiceManager(DocumentManager):
             self.updatePayment(invoice, 'payments_' + str(i) + "_")
                 
     def updatePayment(self, invoice, prefix = ''):
+        self._logger.info("update Payment %s %s" % (invoice, prefix))
         if self._svars.get(prefix + 'id') != None:
             paymentId = int(self._svars.get(prefix + 'id'))
         else:
@@ -132,6 +133,7 @@ class InvoiceManager(DocumentManager):
             payment = self.findById("DocumentPosition", paymentId)
             self.cancelPosition(payment)
         elif not remove and paymentId == 0:
+            self._logger.info("BAM !")
             payment = self.findOrCreatePayment(invoice, paymentId, prefix)
             payment.putAttribute("CREATE_DATE", self._svars.get(prefix + 'createDate'))
             payment.putAttribute("COST", self._svars.get(prefix + 'cost'))
