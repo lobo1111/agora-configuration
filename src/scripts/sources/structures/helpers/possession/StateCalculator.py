@@ -1,18 +1,24 @@
-from base.Container import Container
+from documents.Document import Document
+from reports.ZpksStatusReport import ZpksStatusReport
 
-class StateCalculator(Container):
+class StateCalculator():
     
     def __init__(self, possession):
         self._possession = possession
     
     def calculateCurrentRentState(self):
-        return 1
+        status = ZpksStatusReport()
+        debit, credit = status.calculate(Document().findZpk(self._possession.getZpks(), "POSSESSION"), Date())
+        return credit - debit
     
     def calculateCurrentRFState(self):
-        return 1
+        status = ZpksStatusReport()
+        debit, credit = status.calculate(Document().findZpk(self._possession.getZpks(), "POSSESSION_REPAIR_FUND"), Date())
+        return credit - debit
     
     def calculateRentCharging(self):
         return 1
     
     def calculateRFCharging(self):
         return 1
+    
