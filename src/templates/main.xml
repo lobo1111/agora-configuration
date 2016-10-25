@@ -3,12 +3,38 @@
     <template>
         <name>entity-payment-rent</name>
         <source>entity-payment-rent.vtl</source>
-        <variables />
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    DocumentPosition e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
     </template>
     <template>
         <name>entity-payment-invoice</name>
         <source>entity-payment-invoice.vtl</source>
-        <variables />
+        <variables>
+            <var>
+                <name>entity</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    e
+                    FROM 
+                    DocumentPosition e
+                    WHERE 
+                    e.id = {:id}
+                </data>
+            </var>
+        </variables>
     </template>
     <template>
         <name>entity-provision</name>
