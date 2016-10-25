@@ -30,7 +30,7 @@ class DocumentManager(Container):
         value = self.parseFloat(self._svars.get(prefix + 'value'))
         position.setValue(BigDecimal(value).setScale(2, RoundingMode.HALF_UP))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
-        if self._svars.get(prefix + 'accountId') != None:
+        if self._svars.get(prefix + 'accountId') != None and int(self._svars.get(prefix + 'accountId')) > 0:
             position.setAccount(self.findById("Account", int(self._svars.get(prefix + 'accountId'))))
         else:
             self._logger.info("Position doesn't have accountID set under key %s" % (prefix + 'accountId'))
