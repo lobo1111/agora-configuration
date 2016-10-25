@@ -5,8 +5,14 @@ class StateCalculator(Container):
     def __init__(self, possession):
         self._possession = possession
     
-    def calculateCurrentState(self):
-        return 0, 0
+    def calculateCurrentRentState(self):
+        return 1
     
-    def calculateCurrentCharging(self):
-        return 0, 0
+    def calculateCurrentRFState(self):
+        return 1
+    
+    def calculateRentCharging(self):
+        return 1
+    
+    def calculateRFCharging(self):
+        return 1

@@ -11,12 +11,12 @@ class StateTemplateGenerator(Container):
         self._ve.init()
         self._context = VelocityContext()
     
-    def generateTemplate(self, stateRent, stateRF, chargingRent, chargingRT):
+    def generateTemplate(self, calculator):
         self._logger.info(stateRent)
-        self._context.put('stateRent', stateRent)
-        self._context.put('stateRF', stateRF)
-        self._context.put('chargingRent', chargingRent)
-        self._context.put('chargingRT', chargingRT)
+        self._context.put('stateRent', calculator.calculateCurrentRentState())
+        self._context.put('stateRF', calculator.calculateCurrentRFState())
+        self._context.put('chargingRent', calculator.calculateRentCharging())
+        self._context.put('chargingRT', calculator.calculateRFCharging())
         writer = StringWriter()
         self._ve.evaluate(self._context, writer, self._template.getName(), unicode(self._template.getSource()))
         evaluatedTemplate = writer.toString()
