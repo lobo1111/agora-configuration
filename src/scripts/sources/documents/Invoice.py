@@ -24,6 +24,7 @@ class InvoiceManager(DocumentManager):
             invoice = self.findById("Document", self._svars.get("invoiceId"))
             self.updatePayment(invoice)
             InvoiceValidator().validatePayments(invoice)
+            self.saveDocument(invoice)
         except ValidationError, error:
             self.setError(error)
     
