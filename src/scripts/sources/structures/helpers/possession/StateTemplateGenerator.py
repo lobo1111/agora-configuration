@@ -12,9 +12,6 @@ class StateTemplateGenerator(Container):
         self._context = VelocityContext()
     
     def generateTemplate(self, calculator):
-        self._logger.info("!!!!")
-        self._logger.info(calculator.calculateCurrentRentState())
-        self._logger.info("!!!!")
         self._context.put('stateRent', calculator.calculateCurrentRentState())
         self._context.put('stateRF', calculator.calculateCurrentRFState())
         self._context.put('chargingRent', calculator.calculateRentCharging())
