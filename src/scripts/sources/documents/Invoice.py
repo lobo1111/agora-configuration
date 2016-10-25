@@ -124,7 +124,7 @@ class InvoiceManager(DocumentManager):
                 
     def updatePayment(self, invoice, prefix = ''):
         self._logger.info("update Payment %s %s" % (invoice, prefix))
-        if self._svars.get(prefix + 'id') != None:
+        if self._svars.get(prefix + 'id') != None and int(self._svars.get(prefix + 'id')) > 0:
             self._logger.info("BAM 1 !")
             paymentId = int(self._svars.get(prefix + 'id'))
         else:
