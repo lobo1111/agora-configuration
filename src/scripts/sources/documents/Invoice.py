@@ -22,7 +22,8 @@ class InvoiceManager(DocumentManager):
     def persistPayment(self):
         try:
             invoice = self.findById("Document", self._svars.get("invoiceId"))
-            self.updatePayment(invoice)
+            if invoice != None:
+                self.updatePayment(invoice)
             InvoiceValidator().validatePayments(invoice)
             self.saveDocument(invoice)
         except ValidationError, error:
@@ -123,21 +124,16 @@ class InvoiceManager(DocumentManager):
             self.updatePayment(invoice, 'payments_' + str(i) + "_")
                 
     def updatePayment(self, invoice, prefix = ''):
-        self._logger.info("update Payment %s %s" % (invoice, prefix))
         if self._svars.get(prefix + 'id') != None and int(self._svars.get(prefix + 'id')) > 0:
-            self._logger.info("BAM 1 !")
             paymentId = int(self._svars.get(prefix + 'id'))
         else:
-            self._logger.info("BAM 2 !")
             paymentId = 0
         remove = self._svars.get(prefix + 'remove') == 'true'
         self._logger.info(remove)
         if remove and paymentId != 0:
-            self._logger.info("BAM 3 !")
             payment = self.findById("DocumentPosition", paymentId)
             self.cancelPosition(payment)
         elif not remove and paymentId == 0:
-            self._logger.info("BAM 4 !")
             payment = self.findOrCreatePayment(invoice, paymentId, prefix)
             payment.putAttribute("CREATE_DATE", self._svars.get(prefix + 'createDate'))
             payment.putAttribute("COST", self._svars.get(prefix + 'cost'))

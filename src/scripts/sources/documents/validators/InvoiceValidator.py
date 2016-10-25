@@ -41,6 +41,8 @@ class InvoiceValidator(Validator):
         self.check(position.getDescription(), [LengthValidator(minLength = 1, maxLength = 250, messageParameter = self._label.get('validators.invoice.position.name'))])
     
     def validatePayments(self, document):
+        if document == None:
+            NotNoneValidator(self._label.get('document.invoice')).validate(document)
         for position in document.getPositions():
             if position.getType() == "INVOICE_PAYMENT":
                 self.validatePayment(position)
