@@ -56,5 +56,5 @@ class StateCalculator(Container):
         return currentMonth == lastChargedMonth
     
     def getLastChargedMonth(self):
-        sql = "Select pos from Document doc Join doc.positions pos Where doc.possession.id = %d and doc.type = 'CHARGING' and pos.bookingPeriod.defaultPeriod = true order by pos.createdAt desc"
+        sql = "Select pos from Document doc Join doc.positions pos Where doc.possession.id = %d and doc.type = 'CHARGING' and pos.bookingPeriod.defaultPeriod = true order by pos.createdAt desc" % self._possession.getId()
         return self._entityManager.createQuery(sql).getResultList().get(0).getMonth()
