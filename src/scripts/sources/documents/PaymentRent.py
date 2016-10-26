@@ -10,6 +10,7 @@ class PaymentRentManager(DocumentManager):
             payment = self.initDocument(self._type)
             account = self.findById('Account', self._svars.get('accountId'))
             self._logger.info('Found account type of %s' % account.getType().getKey())
+            self.handleOverpayment()
             if account.getType().getKey() in ['RENT', 'DEFAULT']:
                 if float(self._svars.get('rentValue')) > 0:
                     self._svars.put('value', float(self._svars.get('rentValue')))
@@ -44,6 +45,15 @@ class PaymentRentManager(DocumentManager):
     def remove(self):
         payment = self.findById("Document", self._svars.get('id'))
         self.cancelDocument(payment)
+        
+    def handleOverpayment(self):
+        howTo = self.findById("Dictionary", self._svars.get('overpayedId'))
+        if howTo.getKey() == "RENT":
+            value = BigDecimal(self._svars.get('rentValue')).add(BigDecimal(self._svars.get('value'))).setScale(2, RoundingMode.HALF_UP)
+            self._svars.put('rentValue', value.toString())
+        else:
+            value = BigDecimal(self._svars.get('rfValue')).add(BigDecimal(self._svars.get('value'))).setScale(2, RoundingMode.HALF_UP)
+            self._svars.put('rfValue', value.toString())
         
     def findZpk(self, zpks, typeKey, alternative = ''):
         zpkType = self.findDictionary(str(self.findZpkSettingId(typeKey)))
