@@ -27,7 +27,7 @@ class StateCalculator(Container):
         calculator = Calculator()
         for element in self._possession.getElements():
             if not self.isRepairFundElement(element):
-                sum.add(BigDecimal(calculator.calculate(element.getElement(), self._possession)))
+                sum = sum.add(BigDecimal(calculator.calculate(element.getElement(), self._possession)))
         return sum.setScale(2, RoundingMode.HALF_UP).toString()
     
     def calculateRFCharging(self):
@@ -35,7 +35,7 @@ class StateCalculator(Container):
         calculator = Calculator()
         for element in self._possession.getElements():
             if self.isRepairFundElement(element):
-                sum.add(BigDecimal(calculator.calculate(element.getElement(), self._possession)))
+                sum = sum.add(BigDecimal(calculator.calculate(element.getElement(), self._possession)))
         return sum.setScale(2, RoundingMode.HALF_UP).toString()
     
     def isRepairFundElement(self, element):
