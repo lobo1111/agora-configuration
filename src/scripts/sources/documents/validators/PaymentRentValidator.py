@@ -8,7 +8,7 @@ from structures.validators.common.LengthValidator import LengthValidator
 from structures.validators.common.NotNoneValidator import NotNoneValidator
 from structures.validators.common.PositiveIntValidator import PositiveIntValidator
 
-class InvoiceValidator(Validator):
+class PaymentRentValidatorValidator(Validator):
     
     def validate(self, document):
         pass
