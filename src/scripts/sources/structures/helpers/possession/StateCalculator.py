@@ -22,7 +22,7 @@ class StateCalculator():
         return credit.subtract(debit).setScale(2, RoundingMode.HALF_UP).toString()
     
     def calculateRentCharging(self):
-        sum = BigDecimal()
+        sum = BigDecimal(0)
         calculator = Calculator()
         for element in self._possession.getElements():
             if not self.isRepairFundElement(element):
@@ -30,7 +30,7 @@ class StateCalculator():
         return sum.setScale(2, RoundingMode.HALF_UP).toString()
     
     def calculateRFCharging(self):
-        sum = BigDecimal()
+        sum = BigDecimal(0)
         calculator = Calculator()
         for element in self._possession.getElements():
             if self.isRepairFundElement(element):
