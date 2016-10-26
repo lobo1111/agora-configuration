@@ -72,6 +72,7 @@ class Container:
         
     def parseFloat(self, string):
         try:
+            self._logger.info("Parsing string %s to  float..." % string)
             return float(string.replace(",", "."))
         except ValueError:
             return 0
