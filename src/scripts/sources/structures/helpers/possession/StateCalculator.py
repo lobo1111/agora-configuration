@@ -53,6 +53,7 @@ class StateCalculator(Container):
     def alreadyCharged(self):
         currentMonth = BookingPeriodManager().getCurrentMonth()
         lastChargedMonth = self.getLastChargedMonth()
+        self._logger.info("Current month %s, last charged month %s" % (currentMonth, lastChargedMonth))
         return currentMonth == lastChargedMonth
     
     def getLastChargedMonth(self):
