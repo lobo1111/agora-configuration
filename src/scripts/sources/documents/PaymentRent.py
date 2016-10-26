@@ -36,7 +36,7 @@ class PaymentRentManager(DocumentManager):
                     paymentPosition.setCreditZpk(self.findZpk(payment.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
                     paymentPosition.setDebitZpk(self.findZpk(paymentPosition.getAccount().getZpks(), 'REPAIR_FUND'))
                     self.bound(payment, paymentPosition)
-            PaymentRentValidator.validate(payment)
+            PaymentRentValidator().validate(payment)
             self.saveDocument(payment)
         except ValidationError, error:
             self.setError(error)
