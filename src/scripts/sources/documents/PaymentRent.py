@@ -51,10 +51,10 @@ class PaymentRentManager(DocumentManager):
     def handleOverpayment(self):
         howTo = self.findById("Dictionary", self._svars.get('overpayedId'))
         if howTo.getKey() == "RENT":
-            value = BigDecimal(self._svars.get('rentValue')).add(BigDecimal(self._svars.get('value'))).setScale(2, RoundingMode.HALF_UP)
+            value = BigDecimal(self._svars.get('rentValue')).add(BigDecimal(self._svars.get('overpayedValue'))).setScale(2, RoundingMode.HALF_UP)
             self._svars.put('rentValue', value.toString())
         else:
-            value = BigDecimal(self._svars.get('rfValue')).add(BigDecimal(self._svars.get('value'))).setScale(2, RoundingMode.HALF_UP)
+            value = BigDecimal(self._svars.get('rfValue')).add(BigDecimal(self._svars.get('overpayedValue'))).setScale(2, RoundingMode.HALF_UP)
             self._svars.put('rfValue', value.toString())
         
     def findZpk(self, zpks, typeKey, alternative = ''):
