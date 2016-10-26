@@ -31,6 +31,7 @@ class PossessionManager(Container):
         
     def getAccountState(self):
         possession = self.findById("Possession", self._svars.get('possessionId'))
-        calculator = StateCalculator(possession)
+        calculator = StateCalculator()
+        calculator.setPossession(possession)
         StateTemplateGenerator().generateTemplate(calculator)
         

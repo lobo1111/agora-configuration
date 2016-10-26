@@ -1,3 +1,4 @@
+from base.Container import Container
 from documents.helpers.Calculator import Calculator
 from documents.Document import DocumentManager
 from reports.ZpksStatusReport import ZpksStatusReport
@@ -6,9 +7,9 @@ from java.text import SimpleDateFormat
 from java.math import BigDecimal
 from java.math import RoundingMode
 
-class StateCalculator():
+class StateCalculator(Container):
     
-    def __init__(self, possession):
+    def setPossession(self, possession):
         self._possession = possession
     
     def calculateCurrentRentState(self):
