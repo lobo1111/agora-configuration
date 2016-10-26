@@ -51,7 +51,7 @@ class StateCalculator(Container):
         return groupId == int(rfGroup.getValue())
     
     def alreadyCharged(self):
-        currentMonth = BookingPeriodManager().getCurrentMonth()
+        currentMonth = BookingPeriodManager().getCurrentMonth().getValue()
         lastChargedMonth = self.getLastChargedMonth()
         self._logger.info("Current month %s, last charged month %s" % (currentMonth, lastChargedMonth))
         return currentMonth == lastChargedMonth
