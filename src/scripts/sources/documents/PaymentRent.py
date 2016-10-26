@@ -1,6 +1,8 @@
 from documents.Document import DocumentManager
 from documents.validators.PaymentRentValidator import PaymentRentValidator
 from structures.validators.common.ValidationError import ValidationError
+from java.math import BigDecimal
+from java.math import RoundingMode
 
 class PaymentRentManager(DocumentManager):
     _type = "POSSESSION_PAYMENT"
