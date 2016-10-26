@@ -50,7 +50,7 @@ class StateCalculator(Container):
         rfGroup = self.findBy("Dictionary", "key", "'elements.repairFundGroup'")
         return groupId == int(rfGroup.getValue())
     
-    def alradyCharged(self):
+    def alreadyCharged(self):
         currentMonth = BookingPeriodManager().getCurrentMonth()
         lastChargedMonth = self.getLastChargedMonth()
         return currentMonth == lastChargedMonth
