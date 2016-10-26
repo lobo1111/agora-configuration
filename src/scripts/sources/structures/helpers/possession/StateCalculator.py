@@ -1,7 +1,9 @@
+from documents.helpers.Calculator import Calculator
 from documents.Document import DocumentManager
 from reports.ZpksStatusReport import ZpksStatusReport
 from java.util import Date
 from java.text import SimpleDateFormat
+from java.math import BigDecimal
 from java.math import RoundingMode
 
 class StateCalculator():
@@ -20,8 +22,23 @@ class StateCalculator():
         return credit.subtract(debit).setScale(2, RoundingMode.HALF_UP).toString()
     
     def calculateRentCharging(self):
-        return 1
+        sum = BigDecimal()
+        calculator = Calculator()
+        for element in self._possession.getElements():
+            if not self.isRepairFundElement(element):
+                sum.add(calculator.calculate(element.getElement(), self._possession))
+        return sum.setScale(2, RoundingMode.HALF_UP).toString()
     
     def calculateRFCharging(self):
-        return 1
+        sum = BigDecimal()
+        calculator = Calculator()
+        for element in self._possession.getElements():
+            if self.isRepairFundElement(element):
+                sum.add(calculator.calculate(element.getElement(), self._possession))
+        return sum.setScale(2, RoundingMode.HALF_UP).toString()
+    
+    def isRepairFundElement(self, element):
+        groupId = element.getGroup().getId()
+        rfGroup = self.findBy("Dictionary", "key", "'elements.repairFundGroup'")
+        return groupId == int(rfGroup.getValue())
     
