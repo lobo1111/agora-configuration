@@ -3,8 +3,7 @@ from structures.validators.common.ValidationError import ValidationError
 
 class NotEmptyDocumentValidator(Validator):
     
-    def __init__(self, document):
-        self._documentToCheck = document
+    def __init__(self):
         self._message = "validators.document.notEmpty"
     
     def validate(self, positions):
