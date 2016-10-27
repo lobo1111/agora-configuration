@@ -57,7 +57,7 @@ class PaymentRentManager(DocumentManager):
                 value = BigDecimal(self._svars.get('rfValue')).add(BigDecimal(self._svars.get('overpayedValue'))).setScale(2, RoundingMode.HALF_UP)
                 self._svars.put('rfValue', value.toString())
             else:
-                raise ValidationError(self.findBy('Label', 'name', "'validators.document.payment.overpayment'" % name).getMessage())
+                raise ValidationError(self.findBy('Label', 'name', "'validators.document.payment.overpayment'").getMessage())
         
     def findZpk(self, zpks, typeKey, alternative=''):
         zpkType = self.findDictionary(str(self.findZpkSettingId(typeKey)))
