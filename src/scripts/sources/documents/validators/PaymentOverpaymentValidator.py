@@ -3,8 +3,7 @@ from structures.validators.common.ValidationError import ValidationError
 
 class PaymentOverpaymentValidator(Validator):
     
-    def __init__(self, document):
-        self._documentToCheck = document
+    def __init__(self):
         self._message = "validators.document.payment.overpayment"
     
     def validate(self):
