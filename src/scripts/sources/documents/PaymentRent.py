@@ -63,9 +63,9 @@ class PaymentRentManager(DocumentManager):
                 raise ValidationError(self.findBy('Label', 'name', "'validators.document.payment.overpayment'").getMessage())
             
     def validateValues(self, rentValue, rfValue):
-        if rentValue == 0:
+        if rentValue != 0:
             raise ValidationError(self.findBy('Label', 'name', "'validators.document.payment.noRentAccount'").getMessage())
-        if rfValue == 0:
+        if rfValue != 0:
             raise ValidationError(self.findBy('Label', 'name', "'validators.document.payment.noRFAccount'").getMessage())
         
     def findZpk(self, zpks, typeKey, alternative=''):
