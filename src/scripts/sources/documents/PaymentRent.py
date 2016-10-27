@@ -11,7 +11,6 @@ class PaymentRentManager(DocumentManager):
         try:
             payment = self.initDocument(self._type)
             account = self.findById('Account', self._svars.get('accountId'))
-            self._logger.info('Found account type of %s' % account.getType().getKey())
             self.handleOverpayment()
             if account != None and account.getType().getKey() in ['RENT', 'DEFAULT']:
                 if float(self._svars.get('rentValue')) > 0:
