@@ -2425,4 +2425,10 @@
         </sql>
     </changeSet>
     
+    <changeSet author="tkopacki" id="labels-validator-document-payment-2">
+        <sql>
+            Update `label` set message = 'Nie można zapisać pustego dokumentu, sprawdź czy wybrano właściwe konto bankowe' Where name = 'validators.document.notEmpty'
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
