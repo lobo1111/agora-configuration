@@ -3,7 +3,6 @@ from documents.validators.PaymentRentValidator import PaymentRentValidator
 from java.math import BigDecimal
 from java.math import RoundingMode
 from structures.validators.common.ValidationError import ValidationError
-from helpers.Label import LabelManager
 
 class PaymentRentManager(DocumentManager):
     _type = "POSSESSION_PAYMENT"
