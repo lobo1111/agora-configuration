@@ -1,6 +1,5 @@
 from documents.validators.Validator import Validator
 from documents.validators.NotEmptyDocumentValidator import NotEmptyDocumentValidator
-from documents.validators.PaymentOverpaymentValidator import PaymentOverpaymentValidator
 from structures.validators.common.DateValidator import DateValidator
 from structures.validators.common.NotNoneValidator import NotNoneValidator
 
@@ -8,7 +7,6 @@ class PaymentRentValidator(Validator):
     
     def validate(self, document):
         self.check(document.getPositions(), [NotEmptyDocumentValidator()])
-        PaymentOverpaymentValidator().validate()
         for position in document.getPositions():
             self.validatePosition(position)
         
