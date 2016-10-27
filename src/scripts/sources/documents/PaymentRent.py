@@ -13,7 +13,7 @@ class PaymentRentManager(DocumentManager):
             account = self.findById('Account', self._svars.get('accountId'))
             self._logger.info('Found account type of %s' % account.getType().getKey())
             self.handleOverpayment()
-            if account.getType().getKey() in ['RENT', 'DEFAULT']:
+            if account != None and account.getType().getKey() in ['RENT', 'DEFAULT']:
                 if float(self._svars.get('rentValue')) > 0:
                     self._svars.put('value', float(self._svars.get('rentValue')))
                 if float(self._svars.get('value')) != 0:
@@ -26,7 +26,7 @@ class PaymentRentManager(DocumentManager):
                     paymentPosition.setCreditZpk(self.findZpk(payment.getPossession().getZpks(), 'POSSESSION'))
                     paymentPosition.setDebitZpk(self.findZpk(paymentPosition.getAccount().getZpks(), 'RENT', 'DEFAULT'))
                     self.bound(payment, paymentPosition)
-            if account.getType().getKey() in ['REPAIR_FUND', 'DEFAULT']:
+            if account != None and account.getType().getKey() in ['REPAIR_FUND', 'DEFAULT']:
                 if float(self._svars.get('rfValue')) > 0:
                     self._svars.put('value', float(self._svars.get('rfValue')))
                 if float(self._svars.get('value')) != 0:
