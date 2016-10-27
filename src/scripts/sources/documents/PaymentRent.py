@@ -48,7 +48,7 @@ class PaymentRentManager(DocumentManager):
         self.cancelDocument(payment)
         
     def handleOverpayment(self):
-        if float(self._svars.get('overpayedValue')) > 0:
+        if self._svars.get('overpayedValue') != '' and float(self._svars.get('overpayedValue')) > 0:
             howTo = self.findById("Dictionary", self._svars.get('overpayedId'))
             if howTo.getKey() == "RENT":
                 value = BigDecimal(self._svars.get('rentValue')).add(BigDecimal(self._svars.get('overpayedValue'))).setScale(2, RoundingMode.HALF_UP)
