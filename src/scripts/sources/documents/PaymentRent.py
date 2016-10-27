@@ -50,10 +50,10 @@ class PaymentRentManager(DocumentManager):
     def handleOverpayment(self):
         if self._svars.get('overpayedValue') != '' and float(self._svars.get('overpayedValue')) > 0:
             howTo = self.findById("Dictionary", self._svars.get('overpayedId'))
-            if howTo.getKey() == "RENT":
+            if howTo != None and howTo.getKey() == "RENT":
                 value = BigDecimal(self._svars.get('rentValue')).add(BigDecimal(self._svars.get('overpayedValue'))).setScale(2, RoundingMode.HALF_UP)
                 self._svars.put('rentValue', value.toString())
-            else:
+            elif howTo != None:
                 value = BigDecimal(self._svars.get('rfValue')).add(BigDecimal(self._svars.get('overpayedValue'))).setScale(2, RoundingMode.HALF_UP)
                 self._svars.put('rfValue', value.toString())
         
