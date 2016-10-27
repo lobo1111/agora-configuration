@@ -3,6 +3,7 @@ from documents.validators.PaymentRentValidator import PaymentRentValidator
 from java.math import BigDecimal
 from java.math import RoundingMode
 from structures.validators.common.ValidationError import ValidationError
+from helpers.Label import LabelManager
 
 class PaymentRentManager(DocumentManager):
     _type = "POSSESSION_PAYMENT"
@@ -57,7 +58,7 @@ class PaymentRentManager(DocumentManager):
                 value = BigDecimal(self._svars.get('rfValue')).add(BigDecimal(self._svars.get('overpayedValue'))).setScale(2, RoundingMode.HALF_UP)
                 self._svars.put('rfValue', value.toString())
             else:
-                raise ValidationError(self._label.get("validators.document.payment.overpayment"))
+                raise ValidationError(LabelManager().get("validators.document.payment.overpayment"))
         
     def findZpk(self, zpks, typeKey, alternative=''):
         zpkType = self.findDictionary(str(self.findZpkSettingId(typeKey)))
