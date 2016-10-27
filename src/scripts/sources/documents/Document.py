@@ -13,9 +13,9 @@ class DocumentManager(Container):
         document.setCreatedAt(Date())
         document.setType(type)
         document.setCommunity(self.findById("Community", int(self._svars.get('communityId'))))
-        if self._svars.get('possessionId') != None:
+        if self._svars.get('possessionId') != None and self._svars.get('possessionId') != '0':
             document.setPossession(self.findById("Possession", int(self._svars.get('possessionId'))))
-        if self._svars.get('contractorId') != None:
+        if self._svars.get('contractorId') != None and self._svars.get('contractorId') != '0':
             document.setContractor(self.findById("Contractor", int(self._svars.get('contractorId'))))
         document.setDescription(self._svars.get('documentDescription'))
         self._logger.info("New document of type %s created" % document.getType())
@@ -31,6 +31,7 @@ class DocumentManager(Container):
         position.setValue(BigDecimal(value).setScale(2, RoundingMode.HALF_UP))
         position.setDescription(self._svars.get(prefix + 'positionDescription'))
         if self._svars.get(prefix + 'accountId') != None and int(self._svars.get(prefix + 'accountId')) > 0:
+            self._logger.info("!!%d!!" % int(self._svars.get(prefix + 'accountId')))
             position.setAccount(self.findById("Account", int(self._svars.get(prefix + 'accountId'))))
         else:
             self._logger.info("Position doesn't have accountID set under key %s" % (prefix + 'accountId'))
