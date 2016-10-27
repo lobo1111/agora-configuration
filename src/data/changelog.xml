@@ -2431,4 +2431,11 @@
         </sql>
     </changeSet>
     
+    <changeSet author="tkopacki" id="labels-validator-document-payment-3">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('validators.document.payment.noRentAccount', 'Wybrane konto nie pozwala na księgowanie zaliczki');
+            INSERT INTO `label`(`name`, `message`)VALUES('validators.document.payment.noRFAccount', 'Wybrane konto nie pozwala na ksiegowanie funduszu remontowego');
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>

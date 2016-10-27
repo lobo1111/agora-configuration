@@ -15,6 +15,7 @@ class PaymentRentManager(DocumentManager):
             if account != None and account.getType().getKey() in ['RENT', 'DEFAULT']:
                 if self._svars.get('rentValue') != '' and float(self._svars.get('rentValue')) > 0:
                     self._svars.put('value', float(self._svars.get('rentValue')))
+                    self._svars.put('rentValue', 0)
                 if self._svars.get('value') != '' and float(self._svars.get('value')) != 0:
                     paymentPosition = self.initPosition(payment)
                     paymentPosition.setType("POSSESSION_PAYMENT_RENT")
@@ -28,6 +29,7 @@ class PaymentRentManager(DocumentManager):
             if account != None and account.getType().getKey() in ['REPAIR_FUND', 'DEFAULT']:
                 if self._svars.get('rfValue') != '' and float(self._svars.get('rfValue')) > 0:
                     self._svars.put('value', float(self._svars.get('rfValue')))
+                    self._svars.put('rfValue', 0)
                 if self._svars.get('value') != '' and float(self._svars.get('value')) != 0:
                     paymentPosition = self.initPosition(payment)
                     paymentPosition.setType("POSSESSION_PAYMENT_RF")
@@ -38,6 +40,7 @@ class PaymentRentManager(DocumentManager):
                     paymentPosition.setCreditZpk(self.findZpk(payment.getPossession().getZpks(), 'POSSESSION_REPAIR_FUND'))
                     paymentPosition.setDebitZpk(self.findZpk(paymentPosition.getAccount().getZpks(), 'REPAIR_FUND'))
                     self.bound(payment, paymentPosition)
+            self.validateValues(float(self._svars.get('rentValue')), float(self._svars.get('rfValue')))
             PaymentRentValidator().validate(payment)
             self.saveDocument(payment)
         except ValidationError, error:
@@ -58,6 +61,12 @@ class PaymentRentManager(DocumentManager):
                 self._svars.put('rfValue', value.toString())
             else:
                 raise ValidationError(self.findBy('Label', 'name', "'validators.document.payment.overpayment'").getMessage())
+            
+    def validateValues(self, rentValue, rfValue):
+        if rentValue == 0:
+            raise ValidationError(self.findBy('Label', 'name', "'validators.document.payment.noRentAccount'").getMessage())
+        if rfValue == 0:
+            raise ValidationError(self.findBy('Label', 'name', "'validators.document.payment.noRFAccount'").getMessage())
         
     def findZpk(self, zpks, typeKey, alternative=''):
         zpkType = self.findDictionary(str(self.findZpkSettingId(typeKey)))
