@@ -6,9 +6,9 @@ from structures.validators.common.NotNoneValidator import NotNoneValidator
 class PaymentRentValidator(Validator):
     
     def validate(self, document):
-        self.check(document.getPositions(), [NotEmptyDocumentValidator()])
         for position in document.getPositions():
             self.validatePosition(position)
+        self.check(document.getPositions(), [NotEmptyDocumentValidator()])
         
     def validatePosition(self, position):
         self.check(position.getAccount(), [NotNoneValidator(messageParameter = self._label.get('field.account'))])
