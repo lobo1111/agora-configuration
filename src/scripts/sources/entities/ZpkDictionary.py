@@ -1,4 +1,4 @@
-from pl.reaper.container.data import Dictionary
+rom pl.reaper.container.data import Dictionary
 from base.Container import Container
 
 class ZpkDictionaryManager(Container):
