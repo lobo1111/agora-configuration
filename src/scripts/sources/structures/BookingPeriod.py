@@ -31,7 +31,7 @@ class BookingPeriodManager(Container):
         return months[int(self.getCurrentMonth().getValue())]
 
     def closeYear(self):
-        if self.getCurrentMonth() == '12':
+        if self.getCurrentMonth().getValue() == '12':
             currentBookingPeriod = self.findDefaultBookingPeriod()
             newBookingPeriod = self.createBookingPeriod(currentBookingPeriod)
             [self.createBalance(zpk, newBookingPeriod) for zpk in self.collectZpks()]
