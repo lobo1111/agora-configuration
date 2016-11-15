@@ -2,7 +2,7 @@ from java.util import Date
 from java.math import BigDecimal
 from java.math import RoundingMode
 from base.Container import Container
-from entities.BookingPeriod import BookingPeriodManager
+from structures.BookingPeriod import BookingPeriodManager
 from pl.reaper.container.data import Document
 from pl.reaper.container.data import DocumentPosition
 
