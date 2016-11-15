@@ -86,6 +86,7 @@ class ZpkManager(Container):
         zpk.setCommunity(community)
         zpk.setLabel(type.getKey() + '-' + number)
         community.getZpks().add(zpk)
+        self.saveEntity(community)
         self.setAllBookingPeriods(zpk)
         return zpk
     
