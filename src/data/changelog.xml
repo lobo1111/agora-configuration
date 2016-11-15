@@ -2476,19 +2476,19 @@
             drop table charging_queue        ;
         </sql>
     </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-7">
+        <sql>  
+            alter table charging_element drop foreign key `charging_id_fkey`;
+            alter table charging_element drop foreign key `charging_group_id_fkey`;
+            drop table charging_element        ;
+        </sql>
+    </changeSet>
     <changeSet author="tkopacki" id="old-document-structure-clean-up-6">
         <sql>  
             alter table charging drop foreign key `charging_possession_id_fkey` ;
             alter table charging drop foreign key `charging_booking_period_id_fkey` ;
             alter table charging drop foreign key `charging_internal_payment_id_fkey` ;
             drop table charging        ;
-        </sql>
-    </changeSet>
-    <changeSet author="tkopacki" id="old-document-structure-clean-up-7">
-        <sql>  
-            alter table charging_element drop foreign key `charging_id_fkey`;
-            alter table charging_element drop foreign key `charging_group_id_fkey`;
-            drop table charging_element        ;
         </sql>
     </changeSet>
     <changeSet author="tkopacki" id="old-document-structure-clean-up-8">
