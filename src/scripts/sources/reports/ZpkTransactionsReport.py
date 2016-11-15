@@ -3,6 +3,7 @@ from javax.persistence import TemporalType
 from structures.BookingPeriod import BookingPeriodManager
 from java.text import SimpleDateFormat
 from java.util import Date
+from java.math import BigDecimal
 from reports.ZpksStatusReport import ZpksStatusReport
 
 class ZpkTransactionsReport(Report):
