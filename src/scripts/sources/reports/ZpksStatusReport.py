@@ -9,6 +9,8 @@ from javax.persistence import TemporalType
 class ZpksStatusReport(Report):
     
     def obtainData(self):
+        self._totalDebit = BigDecimal(0)
+        self._totalCredit = BigDecimal(0)
         self._community = self.findById("Community", self._svars.get('communityId'))
         self._statusDate = self.getStatusDate()
         self._zpks = self.collectZpks(self._community.getZpks())
@@ -30,6 +32,8 @@ class ZpksStatusReport(Report):
         balance = zpk.getCurrentBalance();
         calculatedDebit = (self.sumDebit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartDebit()))).setScale(2, RoundingMode.HALF_UP)
         calculatedCredit = (self.sumCredit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartCredit()))).setScale(2, RoundingMode.HALF_UP)
+        self._totalDebit = self._totalDebit.add(calculatedDebit).setScale(2, RoundingMode.HALF_UP)
+        self._totalCredit = self._totalCredit.add(calculatedCredit).setScale(2, RoundingMode.HALF_UP)
         return calculatedDebit, calculatedCredit
     
     def sumCredit(self, zpkId, statusDate):
@@ -73,6 +77,8 @@ class ZpksStatusReport(Report):
             return ''
     
     def fillTemplate(self):
+        self._context.put("totalDebit", self._totalDebit)
+        self._context.put("totalCredit", self._totalCredit)
         self._context.put("community", self._community)
         self._context.put("statusDate", self._statusDate)
         self._context.put("zpks", self._zpks)
@@ -85,6 +91,8 @@ class ZpksStatusReport(Report):
         self._context.put("labelCredit", self._label.get('report.credit'))
         self._context.put("labelDebit", self._label.get('report.debit'))
         self._context.put("labelDescription", self._label.get('report.description'))
+        self._context.put("labelTotalDebit", self._label.get('report.totalDebit'))
+        self._context.put("labelTotalCredit", self._label.get('report.totalCredit'))
         
         
     def getTemplateName(self):

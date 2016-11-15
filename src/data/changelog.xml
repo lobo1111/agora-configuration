@@ -2548,5 +2548,11 @@
             drop table internal_payment        ;
         </sql>
     </changeSet>
-    
+        
+    <changeSet author="tkopacki" id="labels-reports-total-debit-credit">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.totalDebit', 'Winien łącznie');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.totalCredit', 'Ma łącznie');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
