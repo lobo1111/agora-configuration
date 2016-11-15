@@ -2438,4 +2438,115 @@
         </sql>
     </changeSet>
     
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-1">
+        <sql>  
+            alter table account_provision drop foreign key `account_provision_account_fkey`; 
+            alter table account_provision drop foreign key `account_provision_booking_period_fkey` ;
+            alter table account_provision drop foreign key `account_provision_internal_payment_fkey` ;
+            drop table account_provision        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-2">
+        <sql>  
+            alter table bank_credit drop foreign key `bank_credit_community_fkey` ;
+            alter table bank_credit drop foreign key `bank_credit_community_fkey` ;
+            drop table bank_credit        
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-3">
+        <sql>  
+            alter table bank_credit_payment drop foreigh key `bank_credit_payment_bank_credit_fkey` ;
+            alter table bank_credit_payment drop foreigh key `bank_credit_payment_internal_payment_id_fkey` ;
+            drop table bank_credit_payment        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-4">
+        <sql>  
+            alter table bank_note drop foreign key `bank_element_fkey` ;
+            alter table bank_note drop foreign key `bank_possession_fkey` ;
+            alter table bank_note drop foreign key `bank_internal_payment_fkey` ;
+            alter table bank_note drop foreign key `bank_note_booking_period_fkey` ;
+            drop table bank_note        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-5">
+        <sql>  
+            alter table charging_queue drop foreign key `charging_queue_possession_id_fkey` ;
+            alter table charging_queue drop foreign key `charging_queue_community_id_fkey` ;
+            drop table charging_queue        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-6">
+        <sql>  
+            alter table charging drop foreign key `charging_possession_id_fkey` ;
+            alter table charging drop foreign key `charging_booking_period_id_fkey` ;
+            alter table charging drop foreign key `charging_internal_payment_id_fkey` ;
+            drop table charging        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-7">
+        <sql>  
+            alter table charging_element drop foreign key `charging_id_fkey`;
+            alter table charging_element drop foreign key `charging_group_id_fkey`;
+            drop table charging_element        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-8">
+        <sql>  
+            drop table incoming_payment_document        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-9">
+        <sql>  
+            alter table incoming_payment_document_position drop foreign key `incoming_payment_document_position_fkey`;
+            alter table incoming_payment_document_position drop foreign key `incoming_payment_document_position_status_fkey`;
+            drop table incoming_payment_document_position        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-10">
+        <sql>  
+            alter table internal_payment drop foreign key `internal_payment_booking_period_id_fkey`;
+            alter table internal_payment drop foreign key `internal_payment_credit_zpk_id_id_fkey`;
+            alter table internal_payment drop foreign key `internal_payment_debit_zpk_id_id_fkey`;
+            drop table internal_payment        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-11">
+        <sql>  
+            alter table invoice drop foreign key `invoice_contractor_fkey`;
+            alter table invoice drop foreign key `invoice_community_id_fkey`;
+            alter table invoice drop foreign key `invoice_internal_payment_id_fkey`;
+            drop table invoice        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-12">
+        <sql>  
+            alter table invoice_payment drop foreign key `invoice_payment_invoice_fkey`;
+            alter table invoice_payment drop foreign key `invoice_payment_internal_payment_id_fkey`;
+            drop table invoice_payment        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-13">
+        <sql>  
+            alter table invoice_position drop foreign key `invoice_position_invoice_fkey`;
+            alter table invoice_position drop foreign key `invoice_tax_fkey`;
+            drop table invoice position        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-14">
+        <sql>  
+            alter table payment_rent drop foreign key `payment_rent_possession_id_fkey`;
+            alter table payment_rent drop foreign key `payment_rent_booking_period_id_fkey`;
+            alter table payment_rent drop foreign key `payment_rent_internal_payment_id_fkey`;
+            drop table payment_rent        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-15">
+        <sql>  
+            alter table payment_rent_details frop foreign key `payment_rent_details_payment_rent_id_fkey`;
+            alter table payment_rent_details frop foreign key `payment_rent_details_account_id_fkey`;
+            drop table payment_rent_details        ;
+        </sql>
+    </changeSet>
+    
 </databaseChangeLog>
