@@ -21,6 +21,8 @@ class ZpksStatusReport(Report):
             tmp = HashMap()
             tmp.put('number', zpk.getType().getKey() + "-" + zpk.getNumber())
             debit, credit = self.calculate(zpk, self._statusDate)
+            self._totalDebit = self._totalDebit.add(debit).setScale(2, RoundingMode.HALF_UP)
+            self._totalCredit = self._totalCredit.add(credit).setScale(2, RoundingMode.HALF_UP)
             tmp.put('debit', debit)
             tmp.put('credit', credit)
             tmp.put('description', self.obtainDescription(zpk))
@@ -32,8 +34,6 @@ class ZpksStatusReport(Report):
         balance = zpk.getCurrentBalance();
         calculatedDebit = (self.sumDebit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartDebit()))).setScale(2, RoundingMode.HALF_UP)
         calculatedCredit = (self.sumCredit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartCredit()))).setScale(2, RoundingMode.HALF_UP)
-        self._totalDebit = self._totalDebit.add(calculatedDebit).setScale(2, RoundingMode.HALF_UP)
-        self._totalCredit = self._totalCredit.add(calculatedCredit).setScale(2, RoundingMode.HALF_UP)
         return calculatedDebit, calculatedCredit
     
     def sumCredit(self, zpkId, statusDate):
