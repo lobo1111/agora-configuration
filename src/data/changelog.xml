@@ -2514,6 +2514,10 @@
         <sql>  
             alter table invoice_position drop foreign key `invoice_position_invoice_fkey`;
             alter table invoice_position drop foreign key `invoice_tax_fkey`;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-13-1f">
+        <sql>  
             drop table invoice position        ;
         </sql>
     </changeSet>
