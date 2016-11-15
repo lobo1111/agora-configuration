@@ -12,7 +12,6 @@ class ContractorManager(Container):
             CompanyManager().getMapper().setData()
             contractor = self.getOrCreateContractor(company)
             self.saveEntity(contractor)
-            ZpkManager().createZpksForContractor(contractor)
             return contractor
         except ValidationError, error:
             self.setError(error)
@@ -43,6 +42,7 @@ class ContractorManager(Container):
             contractor.setDisabled(False)
             contractor.setCompany(company)
             contractor.setName(company.getName())
+            ZpkManager().createZpksForContractor(contractor)
         contractor.setDisabled(False)
         return contractor
     
