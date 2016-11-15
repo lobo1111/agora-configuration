@@ -14,8 +14,8 @@ class PossessionManager(Container):
         try:
             self._mapper.initStructure()
             self._mapper.setData()
+            self.createZpkNumbers(self._mapper.getEntity())
             if self._mapper.isNew():
-                self.createZpkNumbers(self._mapper.getEntity())
                 self.createElements(self._mapper.getEntity())
             self._mapper.getEntity().setFullAddress(self._mapper.getEntity().getAddress().getFullAddress())
             self.saveEntity(self._mapper.getEntity())
