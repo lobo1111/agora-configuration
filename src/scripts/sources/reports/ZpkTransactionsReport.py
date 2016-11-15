@@ -8,6 +8,8 @@ from reports.ZpksStatusReport import ZpksStatusReport
 class ZpkTransactionsReport(Report):
     
     def obtainData(self):
+        self._totalDebit = BigDecimal(0)
+        self._totalCredit = BigDecimal(0)
         self._community = self.findById("Community", self._svars.get('communityId'))
         self._from = self.getFrom()
         self._to = self.getTo()
