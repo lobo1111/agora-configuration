@@ -2449,7 +2449,7 @@
     <changeSet author="tkopacki" id="old-document-structure-clean-up-2">
         <sql>  
             alter table bank_credit drop foreign key `bank_credit_community_fkey` ;
-            alter table bank_credit drop foreign key `bank_credit_community_fkey` ;
+            alter table bank_credit drop foreign key `bank_credit_contractor_fkey` ;
             drop table bank_credit        
         </sql>
     </changeSet>
