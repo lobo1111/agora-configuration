@@ -48,7 +48,7 @@ class ZpksStatusReport(Report):
         query.setParameter("debitId", zpkId)
         query.setParameter("date", date, TemporalType.DATE)
         if endDate != None:
-            query.setParameter("toDate", endDate, TemporalType.DATE)
+            query.setParameter("toDate", dateTo, TemporalType.DATE)
         result = query.getSingleResult()
         if result == None:
             return BigDecimal(0)
@@ -66,7 +66,7 @@ class ZpksStatusReport(Report):
         query.setParameter("debitId", zpkId)
         query.setParameter("date", date, TemporalType.DATE)
         if endDate != None:
-            query.setParameter("toDate", endDate, TemporalType.DATE)
+            query.setParameter("toDate", dateTo, TemporalType.DATE)
         result = query.getSingleResult()
         if result == None:
             return BigDecimal(0)
