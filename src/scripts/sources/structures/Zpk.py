@@ -18,20 +18,24 @@ class ZpkManager(Container):
             self.setError(error)
     
     def createZpksForContractor(self, contractor):
-        zpk = self.createZpk(contractor.getCommunity(), "CONTRACTOR")
-        zpk.setContractor(contractor)
-        contractor.getZpks().add(zpk)
-        zpk = self.createZpk(contractor.getCommunity(), "CONTRACTOR_COST")
-        zpk.setContractor(contractor)
-        contractor.getZpks().add(zpk)
+        if not self.hasZpk("CONTRACTOR", contractor.getZpks()):
+            zpk = self.createZpk(contractor.getCommunity(), "CONTRACTOR")
+            zpk.setContractor(contractor)
+            contractor.getZpks().add(zpk)
+        if not self.hasZpk("CONTRACTOR_COST", contractor.getZpks()):
+            zpk = self.createZpk(contractor.getCommunity(), "CONTRACTOR_COST")
+            zpk.setContractor(contractor)
+            contractor.getZpks().add(zpk)
     
     def createZpksForPossession(self, possession):
-        zpk = self.createZpk(possession.getCommunity(), "POSSESSION")
-        zpk.setPossession(possession)
-        possession.getZpks().add(zpk)
-        zpk = self.createZpk(possession.getCommunity(), "POSSESSION_REPAIR_FUND")
-        zpk.setPossession(possession)
-        possession.getZpks().add(zpk)
+        if not self.hasZpk("POSSESSION", possession.getZpks()):
+            zpk = self.createZpk(possession.getCommunity(), "POSSESSION")
+            zpk.setPossession(possession)
+            possession.getZpks().add(zpk)
+        if not self.hasZpk("POSSESSION_REPAIR_FUND", possession.getZpks()):
+            zpk = self.createZpk(possession.getCommunity(), "POSSESSION_REPAIR_FUND")
+            zpk.setPossession(possession)
+            possession.getZpks().add(zpk)
 
     def createDefaultZpkNumbersForCommunity(self, community):
         self.createZpk(community, "CHARGING_RENT")

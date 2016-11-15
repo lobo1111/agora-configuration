@@ -11,7 +11,9 @@ class ContractorManager(Container):
             company = CompanyManager().getMapper().findOrCreate()
             CompanyManager().getMapper().setData()
             contractor = self.getOrCreateContractor(company)
-            return self.saveEntity(contractor)
+            self.saveEntity(contractor)
+            ZpkManager().createZpksForContractor(contractor)
+            return contractor
         except ValidationError, error:
             self.setError(error)
     
