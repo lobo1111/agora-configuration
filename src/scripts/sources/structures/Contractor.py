@@ -26,7 +26,6 @@ class ContractorManager(Container):
             contractor = Contractor()
             contractor.setCompany(company)
             contractor.setCommunity(community)
-            community.getContractors().add(contractor)
             ZpkManager().createZpksForContractor(contractor)
             
     def collectDefaultCompanies(self):
