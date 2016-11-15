@@ -23,7 +23,6 @@ class AccountMapper(Mapper):
     def setData(self):
         self.map("number", [LengthValidator(minLength=26, maxLength=26, messageParameter=self._label.get('field.accountNumber'))])
         self.setCommunity()
-        self._entity.getCommunity().getAccounts().add(self._entity)
         self.mapType()
         
     def mapType(self):
