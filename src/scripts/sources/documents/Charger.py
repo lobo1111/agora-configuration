@@ -1,8 +1,8 @@
 from java.text import SimpleDateFormat
 from documents.Document import DocumentManager
 from documents.helpers.Calculator import Calculator
-from entities.Dictionary import DictionaryManager
-from entities.BookingPeriod import BookingPeriodManager
+from structures.Dictionary import DictionaryManager
+from structures.BookingPeriod import BookingPeriodManager
 
 class ChargerManager(DocumentManager):
     _calculator = Calculator()
