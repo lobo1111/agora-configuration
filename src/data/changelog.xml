@@ -2527,8 +2527,8 @@
     </changeSet>
     <changeSet author="tkopacki" id="old-document-structure-clean-up-15">
         <sql>  
-            alter table payment_rent_details frop foreign key `payment_rent_details_payment_rent_id_fkey`;
-            alter table payment_rent_details frop foreign key `payment_rent_details_account_id_fkey`;
+            alter table payment_rent_details drop foreign key `payment_rent_details_payment_rent_id_fkey`;
+            alter table payment_rent_details drop foreign key `payment_rent_details_account_id_fkey`;
             drop table payment_rent_details        ;
         </sql>
     </changeSet>
