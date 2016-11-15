@@ -16,6 +16,7 @@ class ZpksStatusReport(Report):
         self._zpks = self.collectZpks(self._community.getZpks())
         
     def collectZpks(self, zpks):
+        self._logger.info("Calculating zpk statuses for %d zpk accounts" % len(zpks))
         output = []
         for zpk in zpks:
             tmp = HashMap()
