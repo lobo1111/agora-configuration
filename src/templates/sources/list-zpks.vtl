@@ -13,7 +13,7 @@
             <property name="description" type="String">$!row.getAccount().getNumber()</property>
             #end
             #if($!row.getPossession())
-            <property name="description" type="String">$!row.getPossession().getFullAddress()</property>
+            <property name="description" type="String">$!row.getPossession().getFullAddress() - $!row.getPossession().getOwnersAsString()</property>
             #end
             #if($!row.getContractor())
             <property name="description" type="String">$!row.getContractor().getName()</property>
