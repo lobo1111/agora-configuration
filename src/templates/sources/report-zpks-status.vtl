@@ -57,10 +57,16 @@
             <property name="number" type="String">$row.get('number')</property>
             #if($row.get('debit') > $row.get('credit'))
                 #set($diff = $row.get('debit') - $row.get('credit'))
+                #if($diff == 0)
+                #set($diff = ' ')
+                #end
                 <property name="debit" type="String">$diff</property>
                 <property name="credit" type="String"> </property>
             #else
                 #set($diff = $row.get('credit') - $row.get('debit'))
+                #if($diff == 0)
+                #set($diff = ' ')
+                #end
                 <property name="debit" type="String"> </property>
                 <property name="credit" type="String">$diff</property>
             #end

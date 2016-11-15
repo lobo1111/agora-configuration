@@ -95,10 +95,16 @@
             <property name="zpkCredit" type="String">$row.get('zpkCredit')</property>
             #if($row.get('zpkDebitStatus') > $row.get('zpkCreditStatus'))
                 #set($diff = $row.get('zpkDebitStatus') - $row.get('zpkCreditStatus'))
+                #if($diff == 0)
+                #set($diff = ' ')
+                #end
                 <property name="zpkDebitStatus" type="String">$diff</property>
                 <property name="zpkCreditStatus" type="String"> </property>
             #else
                 #set($diff = $row.get('zpkCreditStatus') - $row.get('zpkDebitStatus'))
+                #if($diff == 0)
+                #set($diff = ' ')
+                #end
                 <property name="zpkDebitStatus" type="String"> </property>
                 <property name="zpkCreditStatus" type="String">$diff</property>
             #end
