@@ -66,7 +66,7 @@ class ZpksStatusReport(Report):
         if zpk.getAccount() != None:
             return zpk.getAccount().getNumber()
         elif zpk.getPossession() != None:
-            return zpk.getPossession().getFullAddress()
+            return zpk.getPossession().getFullAddress() + " - " + zpk.getPossession().getOwnersAsString()
         elif zpk.getContractor() != None:
             return zpk.getContractor().getName()
         else:

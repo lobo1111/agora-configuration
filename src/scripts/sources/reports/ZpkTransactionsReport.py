@@ -49,7 +49,7 @@ class ZpkTransactionsReport(Report):
     
     def getSubject(self, transaction):
         if transaction.getDocument().getPossession() != None:
-            return transaction.getDocument().getPossession().getFullAddress()
+            return transaction.getDocument().getPossession().getFullAddress() + " - " + transaction.getDocument().getPossession().getOwnersAsString()
         elif transaction.getDocument().getContractor() != None:
             return transaction.getDocument().getContractor().getName()
         else:
