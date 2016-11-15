@@ -125,7 +125,13 @@ class DocumentManager(Container):
         
     def findZpk(self, zpks, typeKey):
         zpkType = self.findDictionary(str(self.findZpkSettingId(typeKey)))
-        return [zpk for zpk in zpks if zpk.getType().getKey() == zpkType.getKey()][0]
+        matched = [zpk for zpk in zpks if zpk.getType().getKey() == zpkType.getKey()]
+        if len(matched) == 1:
+            return matched[0]
+        else:
+            self._logger.info("ZPK of type %s not found in:" % typeKey)
+            for zpk in zpks:
+                self._logger.info("%s - %s" % (zpk.getNumber(), zpk.getType().getKey()))
             
     def findDictionary(self, id):
         return self._entityManager.createQuery("Select d From	Dictionary d Where d.id = %s" % str(id)).getSingleResult()
