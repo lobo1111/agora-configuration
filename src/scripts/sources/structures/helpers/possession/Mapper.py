@@ -33,6 +33,7 @@ class PossessionMapper(Mapper):
         self.map("heatArea", [DecimalValidator(messageParameter=self._label.get('field.heatArea'))], self._entity.getAdditionalData())
         AddressManager().set(self._entity)
         self.setCommunity()
+        self._entity.getCommunity().getPossessions().add(self._entity)
     
     def isNew(self):
         return self._isNewStructure
