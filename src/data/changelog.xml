@@ -2491,11 +2491,6 @@
             drop table charging        ;
         </sql>
     </changeSet>
-    <changeSet author="tkopacki" id="old-document-structure-clean-up-8">
-        <sql>  
-            drop table incoming_payment_document        ;
-        </sql>
-    </changeSet>
     <changeSet author="tkopacki" id="old-document-structure-clean-up-9">
         <sql>  
             alter table incoming_payment_document_position drop foreign key `incoming_payment_document_position_fkey`;
@@ -2503,20 +2498,9 @@
             drop table incoming_payment_document_position        ;
         </sql>
     </changeSet>
-    <changeSet author="tkopacki" id="old-document-structure-clean-up-10">
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-8">
         <sql>  
-            alter table internal_payment drop foreign key `internal_payment_booking_period_id_fkey`;
-            alter table internal_payment drop foreign key `internal_payment_credit_zpk_id_id_fkey`;
-            alter table internal_payment drop foreign key `internal_payment_debit_zpk_id_id_fkey`;
-            drop table internal_payment        ;
-        </sql>
-    </changeSet>
-    <changeSet author="tkopacki" id="old-document-structure-clean-up-11">
-        <sql>  
-            alter table invoice drop foreign key `invoice_contractor_fkey`;
-            alter table invoice drop foreign key `invoice_community_id_fkey`;
-            alter table invoice drop foreign key `invoice_internal_payment_id_fkey`;
-            drop table invoice        ;
+            drop table incoming_payment_document        ;
         </sql>
     </changeSet>
     <changeSet author="tkopacki" id="old-document-structure-clean-up-12">
@@ -2533,6 +2517,21 @@
             drop table invoice position        ;
         </sql>
     </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-11">
+        <sql>  
+            alter table invoice drop foreign key `invoice_contractor_fkey`;
+            alter table invoice drop foreign key `invoice_community_id_fkey`;
+            alter table invoice drop foreign key `invoice_internal_payment_id_fkey`;
+            drop table invoice        ;
+        </sql>
+    </changeSet>
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-15">
+        <sql>  
+            alter table payment_rent_details frop foreign key `payment_rent_details_payment_rent_id_fkey`;
+            alter table payment_rent_details frop foreign key `payment_rent_details_account_id_fkey`;
+            drop table payment_rent_details        ;
+        </sql>
+    </changeSet>
     <changeSet author="tkopacki" id="old-document-structure-clean-up-14">
         <sql>  
             alter table payment_rent drop foreign key `payment_rent_possession_id_fkey`;
@@ -2541,11 +2540,12 @@
             drop table payment_rent        ;
         </sql>
     </changeSet>
-    <changeSet author="tkopacki" id="old-document-structure-clean-up-15">
+    <changeSet author="tkopacki" id="old-document-structure-clean-up-10">
         <sql>  
-            alter table payment_rent_details frop foreign key `payment_rent_details_payment_rent_id_fkey`;
-            alter table payment_rent_details frop foreign key `payment_rent_details_account_id_fkey`;
-            drop table payment_rent_details        ;
+            alter table internal_payment drop foreign key `internal_payment_booking_period_id_fkey`;
+            alter table internal_payment drop foreign key `internal_payment_credit_zpk_id_id_fkey`;
+            alter table internal_payment drop foreign key `internal_payment_debit_zpk_id_id_fkey`;
+            drop table internal_payment        ;
         </sql>
     </changeSet>
     
