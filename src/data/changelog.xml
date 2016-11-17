@@ -2555,4 +2555,10 @@
             INSERT INTO `label`(`name`, `message`)VALUES('report.totalCredit', 'Ma łącznie');
         </sql>
     </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-update-charging-prediction-title">
+        <sql>
+            Update `label` set message = 'Opłaty miesięczne' Where name = 'report.chargingPrediction'
+        </sql>
+    </changeSet>
 </databaseChangeLog>
