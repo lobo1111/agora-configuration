@@ -31,24 +31,18 @@ class ZpksStatusReport(Report):
         output = sorted(output, key=lambda item: item.get('number'))
         return output
     
-    def calculate(self, zpk, statusDate, endDate = None):
+    def calculate(self, zpk, statusDate):
         balance = zpk.getCurrentBalance();
-        calculatedDebit = (self.sumDebit(zpk.getId(), statusDate, endDate).add(BigDecimal(balance.getStartDebit()))).setScale(2, RoundingMode.HALF_UP)
-        calculatedCredit = (self.sumCredit(zpk.getId(), statusDate, endDate).add(BigDecimal(balance.getStartCredit()))).setScale(2, RoundingMode.HALF_UP)
+        calculatedDebit = (self.sumDebit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartDebit()))).setScale(2, RoundingMode.HALF_UP)
+        calculatedCredit = (self.sumCredit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartCredit()))).setScale(2, RoundingMode.HALF_UP)
         return calculatedDebit, calculatedCredit
     
-    def sumCredit(self, zpkId, statusDate, endDate = None):
+    def sumCredit(self, zpkId, statusDate):
         date = SimpleDateFormat('dd-MM-yyyy').parse(statusDate)
-        if endDate == None:
-            sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = :debitId and e.canceled = 0 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= :date"
-        else:
-            dateTo = SimpleDateFormat('dd-MM-yyyy').parse(endDate)
-            sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = :debitId and e.canceled = 0 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt >= :date and e.createdAt <= :toDate"
+        sql = "Select sum(e.value) From DocumentPosition e Where e.creditZpk.id = :debitId and e.canceled = 0 and e.bookingPeriod.defaultPeriod = 1 and e.createdAt <= :date"
         query = self._entityManager.createQuery(sql)
         query.setParameter("debitId", zpkId)
         query.setParameter("date", date, TemporalType.DATE)
-        if endDate != None:
-            query.setParameter("toDate", dateTo, TemporalType.DATE)
         result = query.getSingleResult()
         if result == None:
             return BigDecimal(0)

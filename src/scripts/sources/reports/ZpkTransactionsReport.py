@@ -33,7 +33,7 @@ class ZpkTransactionsReport(Report):
         return output
     
     def calculateCurrentStatus(self):
-        return ZpksStatusReport().calculate(self._zpk, self._from, self._to)
+        return ZpksStatusReport().calculate(self._zpk, self._from)
     
     def getType(self, transaction):
         if transaction.getDocument().getType() == "INVOICE":
