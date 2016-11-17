@@ -90,7 +90,11 @@
     #end
     <list name="accounts">
         <entity name="chargingAccount">
+            #if($rfAccount)
             <property name="label" type="String">$labelChargingAccount</property>
+            #else
+            <property name="label" type="String">$labelSingleAccount</property>
+            #end
             <property name="value" type="String">$chargingAccount</property>
         </entity>
         #if($rfAccount)

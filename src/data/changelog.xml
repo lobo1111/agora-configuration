@@ -2573,4 +2573,10 @@
             INSERT INTO `label`(`name`, `message`)VALUES('currency', 'zł');
         </sql>
     </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-update-report-total">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.chargingSingleAccount', 'KNumer konta bankowego');
+        </sql>
+    </changeSet>
 </databaseChangeLog>

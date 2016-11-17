@@ -83,6 +83,7 @@ class ChargingPredictionReport(Report):
         self._context.put("labelTotal", self._label.get('report.totalValue'))
         self._context.put("labelChargingAccount", self._label.get('report.chargingAccount'))
         self._context.put("labelRFAccount", self._label.get('report.rfAccount'))
+        self._context.put("labelSingleAccount", self._label.get('report.chargingSingleAccount'))
         self._context.put("labelCurrency", self._label.get('currency'))
         
         
