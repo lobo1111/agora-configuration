@@ -2574,7 +2574,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author="tkopacki" id="labels-update-report-total">
+    <changeSet author="tkopacki" id="labels-report-single-charging-account">
         <sql>
             INSERT INTO `label`(`name`, `message`)VALUES('report.chargingSingleAccount', 'KNumer konta bankowego');
         </sql>
