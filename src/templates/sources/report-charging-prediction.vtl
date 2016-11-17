@@ -71,15 +71,19 @@
     </list>
     <list name="${entry.key}-data-headers">
         <entity name="date">
-            <property name="width" type="Double">30</property>
+            <property name="width" type="Double">25</property>
             <property name="label" type="String">$labelElement</property>
         </entity>
         <entity name="alg">
-            <property name="width" type="Double">50</property>
+            <property name="width" type="Double">40</property>
             <property name="label" type="String">$labelAlgorithm</property>
         </entity>
-        <entity name="value">
+        <entity name="alg">
             <property name="width" type="Double">20</property>
+            <property name="label" type="String"> </property>
+        </entity>
+        <entity name="value">
+            <property name="width" type="Double">15</property>
             <property name="label" type="String">$labelValue</property>
         </entity>
     </list>
@@ -88,6 +92,7 @@
         <entity name="item">
             <property name="date" type="String">$row.get('name')</property>
             <property name="alg" type="String">$row.get('alg')</property>
+            <property name="alg" type="String">$row.get('stm')</property>
             <property name="value" type="String">$row.get('value')</property>
         </entity>
         #end

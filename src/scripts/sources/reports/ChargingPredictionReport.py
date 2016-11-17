@@ -20,12 +20,13 @@ class ChargingPredictionReport(Report):
         output = dict([])
         elements = self._possession.getElements()
         for element in elements:
-            value = self.calculateValue(element)
+            value, stm = self.calculateValue(element)
             self._total = self._total.add(value)
             value = str(value.setScale(2, RoundingMode.HALF_UP)) + " " + self._label.get('currency')
             item = dict([])
             item['name'] = element.getName()
             item['alg'] = element.getElement().getAlgorithm().getKey()
+            item['stm'] = stm
             item['value'] = value
             if not element.getGroup().getValue() in output:
                 output[element.getGroup().getValue()] = []
@@ -35,6 +36,7 @@ class ChargingPredictionReport(Report):
     def createTotalLine(self, output, total):
         item = dict([])
         item['alg'] = ' '
+        item['stm'] = ' '
         item['element'] = self._label.get("report.totalValue")
         item['value'] = str(total.setScale(2, RoundingMode.HALF_UP)) + " " + self._label.get('currency')
         output.append(item)
@@ -42,13 +44,14 @@ class ChargingPredictionReport(Report):
     def createEmptyLine(self, output):
         item = dict([])
         item['alg'] = ' '
+        item['stm'] = ' '
         item['element'] = ' '
         item['value'] = ' '
         output.append(item)
     
     def calculateValue(self, element):
         calculator = Calculator()
-        return BigDecimal(calculator.calculate(element.getElement(), self._possession)).setScale(2, RoundingMode.HALF_UP)
+        return BigDecimal(calculator.calculate(element.getElement(), self._possession)).setScale(2, RoundingMode.HALF_UP), calculator.getStatement(element.getElement(), self._possession)
     
     def getPaymentStartDate(self):
         bp = BookingPeriodManager()

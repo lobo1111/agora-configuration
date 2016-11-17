@@ -15,6 +15,17 @@ class Calculator(Container):
             return result
     
     def calculate(self, element, possession):
+        algorithm = self.getStatement(element, possession)
+        algorithmValue = eval(algorithm)
+        self._logger.info(str(algorithm) + '=' + str(algorithmValue))
+        return algorithmValue
+    
+    def calculateWithStatement(self, algorithm):
+        algorithmValue = eval(algorithm)
+        self._logger.info(str(algorithm) + '=' + str(algorithmValue))
+        return algorithmValue
+
+    def getStatement(self, element, possession):
         entities = {"element" : element, "possession" : possession}
         if possession is not None:
             entities['possessionData'] = possession.getAdditionalData()
@@ -36,6 +47,5 @@ class Calculator(Container):
                     value = 0
                     self._logger.info('Exception raised, attribute not found(%s). Assuming attribute value = 0' % attribute)
             algorithm = algorithm.replace('#{' + entity + '.' + attribute + '}', str(value))
-        algorithmValue = eval(algorithm)
-        self._logger.info(str(algorithm) + '=' + str(algorithmValue))
-        return algorithmValue
+        return algorithm
+        
