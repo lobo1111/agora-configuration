@@ -26,11 +26,14 @@
         #end
         <entity name="accounts">
             <property name="type" type="String">list</property>
-            <property name="emptyLinesBefore" type="Integer">4</property>
+            <property name="emptyLinesBefore" type="Integer">3</property>
         </entity>
-        <entity name="total">
+        <entity name="total-1">
             <property name="type" type="String">to-right</property>
-            <property name="emptyLinesBefore" type="Integer">1</property>
+            <property name="emptyLinesBefore" type="Integer">2</property>
+        </entity>
+        <entity name="total-2">
+            <property name="type" type="String">to-right</property>
         </entity>
     </list>
     <property name="horizontalLine" type="String">false</property>
@@ -100,9 +103,15 @@
         </entity>
         #end
     </list>
-    <list name="total">
-        <entity name="createDate">
+    <list name="total-1">
+        <entity name="total">
             <property name="label" type="String">$labelTotal</property>
+            <property name="value" type="String">&nbsp</property>
+        </entity>
+    </list>
+    <list name="total-2">
+        <entity name="total">
+            <property name="label" type="String">$nbsp</property>
             <property name="value" type="String">$totalValue $labelCurrency</property>
         </entity>
     </list>
