@@ -38,6 +38,10 @@
             <property name="width" type="Double">15</property>
             <property name="label" type="String">$labelNumber</property>
         </entity>
+        <entity name="description">
+            <property name="width" type="Double">55</property>
+            <property name="label" type="String">$labelDescription</property>
+        </entity>
         <entity name="debit">
             <property name="width" type="Double">15</property>
             <property name="label" type="String">$labelDebit</property>
@@ -46,15 +50,12 @@
             <property name="width" type="Double">15</property>
             <property name="label" type="String">$labelCredit</property>
         </entity>
-        <entity name="description">
-            <property name="width" type="Double">55</property>
-            <property name="label" type="String">$labelDescription</property>
-        </entity>
     </list>
     <list name="data">
         #foreach($row in $zpks)
         <entity name="item">
             <property name="number" type="String">$row.get('number')</property>
+            <property name="description" type="String">$row.get('description')</property>
             #if($row.get('debit') > $row.get('credit'))
                 #set($diff = $row.get('debit') - $row.get('credit'))
                 #if($diff == 0)
@@ -70,7 +71,6 @@
                 <property name="debit" type="String"> </property>
                 <property name="credit" type="String">$diff</property>
             #end
-            <property name="description" type="String">$row.get('description')</property>
         </entity>
         #end
     </list>
