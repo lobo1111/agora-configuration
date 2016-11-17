@@ -25,6 +25,7 @@ class ChargingPredictionReport(Report):
             value = str(value.setScale(2, RoundingMode.HALF_UP)) + " " + self._label.get('currency')
             item = dict([])
             item['name'] = element.getName()
+            item['alg'] = element.getGroup().getKey()
             item['value'] = value
             if not element.getGroup().getValue() in output:
                 output[element.getGroup().getValue()] = []
@@ -33,14 +34,14 @@ class ChargingPredictionReport(Report):
     
     def createTotalLine(self, output, total):
         item = dict([])
-        item['group'] = ' '
+        item['alg'] = ' '
         item['element'] = self._label.get("report.totalValue")
         item['value'] = str(total.setScale(2, RoundingMode.HALF_UP)) + " " + self._label.get('currency')
         output.append(item)
     
     def createEmptyLine(self, output):
         item = dict([])
-        item['group'] = ' '
+        item['alg'] = ' '
         item['element'] = ' '
         item['value'] = ' '
         output.append(item)
@@ -85,6 +86,7 @@ class ChargingPredictionReport(Report):
         self._context.put("labelRFAccount", self._label.get('report.rfAccount'))
         self._context.put("labelSingleAccount", self._label.get('report.chargingSingleAccount'))
         self._context.put("labelCurrency", self._label.get('currency'))
+        self._context.put("labelAlgorithm", self._label.get('field.algorithm'))
         
         
     def getTemplateName(self):

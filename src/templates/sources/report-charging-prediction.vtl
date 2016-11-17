@@ -74,6 +74,10 @@
             <property name="width" type="Double">50</property>
             <property name="label" type="String">$labelElement</property>
         </entity>
+        <entity name="alg">
+            <property name="width" type="Double">50</property>
+            <property name="label" type="String">$labelAlgorithm</property>
+        </entity>
         <entity name="value">
             <property name="width" type="Double">20</property>
             <property name="label" type="String">$labelValue</property>
@@ -83,6 +87,7 @@
         #foreach($row in $entry.value)
         <entity name="item">
             <property name="date" type="String">$row.get('name')</property>
+            <property name="date" type="String">$row.get('alg')</property>
             <property name="value" type="String">$row.get('value')</property>
         </entity>
         #end
