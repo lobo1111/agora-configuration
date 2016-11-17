@@ -21,12 +21,16 @@
         </entity>
         <entity name="${entry.key}-data">
             <property name="type" type="String">table</property>
+            <property name="emptyLinesAfter" type="Integer">1</property>
         </entity>
         #end
-        <entity name="footer">
+        <entity name="accounts">
             <property name="type" type="String">list</property>
-            <property name="emptyLinesBefore" type="Integer">2</property>
-
+            <property name="emptyLinesBefore" type="Integer">4</property>
+        </entity>
+        <entity name="total">
+            <property name="type" type="String">to-right</property>
+            <property name="emptyLinesBefore" type="Integer">1</property>
         </entity>
     </list>
     <property name="horizontalLine" type="String">false</property>
@@ -84,7 +88,7 @@
         #end
     </list>
     #end
-    <list name="footer">
+    <list name="accounts">
         <entity name="chargingAccount">
             <property name="label" type="String">$labelChargingAccount</property>
             <property name="value" type="String">$chargingAccount</property>
@@ -95,11 +99,9 @@
             <property name="value" type="String">$rfAccount</property>
         </entity>
         #end
-        <entity name="emptyLine">
-            <property name="label" type="String"> </property>
-            <property name="value" type="String"> </property>
-        </entity>
-        <entity name="paymentSum">
+    </list>
+    <list name="total">
+        <entity name="createDate">
             <property name="label" type="String">$labelTotal</property>
             <property name="value" type="String">$totalValue $labelCurrency</property>
         </entity>
