@@ -25,9 +25,6 @@ class ChargingPredictionReport(Report):
         groupItems = 0
         for element in elements:
             if element.getGroup().getId() != lastGroupId:
-                if groupItems > 1:
-                    self.createTotalLine(output, groupTotal)
-                    groupTotal = BigDecimal(0)
                 self.createEmptyLine(output)
                 groupItems = 0
                 lastGroupId = element.getGroup().getId()
@@ -41,7 +38,6 @@ class ChargingPredictionReport(Report):
             self._total = self._total.add(value)
             groupItems += 1
             output.append(item)
-        self.createTotalLine(output, groupTotal)
         return output
     
     def createTotalLine(self, output, total):
