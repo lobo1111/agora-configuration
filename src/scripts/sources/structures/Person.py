@@ -5,7 +5,7 @@ class PersonManager(Container):
     _mapper = PersonMapper()
     
     def set(self, entity):
-        self._mapper.findOrCreate(entity)
+        self._mapper.findOrCreate()
         self._mapper.setData()
         entity.setPerson(self._mapper.getEntity())
         
