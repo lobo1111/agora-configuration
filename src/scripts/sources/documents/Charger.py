@@ -67,7 +67,7 @@ class ChargerManager(DocumentManager):
         return self._entityManager.createQuery("Select p From Possession p Join p.community co Where co.inDate is not null and co.inDate <= CURRENT_DATE and co.outDate is null").getResultList()
      
     def isRepairFundElement(self, element):
-        rfGroupId = DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue()
+        rfGroupId = int(DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue())
         self._logger.info("Repair Fund group: %d" % rfGroupId)
         elementGroupId = element.getGroup().getId()
         if rfGroupId == elementGroupId:
