@@ -17,27 +17,18 @@ class ChargingPredictionReport(Report):
         self._rfAccount = self.getRFAccount()
         
     def collectItems(self):
-        output = []
+        output = dict([])
         elements = self._possession.getElements()
-        elements = sorted(elements, key=lambda item: item.getGroup().getValue() + item.getName())
-        lastGroupId = elements[0].getGroup().getId()
-        groupTotal = BigDecimal(0)
-        groupItems = 0
         for element in elements:
-            if element.getGroup().getId() != lastGroupId:
-                self.createEmptyLine(output)
-                groupItems = 0
-                lastGroupId = element.getGroup().getId()
-                groupTotal = BigDecimal(0)
-            item = dict([])
-            item['group'] = element.getGroup().getValue()
-            item['element'] = element.getName()
             value = self.calculateValue(element)
-            item['value'] = str(value.setScale(2, RoundingMode.HALF_UP)) + " " + self._label.get('currency')
-            groupTotal = groupTotal.add(value)
             self._total = self._total.add(value)
-            groupItems += 1
-            output.append(item)
+            value = str(value.setScale(2, RoundingMode.HALF_UP)) + " " + self._label.get('currency')
+            item = dict([])
+            item['name'] = element.getName()
+            item['value'] = value
+            if not element.getGroup().getValue() in output:
+                output[element.getGroup().getValue()] = []
+            output[element.getGroup().getValue()].append(item) 
         return output
     
     def createTotalLine(self, output, total):

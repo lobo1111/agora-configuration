@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <entity name="report-zpks-status">
-    <property name="content" type="String">header,title,introduction,data,footer</property>
-    <property name="header" type="String">to-right</property>
-    <property name="title" type="String">centered</property>
-    <property name="introduction" type="String">list</property>
-    <property name="data" type="String">table</property>
-    <property name="footer" type="String">list</property>
+    <list name="content">
+        <entity name="header">
+            <property name="type" type="String">to-right</property>
+        </entity>
+        <entity name="title">
+            <property name="type" type="String">centered</property>
+        </entity>
+        <entity name="introduction">
+            <property name="type" type="String">list</property>
+        </entity>
+        <entity name="data">
+            <property name="type" type="String">table</property>
+        </entity>
+        <entity name="footer">
+            <property name="type" type="String">list</property>
+        </entity>
+        #foreach ($entry in $items.entrySet())
+        <entity name="$entry.key">
+            <property name="type" type="String">centered</property>
+        </entity>
+        <entity name="$entry.key-data">
+            <property name="type" type="String">table</property>
+        </entity>
+        #end
+    </list>
     <property name="horizontalLine" type="String">false</property>
     <list name="header">
         <entity name="createDate">
@@ -36,11 +55,13 @@
             <property name="value" type="String">$paymentStartDate</property>
         </entity>
     </list>
-    <list name="data-headers">
-        <entity name="type">
-            <property name="width" type="Double">30</property>
-            <property name="label" type="String">$labelGroup</property>
+    #foreach ($entry in $items.entrySet())
+    <list name="$entry.key">
+        <entity name="title">
+            <property name="label" type="String">$entry.key</property>
         </entity>
+    </list>
+    <list name="${entry.key}-data-headers">
         <entity name="date">
             <property name="width" type="Double">50</property>
             <property name="label" type="String">$labelElement</property>
@@ -50,15 +71,15 @@
             <property name="label" type="String">$labelValue</property>
         </entity>
     </list>
-    <list name="data">
-        #foreach($row in $items)
+    <list name="${entry.key}-data">
+        #foreach($row in $mapEntry.value)
         <entity name="item">
-            <property name="type" type="String">$row.get('group')</property>
-            <property name="date" type="String">$row.get('element')</property>
+            <property name="date" type="String">$row.get('name')</property>
             <property name="value" type="String">$row.get('value')</property>
         </entity>
         #end
     </list>
+    #endF
     <list name="footer">
         <entity name="chargingAccount">
             <property name="label" type="String">$labelChargingAccount</property>
