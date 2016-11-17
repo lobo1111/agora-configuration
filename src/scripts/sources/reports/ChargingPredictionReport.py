@@ -33,7 +33,7 @@ class ChargingPredictionReport(Report):
             item['group'] = element.getGroup().getValue()
             item['element'] = element.getName()
             value = self.calculateValue(element)
-            item['value'] = value + " " + self._label.get('currency')
+            item['value'] = str(value.setScale(2, RoundingMode.HALF_UP)) + " " + self._label.get('currency')
             groupTotal = groupTotal.add(value)
             self._total = self._total.add(value)
             groupItems += 1
