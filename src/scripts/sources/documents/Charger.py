@@ -67,4 +67,12 @@ class ChargerManager(DocumentManager):
         return self._entityManager.createQuery("Select p From Possession p Join p.community co Where co.inDate is not null and co.inDate <= CURRENT_DATE and co.outDate is null").getResultList()
      
     def isRepairFundElement(self, element):
-        return DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue() == element.getGroup().getId()
+        rfGroupId = DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue()
+        self._logger.info("Repair Fund group: %d" % rfGroupId)
+        elementGroupId = element.getGroup().getId()
+        if rfGroupId == elementGroupId:
+            self._logger.info("Element %s marked as repair fund related(%d)" % (element.getName(), elementGroupId))
+            return True
+        else:
+            self._logger.info("Element %s marked as rent related(%d)" % (element.getName(), elementGroupId))
+            return False
