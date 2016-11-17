@@ -3,12 +3,17 @@
     <list name="content">
         <entity name="header">
             <property name="type" type="String">to-right</property>
+            <property name="emptyLinesAfter" type="Integer">2</property>
         </entity>
         <entity name="title">
             <property name="type" type="String">centered</property>
+            <property name="emptyLinesAfter" type="Integer">2</property>
+
         </entity>
         <entity name="introduction">
             <property name="type" type="String">list</property>
+            <property name="emptyLinesAfter" type="Integer">2</property>
+
         </entity>
         #foreach ($entry in $items.entrySet())
         <entity name="${entry.key}">
@@ -20,6 +25,8 @@
         #end
         <entity name="footer">
             <property name="type" type="String">list</property>
+            <property name="emptyLinesBefore" type="Integer">2</property>
+
         </entity>
     </list>
     <property name="horizontalLine" type="String">false</property>
