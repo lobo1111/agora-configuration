@@ -48,7 +48,7 @@
         <entity name="item">
             <property name="type" type="String">$row.get('group')</property>
             <property name="date" type="String">$row.get('element')</property>
-            <property name="value" type="String">$row.get('value')</property>
+            <property name="value" type="String">$row.get('value') $labelCurrency</property>
         </entity>
         #end
     </list>
@@ -69,7 +69,7 @@
         </entity>
         <entity name="paymentSum">
             <property name="label" type="String">$labelTotal</property>
-            <property name="value" type="String">$totalValue</property>
+            <property name="value" type="String">$totalValue $labelCurrency</property>
         </entity>
     </list>
 </entity>

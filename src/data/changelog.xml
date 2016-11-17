@@ -2561,4 +2561,16 @@
             Update `label` set message = 'Opłaty miesięczne' Where name = 'report.chargingPrediction'
         </sql>
     </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-update-report-total">
+        <sql>
+            Update `label` set message = 'Łącznie do zapłaty' Where name = 'report.totalValue'
+        </sql>
+    </changeSet>
+        
+    <changeSet author="tkopacki" id="labels-currency-label">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('currency', 'zł');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
