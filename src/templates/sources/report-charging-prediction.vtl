@@ -72,9 +72,7 @@
         </entity>
     </list>
     <list name="${entry.key}-data">
-        $mapEntry.value
-        #foreach($row in $mapEntry.value)
-        $row
+        #foreach($row in $entry.value)
         <entity name="item">
             <property name="date" type="String">$row.get('name')</property>
             <property name="value" type="String">$row.get('value')</property>
