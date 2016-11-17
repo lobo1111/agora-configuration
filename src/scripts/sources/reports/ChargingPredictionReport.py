@@ -25,7 +25,7 @@ class ChargingPredictionReport(Report):
             value = str(value.setScale(2, RoundingMode.HALF_UP)) + " " + self._label.get('currency')
             item = dict([])
             item['name'] = element.getName()
-            item['alg'] = element.getElement().getAlgorithm().getValue()
+            item['alg'] = element.getElement().getAlgorithm().getKey()
             item['value'] = value
             if not element.getGroup().getValue() in output:
                 output[element.getGroup().getValue()] = []
