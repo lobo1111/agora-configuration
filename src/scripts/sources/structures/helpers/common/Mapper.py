@@ -10,7 +10,7 @@ class Mapper(Container):
             mappedEntity = self._entity
             self._logger.info("Performing mapping on existing entity: %s" % mappedEntity.toString())
         for validator in validators:
-            self._logger.info("Validating property %s with value %s..." % (propertyName, self._svars.get(propertyName))
+            self._logger.info("Validating property %s with value %s..." % (propertyName, self._svars.get(propertyName)))
             validator.validate(self._svars.get(propertyName))
         methodName = "set" + propertyName[0].upper() + propertyName[1:]
         if self._svars.get(propertyName + "Type") == 'javafx.beans.property.SimpleIntegerProperty':
