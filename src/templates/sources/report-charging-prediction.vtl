@@ -17,10 +17,10 @@
             <property name="type" type="String">list</property>
         </entity>
         #foreach ($entry in $items.entrySet())
-        <entity name="$entry.key">
+        <entity name="${entry.key}">
             <property name="type" type="String">centered</property>
         </entity>
-        <entity name="$entry.key-data">
+        <entity name="${entry.key}-data">
             <property name="type" type="String">table</property>
         </entity>
         #end
