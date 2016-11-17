@@ -42,15 +42,13 @@ class ChargingPredictionReport(Report):
             groupItems += 1
             output.append(item)
         self.createTotalLine(output, groupTotal)
-        self.createEmptyLine(output)
-        self.createTotalLine(output, self._total)
         return output
     
     def createTotalLine(self, output, total):
         item = dict([])
         item['group'] = ' '
-        item['element'] = ' '
-        item['value'] = "=" + str(total.setScale(2, RoundingMode.HALF_UP))
+        item['element'] = self._label.get("report.totalValue")
+        item['value'] = str(total.setScale(2, RoundingMode.HALF_UP))
         output.append(item)
     
     def createEmptyLine(self, output):
