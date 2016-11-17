@@ -2580,7 +2580,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author="tkopacki" id="labels-update-report-total">
+    <changeSet author="tkopacki" id="labels-report-single-charging-account-2">
         <sql>
             Update `label` set message = 'Numer konta bankowego' Where name = 'report.chargingSingleAccount'
         </sql>
