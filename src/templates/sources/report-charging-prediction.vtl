@@ -10,9 +10,6 @@
         <entity name="introduction">
             <property name="type" type="String">list</property>
         </entity>
-        <entity name="footer">
-            <property name="type" type="String">list</property>
-        </entity>
         #foreach ($entry in $items.entrySet())
         <entity name="${entry.key}">
             <property name="type" type="String">centered</property>
@@ -21,6 +18,9 @@
             <property name="type" type="String">table</property>
         </entity>
         #end
+        <entity name="footer">
+            <property name="type" type="String">list</property>
+        </entity>
     </list>
     <property name="horizontalLine" type="String">false</property>
     <list name="header">
