@@ -75,7 +75,11 @@
     <list name="data">
         #set($lastMonth = "")
         #foreach($row in $transactions)
+        #if($row.get('date') == ' ')
+        #set($currentMonth = $lastMonth)
+        #else
         #set($currentMonth = $row.get('date').substring(3, 5))
+        #end
         #if($lastMonth != $currentMonth)
         #if($lastMonth != "")
         <entity name="item">
