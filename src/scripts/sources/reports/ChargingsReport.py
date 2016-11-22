@@ -24,7 +24,7 @@ class ChargingsReport(Report):
         output = []
         for document in self.getQuery().getResultList():
             if document not in processed:
-                if document.getType() == CHARGING:
+                if document.getType() == "CHARGING":
                     rf, rent = self.splitCharging(document)
                     output.append(rf)
                     output.append(rent)
