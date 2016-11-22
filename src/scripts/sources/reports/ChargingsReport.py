@@ -104,7 +104,7 @@ class ChargingsReport(Report):
         rent = BigDecimal(0)
         rf = BigDecimal(0)
         for position in document.getPositions():
-            if int(position.getAttribute("ELEMENT_GROUP_ID").getValue()) == self._rfGroupId
+            if int(position.getAttribute("ELEMENT_GROUP_ID").getValue()) == self._rfGroupId:
                 rent = rent.add(position.getValue())
             else:
                 rf = rf.add(position.getValue())
