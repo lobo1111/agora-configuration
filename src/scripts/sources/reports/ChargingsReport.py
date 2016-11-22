@@ -26,6 +26,7 @@ class ChargingsReport(Report):
             if document not in processed:
                 item = dict([])
                 item['no'] = counter
+                item['root'] = True
                 counter += 1
                 item['type'] = self.getType(document)
                 item['date'] = self.getCreateDate(document)
@@ -41,9 +42,15 @@ class ChargingsReport(Report):
                 output.append(rf)
                 processed.append(document)
         output = sorted(output, key=lambda item: item['no'])
-        for i in range(1, len(output)):
-            if item['date'] != ' ':
-                output[i]['balance'] = output[i - 1]['balance'].add(output[i]['value'])
+        s = 1
+        while output[i]['root'] == False:
+            s += 1
+        for i in range(s, len(output)):
+            if output[i]['root']:
+                j = 1
+                while output[j]['root'] == False:
+                    j += 1
+                output[i]['balance'] = output[i - j]['balance'].add(output[i]['value'])
         return output
     
     def getCreateDate(self, document):
@@ -78,6 +85,7 @@ class ChargingsReport(Report):
         rfGroupId = int(DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue())
         rf = dict([])
         rent = dict([])
+        rf['root'] = rent['root'] = False
         rf['date'] = rent['date'] = ' '
         rf['balance'] = rent['balance'] = ' '
         rf['type'] = self._label.get('report.repairFund')
