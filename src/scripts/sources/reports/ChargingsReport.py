@@ -40,7 +40,7 @@ class ChargingsReport(Report):
                 output.append(rent)
                 output.append(rf)
                 processed.append(document)
-        output = sorted(output, key=lambda item: item['counter'])
+        output = sorted(output, key=lambda item: item['no'])
         for i in range(1, len(output)):
             output[i]['balance'] = output[i - 1]['balance'].add(output[i]['value'])
         return output
