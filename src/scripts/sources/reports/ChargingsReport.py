@@ -28,6 +28,9 @@ class ChargingsReport(Report):
                 item['value'] = self.calculateValue(document)
                 item['balance'] = item['value'].add(self._startBalance)
                 output.append(item)
+                rent, rf = self.getSubItems(document)
+                output.append(rent)
+                output.append(rf)
                 processed.append(document)
         output = sorted(output, key=lambda item: SimpleDateFormat('dd-MM-yyyy').parse(item['date']).getTime())
         for i in range(1, len(output)):
@@ -60,6 +63,32 @@ class ChargingsReport(Report):
             else:
                 value = value.add(position.getValue())
         return value
+
+
+    def getSubItems(self, document):
+        rfGroupId = int(DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue())
+        rf = dict([])
+        rent = dict([])
+        rf['date'] = rent['date'] = ' '
+        rf['balance'] = rent['balance'] = ' '
+        rf['type'] = 'RF'
+        rent['type'] = 'Rent'
+        valueRent = BigDecimal(0)
+        valueRf = BigDecimal(0)
+        for position in document.getPositions():
+            if document.getType() == "CHARGING":
+                if int(position.getAttribute("ELEMENT_GROUP_ID")) == rfGroupId:
+                    valueRf = valueRf.add(position.getValue().multiply(BigDecimal(-1)))
+                else:
+                    valueRent = valueRent.add(position.getValue().multiply(BigDecimal(-1)))
+            else:
+                if position.getType() == "POSSESSION_PAYMENT_RENT":
+                    valueRent = valueRent.add(position.getValue())
+                else:
+                    valueRf = valueRf.add(position.getValue())
+        rent['value'] = valueRent
+        rf['value'] = valueRf
+        return rent, rf
     
     def getQuery(self):
         sql = "Select d From Document d Join d.positions p Join p.bookingPeriod bp Where d.possession.id = :pid And bp.defaultPeriod = 1"
