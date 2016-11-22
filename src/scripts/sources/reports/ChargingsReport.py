@@ -21,19 +21,26 @@ class ChargingsReport(Report):
     def collectTransactions(self):
         processed = []
         output = []
+        counter = 0
         for document in self.getQuery().getResultList():
             if document not in processed:
                 item = dict([])
+                item['no'] = counter
+                counter += 1
                 item['type'] = self.getType(document)
                 item['date'] = self.getCreateDate(document)
                 item['value'] = self.calculateValue(document)
                 item['balance'] = item['value'].add(self._startBalance)
                 output.append(item)
                 rent, rf = self.getSubItems(document)
+                rent['no'] = counter
+                counter += 1
+                rf['no'] = counter
+                counter += 1
                 output.append(rent)
                 output.append(rf)
                 processed.append(document)
-        output = sorted(output, key=lambda item: SimpleDateFormat('dd-MM-yyyy').parse(item['date']).getTime())
+        output = sorted(output, key=lambda item: item['counter'])
         for i in range(1, len(output)):
             output[i]['balance'] = output[i - 1]['balance'].add(output[i]['value'])
         return output
