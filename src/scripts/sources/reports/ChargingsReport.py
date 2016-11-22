@@ -41,7 +41,7 @@ class ChargingsReport(Report):
                 output.append(rent)
                 output.append(rf)
                 processed.append(document)
-        output = sorted(output, key=lambda item: item['no'])
+        output = sorted(output, key=lambda item: item['no'], reverse=True)
         s = 1
         while s < len(output) and output[s]['root'] == False:
             s += 1
