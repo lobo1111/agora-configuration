@@ -2585,4 +2585,10 @@
             Update `label` set message = 'Numer konta bankowego' Where name = 'report.chargingSingleAccount'
         </sql>
     </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-report-chargings-2">
+        <sql>
+            UPDATE label set message = 'Stan rozrachunków' where name = 'report.chargings';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

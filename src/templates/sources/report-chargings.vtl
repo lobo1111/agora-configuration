@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
 <entity name="report-zpks-status">
+    <list name="content">
+        <entity name="header">
+            <property name="type" type="String">to-right</property>
+            <property name="emptyLinesAfter" type="Integer">2</property>
+        </entity>
+        <entity name="title">
+            <property name="type" type="String">centered</property>
+            <property name="emptyLinesAfter" type="Integer">2</property>
+
+        </entity>
+        <entity name="introduction">
+            <property name="type" type="String">list</property>
+            <property name="emptyLinesAfter" type="Integer">2</property>
+
+        </entity>
+        <entity name="data">
+            <property name="type" type="String">table</property>
+            <property name="emptyLinesAfter" type="Integer">1</property>
+        </entity>
+    </list>
     <property name="horizontalLine" type="String">true</property>
     <list name="header">
         <entity name="createDate">
