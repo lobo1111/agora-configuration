@@ -17,9 +17,8 @@ class PossessionManager(Container):
             self.createZpkNumbers(self._mapper.getEntity())
             if self._mapper.isNew():
                 self.createElements(self._mapper.getEntity())
-            self.refreshShortcuts(self._mapper.getEntity())
-            self._mapper.getEntity().setFullAddress(self._mapper.getEntity().getAddress().getFullAddress())
             self.saveEntity(self._mapper.getEntity())
+            self.refreshShortcuts(self._mapper.getEntity())
             CommunityDetailsManager().recalculateShares(self._mapper.getEntity().getCommunity())
         except ValidationError, e:
             self.setError(e)
