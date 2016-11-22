@@ -78,7 +78,7 @@ class ChargingsReport(Report):
         valueRf = BigDecimal(0)
         for position in document.getPositions():
             if document.getType() == "CHARGING":
-                if int(position.getAttribute("ELEMENT_GROUP_ID")) == rfGroupId:
+                if int(position.getAttribute("ELEMENT_GROUP_ID").getValue()) == rfGroupId:
                     valueRf = valueRf.add(position.getValue().multiply(BigDecimal(-1)))
                 else:
                     valueRent = valueRent.add(position.getValue().multiply(BigDecimal(-1)))
