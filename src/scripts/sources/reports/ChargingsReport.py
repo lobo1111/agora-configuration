@@ -43,7 +43,7 @@ class ChargingsReport(Report):
                 processed.append(document)
         output = sorted(output, key=lambda item: item['no'])
         s = 1
-        while output[i]['root'] == False:
+        while output[s]['root'] == False:
             s += 1
         for i in range(s, len(output)):
             if output[i]['root']:
