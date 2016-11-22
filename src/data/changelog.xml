@@ -2586,7 +2586,7 @@
         </sql>
     </changeSet>
     
-    <changeSet author="tkopacki" id="labels-report-chargings-2">
+    <changeSet author="tkopacki" id="labels-report-chargings-3">
         <sql>
             UPDATE label set message = 'Stan rozrachunków' where name = 'report.chargings';
         </sql>
