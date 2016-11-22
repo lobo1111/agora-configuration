@@ -57,6 +57,7 @@ class ChargingsReport(Report):
         rent['value'], rf['value'] = self.calculateChargingValue(document)
         rent['balance'] = rent['value'].add(self._startBalance)
         rf['balance'] = rf['value'].add(self._startBalance)
+        return rf, rent
 
     def splitPayment(self, document):
         rent = dict([])
@@ -67,6 +68,7 @@ class ChargingsReport(Report):
         rent['value'], rf['value'] = self.calculatePaymentValue(document)
         rent['balance'] = rent['value'].add(self._startBalance)
         rf['balance'] = rf['value'].add(self._startBalance)
+        return rf, rent
     
     def getCreateDate(self, document):
         if document.getAttribute("CREATE_DATE") != None:
