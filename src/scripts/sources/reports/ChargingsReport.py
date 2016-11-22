@@ -47,6 +47,7 @@ class ChargingsReport(Report):
         item['date'] = self.getCreateDate(document)
         item['value'] = self.calculateNoteValue(document)
         item['balance'] = item['value'].add(self._startBalance)
+        return item
 
     def splitCharging(self, document):
         rent = dict([])
