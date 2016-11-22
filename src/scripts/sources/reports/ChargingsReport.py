@@ -26,12 +26,16 @@ class ChargingsReport(Report):
             if document not in processed:
                 if document.getType() == "CHARGING":
                     rf, rent = self.splitCharging(document)
-                    output.append(rf)
-                    output.append(rent)
+                    if rf['value'].compareTo(BigDecimal(0)) != 0:
+                        output.append(rf)
+                    if rent['value'].compareTo(BigDecimal(0)) != 0:
+                        output.append(rent)
                 elif document.getType() == "POSSESSION_PAYMENT":
                     rf, rent = self.splitPayment(document)
-                    output.append(rf)
-                    output.append(rent)
+                    if rf['value'].compareTo(BigDecimal(0)) != 0:
+                        output.append(rf)
+                    if rent['value'].compareTo(BigDecimal(0)) != 0:
+                        output.append(rent)
                 elif document.getType() == "BANK_NOTE":
                     note = self.getNote(document)
                     output.append(note)
@@ -112,9 +116,9 @@ class ChargingsReport(Report):
         rf = BigDecimal(0)
         for position in document.getPositions():
             if int(position.getAttribute("ELEMENT_GROUP_ID").getValue()) == self._rfGroupId:
-                rent = rent.add(position.getValue())
+                rent = rent.add(position.getValue()).multiply(BigDecimal(-1))
             else:
-                rf = rf.add(position.getValue())
+                rf = rf.add(position.getValue()).multiply(BigDecimal(-1))
         return rent, rf
 
     def getQuery(self):
