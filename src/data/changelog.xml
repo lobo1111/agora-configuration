@@ -2604,13 +2604,13 @@
         </sql>
     </changeSet>
     
-    <changeSet author='tkopacki' id='possession-full-address-column-add'>
+    <changeSet author='tkopacki' id='possession-owners-column-add'>
         <sql>                   
             ALTER TABLE `possession`
             ADD COLUMN `owners_names` varchar(255)
         </sql>
     </changeSet>
-    <changeSet author='tkopacki' id='possession-full-address-column-add'>
+    <changeSet author='tkopacki' id='possession-owners-with-address-column-add'>
         <sql>                   
             ALTER TABLE `possession`
             ADD COLUMN `full_address_with_names` varchar(510)
