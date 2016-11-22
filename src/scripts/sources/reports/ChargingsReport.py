@@ -80,7 +80,7 @@ class ChargingsReport(Report):
         self._context.put("labelStatusDate", self._label.get('report.statusDate'))
         self._context.put("labelBalance", self._label.get('report.balance'))
         self._context.put("labelStartBalance", self._label.get('report.startBalance'))
-        self._context.put("labelCreatedAt", self._label.get('report.createdAt'))
+        self._context.put("labelCreatedAt", self._label.get('report.operationDate'))
         self._context.put("labelValue", self._label.get('report.value'))
         self._context.put("labelType", self._label.get('report.documentType'))
         

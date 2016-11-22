@@ -2591,4 +2591,29 @@
             UPDATE label set message = 'Stan rozrachunków' where name = 'report.chargings';
         </sql>
     </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-report-chargings-4">
+        <sql>
+            UPDATE label set message = 'Bilans otwarcia' where name = 'report.startBalance';
+        </sql>
+    </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-report-chargings-5">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.operationDate', 'Data operacji');
+        </sql>
+    </changeSet>
+    
+    <changeSet author='tkopacki' id='possession-full-address-column-add'>
+        <sql>                   
+            ALTER TABLE `possession`
+            ADD COLUMN `owners_names` varchar(255)
+        </sql>
+    </changeSet>
+    <changeSet author='tkopacki' id='possession-full-address-column-add'>
+        <sql>                   
+            ALTER TABLE `possession`
+            ADD COLUMN `full_address_with_names` varchar(510)
+        </sql>
+    </changeSet>
 </databaseChangeLog>

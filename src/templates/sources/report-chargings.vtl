@@ -55,13 +55,13 @@
         </entity>
     </list>
     <list name="data-headers">
-        <entity name="type">
-            <property name="width" type="Double">25</property>
-            <property name="label" type="String">$labelType</property>
-        </entity>
         <entity name="date">
             <property name="width" type="Double">25</property>
             <property name="label" type="String">$labelCreatedAt</property>
+        </entity>
+        <entity name="type">
+            <property name="width" type="Double">25</property>
+            <property name="label" type="String">$labelType</property>
         </entity>
         <entity name="value">
             <property name="width" type="Double">25</property>
@@ -79,8 +79,8 @@
         #if($lastMonth != $currentMonth)
         #if($lastMonth != "")
         <entity name="item">
-            <property name="type" type="String"> </property>
             <property name="date" type="String"> </property>
+            <property name="type" type="String"> </property>
             <property name="value" type="String"> </property>
             <property name="balance" type="String"> </property>
         </entity>
@@ -88,8 +88,8 @@
         #set($lastMonth = $currentMonth)
         #end
         <entity name="item">
-            <property name="type" type="String">$row.get('type')</property>
             <property name="date" type="String">$row.get('date')</property>
+            <property name="type" type="String">$row.get('type')</property>
             <property name="value" type="String">$row.get('value')</property>
             <property name="balance" type="String">$row.get('balance')</property>
         </entity>

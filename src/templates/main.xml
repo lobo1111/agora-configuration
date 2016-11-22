@@ -1103,6 +1103,26 @@
         </variables>
     </template>
     <template>
+        <name>simple-list-possessions-with-names</name>
+        <source>simple-list.vtl</source>
+        <variables>
+            <var>
+                <name>items</name>
+                <data>
+                    SELECT new pl.reaper.container.data.helpers.SimpleList(
+                    possession.id, possession.fullAddressWithNames)
+                    FROM 
+                    Possession possession
+                    Join possession.community community
+                    WHERE 
+                    {:where}
+                    ORDER BY 
+                    possession.fullAddress ASC
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>simple-list-zpks</name>
         <source>simple-list.vtl</source>
         <variables>
