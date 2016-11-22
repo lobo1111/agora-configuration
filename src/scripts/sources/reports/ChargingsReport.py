@@ -10,6 +10,7 @@ class ChargingsReport(Report):
         self._community = self.findById("Community", self._svars.get('communityId'))
         self._possession = self.findById("Possession", self._svars.get('possessionId'))
         self._startBalance = self.getStartBalance()
+        self._rfGroupId = int(DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue())
         self._transactions = self.collectTransactions()
         
     def getStartBalance(self):
@@ -21,37 +22,49 @@ class ChargingsReport(Report):
     def collectTransactions(self):
         processed = []
         output = []
-        counter = 0
         for document in self.getQuery().getResultList():
             if document not in processed:
-                item = dict([])
-                item['no'] = counter
-                item['root'] = True
-                counter += 1
-                item['type'] = self.getType(document)
-                item['date'] = self.getCreateDate(document)
-                item['value'] = self.calculateValue(document)
-                item['balance'] = item['value'].add(self._startBalance)
-                output.append(item)
-                rent, rf = self.getSubItems(document)
-                rent['no'] = counter
-                counter += 1
-                rf['no'] = counter
-                counter += 1
-                output.append(rent)
-                output.append(rf)
+                if document.getType() == CHARGING:
+                    rf, rent = self.splitCharging(document)
+                    output.append(rf)
+                    output.append(rent)
+                elif document.getType() == "POSSESSION_PAYMENT":
+                    rf, rent = self.splitPayment(document)
+                    output.append(rf)
+                    output.append(rent)
+                elif document.getType() == "BANK_NOTE":
+                    note = self.getNote(document)
+                    output.append(note)
                 processed.append(document)
-        output = sorted(output, key=lambda item: item['no'])
-        s = 1
-        while s < len(output) and output[s]['root'] == False:
-            s += 1
-        for i in range(s, len(output)):
-            if output[i]['root']:
-                j = 1
-                while output[j]['root'] == False:
-                    j += 1
-                output[i]['balance'] = output[i - j]['balance'].add(output[i]['value'])
+        output = sorted(output, key=lambda item: SimpleDateFormat('dd-MM-yyyy').parse(item['date']).getTime())
+        for i in range(1, len(output)):
+            output[i]['balance'] = output[i - 1]['balance'].add(output[i]['value'])
         return output
+
+    def getNote(self, document):
+        item = dict([])
+        item['type'] = self.getType(document)
+        item['date'] = self.getCreateDate(document)
+        item['value'] = self.calculateNoteValue(document)
+        item['balance'] = item['value'].add(self._startBalance)
+
+    def splitCharging(self, document):
+        rent = dict([])
+        rf = dict([])
+        rent['type'] = self._label.get('document.charging') + " " +  self._label.get('report.rent')
+        rf['type'] = self._label.get('document.charging') + " " +  self._label.get('report.repairFund')
+        rent['date'] = rf['date'] = self.getCreateDate(document)
+        rent['value'], rf['value'] = self.calculateChargingValue(document)
+        rent['balance'] = rf['balance'] = item['value'].add(self._startBalance)
+
+    def splitPayment(self, document):
+        rent = dict([])
+        rf = dict([])
+        rent['type'] = self._label.get('document.possessionPayment') + " " +  self._label.get('report.rent')
+        rf['type'] = self._label.get('document.possessionPayment') + " " +  self._label.get('report.repairFund')
+        rent['date'] = rf['date'] = self.getCreateDate(document)
+        rent['value'], rf['value'] = self.calculatePaymentValue(document)
+        rent['balance'] = rf['balance'] = item['value'].add(self._startBalance)
     
     def getCreateDate(self, document):
         if document.getAttribute("CREATE_DATE") != None:
@@ -71,42 +84,32 @@ class ChargingsReport(Report):
         else:
             return document.getType()
     
-    def calculateValue(self, document):
+    def calculateNoteValue(self, document):
         value = BigDecimal(0)
         for position in document.getPositions():
-            if document.getType() == "CHARGING":
-                value = value.add(position.getValue().multiply(BigDecimal(-1)))
-            else:
-                value = value.add(position.getValue())
+            value = value.add(position.getValue())
         return value
-
-
-    def getSubItems(self, document):
-        rfGroupId = int(DictionaryManager().findDictionaryInstance("PROPERTIES", "elements.repairFundGroup").getValue())
-        rf = dict([])
-        rent = dict([])
-        rf['root'] = rent['root'] = False
-        rf['date'] = rent['date'] = ' '
-        rf['balance'] = rent['balance'] = ' '
-        rf['type'] = self._label.get('report.repairFund')
-        rent['type'] = self._label.get('report.rent')
-        valueRent = BigDecimal(0)
-        valueRf = BigDecimal(0)
+    
+    def calculatePaymentValue(self, document):
+        rent = BigDecimal(0)
+        rf = BigDecimal(0)
         for position in document.getPositions():
-            if document.getType() == "CHARGING":
-                if int(position.getAttribute("ELEMENT_GROUP_ID").getValue()) == rfGroupId:
-                    valueRf = valueRf.add(position.getValue().multiply(BigDecimal(-1)))
-                else:
-                    valueRent = valueRent.add(position.getValue().multiply(BigDecimal(-1)))
+            if position.getType() = "POSSESSION_PAYMENT_RENT":
+                rent = rent.add(position.getValue())
             else:
-                if position.getType() == "POSSESSION_PAYMENT_RENT":
-                    valueRent = valueRent.add(position.getValue())
-                else:
-                    valueRf = valueRf.add(position.getValue())
-        rent['value'] = valueRent
-        rf['value'] = valueRf
+                rf = rf.add(position.getValue())
         return rent, rf
     
+    def calculateChargingValue(self, document):
+        rent = BigDecimal(0)
+        rf = BigDecimal(0)
+        for position in document.getPositions():
+            if int(position.getAttribute("ELEMENT_GROUP_ID").getValue()) = self._rfGroupId
+                rent = rent.add(position.getValue())
+            else:
+                rf = rf.add(position.getValue())
+        return rent, rf
+
     def getQuery(self):
         sql = "Select d From Document d Join d.positions p Join p.bookingPeriod bp Where d.possession.id = :pid And bp.defaultPeriod = 1"
         query = self._entityManager.createQuery(sql)
