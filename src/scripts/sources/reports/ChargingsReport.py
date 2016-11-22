@@ -42,7 +42,8 @@ class ChargingsReport(Report):
                 processed.append(document)
         output = sorted(output, key=lambda item: item['no'])
         for i in range(1, len(output)):
-            output[i]['balance'] = output[i - 1]['balance'].add(output[i]['value'])
+            if item['date'] != ' ':
+                output[i]['balance'] = output[i - 1]['balance'].add(output[i]['value'])
         return output
     
     def getCreateDate(self, document):
@@ -79,8 +80,8 @@ class ChargingsReport(Report):
         rent = dict([])
         rf['date'] = rent['date'] = ' '
         rf['balance'] = rent['balance'] = ' '
-        rf['type'] = 'RF'
-        rent['type'] = 'Rent'
+        rf['type'] = self._label.get('report.repairFund')
+        rent['type'] = self._label.get('report.rent')
         valueRent = BigDecimal(0)
         valueRf = BigDecimal(0)
         for position in document.getPositions():

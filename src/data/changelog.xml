@@ -2610,10 +2610,18 @@
             ADD COLUMN `owners_names` varchar(255)
         </sql>
     </changeSet>
+    
     <changeSet author='tkopacki' id='possession-owners-with-address-column-add'>
         <sql>                   
             ALTER TABLE `possession`
             ADD COLUMN `full_address_with_names` varchar(510)
+        </sql>
+    </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-report-rf-rent">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.repairFund', 'FR');
+            INSERT INTO `label`(`name`, `message`)VALUES('report.rent', 'Zaliczka');
         </sql>
     </changeSet>
 </databaseChangeLog>
