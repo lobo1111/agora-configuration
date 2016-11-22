@@ -1,4 +1,5 @@
 from reports.Report import Report
+from structures.Dictionary import DictionaryManager
 from java.text import SimpleDateFormat
 from java.math import BigDecimal
 from java.math import RoundingMode
