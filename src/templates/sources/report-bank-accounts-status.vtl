@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<entity name="report-bank-accounts-status">
+    <list name="content">
+        <entity name="header">
+            <property name="type" type="String">to-right</property>
+            <property name="emptyLinesAfter" type="Integer">2</property>
+        </entity>
+        <entity name="title">
+            <property name="type" type="String">centered</property>
+            <property name="emptyLinesAfter" type="Integer">2</property>
+
+        </entity>
+        <entity name="introduction">
+            <property name="type" type="String">list</property>
+            <property name="emptyLinesAfter" type="Integer">2</property>
+
+        </entity>
+        <entity name="data">
+            <property name="type" type="String">table</property>
+        </entity>
+    </list>
+    <property name="horizontalLine" type="String">true</property>
+    <list name="header">
+        <entity name="createDate">
+            <property name="label" type="String">$labelDocumentCreationDate</property>
+            <property name="value" type="String">$date</property>
+        </entity>
+    </list>
+    <list name="title">
+        <entity name="title">
+            <property name="label" type="String">$labelBankAccountsStatus</property>
+        </entity>
+    </list>
+    <list name="introduction">
+        <entity name="community">
+            <property name="label" type="String">$labelCommunity</property>
+            <property name="value" type="String">$community.getCompany().getName()</property>
+        </entity>
+        <entity name="statusDate">
+            <property name="label" type="String">$labelStatusDate</property>
+            <property name="value" type="String">$statusDate</property>
+        </entity>
+    </list>
+    <list name="data-headers">
+        <entity name="number">
+            <property name="width" type="Double">50</property>
+            <property name="label" type="String">$labelNumber</property>
+        </entity>
+        <entity name="type">
+            <property name="width" type="Double">25</property>
+            <property name="label" type="String">$labelDescription</property>
+        </entity>
+        <entity name="value">
+            <property name="width" type="Double">25</property>
+            <property name="label" type="String">$labelValue</property>
+        </entity>
+    </list>
+    <list name="data">
+        #foreach($row in $accounts)
+        <entity name="item">
+            <property name="date" type="String">$row.get('account')</property>
+            <property name="type" type="String">$row.get('type')</property>
+            <property name="value" type="String">$row.get('status')</property>
+        </entity>
+        #end
+    </list>
+    <list name="footer">
+    </list>
+</entity>

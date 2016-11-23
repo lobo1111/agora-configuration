@@ -2624,4 +2624,10 @@
             INSERT INTO `label`(`name`, `message`)VALUES('report.rent', 'Zaliczka');
         </sql>
     </changeSet>
+    
+    <changeSet author="tkopacki" id="labels-report-bankAccountsStatus">
+        <sql>
+            INSERT INTO `label`(`name`, `message`)VALUES('report.bankAccountsStatus', 'Stan kont bankowych');
+        </sql>
+    </changeSet>
 </databaseChangeLog>

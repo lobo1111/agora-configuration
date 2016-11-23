@@ -1626,4 +1626,9 @@
         <source>report-charging-prediction.vtl</source>
         <variables />
     </template>
+    <template>
+        <name>report-bank-accounts-status</name>
+        <source>report-bank-accounts-status.vtl</source>
+        <variables />
+    </template>
 </templates>
