@@ -58,7 +58,7 @@
     <list name="data">
         #foreach($row in $accounts)
         <entity name="item">
-            <property name="date" type="String">$row.get('account')</property>
+            <property name="number" type="String">$row.get('account')</property>
             <property name="type" type="String">$row.get('type')</property>
             <property name="value" type="String">$row.get('status')</property>
         </entity>
