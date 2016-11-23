@@ -29,7 +29,7 @@ class BankAccountsReport(Report):
                 debit, credit = self.calculate(zpk, self._statusDate)
                 totalCredit = totalCredit.add(credit)
                 totalDebit = totalDebit.add(debit)
-            item['status'] = totalCredit.subtract(totalDebit).setScale(2, RoundingMode.HALF_UP)
+            item['status'] = totalDebit.subtract(totalCredit).setScale(2, RoundingMode.HALF_UP)
             output.append(item)
         output = sorted(output, key=lambda item: item.get('account'))
         return output
