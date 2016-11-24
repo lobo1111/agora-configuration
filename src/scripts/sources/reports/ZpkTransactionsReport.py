@@ -24,11 +24,11 @@ class ZpkTransactionsReport(Report):
             item['type'] = self.getType(transaction)
             item['subject'] = self.getSubject(transaction)
             item['createdAt'] = SimpleDateFormat('dd-MM-yyyy').format(transaction.getCreatedAt())
-            item['value'] = transaction.getValue()
+            item['value'] = item['value'].transaction.getValue()
             item['zpkDebitId'] = transaction.getDebitZpk().getId()
             item['zpkCreditId'] = transaction.getCreditZpk().getId()
-            item['zpkDebit'] = item['zpkDebit'].add(transaction.getDebitZpk().getLabel())
-            item['zpkCredit'] = item['zpkCredit'].add(transaction.getCreditZpk().getLabel())
+            item['zpkDebit'] = transaction.getDebitZpk().getLabel()
+            item['zpkCredit'] = transaction.getCreditZpk().getLabel()
             currentDebit = self.calculateDebitStatus(currentDebit, transaction)
             currentCredit = self.calculateCreditStatus(currentCredit, transaction)
             item['zpkDebitStatus'] = currentDebit
@@ -45,8 +45,7 @@ class ZpkTransactionsReport(Report):
             if type and date and debit and credit:
                return item
         item = dict([])
-        item['zpkDebit'] = BigDecimal(0)
-        item['zpkCredit'] = BigDecimal(0)
+        item['value'] = BigDecimal(0)
         return item
     
     def calculateCurrentStatus(self):
