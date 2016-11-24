@@ -1597,6 +1597,37 @@
         </variables>
     </template>
     <template>
+        <name>entity-close-month</name>
+        <source>entity-close-month.vtl</source>
+        <variables>
+            <var>
+                <name>chargins</name>
+                <data>
+                    {:single}
+                    SELECT count(possession)
+                    FROM 
+                    Possession possession
+                    WHERE possession.id not in(
+                        Select dp.possession.id
+                        From DocumentPosition dp
+                        Where dp.month in (select d.value From Dictionary d Where d.type.type = \"PERIODS\" and d.key = \"CURRENT\")
+                        And dp.bookingPeriod.defaultPeriod = 1
+                    )
+                </data>
+                <name>invoices</name>
+                <data>
+                    {:single}
+                    SELECT count(invoice)
+                    FROM 
+                    Invoice invoice
+                    WHERE invoice.attributes.name = \"ACCEPTED\" 
+                    AND invoice.attributes.value = \"FALSE\" 
+                    )
+                </data>
+            </var>
+        </variables>
+    </template>
+    <template>
         <name>user-information</name>
         <source>entity-person.vtl</source>
         <variables />
