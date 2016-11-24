@@ -14,7 +14,7 @@ class ChargingRestriction(Restriction):
     
     def countChargings(self):
         currentMonth = BookingPeriodManager().getCurrentMonth()
-        sql = "Select document.id, position.month"
+        sql = "Select document.id, p.month"
         sql += " From Document document"
         sql += " Join document.positions p"
         sql += " Where document.type = 'CHARGING'"
