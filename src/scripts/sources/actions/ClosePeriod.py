@@ -11,7 +11,7 @@ class ClosePeriodManager(Container):
 
     def close(self):
         invoiceRestriction = InvoiceRestriction().calculate()
-        chargingRestriction = ChargingRestriction().calculate()
+        chargingsRestriction = ChargingRestriction().calculate()
         monthRestriction = MonthRestriction().calculate()
         yearRestriction = YearRestriction().calculate()
         self._logger.info('Invoice restriction: %s' % str(invoiceRestriction))
