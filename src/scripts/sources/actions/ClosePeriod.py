@@ -7,7 +7,7 @@ from actions.helpers.MonthRestriction import MonthRestriction
 from actions.helpers.YearRestriction import YearRestriction
 from actions.helpers.InvoiceRestriction import InvoiceRestriction
 
-class Close(Container):
+class ClosePeriodManager(Container):
 
     def close(self):
         invoiceRestriction = InvoiceRestriction().calculate()
