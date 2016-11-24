@@ -38,10 +38,11 @@ class ZpkTransactionsReport(Report):
 
     def getItemInstance(self, transaction, output):
         for item in output:
-            if item['typeKey'] == transaction.getDocument().getType() and
-               item['createdAt'] == SimpleDateFormat('dd-MM-yyyy').format(transaction.getCreatedAt()) and
-               item['zpkDebitId'] == transaction.getDebitZpk().getId() and
-               item['zpkCreditId'] == transaction.getCreditZpk().getId():
+            type = item['typeKey'] == transaction.getDocument().getType()
+            date = item['createdAt'] == SimpleDateFormat('dd-MM-yyyy').format(transaction.getCreatedAt())
+            debit = item['zpkDebitId'] == transaction.getDebitZpk().getId()
+            credit = item['zpkCreditId'] == transaction.getCreditZpk().getId()
+            if type and date and debit and credit:
                return item
         item = dict([])
         item['zpkDebit'] = BigDecimal(0)
