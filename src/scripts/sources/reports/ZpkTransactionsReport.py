@@ -19,7 +19,7 @@ class ZpkTransactionsReport(Report):
         output = []
         currentDebit, currentCredit = self.calculateCurrentStatus()
         for transaction in self.getQuery().getResultList():
-            item = dict([])
+            item = self.getItemInstance(transaction, output)
             item['typeKey'] = transaction.getDocument().getType()
             item['type'] = self.getType(transaction)
             item['subject'] = self.getSubject(transaction)
