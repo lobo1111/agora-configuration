@@ -14,12 +14,20 @@ class ClosePeriodManager(Container):
         chargingRestriction = ChargingRestriction().calculate()
         monthRestriction = MonthRestriction().calculate()
         yearRestriction = YearRestriction().calculate()
+        self._logger.info('Invoice restriction: %s' % str(invoiceRestriction))
+        self._logger.info('Chargings restriction: %s' % str(chargingsRestriction))
+        self._logger.info('Month restriction: %s' % str(monthRestriction))
+        self._logger.info('Year restriction: %s' % str(yearRestriction))
         if invoiceRestriction and chargingsRestriction and (yearRestriction or monthRestriction):
             DocumentManager().bookAll()
+            self._logger.info('All documents booked')
             if monthRestriction:
                 self.setNextMonth()
+                self._logger.info('Month closed')
             elif yearRestriction:
                 BookingPeriodManager().closeYear()
+                self._logger.info('Year closed')
+        self._svars.put('output', '-1')
             
     def setNextMonth(self):
         self._nextMonth = int(BookingPeriodManager().getCurrentMonth().getValue()) + 1
