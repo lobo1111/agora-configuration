@@ -1,5 +1,5 @@
 from actions.helpers.Restriction import Restriction
-from entities.BookingPeriod import BookingPeriodManager
+from structures.BookingPeriod import BookingPeriodManager
 
 class YearRestriction(Restriction):
     
