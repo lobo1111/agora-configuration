@@ -37,4 +37,7 @@ class NoteMapper(Mapper):
         if self.get("type") == "POSSESSION":
             possession = self.findById("Possession", self.get("entityId"))
             possession.getNotes().add(self._entity)
+        if self.get("type") == "COUNTER":
+            counter = self.findById("Counter", self.get("entityId"))
+            counter.getNotes().add(self._entity)
         
