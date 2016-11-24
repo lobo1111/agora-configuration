@@ -6,7 +6,7 @@ class ChargingRestriction(Restriction):
     def calculate(self):
         activePossessions = self.countActivePossessions()
         createdChargings = self.countChargings()
-        self._result = (activePossessions == createdChargings)
+        return (activePossessions == createdChargings)
         
     def countActivePossessions(self):
         sql = "Select count(possession) From Possession possession Join possession.community community Where community.outDate is Null and community.inDate is null"
