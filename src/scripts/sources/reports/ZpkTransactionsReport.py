@@ -29,11 +29,12 @@ class ZpkTransactionsReport(Report):
             item['zpkCreditId'] = transaction.getCreditZpk().getId()
             item['zpkDebit'] = transaction.getDebitZpk().getLabel()
             item['zpkCredit'] = transaction.getCreditZpk().getLabel()
+            item['month'] = transaction.getMonth()
+            item['period'] = transaction.getBookingPeriod().getId()
             currentDebit = self.calculateDebitStatus(currentDebit, transaction)
             currentCredit = self.calculateCreditStatus(currentCredit, transaction)
             item['zpkDebitStatus'] = currentDebit
             item['zpkCreditStatus'] = currentCredit
-            output.append(item)
         return output
 
     def getItemInstance(self, transaction, output):
@@ -42,12 +43,15 @@ class ZpkTransactionsReport(Report):
             date = item['createdAt'] == SimpleDateFormat('dd-MM-yyyy').format(transaction.getCreatedAt())
             debit = item['zpkDebitId'] == transaction.getDebitZpk().getId()
             credit = item['zpkCreditId'] == transaction.getCreditZpk().getId()
-            if type and date and debit and credit:
+            month = item['month'] == transaction.getMonth()
+            period = item['period'] == transaction.getBookingPeriod().getId()
+            if type and date and debit and credit and month and period:
                self._logger.("Reusing existing item to merge similar positions...")
                return item
         self._logger.("Creating new item...")
         item = dict([])
         item['value'] = BigDecimal(0)
+        output.append(item)
         return item
     
     def calculateCurrentStatus(self):
