@@ -51,8 +51,8 @@ class ZpkTransactionsReport(Report):
         self._logger.info("Creating new item...")
         item = dict([])
         item['value'] = BigDecimal(0)
-        item['currentDebit'] = BigDecimal(0)
-        item['currentCredit'] = BigDecimal(0)
+        item['zpkDebitStatus'] = BigDecimal(0)
+        item['zpkCreditStatus'] = BigDecimal(0)
         output.append(item)
         return item
     
