@@ -1,4 +1,5 @@
 from reports.Report import Report
+from java.math import BigDecimal
 from javax.persistence import TemporalType
 from structures.BookingPeriod import BookingPeriodManager
 from java.text import SimpleDateFormat
@@ -19,18 +20,33 @@ class ZpkTransactionsReport(Report):
         currentDebit, currentCredit = self.calculateCurrentStatus()
         for transaction in self.getQuery().getResultList():
             item = dict([])
+            item['typeKey'] = transaction.getDocument().getType()
             item['type'] = self.getType(transaction)
             item['subject'] = self.getSubject(transaction)
             item['createdAt'] = SimpleDateFormat('dd-MM-yyyy').format(transaction.getCreatedAt())
             item['value'] = transaction.getValue()
-            item['zpkDebit'] = transaction.getDebitZpk().getLabel()
-            item['zpkCredit'] = transaction.getCreditZpk().getLabel()
+            item['zpkDebitId'] = transaction.getDebitZpk().getId()
+            item['zpkCreditId'] = transaction.getCreditZpk().getId()
+            item['zpkDebit'] = item['zpkDebit'].add(transaction.getDebitZpk().getLabel())
+            item['zpkCredit'] = item['zpkCredit'].add(transaction.getCreditZpk().getLabel())
             currentDebit = self.calculateDebitStatus(currentDebit, transaction)
             currentCredit = self.calculateCreditStatus(currentCredit, transaction)
             item['zpkDebitStatus'] = currentDebit
             item['zpkCreditStatus'] = currentCredit
             output.append(item)
         return output
+
+    def getItemInstance(self, transaction, output):
+        for item in output:
+            if item['typeKey'] == transaction.getDocument().getType() and
+               item['createdAt'] == SimpleDateFormat('dd-MM-yyyy').format(transaction.getCreatedAt()) and
+               item['zpkDebitId'] == transaction.getDebitZpk().getId() and
+               item['zpkCreditId'] == transaction.getCreditZpk().getId():
+               return item
+        item = dict([])
+        item['zpkDebit'] = BigDecimal(0)
+        item['zpkCredit'] = BigDecimal(0)
+        return item
     
     def calculateCurrentStatus(self):
         return ZpksStatusReport().calculate(self._zpk, self._from)
