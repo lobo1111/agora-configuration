@@ -1621,8 +1621,10 @@
                     {:single}
                     SELECT count(invoice)
                     FROM 
-                    Invoice invoice
-                    WHERE invoice.attributes.name = \"ACCEPTED\" AND invoice.attributes.value = \"FALSE\" 
+                    Document invoice
+                    WHERE invoice.type = \"INVOICE\" 
+                    AND invoice.attributes.name = \"ACCEPTED\" 
+                    AND invoice.attributes.value = \"FALSE\" 
                 </data>
             </var>
         </variables>
