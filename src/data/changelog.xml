@@ -2630,4 +2630,29 @@
             INSERT INTO `label`(`name`, `message`)VALUES('report.bankAccountsStatus', 'Stan kont bankowych');
         </sql>
     </changeSet>
+                
+    <changeSet author='tkopacki' id='note-counter-table'>
+        <sql>        
+            CREATE TABLE `note_counter` (
+            `note_id` int(11) NOT NULL,
+            `counter_id` int(11) NOT NULL,
+            KEY `author_fkey` (`note_id`),
+            KEY `counter_fkey` (`counter_id`)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='note-counter-note-fkey'>
+        <sql>                   
+            ALTER TABLE `note_counter`
+            ADD CONSTRAINT `note_counter_note_id_fkey` FOREIGN KEY (`note_id`) REFERENCES `note` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
+        
+    <changeSet author='tkopacki' id='note-counter-counter-fkey'>
+        <sql>                   
+            ALTER TABLE `note_counter`
+            ADD CONSTRAINT `note_counter_counter_id_fkey` FOREIGN KEY (`counter_id`) REFERENCES `counter` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
