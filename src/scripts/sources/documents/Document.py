@@ -119,7 +119,7 @@ class DocumentManager(Container):
     def bookAll(self):
         currentMonth = BookingPeriodManager().getCurrentMonth().getValue()
         currentBookingPeriod = BookingPeriodManager().findDefaultBookingPeriod()
-        sql = "Select distinct document From Document document join document.positions position Where position.month = '%s' and position.bookingPeriod.id = %d" % (currentMonth, currentBookingPeriod.getId())
+        sql = "Select distinct document From Document document join document.positions p Where p.month = '%s' and p.bookingPeriod.id = %d" % (currentMonth, currentBookingPeriod.getId())
         for document in self._entityManager.createQuery(sql).getResultList():
             self.bookDocument(document)
         
