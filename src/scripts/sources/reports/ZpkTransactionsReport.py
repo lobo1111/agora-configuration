@@ -24,7 +24,7 @@ class ZpkTransactionsReport(Report):
             item['type'] = self.getType(transaction)
             item['subject'] = self.getSubject(transaction)
             item['createdAt'] = SimpleDateFormat('dd-MM-yyyy').format(transaction.getCreatedAt())
-            item['value'] = item['value'].transaction.getValue()
+            item['value'] = item['value'].add(transaction.getValue())
             item['zpkDebitId'] = transaction.getDebitZpk().getId()
             item['zpkCreditId'] = transaction.getCreditZpk().getId()
             item['zpkDebit'] = transaction.getDebitZpk().getLabel()
