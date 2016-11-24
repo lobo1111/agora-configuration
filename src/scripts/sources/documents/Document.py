@@ -94,8 +94,8 @@ class DocumentManager(Container):
         if not position.isCanceled() and not position.isBooked() and position.getCreditZpk() != None and position.getDebitZpk() != None:
             debitBalance = position.getDebitZpk().getCurrentBalance()
             creditBalance = position.getCreditZpk().getCurrentBalance()
-            debitBalance.setDebit(position.getValue().add(BigDecimal(debitBalance.getDebit())).floatValue())
-            creditBalance.setCredit(position.getValue().add(BigDecimal(creditBalance.getCredit())).floatValue())
+            debitBalance.setDebit(position.getValue().add(debitBalance.getDebit()))
+            creditBalance.setCredit(position.getValue().add(creditBalance.getCredit()))
             position.setBooked(True)
             position.setBookedAt(Date())
             self.saveEntity(debitBalance)
