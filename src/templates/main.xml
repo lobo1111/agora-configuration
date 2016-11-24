@@ -1200,13 +1200,13 @@
                 <data>
                     {:single}
                     SELECT
-                        dict.value
+                    dict.value
                     FROM
-                        Dictionary dict
-                        JOIN dict.type dtype
+                    Dictionary dict
+                    JOIN dict.type dtype
                     WHERE
-                        dtype.type = "PERIODS"
-                        AND dict.key = "CURRENT"
+                    dtype.type = "PERIODS"
+                    AND dict.key = "CURRENT"
                 </data>
             </var>
         </variables>
@@ -1601,19 +1601,21 @@
         <source>entity-close-month.vtl</source>
         <variables>
             <var>
-                <name>chargins</name>
+                <name>chargings</name>
                 <data>
                     {:single}
                     SELECT count(possession)
                     FROM 
                     Possession possession
                     WHERE possession.id not in(
-                        Select dp.document.possession.id
-                        From DocumentPosition dp
-                        Where dp.month in (select d.value From Dictionary d Where d.type.type = \"PERIODS\" and d.key = \"CURRENT\")
-                        And dp.bookingPeriod.defaultPeriod = 1
+                    Select dp.document.possession.id
+                    From DocumentPosition dp
+                    Where dp.month in (select d.value From Dictionary d Where d.type.type = \"PERIODS\" and d.key = \"CURRENT\")
+                    And dp.bookingPeriod.defaultPeriod = 1
                     )
                 </data>
+            </var>
+            <var>
                 <name>invoices</name>
                 <data>
                     {:single}
