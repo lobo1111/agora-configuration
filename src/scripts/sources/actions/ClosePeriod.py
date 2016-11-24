@@ -1,4 +1,7 @@
 from base.Container import Container
+from structures.BookingPeriod import BookingPeriodManager
+from structures.Dictionary import DictionaryManager
+from documents.Document import DocumentManager
 from actions.helpers.ChargingRestriction import ChargingRestriction
 from actions.helpers.MonthRestriction import MonthRestriction
 from actions.helpers.YearRestriction import YearRestriction
