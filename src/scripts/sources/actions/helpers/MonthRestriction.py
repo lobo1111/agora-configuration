@@ -4,5 +4,5 @@ from structures.BookingPeriod import BookingPeriodManager
 class MonthRestriction(Restriction):
     
     def calculate(self):
-        self._result = (int(BookingPeriodManager().getCurrentMonth()) < 12)
+        self._result = (int(BookingPeriodManager().getCurrentMonth().getValue()) < 12)
         

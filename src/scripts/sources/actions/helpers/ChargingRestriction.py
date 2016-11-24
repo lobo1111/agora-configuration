@@ -13,7 +13,7 @@ class ChargingRestriction(Restriction):
         return self._entityManager.createQuery(sql).getSingleResult()
     
     def countChargings(self):
-        currentMonth = BookingPeriodManager().getCurrentMonth()
+        currentMonth = BookingPeriodManager().getCurrentMonth().getValue()
         sql = "Select document.id, p.month"
         sql += " From Document document"
         sql += " Join document.positions p"

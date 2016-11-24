@@ -22,7 +22,7 @@ class ClosePeriodManager(Container):
                 BookingPeriodManager().closeYear()
             
     def setNextMonth(self):
-        self._nextMonth = int(BookingPeriodManager().getCurrentMonth()) + 1
+        self._nextMonth = int(BookingPeriodManager().getCurrentMonth().getValue()) + 1
         dict = DictionaryManager().findDictionaryInstance("PERIODS", "CURRENT")
         dict.setValue(str(self._nextMonth))
         self.saveEntity(dict)
