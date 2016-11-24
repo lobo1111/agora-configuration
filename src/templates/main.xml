@@ -1622,9 +1622,10 @@
                     SELECT count(invoice)
                     FROM 
                     Document invoice
+                    Join invoice.attributes attr
                     WHERE invoice.type = \"INVOICE\" 
-                    AND invoice.attributes.name = \"ACCEPTED\" 
-                    AND invoice.attributes.value = \"FALSE\" 
+                    AND attr.name = \"ACCEPTED\" 
+                    AND attr.value = \"FALSE\" 
                 </data>
             </var>
         </variables>
