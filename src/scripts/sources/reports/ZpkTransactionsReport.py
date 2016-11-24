@@ -32,8 +32,13 @@ class ZpkTransactionsReport(Report):
             item['zpkCredit'] = transaction.getCreditZpk().getLabel()
             item['month'] = transaction.getMonth()
             item['period'] = transaction.getBookingPeriod().getId()
-            item['zpkDebitStatus'] = self.calculateDebitStatus(currentDebit, transaction)
-            item['zpkCreditStatus'] = self.calculateCreditStatus(currentCredit, transaction)
+        for item in output:
+            if self._zpk.getId() == item['zpkDebitId']:
+                item['zpkDebitStatus'] = currentDebit.add(item['value'])
+                item['zpkCreditStatus'] = currentCredit
+            else:
+                item['zpkDebitStatus'] = currentDebit
+                item['zpkCreditStatus'] = currentCredit.add(item['value'])
         return output
 
     def getItemInstance(self, transaction, output):
