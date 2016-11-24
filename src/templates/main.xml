@@ -1629,6 +1629,32 @@
                     AND attr.value = \"FALSE\" 
                 </data>
             </var>
+            <var>
+                <name>month</name>
+                <data>
+                    {:single}
+                    SELECT
+                    dict.value
+                    FROM
+                    Dictionary dict
+                    JOIN dict.type dtype
+                    WHERE
+                    dtype.type = "PERIODS"
+                    AND dict.key = "CURRENT"
+                </data>
+            </var>
+            <var>
+                <name>year</name>
+                <data>
+                    {:single}
+                    SELECT 
+                    period.name
+                    FROM 
+                    BookingPeriod period
+                    WHERE 
+                    period.defaultPeriod = true
+                </data>
+            </var>
         </variables>
     </template>
     <template>
