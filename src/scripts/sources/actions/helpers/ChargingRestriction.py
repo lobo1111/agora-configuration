@@ -4,21 +4,18 @@ from structures.BookingPeriod import BookingPeriodManager
 class ChargingRestriction(Restriction):
     
     def calculate(self):
-        activePossessions = self.countActivePossessions()
-        createdChargings = self.countChargings()
-        return (activePossessions == createdChargings)
+        missingChargings = self.countMissingChargings()
+        return (missingChargings == 0)
         
-    def countActivePossessions(self):
-        sql = "Select count(possession) From Possession possession Join possession.community community Where community.outDate is Null and community.inDate is null"
+    def countMissingChargings(self):
+        sql = "SELECT count(possession) "
+        sql += "FROM  "
+        sql += "Possession possession "
+        sql += "WHERE possession.id not in( "
+        sql += "Select dp.document.possession.id "
+        sql += "From DocumentPosition dp "
+        sql += "Where dp.month in (select d.value From Dictionary d Where d.type.type = \"PERIODS\" and d.key = \"CURRENT\") "
+        sql += "And dp.bookingPeriod.defaultPeriod = 1) "
+        sql += "AND possession.community.inDate != NULL "
+        sql += "AND possession.community.outDate = NULL "
         return self._entityManager.createQuery(sql).getSingleResult()
-    
-    def countChargings(self):
-        currentMonth = BookingPeriodManager().getCurrentMonth().getValue()
-        sql = "Select document.id, p.month"
-        sql += " From Document document"
-        sql += " Join document.positions p"
-        sql += " Where document.type = 'CHARGING'"
-        sql += " Group By document.id"
-        sql += (" Having p.month = %s" % currentMonth)
-        return len(self._entityManager.createQuery(sql).getResultList())
-    
