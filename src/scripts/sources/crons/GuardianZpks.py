@@ -1,6 +1,5 @@
 from base.Container import Container
 from java.math import BigDecimal
-from  java.math import RoundingMode
 
 class GuardianZpk(Container):
     
@@ -12,10 +11,10 @@ class GuardianZpk(Container):
             
     def checkZpk(self, zpk):
         balance = zpk.getCurrentBalance();
-        calculatedCredit = (self.sumCredit(zpk.getId()).add(BigDecimal(balance.getStartCredit()))).setScale(2, RoundingMode.HALF_UP)
-        calculatedDebit = (self.sumDebit(zpk.getId()).add(BigDecimal(balance.getStartDebit()))).setScale(2, RoundingMode.HALF_UP)
-        expectedCredit = BigDecimal(balance.getCredit()).setScale(2, RoundingMode.HALF_UP)
-        expectedDebit = BigDecimal(balance.getDebit()).setScale(2, RoundingMode.HALF_UP)
+        calculatedCredit = (self.sumCredit(zpk.getId()).add(balance.getStartCredit()))
+        calculatedDebit = (self.sumDebit(zpk.getId()).add(balance.getStartDebit()))
+        expectedCredit = balance.getCredit()
+        expectedDebit = balance.getDebit()
         if not expectedCredit.equals(calculatedCredit):
             self._logger.info("On zpk %d found wrongly calculated credit:" % zpk.getId())
             self._logger.info("calculated: %s" % calculatedCredit.toPlainString())
