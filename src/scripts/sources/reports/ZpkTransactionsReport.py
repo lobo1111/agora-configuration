@@ -18,6 +18,7 @@ class ZpkTransactionsReport(Report):
     def collectTransactions(self):
         output = []
         currentDebit, currentCredit = self.calculateCurrentStatus()
+        self._logger.info("Debit and Credit starting point: %s, %s" % (currentDebit.toString(), currentCredit.toString()))
         for transaction in self.getQuery().getResultList():
             item = self.getItemInstance(transaction, output)
             item['typeKey'] = transaction.getDocument().getType()
@@ -31,10 +32,8 @@ class ZpkTransactionsReport(Report):
             item['zpkCredit'] = transaction.getCreditZpk().getLabel()
             item['month'] = transaction.getMonth()
             item['period'] = transaction.getBookingPeriod().getId()
-            currentDebit = self.calculateDebitStatus(currentDebit, transaction)
-            currentCredit = self.calculateCreditStatus(currentCredit, transaction)
-            item['zpkDebitStatus'] = item['zpkDebitStatus'].add(currentDebit)
-            item['zpkCreditStatus'] = item['zpkCreditStatus'].add(currentCredit)
+            item['zpkDebitStatus'] = self.calculateDebitStatus(currentDebit, transaction)
+            item['zpkCreditStatus'] = self.calculateCreditStatus(currentCredit, transaction)
         return output
 
     def getItemInstance(self, transaction, output):
@@ -51,8 +50,6 @@ class ZpkTransactionsReport(Report):
         self._logger.info("Creating new item...")
         item = dict([])
         item['value'] = BigDecimal(0)
-        item['zpkDebitStatus'] = BigDecimal(0)
-        item['zpkCreditStatus'] = BigDecimal(0)
         output.append(item)
         return item
     
@@ -81,12 +78,14 @@ class ZpkTransactionsReport(Report):
     
     def calculateDebitStatus(self, currentDebit, transaction):
         if self._zpk.getId() == transaction.getDebitZpk().getId():
+            self._logger.info("Debit change by %s, to %s" % (transaction.getValue().toString(), currentDebit.add(transaction.getValue()).toString()))
             return currentDebit.add(transaction.getValue())
         else:
             return currentDebit
     
     def calculateCreditStatus(self, currentCredit, transaction):
         if self._zpk.getId() == transaction.getCreditZpk().getId():
+            self._logger.info("Credit change by %s, to %s" % (transaction.getValue().toString(), currentCredit.add(transaction.getValue()).toString()))
             return currentCredit.add(transaction.getValue())
         else:
             return currentCredit
