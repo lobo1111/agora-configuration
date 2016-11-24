@@ -1627,6 +1627,8 @@
                     WHERE invoice.type = \"INVOICE\" 
                     AND attr.name = \"ACCEPTED\" 
                     AND attr.value = \"FALSE\" 
+                    AND invoice.community.inDate != NULL
+                    AND invoice.community.outDate = NULL
                 </data>
             </var>
             <var>
