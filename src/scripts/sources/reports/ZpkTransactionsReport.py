@@ -43,7 +43,9 @@ class ZpkTransactionsReport(Report):
             debit = item['zpkDebitId'] == transaction.getDebitZpk().getId()
             credit = item['zpkCreditId'] == transaction.getCreditZpk().getId()
             if type and date and debit and credit:
+               self._logger.("Reusing existing item to merge similar positions...")
                return item
+        self._logger.("Creating new item...")
         item = dict([])
         item['value'] = BigDecimal(0)
         return item
