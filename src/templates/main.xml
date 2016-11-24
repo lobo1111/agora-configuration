@@ -1608,7 +1608,7 @@
                     FROM 
                     Possession possession
                     WHERE possession.id not in(
-                        Select dp.possession.id
+                        Select dp.document.possession.id
                         From DocumentPosition dp
                         Where dp.month in (select d.value From Dictionary d Where d.type.type = \"PERIODS\" and d.key = \"CURRENT\")
                         And dp.bookingPeriod.defaultPeriod = 1
