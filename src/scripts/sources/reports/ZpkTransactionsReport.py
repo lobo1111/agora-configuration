@@ -46,9 +46,9 @@ class ZpkTransactionsReport(Report):
             month = item['month'] == transaction.getMonth()
             period = item['period'] == transaction.getBookingPeriod().getId()
             if type and date and debit and credit and month and period:
-               self._logger.("Reusing existing item to merge similar positions...")
+               self._logger.info("Reusing existing item to merge similar positions...")
                return item
-        self._logger.("Creating new item...")
+        self._logger.info("Creating new item...")
         item = dict([])
         item['value'] = BigDecimal(0)
         output.append(item)
