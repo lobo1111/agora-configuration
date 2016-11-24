@@ -1622,9 +1622,7 @@
                     SELECT count(invoice)
                     FROM 
                     Invoice invoice
-                    WHERE invoice.attributes.name = \"ACCEPTED\" 
-                    AND invoice.attributes.value = \"FALSE\" 
-                    )
+                    WHERE invoice.attributes.name = \"ACCEPTED\" AND invoice.attributes.value = \"FALSE\" 
                 </data>
             </var>
         </variables>
