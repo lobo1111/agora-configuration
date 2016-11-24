@@ -33,8 +33,8 @@ class ZpkTransactionsReport(Report):
             item['period'] = transaction.getBookingPeriod().getId()
             currentDebit = self.calculateDebitStatus(currentDebit, transaction)
             currentCredit = self.calculateCreditStatus(currentCredit, transaction)
-            item['zpkDebitStatus'] = currentDebit
-            item['zpkCreditStatus'] = currentCredit
+            item['zpkDebitStatus'] = item['zpkDebitStatus'].add(currentDebit)
+            item['zpkCreditStatus'] = item['zpkCreditStatus'].add(currentCredit)
         return output
 
     def getItemInstance(self, transaction, output):
@@ -51,6 +51,8 @@ class ZpkTransactionsReport(Report):
         self._logger.info("Creating new item...")
         item = dict([])
         item['value'] = BigDecimal(0)
+        item['currentDebit'] = BigDecimal(0)
+        item['currentCredit'] = BigDecimal(0)
         output.append(item)
         return item
     
