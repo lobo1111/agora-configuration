@@ -6,16 +6,10 @@ class ChargingRestriction(Restriction):
     def calculate(self):
         activePossessions = self.countActivePossessions()
         createdChargings = self.countChargings()
-        if activePossessions == createdChargings:
-           self._result = True
-           self._message = "Zaakceptowany"
-        else:
-            self._logger.info("Found %d chargins but there are %d active possessions" % (createdChargings, activePossessions))
-            self._message = "Brakuje %d naliczen" % (activePossessions - createdChargings)
-            self._result = False
+        self._result = (activePossessions == createdChargings)
         
     def countActivePossessions(self):
-        sql = "Select count(possession) From Possession possession Join possession.community community Where community.outDate is Null and (community.inDate <= CURRENT_DATE or community.inDate is null)"
+        sql = "Select count(possession) From Possession possession Join possession.community community Where community.outDate is Null and community.inDate is null"
         return self._entityManager.createQuery(sql).getSingleResult()
     
     def countChargings(self):
@@ -27,7 +21,4 @@ class ChargingRestriction(Restriction):
         sql += " Group By document.id"
         sql += (" Having position.month = %s" % currentMonth)
         return len(self._entityManager.createQuery(sql).getResultList())
-    
-    def getTemplateName(self):
-        return "charging"
     
