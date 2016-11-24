@@ -1611,8 +1611,9 @@
                     Select dp.document.possession.id
                     From DocumentPosition dp
                     Where dp.month in (select d.value From Dictionary d Where d.type.type = \"PERIODS\" and d.key = \"CURRENT\")
-                    And dp.bookingPeriod.defaultPeriod = 1
-                    )
+                    And dp.bookingPeriod.defaultPeriod = 1)
+                    AND possession.community.inDate != NULL
+                    AND possession.community.outDate = NULL
                 </data>
             </var>
             <var>
