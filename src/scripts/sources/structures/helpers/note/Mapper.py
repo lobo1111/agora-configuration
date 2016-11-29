@@ -35,9 +35,11 @@ class NoteMapper(Mapper):
         
     def bind(self):
         if self.get("type") == "POSSESSION":
+            self._logger.info("Detected new note for possession")
             possession = self.findById("Possession", self.get("entityId"))
             possession.getNotes().add(self._entity)
         if self.get("type") == "COUNTER":
+            self._logger.info("Detected new note for counter")
             counter = self.findById("Counter", self.get("entityId"))
             counter.getNotes().add(self._entity)
         
