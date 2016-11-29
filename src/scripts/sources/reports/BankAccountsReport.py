@@ -36,8 +36,8 @@ class BankAccountsReport(Report):
     
     def calculate(self, zpk, statusDate):
         balance = zpk.getCurrentBalance();
-        calculatedDebit = (self.sumDebit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartDebit()))).setScale(2, RoundingMode.HALF_UP)
-        calculatedCredit = (self.sumCredit(zpk.getId(), statusDate).add(BigDecimal(balance.getStartCredit()))).setScale(2, RoundingMode.HALF_UP)
+        calculatedDebit = (self.sumDebit(zpk.getId(), statusDate).add(balance.getStartDebit()))
+        calculatedCredit = (self.sumCredit(zpk.getId(), statusDate).add(balance.getStartCredit()))
         return calculatedDebit, calculatedCredit
     
     def sumCredit(self, zpkId, statusDate):
