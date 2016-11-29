@@ -1,22 +1,16 @@
-stages:
-  - test
-  - build
-  - deploy
+image: docker:latest
+services:
+- docker:dind
 
-test:
-  stage: test
-  script: echo "Running tests"
+stages:
+- build
+
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
 build:
   stage: build
-  script: echo "Building the app"
-
-deploy_staging:
-  stage: deploy
   script:
-    - echo "Deploy to staging server"
-  environment:
-    name: staging
-    url: http://aws.agora-wspolnoty.pl:9080/ScriptingContainerEJB/JythonBeanService?wsdl
-  only:
-  - Sprint-26
+    - docker build --pull -t registry.gitlab.com/agora-wspolnoty/backend-app -f src/docker/Dockerfile .
+    - docker push registry.gitlab.com/agora-wspolnoty/backend-app
