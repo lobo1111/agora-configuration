@@ -1,0 +1,57 @@
+<project name="Scripting Container" basedir="." default="help">
+    <description>Scripting Container</description>
+  
+    <import file="properties.xml" />
+    <import file="git.xml" />
+    <import file="application.xml" />
+  
+    <target name="help">
+        <echo>fast-update "branch_name"</echo>
+        <echo></echo>
+        <echo>update-db "branch_name"</echo>
+        <echo>update-templates "branch_name"</echo>
+        <echo>update-scripts "branch_name"</echo>
+        <echo>update-container "branch_name"</echo>
+    </target>
+    
+    <target name="fast-update" depends="init">
+        <property name="repository" value="${repositories.root}/${repositories.configuration}"/>
+        <antcall target="download-sources" />
+        <antcall target="liquibase" />
+        <antcall target="templates" />
+        <antcall target="scripts" />
+        <antcall target="container" />
+        <antcall target="application" />
+    </target>
+    
+    <target name="update-db" depends="init">
+        <property name="repository" value="${repositories.root}/${repositories.configuration}"/>
+        <antcall target="download-sources" />
+        <antcall target="liquibase" />
+    </target>
+    
+    <target name="update-templates" depends="init">
+        <property name="repository" value="${repositories.root}/${repositories.configuration}"/>
+        <antcall target="download-sources" />
+        <antcall target="templates" />
+    </target>
+    
+    <target name="update-scripts" depends="init">
+        <property name="repository" value="${repositories.root}/${repositories.configuration}"/>
+        <antcall target="download-sources" />
+        <antcall target="scripts" />
+    </target>
+    
+    <target name="update-container" depends="init">
+        <property name="repository" value="${repositories.root}/${repositories.configuration}"/>
+        <antcall target="download-sources" />
+        <antcall target="container" />
+    </target>
+    
+    <target name="update-application" depends="init">
+        <property name="repository" value="${repositories.root}/${repositories.configuration}"/>
+        <antcall target="download-sources" />
+        <antcall target="application" />
+    </target>
+    
+</project>

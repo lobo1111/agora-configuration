@@ -1,0 +1,19 @@
+<project name="Scripting Container - git" default="help" basedir=".">
+    <description>Scripting Container - git</description>
+
+    <target name="download-sources">
+        <exec executable="git" dir="${repository}" failonerror="false">
+            <arg value="branch" />
+            <arg value="${branch}" />
+        </exec>
+        <exec executable="git" dir="${repository}" failonerror="true">
+            <arg value="checkout" />
+            <arg value="${branch}" />
+        </exec>
+        <exec executable="git" dir="${repository}" failonerror="true">
+            <arg value="pull" />
+            <arg value="origin" />
+            <arg value="${branch}" />
+        </exec>
+    </target>
+</project>

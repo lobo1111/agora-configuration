@@ -1,0 +1,73 @@
+<project name="Scripting Container - application" default="help" basedir=".">
+    <description>Scripting Container - application</description>
+
+    <target name="liquibase">
+        <exec executable="java" failonerror="true">
+            <arg value="-jar" />
+            <arg value="${tools.liquibase.path}/liquibase.jar" />
+            <arg value="--changeLogFile=${repository}/${tools.changelog.path}" />
+            <arg value="--driver=com.mysql.jdbc.jdbc2.optional.MysqlDataSource" />
+            <arg value="--username=${db.username}" />
+            <arg value="--password=${db.password}" />
+            <arg value="--url=jdbc:mysql://${db.host}:3306/${db.name}?characterSetResults=utf8&amp;characterEncoding=UTF-8" />
+            <arg value="--classpath=/opt/liquibase/mysql-connector-java-5.0.8-bin.jar" />
+            <arg value="--driver=com.mysql.jdbc.Driver" />
+            <arg value="update" />
+        </exec>
+    </target>
+
+    <target name="templates">
+        <exec executable="python" dir="${repository}/${tools.templates.path}" failonerror="true">
+            <arg value="loader.py" />
+            <arg value="${db.host}" />
+            <arg value="${db.name}" />
+            <arg value="${db.username}" />
+            <arg value="${db.password}" />
+        </exec>
+    </target>
+
+    <target name="scripts">
+        <exec executable="mkdir" failonerror="true">
+            <arg value="-p" />
+            <arg value="${container.scripts}" />
+        </exec>
+        <exec executable="mkdir" failonerror="true">
+            <arg value="-p" />
+            <arg value="${container.watchdir}" />
+        </exec>
+        <exec executable="python" dir="${repository}/${tools.scripts.path}" failonerror="true">
+            <arg value="loader.py" />
+            <arg value="${db.host}" />
+            <arg value="${db.name}" />
+            <arg value="${db.username}" />
+            <arg value="${db.password}" />
+        </exec>
+        <exec executable="touch" failonerror="true">
+            <arg value="${container.watchdir}/recompile" />
+        </exec>
+    </target>
+
+    <target name="container">
+        <exec executable="cp" dir="${repository}/${tools.container.path}" failonerror="true">
+            <arg value="-r" />
+            <arg value="lib" />
+            <arg value="${tools.container.config}" />
+        </exec>
+        <exec executable="cp" dir="${repository}/${tools.container.path}" failonerror="true">
+            <arg value="server.xml" />
+            <arg value="${tools.container.config}" />
+        </exec>
+        <exec executable="cp" dir="${repository}/${tools.container.path}" failonerror="true">
+            <arg value="jvm.options" />
+            <arg value="${tools.container.config}" />
+        </exec>
+    </target>
+
+    <target name="application">
+        <exec executable="cp" dir="${repository}/${tools.application.path}" failonerror="true">
+            <arg value="${tools.application.name}" />
+            <arg value="${tools.container.application}" />
+        </exec>
+    </target>
+    
+</project>

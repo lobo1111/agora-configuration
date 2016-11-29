@@ -1,0 +1,31 @@
+<project name="Scripting Container - properties" basedir=".">
+    <description>Scripting Container - properties</description>
+    
+    <property environment="env"/>
+    
+    <property name="repositories.root" value="/opt/builder/repositories"/>
+    <property name="repositories.configuration" value="agoraconfiguration"/>
+    
+    <property name="db.host" value="${env.MYSQL_HOST}"/>
+    <property name="db.name" value="${env.MYSQL_DATABASE}"/>
+    <property name="db.username" value="${env.MYSQL_USER}"/>
+    <property name="db.password" value="${env.MYSQL_PASSWORD}"/>
+    
+    <property name="tools.container.config" value="/config"/>
+    <property name="tools.container.application" value="/config/apps"/>
+    <property name="tools.liquibase.path" value="/opt/liquibase"/>
+    <property name="tools.changelog.path" value="src/data/changelog.xml"/>
+    <property name="tools.templates.path" value="src/templates"/>
+    <property name="tools.scripts.path" value="src/scripts"/>
+    <property name="tools.container.path" value="src/container"/>
+    <property name="tools.application.path" value="src/application"/>
+    <property name="tools.application.name" value="ScriptingContainer.ear"/>
+    
+    <property name="container.scripts" value="${tools.container.config}/container/scripts"/>
+    <property name="container.watchdir" value="${tools.container.config}/container/watchDir"/>
+    
+    <target name="init">
+        <fail unless="branch">Branch property not set !</fail>
+    </target>
+    
+</project>
